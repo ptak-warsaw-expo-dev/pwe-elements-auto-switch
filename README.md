@@ -22,6 +22,7 @@ Główne możliwości:
 🔒 Opcjonalna integracja z autoupdaterem GitHub (z prywatnym tokenem API).
 
 📁 Struktura wtyczki
+<pre>
 pwe-elements-auto-switch/
 │
 ├── pwe-elements-auto-switch.php         # Główny plik wtyczki
@@ -39,6 +40,7 @@ pwe-elements-auto-switch/
 └── elements/
     ├── main/                            # Elementy strony głównej
     ├── catalog/                         # Elementy katalogu wystawców
+</pre>
 
 🧠 Jak to działa
 
