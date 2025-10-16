@@ -1,0 +1,12 @@
+#pweElementsAutoSwitch .wpb_column {
+    padding: 0;
+}
+
+.pwe-limit-width {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 18px;
+}
+.swiper-scrollbar-drag {
+    background: black;
+}

@@ -1,0 +1,23 @@
+#pweElementsAutoSwitch .pwe-countdown__label,
+#pweElementsAutoSwitch .pwe-countdown__timer {
+    margin: 18px auto !important;
+    text-transform: uppercase;
+}
+#pweElementsAutoSwitch .pwe-countdown__cta {
+    margin: 18px auto !important;
+}
+@media (max-width: 960px) {
+    #pweElementsAutoSwitch .pwe-countdown__label,
+    #pweElementsAutoSwitch .pwe-countdown__timer {
+        margin: 8px auto !important;
+    }
+    #pweElementsAutoSwitch .pwe-countdown__cta {
+        margin-bottom: 18px !important;
+    }
+}
+@media (max-width: 450px) {
+    #pweElementsAutoSwitch .pwe-countdown__label,
+    #pweElementsAutoSwitch .pwe-countdown__timer {
+        font-size: 20px !important; 
+    }
+}

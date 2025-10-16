@@ -1,0 +1,135 @@
+#pweElementsAutoSwitch .countdown {
+    max-width: 100%;
+    padding: 0;
+}
+
+#pweElementsAutoSwitch .pwe-countdown {
+    background-color: var(--accent-color);
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+}
+#pweElementsAutoSwitch .pwe-countdown__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+#pweElementsAutoSwitch .pwe-countdown__label,
+#pweElementsAutoSwitch .pwe-countdown__timer {
+    font-size: 18px;
+    margin: 10px auto;
+}
+#pweElementsAutoSwitch .pwe-countdown__cta {
+    margin: 10px auto;
+}
+#pweElementsAutoSwitch #pweCountdown .pwe-btn {
+    background-color: var(--main2-color);
+    padding: 10px 18px;
+    border-radius: 8px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+}
+#pweElementsAutoSwitch #pweCountdown .pwe-btn:hover {
+    background-color: var(--main2_darker_color);
+    color: #fff;
+}
+
+@media (max-width: 960px) {
+    #pweElementsAutoSwitch .pwe-countdown__wrapper {
+        flex-wrap: wrap;
+    }
+    #pweElementsAutoSwitch .pwe-countdown__label,
+    #pweElementsAutoSwitch .pwe-countdown__timer {
+        width: 50%;
+    }
+    #pweElementsAutoSwitch .pwe-countdown__cta {
+        width: 100%;
+        
+    } 
+}
+@media (max-width: 768px) {
+    #pweElementsAutoSwitch .pwe-countdown__wrapper {
+        flex-direction: column;
+    }
+    #pweElementsAutoSwitch .pwe-countdown__label,
+    #pweElementsAutoSwitch .pwe-countdown__timer {
+        width: 100%;
+    }
+    #pweElementsAutoSwitch .pwe-countdown__cta {
+        width: 100%;
+    } 
+}
+
+
+
+#pweElementsAutoSwitch .opening-hours {
+    background-color: var(--accent-color);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* max-width: 1200px; */
+    margin: 0 auto;
+    padding: 10px 36px;
+}
+#pweElementsAutoSwitch .opening-hours p {
+    font-size: 20px;
+    color: white;
+    margin: 0 !important;
+}
+#pweElementsAutoSwitch .opening-hours__block {
+    display: flex;
+}
+#pweElementsAutoSwitch .opening-hours__title {
+    font-weight: 700;
+}
+#pweElementsAutoSwitch .opening-hours__date {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 18px;
+}
+#pweElementsAutoSwitch .opening-hours__date .hours {
+    font-weight: 700;
+    padding: 0 18px;
+}
+#pweElementsAutoSwitch .opening-hours__hall {
+    padding:0 25px;
+    display: flex;
+}
+#pweElementsAutoSwitch .opening-hours__hall p {
+    padding:0 10px;
+}
+@media(max-width: 1050px) {
+    #pweElementsAutoSwitch .opening-hours {
+        justify-content: center;
+    }
+    #pweElementsAutoSwitch .opening-hours p {
+        font-size: 18px;
+    }
+    #pweElementsAutoSwitch .opening-hours__block {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0;
+    }
+}
+@media(max-width: 500px) {
+    #pweElementsAutoSwitch .opening-hours {
+        padding: 10px 18px;
+    }
+    #pweElementsAutoSwitch .opening-hours p {
+        font-size: 16px;
+        text-align: center;
+        line-height: 1.4;
+    }
+    #pweElementsAutoSwitch .opening-hours__date {
+        padding: 0;
+    }
+}
+@media(max-width: 370px) {
+    #pweElementsAutoSwitch .opening-hours p {
+        font-size: 14px;
+    }
+}
