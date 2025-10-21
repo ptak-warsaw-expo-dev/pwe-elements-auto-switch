@@ -70,21 +70,6 @@ Dodaj wpis w tablicy self::$elements_files w class-elements-data.php, np.:
 
 ['class' => 'Hero_Section', 'file' => 'elements/main/hero-section/hero-section.php', 'order' => ['gr1' => 2, 'gr2' => 3, 'b2c' => 2]],
 
-🔄 Automatyczne aktualizacje (GitHub Updater)
-
-Wtyczka zawiera wbudowany mechanizm autoupdate z GitHub.
-Aby go aktywować:
-
-Utwórz w bazie danych tabelę wp_custom_klavio_setup (jeśli nie istnieje).
-
-Dodaj rekord:
-
-klavio_list_name = github_secret_2
-
-klavio_list_id = <TWÓJ_GITHUB_PERSONAL_ACCESS_TOKEN>
-
-Po zapisaniu, wtyczka automatycznie pobierze aktualizacje z najnowszego release GitHub.
-
 🧑‍💻 Wymagania
 
 WordPress 6.0+
