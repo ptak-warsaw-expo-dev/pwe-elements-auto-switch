@@ -3,8 +3,6 @@ const halls = document.getElementById("pweHalls");
 const allItems = JSON.parse(halls.dataset.allItems);
 const activeItems = JSON.parse(halls.dataset.activeItems);
 
-console.log(allItems);
-
 const allItemsObject = [];
 const allActiveItemsObject = [];
 

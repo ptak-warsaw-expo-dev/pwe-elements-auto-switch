@@ -14,6 +14,8 @@ $output .= '
         border-radius: 18px;
         padding: 10px;
         z-index: 1;
+        opacity: 0;
+        transition: .3s ease-in;
     }
     .pwe-header__partners-container {
         width: 100%;
@@ -147,7 +149,7 @@ if (count($grouped_logos) > 0) {
     }
 
     $output .= '
-    <div class="pwe-header__partners">';
+    <div id="pweHeaderPartners" class="pwe-header__partners">';
         // Generating containers for each group
         foreach ($ordered_types as $logos_type) {
 
@@ -218,28 +220,16 @@ if (count($grouped_logos) > 0) {
                     </div> 
                 </div>';
 
-                if ($total_logos > 8 && count($grouped_logos) > 2 && count($files) > 2 ) {
-                   $output .= PWE_Swiper::swiperScripts('.partners-'. $unique_id, [0   => ['slidesPerView' => 2]]);
-                } else if (count($files) > 2 && $total_logos <= 8) {
+                if ($total_logos > 8 && count($grouped_logos) > 2 && count($files) > 2) {
                     $output .= '
                     <style>
-                        .partners-'. $unique_id .'.pwe-header__partners-container {
-                            max-width: 280px;
-                        }
-                        .partners-'. $unique_id .' .pwe-header__partners-items .swiper-wrapper {
-                            justify-content: center;
-                            flex-wrap: wrap;
-                            gap: 8px;
-                        }
-                        .partners-'. $unique_id .' .pwe-header__partners-item {
-                            max-width: 130px;
-                        }
-                        @media(max-width:960px) {
+                        @media(max-width:650px) {
                             .partners-'. $unique_id .'.pwe-header__partners-container {
-                                max-width: 100%;
+                                max-width: 600px !important;
                             }
                         }
                     </style>';
+                   $output .= PWE_Swiper::swiperScripts('.partners-'. $unique_id, [0   => ['slidesPerView' => 2],450   => ['slidesPerView' => 3],650   => ['slidesPerView' => 2]], true);
                 } else {
                     $output .= '
                     <style>
@@ -253,8 +243,9 @@ if (count($grouped_logos) > 0) {
                         }
                         .partners-'. $unique_id .' .pwe-header__partners-item {
                             max-width: 130px;
+                            height: auto;
                         }
-                        @media(max-width:570px) {
+                        @media(max-width:960px) {
                             .partners-'. $unique_id .'.pwe-header__partners-container {
                                 max-width: 100%;
                             }
@@ -266,5 +257,17 @@ if (count($grouped_logos) > 0) {
         }
     $output .= '
     </div>';
+
+    $output .= '
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const pweHeaderPartners = document.querySelector(".pwe-header__partners");
+            if (pweHeaderPartners) {
+                setTimeout(() => {
+                    pweHeaderPartners.style.opacity = 1;
+                }, 300);
+            }
+        }); 
+    </script>';
 
 }
