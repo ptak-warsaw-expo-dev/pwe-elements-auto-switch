@@ -1,0 +1,517 @@
+.limit-width:has(#exhibitorCatalog), .pwe-limit-width:has(#exhibitorCatalog) {
+    max-width:100% !important;
+    padding: 0px !important;
+}
+#exhibitorCatalog .exhibitor-catalog__heading {
+    background-image: url(/doc/background.webp);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: right;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 32vh;
+    padding: 0 15px;
+}
+#exhibitorCatalog .exhibitor-catalog__heading h1 {
+    margin-bottom: 35px;
+    font-size: 48px;
+    text-shadow: 2px 2px 2px black;
+}
+#exhibitorCatalog .exhibitor-catalog__heading h1, #exhibitorCatalog .exhibitor-catalog__heading p {
+  max-width: 1200px;
+  margin: 15px auto;
+  color: white;
+  text-align: center;
+  font-weight: 600;
+}
+#exhibitorCatalog .exhibitor-catalog__heading p {
+    font-size: 20px;
+    max-width: 900px;
+    text-shadow: 1px 1px 2px black;
+}
+#exhibitorCatalog .exhibitor-catalog__content {
+  max-width: 1200px;
+  margin:0 auto;
+}
+
+#exhibitorCatalog .exhibitor-catalog__search {
+  max-width: 800px;
+  margin: 50px auto 25px;
+  display: flex;
+  padding: 0 15px;
+}
+
+#exhibitorCatalog .exhibitor-catalog__search input {
+  border: 1px solid #999999C2;
+  margin-top:0px;
+  border-radius: 50px 0 0 50px;
+  width: 100%;
+  font-size: 18px;
+}
+
+.exhibitor-catalog__search-input::placeholder {
+  color: #999999;
+}
+
+#exhibitorCatalog .exhibitor-catalog__search-icon {
+  background-color: var(--accent-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 80px;
+  border-radius:0 50px 50px 0;
+  padding: 15px;
+}
+
+/*Container */
+#exhibitorCatalog .exhibitor-catalog__container {
+  display: flex;
+  gap:20px;
+  padding: 36px;
+}
+
+.exhibitor-catalog__filters {
+  flex:.25;
+  opacity: 0;
+  transition: opacity .4s ease-in-out;
+}
+.exhibitor-catalog__filters.is-visible {
+  visibility: visible !important;
+  opacity: 1;
+}
+#exhibitorCatalog .exhibitor-catalog__category-group {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    border-bottom: 2px solid lightgray;
+    padding-bottom: 8px;
+}
+.exhibitor-catalog__heading-container {
+  display: flex;
+  justify-content: space-between;
+}
+.exhibitor-catalog__heading-container img {
+ width:30px;
+ height: 18px;
+}
+#exhibitorCatalog .exhibitor-catalog__category-heading {
+    margin: 10px 0;
+    font-size: 16px;
+    margin-top: 0px;
+    font-weight: 700;
+}
+
+#exhibitorCatalog .exhibitor-catalog__category-group p {
+  margin-top: 0px;
+  color: var(--accent-color);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+#exhibitorCatalog .exhibitor-catalog__checkbox span {
+  font-size:15px;
+  margin-top:0px;
+  font-weight: 500;
+}
+#exhibitorCatalog .exhibitor-catalog__checkbox.is-hidden { 
+    display: none; 
+}
+.exhibitor-catalog__checkbox.is-zero { opacity:.4; pointer-events:none; }
+
+
+/* Hide the default checkbox */
+.exhibitor-catalog__checkbox input {
+ position: absolute;
+ opacity: 0;
+ cursor: pointer;
+ height: 0;
+ width: 0;
+}
+
+.exhibitor-catalog__checkbox{
+ display: flex;
+ gap: 6px;
+ position: relative;
+ cursor: pointer;
+ font-size: 20px;
+ user-select: none;
+}
+
+/* Create a custom checkbox */
+.exhibitor-catalog__checkmark{
+ position: relative;
+ top: 0;
+ left: 0;
+ height: 1.1em;
+ width: 1.1em;
+ background-color: #ccc;
+ transition: all 0.3s;
+ border-radius: 5px;
+}
+
+/* When the checkbox is checked, add a blue background */
+.exhibitor-catalog__checkbox input:checked ~ .exhibitor-catalog__checkmark{
+ background-color: var(--accent-color);
+ animation: pop 0.5s;
+ animation-direction: alternate;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.exhibitor-catalog__checkmark:after {
+ content: "";
+ position: absolute;
+ display: none;
+}
+
+/* Show the checkmark when checked */
+.exhibitor-catalog__checkbox input:checked ~ .exhibitor-catalog__checkmark:after {
+ display: block;
+}
+
+/* Style the checkmark/indicator */
+.exhibitor-catalog__checkbox .exhibitor-catalog__checkmark:after {
+ left: 0.45em;
+ top: 0.25em;
+ width: 0.25em;
+ height: 0.5em;
+ border: solid white;
+ border-width: 0 0.15em 0.15em 0;
+ transform: rotate(45deg);
+}
+
+@keyframes pop {
+ 0% {
+  transform: scale(1);
+ }
+
+ 50% {
+  transform: scale(0.9);
+ }
+
+ 100% {
+  transform: scale(1);
+ }
+}
+
+#exhibitorCatalog .exhibitor-catalog__count {
+    color: #bababa;
+    font-weight: 600;
+}
+#exhibitorCatalog .exhibitor-catalog__filters-title {
+    font-size: 20px;
+    font-weight: 800;
+    border-bottom: 4px solid var(--accent-color);
+    margin: 10px 15px 10px 0;
+    line-height: 40px;
+}
+
+.exhibitor-catalog__collapse {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height .3s ease;
+  will-change: max-height;
+}
+
+.exhibitor-catalog__toggle {
+    text-align: left;
+    background: transparent;
+    font-weight: 500;
+    text-decoration: underline;
+}
+
+.exhibitor-catalog__list {
+    flex: .75;
+}
+
+#exhibitorCatalog .exhibitor-catalog__counter {
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+#exhibitorCatalog .exhibitor-catalog__item {
+  border: 1px solid var(--accent-color);
+  border-radius: 13px;
+  background-color: rgb(from var(--accent-color) r g b / 5%);
+  margin: 35px 0;
+  overflow: hidden;
+  /* padding: 15px; */
+}
+#exhibitorCatalog .exhibitor-catalog__item-heading {
+  background-color: var(--accent-color);
+  padding:25px ;
+  border-radius: 13px;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+}
+#exhibitorCatalog .exhibitor-catalog__item-heading h2 {
+  padding: 15px;
+}
+#exhibitorCatalog .exhibitor-catalog__info, #exhibitorCatalog .exhibitor-catalog__extra {
+  display: flex;
+  margin: 15px 25px;
+  gap:30px;
+}
+.exhibitor-catalog__company-info {
+    flex: 1 1 24%;
+}
+#exhibitorCatalog .exhibitor-catalog__logo-tile {
+    height: auto;
+    max-height: 160px;
+    width: 100%;
+    background: rgba(255, 255, 255, 1);
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 12px;
+    box-shadow: 0 0 6px -4px black;
+    overflow: hidden;
+}
+#exhibitorCatalog .exhibitor-catalog__logo-tile img {
+    padding: 8px;
+    height: 100%;
+    aspect-ratio: 4/3;
+    max-height: 120px;
+    object-fit: contain;
+}
+#exhibitorCatalog .exhibitor-catalog__details {
+    flex: 1 1 76%;
+}
+#exhibitorCatalog .exhibitor-catalog__name {
+  color: var(--main2-color);
+  font-size:18px;
+  font-weight:700;
+  margin-top: 5px;
+}
+#exhibitorCatalog .exhibitor-catalog__description {
+  font-size:14px;
+}
+#exhibitorCatalog .exhibitor-catalog__brands p, #exhibitorCatalog .exhibitor-catalog__categories p {
+  font-size: 15px;
+  margin-top:5px;
+}
+#exhibitorCatalog .exhibitor-catalog__label {
+  font-weight: 700;
+}
+#exhibitorCatalog .exhibitor-catalog__value {
+  font-weight: 500;
+}
+#exhibitorCatalog .exhibitor-catalog__location {
+  min-width: 120px;
+}
+#exhibitorCatalog .exhibitor-catalog__location p {
+    margin-top: 1px;
+    font-size: 14px;
+    font-weight: 600;
+}
+#exhibitorCatalog .exhibitor-catalog__stand {
+    width: 100%;
+    display: flex;
+    background: var(--accent-color);
+    color: white;
+    justify-content: center;
+    padding: 4px 8px;
+    box-shadow: 0 0 6px -4px black;
+}
+#exhibitorCatalog .exhibitor-catalog__stand p {
+    margin: 0;
+    font-weight: 500;
+}
+#exhibitorCatalog .exhibitor-catalog__stand svg {
+  width: 24px;
+}
+#exhibitorCatalog .exhibitor-catalog__contact-item {
+    display: flex;
+    align-items: center;
+    margin: 6px 0;
+}
+#exhibitorCatalog .exhibitor-catalog__contact-item a {
+    margin-left: 5px;
+    color: var(--main2-color);
+    margin-top: 1px;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+#exhibitorCatalog .exhibitor-catalog__contact-item svg {
+  width:24px;
+  height: 24px;
+}
+#exhibitorCatalog .exhibitor-catalog__extra {
+  display: flex;
+  justify-content: space-between;
+}
+#exhibitorCatalog .exhibitor-catalog__products, #exhibitorCatalog .exhibitor-catalog__materials {
+ flex: 1 1 40%;
+ max-width: 40%;
+}
+#exhibitorCatalog .exhibitor-catalog__extra > *:only-child {
+    flex: 1 1 100%;
+    max-width: 100%;
+}
+#exhibitorCatalog .exhibitor-catalog__products-title, #exhibitorCatalog .exhibitor-catalog__materials-title {
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+}
+.exhibitor-catalog__products-list, .exhibitor-catalog__materials-list {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 15px;
+}
+.exhibitor-catalog__products-list-element {
+    width: 130px;
+    height: 130px;
+    background-color: white;
+    border-radius: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transform: scale(1);
+    transition: .2s ease;
+}
+.exhibitor-catalog__products-list-element:hover {
+    transform: scale(1.05);
+}
+.exhibitor-catalog__products-list-element img {
+  padding: 15px;
+}
+#exhibitorCatalog .exhibitor-catalog__extra {
+  margin-bottom:30px;
+}
+.exhibitor-catalog__material {
+  width: 130px;
+  height: 130px;
+  background-color: white;
+  border-radius: 13px;
+  cursor: pointer;
+  transform: scale(1);
+  transition: .2s ease;
+}
+.exhibitor-catalog__material:hover {
+  transform: scale(1.05);
+}
+.exhibitor-catalog__material p {
+  background-color: var(--accent-color);
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  margin-top: 0;
+  border-radius: 13px 13px 0 0;
+  text-align: center;
+}
+.exhibitor-catalog__material-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.exhibitor-catalog__open-modal {
+    display: block;
+    width: 100%;
+    background: var(--accent-color);
+    text-align: center;
+    color: white !important;
+    font-weight: 500;
+    padding: 4px;
+}
+
+/* ------ PRODUCT ------ */
+
+#exhibitorCatalog .product-catalog__item {
+  border: 1px solid var(--accent-color);
+  border-radius: 13px;
+  background-color: rgb(from var(--accent-color) r g b / 5%);
+  margin: 35px 0;
+  overflow: hidden;
+  display: flex;
+  gap: 30px;
+  /* padding: 15px; */
+}
+
+#exhibitorCatalog .product-catalog__thumb {
+    flex: 1 1 24%;
+}
+
+#exhibitorCatalog .product-catalog__body {
+    flex: 1 1 76%;
+}
+@media(max-width:960px) {
+    #exhibitorCatalog .exhibitor-catalog__container {
+        flex-direction: column;
+        padding: 15px;
+    }
+    #exhibitorCatalog .exhibitor-catalog__stand p {
+        font-size: 14px;
+    }
+    .exhibitor-catalog__filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+    #exhibitorCatalog .exhibitor-catalog__filters-title {
+        flex: 1 1 100%;
+    }
+    #exhibitorCatalog .exhibitor-catalog__category-group {
+        flex: 1 1 30%;
+        max-width: 30%;
+    }
+}
+@media(max-width:570px) {
+    #exhibitorCatalog .exhibitor-catalog__heading {
+        padding: 18px;
+    }
+    #exhibitorCatalog .exhibitor-catalog__heading h1 {
+        font-size: 32px;
+    }
+    #exhibitorCatalog .exhibitor-catalog__heading p {
+        font-size: 16px;
+    }
+    #exhibitorCatalog .exhibitor-catalog__info,
+    #exhibitorCatalog .exhibitor-catalog__extra {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .exhibitor-single__container {
+        flex-direction: column;
+        padding:15px;
+    }
+    #exhibitorCatalog .exhibitor-catalog__products, 
+    #exhibitorCatalog .exhibitor-catalog__materials {
+        flex: 1 1 40%;
+        max-width: 100%;
+    }
+    #exhibitorCatalog .exhibitor-catalog__contact {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 8px;
+    }
+    #exhibitorCatalog .exhibitor-catalog__contact-item {
+        margin: 0;
+        padding: 4px;
+    }
+    .exhibitor-catalog__materials {
+        display: none;
+    }
+    .exhibitor-catalog__filters {
+        display: flex;
+        gap: 6px;
+        flex-direction: column;
+    }
+    #exhibitorCatalog .exhibitor-catalog__category-group {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}
