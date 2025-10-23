@@ -38,7 +38,7 @@ class PWE_Elements {
     // Adding Styles
     public static function adding_styles() {
         // $group = PWE_Groups::get_current_group();
-        $group        = 'gr1';
+        $group        = 'gr2'; // <-------------------------------------- Temporary solution ---------------------------------------<
 
         // Common CSS for all elements
         $css_file    = plugins_url('assets/style.css', dirname(__FILE__));
@@ -69,7 +69,7 @@ class PWE_Elements {
     // Render elements depending on type (shortcode key)
     public static function render_elements($type) {
         // $group        = PWE_Groups::get_current_group();
-        $group        = 'gr1';
+        $group        = 'gr2'; // <-------------------------------------- Temporary solution ---------------------------------------<
         $all_elements = PWE_Elements_Data::get_all_elements();
         $elements     = [];
 

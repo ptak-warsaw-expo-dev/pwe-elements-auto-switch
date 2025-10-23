@@ -43,7 +43,7 @@ class PWE_Functions {
      * @param bool       $shuffle     Should logos be randomized (default true)
      * @return array
      */
-    public static function exhibitor_logos($catalog_id, $count, $shuffle = true) {
+    public static function exhibitor_logos($catalog_id, $count = null, $shuffle = true) {
         $basic_exhibitors = [];
         $data = [];
 
@@ -111,7 +111,9 @@ class PWE_Functions {
         }
 
         // Limit to $count
-        $logotypes_array = array_slice($logotypes_array, 0, $count);
+        if ($count != null) {
+            $logotypes_array = array_slice($logotypes_array, 0, $count);
+        }
 
         return $logotypes_array;
     }
