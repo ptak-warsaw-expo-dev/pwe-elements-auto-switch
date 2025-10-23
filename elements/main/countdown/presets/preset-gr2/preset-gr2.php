@@ -31,9 +31,6 @@ if ((($trade_fair_start_date_timestamp != false && $trade_fair_end_date_timestam
             data-seconds="'. ($show_seconds ? '1' : '0') .'">
             <div class="pwe-countdown__label"></div>
             <div class="pwe-countdown__timer"></div>
-            <div class="pwe-countdown__cta">
-                <a href="'. ($lang === 'pl' ? '/zostan-wystawca/' : '/en/become-an-exhibitor/') .'" class="pwe-btn">'. ($lang === 'pl' ? 'ZOSTAŃ WYSTAWCĄ' : 'BECOME AN EXHIBITOR') .'</a>
-            </div>
         </div>
     </div>';
     

@@ -153,6 +153,29 @@ class Conference {
                 $title = $first_fair_adds ? ($first_fair_adds->{'konf_title_' . $lang} ?? '') : '';
                 $desc  = $first_fair_adds ? ($first_fair_adds->{'konf_desc_' . $lang} ?? '') : '';
 
+
+                // CAP logotypes of partners
+                $cap_logotypes_data = PWECommonFunctions::get_database_logotypes_data();
+                $partners = [];
+                if (!empty($cap_logotypes_data)) {
+                    $allowed_types = [
+                        'partner-targow',
+                        'patron-medialny',
+                        'partner-strategiczny',
+                        'partner-honorowy',
+                        'principal-partner',
+                        'industry-media-partner',
+                        'partner-branzowy',
+                        'partner-merytoryczny'
+                    ];
+
+                    foreach ($cap_logotypes_data as $logo_data) {
+                        if (in_array($logo_data->logos_type, $allowed_types)) {
+                            $partners[] = 'https://cap.warsawexpo.eu/public' . $logo_data->logos_url;
+                        }
+                    }
+                }
+
             /* <-------------> General code end <-------------> */
 
             $output = include $preset_file;

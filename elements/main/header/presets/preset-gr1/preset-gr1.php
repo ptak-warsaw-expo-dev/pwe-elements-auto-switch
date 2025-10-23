@@ -3,7 +3,7 @@
 $trade_fair_dates_custom_format = str_replace("|", " | ", $trade_fair_dates_custom_format);
 
 $output = '
-<div id="pweHeader" class="pwe-header" style="background-image: url(/doc/background.webp);">
+<div id="pweHeader" class="pwe-header">
     <div class="pwe-header__container pwe-header__background">
         
         <div class="pwe-header__wrapper">

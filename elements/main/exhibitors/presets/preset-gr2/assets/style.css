@@ -1,0 +1,32 @@
+#pweElementsAutoSwitch .exhibitors {
+    background: var(--background-color);
+    max-width: 100%;
+    padding: 0;
+}
+#pweElementsAutoSwitch .pwe-exhibitors__wrapper {
+    max-width: 1200px;
+    padding: 36px 18px;
+    margin: 0 auto;
+}
+#pweElementsAutoSwitch .pwe-exhibitors__title {
+    display: flex;
+    justify-content: space-between;
+}
+#pweElementsAutoSwitch .pwe-exhibitors__items {
+    margin-top: 18px;
+}
+#pweElementsAutoSwitch .pwe-exhibitors__item {
+    background: #fff;
+    min-height: auto !important;
+    border: 1px solid black;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 3/2;
+}
+#pweElementsAutoSwitch .pwe-exhibitors__item img {
+    aspect-ratio: 3/2;
+    object-fit: contain;
+    padding: 10px;
+}

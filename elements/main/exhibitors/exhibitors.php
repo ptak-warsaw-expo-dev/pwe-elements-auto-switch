@@ -8,7 +8,7 @@ class Exhibitors {
             'types' => ['main'],
             'presets' => [
                 'gr1' => plugin_dir_path(__FILE__) . 'presets/preset-gr1/preset-gr1.php',
-                // 'gr2' => plugin_dir_path(__FILE__) . 'presets/preset-gr2/preset-gr2.php',
+                'gr2' => plugin_dir_path(__FILE__) . 'presets/preset-gr2/preset-gr2.php',
             ],
         ];
     }
@@ -29,7 +29,12 @@ class Exhibitors {
             /* <-------------> General code start <-------------> */
            
             $katalog_id = do_shortcode('[pwe_catalog]');
-            $exhibitors = PWE_Functions::exhibitor_logos($katalog_id, 16);
+
+            if ($group === "gr1") {
+                $exhibitors = PWE_Functions::exhibitor_logos($katalog_id, 16);
+            } else {
+                $exhibitors = PWE_Functions::exhibitor_logos($katalog_id);
+            }
             
             if (count($exhibitors) < 16) {
                 return;

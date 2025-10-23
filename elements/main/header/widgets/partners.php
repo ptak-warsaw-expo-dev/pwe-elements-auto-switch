@@ -220,7 +220,7 @@ if (count($grouped_logos) > 0) {
                     </div> 
                 </div>';
 
-                if ($total_logos > 8 && count($grouped_logos) > 2 && count($files) > 2) {
+                if (class_exists('PWE_Swiper') && $total_logos > 8 && count($grouped_logos) > 2 && count($files) > 2) {
                     $output .= '
                     <style>
                         @media(max-width:650px) {
@@ -229,7 +229,9 @@ if (count($grouped_logos) > 0) {
                             }
                         }
                     </style>';
-                   $output .= PWE_Swiper::swiperScripts('.partners-'. $unique_id, [0   => ['slidesPerView' => 2],450   => ['slidesPerView' => 3],650   => ['slidesPerView' => 2]], true);
+
+                    $output .= PWE_Swiper::swiperScripts('.partners-'. $unique_id, [0   => ['slidesPerView' => 2],450   => ['slidesPerView' => 3],650   => ['slidesPerView' => 2]], true);
+
                 } else {
                     $output .= '
                     <style>

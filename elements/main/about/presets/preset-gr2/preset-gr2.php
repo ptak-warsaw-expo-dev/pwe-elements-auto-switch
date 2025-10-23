@@ -2,150 +2,117 @@
 
 $output = '';
 
-$logo_long = '/doc/new_template/logo-long.webp';
-
-// Styl
-$output .= '<style>
-    .pwe-about__container {
-        display: flex;
-        align-items: stretch;
-        gap: 36px;
-        border-radius: 18px;
+$output .= '
+<style>
+    .pwe-about {
     }
-    .pwe-about__media, 
-    .pwe-about__content {
-        flex: 1 1 calc(50% - 18px);
-        min-width: 0;
+    .pwe-about__wrapper {
         display: flex;
-        flex-direction: column;
         justify-content: space-between;
-        align-items: center;
         gap: 18px;
     }
-    .pwe-about__media h3 {
-        display: block;
-        margin: 10px auto;
-        font-size: 20px;
-        text-transform: uppercase;
-    }
-    .pwe-about__title {
-        font-size: 29px;
-    }
-    .pwe-about__subtitle {
-        font-size: 20px;
-        font-weight: 800;
-        margin: 0;
-    }
-    .pwe-about__btn {
-        color: white !important;
-        min-width: 200px;
-        padding: 10px 20px;
-        display: block;
-        margin: 0 auto;
-        border-radius: 10px;
-        text-align: center;
-        transition: all 0.3s ease-in-out;
-        font-weight: 500;
-        text-transform: uppercase;
-    }
-    .pwe-about__btn.pwe-about__btn--primary {
-        background: var(--pwe-about__btn--primary-color);
-    }
-    .pwe-about__btn.pwe-about__btn--secondary {
-        background: var(--pwe-about__btn--secondary-color);
-    }
-    .pwe-about__img {
-        border-radius: 18px;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        margin: auto;
-    }
-    .pwe-about__logos-container {
-        border-radius: 30px;
-        padding: 15px;
+    .pwe-about__content {
+        width: 43%;
         display: flex;
         flex-direction: column;
-        gap: 12px;
-        -webkit-box-shadow: 4px 17px 30px -7px rgba(66, 68, 90, 1);
-        -moz-box-shadow: 4px 17px 30px -7px rgba(66, 68, 90, 1);
-        box-shadow: 4px 17px 30px -7px rgba(66, 68, 90, 1);
+        gap: 18px;
     }
-    .pwe-about__logos {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
-        gap: 12px;
+    .pwe-about__media {
+        width: 55%;
     }
     .pwe-about__logo {
-        aspect-ratio: 3/2;
-        object-fit: contain;
-        width: calc(30% - 6px);
-        height: auto;
+        max-width: 260px;
     }
-    @media(max-width:760px) {
-        .pwe-about__container {
-            flex-direction: column;
-        }
+    .pwe-about__subtitle {
+        font-size: 22px !important;
+        margin: 0;
     }
-    @media(max-width:570px) {
-        .pwe-about__media {
-            align-items: center;
-        }
-        .pwe-about__logos {
-            justify-content: center;
-        }
-        .pwe-about__title {
-            text-align: center;
-            font-size: 24px;
-            width: 100%;
-        }
-        .pwe-about__subtitle {
-            font-size: 18px;
-            width: 100%;
-            text-align: left;
-        }
-        .pwe-about__subtitle {
-            font-size: 18px;
-        }
-        .pwe-about__logo {
-            width: calc(48% - 6px);
-        }
+    .pwe-about__media-wrapper {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+    .pwe-about__media-column {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .pwe-about__media-column.first,
+    .pwe-about__media-column.last {
+        margin-top: 40px;
+    }
+    .pwe-about__media-image {
+        object-fit: cover;
+        border-radius: 20px;
+    }
+    .pwe-about__media-image.small {
+        aspect-ratio: 1;
+    }
+    .pwe-about__media-image.middle {
+        aspect-ratio: 3/4;
+    }
+    .pwe-about__media-image.big {
+        position: relative;
+        aspect-ratio: 4/7;
+        background-position: center !important;
+        background-size: cover !important;
+        overflow: hidden;
+    }
+    .pwe-about__media-image.big img {
+        position: absolute;
+        width: 60px;
+        left: 50%;
+        bottom: 80px;
+        transform: translate(-50%);
+    }
+    .pwe-about__media-image.big:before {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--accent-color);
+        opacity: 80%;
+        z-index: 0;
     }
 </style>';
 
+$mediaImages = [
+    '/doc/galeria/DSC08310.jpg', // top-left
+    '/doc/galeria/DSC08311.jpg', // top-center
+    '/doc/galeria/DSC08313.jpg', // top-right
+    '/doc/galeria/DSC08314.jpg', // bottom-left
+    '/doc/galeria/DSC08315.jpg', // bottom-right
+];
+$centerGif = '/doc/cat.gif';
+
 // Layout
-$output .= '<div id="pwe-about" class="pwe-about">';
-    if (file_exists($_SERVER['DOCUMENT_ROOT'] . $logo_long)) {
-        $output .= '
-            <div class="background-image">
-                <img src="'. $logo_long .'" alt="Logo [trade_fair_name]"/>
-            </div>';
-    }
-    $output .= '<div class="pwe-about__container">
-        <div class="pwe-about__media">';
-            if ($hasMany && !empty($logos)) {
-                $output .= '<div class="pwe-about__exhibitors">
-                    <h3 class="pwe-about__exhibitors-title">' . PWECommonFunctions::languageChecker('Wystawcy', 'Exhibitors') . '</h3>
-                    <div class="pwe-about__logos">';
-                        foreach ($logos as $logo) {
-                            $alt = $logo['name'] ?: 'Exhibitor logo';
-                            $output .= '<img class="pwe-about__logo" data-no-lazy="1" src="' . esc_url($logo['url']) . '" alt="' . esc_attr($alt) . '">';
-                        }
-                    $output .= '</div>
-                </div>';
-            } else {
-                $output .= $img;
-            }
-            $output .= '<a class="pwe-about__btn pwe-about__btn--primary" href="' . PWECommonFunctions::languageChecker('/galeria/', '/en/galerry/') . '">' . PWECommonFunctions::languageChecker('Galeria targów', 'Trade fair gallery') . '</a>';
-        $output .= '</div>
+$output .= '
+<div id="pweAbout" class="pwe-about">
+    <div class="pwe-about__wrapper">
         <div class="pwe-about__content">
-            <div class="pwe-about__content-inner">
-                <h2 class="pwe-about__title">' . $title . '</h2>
-                <p class="pwe-about__desc">' . $desc . '</p>
+            <div class="pwe-about__logo"><img src="/doc/logo-color.webp"></div>
+            <h4 class="pwe-about__subtitle pwe-main-subtitle">' . $title . '</h4>
+            <div class="pwe-about__desc pwe-main-desc">' . $desc . '</div>
+        </div>
+        <div class="pwe-about__media">
+            <div class="pwe-about__media-wrapper">
+                <div class="pwe-about__media-column first">
+                    <img class="pwe-about__media-image small" src="'. $mediaImages[0] .'">
+                    <img class="pwe-about__media-image middle" src="'. $mediaImages[1] .'">
+                </div>
+                <div class="pwe-about__media-column">
+                    <img class="pwe-about__media-image small" src="'. $mediaImages[2] .'">
+                    <span class="pwe-about__media-image big" style="background: url('. htmlspecialchars($centerGif) .')">
+                        <img src="/wp-content/plugins/pwe-media/media/logo_pwe.webp">
+                    </span>
+                </div>
+                <div class="pwe-about__media-column last">
+                    <img class="pwe-about__media-image small" src="'. $mediaImages[3] .'">
+                    <img class="pwe-about__media-image middle" src="'. $mediaImages[4] .'">
+                </div>
             </div>
-            <a class="pwe-about__btn pwe-about__btn--secondary" href="' . PWECommonFunctions::languageChecker('/rejestracja/', '/en/registration/') . '">' . PWECommonFunctions::languageChecker('Dołacz do nas', 'Join us') . '</a>
         </div>
     </div>
 </div>';

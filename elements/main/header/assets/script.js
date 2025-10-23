@@ -1,6 +1,4 @@
-(function(){
-
-    // --- KONFIG ---
+(function() {
     const INTERVAL = 6000;
     const images = [
         "/doc/header_mobile.webp",
@@ -9,50 +7,67 @@
     ];
 
     const root = document.querySelector(".pwe-header__container");
-    if(!root || !images.length) return;
+    if (!root || !images.length) return;
 
-    // Create layers from image array
-    const layers = images.map(src => {
-        const d = document.createElement("div");
-        d.className = "pwe-bg-image";
-        d.style.backgroundImage = `url("${src}")`;
-        root.prepend(d);
-        return d;
-    });
+    let layers = [];
+    let current = 0;
+    let firstRun = true;
+    let ticker;
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const delay = reduceMotion ? Math.max(INTERVAL, 12000) : INTERVAL;
 
-    // Start
-    let current = 0;
-    layers[current].classList.add("is-active");
+    function createLayers() {
+        layers = images.map(src => {
+            const d = document.createElement("div");
+            d.className = "pwe-bg-image";
+            d.style.backgroundImage = `url("${src}")`;
+            root.prepend(d);
+            return d;
+        });
+        layers[current].classList.add("is-active");
+    }
 
-    let firstRun = true;
-
-    function nextBg(){
+    function nextBg() {
         const prev = current;
-
         if (firstRun) {
-            // First time: we go normally through all 3
             current = (current + 1) % layers.length;
-            if (current === layers.length - 1) {
-                // If it comes to the last one → the next turn is only between 2 and 3
-                firstRun = false;
-            }
+            if (current === layers.length - 1) firstRun = false;
         } else {
-            // After the first rotation: we only jump between indexes 1 and 2
             current = current === 1 ? 2 : 1;
         }
-
         layers[prev].classList.remove("is-active");
         layers[current].classList.add("is-active");
     }
 
-    let ticker = setInterval(nextBg, delay);
+    function startTicker() {
+        clearInterval(ticker);
+        ticker = setInterval(nextBg, delay);
+    }
 
+    function stopTicker() {
+        clearInterval(ticker);
+    }
+
+    function init() {
+        if (window.innerWidth < 960 && layers.length === 0) {
+            createLayers();
+            startTicker();
+        } else if (window.innerWidth >= 960 && layers.length > 0) {
+            // Remove layers if someone zooms in
+            layers.forEach(l => l.remove());
+            layers = [];
+            stopTicker();
+            current = 0;
+            firstRun = true;
+        }
+    }
+
+    window.addEventListener('resize', init);
     document.addEventListener("visibilitychange", () => {
-        if (document.hidden) { clearInterval(ticker); }
-        else { ticker = setInterval(nextBg, delay); }
+        if (document.hidden) stopTicker();
+        else if (window.innerWidth < 960) startTicker();
     });
 
+    init();
 })();

@@ -11,24 +11,31 @@ $output .= '<style>
         max-width: 1200px;
         margin: 0 auto !important;
         align-items: stretch;
+        gap: 18px;
     }
-
     .pwe-conference__left {
+        position: relative;
         flex: 1;
         width: 50%;
         padding: 0;
         display: flex;
-        flex-direction: column;
-        align-items: center;
+        align-items: end;
+        justify-content: end;
         gap: 18px;
-    }
-
-    .pwe-conference__left img {
         border-radius: 30px;
-        height: 90%;
-        object-fit: cover;
+        padding: 36px;
     }
-
+    .pwe-conference__left:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        background: linear-gradient(to top, var(--accent-color) 0%, rgba(0, 0, 0, 0) 50%);
+        border-radius: 30px;
+    }
     .pwe-conference__right {
         flex: 1;
         width: 50%;
@@ -38,13 +45,18 @@ $output .= '<style>
         flex-direction: column;
         align-items: center;
         gap: 18px;
+        border: 1px solid black;
+        border-radius: 30px;
     }
-
     .pwe-conference__right-content {
         height: 90%;
         width: 100%;
     }
-
+    .pwe-conference__right-content-main {
+        background: var(--background-color);
+        padding: 36px;
+        border-radius: 18px 18px 0 0;
+    }
     .pwe-conference__title {
         font-size: clamp(1rem, 9vw, 8rem);
         text-align: center;
@@ -59,188 +71,151 @@ $output .= '<style>
         text-align: center;
         text-transform: uppercase;
     }
-
     .pwe-conference__name {
-        font-size: 28px;
-        font-weight: 600;
-        margin-bottom: 15px;
-        color: #000;
+        margin-bottom: 16px !important;
     }
-
-    .pwe-conference__desc {
-        font-size: 16px;
-        line-height: 1.75;
-        font-weight: 400;
-        color: #000;
-        margin-bottom: 30px;
-    }
-
-    .pwe-conference__right-content h6 {
-        text-align: center;
-        display: block;
-        margin: 12px auto 8px;
-        font-size: 13px;
-    }
-
     .pwe-conference__logo {
         margin-bottom: 20px;
     }
-
     .pwe-conference__logo img {
         max-width: 50%;
-        margin: 0 auto;
         display: block;
     }
-
+    .pwe-conference__partners {
+        margin-top: 18px;
+    }
+    .pwe-conference .swiper-buttons-arrows {
+        height: 45px;
+        margin: 18px auto;
+        justify-content: center;
+    }
     .pwe-conference__buttons {
         display: flex;
-        gap: 20px;
-        margin-top: 20px;
-    }
-
-    .pwe-conference__buttons .btn {
-        padding: 12px 24px;
-        background-color: #4B1E17;
-        color: #fff;
-        border: none;
-        border-radius: 10px;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    .pwe-conference__btn {
-        background: var(--accent-color);
-        color: white !important;
-        min-width: 200px;
-        padding: 10px 20px;
-        display: block;
-        margin: 0 auto;
-        border-radius: 10px;
-        margin-top: 18px;
-        text-align: center;
-        transition: all 0.3s ease-in-out;
-        font-weight: 500;
-    }
-
-    .pwe-conference__buttons .btn.secondary {
-        background-color: #2E2E2E;
-    }
-
-    .pwe-conference__logotypes {
-        display: flex;
-        flex-wrap: nowrap;
-        gap: 20px;
-        overflow-x: auto;
-        align-items: center;
         justify-content: center;
-        margin-top: 20px;
+        width: 100%;
+        justify-content: start;
+        gap: 10px;
+    }
+    .pwe-conference__buttons .pwe-btn-container {
+        position: relative;
+    }
+    .pwe-conference__buttons .pwe-btn {
+        display: flex;
+        color: white !important;
+        transform: scale(1);
+        transition: .3s ease;
+        font-size: 16px;
+        align-items: flex-end;
+        border-radius: 10px;
+        padding: 30px 60px 18px 18px;
+        font-weight: 600;
+        gap: 10px;
+        min-width: auto;
+    }
+    .pwe-conference__buttons .pwe-btn.btn-visitors {
+        background: var(--main2-color);
+        max-width: 140px !important;
+        min-width: 140px !important;
+    }
+    .pwe-conference__buttons .pwe-btn.btn-more {
+        background: var(--background-color);
+        color: var(--accent-color) !important;
+        max-width: 170px !important;
+        min-width: 170px !important;
+    }
+    .pwe-conference__buttons .pwe-btn-container .btn-angle-right {
+        position: absolute;
+        right: 36px;
+        transition: .3s ease;
+        transform: rotate(-45deg);
+    }
+    .pwe-conference__buttons .pwe-btn-container:hover .btn-angle-right {
+        right: 20px;
     }
 
-    .pwe-conference__logotypes img {
-        height: 40px;
-        object-fit: contain;
-        flex-shrink: 0;
+    .pwe-conference__logo-pwe {
+        max-width: 100px;
+        z-index: 1;  
     }
 
     @media (max-width: 768px) {
         .pwe-conference__wrapper {
             flex-direction: column;
         }
-
-        .pwe-conference__left, .pwe-conference__right {
+        .pwe-conference__left, 
+        .pwe-conference__right {
             flex: 1 1 100% !important;
             width: 100% !important;
-            max-width: unset !important;
-        }
-
-        .pwe-conference__right {
-            padding: 24px 0 0;
-        }
-
-        .pwe-conference__buttons {
-            flex-direction: column;
         }
     }
 </style>';
 
-// Tytuł
-$output .= '<div class="pwe-conference__title">' . PWECommonFunctions::languageChecker('KONFERENCJA', 'Conference') . '</div>';
+$output .= '
+<div id="pweConference" class="pwe-conference">
+    <div class="pwe-conference__wrapper">
 
-// Layout
-$output .= '<div class="pwe-conference__wrapper">
-    <div class="pwe-conference__left">
-        <img src="/doc/new_template/conference_img.webp" alt="Publiczność konferencji">
-        <a href="' . PWECommonFunctions::languageChecker('/rejestracja/', '/en/registration/') . '" class="pwe-conference__btn">' . PWECommonFunctions::languageChecker('WEŹ UDZIAŁ', 'TAKE PART') . '</a>
-    </div>
-    <div class="pwe-conference__right">
-        <div class="pwe-conference__right-content">
-            <div class="pwe-conference__name">' . $name . '</div>
-            <div class="pwe-conference__desc">' . $desc . '</div>
-            <div class="pwe-conference__logo">
-                <img src="/doc/kongres-color.webp" alt="Congress logo">
-            </div>';
-
-            // Logotypy z CAP
-            $logotypy = [];
-
-            $cap_logotypes_data = PWECommonFunctions::get_database_logotypes_data();
-
-            if (!empty($cap_logotypes_data)) {
-                $dozwolone_typy = [
-                    'partner-targow',
-                    'patron-medialny',
-                    'partner-strategiczny',
-                    'partner-honorowy',
-                    'principal-partner',
-                    'industry-media-partner',
-                    'partner-branzowy',
-                    'partner-merytoryczny'
-                ];
-
-                foreach ($cap_logotypes_data as $logo_data) {
-                    if (in_array($logo_data->logos_type, $dozwolone_typy)) {
-                        $logotypy[] = 'https://cap.warsawexpo.eu/public' . $logo_data->logos_url;
-                    }
-                }
-            }
-
-            if (!empty($logotypy)) {
-                $output .= '<h6>' . PWECommonFunctions::languageChecker('PATRONI I PARTNERZY', 'PATRONS AND PARTNERS') . '</h6>';
-                $output .= '<div class="conf-short-info-default">';
-                $output .= '<div class="swiper">';
-                $output .= '<div class="swiper-wrapper">';
-
-                foreach ($logotypy as $logo) {
-                    $output .= '<div class="swiper-slide">';
-                    $output .= '<img id="' . pathinfo($logo)['filename'] . '" data-no-lazy="1" src="' . htmlspecialchars($logo, ENT_QUOTES, 'UTF-8') . '" alt="' . pathinfo($logo)['filename'] . '"/>';
-                    $output .= '</div>';
-                }
-
-                $output .= '</div>'; // .swiper-wrapper
-                $output .= '<div class="swiper-pagination"></div>';
-                $output .= '</div>'; // .swiper
-                $output .= '</div>'; // .conf-short-info-default
-
-                $swiper_file = trailingslashit(WP_PLUGIN_DIR) . 'PWElements/scripts/swiper.php';
-
-                if ( file_exists($swiper_file) ) {
-                    require_once $swiper_file;
-                } else {
-                    die('Nie znaleziono pliku klasy: ' . $swiper_file);
-                }
-                $output .= PWESwiperScripts::swiperScripts('conf-short-info-default', '.conf-short-info-default', 'true', '', '', null,
-                    rawurlencode(json_encode([
-                        ['breakpoint_width' => 320, 'breakpoint_slides' => 2],
-                        ['breakpoint_width' => 560, 'breakpoint_slides' => 3],
-                        ['breakpoint_width' => 960, 'breakpoint_slides' => 4],
-                    ]))
-                );
-
-            }
-
-        $output .= '
+        <div class="pwe-conference__left" style="background: url(/doc/new_template/conference_img.webp) center / cover no-repeat;">
+            <div class="pwe-conference__buttons">
+                <div class="pwe-btn-container header-button">
+                    <a class="pwe-link pwe-btn btn-visitors" 
+                        href="'. PWECommonFunctions::languageChecker('/rejestracja/', '/en/registration/') .'" 
+                        alt="'. PWECommonFunctions::languageChecker('link do rejestracji', 'link to registration') .'">
+                            '. PWECommonFunctions::languageChecker('Weź udział', 'Take a part') .'
+                            <span class="btn-angle-right">🡲</span>
+                    </a>
+                </div>
+                <div class="pwe-btn-container header-button">
+                    <a class="pwe-link pwe-btn btn-more" 
+                        href="'. PWECommonFunctions::languageChecker('/wydarzenia/', '/en/conferences/') .'" 
+                        alt="'. PWECommonFunctions::languageChecker('Konferencja', 'Conference') .'">
+                            '. PWECommonFunctions::languageChecker('Dowiedz się więcej', 'Find out more') .' 
+                            <span class="btn-angle-right">🡲</span>
+                    </a>
+                </div>
+            </div>
+            <div class="pwe-conference__logo-pwe">
+                <img src="/wp-content/plugins/pwe-media/media/logo_pwe.webp" alt="Ptak Warsaw Expo Logo">
+            </div>
         </div>
-        <a href="' . PWECommonFunctions::languageChecker('/wydarzenia/', '/en/conferences/') . '" class="pwe-conference__btn secondary">' . PWECommonFunctions::languageChecker('DOWIEDZ SIĘ WIĘCEJ', 'FIND OUT MORE') . '</a>
+
+        <div class="pwe-conference__right">
+            <div class="pwe-conference__right-content">
+                <div class="pwe-conference__right-content-main">
+                    <div class="pwe-conference__logo">
+                        <img src="/doc/kongres-color.webp" alt="Congress logo">
+                    </div>
+                    <div class="pwe-conference__name pwe-main-subtitle">' . $name . '</div>
+                    <div class="pwe-conference__desc pwe-main-desc">' . $desc . '</div>
+                </div>';
+                
+                if (!empty($partners)) {
+                    $output .= '
+                    <div class="pwe-conference__partners">    
+                        <div class="swiper">
+                            <div class="swiper-wrapper">';
+
+                                foreach ($partners as $logo) {
+                                    $output .= '<div class="swiper-slide">';
+                                    $output .= '<img id="' . pathinfo($logo)['filename'] . '" data-no-lazy="1" src="' . htmlspecialchars($logo, ENT_QUOTES, 'UTF-8') . '" alt="' . pathinfo($logo)['filename'] . '"/>';
+                                    $output .= '</div>';
+                                }
+
+                            $output .= '
+                            </div>
+                        </div>
+                        <div class="swiper-buttons-arrows">
+                            <div class="swiper-button-prev">⏴</div>
+                            <div class="swiper-button-next">⏵</div>
+                        </div>
+                    </div>';
+
+                    $output .= PWE_Swiper::swiperScripts('#pweConference', [0   => ['slidesPerView' => 2],450   => ['slidesPerView' => 3]], false, true);
+                }
+
+            $output .= '
+            </div>
+        </div>
+
     </div>
 </div>';
 

@@ -41,15 +41,6 @@ class Header {
             $trade_fair_edition_first = (PWECommonFunctions::lang_pl()) ? "Premierowa Edycja" : "Premier Edition";
             $trade_fair_edition = (!is_numeric($trade_fair_edition_shortcode) || $trade_fair_edition_shortcode == 1) ? $trade_fair_edition_first : $trade_fair_edition_shortcode . $trade_fair_edition_text;
 
-            // Shortcodes of dates
-            $start_date = do_shortcode('[trade_fair_datetotimer]');
-            $end_date = do_shortcode('[trade_fair_enddata]');
-
-            // Transform the dates to the desired format
-            $formatted_date = PWECommonFunctions::transform_dates($start_date, $end_date);
-
-            // var_dump(PWECommonFunctions::get_database_logotypes_data());
-
             /* <-------------> General code end <-------------> */
             
             $output = include $preset_file;

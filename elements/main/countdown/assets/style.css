@@ -16,26 +16,6 @@
     max-width: 1200px;
     margin: 0 auto;
 }
-#pweElementsAutoSwitch .pwe-countdown__label,
-#pweElementsAutoSwitch .pwe-countdown__timer {
-    font-size: 18px;
-    margin: 10px auto;
-}
-#pweElementsAutoSwitch .pwe-countdown__cta {
-    margin: 10px auto;
-}
-#pweElementsAutoSwitch #pweCountdown .pwe-btn {
-    background-color: var(--main2-color);
-    padding: 10px 18px;
-    border-radius: 8px;
-    color: #fff;
-    text-decoration: none;
-    font-weight: 500;
-}
-#pweElementsAutoSwitch #pweCountdown .pwe-btn:hover {
-    background-color: var(--main2_darker_color);
-    color: #fff;
-}
 
 @media (max-width: 960px) {
     #pweElementsAutoSwitch .pwe-countdown__wrapper {
@@ -45,10 +25,6 @@
     #pweElementsAutoSwitch .pwe-countdown__timer {
         width: 50%;
     }
-    #pweElementsAutoSwitch .pwe-countdown__cta {
-        width: 100%;
-        
-    } 
 }
 @media (max-width: 768px) {
     #pweElementsAutoSwitch .pwe-countdown__wrapper {
@@ -58,9 +34,6 @@
     #pweElementsAutoSwitch .pwe-countdown__timer {
         width: 100%;
     }
-    #pweElementsAutoSwitch .pwe-countdown__cta {
-        width: 100%;
-    } 
 }
 
 

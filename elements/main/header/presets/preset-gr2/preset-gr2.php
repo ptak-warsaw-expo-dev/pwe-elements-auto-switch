@@ -2,140 +2,100 @@
 
 $output = '
 <style>
+    .pwe-header {
+        position: relative;
+    }
+    .pwe-header:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #ffffff;
+        opacity: 20%;
+        z-index: 1;
+    }
     .pwe-header__container {
         padding: 36px;
         position: relative;
         overflow: hidden; 
     }
     .pwe-header__wrapper { 
-        z-index:1; 
+        z-index: 1; 
         display: flex;
         justify-content: center;
-        gap: 36px;
     }
-    .pwe-header__column.pwe-header__content-column {
+    .pwe-header__column {
         display: flex;
         flex-direction: column;
         justify-content: center;
-    }
-    .pwe-header__content-wrapper {
-        display: flex;
-        flex-direction: column;
-    }
-    .pwe-header__logo {
-        max-width: 400px !important;
-    }
-    .pwe-header__tile {
-        background: transparent;
         max-width: 700px;
-        // backdrop-filter: blur(10px);
-        padding: 36px;
-        // border-radius: 12px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
     }
-    .pwe-header__main-content-block {
+
+    .pwe-header__edition p,
+    .pwe-header__title h1,
+    .pwe-header__date h2,
+    .pwe-header__date p {
+        color: white;
         text-align: center;
+        margin: 0;
+    }
+    .pwe-header__edition p {
+        font-size: 24px;
+        font-weight: 600;
+        text-transform: uppercase; 
     }
     .pwe-header__title h1 {
-        font-size: 32px;
-        text-align: center;
+        font-size: 64px;
+        font-weight: 700;
         text-transform: uppercase;
     }
-    .pwe-header__title h1, 
-    .pwe-header__title p {
-        margin-top: 18px;
-        color: white;
-        text-shadow: 0 0 6px black;
-    }
-    .pwe-header__edition {
-        text-align: center;
-    }  
-    .pwe-header__edition span {
-        background: white;
-        color: black;
-        border-radius: 8px;
-        text-transform: uppercase;
-        font-weight: 600;
+    .pwe-header__date h2 {
         font-size: 30px;
-        padding: 6px 8px;
-        width: fit-content;
+        font-weight: 600;
+        text-transform: capitalize;
     }
-    .pwe-header__date-block {
+    .pwe-header__date p {
+        font-size: 22px;
+        font-weight: 600;
+    }
+    .pwe-header__buttons {
         display: flex;
-        flex-direction: column;
         justify-content: center;
-        align-items: center;
-    }
-    .pwe-header__date-block h2 {
-        margin-top: 12px;
-        font-size: 56px;
-        font-weight: 600;
-        letter-spacing: 5px;
-        text-align: center;
-        color: white;
-        text-shadow: 0 0 6px black;
-    }
-    .pwe-header__date-block p {
-        font-size: 30px;
-        font-weight: 500;
-        margin: 0;
-        color: white;
-        text-shadow: 0 0 6px black;
-    }
-
-
-
-    .pwe-header__bottom {
-        margin: 0 auto;
+        gap: 10px;
     }
     .pwe-header .pwe-btn-container {
         position: relative;
-        width: 300px;
-        height: 60px;
-        padding: 0;
     }
     .pwe-header .pwe-btn {
-        background: var(--main2-color);
+        display: flex;
         color: white !important;
-        width: 100%;
-        height: 100%;
-        transform: scale(1) !important;
+        transform: scale(1);
         transition: .3s ease;
         font-size: 16px;
+        align-items: flex-end;
+        border-radius: 10px;
+        padding: 30px 60px 18px 18px;
         font-weight: 600;
-        padding: 6px 18px !important;
-        letter-spacing: 0.1em;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-transform: uppercase;
-        border-radius: 10px !important;
+        gap: 10px;
+        min-width: auto;
     }
-    .pwe-header .pwe-btn-container .btn-small-text {
-        font-size: 10px;
+    .pwe-header .pwe-btn.btn-visitors {
+        background: var(--main2-color);
+    }
+    .pwe-header .pwe-btn.btn-exhibitors {
+        background: var(--accent-color);
     }
     .pwe-header .pwe-btn-container .btn-angle-right {
-        color: white;
         position: absolute;
-        right: 25px;
-        top: -30%;
-        height: 35px;
-        font-size: 72px;
+        right: 36px;
         transition: .3s ease;
+        transform: rotate(-45deg);
     }
     .pwe-header .pwe-btn-container:hover .btn-angle-right {
         right: 20px;
     }
-    .pwe-header .pwe-btn:hover {
-        background: var(--main2_darker_color);
-    }
-
-
-
 
 
     
@@ -158,10 +118,10 @@ $output = '
 
 
 
-    .video-background {
+    .pwe-header .video-background {
         position: relative;
     }
-    .video-overlay {
+    .pwe-header .video-overlay {
         position: absolute;
         top: 0;
         left: 0;
@@ -191,7 +151,7 @@ $output = '
         z-index: -1;
         pointer-events: none;
     }
-    .video-background video {
+    .pwe-header .video-background video {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -212,138 +172,76 @@ $output = '
         }
     }
     @media(max-width: 1200px) {
-        .pwe-header__wrapper { 
-            flex-direction: column;
-            align-items: center;
-        }
-        .pwe-header__partners {
-            position: static;
-            top: unset;
-            right: unset;
-            transform: unset;
-            flex-direction: row;
-            flex-wrap: wrap;
-        }
-        .pwe-header__partners-items {
-            flex-direction: row;
-            flex-wrap: wrap;
-        }
+
     }
     @media(max-width:960px){
-        .pwe-header__tile {
-            background: #00000099;
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-        }
-        .pwe-header__content-wrapper { 
-            gap: 36px;
-        }
-        .pwe-header__title h1 {
-            font-size: 22px;
-        }
-        .pwe-header__date-block h2 {
-            font-size: 34px;
-        }
-        .pwe-header__date-block p {
-            display: none;
-        }
         .video-background {
             display:none !important;
         }
-        .pwe-header__partners-items {
-            flex-wrap: wrap !important;
-        }
-        .pwe-header__partners-container,
-        .pwe-header__partners-title h3 {
-            max-width: 100% !important;
-        }
     }
     @media(max-width:570px) {
-        .pwe-header__column.pwe-header__content-column {
-            width: 100%;
-        }
-        .pwe-header__content-wrapper {
-            width: 100%;
-        }
-        .pwe-header__date-block {
-            justify-content: flex-start;
-        }
-        .pwe-header__tile h1 {
-            font-size: 22px;
-        }
-        .pwe-header__edition span {
-            padding: 7px 21px;
-            font-size: 14px;
-        }
-        .pwe-header__tile {
-            padding: 18px;
-            width: 100%;
-        }
-        .pwe-header__date-block h2 {
-            font-size: 30px;
-        }
-        .pwe-header__column.pwe-header__content-column {
-            align-items: center;
-        }
+        
     }
     @media(max-width:450px) {
-        .pwe-header__date-block h2 {
-            font-size: 24px;
-        }
+        
     }
 </style>';
 
 $output .= '
 <div id="pweHeader" class="pwe-header">
-    <div style="background-image: url('. $background_header .');"  class="pwe-header__container pwe-header__background">
+    <div class="pwe-header__container">
         
         <div class="pwe-header__wrapper">
+            <div class="pwe-header__column">
 
-            <div class="pwe-header__column pwe-header__content-column">
-                <div class="pwe-header__content-wrapper">
-                    <div class="pwe-header__tile">
-                        <div class="pwe-header__main-content-block">
-                            <img class="pwe-header__logo" src="'. PWECommonFunctions::languageChecker('/doc/logo.webp', '/doc/logo-en.webp') .'" alt="logo-'. $trade_fair_name .'">
-                            <div class="pwe-header__edition"><p><span>'. $trade_fair_edition .'</span></p></div>
-                            <div class="pwe-header__title">
-                                <h1>'. $trade_fair_desc .'</h1>
-                            </div>
-                        </div>
-                        <div class="pwe-header__date-block">
-                            <h2>'. $trade_fair_dates_custom_format .'</h2>
-                            <p>'. PWECommonFunctions::languageChecker(' Warszawa', ' Warsaw') .'</p>
-                        </div>
+                <div class="pwe-header__edition">
+                    <p><span>'. $trade_fair_edition .'</span></p>
+                </div>
+                <div class="pwe-header__title">
+                    <h1>'. $trade_fair_desc .'</h1>
+                </div>
+                <div class="pwe-header__date">
+                    <h2>'. $trade_fair_date .'</h2>
+                    <p>'. PWECommonFunctions::languageChecker(' Warszawa', ' Warsaw') .'</p>
+                </div>
+
+                <div class="pwe-header__buttons">
+                    <div class="pwe-btn-container header-button">
+                        <a class="pwe-link pwe-btn btn-visitors" 
+                           href="'. PWECommonFunctions::languageChecker('/rejestracja/', '/en/registration/') .'" 
+                           alt="'. PWECommonFunctions::languageChecker('link do rejestracji', 'link to registration') .'">
+                                '. PWECommonFunctions::languageChecker('Zarejestruj się', 'Register') .'<br>
+                                '. PWECommonFunctions::languageChecker('Odbierz darmowy bilet', 'Get a free ticket') .' 
+                                <span class="btn-angle-right">🡲</span>
+                        </a>
                     </div>
-                    <div class="pwe-header__bottom">
-                        <div id="pweBtnRegistration" class="pwe-btn-container header-button">
-                            <a 
-                                class="pwe-link pwe-btn" 
-                                href="'. PWECommonFunctions::languageChecker('/rejestracja/', '/en/registration/') .'" 
-                                alt="'. PWECommonFunctions::languageChecker('link do rejestracji', 'link to registration') .'">
-                                '. PWECommonFunctions::languageChecker('Zarejestruj się', 'Register') .'
-                                <span class="btn-small-text" style="display: block; font-weight: 300;">
-                                    '. PWECommonFunctions::languageChecker('Odbierz darmowy bilet', 'Get a free ticket') .'
-                                </span>
-                            </a>
-                            <span class="btn-angle-right">&#8250;</span>
-                        </div>
+                    <div class="pwe-btn-container header-button">
+                        <a class="pwe-link pwe-btn btn-exhibitors" 
+                           href="'. PWECommonFunctions::languageChecker('/zostan-wystawca/', '/en/become-an-exhibitor/') .'" 
+                           alt="'. PWECommonFunctions::languageChecker('link do rejestracji wystawcy', 'link to exhibitor registration') .'">
+                                '. PWECommonFunctions::languageChecker('Zostań', 'Become') .'<br>
+                                '. PWECommonFunctions::languageChecker('Wystawcą', 'an Exhibitor') .' 
+                                <span class="btn-angle-right">🡲</span>
+                        </a>
                     </div>
+
                 </div>
             </div>';
 
-            // Partners widget --------------------------------------------------------------------------------------<
-            $cap_logotypes_data = PWECommonFunctions::get_database_logotypes_data();
-            if (!empty($cap_logotypes_data)) { 
-                require_once plugin_dir_path(dirname(dirname(__FILE__))) . 'widgets/partners.php';
-            }
+            // // Partners widget --------------------------------------------------------------------------------------<
+            // $cap_logotypes_data = PWECommonFunctions::get_database_logotypes_data();
+            // if (!empty($cap_logotypes_data)) { 
+            //     require_once plugin_dir_path(dirname(dirname(__FILE__))) . 'widgets/partners.php';
+            // }
             
             $output .= '
-
-            <div class="video-background">
-                <div class="video-overlay"></div>
-                <video autoplay="" muted="" loop="" preload="auto" class="bg-video" src="/doc/header.mp4"></video>
-            </div>
         </div>
+
+        <div class="video-background">
+            <div class="video-overlay"></div>
+            <video autoplay="" muted="" loop="" preload="auto" class="bg-video" src="/doc/header.mp4"></video>
+        </div>
+        
     </div>
 </div>';
 
