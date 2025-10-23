@@ -16,7 +16,7 @@ if (!function_exists('pl_select')) {
 
   function pl($key, $n) {
     static $NOUNS = [
-      'Wyszukanie' => ['one'=>'Wyszukanie','few'=>'Wyszukania','many'=>'Wyszukań','other'=>'Wyszukań'],
+      'Wyszukanie' => ['one'=>'Wyszukiwanie','few'=>'Wyszukiwania','many'=>'Wyszukiwań','other'=>'Wyszukiwań'],
     ];
     $cat = pl_select($n);
     return $NOUNS[$key][$cat] ?? '';
@@ -66,6 +66,23 @@ $output .= '
         //     <span class="exhibitor-catalog__checkbox-label">Nowi wystawcy</span>
         //   </label>
         // </div>';
+
+        $output .= '
+        <div class="exhibitor-catalog__category-group">
+          <div class="exhibitor-catalog__heading-container">
+            <h3 class="exhibitor-catalog__category-heading">Typ</h3>
+          </div>
+          <label class="exhibitor-catalog__checkbox">
+            <input type="checkbox" class="exhibitor-catalog__checkbox-input" name="exhibitors" value="1" />
+            <div class="exhibitor-catalog__checkmark"></div>
+            <span class="exhibitor-catalog__checkbox-label">Wystawcy</span>
+          </label>
+          <label class="exhibitor-catalog__checkbox">
+            <input type="checkbox" class="exhibitor-catalog__checkbox-input" name="products" value="1" />
+            <div class="exhibitor-catalog__checkmark"></div>
+            <span class="exhibitor-catalog__checkbox-label">Produkty</span>
+          </label>
+        </div>';
 
         if (!empty($halls)) {
             $output .= '
@@ -211,7 +228,14 @@ if (empty($first_page)) {
             <a class="exhibitor-catalog__open-modal-name" href="' . esc_url( add_query_arg( 'exhibitor_id', $exhibitor_id ) ) . '" target="_blank"><h3 class="exhibitor-catalog__name">' . $name . '</h3></a>';
 
         if (!empty($description)) {
-            $output .= '<p class="exhibitor-catalog__description">' . $description . '</p>';
+            $words = preg_split('/\s+/', strip_tags($description));
+            if (count($words) > 40) {
+                $short_desc = implode(' ', array_slice($words, 0, 40)) . '...';
+            } else {
+                $short_desc = implode(' ', $words);
+            }
+
+            $output .= '<p class="exhibitor-catalog__description">' . esc_html($short_desc) . '</p>';
         }
         if (!empty($brands_text)) {
             $output .= '
@@ -221,10 +245,19 @@ if (empty($first_page)) {
                 </div>';
         }
         if (!empty($catalog_tags_text)) {
+            $tags = array_map('trim', explode(',', $catalog_tags_text));
+            
+            if (count($tags) > 4) {
+                $tags = array_slice($tags, 0, 4);
+                $catalog_tags_text = implode(', ', $tags) . ', ...';
+            } else {
+                $catalog_tags_text = implode(', ', $tags);
+            }
+
             $output .= '
                 <div class="exhibitor-catalog__categories">
-                  <p class="exhibitor-catalog__label">Categories</p>
-                  <p class="exhibitor-catalog__value">' . $catalog_tags_text . '</p>
+                <p class="exhibitor-catalog__label">Kategorie</p>
+                <p class="exhibitor-catalog__value">' . esc_html($catalog_tags_text) . '</p>
                 </div>';
         }
 

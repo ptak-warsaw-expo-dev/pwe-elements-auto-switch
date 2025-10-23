@@ -86,6 +86,22 @@ wp_enqueue_script(
   true
 );
 
+wp_enqueue_script(
+  'exhibitors-render',
+  $js_base_url . 'exhibitors-render.js',
+  [],
+  $ver($js_base_path . 'exhibitors-render.js'),
+  true
+);
+
+wp_enqueue_script(
+  'exhibitors-totals',
+  $js_base_url . 'exhibitors-totals.js',
+  [],
+  $ver($js_base_path . 'exhibitors-totals.js'),
+  true
+);
+
 // 2) FILTRY
 wp_enqueue_script(
   'exhibitors-filters',
