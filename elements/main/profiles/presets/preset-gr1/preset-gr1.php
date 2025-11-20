@@ -31,7 +31,7 @@ $output .= '
         <div id="profile_for_exhibitors" class="pwe-profiles__tabs-content">
             <div class="pwe-profiles__tab-text">
                 '. PWECommonFunctions::languageChecker($profile_for_exhibitors_pl, $profile_for_exhibitors_en) .'
-                <button class="pwe-profiles__show-more-btn">więcej ▼</button>
+                <button class="pwe-profiles__show-more-btn">'. PWECommonFunctions::languageChecker('więcej', 'more') .' ▼</button>
             </div>
             <div class="pwe-profiles__tab-image">
                 <img src="'. $profile_for_exhibitors_img .'" alt="'. PWECommonFunctions::languageChecker('Wystawcy', 'Exhibitor') .'">
@@ -41,7 +41,7 @@ $output .= '
         <div id="profile_industry_scope" class="pwe-profiles__tabs-content">
             <div class="pwe-profiles__tab-text">
                 '. PWECommonFunctions::languageChecker($profile_industry_scope_pl, $profile_industry_scope_en) .'
-                <button class="pwe-profiles__show-more-btn">więcej ▼</button>
+                <button class="pwe-profiles__show-more-btn">'. PWECommonFunctions::languageChecker('więcej', 'more') .' ▼</button>
             </div>
             <div class="pwe-profiles__tab-image">
                 <img src="'. $profile_industry_scope_img .'" alt="'. PWECommonFunctions::languageChecker('Branżowy', 'Industry') .'">

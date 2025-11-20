@@ -6,10 +6,6 @@ class Posts {
     public static function get_data() {
         return [
             'types' => ['main'],
-            'order' => [
-                'gr1' => 999,
-                'gr2' => 999,
-            ],
             'presets' => [
                 'gr1' => plugin_dir_path(__FILE__) . 'presets/preset-gr1/preset-gr1.php',
                 'gr2' => plugin_dir_path(__FILE__) . 'presets/preset-gr2/preset-gr2.php',

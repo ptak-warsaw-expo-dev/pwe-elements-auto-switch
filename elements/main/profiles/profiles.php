@@ -29,6 +29,7 @@ class Profiles {
             /* <-------------> General code start <-------------> */
            
             $data = PWECommonFunctions::get_database_fairs_data_profiles();  
+            
             if (!empty($data)) {
                 $decoded_data = json_decode($data[0]->data, true);
 

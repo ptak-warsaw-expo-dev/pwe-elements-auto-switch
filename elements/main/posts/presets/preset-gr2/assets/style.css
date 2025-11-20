@@ -1,0 +1,89 @@
+#pweElementsAutoSwitch .pwe-posts__slider {
+    position: relative;
+    width: 100%;
+    padding: 14px;
+    margin: 14px 0 0;
+}
+#pweElementsAutoSwitch .pwe-posts__post {
+    display: flex;
+    flex-direction: column;
+    border-radius: 18px;
+    transition: .3s ease;
+    background-color: white;
+    overflow: hidden;
+}
+#pweElementsAutoSwitch .pwe-posts__post-content {
+    min-height: 160px;
+    padding: 32px 40px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 14px;
+    background: var(--accent-color);
+    transition: .3s ease;
+}
+#pweElementsAutoSwitch .pwe-posts__post:nth-child(2n+1) .pwe-posts__post-content {
+    background: var(--main2-color);
+}
+#pweElementsAutoSwitch .pwe-posts__post-thumbnail .image-container {
+    aspect-ratio: 21 / 9;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#pweElementsAutoSwitch .pwe-posts__post-title {
+    margin: 0;
+}
+#pweElementsAutoSwitch .pwe-posts__post-title,
+#pweElementsAutoSwitch .pwe-posts__post-excerpt {
+    color: white;
+}
+#pweElementsAutoSwitch .pwe-posts__post-btn {
+    position: relative;
+    background: #ffffff;
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
+    border-radius: 6px;
+    padding: 16px 46px 16px 22px;
+    min-width: 106px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+    transition: .3s;
+    opacity: .8;
+}
+#pweElementsAutoSwitch .pwe-posts__post-btn:hover {
+    gap: 12px;
+}
+#pweElementsAutoSwitch .pwe-posts__post-arrow {
+    position: absolute;
+    right: 24px;
+    transition: .3s ease;
+    transform: rotate(-45deg);
+}
+#pweElementsAutoSwitch .pwe-posts__post-btn:hover .pwe-posts__post-arrow {
+    right: 16px;
+}
+#pweElementsAutoSwitch #pwePosts .swiper-buttons-arrows {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 100%;
+    height: 0;
+}
+#pweElementsAutoSwitch #pwePosts .swiper-button-next, 
+#pweElementsAutoSwitch #pwePosts .swiper-button-prev {
+    left: 0;
+}

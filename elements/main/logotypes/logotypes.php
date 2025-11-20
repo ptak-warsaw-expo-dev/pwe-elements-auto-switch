@@ -8,7 +8,7 @@ class Logotypes {
             'types' => ['main'],
             'presets' => [
                 'gr1' => plugin_dir_path(__FILE__) . 'presets/preset-gr1/preset-gr1.php',
-                // 'gr2' => plugin_dir_path(__FILE__) . 'presets/preset-gr2/preset-gr2.php',
+                'gr2' => plugin_dir_path(__FILE__) . 'presets/preset-gr2/preset-gr2.php',
             ],
         ];
     }
@@ -35,6 +35,7 @@ class Logotypes {
                 $saving_paths = function (&$logotypes, $logo_data) {
                     // Get desc_pl & desc_en from meta_data
                     $meta = json_decode($logo_data->meta_data, true);
+                    $name = $logo_data->logos_exh_name;
                     $desc_pl = $meta["desc_pl"] ?? '';
                     $desc_en = $meta["desc_en"] ?? '';
                     $link = $logo_data->logos_link;
@@ -42,6 +43,7 @@ class Logotypes {
 
                     $element = [
                         'url' => 'https://cap.warsawexpo.eu/public' . $logo_data->logos_url,
+                        'name' => $name,
                         'desc_pl' => $desc_pl,
                         'desc_en' => $desc_en,
                         'link' => $link,

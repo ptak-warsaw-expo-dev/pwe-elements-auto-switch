@@ -1,7 +1,5 @@
 <?php
 
-$output = '';
-
 $output = '
 <div id="pweSummary" class="pwe-summary">
     <h2 class="pwe-main-title">'. PWECommonFunctions::languageChecker('Ptak Warsaw Expo - łączymy świat biznesu', 'Ptak Warsaw Expo - we connect the world of business') .'</h2>

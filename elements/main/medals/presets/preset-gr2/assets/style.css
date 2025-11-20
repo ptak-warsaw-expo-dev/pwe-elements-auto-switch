@@ -1,0 +1,96 @@
+#pweElementsAutoSwitch .medals {
+    max-width: 100%;
+    padding: 0;
+    background: linear-gradient(to right, transparent, var(--accent_light_color));
+}
+#pweElementsAutoSwitch .pwe-medals {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 36px 18px;
+}
+#pweElementsAutoSwitch .pwe-medals__wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+#pweElementsAutoSwitch .pwe-medals__content {
+    padding: 18px 0;
+}
+#pweElementsAutoSwitch .pwe-medals__sub-heading {
+    margin: 0;
+    font-weight: 600;
+}
+#pweElementsAutoSwitch .pwe-medals__heading {
+    margin-top: 18px;
+}
+#pweElementsAutoSwitch .pwe-medals__items {
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: center;
+}
+#pweElementsAutoSwitch .pwe-medals__item {
+    position: relative;
+    transition: 0.5s ease;
+}
+#pweElementsAutoSwitch .pwe-medals__item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: 0.5s ease;
+}
+
+
+#pweElementsAutoSwitch .pwe-medals__item:nth-child(1) {
+    z-index: 1;
+}
+#pweElementsAutoSwitch .pwe-medals__item:nth-child(1) img {
+    width: 260px; 
+}
+#pweElementsAutoSwitch .pwe-medals__item:nth-child(2) {
+    margin-left: -50px; 
+    z-index: 2;
+}
+#pweElementsAutoSwitch .pwe-medals__item:nth-child(2) img {
+    width: 160px;
+}
+#pweElementsAutoSwitch .pwe-medals__item:nth-child(3) {
+    margin-left: -70px;
+    z-index: 3;
+}
+#pweElementsAutoSwitch .pwe-medals__item:nth-child(3) img {
+    width: 160px;
+}
+#pweElementsAutoSwitch .pwe-medals__item:nth-child(4) {
+    margin-left: -70px;
+    z-index: 4;
+}
+#pweElementsAutoSwitch .pwe-medals__item:nth-child(4) img {
+    width: 160px;
+}
+
+
+#pweElementsAutoSwitch .pwe-medals__items:hover .pwe-medals__item:nth-child(1) img {
+    width: 160px;
+}
+#pweElementsAutoSwitch .pwe-medals__items:hover .pwe-medals__item:nth-child(2) {
+    margin-left: -50px;
+}
+#pweElementsAutoSwitch .pwe-medals__items:hover .pwe-medals__item:nth-child(2) img {
+    width: 260px;
+}
+#pweElementsAutoSwitch .pwe-medals__items:hover .pwe-medals__item:nth-child(3) {
+    margin-left: -70px;
+}
+#pweElementsAutoSwitch .pwe-medals__items:hover .pwe-medals__item:nth-child(4) {
+    margin-left: -50px;
+}
+
+@media(max-width:960px) {
+    #pweElementsAutoSwitch .pwe-medals__wrapper {
+        grid-template-columns: 1fr;
+    }
+    #pweElementsAutoSwitch .pwe-medals__content {
+        padding: 0;
+    }
+}

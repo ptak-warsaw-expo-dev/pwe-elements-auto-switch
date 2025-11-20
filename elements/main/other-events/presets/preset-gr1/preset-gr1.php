@@ -1,8 +1,6 @@
 <?php
 
-$output = '';
-
-$output .= '
+$output = '
 <div id="pweOtherEvents" class="pwe-other-events">
     <div class="pwe-other-events__wrapper">
         <h4 class="pwe-other-events__heading pwe-main-title">'. PWECommonFunctions::languageChecker('Inne wydarzenia podczas targów', 'Other events during the fair') .'</h4>
