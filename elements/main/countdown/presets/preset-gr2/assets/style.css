@@ -18,32 +18,32 @@
     text-align: center;
     gap: 8px;
 }
-#pweElementsAutoSwitch .digits {
+#pweElementsAutoSwitch .pwe-countdown .digits {
     display: flex;
 }
-#pweElementsAutoSwitch .digit {
+#pweElementsAutoSwitch .pwe-countdown .digit {
     position: relative;
     width: 1ch;
     overflow: hidden;
     margin: 0 1px;
 }
-#pweElementsAutoSwitch .digit span {
+#pweElementsAutoSwitch .pwe-countdown .digit span {
     position: absolute;
     left: 0;
     width: 100%;
     transition: transform 0.3s ease;
 }
-#pweElementsAutoSwitch .digit span.old {
+#pweElementsAutoSwitch .pwe-countdown .digit span.old {
     transform: translateY(0);
 }
-#pweElementsAutoSwitch .digit span.new {
+#pweElementsAutoSwitch .pwe-countdown .digit span.new {
     transform: translateY(100%);
 }
-#pweElementsAutoSwitch .digit span.static {
+#pweElementsAutoSwitch .pwe-countdown .digit span.static {
     position: relative;
     transform: translateY(0);
 }
-#pweElementsAutoSwitch .label {
+#pweElementsAutoSwitch .pwe-countdown .label {
     display: block;
     margin-top: 2px;
 }

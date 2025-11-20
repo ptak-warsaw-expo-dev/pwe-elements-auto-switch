@@ -2,7 +2,7 @@
 
 $output = '
 <div id="pweFooter" class="pwe-footer">
-    <div class="pwe-footer__wrapper">';
+    <div class="pwe-footer__wrapper">';     
 
     function generateFooterNavEl($locale, $menus) {
         $base_url = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
@@ -55,7 +55,7 @@ $output = '
 
     $output .= '  
     </div>
-</div>';    
+</div>';
 
 require_once plugin_dir_path(dirname(dirname(__FILE__))) . 'assets/script.php';
 

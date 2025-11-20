@@ -1,0 +1,131 @@
+.pwe-conference__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto !important;
+    align-items: stretch;
+    gap: 18px;
+}
+.pwe-conference__left {
+    position: relative;
+    flex: 1;
+    width: 50%;
+    padding: 0;
+    display: flex;
+    align-items: end;
+    justify-content: end;
+    gap: 18px;
+    border-radius: 30px;
+    padding: 36px;
+}
+.pwe-conference__left:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background: linear-gradient(to top, var(--accent-color) 0%, rgba(0, 0, 0, 0) 50%);
+    border-radius: 30px;
+}
+.pwe-conference__right {
+    flex: 1;
+    width: 50%;
+    padding: 24px 24px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    border: 1px solid black;
+    border-radius: 30px;
+}
+.pwe-conference__right-content {
+    height: 90%;
+    width: 100%;
+}
+.pwe-conference__right-content-main {
+    background: var(--background-color);
+    padding: 36px;
+    border-radius: 18px 18px 0 0;
+}
+.pwe-conference__title {
+    width: 100%;
+}
+.pwe-conference__name {
+    margin-bottom: 16px !important;
+}
+.pwe-conference__logo {
+    margin-bottom: 20px;
+}
+.pwe-conference__logo img {
+    max-width: 50%;
+    display: block;
+}
+.pwe-conference__partners {
+    margin-top: 18px;
+}
+.pwe-conference .swiper-buttons-arrows {
+    height: 45px;
+    margin: 18px auto;
+    justify-content: center;
+}
+.pwe-conference__buttons {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    justify-content: start;
+    gap: 10px;
+}
+.pwe-conference__buttons .pwe-btn-container {
+    position: relative;
+}
+.pwe-conference__buttons .pwe-btn {
+    display: flex;
+    color: white !important;
+    transform: scale(1);
+    transition: .3s ease;
+    font-size: 16px;
+    align-items: flex-end;
+    border-radius: 10px;
+    padding: 30px 60px 18px 18px;
+    font-weight: 600;
+    gap: 10px;
+    min-width: auto;
+}
+.pwe-conference__buttons .pwe-btn.btn-visitors {
+    background: var(--main2-color);
+    max-width: 140px !important;
+    min-width: 140px !important;
+}
+.pwe-conference__buttons .pwe-btn.btn-more {
+    background: var(--background-color);
+    color: var(--accent-color) !important;
+    max-width: 170px !important;
+    min-width: 170px !important;
+}
+.pwe-conference__buttons .pwe-btn-container .btn-angle-right {
+    position: absolute;
+    right: 36px;
+    transition: .3s ease;
+    transform: rotate(-45deg);
+}
+.pwe-conference__buttons .pwe-btn-container:hover .btn-angle-right {
+    right: 20px;
+}
+
+.pwe-conference__logo-pwe {
+    max-width: 100px;
+    z-index: 1;  
+}
+
+@media (max-width: 768px) {
+    .pwe-conference__wrapper {
+        flex-direction: column;
+    }
+    .pwe-conference__left, 
+    .pwe-conference__right {
+        flex: 1 1 100% !important;
+        width: 100% !important;
+    }
+}

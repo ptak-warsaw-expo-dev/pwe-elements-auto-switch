@@ -24,7 +24,7 @@ $output = '
     .pwe-header__wrapper { 
         z-index: 1; 
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
     }
     .pwe-header__column {
         display: flex;
@@ -38,7 +38,7 @@ $output = '
     .pwe-header__date h2,
     .pwe-header__date p {
         color: white;
-        text-align: center;
+        text-align: left;
         margin: 0;
     }
     .pwe-header__edition p {
@@ -62,7 +62,7 @@ $output = '
     }
     .pwe-header__buttons {
         display: flex;
-        justify-content: center;
+        justify-content: left;
         gap: 10px;
     }
     .pwe-header .pwe-btn-container {
@@ -96,24 +96,6 @@ $output = '
     .pwe-header .pwe-btn-container:hover .btn-angle-right {
         right: 20px;
     }
-
-
-    
-    .pwe-header__partners {
-        position: absolute;
-        top: 50%;
-        transform: translate(0, -50%);
-        right: 18px;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        background-color: white;
-        border-radius: 18px;
-        padding: 10px;
-        gap: 18px;
-        z-index: 1;
-    }
-
 
 
 
@@ -189,7 +171,7 @@ $output = '
 
 $output .= '
 <div id="pweHeader" class="pwe-header">
-    <div class="pwe-header__container">
+    <div class="pwe-header__container pwe-header__background" style="background-image: url(doc/background.webp);">
         
         <div class="pwe-header__wrapper">
             <div class="pwe-header__column">
@@ -228,18 +210,20 @@ $output .= '
                 </div>
             </div>';
 
-            // // Partners widget --------------------------------------------------------------------------------------<
-            // $cap_logotypes_data = PWECommonFunctions::get_database_logotypes_data();
-            // if (!empty($cap_logotypes_data)) { 
-            //     require_once plugin_dir_path(dirname(dirname(__FILE__))) . 'widgets/partners.php';
-            // }
+            // Partners widget --------------------------------------------------------------------------------------<
+            $cap_logotypes_data = PWECommonFunctions::get_database_logotypes_data();
+            if (!empty($cap_logotypes_data)) { 
+                require_once plugin_dir_path(dirname(dirname(__FILE__))) . 'widgets/partners-gr2.php';
+            }
             
             $output .= '
         </div>
 
         <div class="video-background">
             <div class="video-overlay"></div>
-            <video autoplay="" muted="" loop="" preload="auto" class="bg-video" src="/doc/header.mp4"></video>
+            <video autoplay muted loop preload="auto" class="bg-video">
+                <source src="/doc/header.mp4" media="(min-width: 961px)">
+            </video>
         </div>
         
     </div>

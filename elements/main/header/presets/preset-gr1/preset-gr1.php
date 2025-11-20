@@ -4,7 +4,7 @@ $trade_fair_dates_custom_format = str_replace("|", " | ", $trade_fair_dates_cust
 
 $output = '
 <div id="pweHeader" class="pwe-header">
-    <div class="pwe-header__container pwe-header__background">
+    <div class="pwe-header__container pwe-header__background" style="background-image: url(doc/background.webp);">
         
         <div class="pwe-header__wrapper">
 
@@ -38,7 +38,7 @@ $output = '
             // Partners widget --------------------------------------------------------------------------------------<
             $cap_logotypes_data = PWECommonFunctions::get_database_logotypes_data();
             if (!empty($cap_logotypes_data)) { 
-                require_once plugin_dir_path(dirname(dirname(__FILE__))) . 'widgets/partners.php';
+                require_once plugin_dir_path(dirname(dirname(__FILE__))) . 'widgets/partners-gr1.php';
             }
             
             $output .= '
@@ -47,7 +47,9 @@ $output = '
 
         <div class="video-background">
             <div class="video-overlay"></div>
-            <video autoplay="" muted="" loop="" preload="auto" class="bg-video" src="/doc/header.mp4"></video>
+            <video autoplay muted loop preload="auto" class="bg-video">
+                <source src="/doc/header.mp4" media="(min-width: 961px)">
+            </video>
         </div>
     </div>
 </div>';

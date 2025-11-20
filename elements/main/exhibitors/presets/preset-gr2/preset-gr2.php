@@ -26,8 +26,8 @@ $output = '
  
         </div>
 
-        <div class="pwe-exhibitors__nav">
-            <div class="wc-dots" aria-label="Slider navigation" role="tablist"></div>
+        <div class="swiper-nav">
+            <div class="swiper-dots" aria-label="Slider navigation" role="tablist"></div>
         </div>
 
     </div>
