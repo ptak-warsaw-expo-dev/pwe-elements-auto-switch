@@ -7,10 +7,11 @@
     margin: 0;
 }
 #pweElementsAutoSwitch .pwe-main-subtitle {
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 600;
     margin: 0;
     color: var(--accent-color);
+    text-transform: uppercase;
 }
 #pweElementsAutoSwitch .pwe-main-desc,
 #pweElementsAutoSwitch .pwe-main-desc p {

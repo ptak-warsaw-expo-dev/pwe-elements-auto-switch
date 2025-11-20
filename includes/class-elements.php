@@ -17,19 +17,46 @@ class PWE_Elements {
         foreach ($shortcodes as $key => $data) {
             // Shortcode registration
             add_shortcode($data['shortcode'], function($atts = [], $content = null) use ($key) {
-                return self::render_elements($key);
+                return self::render_elements($key, $atts);
             });
 
             // Registering the item in WPBakery
             add_action('vc_before_init', function() use ($data) {
                 if (!function_exists('vc_map')) return;
 
+                $params = [];
+
+                if ($data['shortcode'] === 'pwe-elements-auto-switch-page-catalog') {
+                    $params = [
+                        [
+                            'type' => 'textfield',
+                            'heading' => __('Archive ids', 'auto_pwe_katalog'),
+                            'param_name' => 'archive_catalog_id',
+                            'group' => 'Custom Settings',
+                            'save_always' => true,
+                        ],
+                        [
+                            'type' => 'textfield',
+                            'heading' => __('Exhibitor changer', 'auto_pwe_katalog'),
+                            'param_name' => 'exhibitor_changer',
+                            'group' => 'Custom Settings',
+                            'description' => __(
+                                'Changer for exhibitors divided by ";;". Try to put names.<br>
+                                Change places "name<=>name or position";<br>
+                                Move to position "name=>>name or position";',
+                                'auto_pwe_katalog'
+                            ),
+                            'save_always' => true,
+                        ],
+                    ];
+                }
+
                 vc_map([
                     'name'     => __('PWE Elements AutoSwitch: ' . $data['title'], 'pwe-elements-auto-switch'),
                     'base'     => $data['shortcode'],
                     'category' => __('PWE Elements', 'pwe-elements-auto-switch'),
                     'icon'     => 'icon-wpb-layer-shape',
-                    'params'   => [],
+                    'params'   => $params,
                 ]);
             });
         }
@@ -67,7 +94,7 @@ class PWE_Elements {
     }
 
     // Render elements depending on type (shortcode key)
-    public static function render_elements($type) {
+    public static function render_elements($type, $atts = []) {
         // $group        = PWE_Groups::get_current_group();
         $group        = 'gr2'; // <-------------------------------------- Temporary solution ---------------------------------------<
         $all_elements = PWE_Elements_Data::get_all_elements();
@@ -81,11 +108,14 @@ class PWE_Elements {
         }
 
         // Load element files for type
-        PWE_Elements_Data::require_elements($type);
+        PWE_Elements_Data::require_elements($type, $group);
 
         foreach ($elements_for_type as $el_conf) {
             $class  = $el_conf['class'];
             $order  = $el_conf['order'][$group] ?? 999;
+
+            if ($order <= 0) continue;
+
             $params = $el_conf['params'] ?? [];
 
             if (class_exists($class)) {
@@ -107,7 +137,7 @@ class PWE_Elements {
         usort($elements, function($a, $b) {
             return $a['order'] <=> $b['order'];
         });
-
+        
         // Render
         ob_start();
         echo '<div id="pweElementsAutoSwitch">';
@@ -116,7 +146,7 @@ class PWE_Elements {
             $camel_id = ucfirst(str_replace(' ', '', ucwords(str_replace('-', ' ', $el_slug))));
 
             echo '<div id="'. lcfirst(str_replace('_', '', $el['class'])) . $camel_id . ucfirst($group) .'" class="'. lcfirst(str_replace('_', '-', strtolower($el['class']))) . '-' . $group . ' ' . lcfirst(str_replace('_', '-', strtolower($el['class']))) .' pwe-limit-width">';
-                $el['class']::render($group, $el['params']);
+                $el['class']::render($group, $el['params'], $atts);
             echo '</div>';
         }
         echo '</div>';

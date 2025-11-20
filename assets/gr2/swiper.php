@@ -3,7 +3,7 @@ class PWE_Swiper
 {
     public function __construct() {} 
 
-    public static function swiperScripts($id, $breakpoints = [], $dots = false, $arrows = false, $rows = 1)
+    public static function swiperScripts($id, $breakpoints = [], $dots = false, $arrows = false, $rows = 1, $centered = false, $gap = 18)
     {
         // domyślne breakpoints jeśli puste
         if (empty($breakpoints)) {
@@ -19,22 +19,30 @@ class PWE_Swiper
 
         $output = '
         <style>
+            #pweElementsAutoSwitch ' . $id . ' {
+                visibility: hidden;
+                opacity: 0;
+                transition: opacity 0.5s ease-in-out;
+            }
             #pweElementsAutoSwitch ' . $id . ' .swiper {
                 width: 100%;
             }
             #pweElementsAutoSwitch ' . $id . ' .swiper-wrapper {
                 display: flex;
             }
+            #pweElementsAutoSwitch ' . $id . ' .swiper-slide {
+                height: 100% !important;
+            }
         </style>';
         
         if ($dots) {
             $output .= '
             <style>
-                #pweElementsAutoSwitch ' . $id . ' .pwe-exhibitors__nav {
+                #pweElementsAutoSwitch ' . $id . ' .swiper-nav {
                     margin: 18px auto 0;
                     max-width:200px;
                 }
-                #pweElementsAutoSwitch ' . $id . ' .wc-dots{
+                #pweElementsAutoSwitch ' . $id . ' .swiper-dots{
                     --dot:10px;
                     --gap:8px;
                     --side:3;
@@ -43,7 +51,7 @@ class PWE_Swiper
                     gap:var(--gap);
                     width:100%;
                 }
-                #pweElementsAutoSwitch ' . $id . ' .wc-dot{
+                #pweElementsAutoSwitch ' . $id . ' .swiper-dot{
                     width:var(--dot);
                     height:var(--dot);
                     border-radius:9999px;
@@ -52,7 +60,7 @@ class PWE_Swiper
                     transition:width .35s ease, background-color .2s ease;
                     cursor:pointer;
                 }
-                #pweElementsAutoSwitch ' . $id . ' .wc-dot--active{
+                #pweElementsAutoSwitch ' . $id . ' .swiper-dot--active{
                     background:#bfe8df;
                     width:calc( (100% - (var(--side) * (var(--dot) + var(--gap)))) * 0.9 );
                     flex:0 1 auto;
@@ -99,6 +107,8 @@ class PWE_Swiper
             jQuery(function($){
                 if (typeof Swiper === "undefined") return;
 
+                const partnersElAvailable = '. (stripos($id, 'partners-') !== false ? 'true' : 'false') .';
+
                 const rootSel = "' . $id . '";
                 const $root   = $(rootSel);
                 const breakpoints = ' . $breakpoints_json . ';
@@ -116,7 +126,8 @@ class PWE_Swiper
                 const slides = document.querySelectorAll("' . $id . ' .swiper-slide").length;
 
                 const swiper = new Swiper("' . $id . ' .swiper", {
-                    spaceBetween: 18,
+                    spaceBetween: '. $gap .',
+                    centeredSlides: '. ($centered == true ? 'true' : 'false') .',
                     grabCursor: true,';
                     if ($rows != 1) {
                         $output .= '
@@ -129,12 +140,17 @@ class PWE_Swiper
                         $output .= '
                         loop: true,';
                     }
+                    if (stripos($id, 'partners-') !== false) {
+                        $output .= '
+                        direction: "vertical",';
+                    }
                     $output .= '
                     autoplay: {
                         delay: 3000,
                         disableOnInteraction: false,
                         pauseOnMouseEnter: true
-                    },
+                    },';
+                    $output .= '
                     breakpoints: ' . $breakpoints_json;
                     if ($arrows) {
                         $output .= ',
@@ -147,9 +163,9 @@ class PWE_Swiper
                 });
 
                 $root[0].__wcSwiper = swiper;
+                $root[0].__buildDots = buildDots;
 
-                const dotsWrap = $root.find(".wc-dots")[0];
-                if (!dotsWrap) return;
+                const dotsWrap = $root.find(".swiper-dots")[0];
 
                 function buildDots(s){
                     s = s || $root[0].__wcSwiper;
@@ -166,7 +182,7 @@ class PWE_Swiper
                     for (let i=0; i<navCount; i++){
                     const btn = document.createElement("button");
                     btn.type = "button";
-                    btn.className = "wc-dot";
+                    btn.className = "swiper-dot";
                     btn.addEventListener("click", () => {
                         const targetPage  = i * groupSize;
                         const targetIndex = targetPage * spv;
@@ -185,45 +201,51 @@ class PWE_Swiper
                     const activeIdx = Math.min(navCount - 1, currentPage % navCount);
 
                     [...dotsWrap.children].forEach((el, idx) =>
-                        el.classList.toggle("wc-dot--active", idx === activeIdx)
+                        el.classList.toggle("swiper-dot--active", idx === activeIdx)
                     );
                 }
 
-                requestAnimationFrame(() => buildDots(swiper));
-                swiper.on("slideChangeTransitionEnd", () => updateDots(swiper));
-                window.addEventListener("resize", () => buildDots(swiper));
+                if (dotsWrap) {
+                    requestAnimationFrame(() => buildDots(swiper));
+                    swiper.on("slideChangeTransitionEnd", () => updateDots(swiper));
+                    window.addEventListener("resize", () => buildDots(swiper));
+                };
 
-                // Function to set equal height
-                function setEqualHeight() {
-                    let maxHeight = 0;
+                if (partnersElAvailable == false) {
 
-                    // Reset the heights before calculations
-                    $("#pweElementsAutoSwitch ' . $id . ' .swiper-slide").css("height", "auto");
+                    // Function to set equal height
+                    function setEqualHeight() {
+                        let maxHeight = 0;
 
-                    // Calculate the maximum height
-                    $("#pweElementsAutoSwitch ' . $id . ' .swiper-slide").each(function() {
-                        const thisHeight = $(this).outerHeight();
-                        if (thisHeight > maxHeight) {
-                            maxHeight = thisHeight;
-                        }
+                        // Reset the heights before calculations
+                        $("#pweElementsAutoSwitch ' . $id . ' .swiper-slide").css("height", "auto");
+
+                        // Calculate the maximum height
+                        $("#pweElementsAutoSwitch ' . $id . ' .swiper-slide").each(function() {
+                            const thisHeight = $(this).outerHeight();
+                            if (thisHeight > maxHeight) {
+                                maxHeight = thisHeight;
+                            }
+                        });
+
+                        // Set the same height for all
+                        $("#pweElementsAutoSwitch ' . $id . ' .swiper-slide").css("minHeight", maxHeight);
+                    }
+
+                    // Call the function after loading the slider
+                    $("#pweElementsAutoSwitch ' . $id . ' .swiper").on("init", function() {
+                        setEqualHeight();
                     });
 
-                    // Set the same height for all
-                    $("#pweElementsAutoSwitch ' . $id . ' .swiper-slide").css("minHeight", maxHeight);
+                    // Call the function when changing the slide
+                    $("#pweElementsAutoSwitch ' . $id . ' .swiper").on("afterChange", function() {
+                        setEqualHeight();
+                    });
+
+                    // Call the function at the beginning
+                    setTimeout(setEqualHeight, 500);
+
                 }
-
-                // Call the function after loading the slider
-                $("#pweElementsAutoSwitch ' . $id . ' .swiper").on("init", function() {
-                    setEqualHeight();
-                });
-
-                // Call the function when changing the slide
-                $("#pweElementsAutoSwitch ' . $id . ' .swiper").on("afterChange", function() {
-                    setEqualHeight();
-                });
-
-                // Call the function at the beginning
-                setEqualHeight();
 
                 $("#pweElementsAutoSwitch ' . $id . '").css("visibility", "visible").animate({ opacity: 1 }, 500);
             });
