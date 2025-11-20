@@ -1,41 +1,22 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
+require_once __DIR__ . '/presets/exhibitor_catalog_functions.php';
+require_once __DIR__ . '/presets/svg-icon.php';
+
 class Exhibitor_Catalog {
 
     public static function get_data() {
         return [
             'types' => ['catalog'],
             'presets' => [
-                'all' => plugin_dir_path(__FILE__) . 'presets/preset-all/preset-all.php'
+                'all'    => plugin_dir_path(__FILE__) . 'presets/preset-all/preset-all.php',
+                'mobile' => plugin_dir_path(__FILE__) . 'presets/preset-mobile/preset-mobile.php',
             ],
         ];
     }
 
-    private static function get_all_exhibitors() {
-        $exh_catalog_local_file = PWECommonFunctions::get_database_meta_data('exh_catalog_address_doc');
-
-        $local_file = $_SERVER['DOCUMENT_ROOT'] . $exh_catalog_local_file;
-        if (!file_exists($local_file) || !is_readable($local_file)) {
-            error_log("[get_all_exhibitors] Brak pliku lub brak dostępu: {$local_file}");
-            return [];
-        }
-
-        $json = file_get_contents($local_file);
-        if ($json === false || trim($json) === '') {
-            error_log("[get_all_exhibitors] Nie udało się odczytać pliku lub plik jest pusty.");
-            return [];
-        }
-
-        $catalog_data = json_decode($json, true);
-        if (json_last_error() !== JSON_ERROR_NONE || !is_array($catalog_data)) {
-            error_log("[get_all_exhibitors] Błąd JSON: " . json_last_error_msg());
-            return [];
-        }
-        return $catalog_data;
-    }
-
-    public static function render($group) {
+    public static function render($group, $params, $atts) {
         $data = self::get_data();
         $element_type = $data['types'][0];
         $element_slug = strtolower(__CLASS__);
@@ -44,25 +25,18 @@ class Exhibitor_Catalog {
         // Assets per group
         PWE_Functions::assets_per_group($element_slug, $group, $element_type);
 
-        $preset_file = self::get_data()['presets']['all'] ?? null;
+        $data = self::get_data();
 
-
+        $preset_file = is_mobile()
+            ? $data['presets']['mobile']
+            : $data['presets']['all'];
 
         if ($preset_file && file_exists($preset_file)) {
 
             /* <-------------> General code start <-------------> */
 
-                $exh_catalog_cron_pass = PWECommonFunctions::get_database_meta_data('cron_secret_pass');
-
-                $domain = $_SERVER['HTTP_HOST'];
-
-                if (current_user_can('administrator')) {
-                    echo '<script>console.log("Link do odświeżenia katlogu: https://' . $domain . '/wp-content/plugins/custom-element/other/mass_vip_cron.php?pass=' . $exh_catalog_cron_pass . '")</script>';
-                };
-
-
                 /* --- POBRANIE I PRZYGOTOWANIE DANYCH --- */
-                $exhibitors_prepared = self::get_all_exhibitors();
+                $exhibitors_prepared = get_all_exhibitors($atts);
 
                 $exhibitors_count = count($exhibitors_prepared);
 
@@ -75,6 +49,7 @@ class Exhibitor_Catalog {
 
                 $halls = [];
                 $sectors = [];
+                $brands = [];
                 $products_tags =[];
 
                 foreach ($exhibitors_prepared as $exhibitor_row) {
@@ -86,6 +61,14 @@ class Exhibitor_Catalog {
                             if (is_string($tag)) {
                                 $tag = trim($tag);
                                 if ($tag !== '') $sectors[$tag] = true;
+                            }
+                        }
+                    }
+                    if (!empty($exhibitor_row['brands']) && is_array($exhibitor_row['brands'])) {
+                        foreach ($exhibitor_row['brands'] as $brand) {
+                            if (is_string($brand)) {
+                                $brand = trim($brand);
+                                if ($brand !== '') $brands[$brand] = true;
                             }
                         }
                     }
@@ -113,19 +96,55 @@ class Exhibitor_Catalog {
                 }
                 ksort($halls, SORT_NATURAL | SORT_FLAG_CASE);
                 ksort($sectors, SORT_NATURAL | SORT_FLAG_CASE);
+                ksort($brands, SORT_NATURAL | SORT_FLAG_CASE);
                 ksort($products_tags, SORT_NATURAL | SORT_FLAG_CASE);
 
                 $halls   = array_keys($halls);
                 $sectors = array_keys($sectors);
+                $brands = array_keys($brands);
                 $products_tags = array_keys($products_tags);
 
+                $domain = do_shortcode('[trade_fair_domainadress]');
+                $cap_db = PWECommonFunctions::connect_database();
 
-            /* <-------------> General code end <-------------> */
+                $sql = $cap_db->prepare("
+                    SELECT 
+                        MAX(CASE WHEN fa.slug = 'fair_color_accent_catlog' THEN fa.data END) AS accent,
+                        MAX(CASE WHEN fa.slug = 'fair_color_main2_catlog' THEN fa.data END) AS main2
+                    FROM fair_adds fa
+                    JOIN fairs f ON f.id = fa.fair_id
+                    WHERE f.fair_domain = %s
+                ", $domain);
+
+                $colors = $cap_db->get_results($sql, ARRAY_A);
+
+                $output = '
+                <style>
+                    #exhibitorCatalog, #exhibitorPage, .exhibitor-product-modal {
+                        --catalog-accent-color: ' . (empty($colors[0]['accent']) ? 'var(--accent-color)' : $colors[0]['accent']) . ';
+                        --catalog-main2-color: ' . (empty($colors[0]['main2']) ? 'var(--main2-color)' : $colors[0]['main2']) . ';
+
+                        --accent_lighter_color: color-mix(in srgb, var(--catalog-accent-color) 5%, #ffffff 95%);
+                        --main2_lighter_color: color-mix(in srgb, var(--catalog-main2-color) 5%, #ffffff 95%);
+
+                        --hover_main2_color: color-mix(in srgb, var(--catalog-main2-color) 80%, #ffffff 20%);
+                    }
+                </style>';
+
+            /* <-------------> General code end <-------------> */ 
+
+            $startMemory = memory_get_usage();
 
             $output = include $preset_file;
 
             if ($output) {
                 echo $output;
+            }
+
+            $endMemory = memory_get_usage();
+
+            if (current_user_can('administrator')) {
+                echo '<script>console.log("Catalog memory size used - '. ($endMemory - $startMemory) / 1024 .'kb")</script>';
             }
         }
     }
