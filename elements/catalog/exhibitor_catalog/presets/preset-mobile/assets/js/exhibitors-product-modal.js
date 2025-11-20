@@ -1,8 +1,8 @@
 document.addEventListener('click', function (e) {
-  const trigger = e.target.closest('.exhibitor-catalog__product-modal');
+  const trigger = e.target.closest('.exhibitor-single-mobile__product-item');
   if (!trigger) return;
 
-  const productEl = trigger.closest('.exhibitor-page__product, .exhibitor-catalog__exh-card-files-product');
+  const productEl = trigger.closest('.exhibitor-single-mobile__product-item, .exhibitor-catalog__exh-card-files-product');
   if (!productEl) return;
 
   const container = productEl.closest('[data-exhibitor-id]');

@@ -7,19 +7,17 @@ require_once __DIR__ . '/exhibitor_catalog_main_product_card.php';
 require_once __DIR__ . '/exhibitor_catalog_main_filters.php';
 
 // --- USTAWIENIA PAGINACJI ---
-$per_page = 16;
+$per_page = 30;
 $current_page = isset($_GET['exh-page']) ? max(1, (int)$_GET['exh-page']) : 1;
 
 // --- 1) ZBUDUJ JEDNĄ LISTĘ wg wybranych filtrów ---
 $all_items = [];
 
-// zastosuj wszystkie inne filtry (hale, sektory, marki, kategorie)
 $filter_result = exhibitor_catalog_apply_filters($exhibitors_prepared);
 $exhibitors_filtered = $filter_result['filtered'];
 $types_for_display   = $filter_result['types_for_display'];
 $visible_filters     = $filter_result['visible_filters'];
 
-// 🧩 pobierz wybrane typy (domyślnie wszystkie)
 $selected_types = $types_for_display;
 
 // a) wystawcy
@@ -182,44 +180,41 @@ $output .= '
 
     <div class="exhibitor-catalog__content">
 
-        <div class="exhibitor-catalog__panel '. ($domain !== "warsawexpo.eu" ? "sticky-element" : "") .'">
-            <div class="exhibitor-catalog__panel-wrapper">
-                
-                <div class="exhibitor-catalog__panel-filter">
-                    <h2 class="exhibitor-catalog__panel-filter-title">Filtruj</h2>
-                    <!--<a class="exhibitor-catalog__panel-filter-search">Szukaj</a>-->
-                    <a class="exhibitor-catalog__panel-filter-clear">Wyczyść</a>
+        <div class="catalog-mobile-panel '. ($domain !== "warsawexpo.eu" ? "sticky-element" : "") .'">
+            <div class="catalog-mobile-panel__wrapper">
+                <div class="catalog-mobile-panel__search">
+                    <form method="get" action="" class="catalog-mobile-panel__search-form">
+                        <input type="text" 
+                            class="catalog-mobile-panel__search-input" 
+                            name="search"
+                            value="'. (isset($_GET['search']) ? esc_attr($_GET['search']) : '') .'"
+                            placeholder="Wyszukaj wystawcę" />
+                    </form>
                 </div>
-
-                <div class="exhibitor-catalog__panel-items">
-                    <h2 class="exhibitor-catalog__panel-items-title">
-                        Wyniki
-                        <span class="exhibitor-catalog__panel-items-count">(' . $total_items_count . ')</span>
-                    </h2>
-                    <div class="exhibitor-catalog__search">
-                        <form method="get" action="" class="exhibitor-catalog__search-form">
-                            <input type="text" 
-                                class="exhibitor-catalog__search-input" 
-                                name="search"
-                                value="'. (isset($_GET['search']) ? esc_attr($_GET['search']) : '') .'"
-                                placeholder="Wyszukaj wystawcę" />
-                        </form>
-                        <!-- <div class="exhibitor-catalog__search-icon">
-                            <img src="/wp-content/plugins/pwe-elements-auto-switch/elements/catalog/exhibitor_catalog/media/search.png" alt="Szukaj" />
-                        </div> -->
-                    </div>';
-                    $current_sort = $_GET['sort_mode'] ?? 'standard';
-                    $output .= exhibitor_catalog_render_sort_select($current_sort);
-                $output .= '
+                <div class="catalog-mobile-panel__results-wrapper">
+                    <div class="catalog-mobile-panel__results">
+                        <h2 class="catalog-mobile-panel__results-title">
+                            Wyniki
+                            <span class="catalog-mobile-panel__results-count">(' . $total_items_count . ')</span>
+                        </h2>
+                        <div class="catalog-mobile-panel__buttons">';
+                            $current_sort = $_GET['sort_mode'] ?? 'standard';
+                            $output .= exhibitor_catalog_render_sort_select($current_sort);
+                            $output .= '
+                            <button class="catalog-mobile-panel__filters-btn" id="filterMenu">
+                                ' . pwe_svg_icon('filter') . '
+                                Filtry
+                            </button>
+                        </div>
+                    </div>
                 </div>
-
             </div>
-        </div>
+        </div>';
 
+        $output .= exhibitor_catalog_render_filters($all_items, $halls, $hall_counts, $sectors, $sectors_counts, $brands, $brands_counts, $products_tags, $tags_counts, $visible_filters);
+
+        $output .= '
         <div class="exhibitor-catalog__main-columns">';
-
-            $output .= exhibitor_catalog_render_filters($all_items, $halls, $hall_counts, $sectors, $sectors_counts, $brands, $brands_counts, $products_tags, $tags_counts, $visible_filters);
-
             // --- 4) RENDER HTML: przed Twoim JS, na Twoim $output ---
             $output .= '
             <div class="exhibitor-catalog__pagination-container">
@@ -247,7 +242,7 @@ $output .= '
                     if (!empty($page_brands)) {
 
                         $output .= '
-                        <div class="exhibitor-catalog__brands-container">';
+                        <div class="catalog-mobile-brands-container">';
 
                         foreach ($page_brands as $brand) {
 
@@ -264,7 +259,7 @@ $output .= '
                     if (!empty($page_products)) {
 
                         $output .= '
-                        <div class="exhibitor-catalog__products-container">';
+                        <div class="catalog-mobile-products-container">';
 
                         foreach ($page_products as $product) {
 
@@ -282,40 +277,11 @@ $output .= '
 
                 // --- 5) PASEK NAWIGACJI PO STRONACH ---
 
-                if ($total_pages > 1) {
-                    // ile cyfr paddingu (żeby 1 było "01" itp.)
-                    $digits = max(2, strlen((string) $total_pages));
-                    $pad = function ($n) use ($digits) {
-                        return str_pad((string) $n, $digits, '0', STR_PAD_LEFT);
-                    };
-
-                    $prev_url = ($current_page > 1) ? ec_build_page_url($current_page - 1, $param_name) : '';
-                    $next_url = ($current_page < $total_pages) ? ec_build_page_url($current_page + 1, $param_name) : '';
-
+                if ($current_page < $total_pages) {
                     $output .= '
-                    <nav class="ec-pager exhibitor-catalog__pagination" aria-label="Stronicowanie">
-                        ' . (
-                            $prev_url
-                            ? '<a class="ec-pager__btn ec-pager__btn--prev" href="'.$prev_url.'" rel="prev" aria-label="Poprzednia strona">'
-                            : '<span class="ec-pager__btn ec-pager__btn--prev is-disabled" aria-disabled="true" aria-label="Brak poprzedniej strony">'
-                        ) . '
-                            <svg class="ec-pager__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 19l-7-7 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        ' . ($prev_url ? '</a>' : '</span>') . '
-
-                        <div class="ec-pager__status" aria-live="polite">
-                            <span class="ec-pager__current">'.$pad($current_page).'</span>
-                            <span class="ec-pager__sep">/</span>
-                            <span class="ec-pager__total">'.$pad($total_pages).'</span>
-                        </div>
-
-                        ' . (
-                            $next_url
-                            ? '<a class="ec-pager__btn ec-pager__btn--next" href="'.$next_url.'" rel="next" aria-label="Następna strona">'
-                            : '<span class="ec-pager__btn ec-pager__btn--next is-disabled" aria-disabled="true" aria-label="Brak następnej strony">'
-                        ) . '
-                            <svg class="ec-pager__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        ' . ($next_url ? '</a>' : '</span>') . '
-                    </nav>';
+                    <button id="exhibitorLoadMore" class="exhibitor-catalog__load-more">
+                        Załaduj więcej
+                    </button>';
                 }
 
             $output .= '
