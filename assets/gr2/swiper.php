@@ -140,10 +140,10 @@ class PWE_Swiper
                         $output .= '
                         loop: true,';
                     }
-                    if (stripos($id, 'partners-') !== false) {
-                        $output .= '
-                        direction: "vertical",';
-                    }
+                    // if (stripos($id, 'partners-') !== false) {
+                    //     $output .= '
+                    //     direction: "vertical",';
+                    // }
                     $output .= '
                     autoplay: {
                         delay: 3000,

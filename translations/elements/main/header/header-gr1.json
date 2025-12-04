@@ -1,0 +1,29 @@
+{
+    "pl_PL": {
+        "premier_edition": "Premierowa Edycja", 
+        "edition":" edycja",
+        "warsaw":"Warszawa",
+        "warsaw_poland":"Warszawa, Polska",
+        "link_to_registration":"link do rejestracji",
+        "register":"Zarejestruj się",
+        "free_ticket": "Odbierz darmowy bilet"
+    },
+    "en_US": {
+        "premier_edition": "Premier Edition",
+        "edition":" edition",
+        "warsaw":"Warsaw",
+        "warsaw_poland":"Warsaw, Poland",
+        "link_to_registration":"link to registration",
+        "register":"Register",
+        "free_ticket": "Get a free ticket"
+    },
+    "de_DE": {
+        "premier_edition": "Premiere Edition",
+        "edition":" ausgabe",
+        "warsaw":"Warschau",
+        "warsaw_poland":"Warschau, Polen",
+        "link_to_registration":"Registrierungslink",
+        "register":"Registrieren",
+        "free_ticket": "Gratis-Ticket holen"
+    }
+}
