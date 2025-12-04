@@ -25,6 +25,9 @@ $output .= '
         flex-direction: column;
         gap: 14px;
     }
+    .pwe-header__partners-container:not(:first-child) {
+        margin-top: 10px;
+    }
     .pwe-header__partners-title {
         margin: 0 auto;
     }
@@ -33,7 +36,7 @@ $output .= '
         text-transform: uppercase;
         max-width: 280px;
         text-align: center;
-        margin: 16px auto 0;
+        margin: 0;
         font-size: 18px;
     }
     .pwe-header__partners-items {
@@ -84,23 +87,69 @@ if (!empty($meta_data)) {
     $header_order = $meta_data[0]->meta_data;
 }
 
+$grouped_logos = [];
+$current_locale = get_locale();
+$current_lang = substr($current_locale, 0, 2);
+
 foreach ($cap_logotypes_data as $logo_data) {
-    if (strpos($logo_data->logos_type, 'header-') === 0) {
+
+    if (strpos($logo_data->logos_type, 'header-') === 0) { 
+
         $meta = json_decode($logo_data->meta_data, true);
+        $data = json_decode($logo_data->data ?? '{}', true);
+
         $desc_pl = $meta["desc_pl"] ?? '';
         $desc_en = $meta["desc_en"] ?? '';
-        $link    = $logo_data->logos_link;
-        $url     = 'https://cap.warsawexpo.eu/public' . $logo_data->logos_url;
-        $name    = $logo_data->logos_exh_name;
-        $order   = isset($logo_data->logos_order) ? (int)$logo_data->logos_order : PHP_INT_MAX;
+
+        $url   = 'https://cap.warsawexpo.eu/public' . $logo_data->logos_url;
+        $name  = $data['logos_exh_name'];
+        $order = isset($logo_data->logos_order) ? (int)$logo_data->logos_order : PHP_INT_MAX;
+
+        $visibilityFlags = array_filter($data, function ($key) {
+            return preg_match('/^logos_[a-z]{2}_[A-Z]{2}$/', $key);
+        }, ARRAY_FILTER_USE_KEY);
+
+        if (empty($visibilityFlags)) {
+            $showLogo = true;
+        } else {
+            $flagKey = 'logos_' . $current_locale;
+
+            if (isset($visibilityFlags[$flagKey])) {
+                $showLogo = ($visibilityFlags[$flagKey] === 'true');
+            } else {
+                $showLogo = false;
+            }
+        }
+
+        if (!$showLogo) {
+            continue;
+        }
+
+        $link_pl = $data['logos_link']     ?? null;
+        $link_en = $data['logos_link_en']  ?? null;
+
+        if (!empty($link_pl) && empty($link_en)) {
+            $finalLink = $link_pl;
+
+        } elseif (!empty($link_pl) && !empty($link_en)) {
+            if ($current_lang === 'pl') {
+                $finalLink = $link_pl;
+            } else {
+                $finalLink = $link_en;
+            }
+
+        } else {
+            // brak linków
+            $finalLink = null;
+        }
 
         $element = [
-            'url' => $url,
-            'desc_pl' => $desc_pl,
-            'desc_en' => $desc_en,
-            'link' => $link,
-            'name' => $name,
-            'order' => $order,
+            'url'      => $url,
+            'desc_pl'  => $desc_pl,
+            'desc_en'  => $desc_en,
+            'link'     => $finalLink,
+            'name'     => $name,
+            'order'    => $order,
         ];
 
         $grouped_logos[$logo_data->logos_type][] = $element;
@@ -264,12 +313,26 @@ if (count($grouped_logos) > 0) {
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const pweHeaderPartners = document.querySelector(".pwe-header__partners");
-            if (pweHeaderPartners) {
-                setTimeout(() => {
-                    pweHeaderPartners.style.opacity = 1;
-                }, 300);
+            const pweHeaderContainer = document.querySelector(".pwe-header__container");
+
+            if (!pweHeaderPartners) {
+                return;
             }
-        }); 
+
+            setTimeout(() => {
+                pweHeaderPartners.style.opacity = 1;
+
+                const partnersHeight = pweHeaderPartners.offsetHeight;
+                const containerHeight = pweHeaderContainer.offsetHeight;
+
+                const diff = Math.abs(partnersHeight - containerHeight);
+
+                if (containerHeight < partnersHeight || diff < 30) {
+                    pweHeaderContainer.style.minHeight = partnersHeight + 60 + "px";
+                }
+            }, 300);
+           
+        });
     </script>';
 
 }

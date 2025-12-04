@@ -12,7 +12,7 @@ $output = '
                 <div class="pwe-header__content-wrapper">
                     <div class="pwe-header__tile">
                         <div class="pwe-header__main-content-block">
-                            <img class="pwe-header__logo" src="'. PWECommonFunctions::languageChecker('/doc/logo-color.webp', '/doc/logo-color-en.webp') .'" alt="logo-'. $trade_fair_name .'">
+                            <img class="pwe-header__logo" src="'. (PWECommonFunctions::lang_pl() ? '/doc/logo-color.webp' : '/doc/logo-color-en.webp') .'" alt="logo-'. $trade_fair_name .'">
                             <div class="pwe-header__edition"><p><span>'. $trade_fair_edition .'</span></p></div>
                             <div class="pwe-header__title">
                                 <h1>'. $trade_fair_desc .'</h1>
@@ -20,15 +20,15 @@ $output = '
                         </div>
                         <div class="pwe-header__date-block">
                             <i class="fa fa-location-outline fa-2x fa-fw"></i>
-                            <h2>'. $trade_fair_dates_custom_format . PWECommonFunctions::languageChecker(' Warszawa', ' Warsaw') .'</h2>
+                            <h2>'. $trade_fair_dates_custom_format .' '. PWE_Functions::multi_translation('warsaw') .'</h2> 
                             <p></p>
                         </div>
                         <div id="pweBtnRegistration" class="pwe-btn-container header-button">
                             <a 
                                 class="pwe-link pwe-btn" 
                                 href="'. PWECommonFunctions::languageChecker('/rejestracja/', '/en/registration/') .'" 
-                                alt="'. PWECommonFunctions::languageChecker('link do rejestracji', 'link to registration') .'">
-                                '. PWECommonFunctions::languageChecker('Zarejestruj się', 'Register') .'
+                                alt="'. PWE_Functions::multi_translation('link_to_registration') .'">
+                                '. PWE_Functions::multi_translation('register') .'
                             </a>
                         </div>
                     </div>

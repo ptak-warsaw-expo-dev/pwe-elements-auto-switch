@@ -184,25 +184,24 @@ $output .= '
                 </div>
                 <div class="pwe-header__date">
                     <h2>'. $trade_fair_date .'</h2>
-                    <p>'. PWECommonFunctions::languageChecker(' Warszawa', ' Warsaw') .'</p>
+                    <p>'. PWE_Functions::multi_translation('warsaw') .'</p>
                 </div>
 
                 <div class="pwe-header__buttons">
                     <div class="pwe-btn-container header-button">
                         <a class="pwe-link pwe-btn btn-visitors" 
                            href="'. PWECommonFunctions::languageChecker('/rejestracja/', '/en/registration/') .'" 
-                           alt="'. PWECommonFunctions::languageChecker('link do rejestracji', 'link to registration') .'">
-                                '. PWECommonFunctions::languageChecker('Zarejestruj się', 'Register') .'<br>
-                                '. PWECommonFunctions::languageChecker('Odbierz darmowy bilet', 'Get a free ticket') .' 
+                           alt="'. PWE_Functions::multi_translation('link_to_registration') .'">
+                                '. PWE_Functions::multi_translation('register') .'<br>
+                                '. PWE_Functions::multi_translation('free_ticket') .' 
                                 <span class="btn-angle-right">🡲</span>
                         </a>
                     </div>
                     <div class="pwe-btn-container header-button">
                         <a class="pwe-link pwe-btn btn-exhibitors" 
                            href="'. PWECommonFunctions::languageChecker('/zostan-wystawca/', '/en/become-an-exhibitor/') .'" 
-                           alt="'. PWECommonFunctions::languageChecker('link do rejestracji wystawcy', 'link to exhibitor registration') .'">
-                                '. PWECommonFunctions::languageChecker('Zostań', 'Become') .'<br>
-                                '. PWECommonFunctions::languageChecker('Wystawcą', 'an Exhibitor') .' 
+                           alt="'. PWE_Functions::multi_translation('link_to_registration_exh') .'">
+                                '. PWE_Functions::multi_translation('become_exhibitor') .' 
                                 <span class="btn-angle-right">🡲</span>
                         </a>
                     </div>

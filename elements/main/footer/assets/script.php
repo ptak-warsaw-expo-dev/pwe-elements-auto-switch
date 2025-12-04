@@ -28,8 +28,27 @@ $output .= '
             dropMenu.insertBefore(newMenuItem, dropMenu.children[1]);
         } else {
             dropMenu.appendChild(newMenuItem);
-        }
+        }';
 
+        if (!empty(do_shortcode('[trade_fair_catalog_id]')) && get_locale() == "pl_PL") {
+            $output .= '
+            // --------------------------------------------
+
+            // Create new element li
+            const instructionMenuItem = document.createElement("li");
+            instructionMenuItem.className = pweNavMenu ? "pwe-menu__submenu-item" : "menu-item menu-item-type-custom menu-item-object-custom menu-item-99999";
+            instructionMenuItem.innerHTML = `<a title="'. (get_locale() == "pl_PL" ? 'Instrukcja aplikacji' : 'Application instructions') .'" target="_blank" href="https://warsawexpo.eu'. (get_locale() == "pl_PL" ? '/docs/Instrukcja-do-aplikacji.pdf' : '/docs/Instrukcja-do-aplikacji.pdf') .'">'. (get_locale() == "pl_PL" ? 'Instrukcja aplikacji' : 'Application instructions') .'</a>`;
+
+            // Add new element as penultimate in the list
+            if (dropMenu && dropMenu.children.length > 0) {
+            const penultimateItem = dropMenu.children[dropMenu.children.length - 1];
+                dropMenu.insertBefore(instructionMenuItem, penultimateItem);
+            } else {
+                dropMenu.appendChild(instructionMenuItem);
+            }'; 
+        }
+        
+        $output .= '
         // --------------------------------------------
 
         // Bottom main menu "For exhibitors"

@@ -16,7 +16,7 @@ $output = '
             foreach ($exhibitors as $exhibitor) {
                 $output .= '
                 <div class="pwe-exhibitors__item swiper-slide">
-                    <img src="'. $exhibitor["URL_logo_wystawcy"] .'">
+                    <img name="'. $exhibitor["name"] .'" src="'. $exhibitor["logo"] .'" alt="'. $exhibitor["name"] .'">
                 </div>';
             }
 
@@ -28,6 +28,6 @@ $output = '
     </div>
 </div>';    
 
-$output .= PWE_Swiper::swiperScripts('#pweExhibitors', [0   => ['slidesPerView' => 3], 570 => ['slidesPerView' => 4],960 => ['slidesPerView' => 4],], true);
+$output .= PWE_Swiper::swiperScripts('#pweExhibitors', [0   => ['slidesPerView' => 2], 570 => ['slidesPerView' => 4],960 => ['slidesPerView' => 4],], true);
 
 return $output;

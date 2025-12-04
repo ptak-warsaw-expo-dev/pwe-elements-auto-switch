@@ -17,7 +17,7 @@ $output = '
             foreach ($exhibitors as $exhibitor) {
                 $output .= '
                 <div class="pwe-exhibitors__item swiper-slide">
-                    <img src="'. $exhibitor["URL_logo_wystawcy"] .'">
+                    <img name="'. $exhibitor["name"] .'" src="'. $exhibitor["logo"] .'" alt="'. $exhibitor["name"] .'">
                 </div>';
             }
 

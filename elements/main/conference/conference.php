@@ -92,6 +92,56 @@ class Conference {
         return ['logo_url' => $has_logo ? $logo_url : null, 'desc' => $organizer_name];
     }
 
+    public static function getConferenceOrganizersAll($conf_slug) {
+        $cap_db = PWECommonFunctions::connect_database();
+        if (!$cap_db) {
+            return [];
+        }
+
+        $conf_slug = esc_sql($conf_slug);
+
+        $conference = $cap_db->get_row("
+            SELECT id, organizers_img
+            FROM conferences
+            WHERE conf_slug = '$conf_slug'
+        ", ARRAY_A);
+
+        if (!$conference || empty($conference['organizers_img'])) {
+            return [];
+        }
+
+        $conf_id = intval($conference['id']);
+
+        $logos = array_map('trim', explode(",", $conference['organizers_img']));
+
+        $results = [];
+
+        foreach ($logos as $logo) {
+            if ($logo === "") continue;
+
+            $slug = 'org-' . $logo;
+
+            $conf_add = $cap_db->get_row("
+                SELECT data
+                FROM conf_adds
+                WHERE slug = '$slug'
+                AND conf_id = $conf_id
+            ", ARRAY_A);
+
+            $data = [];
+            if (!empty($conf_add['data'])) {
+                $data = json_decode($conf_add['data'], true);
+            }
+
+            $results[] = [
+                "src" => 'https://cap.warsawexpo.eu/public/uploads/conf/' . $conf_slug . '/organizer/' . $logo,
+                "data" => $data
+            ];
+        }
+
+        return $results;
+    }
+
     public static function get_data() {
         $domain = parse_url(site_url(), PHP_URL_HOST);
 
@@ -128,12 +178,14 @@ class Conference {
         $element_type = $data['types'][0];
         $element_slug = strtolower(str_replace('_', '-', __CLASS__));
 
+        // Add context to translations function
+        PWE_Functions::set_translation_context($element_slug, $group, $element_type);
         // Global assets
         PWE_Functions::assets_per_element($element_slug, $element_type);
 
         // Assets per group (schedule vs normal)
         if ($useSchedule) {
-            PWE_Functions::assets_per_group($element_slug, 'gr1-shedule', $element_type);
+            PWE_Functions::assets_per_group($element_slug, $group .'-shedule', $element_type);
         } else {
             PWE_Functions::assets_per_group($element_slug, $group, $element_type);
         }

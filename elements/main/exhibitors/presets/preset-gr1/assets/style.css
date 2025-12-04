@@ -50,7 +50,7 @@
   }
 
   #pweElementsAutoSwitch #pweExhibitors .swiper-slide {
-    width: auto !important;
+    width: auto;
     min-height: auto !important;
     margin: 0 !important;
   }

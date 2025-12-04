@@ -63,6 +63,8 @@ class About {
         $element_type = $data['types'][0];
         $element_slug = strtolower(str_replace('_', '-', __CLASS__));
 
+        // Add context to translations function
+        PWE_Functions::set_translation_context($element_slug, $group, $element_type);
         // Global assets
         PWE_Functions::assets_per_element($element_slug, $element_type);
         // Assets per group

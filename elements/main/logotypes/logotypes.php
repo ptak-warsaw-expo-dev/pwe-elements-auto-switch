@@ -19,6 +19,8 @@ class Logotypes {
         $element_slug = strtolower(str_replace('_', '-', __CLASS__));
         $logotypes_slug = $params['slug'] ?? 'default';
 
+        // Add context to translations function
+        PWE_Functions::set_translation_context($element_slug, $group, $element_type);
         // Global assets
         PWE_Functions::assets_per_element($element_slug, $element_type);
         // Assets per group

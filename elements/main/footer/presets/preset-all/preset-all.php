@@ -48,9 +48,9 @@ $output = '
     }
     
     if (get_locale() == 'pl_PL' && isset($menu_1_pl, $menu_2_pl, $menu_3_pl)) {
-        $output .= generateFooterNavEl('pl_PL', [$menu_1_pl, $menu_2_pl, $menu_3_pl], $footer_logo_color_invert);
+        $output .= generateFooterNavEl('pl_PL', [$menu_1_pl, $menu_2_pl, $menu_3_pl]);
     } elseif (isset($menu_1_en, $menu_2_en, $menu_3_en)) {
-        $output .= generateFooterNavEl('en_US', [$menu_1_en, $menu_2_en, $menu_3_en], $footer_logo_color_invert);
+        $output .= generateFooterNavEl('en_US', [$menu_1_en, $menu_2_en, $menu_3_en]);
     }
 
     $output .= '  

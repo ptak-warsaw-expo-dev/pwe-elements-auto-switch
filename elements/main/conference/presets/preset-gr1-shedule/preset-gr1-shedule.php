@@ -1,38 +1,61 @@
 <?php
 
-$__getFairDays = function (): array {
-    $start_raw = do_shortcode('[trade_fair_datetotimer]'); // "Y/m/d H:i"
-    $end_raw   = do_shortcode('[trade_fair_enddata]');     // "Y/m/d H:i"
-    $start = DateTime::createFromFormat('Y/m/d H:i', $start_raw);
-    $end   = DateTime::createFromFormat('Y/m/d H:i', $end_raw);
+/**
+ * Gets all days of the fair as an array of YYYY-mm-dd.
+ */
+function getFairDays(): array {
+    $startRaw = do_shortcode('[trade_fair_datetotimer]');
+    $endRaw   = do_shortcode('[trade_fair_enddata]');
+
+    $start = DateTime::createFromFormat('Y/m/d H:i', $startRaw);
+    $end   = DateTime::createFromFormat('Y/m/d H:i', $endRaw);
+
     if (!$start || !$end) return [];
-    if ($end < $start) [$start, $end] = [$end, $start];
+
+    if ($end < $start) {
+        [$start, $end] = [$end, $start];
+    }
+
     $start = new DateTime($start->format('Y-m-d'));
     $end   = new DateTime($end->format('Y-m-d'));
+
     $days = [];
     for ($d = clone $start; $d <= $end; $d->modify('+1 day')) {
         $days[] = $d->format('Y-m-d');
     }
-    return $days;
-};
 
-$__parseRange = function (?string $range): ?array {
+    return $days;
+}
+
+
+/**
+ * Parses a date range in the format "Y/m/d to Y/m/d".
+ */
+function parseDateRange(?string $range): ?array {
     if (!$range) return null;
+
     $parts = explode(' to ', trim($range), 2);
     if (count($parts) !== 2) return null;
-    $s = DateTime::createFromFormat('Y/m/d', trim($parts[0]));
-    $e = DateTime::createFromFormat('Y/m/d', trim($parts[1]));
-    if (!$s || !$e) return null;
-    if ($e < $s) [$s, $e] = [$e, $s];
-    return [new DateTime($s->format('Y-m-d')), new DateTime($e->format('Y-m-d'))];
-};
 
-$fair_days  = $__getFairDays();
-$total_days = count($fair_days);
-if ($total_days === 0) return '';
+    $start = DateTime::createFromFormat('Y/m/d', trim($parts[0]));
+    $end   = DateTime::createFromFormat('Y/m/d', trim($parts[1]));
 
-$all  = self::get_conferences_brief($domain);
+    if (!$start || !$end) return null;
 
+    if ($end < $start) {
+        [$start, $end] = [$end, $start];
+    }
+
+    return [
+        new DateTime($start->format('Y-m-d')),
+        new DateTime($end->format('Y-m-d')),
+    ];
+}
+
+
+/**
+ * Debug for administrator only.
+ */
 function admin_log($msg) {
     if (function_exists('current_user_can') && current_user_can('administrator')) {
         $safe = json_encode($msg, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
@@ -40,182 +63,345 @@ function admin_log($msg) {
     }
 }
 
+$fairDays  = getFairDays();
+$totalDays = count($fairDays);
+
+if ($totalDays === 0) {
+    return '';
+}
+
+$allConferences = self::get_conferences_brief($domain);
 $processed = [];
-foreach ($all as $conf) {
-    admin_log("Sprawdzam konf ID={$conf->id}, slug={$conf->conf_slug}");
+
+
+foreach ($allConferences as $conf) {
+
+    admin_log("Sprawdzam konferencję ID={$conf->id}, slug={$conf->conf_slug}");
 
     if (empty($conf->conf_date_range)) {
-        admin_log("Pominięto: brak conf_date_range");
+        admin_log("Brak conf_date_range – pomijam");
         continue;
     }
+
     if (!self::conference_overlaps_fair((string)$conf->conf_date_range)) {
-        admin_log("Pominięto: brak overlap z targami, range={$conf->conf_date_range}");
+        admin_log("Brak overlapu z targami dla: {$conf->conf_date_range}");
         continue;
     }
 
-    $range = $__parseRange((string)$conf->conf_date_range);
+    $range = parseDateRange((string)$conf->conf_date_range);
     if (!$range) {
-        admin_log("Pominięto: nie udało się sparsować range={$conf->conf_date_range}");
+        admin_log("Nie udało się parsować zakresu: {$conf->conf_date_range}");
         continue;
     }
+
     [$cStart, $cEnd] = $range;
-    admin_log("Range OK: start={$cStart->format('Y-m-d')} end={$cEnd->format('Y-m-d')}");
 
-    $fairStart = new DateTime(reset($fair_days));
-    $fairEnd   = new DateTime(end($fair_days));
-    if ($cStart < $fairStart) $cStart = clone $fairStart;
-    if ($cEnd   > $fairEnd)   $cEnd   = clone $fairEnd;
+    admin_log("Zakres OK: {$cStart->format('Y-m-d')} – {$cEnd->format('Y-m-d')}");
 
-    $start_index = array_search($cStart->format('Y-m-d'), $fair_days, true);
-    $end_index   = array_search($cEnd->format('Y-m-d'),   $fair_days, true);
-    if ($start_index === false || $end_index === false) {
-        admin_log("Pominięto: nie znaleziono start/end w fair_days: {$cStart->format('Y-m-d')} / {$cEnd->format('Y-m-d')}");
+    $fairStart = new DateTime(reset($fairDays));
+    $fairEnd   = new DateTime(end($fairDays));
+
+    $cStart = max($cStart, $fairStart);
+    $cEnd   = min($cEnd,   $fairEnd);
+
+    $startIndex = array_search($cStart->format('Y-m-d'), $fairDays, true);
+    $endIndex   = array_search($cEnd->format('Y-m-d'),   $fairDays, true);
+
+    if ($startIndex === false || $endIndex === false) {
+        admin_log("Nie znaleziono start/end w fairDays");
         continue;
     }
 
-    $org = self::getConferenceOrganizer((int)$conf->id, (string)$conf->conf_slug, $lang);
-    if (!$org) {
-        admin_log("Pominięto: brak organizatora dla ID={$conf->id}");
-        continue;
-    }
-
-    $title_text = PWECommonFunctions::languageChecker(
-        $conf->conf_name_pl ?: ($conf->conf_name_en ?: (string)$conf->conf_slug),
-        $conf->conf_name_en ?: ($conf->conf_name_pl ?: (string)$conf->conf_slug)
+    // Conference Organizer (OLD)
+    $organizer = self::getConferenceOrganizer(
+        (int)$conf->id,
+        (string)$conf->conf_slug,
+        $lang
     );
 
-    $order = isset($conf->conf_order) && is_numeric($conf->conf_order) ? (int)$conf->conf_order : PHP_INT_MAX;
+    // Conference organizers (NEW)
+    $organizers_all = self::getConferenceOrganizersAll($conf->conf_slug);
+
+    // Preparing lists
+    $org_src_list  = [];
+    $org_name_list = [];
+
+    if (!empty($organizers_all)) {
+
+        foreach ($organizers_all as $o) {
+
+            if (empty($o['src'])) {
+                continue;
+            }
+
+            // Collect all the logos
+            $org_src_list[] = esc_url($o['src']);
+
+            // Names of the organizers
+            $name_pl = !empty($o['data']['orgNamePl']) ? esc_html($o['data']['orgNamePl']) : '';
+            $name_en = !empty($o['data']['orgNameEn']) ? esc_html($o['data']['orgNameEn']) : '';
+
+            $name = ($lang === 'PL')
+                ? $name_pl
+                : (!empty($name_en) ? $name_en : $name_pl);
+
+            if (!empty($name)) {
+                $org_name_list[] = $name;
+            }
+        }
+
+        // Final values ​​(if empty - will go to fallback)
+        $org_src  = $org_src_list;
+        $org_name = implode(', ', $org_name_list);
+
+    } else if ($organizer && !empty($organizer['logo_url'])) {
+
+        // Fallback — old way, single organizer
+        $org_src  = [ esc_url($organizer['logo_url']) ]; // też w tablicy, dla spójności
+        $org_name = esc_html($organizer['desc']);
+
+    } else {
+
+        admin_log("Brak organizatora – pomijam");
+        continue;
+    }
+
+    // Conference title
+    $title = PWECommonFunctions::languageChecker(
+        $conf->conf_name_pl ?: ($conf->conf_name_en ?: $conf->conf_slug),
+        $conf->conf_name_en ?: ($conf->conf_name_pl ?: $conf->conf_slug)
+    );
+
+    $order = is_numeric($conf->conf_order) ? (int)$conf->conf_order : PHP_INT_MAX;
 
     $processed[] = [
-        'title'       => $title_text,
-        'logo'        => $org['logo_url'],
-        'organizer'   => $org['desc'],
-        'start_index' => $start_index,
-        'end_index'   => $end_index,
+        'title'       => $title,
+        'logo'        => $org_src,      // Array
+        'organizer'   => $org_name,     // "ABC, XYZ"
+        'start_index' => $startIndex,
+        'end_index'   => $endIndex,
         'slug'        => (string)$conf->conf_slug,
         'order'       => $order,
     ];
+
     admin_log("Dodano konferencję: " . json_encode(end($processed)));
 }
 
+// If conference is empty
+
 if (empty($processed)) {
-    admin_log("Brak konferencji – przełączam na preset-gr1.php i dodaję style"); 
+    admin_log("Brak konferencji – wczytuję preset-gr1.php");
 
     PWE_Functions::assets_per_group($element_slug, 'gr1', $element_type);
 
     $output = include_once plugin_dir_path(__DIR__) . 'preset-gr1/preset-gr1.php';
     echo $output;
+
     return;
 }
 
-// Sortowanie po conf_order rosnąco; przy remisie – alfabetycznie po tytule
+// Sorting
+
 usort($processed, function($a, $b) {
-    if ($a['order'] === $b['order']) {
-        return strcasecmp($a['title'], $b['title']);
-    }
-    return ($a['order'] < $b['order']) ? -1 : 1;
+    return $a['order'] <=> $b['order']
+        ?: strcasecmp($a['title'], $b['title']);
 });
 
-// Grupowanie po 5 – do swipera desktopowego
-$grouped    = array_chunk($processed, 5);
-$use_swiper = count($grouped) > 1;
+// Render view
 
-$output  = '<div id="pweConfSchedule" class="pwe-conf-short-info-gr1-schedule">';
-$output .= '<div class="pwe-conf-short-info-gr1-schedule__wrapper">';
+$groups = array_chunk($processed, 5);
+$useSwiper = count($groups) > 1;
 
-/* TOP */
-$output .= '<div class="pwe-conf-short-info-gr1-schedule__top">
-    <img src="/doc/kongres-color.webp" alt="Congress logo">
-    <div class="pwe-conf-short-info-gr1-schedule__title-container">
-        <h2 class="pwe-conf-short-info-gr1-schedule__conf-name">' . do_shortcode('[trade_fair_conferance]') . '</h2>
-        <h3>' . esc_html($title) . '</h3>
-    </div>
-</div>';
+$output  = '
+<div id="pweConfSchedule" class="pwe-conference-schedule">
+    <div class="pwe-conference-schedule__wrapper">
 
-/* DESKTOP: multi-table (swiper lub pojedyncza) */
-$output .= '<div class="pwe-conf-short-info-gr1-schedule__multi-table-wrapper">';
-if ($use_swiper) {
-    $output .= '<div class="swiper"><div class="swiper-wrapper">';
-}
+        <div class="pwe-conference-schedule__top">
+            <img src="/doc/kongres-color.webp" alt="Congress logo">
+            <div class="pwe-conference-schedule__title-container">
+                <h2 class="pwe-conference-schedule__conf-name">' . do_shortcode('[trade_fair_conferance]') . '</h2>
+                <h3>' . esc_html($title) . '</h3>
+            </div>
+        </div>
 
-$renderTable = function(array $group) use ($fair_days, $total_days) {
-    $html  = '<table class="pwe-conf-short-info-gr1-schedule__table">';
-    $html .= '<thead><tr><th>' . PWECommonFunctions::languageChecker('Organizator', 'Organizer') . '</th>';
-    $html .= '<th>' . PWECommonFunctions::languageChecker('Temat', 'Subject') . '</th>';
-    foreach ($fair_days as $date) {
-        $html .= '<th>' . date('d.m', strtotime($date)) . '</th>';
-    }
-    $html .= '</tr></thead><tbody>';
+        <div class="pwe-conference-schedule__multi-table-wrapper">';
 
-    foreach ($group as $conf) {
-        $href = '/' . PWECommonFunctions::languageChecker('wydarzenia', 'en/conferences') . '/?konferencja=' . esc_attr($conf['slug']);
-        $html .= '<tr class="pwe-conf-short-info-gr1-schedule__row-link" data-href="' . esc_url($href) . '">';
+        if ($useSwiper) {
+            $output .= '
+            <div class="swiper">
+                <div class="swiper-wrapper">';
+        }
 
-        $logo = $conf['logo'] ? '<img src="' . esc_url($conf['logo']) . '" alt="" class="pwe-conf-short-info-gr1-schedule__org-logo">' : '';
-        $html .= '<td>' . $logo . '</td>';
+        /**
+         * Array render
+         */
+        $renderTable = function(array $group) use ($fairDays, $totalDays) {
 
-        $html .= '<td><strong>' . esc_html(str_replace('<br>', '', $conf['title'])) . '</strong><br><small>' . esc_html($conf['organizer']) . '</small></td>';
+            $html = '
+            <table class="pwe-conference-schedule__table">
+                <thead>
+                    <tr>
+                        <th>' . PWECommonFunctions::languageChecker('Organizator', 'Organizer') . '</th>
+                        <th>' . PWECommonFunctions::languageChecker('Temat', 'Subject') . '</th>';
 
-        for ($i = 0; $i < $total_days; $i++) {
-            if ($i === $conf['start_index']) {
-                $colspan = $conf['end_index'] - $conf['start_index'] + 1;
-                $html .= '<td colspan="' . (int)$colspan . '"><div class="pwe-conf-short-info-gr1-schedule__timeline-bar" style="width:100%"></div></td>';
-                $i = $conf['end_index'];
-            } else {
-                $html .= '<td></td>';
+                        foreach ($fairDays as $date) {
+                            $html .= '<th>' . date('d.m', strtotime($date)) . '</th>';
+                        }
+
+                    $html .= '
+                    </tr>
+                </thead>
+
+                <tbody>';
+
+                    foreach ($group as $conf) {
+
+                        $href = '/' . PWECommonFunctions::languageChecker('wydarzenia', 'en/conferences')
+                            . '/?konferencja=' . esc_attr($conf['slug']);
+
+                        // Multiple logos (array -> HTML)
+                        if (!empty($conf['logo']) && is_array($conf['logo'])) {
+                            $logo_html = '';
+                            foreach ($conf['logo'] as $src) {
+                                if (!empty($src)) {
+                                    $logo_html .= '
+                                        <img src="' . esc_url($src) . '" class="pwe-conference-schedule__org-logo">';
+                                }
+                            }
+                        } else {
+                            // Fallback
+                            $logo_html = !empty($conf['logo'])
+                                ? '<img src="' . esc_url($conf['logo']) . '" class="pwe-conference-schedule__org-logo">'
+                                : '';
+                        }
+
+                        $html .= '
+                        <tr class="pwe-conference-schedule__row-link" data-href="' . esc_url($href) . '">
+                            <td>
+                                <div class="pwe-conference-schedule__logos">' . $logo_html . '</div></td>
+                            <td>
+                                <strong>' . esc_html($conf['title']) . '</strong><br>
+                                <small>' . esc_html($conf['organizer']) . '</small>
+                            </td>';
+
+                            for ($i = 0; $i < $totalDays; $i++) {
+
+                                if ($i === $conf['start_index']) {
+
+                                    $span = $conf['end_index'] - $conf['start_index'] + 1;
+
+                                    $html .= '
+                                    <td colspan="' . $span . '">
+                                        <div class="pwe-conference-schedule__timeline-bar"></div>
+                                    </td>';
+
+                                    $i = $conf['end_index'];
+
+                                } else {
+                                    $html .= '
+                                    <td></td>';
+                                }
+                            }
+
+                        $html .= '
+                        </tr>';
+                    }
+
+
+                $html .= '
+                </tbody>
+            </table>';
+
+            return $html;
+        };
+
+
+        // Rendering groups
+        foreach ($groups as $group) {
+
+            if ($useSwiper) {
+                $output .= '
+                <div class="swiper-slide">';
+            }
+
+            $output .= $renderTable($group);
+
+            if ($useSwiper) {
+                $output .= '
+                </div>';
             }
         }
-        $html .= '</tr>';
-    }
 
-    $html .= '</tbody></table>';
-    return $html;
-};
+        if ($useSwiper) {
+            $output .= '
+                </div>
+            </div>
+            <div class="swiper-scrollbar"></div>';
+        }
 
-foreach ($grouped as $group) {
-    if ($use_swiper) $output .= '<div class="swiper-slide">';
-    $output .= $renderTable($group);
-    if ($use_swiper) $output .= '</div>'; // .swiper-slide
-}
-
-if ($use_swiper) {
-    $output .= '</div></div><div class="swiper-scrollbar"></div>';
-}
-$output .= '</div>'; // .multi-table-wrapper
-
-/* MOBILE: listy kartowe (render zawsze; ukrywanie/pokazywanie CSS-em) */
-$output .= '
-<div class="pwe-conf-short-info-gr1-schedule__mobile-list-wrapper">
-    <div class="pwe-conf-short-info-gr1-schedule__mobile-list">';
-
-foreach ($processed as $conf) {
-    $conf_days = array_slice($fair_days, $conf['start_index'], $conf['end_index'] - $conf['start_index'] + 1);
-    $conf_days_formatted = implode(', ', array_map(fn($d) => date('d.m', strtotime($d)), $conf_days));
-
-    $output .= '
-        <div class="pwe-conf-short-info-gr1-schedule__mobile-card">'
-        . (!empty($conf['logo']) ? '<img src="' . esc_url($conf['logo']) . '" alt="">' : '') .
-        '<h3>' . esc_html($conf['title']) . '</h3>
-            <p><strong>' . esc_html($conf['organizer']) . '</strong></p>
-            <p><em>' . esc_html($conf_days_formatted) . '</em></p>
+        $output .= '
         </div>';
-}
 
-$output .= '
+        $output .= '
+        <div class="pwe-conference-schedule__mobile-list-wrapper">
+            <div class="pwe-conference-schedule__mobile-list">';
+
+            foreach ($processed as $conf) {
+
+                // Counting days
+                $days = array_slice(
+                    $fairDays,
+                    $conf['start_index'],
+                    $conf['end_index'] - $conf['start_index'] + 1
+                );
+
+                $daysFormatted = implode(', ', array_map(fn($d) => date('d.m', strtotime($d)), $days));
+
+                // Multiple logos fo mobile
+                $logo_html = '';
+
+                if (!empty($conf['logo']) && is_array($conf['logo'])) {
+                    foreach ($conf['logo'] as $src) {
+                        if (!empty($src)) {
+                            $logo_html .= '
+                            <img src="' . esc_url($src) . '" alt="" class="pwe-conference-schedule__org-logo">';
+                        }
+                    }
+                }
+
+                // Fallback – if the logo were a string
+                if (empty($logo_html) && !empty($conf['logo']) && is_string($conf['logo'])) {
+                    $logo_html .= '
+                    <img src="' . esc_url($conf['logo']) . '" alt="" class="pwe-conference-schedule__org-logo">';
+                }
+
+                $output .= '
+                    <div class="pwe-conference-schedule__mobile-card">
+                        <div class="pwe-conference-schedule__logos">
+                            ' . $logo_html . '
+                        </div>
+                        <h3>' . esc_html($conf['title']) . '</h3>
+                        <p><strong>' . esc_html($conf['organizer']) . '</strong></p>
+                        <p><em>' . esc_html($daysFormatted) . '</em></p>
+                    </div>';
+            }
+
+            $output .= '
+            </div>
+        </div>';
+
+        $output .= '
+        <div class="pwe-conference-schedule__buttons">
+            <a href="' . PWECommonFunctions::languageChecker('/rejestracja/', '/en/registration/') . '" class="pwe-main-btn--primary">'
+                . PWECommonFunctions::languageChecker('Weź udział', 'Take part') . '</a>
+
+            <a href="' . PWECommonFunctions::languageChecker('/wydarzenia/', '/en/conferences/') . '" class="pwe-main-btn--secondary">'
+                . PWECommonFunctions::languageChecker('Dowiedz się więcej', 'Find out more') . '</a>
+        </div>
     </div>
 </div>';
 
-/* BUTTONS */
-$output .= '<div class="pwe-conf-short-info-gr1-schedule__buttons">
-    <a href="' . PWECommonFunctions::languageChecker('/rejestracja/', '/en/registration/') . '" class="pwe-main-btn--primary">'
-        . PWECommonFunctions::languageChecker('Weź udział', 'Take part') . '</a>
-    <a href="' . PWECommonFunctions::languageChecker('/wydarzenia/', '/en/conferences/') . '" class="pwe-main-btn--secondary">'
-        . PWECommonFunctions::languageChecker('Dowiedz się więcej', 'Find out more') . '</a>
-</div>';
-
-$output .= '</div></div>'; // wrapper, kontener
-
-if ($use_swiper) {
+if ($useSwiper) {
     $output .= PWE_Swiper::swiperScripts('#pweConfSchedule', [0 => ['slidesPerView' => 1]], true);
 }
 
