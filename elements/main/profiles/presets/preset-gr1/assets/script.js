@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (ul && btn) {
             const items = ul.querySelectorAll("li");
 
-            let limit = window.innerWidth < 570 ? 6 : 10;
+            let limit = window.innerWidth < 570 ? 6 : 7;
 
             if (items.length > limit) {
                 ul.classList.add("collapsed");

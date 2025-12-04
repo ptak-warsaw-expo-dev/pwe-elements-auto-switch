@@ -74,7 +74,7 @@
 #pweElementsAutoSwitch .pwe-profiles__tab-text li {
     line-height: 1.5;
 }
-#pweElementsAutoSwitch .pwe-profiles__tab-text ul.collapsed li:nth-child(n+11) {
+#pweElementsAutoSwitch .pwe-profiles__tab-text ul.collapsed li:nth-child(n+8) {
     display: none;
 }
 #pweElementsAutoSwitch .pwe-profiles__show-more-btn {
