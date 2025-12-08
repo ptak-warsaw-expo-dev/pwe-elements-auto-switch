@@ -37,6 +37,10 @@ class Exhibitors {
             } else {
                 $exhibitors = PWE_Functions::exhibitor_logos($katalog_id);
             }
+
+            if (count($exhibitors) < 16) {
+                return;
+            }
             
             if (count($exhibitors) < 16) {
                 return;

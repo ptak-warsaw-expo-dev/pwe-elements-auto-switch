@@ -91,6 +91,10 @@ class Posts {
             }
             wp_reset_postdata();
 
+            if (empty($posts_items)) {
+                return;
+            }
+
             $pwe_posts = [
                 'items'     => $posts_items,
                 'has_items' => !empty($posts_items),

@@ -86,7 +86,7 @@ class About {
 
             $img = '<img class="pwe-about__img" src="' 
                 . (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/new_template/fair_img.webp') 
-                    ? home_url('/doc/new_template/fair_img.webp') 
+                    ? 'https://'. $_SERVER['HTTP_HOST'] . '/doc/new_template/fair_img.webp' 
                     : content_url('plugins/pwe-media/media/main-page/fair_img.webp')) 
                 . '" alt="' 
                 . PWECommonFunctions::languageChecker(
