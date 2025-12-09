@@ -19,7 +19,7 @@ class PWE_Functions {
         $ctx = self::$translation_context;
 
         if (!$ctx['element_slug'] || !$ctx['group']) {
-            return $key; // brak kontekstu, unikamy błędów
+            return $key;
         }
 
         $locale = get_locale();
@@ -39,9 +39,11 @@ class PWE_Functions {
     }
 
     // Assets per element
-    public static function assets_per_element($element_slug, $element_type = 'main') {
-        $base_dir = plugin_dir_path(__DIR__) . 'elements/'. $element_type .'/'. $element_slug . '/assets/';
-        $base_url = plugin_dir_url(__DIR__) . 'elements/'. $element_type .'/'. $element_slug . '/assets/';
+    public static function assets_per_element($element_slug, $element_type = 'main', $folder = 'elements') {
+        $src = $folder .'/'. (!empty($element_type) ? $element_type .'/' : '') . $element_slug . '/assets/';
+
+        $base_dir = plugin_dir_path(__DIR__) . $src;
+        $base_url = plugin_dir_url(__DIR__) . $src;
 
         $el_name = 'el=' . urlencode($element_slug);
 
@@ -70,9 +72,11 @@ class PWE_Functions {
     }
 
     // Assets per group
-    public static function assets_per_group($element_slug, $group, $element_type = 'main') {
-        $base_dir = plugin_dir_path(__DIR__) . 'elements/'. $element_type .'/'. $element_slug . '/presets/preset-' . $group . '/assets/';
-        $base_url = plugin_dir_url(__DIR__) . 'elements/'. $element_type .'/'. $element_slug . '/presets/preset-' . $group . '/assets/';
+    public static function assets_per_group($element_slug, $group, $element_type = 'main', $folder = 'elements', $atts = null) {
+        $src = $folder .'/'. (!empty($element_type) ? $element_type .'/' : '') . $element_slug . '/presets/preset-' . $group . '/assets/';
+        
+        $base_dir = plugin_dir_path(__DIR__) . $src;
+        $base_url = plugin_dir_url(__DIR__) . $src;
 
         $el_name = 'el=' . urlencode($element_slug);
         $el_group = 'gr=' . urlencode($group);
@@ -90,14 +94,19 @@ class PWE_Functions {
 
         // JS
         if (file_exists($base_dir . 'script.js')) {
+            $handle = 'pwe-' . $element_slug . '-' . $group . '-script';
             $version = filemtime($base_dir . 'script.js');
+
             wp_enqueue_script(
-                'pwe-' . $element_slug . '-' . $group . '-script',
+                $handle,
                 $base_url . 'script.js?' . $el_name .'&'. $el_group,
                 ['jquery'],
                 $version,
                 true
             );
+            if (!empty($atts)) {
+                wp_localize_script($handle, 'pwe_element_atts', $atts);
+            }
         }
     }
 
@@ -308,26 +317,5 @@ class PWE_Functions {
             }
         }
     }
-
-    // // Translations into all available languages ​​​​that are in JSON
-    // public static function multi_translation($key, $element_slug, $group, $element_type = 'main') {
-    //     $locale = get_locale();
-    
-    //     $translations_file = plugin_dir_url(__DIR__) . 'translations/elements/'. $element_type .'/'. $element_slug . '/' . $element_slug . '-' . $group . '.json';
-
-    //     // JSON file with translation
-    //     $translations_data = json_decode(file_get_contents($translations_file), true);
-
-    //     // Is the language in translations
-    //     if (isset($translations_data[$locale])) {
-    //         $translations_map = $translations_data[$locale];
-    //     } else {
-    //         // By default use English translation if no translation for current language
-    //         $translations_map = $translations_data['en_US'];
-    //     }
-
-    //     // Return translation based on key
-    //     return isset($translations_map[$key]) ? $translations_map[$key] : $key;
-    // }
 
 }
