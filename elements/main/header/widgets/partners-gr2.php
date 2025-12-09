@@ -350,7 +350,7 @@ $output .= '
 <style>
     .pwe-header__partners {
         position: absolute;
-        top: 58%;
+        top: 55%;
         transform: translate(0, -50%);
         right: 18px;
         display: flex;
@@ -701,8 +701,8 @@ if (count($grouped_logos) > 0) {
 
                 const diff = Math.abs(partnersHeight - containerHeight);
 
-                if (containerHeight < partnersHeight || diff < 30) {
-                    pweHeaderContainer.style.minHeight = partnersHeight + 60 + "px";
+                if (containerHeight < partnersHeight || diff < 100) {
+                    pweHeaderContainer.style.minHeight = partnersHeight + 100 + "px";
                 }
             }, 300);
            

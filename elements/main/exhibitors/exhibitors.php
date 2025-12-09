@@ -38,8 +38,8 @@ class Exhibitors {
                 $exhibitors = PWE_Functions::exhibitor_logos($katalog_id);
             }
 
-            if (count($exhibitors) < 16) {
-                return;
+            if (!is_array($exhibitors)) {
+                $exhibitors = [];
             }
             
             if (count($exhibitors) < 16) {

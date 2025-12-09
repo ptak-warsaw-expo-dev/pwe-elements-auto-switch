@@ -25,6 +25,7 @@ $output = '
         z-index: 1; 
         display: flex;
         justify-content: space-between;
+        margin: 64px auto 0;
     }
     .pwe-header__column {
         display: flex;

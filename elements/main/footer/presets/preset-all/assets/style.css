@@ -1,6 +1,8 @@
 #pweElementsAutoSwitch .footer {
     max-width: 100%;
     padding: 0;
+    z-index: 100;
+    position: relative;
 }
 #pweElementsAutoSwitch .pwe-footer__nav {
     background-color: black;

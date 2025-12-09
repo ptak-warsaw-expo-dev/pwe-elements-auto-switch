@@ -84,6 +84,10 @@ class About {
             $title = $fair->{'about_title_' . $selected_lang} ?? '';
             $desc = $fair->{'about_desc_' . $selected_lang} ?? '';
 
+            if (empty($desc)) {
+                return;
+            }
+
             $img = '<img class="pwe-about__img" src="' 
                 . (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/new_template/fair_img.webp') 
                     ? 'https://'. $_SERVER['HTTP_HOST'] . '/doc/new_template/fair_img.webp' 

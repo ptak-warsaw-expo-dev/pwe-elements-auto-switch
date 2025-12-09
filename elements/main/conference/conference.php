@@ -205,6 +205,9 @@ class Conference {
                 $title = $first_fair_adds ? ($first_fair_adds->{'konf_title_' . $lang} ?? '') : '';
                 $desc  = $first_fair_adds ? ($first_fair_adds->{'konf_desc_' . $lang} ?? '') : '';
 
+                if (empty($desc)) {
+                    return;
+                }
 
                 // CAP logotypes of partners
                 $cap_logotypes_data = PWECommonFunctions::get_database_logotypes_data();

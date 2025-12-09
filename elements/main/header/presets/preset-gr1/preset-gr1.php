@@ -20,7 +20,7 @@ $output = '
                         </div>
                         <div class="pwe-header__date-block">
                             <i class="fa fa-location-outline fa-2x fa-fw"></i>
-                            <h2>'. $trade_fair_dates_custom_format .' '. PWE_Functions::multi_translation('warsaw') .'</h2> 
+                            <h2>'. $trade_fair_dates_custom_format .' '. PWE_Functions::multi_translation('warsaw') .', '. PWE_Functions::multi_translation('poland') .'</h2> 
                             <p></p>
                         </div>
                         <div id="pweBtnRegistration" class="pwe-btn-container header-button">
