@@ -8,7 +8,7 @@ $output .= '
         <div class="pwe-statistics__main-tile pwe-statistics__border">
             <h4 class="pwe-main-title">'. PWECommonFunctions::languageChecker('Estymacje', 'Estimates') .'</h4>
             <div class="pwe-statistics__main-text">
-                <strong><p>' . do_shortcode('[pwe_edition]') . PWECommonFunctions::languageChecker('. edycja', 'edition') .'</p></strong>
+                <strong><p>' . do_shortcode('[pwe_edition]') . PWECommonFunctions::languageChecker('. edycja', ' edition') .'</p></strong>
                 <p>'. do_shortcode(PWECommonFunctions::languageChecker('[trade_fair_date]', '[trade_fair_date_eng]')) .'</p>
             </div>
             <a class="pwe-statistics__btn pwe-main-btn--secondary" href="' . PWECommonFunctions::languageChecker('/rejestracja/', '/en/registration/') . '">' . PWECommonFunctions::languageChecker('Zarejestruj się', 'Registration') . '</a>
