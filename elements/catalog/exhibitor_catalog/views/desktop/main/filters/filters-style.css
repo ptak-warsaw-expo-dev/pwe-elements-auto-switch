@@ -1,0 +1,258 @@
+#pweElementsAutoSwitch .pwe-opinions__item-opinion-text {
+    max-height: 140px;
+    overflow-y: auto;
+    padding-right: 8px;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+    -webkit-overflow-scrolling: touch;
+}
+/* Chrome, Edge, Safari */
+#exhibitorCatalog .exhibitor-catalog__filters-form::-webkit-scrollbar {
+    width: 6px;
+}
+#exhibitorCatalog .exhibitor-catalog__filters-form::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+}
+#exhibitorCatalog .exhibitor-catalog__filters-form::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+#exhibitorCatalog .exhibitor-catalog__filters-form::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+#exhibitorCatalog .exhibitor-catalog__filters-form::-webkit-scrollbar-button {
+    display: none;
+}
+
+#exhibitorCatalog .exhibitor-catalog__filters-form {
+    height: 72vh;
+    overflow: auto;
+    width: 26%;
+    max-width: 300px;
+    padding-right: 6px;
+}
+
+#exhibitorCatalog .exhibitor-catalog__main-columns form.is_stucked {
+    margin-top: 90px;
+    animation: slideDown 0.3s ease forwards;
+}
+
+#exhibitorCatalog .exhibitor-catalog__filter-container {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+#exhibitorCatalog .exhibitor-catalog__filter-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+#exhibitorCatalog .exhibitor-catalog__labels-container {
+    width: 100%;
+    padding-right: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+h3.exhibitor-catalog__filter-heading {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+/* LABEL: już bez stałych width/height, jako flex */
+#exhibitorCatalog .exhibitor-catalog__filter-switch {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+/* schowanie inputa (prosto; można użyć bardziej a11y-friendly techniki) */
+#exhibitorCatalog .exhibitor-catalog__filter-switch input[type='checkbox'] {
+    display: none;
+}
+
+/* TŁO PRZEŁĄCZNIKA: przenosimy szer./wys. tutaj i NIE absolutnie względem labela */
+#exhibitorCatalog .exhibitor-catalog__filter-switch-background {
+    position: relative;
+    width: 30px;
+    height: 20px;
+    background-color: #ddd;
+    border-radius: 36px;
+    box-shadow: inset 0 0 0 2px #ccc;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* GAŁKA */
+#exhibitorCatalog .exhibitor-catalog__filter-switch-handle {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* STAN: włączony */
+#exhibitorCatalog
+    .exhibitor-catalog__filter-switch
+    input[type='checkbox']:checked
+    ~ .exhibitor-catalog__filter-switch-background {
+    background-color: var(--main2-color);
+    box-shadow: inset 0 0 0 2px var(--main2-color);
+}
+
+#exhibitorCatalog
+    .exhibitor-catalog__filter-switch
+    input[type='checkbox']:checked
+    ~ .exhibitor-catalog__filter-switch-background
+    .exhibitor-catalog__filter-switch-handle {
+    transform: translateX(10px);
+}
+
+/* Etykieta tekstowa obok przełącznika */
+#exhibitorCatalog .exhibitor-catalog__filter-label {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 700;
+    user-select: none;
+    color: #2a2b2d;
+    word-break: break-word;
+    text-transform: capitalize;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    align-items: center;
+}
+
+#exhibitorCatalog .exhibitor-catalog__filter-label-number {
+    min-width: 40px;
+    text-align: right;
+    font-weight: 400;
+    font-size: 14px;
+    color: #2a2b2d;
+}
+
+/* przycisk */
+#exhibitorCatalog .exhibitor-catalog__more-btn {
+    /* display: inline-block; */
+    display: none;
+    margin: 12px auto 0;
+    padding: 14px 24px;
+    border-radius: 36px;
+    background: #f0f0f0;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+#exhibitorCatalog .exhibitor-catalog__more-btn:hover {
+    background-color: var(#d0d0d0);
+}
+
+#exhibitorCatalog .exhibitor-catalog__panel-filter-search--floating {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 14px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    z-index: 9999;
+    transform: translateY(120%);
+    transition: transform 0.25s ease-out;
+}
+
+/* Klasa aktywna (JS dodaje search-active) */
+#exhibitorCatalog .exhibitor-catalog__panel-filter-search--floating.search-active {
+    transform: translateY(0);
+}
+
+#exhibitorCatalog .exhibitor-catalog__panel-filter-search--floating .exhibitor-catalog__panel-filter-search {
+    flex: 0.16;
+    margin: 0;
+    padding: 16px;
+    background-color: var(--main2-color);
+    color: #fffffe;
+    border-radius: 36px;
+    font-weight: 700;
+    font-size: 14px;
+    transition: 0.3s ease;
+}
+
+#exhibitorCatalog .exhibitor-catalog__filter-switch.is-disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+#exhibitorCatalog .exhibitor-catalog__filter-group.is-collapsible .exhibitor-catalog__labels-container {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.35s ease;
+}
+
+#exhibitorCatalog .exhibitor-catalog__filter-group.is-open .exhibitor-catalog__labels-container {
+    max-height: 2000px; /* bezpieczny zapas */
+}
+
+#exhibitorCatalog .exhibitor-catalog__heading-container {
+    width: 100%;
+}
+
+#exhibitorCatalog .exhibitor-catalog__filter-heading {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+#exhibitorCatalog .exhibitor-catalog__filter-arrow {
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(-45deg);
+    transition: transform 0.25s ease;
+}
+
+#exhibitorCatalog .exhibitor-catalog__filter-group.is-open .exhibitor-catalog__filter-arrow {
+    transform: rotate(45deg);
+}
+
+@media (max-width: 960px) {
+    #exhibitorCatalog .exhibitor-catalog__filters-form {
+        width: 36%;
+    }
+    #exhibitorCatalog .exhibitor-catalog__sidebar {
+        padding: 10px;
+    }
+    #exhibitorCatalog .exhibitor-catalog__labels-container {
+        padding-right: 0 !important;
+        gap: 10px;
+    }
+    h3.exhibitor-catalog__filter-heading {
+        font-size: 17px;
+    }
+    #exhibitorCatalog .exhibitor-catalog__filter-label {
+        font-size: 14px;
+        line-height: 18px;
+        gap: 4px;
+    }
+}

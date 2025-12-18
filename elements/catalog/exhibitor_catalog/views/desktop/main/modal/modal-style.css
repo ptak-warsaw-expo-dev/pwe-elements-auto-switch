@@ -1,0 +1,201 @@
+/* === //ANCHOR BLOKADA SCROLLA === */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* === //ANCHOR OVERLAY === */
+.exhibitor-product-modal {
+  --swiper-navigation-sides-offset: -58px;
+  position: fixed;
+  inset: 0;
+  background: #2A2B2DE5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2147483641;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.exhibitor-product-modal.animate {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* === //ANCHOR KONTENER TREŚCI === */
+.exhibitor-product-modal__container {
+    position: relative;
+    background: #343434;
+    border-radius: 24px;
+    max-width: 900px;
+    width: 90%;
+    max-height: 72vh;
+    height: 100%;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    animation: modalFadeIn 0.3s ease forwards;
+}
+
+.exhibitor-product-modal__content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 36px 76px 56px 76px;
+    overflow: hidden;
+}
+
+/* === //ANCHOR TREŚĆ === */
+
+.exhibitor-product-modal__img {
+    width: 100%;
+    aspect-ratio: 2/1;
+    height: 100%;
+    max-height: 70%;
+    object-fit: contain;
+    background: #fff;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.exhibitor-product-modal__title {
+    font-weight: 700;
+    font-size: 32px;
+    margin: 0;
+    text-align: left;
+    color: #FFFFFF;
+}
+
+.exhibitor-product-modal__desc {
+    font-weight: 500;
+    font-size: 15px;
+    color: #FFFFFF;
+    text-align: left;
+    margin: 0;
+}
+
+.exhibitor-product-modal__swiper {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+
+}
+
+.exhibitor-product-modal__item {
+    height: 100%;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    overflow-y: auto;
+}
+
+.exhibitor-product-modal__item::-webkit-scrollbar {
+    width: 8px;
+    height: 10px;
+    position: absolute;
+    right: 0;
+}
+
+.exhibitor-product-modal__item::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.exhibitor-product-modal__item::-webkit-scrollbar-thumb{
+  background-color: #9aa0a64d;
+  border-radius: 999px;
+  background-clip: content-box;
+}
+
+/* === //ANCHOR PRZYCISKI === */
+
+.exhibitor-product-modal__close {
+    background: transparent;
+    position: absolute;
+    right: -36px;
+    top: -14px;
+    font-size: 42px;
+    font-weight: 300;
+    color: white;
+    transition: .2s ease;
+}
+
+button.exhibitor-product-modal__close:hover {
+    transform: rotate(-180deg);
+}
+
+.exhibitor-product-modal__button {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #D0D0D0;
+    transition: .3s ease;
+}
+
+.exhibitor-product-modal__button::after {
+    color: #2A2B2D;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
+}
+
+/* === //ANCHOR ANIMACJE === */
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === PAGINACJA FRACTION (01 / 14) === */
+.exhibitor-product-modal__pagination {
+    position: absolute;
+    bottom: -42px;
+    right: 0;
+    text-align: center;
+    font-weight: 400;
+    font-size: 20px;
+    color: #FFFFFF;
+}
+
+.exhibitor-product-modal__pagination .swiper-pagination-current {
+    color: #FFFFFE;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.exhibitor-product-modal__pagination .sep {
+  margin: 0 4px;
+  color: #FFFFFF;
+}
+
+.exhibitor-product-modal__button.swiper-button-disabled {
+    background: unset;
+    border: 2px solid #FFFFFE;
+}
+
+.exhibitor-product-modal__button.swiper-button-disabled::after {
+    color: #FFFFFE;
+}
+
+@media (max-width: 960px) {
+    .exhibitor-product-modal {
+        --swiper-navigation-sides-offset: -3px;
+        --swiper-navigation-top-offset: auto;
+    }
+    .exhibitor-product-modal__content {
+        padding: 18px 18px 76px;
+        height: 100%;
+    }
+    .exhibitor-product-modal__swiper {
+        height: 100%;
+    }
+    .exhibitor-product-modal__button {
+        bottom: -62px;
+    }
+    .exhibitor-product-modal__pagination {
+        bottom: -50px;
+    }
+    button.exhibitor-product-modal__close {
+        right: 0;
+        top: -46px;
+    }
+}

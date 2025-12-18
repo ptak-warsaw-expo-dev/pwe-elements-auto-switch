@@ -1,0 +1,90 @@
+#exhibitorCatalog .catalog-mobile-products-container {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+#exhibitorCatalog .catalog-mobile-product-card {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+#exhibitorCatalog .catalog-mobile-product-card__logo-container {
+    width: 45%;
+    display: flex;
+}
+
+#exhibitorCatalog .catalog-mobile-product-card__logo {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 7/5;
+    object-fit: cover;
+    border: 1px solid #2a2b2d;
+    background: #fff;
+    border-radius: 8px;
+}
+
+#exhibitorCatalog .catalog-mobile-product-card__title-wrapper {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#exhibitorCatalog .catalog-mobile-product-card__title {
+    margin-top: 0;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 18px;
+    color: #2a2b2d;
+    word-break: break-word;
+}
+
+#exhibitorCatalog .catalog-mobile-product-card__content {
+    width: 55%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+#exhibitorCatalog .catalog-mobile-product-card__info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+#exhibitorCatalog .catalog-mobile-product-card__stand {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+#exhibitorCatalog .catalog-mobile-product-card__stand-text {
+    margin: 0;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 100%;
+}
+
+#exhibitorCatalog .catalog-mobile-product-card__stand-number {
+    margin: 0;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 24px;
+    color: var(--accent-color);
+}
+
+#exhibitorCatalog .catalog-mobile-product-card__more {
+    margin-left: auto;
+    background-color: var(--main2-color);
+    padding: 10px 12px;
+    border-radius: 36px;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 100%;
+    color: #ffffff;
+}

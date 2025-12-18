@@ -1,0 +1,76 @@
+
+#exhibitorCatalog .catalog-mobile-brands-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#exhibitorCatalog .catalog-mobile-brand-card {
+    width: 100%;
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    background-color: #FFFFFE;
+    border: 1px solid #000000;
+    gap: 8px;
+    justify-content: space-between;
+}
+
+#exhibitorCatalog .catalog-mobile-brand-card__info {
+    min-width: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+#exhibitorCatalog .catalog-mobile-brand-card__text {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+#exhibitorCatalog .catalog-mobile-brand-card__stand-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+#exhibitorCatalog .catalog-mobile-brand-card__stand-container svg {
+    width: 16px;
+    height: 16px;
+}
+
+#exhibitorCatalog .catalog-mobile-brand-card__stand {
+    color: var(--main2-color);
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 100%;
+    margin: 0;
+}
+
+#exhibitorCatalog .catalog-mobile-brand-card__more {
+    margin-left: auto;
+    background-color: var(--main2-color);
+    padding: 10px 12px;
+    border-radius: 36px;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 100%;
+    color: #ffffff;
+}
+
+#exhibitorCatalog .catalog-mobile-brand-card__more:hover {
+    background-color: var(--hover_main2_color);
+}
+
+#exhibitorCatalog .catalog-mobile-brand-card__title {
+    font-weight: 600;
+    font-size: 18px;
+    text-transform: capitalize;
+    margin: 0;
+    color: #2A2B2D;
+    word-break: break-word;
+}

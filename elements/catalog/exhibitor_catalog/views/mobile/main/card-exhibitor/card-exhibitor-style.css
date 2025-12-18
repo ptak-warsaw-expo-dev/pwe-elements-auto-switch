@@ -1,0 +1,119 @@
+#exhibitorCatalog .catalog-mobile-exh-card__logo-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#exhibitorCatalog .catalog-mobile-exh-card__logo {
+    margin: 0;
+    height: 80px;
+    width: 100%;
+    object-fit: contain;
+    padding: 8px;
+    border-width: 1px 1px 0 1px;
+    border-style: solid;
+    border-color: #2a2b2d;
+    background: #fff;
+    border-radius: 8px 8px 0 0;
+}
+
+#exhibitorCatalog .catalog-mobile-exh-card__content {
+    display: flex;
+    gap: 8px;
+}
+
+#exhibitorCatalog .catalog-mobile-exh-card__info {
+    flex: 0.45;
+}
+
+#exhibitorCatalog .catalog-mobile-exh-card__stand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 6px;
+    background: var(--main2-color);
+    border-radius: 0 0 8px 8px;
+}
+
+#exhibitorCatalog .catalog-mobile-exh-card__stand-number {
+    margin: 0;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 100%;
+    color: #ffffff;
+}
+
+#exhibitorCatalog .catalog-mobile-exh-card__stand svg {
+    width: 16px;
+    height: 16px;
+}
+
+#exhibitorCatalog .catalog-mobile-exh-card__text {
+    flex: 0.55;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+#exhibitorCatalog .catalog-mobile-exh-card__title-wrapper {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#exhibitorCatalog .catalog-mobile-exh-card__title {
+    margin-top: 12px;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 18px;
+    color: #2a2b2d;
+    word-break: break-word;
+}
+
+#exhibitorCatalog .catalog-mobile-exh-card__desc {
+    margin: 0;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 14px;
+    color: #6d6e6e;
+}
+
+#exhibitorCatalog .catalog-mobile-exh-card__contacts {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+}
+
+#exhibitorCatalog .catalog-mobile-exh-card__contact,
+#exhibitorCatalog .catalog-mobile-exh-card__contact--disabled {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#exhibitorCatalog .catalog-mobile-exh-card__contact svg,
+#exhibitorCatalog .catalog-mobile-exh-card__contact--disabled svg {
+    width: 28px;
+    height: 28px;
+}
+
+#exhibitorCatalog .catalog-mobile-exh-card__contact--disabled {
+    pointer-events: none;
+    filter: grayscale(1) brightness(1.2);
+}
+
+#exhibitorCatalog .catalog-mobile-exh-card__more {
+    margin-left: auto;
+    background-color: var(--accent-color);
+    padding: 10px 12px;
+    border-radius: 36px;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 100%;
+    color: #ffffff;
+}

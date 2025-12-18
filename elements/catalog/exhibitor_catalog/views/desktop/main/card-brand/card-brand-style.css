@@ -1,0 +1,109 @@
+#exhibitorCatalog .exhibitor-catalog__brands-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#exhibitorCatalog .exhibitor-catalog__brand-card {
+    border-radius: 8px;
+    padding: 16px 24px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    background-color: #FFFFFE;
+    box-shadow: 0px 0px 44px 0px #2A2B2D1A;
+}
+
+#exhibitorCatalog .exhibitor-catalog__brand-card-info {
+    flex: .2;
+}
+
+#exhibitorCatalog .exhibitor-catalog__brand-card-text {
+    flex: .8;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+#exhibitorCatalog .exhibitor-catalog__brand-card-info-stand-contianer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 22px;
+}
+
+#exhibitorCatalog .exhibitor-catalog__brand-card-info-stand {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 100%;
+    margin: 0;
+}
+
+#exhibitorCatalog .exhibitor-catalog__brand-card-info-stand-number {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 100%;
+    margin: 0;
+}
+
+#exhibitorCatalog .exhibitor-catalog__brand-card-ehibitor-link {
+    border-radius: 8px;
+    padding: 17px 8px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    background-color: var(--main2-color);
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    transition: .3s ease;
+}
+
+#exhibitorCatalog .exhibitor-catalog__brand-card-ehibitor-link:hover {
+    background-color: var(--main2_darker_color);
+}
+
+#exhibitorCatalog .exhibitor-catalog__brand-card-headline {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 100%;
+    text-transform: capitalize;
+    color: #2A2B2D;
+    margin: 0;
+}
+
+#exhibitorCatalog .exhibitor-catalog__brand-card-title {
+    font-weight: 600;
+    font-size: 18px;
+    text-transform: capitalize;
+    margin: 0;
+    color: var(--main2-color);
+}
+
+@media (max-width: 960px) {
+    #exhibitorCatalog .exhibitor-catalog__brand-card {
+        padding: 16px;
+    }
+    #exhibitorCatalog .exhibitor-catalog__brand-card-ehibitor-link {
+        padding: 12px 4px;
+        font-size: 12px;
+    }
+    #exhibitorCatalog .exhibitor-catalog__brand-card-info-stand-contianer {
+        padding: 6px;
+        gap: 6px;
+    }
+    #exhibitorCatalog .exhibitor-catalog__brand-card-info-stand-number {
+        font-size: 16px;
+    }
+    #exhibitorCatalog .exhibitor-catalog__brand-card-info-stand {
+        font-size: 16px;
+    }
+    #exhibitorCatalog .exhibitor-catalog__brand-card-info-stand-contianer svg {
+        width: 18px;
+    }
+    #exhibitorCatalog .exhibitor-catalog__brand-card-text {
+        gap: 6px;
+    }
+}

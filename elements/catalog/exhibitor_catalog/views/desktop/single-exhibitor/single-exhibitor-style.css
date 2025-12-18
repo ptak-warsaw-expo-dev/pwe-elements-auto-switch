@@ -1,0 +1,500 @@
+/* // ANCHOR MAIN CONTAINER */
+
+aside#usercentrics-cmp-ui {
+    display: none;
+}
+
+.row.limit-width.row-parent:has(#exhibitorPage) {
+    padding: 0;
+    max-width: 100%;
+}
+
+#exhibitorCatalogGr1:has(#exhibitorPage) {
+    padding: 0;
+    max-width: 100% !important;
+}
+
+.pwe-limit-width:has(#exhibitorPage) {
+    max-width: 100% !important;
+    margin: 0 auto;
+    padding: 0 !important;
+}
+
+#exhibitorPage.exhibitor-page {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+}
+
+#exhibitorPage .exhibitor-page__header {
+    width: 100%;
+    min-width: 100%;
+    height: 170px;
+    background-image: url(/doc/background.webp);
+    background-size: cover;
+    background-position: center;
+}
+
+#exhibitorPage .exhibitor-page__wrapper {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 36px 36px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    gap: 8px;
+}
+
+#exhibitorPage .exhibitor-page__info-column {
+    position: relative;
+}
+
+#exhibitorPage .exhibitor-page__content {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    grid-column: span 2 / span 2;
+}
+
+/* // ANCHOR EXHIBITOR INFO */
+
+#exhibitorPage .exhibitor-page__info-sticky {
+    height: 600px;
+    position: fixed;
+    max-width: 340px;
+    top: 0;
+    width: 28%;
+}
+
+#exhibitorPage .exhibitor-page__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 12px;
+    max-width: 340px;
+    width: 100%;
+    position: absolute;
+    top: 110px;
+}
+
+/* .exhibitor-page__info.is_stucked {
+    top: 60px !important;
+} */
+
+#exhibitorPage .exhibitor-page__info-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 14px;
+    box-shadow: 0px 0px 36px 0px #0000001a;
+    overflow: hidden;
+}
+
+#exhibitorPage .exhibitor-page__logo {
+    margin: auto;
+    aspect-ratio: 6/3;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #fffffe;
+    padding: 18px;
+}
+
+#exhibitorPage .exhibitor-page__stand {
+    font-weight: 700;
+    font-size: 18px;
+    background-color: var(--main2-color);
+    color: #fff;
+    text-align: center;
+    padding: 12px 21px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+#exhibitorPage .exhibitor-page__contact {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+#exhibitorPage .exhibitor-page__contact-tile {
+    padding: 20px 12px;
+    border-radius: 12px;
+    background: var(--accent_color_95_white);
+    box-shadow: 0 0 12px -8px black;
+}
+
+#exhibitorPage .exhibitor-page__contact-tile a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+}
+
+#exhibitorPage .exhibitor-page__contact-tile a:hover {
+    text-decoration: underline;
+}
+
+#exhibitorPage .exhibitor-page__contact-tile svg {
+    width: 30px;
+    height: 30px;
+}
+
+#exhibitorPage .exhibitor-page__link {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 100%;
+}
+
+#exhibitorPage .exhibitor-page__socials {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+#exhibitorPage .exhibitor-page__social-list {
+    display: flex;
+    gap: 10px;
+}
+
+#exhibitorPage .exhibitor-page__socials .exhibitor-page__label {
+    font-weight: 700;
+    font-size: 17px;
+}
+
+#exhibitorPage .exhibitor-single__socials-link {
+    display: block;
+    width: 32px;
+    height: 32px;
+    filter: contrast(0);
+    transition: 0.3s ease;
+}
+
+#exhibitorPage .exhibitor-single__socials-link:hover {
+    filter: contrast(1);
+}
+
+#exhibitorPage .exhibitor-single__socials-link svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* // ANCHOR CONTENT */
+
+#exhibitorPage .exhibitor-page__title {
+    font-weight: 700;
+    font-size: 44px;
+    color: #2a2b2d;
+    margin: 0;
+}
+
+#exhibitorPage .exhibitor-page__subtitle {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 100%;
+    margin: 0;
+}
+
+.exhibitor-page__desc,
+.exhibitor-page__benefits,
+.exhibitor-page__technologies,
+#exhibitorPage .exhibitor-page__products-category {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding: 60px 40px;
+    border-radius: 22px;
+    /* background-color: var(--accent_color_95_white); */
+    box-shadow: 0px 0px 36px 0px #2a2b2d1a;
+}
+
+#exhibitorPage .exhibitor-page__description {
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 26px;
+}
+
+.exhibitor-page__technology-list,
+#exhibitorPage .exhibitor-page__products-category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.exhibitor-page__technology-item,
+#exhibitorPage .exhibitor-page__products-category-item {
+    padding: 24px;
+    background-color: #f0f0f0;
+    color: #2a2b2d;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 100%;
+    border-radius: 36px;
+}
+
+#exhibitorPage .exhibitor-page__brands {
+    --swiper-navigation-size: 14px;
+    --swiper-navigation-color: #2a2b2d;
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding: 20px 18px;
+}
+
+#exhibitorPage .exhibitor-page__brand-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 24px;
+    border-radius: 12px;
+    /* background-color: var(--accent_color_95_white); */
+    box-shadow: 0px 0px 18px 0px #2a2b2d1a;
+}
+
+#exhibitorPage .exhibitor-page__brands .swiper-button-next,
+#exhibitorPage .exhibitor-page__brands .swiper-button-prev {
+    top: 22px;
+    right: 24px;
+    left: unset;
+    background-color: #d0d0d0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: 0.3s ease;
+}
+
+#exhibitorPage
+    .exhibitor-page__brands
+    .swiper-button-next:not(.swiper-button-disabled):hover,
+#exhibitorPage
+    .exhibitor-page__brands
+    .swiper-button-prev:not(.swiper-button-disabled):hover {
+    background-color: var(--main2-color);
+    color: #f0f0f0;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after,
+#exhibitorPage .swiper-button-next:after,
+.swiper-button-prev:after {
+    font-weight: 600;
+}
+
+#exhibitorPage .exhibitor-page__brands .swiper-button-prev {
+    right: 74px;
+}
+
+#exhibitorPage .exhibitor-page__product-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 16px;
+    grid-row-gap: 12px;
+}
+
+#exhibitorPage .exhibitor-page__product {
+    padding: 8px;
+    position: relative;
+}
+
+#exhibitorPage .exhibitor-catalog__modal-open {
+    background: #00000040;
+    padding: 6px;
+    border-radius: 50%;
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    width: 30px;
+    height: 30px;
+    z-index: 2;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+#exhibitorPage .exhibitor-catalog__modal-open:hover {
+    transform: scale(1.1);
+}
+
+#exhibitorPage .exhibitor-page__product-image {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+    border-radius: 14px;
+    border: 1px solid #2a2b2d;
+    padding: 12px;
+    cursor: pointer;
+    transform: scale(1);
+    transition: 0.3s ease;
+}
+
+#exhibitorPage .exhibitor-page__product-image:hover {
+    transform: scale(1.02);
+}
+
+#exhibitorPage .exhibitor-page__product-name {
+    padding: 8px;
+    font-weight: 500;
+}
+
+#exhibitorPage .exhibitor-page__tabs-nav {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#exhibitorPage .exhibitor-page__tab-btn {
+    border: none;
+    background: transparent;
+    color: #6d6e6e;
+    padding: 0;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 32px;
+    transition: 0.3s;
+}
+
+#exhibitorPage .exhibitor-page__tab-btn:hover {
+    text-decoration: underline;
+}
+
+#exhibitorPage .exhibitor-page__tab-btn.is-active {
+    color: #2a2b2d;
+}
+
+#exhibitorPage .exhibitor-page__tab-total {
+    font-weight: 400;
+    font-size: 28px;
+    color: #2a2b2d;
+}
+
+#exhibitorPage .exhibitor-page__tab-content {
+    display: none;
+}
+
+#exhibitorPage .exhibitor-page__tab-content.is-active {
+    display: block;
+}
+
+#exhibitorPage .exhibitor-page__document-link {
+    color: #2a2b2d;
+    display: inline-flex;
+    align-items: center;
+    transition: 0.3s ease;
+}
+
+#exhibitorPage .exhibitor-page__document-link svg {
+    width: 36px;
+    height: 36px;
+}
+
+#exhibitorPage .exhibitor-page__document-link:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+#exhibitorPage .ec-pager__current {
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 46px;
+    color: var(--main2-color);
+}
+
+.ec-pager__sep,
+#exhibitorPage .ec-pager__total {
+    color: #6d6e6e;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.ec-pager__btn.is-disabled {
+    aspect-ratio: 1 / 1;
+    width: 45px;
+    background: #d0d0d0;
+    border-radius: 50%;
+    line-height: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.4;
+}
+
+.ec-pager__btn {
+    transition: 0.3s ease;
+}
+.ec-pager__btn:not(.is-disabled):hover {
+    background-color: var(--main2-color) !important;
+    color: #fffffe !important;
+}
+
+/* ------ // ANCHOR TYMCZASOWE ------ */
+
+@media (max-width: 960px) {
+    #exhibitorPage .exhibitor-page__wrapper {
+        display: flex;
+        flex-direction: column;
+        padding: 18px;
+        gap: 36px;
+    }
+    #exhibitorPage .exhibitor-page__info {
+        position: static;
+        width: 100%;
+        max-width: unset;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    #exhibitorPage .exhibitor-page__info-sticky {
+        height: auto !important;
+        position: static !important;
+        max-width: 100%;
+        width: 100% !important;
+        margin-top: -180px;
+        top: unset;
+    }
+    #exhibitorPage .exhibitor-page__content {
+        flex: 1;
+        width: 100%;
+    }
+    #exhibitorPage .exhibitor-page__info-header {
+        max-width: 300px;
+        flex: 1;
+        aspect-ratio: unset;
+    }
+    #exhibitorPage .exhibitor-page__title {
+        font-size: 32px;
+    }
+    #exhibitorPage .exhibitor-page__contact {
+        flex: 1;
+    }
+    .exhibitor-page__desc,
+    .exhibitor-page__benefits,
+    .exhibitor-page__technologies,
+    #exhibitorPage .exhibitor-page__products-category {
+        padding: 22px;
+    }
+    #exhibitorPage .exhibitor-page__subtitle,
+    #exhibitorPage .exhibitor-page__tab-btn {
+        font-size: 22px;
+    }
+    #exhibitorPage .exhibitor-page__product-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    #exhibitorPage .exhibitor-page__socials {
+        width: 100%;
+    }
+}
+@media (max-width: 570px) {
+    #exhibitorPage .exhibitor-page__product-list {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    #exhibitorPage .exhibitor-page__info {
+        flex-direction: column;
+    }
+    #exhibitorPage .exhibitor-page__info-header {
+        max-width: 100%;
+        width: 100%;
+    }
+}
