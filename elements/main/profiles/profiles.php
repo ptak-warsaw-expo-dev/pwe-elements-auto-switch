@@ -48,6 +48,12 @@ class Profiles {
                 $profile_industry_scope_en      = $decoded_data['profile_industry_scope_en'] ?? null;
             }
 
+            if (PWECommonFunctions::lang_pl() && (empty($profile_for_visitors_pl) || empty($profile_for_exhibitors_pl) || empty($profile_industry_scope_pl))) {
+                return;
+            } else if (!PWECommonFunctions::lang_pl() && (empty($profile_for_visitors_en) || empty($profile_for_exhibitors_en) || empty($profile_industry_scope_en))) {
+                return;
+            }
+
             /* <-------------> General code end <-------------> */
             
             $output = include $preset_file;

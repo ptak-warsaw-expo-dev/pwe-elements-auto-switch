@@ -70,6 +70,9 @@
     visibility: hidden;
     opacity: 0;
 }
+#pweElementsAutoSwitch .pwe-profiles__show-more-arrow {
+    transform: rotate(45deg);
+}
 #pweElementsAutoSwitch .pwe-profiles__card-text::-webkit-scrollbar {
     width: 6px;
 }
@@ -79,4 +82,24 @@
 }
 #pweElementsAutoSwitch .pwe-profiles__card-text::-webkit-scrollbar-thumb:hover {
     background-color: rgba(255, 255, 255, 0.6);
+}
+@media(max-width:960px) {
+    #pweElementsAutoSwitch .pwe-profiles__card {
+        aspect-ratio: 1;
+    }
+    #pweElementsAutoSwitch .pwe-profiles__card h5 {
+        font-size: 18px;
+    }
+}
+@media(max-width:650px) {
+    #pweElementsAutoSwitch .pwe-profiles__cards {
+        display: flex;
+        flex-direction: column;
+    }
+    #pweElementsAutoSwitch .pwe-profiles__card {
+        aspect-ratio: 3 / 2;
+    }
+    #pweElementsAutoSwitch .pwe-profiles__card h5 {
+        font-size: 26px;
+    }
 }

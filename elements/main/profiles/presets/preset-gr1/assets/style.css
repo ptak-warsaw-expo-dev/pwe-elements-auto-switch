@@ -1,7 +1,3 @@
-#pweElementsAutoSwitch .pwe-profiles {
-    display: flex;
-    justify-content: center;
-}
 #pweElementsAutoSwitch .pwe-profiles__wrapper {
     position: relative;
     overflow: hidden;

@@ -3,6 +3,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 18px;
+    gap: 18px;
 }
 .pwe-premieres__header .pwe-subtitle {
     color: var(--accent-color);
@@ -149,4 +150,10 @@
 }
 .pwe-premieres__premiere-desc::-webkit-scrollbar-button {
     display: none;
+}
+
+@media(max-width: 960px) {
+    .pwe-premieres__header img {
+        display: none;
+    }
 }

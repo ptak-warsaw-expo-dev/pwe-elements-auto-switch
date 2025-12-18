@@ -60,7 +60,7 @@ class Other_Events {
                     if ($date_start && $date_end) {
                         if ((($date_start >= $trade_fair_start_timestamp && $date_start <= $trade_fair_end_timestamp) ||
                             ($date_end >= $trade_fair_start_timestamp && $date_end <= $trade_fair_end_timestamp)) &&
-                            strpos($fair['domain'], $current_domain) === false && (strpos($fair['domain'], "fasttextile.com") === false && strpos($fair['domain'], "expotrends.eu") === false && strpos($fair['domain'], "fabrics-expo.eu") === false)) {
+                            strpos($fair['domain'], $current_domain) === false && (strpos($fair['domain'], "mr.glasstec.pl") === false && strpos($fair['domain'], "fasttextile.com") === false && strpos($fair['domain'], "expotrends.eu") === false && strpos($fair['domain'], "fabrics-expo.eu") === false)) {
                             $other_events_items_json[] = [
                                 "other_events_domain" => $fair["domain"],
                                 "other_events_text" => PWECommonFunctions::languageChecker($fair["desc_pl"], $fair["desc_en"])
@@ -68,7 +68,7 @@ class Other_Events {
                         }
                     }
                 }
-            }
+            } 
 
             /* <-------------> General code end <-------------> */
             

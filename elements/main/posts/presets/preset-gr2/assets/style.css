@@ -66,7 +66,6 @@
     position: absolute;
     right: 24px;
     transition: .3s ease;
-    transform: rotate(-45deg);
 }
 #pweElementsAutoSwitch .pwe-posts__post-btn:hover .pwe-posts__post-arrow {
     right: 16px;

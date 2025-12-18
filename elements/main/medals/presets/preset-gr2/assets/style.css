@@ -16,6 +16,9 @@
 #pweElementsAutoSwitch .pwe-medals__content {
     padding: 18px 0;
 }
+#pweElementsAutoSwitch .pwe-medals__content-mobile {
+    display: none;
+}
 #pweElementsAutoSwitch .pwe-medals__sub-heading {
     margin: 0;
     font-weight: 600;
@@ -85,12 +88,47 @@
 #pweElementsAutoSwitch .pwe-medals__items:hover .pwe-medals__item:nth-child(4) {
     margin-left: -50px;
 }
-
+#pweElementsAutoSwitch .pwe-medals .pwe-btn-container {
+    position: relative;
+    justify-content: left;
+}
+#pweElementsAutoSwitch .pwe-medals .pwe-btn {
+    display: flex;
+    color: white !important;
+    transform: scale(1);
+    transition: .3s ease;
+    font-size: 16px;
+    align-items: flex-end;
+    border-radius: 10px;
+    padding: 18px 60px 18px 18px;
+    font-weight: 600;
+    gap: 10px;
+    min-width: auto;
+}
+#pweElementsAutoSwitch .pwe-medals .pwe-btn {
+    background: var(--main2-color);
+    max-width: 130px;
+    min-width: 130px;
+}
+#pweElementsAutoSwitch .pwe-medals .pwe-btn-container .btn-angle-right {
+    position: absolute;
+    right: 28px;
+    transition: .3s ease;
+}
+#pweElementsAutoSwitch .pwe-medals .pwe-btn-container:hover .btn-angle-right {
+    right: 18px;
+}
 @media(max-width:960px) {
     #pweElementsAutoSwitch .pwe-medals__wrapper {
         grid-template-columns: 1fr;
     }
     #pweElementsAutoSwitch .pwe-medals__content {
         padding: 0;
+    }
+    #pweElementsAutoSwitch .pwe-medals__content-desktop {
+        display: none;
+    }
+    #pweElementsAutoSwitch .pwe-medals__content-mobile {
+        display: block;
     }
 }
