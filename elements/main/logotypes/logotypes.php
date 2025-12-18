@@ -170,6 +170,11 @@ class Logotypes {
                 }
             }
 
+            if ($logotypes == null) {
+                echo '<style>.logotypes-'. $group .'{display:none;}</style>';
+                return;
+            }
+
             $slug_id = ucfirst(str_replace(' ', '', ucwords(str_replace('-', ' ', $logotypes_slug))));
 
             if ($logotypes_slug === 'patrons-partners-international') {

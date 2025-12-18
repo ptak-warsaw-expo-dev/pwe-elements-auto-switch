@@ -4,7 +4,7 @@ $output = '
 <div id="pweExhibitors" class="pwe-exhibitors">
     <div class="pwe-exhibitors__wrapper">
         <div class="pwe-exhibitors__title">
-            <h4 class="pwe-main-title">Wystawcy 2025</h4>
+            <h4 class="pwe-main-title">Wystawcy</h4>
 
             <div class="swiper-buttons-arrows">
                 <div class="swiper-button-prev">⏴</div>

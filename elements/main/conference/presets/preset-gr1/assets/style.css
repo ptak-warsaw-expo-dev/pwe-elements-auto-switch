@@ -1,22 +1,19 @@
-.pwe-conference__wrapper {
+#pweElementsAutoSwitch .pwe-conference__wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: stretch;
 }
-
-.pwe-conference__left {
+#pweElementsAutoSwitch .pwe-conference__left {
     flex: 1 1 50%;
     z-index: 2;
 }
-    
-.pwe-conference__left img {
+#pweElementsAutoSwitch .pwe-conference__left img {
     height: 100%;
     border-radius: 22px;
     object-fit: cover;
 }
-
-.pwe-conference__right {
+#pweElementsAutoSwitch .pwe-conference__right {
     flex: 1 1 50%;
     padding: 48px 36px 0;
     display: flex;
@@ -25,38 +22,32 @@
     gap: 36px;
     z-index: 2;
 }
-
-.pwe-conference__right-content {
+#pweElementsAutoSwitch .pwe-conference__right-content {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
-
-.pwe-conference__title {
+#pweElementsAutoSwitch .pwe-conference__title {
     font-size: 44px;
     font-weight: 800;
     margin: 0;
 }
-
-.pwe-conference__name {
+#pweElementsAutoSwitch .pwe-conference__name {
     font-size: 20px;
     font-weight: 800;
     margin: 0;
 }
-
-.pwe-conference__subtitle {
+#pweElementsAutoSwitch .pwe-conference__subtitle {
     font-weight: 600;
 }
-
-.pwe-conference__btn-container {
+#pweElementsAutoSwitch .pwe-conference__btn-container {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
 }
-
-.pwe-conference__btn {
+#pweElementsAutoSwitch .pwe-conference__btn {
     flex: .5;
     margin: 6px;
     text-align: center;
@@ -66,12 +57,10 @@
     color: white !important;
     border-radius: 36px;
 }
-
-.pwe-conference__btn_accent {
+#pweElementsAutoSwitch .pwe-conference__btn_accent {
     background: var(--accent-color);
 }
-
-.pwe-conference__logo {
+#pweElementsAutoSwitch .pwe-conference__logo {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -79,54 +68,50 @@
     padding: 18px;
     border-radius: 22px;
 }
-
-.pwe-conference__logo img {
+#pweElementsAutoSwitch .pwe-conference__logo img {
     max-width: 240px;
     max-height: 80px;
     object-fit: contain;
     width: 100%;
 }
-
 @media(min-width: 1120px) {
-    .pwe-conference__btn {
+    #pweElementsAutoSwitch .pwe-conference__btn {
         min-width: 220px;
         max-width: 220px;
     }
 }
-
 @media(max-width:960px) {
-    .pwe-conference__btn {
+    #pweElementsAutoSwitch .pwe-conference__btn {
         font-size: 14px;
         padding: 12px;
     }
 }
-
 @media(max-width:760px) {
 
     .row.limit-width.row-parent:has(#PWEConferenceShortInfo) {
         padding: 0;
     }
-    .pwe-conference__wrapper {
+    #pweElementsAutoSwitch .pwe-conference__wrapper {
         flex-direction: column-reverse;
         gap: 18px;
     }
-    .pwe-conference__right {
+    #pweElementsAutoSwitch .pwe-conference__right {
         flex: 1 1 100%;
         width: 100%;
         padding: 0;
         gap: 18px;
     }
-    .pwe-conference__title {
+    #pweElementsAutoSwitch .pwe-conference__title {
         text-align: center;
     }
-    .pwe-conference__logo {
+    #pweElementsAutoSwitch .pwe-conference__logo {
         z-index: 1;
         padding: 18px;
     }
-    .pwe-conference__logo img {
+    #pweElementsAutoSwitch .pwe-conference__logo img {
         max-width: 180px;
     }
-    .pwe-conference__btn {
+    #pweElementsAutoSwitch .pwe-conference__btn {
         min-width: 160px;
     }
 }

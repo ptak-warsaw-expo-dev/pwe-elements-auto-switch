@@ -1,0 +1,97 @@
+#pweElementsAutoSwitch .pwe-about__wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+}
+#pweElementsAutoSwitch .pwe-about__content {
+    width: 43%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+#pweElementsAutoSwitch .pwe-about__logo {
+    max-width: 260px;
+}
+#pweElementsAutoSwitch .pwe-about__subtitle {
+    font-size: 22px !important;
+    margin: 0;
+}
+#pweElementsAutoSwitch .pwe-about__media {
+    width: 40%;
+}
+#pweElementsAutoSwitch .pwe-about__media-wrapper {
+    display: flex;
+    gap: 10px;
+}
+#pweElementsAutoSwitch .pwe-about__media-column:first-child {
+    width: 40%;
+}
+#pweElementsAutoSwitch .pwe-about__media-column:last-child {
+    width: 60%;
+}
+#pweElementsAutoSwitch .pwe-about__media-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 100%;
+}
+#pweElementsAutoSwitch .pwe-about__media-image {
+    object-fit: cover;
+    border-radius: 20px;
+}
+#pweElementsAutoSwitch .pwe-about__media-column:first-child .pwe-about__media-image:first-child {
+    height: 30%;
+}
+#pweElementsAutoSwitch .pwe-about__media-column:first-child .pwe-about__media-image:last-child {
+    height: 70%;
+    position: relative;
+    background-position: center !important;
+    background-size: cover !important;
+    overflow: hidden;
+}
+#pweElementsAutoSwitch .pwe-about__media-column:first-child .pwe-about__media-image:last-child img {
+    position: absolute;
+    width: 60px;
+    left: 50%;
+    bottom: 40px;
+    transform: translate(-50%);
+}
+#pweElementsAutoSwitch .pwe-about__media-column:first-child .pwe-about__media-image:last-child:before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--accent-color);
+    opacity: 80%;
+    z-index: 0;
+}
+#pweElementsAutoSwitch .pwe-about__media-column:last-child .pwe-about__media-image:first-child {
+    height: 60%;
+}
+#pweElementsAutoSwitch .pwe-about__media-column:last-child .pwe-about__media-image:last-child {
+    height: 40%;
+}
+@media(max-weight:1200px) {
+    #pweElementsAutoSwitch .pwe-about__media {
+        width: 45%;
+    }
+}
+@media(max-width:960px) {
+    #pweElementsAutoSwitch .pwe-about__media {
+        width: 50%;
+    }
+}
+@media(max-width:650px) {
+    #pweElementsAutoSwitch .pwe-about__wrapper {
+        flex-direction: column-reverse;
+    }
+    #pweElementsAutoSwitch .pwe-about__logo {
+        max-width: 180px;
+    }
+    #pweElementsAutoSwitch .pwe-about__content,
+    #pweElementsAutoSwitch .pwe-about__media {
+        width: 100%;
+    }
+}

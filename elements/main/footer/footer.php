@@ -19,14 +19,16 @@ class Footer {
         $element_type = $data['types'][0];
         $element_slug = strtolower(str_replace('_', '-', __CLASS__));
 
+        $group = 'all'; // <-------------------------------------- Temporary solution ---------------------------------------<
+
         // Add context to translations function
         PWE_Functions::set_translation_context($element_slug, $group, $element_type);
         // Global assets
         PWE_Functions::assets_per_element($element_slug, $element_type);
         // Assets per group
-        PWE_Functions::assets_per_group($element_slug, 'all', $element_type);
+        PWE_Functions::assets_per_group($element_slug, $group, $element_type);
 
-        $preset_file = self::get_data()['presets']['all'] ?? null;
+        $preset_file = self::get_data()['presets'][$group] ?? null;
         if ($preset_file && file_exists($preset_file)) {
             
             /* <-------------> General code start <-------------> */

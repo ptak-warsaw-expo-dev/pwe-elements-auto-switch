@@ -43,6 +43,7 @@ class Exhibitors {
             }
             
             if (count($exhibitors) < 16) {
+                echo '<style>.exhibitors-'. $group .'{display:none;}</style>';
                 return;
             }
 

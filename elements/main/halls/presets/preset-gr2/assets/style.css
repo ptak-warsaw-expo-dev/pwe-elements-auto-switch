@@ -1,34 +1,32 @@
 #pweElementsAutoSwitch .pwe-halls__wrapper {
     display: flex;
     flex-direction: column;
-}
-#pweElementsAutoSwitch .pwe-halls__details {
+} 
+#pweElementsAutoSwitch .pwe-halls__container {
+    display: flex;
     border: 2px solid var(--background-color);
     border-radius: 18px;
     margin-top: 36px;
 }
-#pweElementsAutoSwitch .pwe-halls__details-wrapper {
+#pweElementsAutoSwitch .pwe-halls__info {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
     padding: 18px;
+    max-width: 220px;
 }
-#pweElementsAutoSwitch .pwe-halls__details-column {
+#pweElementsAutoSwitch .pwe-halls__column {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    padding: 0 18px;
 }
-#pweElementsAutoSwitch .pwe-halls__details-column.logo {
-    width: 40%;
-    max-width: 260px;
+#pweElementsAutoSwitch .pwe-halls__column.logo {
     align-items: center;
 }
-#pweElementsAutoSwitch .pwe-halls__details-column.logo img {
+#pweElementsAutoSwitch .pwe-halls__column.logo img {
     width: 100%;
 }
-#pweElementsAutoSwitch .pwe-halls__details-column.info {
-    max-width: 400px;
-    width: 60%;
+#pweElementsAutoSwitch .pwe-halls__column.info {
+
 }
 #pweElementsAutoSwitch .pwe-halls__date {
     text-align: center;
@@ -43,23 +41,25 @@
     margin-top: 12px;
     font-weight: 700;
 }
+#pweElementsAutoSwitch .pwe-halls__model {
+    width: 100%;
+}
 @media(max-width:720px){
-    #pweElementsAutoSwitch .pwe-halls__details-wrapper {
+    #pweElementsAutoSwitch .pwe-halls__info {
         flex-direction: column;
         gap: 18px;
     }
-    #pweElementsAutoSwitch .pwe-halls__details-column {
+    #pweElementsAutoSwitch .pwe-halls__column {
         padding: 0;
     }
-    #pweElementsAutoSwitch .pwe-halls__details-column.logo {
+    #pweElementsAutoSwitch .pwe-halls__column.logo {
         width: 100%;
-        max-width: 100%;
     }
-    #pweElementsAutoSwitch .pwe-halls__details-column.logo img {
-        max-width: 200px;
+    #pweElementsAutoSwitch .pwe-halls__column.logo img {
+
     }
-    #pweElementsAutoSwitch .pwe-halls__details-column.info {
-        max-width: 100%;
+    #pweElementsAutoSwitch .pwe-halls__column.info {
+
         width: 100%;
     }
     #pweElementsAutoSwitch .pwe-halls__model {

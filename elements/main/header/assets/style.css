@@ -2,7 +2,6 @@
     max-width: 100%;
     padding: 0;
 }
-
 .main-container {
     margin-top: 0px !important;   
 } 
@@ -13,26 +12,26 @@
 .wpb_column:has(.pwe-header) {
     max-width: 100%;
 }
-.pwe-header__container {
+#pweElementsAutoSwitch .pwe-header__container {
     padding-top: 80px;
 }
-.pwe-header__wrapper {
+#pweElementsAutoSwitch .pwe-header__wrapper {
     min-height: 60vh;
     max-width: 1200px;
     margin: 36px auto 0;
     display: flex;
     z-index: 2;
 }
-.pwe-header__column {
+#pweElementsAutoSwitch .pwe-header__column {
     z-index: 1;
 }
-.pwe-header__logo {
+#pweElementsAutoSwitch .pwe-header__logo {
     max-width: 360px;
     width: 100%;
     height: auto;
     z-index: 1;
 }
-.pwe-header__background {
+#pweElementsAutoSwitch .pwe-header__background {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -41,22 +40,22 @@
     height: 100%;
     overflow: hidden;
 }
-.pwe-header__text {
+#pweElementsAutoSwitch .pwe-header__text {
     padding: 18px 0;
     z-index: 1;
 }
-.pwe-header__text :is(h1, h2) {
+#pweElementsAutoSwitch .pwe-header__text :is(h1, h2) {
     text-transform: uppercase;
     text-align: center;
     width: auto;
 }
-.pwe-header__text h1 {
+#pweElementsAutoSwitch .pwe-header__text h1 {
     font-size: 30px;
 }
-.pwe-header__text h2 {
+#pweElementsAutoSwitch .pwe-header__text h2 {
     font-size: 36px;
 }
-.pwe-header .pwe-bg-image {
+#pweElementsAutoSwitch .pwe-header .pwe-bg-image {
     position: absolute; 
     inset: 0; 
     background-size: cover; 
@@ -66,26 +65,23 @@
     transition: opacity 800ms ease-in-out; 
     z-index: 0;
 }
-.pwe-header .pwe-bg-image.is-active { 
+#pweElementsAutoSwitch .pwe-header .pwe-bg-image.is-active { 
     opacity: 1; 
 }
-.pwe-header .swiper .swiper-notification {
+#pweElementsAutoSwitch .pwe-header .swiper .swiper-notification {
     display: none !important;
 }
 
 @media (min-width: 300px) and (max-width: 1200px) {
-    .pwe-header__text h1 {
+    #pweElementsAutoSwitch .pwe-header__text h1 {
         font-size: calc(20px + (30 - 20) * ( (100vw - 300px) / (1200 - 300) ));
     }
-    .pwe-header__text h2 {
+    #pweElementsAutoSwitch .pwe-header__text h2 {
         font-size: calc(24px + (36 - 24) * ( (100vw - 300px) / (1200 - 300) ));
     }
 }
 @media (max-width: 960px) {
     .row-parent:has(.pwe-header) {
         padding: 0 !important;
-    }
-    .pwe-btn-container a {
-        min-width: 280px !important;
     }
 }

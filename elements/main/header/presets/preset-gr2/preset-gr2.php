@@ -1,176 +1,6 @@
 <?php
 
 $output = '
-<style>
-    .pwe-header {
-        position: relative;
-    }
-    .pwe-header:before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #ffffff;
-        opacity: 20%;
-        z-index: 1;
-    }
-    .pwe-header__container {
-        padding: 36px;
-        position: relative;
-        overflow: hidden; 
-    }
-    .pwe-header__wrapper { 
-        z-index: 1; 
-        display: flex;
-        justify-content: space-between;
-        margin: 64px auto 0;
-    }
-    .pwe-header__column {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        max-width: 700px;
-    }
-
-    .pwe-header__edition p,
-    .pwe-header__title h1,
-    .pwe-header__date h2,
-    .pwe-header__date p {
-        color: white;
-        text-align: left;
-        margin: 0;
-    }
-    .pwe-header__edition p {
-        font-size: 24px;
-        font-weight: 600;
-        text-transform: uppercase; 
-    }
-    .pwe-header__title h1 {
-        font-size: 64px;
-        font-weight: 700;
-        text-transform: uppercase;
-    }
-    .pwe-header__date h2 {
-        font-size: 30px;
-        font-weight: 600;
-        text-transform: capitalize;
-    }
-    .pwe-header__date p {
-        font-size: 22px;
-        font-weight: 600;
-    }
-    .pwe-header__buttons {
-        display: flex;
-        justify-content: left;
-        gap: 10px;
-    }
-    .pwe-header .pwe-btn-container {
-        position: relative;
-    }
-    .pwe-header .pwe-btn {
-        display: flex;
-        color: white !important;
-        transform: scale(1);
-        transition: .3s ease;
-        font-size: 16px;
-        align-items: flex-end;
-        border-radius: 10px;
-        padding: 30px 60px 18px 18px;
-        font-weight: 600;
-        gap: 10px;
-        min-width: auto;
-    }
-    .pwe-header .pwe-btn.btn-visitors {
-        background: var(--main2-color);
-    }
-    .pwe-header .pwe-btn.btn-exhibitors {
-        background: var(--accent-color);
-    }
-    .pwe-header .pwe-btn-container .btn-angle-right {
-        position: absolute;
-        right: 36px;
-        transition: .3s ease;
-        transform: rotate(-45deg);
-    }
-    .pwe-header .pwe-btn-container:hover .btn-angle-right {
-        right: 20px;
-    }
-
-
-
-
-    .pwe-header .video-background {
-        position: relative;
-    }
-    .pwe-header .video-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1;
-        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
-    }
-    .pwe-header .video-background {
-        position: absolute;
-        top: 0;
-        left: 0; 
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        z-index: 0;
-        pointer-events: none;
-    }
-    .pwe-header .video-background iframe {
-        position: absolute;
-        top: -36vh;
-        left: 0;
-        width: 100vw;
-        height: 160vh;
-        object-fit: cover;
-        z-index: -1;
-        pointer-events: none;
-    }
-    .pwe-header .video-background video {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transform: translate(-50%, -50%);
-    }
-
-
-
-
-    @media(max-width:1350px){
-        .pwe-header .video-background iframe {
-            width: 100vw;
-            height: 100vh;
-            top: -9vh;
-        }
-    }
-    @media(max-width: 1200px) {
-
-    }
-    @media(max-width:960px){
-        .video-background {
-            display:none !important;
-        }
-    }
-    @media(max-width:570px) {
-        
-    }
-    @media(max-width:450px) {
-        
-    }
-</style>';
-
-$output .= '
 <div id="pweHeader" class="pwe-header">
     <div class="pwe-header__container pwe-header__background" style="background-image: url(doc/background.webp);">
         
@@ -193,17 +23,25 @@ $output .= '
                         <a class="pwe-link pwe-btn btn-visitors" 
                            href="'. PWECommonFunctions::languageChecker('/rejestracja/', '/en/registration/') .'" 
                            alt="'. PWE_Functions::multi_translation('link_to_registration') .'">
-                                '. PWE_Functions::multi_translation('register') .'<br>
-                                '. PWE_Functions::multi_translation('free_ticket') .' 
-                                <span class="btn-angle-right">🡲</span>
+                            '. PWE_Functions::multi_translation('register') .'<br>
+                            '. PWE_Functions::multi_translation('free_ticket') .' 
+                            <span class="btn-angle-right">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.58266 11.0817C2.19221 11.4721 1.55899 11.472 1.16844 11.0817C0.777921 10.6912 0.777921 10.058 1.16844 9.66747L7.71125 3.12466L1.87486 3.12466C1.32279 3.12441 0.874968 2.6769 0.874968 2.12477C0.874968 1.57264 1.32279 1.12512 1.87486 1.12487L10.1254 1.12487C10.6774 1.12512 11.1253 1.57264 11.1253 2.12477L11.1246 10.3746C11.1244 10.9268 10.6769 11.3745 10.1247 11.3745C9.57257 11.3743 9.1249 10.9267 9.12478 10.3746L9.12478 4.53956L2.58266 11.0817Z" fill="white"/>
+                                </svg>
+                            </span>
                         </a>
                     </div>
                     <div class="pwe-btn-container header-button">
                         <a class="pwe-link pwe-btn btn-exhibitors" 
                            href="'. PWECommonFunctions::languageChecker('/zostan-wystawca/', '/en/become-an-exhibitor/') .'" 
                            alt="'. PWE_Functions::multi_translation('link_to_registration_exh') .'">
-                                '. PWE_Functions::multi_translation('become_exhibitor') .' 
-                                <span class="btn-angle-right">🡲</span>
+                            '. PWE_Functions::multi_translation('become_exhibitor') .' 
+                            <span class="btn-angle-right">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.58266 11.0817C2.19221 11.4721 1.55899 11.472 1.16844 11.0817C0.777921 10.6912 0.777921 10.058 1.16844 9.66747L7.71125 3.12466L1.87486 3.12466C1.32279 3.12441 0.874968 2.6769 0.874968 2.12477C0.874968 1.57264 1.32279 1.12512 1.87486 1.12487L10.1254 1.12487C10.6774 1.12512 11.1253 1.57264 11.1253 2.12477L11.1246 10.3746C11.1244 10.9268 10.6769 11.3745 10.1247 11.3745C9.57257 11.3743 9.1249 10.9267 9.12478 10.3746L9.12478 4.53956L2.58266 11.0817Z" fill="white"/>
+                                </svg>
+                            </span>
                         </a>
                     </div>
 
