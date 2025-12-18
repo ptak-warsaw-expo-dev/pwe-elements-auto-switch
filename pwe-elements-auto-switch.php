@@ -3,7 +3,7 @@
  * Plugin Name: PWE Elements AutoSwitch
  * Plugin URI: https://github.com/ptak-warsaw-expo-dev/pwe-elements-auto-switch
  * Description: Elements that dynamically adapt to groups.
- * Version: 1.0.5
+ * Version: 1.0.6
  * Author: Anton Melnychuk
  * Co-author: Piotr Krupniewski, Marek Rumianek, Jakub Choła
  * Author URI: https://github.com/antonmelnychuk1
@@ -52,7 +52,7 @@ if ( ! class_exists( 'PWE_Elements_AutoSwitch' ) ) {
             // Autoupdate
             $this->setup_updater();
 
-            PWE_Groups::init();
+            // PWE_Groups::init();
             PWE_Elements::init();
         }
 

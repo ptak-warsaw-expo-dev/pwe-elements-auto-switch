@@ -7,7 +7,7 @@
         "link_to_registration":"link do rejestracji",
         "link_to_registration_exh":"link do rejestracji wystawcy",
         "register":"Zarejestruj się",
-        "free_ticket": "Odbierz darmowy bilet",
+        "free_ticket": "Odbierz <span>darmowy</span> bilet",
         "become_exhibitor": "Zostań<br>Wystawcą"
     },
     "en_US": {
@@ -18,7 +18,7 @@
         "link_to_registration":"link to registration",
         "link_to_registration_exh":"link to exhibitor registration",
         "register":"Register",
-        "free_ticket": "Get a free ticket",
+        "free_ticket": "Get a <span>free</span> ticket",
         "become_exhibitor": "Become<br>an Exhibitor"
     },
     "de_DE": {
@@ -29,7 +29,7 @@
         "link_to_registration":"Registrierungslink",
         "link_to_registration_exh":"Link zur Ausstellerregistrierung",
         "register":"Registrieren",
-        "free_ticket": "Gratis-Ticket holen",
+        "free_ticket": "<span>Gratis-</span>Ticket holen",
         "become_exhibitor": "Aussteller<br>werden"
     }
 }

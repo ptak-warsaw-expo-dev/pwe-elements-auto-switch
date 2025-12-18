@@ -20,3 +20,8 @@
     line-height: 1.3;
     color: var(--accent-color);
 }
+@media(max-width:650px) {
+    #pweElementsAutoSwitch .pwe-main-title {
+        font-size: 28px;
+    }
+}

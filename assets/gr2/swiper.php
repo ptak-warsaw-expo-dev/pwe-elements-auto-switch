@@ -144,12 +144,12 @@ class PWE_Swiper
                     //     $output .= '
                     //     direction: "vertical",';
                     // }
-                    $output .= '
-                    autoplay: {
-                        delay: 3000,
-                        disableOnInteraction: false,
-                        pauseOnMouseEnter: true
-                    },';
+                    // $output .= '
+                    // autoplay: {
+                    //     delay: 3000,
+                    //     disableOnInteraction: false,
+                    //     pauseOnMouseEnter: true
+                    // },';
                     $output .= '
                     breakpoints: ' . $breakpoints_json;
                     if ($arrows) {

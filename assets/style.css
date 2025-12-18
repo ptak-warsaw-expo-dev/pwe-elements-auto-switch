@@ -10,3 +10,9 @@
 .swiper-scrollbar-drag {
     background: black;
 }
+
+/* @media(max-width:1200px) { */
+    .privacyButton {
+        --button-size: 30px;
+    }
+/* } */
