@@ -9,6 +9,7 @@
 #pweElementsAutoSwitch .pwe-main-subtitle {
     font-size: 18px;
     font-weight: 600;
+    line-height: 30px;
     margin: 0;
     color: var(--accent-color);
     text-transform: uppercase;
@@ -17,7 +18,7 @@
 #pweElementsAutoSwitch .pwe-main-desc p {
     margin: 0;
     font-weight: 500;
-    line-height: 1.3;
+    line-height: 1.5;
     color: var(--accent-color);
 }
 @media(max-width:650px) {

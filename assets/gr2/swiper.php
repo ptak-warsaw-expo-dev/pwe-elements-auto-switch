@@ -39,33 +39,43 @@ class PWE_Swiper
             $output .= '
             <style>
                 #pweElementsAutoSwitch ' . $id . ' .swiper-nav {
+                    display: block;
+                    position: sticky;
+                    overflow-x: auto;
+                    overflow-y: hidden;
+                    white-space: nowrap;
+                    max-width: 120px;
+                    scroll-behavior: smooth;
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                    left: 50% !important;
+                    transform: translateX(-50%);
                     margin: 18px auto 0;
-                    max-width:200px;
+                    padding: 0;
                 }
-                #pweElementsAutoSwitch ' . $id . ' .swiper-dots{
-                    --dot:10px;
-                    --gap:8px;
-                    --side:3;
-                    display:flex;
-                    align-items:center;
-                    gap:var(--gap);
-                    width:100%;
+                #pweElementsAutoSwitch ' . $id . ' .swiper-horizontal>.swiper-pagination-bullets {
+                    bottom: 3px;
                 }
-                #pweElementsAutoSwitch ' . $id . ' .swiper-dot{
-                    width:var(--dot);
-                    height:var(--dot);
-                    border-radius:9999px;
-                    background:#c9d3ff;
-                    flex:0 0 var(--dot);
-                    transition:width .35s ease, background-color .2s ease;
-                    cursor:pointer;
+                #pweElementsAutoSwitch ' . $id . ' .swiper-pagination-bullet {
+                    width: 20px;
+                    height: 12px;
+                    border-radius: 8px;
+                    transition: .3s ease;
                 }
-                #pweElementsAutoSwitch ' . $id . ' .swiper-dot--active{
-                    background:#bfe8df;
-                    width:calc( (100% - (var(--side) * (var(--dot) + var(--gap)))) * 0.9 );
-                    flex:0 1 auto;
-                    height:8px;
-                    border-radius:9999px;
+                #pweElementsAutoSwitch ' . $id . ' .swiper-pagination-bullet-active {
+                    background: var(--accent-color);
+                    width: 55px;
+                    
+                }
+                #pweElementsAutoSwitch ' . $id . ' .swiper-nav::-webkit-scrollbar{
+                    width: 0;
+                    height: 0;
+                    background: transparent;
+                }
+                    /* kropki w linii */
+                #pweElementsAutoSwitch ' . $id . ' .swiper-nav-bullet{
+                    display: inline-block;
+                    margin: 0 3px;
                 }
             </style>';
         }
@@ -109,107 +119,60 @@ class PWE_Swiper
 
                 const partnersElAvailable = '. (stripos($id, 'partners-') !== false ? 'true' : 'false') .';
 
-                const rootSel = "' . $id . '";
-                const $root   = $(rootSel);
                 const breakpoints = ' . $breakpoints_json . ';
 
-                function getSPV(){
-                    const w = window.innerWidth;
-                    const list = Object.entries(breakpoints)
-                    .map(([bp,cfg]) => [parseInt(bp,10), cfg.slidesPerView])
-                    .sort((a,b)=>a[0]-b[0]);
-                    let spv = list[0][1];
-                    for (const [bp,val] of list) if (w >= bp) spv = val;
-                    return spv;
-                }
-
-                const slides = document.querySelectorAll("' . $id . ' .swiper-slide").length;
-
                 const swiper = new Swiper("' . $id . ' .swiper", {
-                    spaceBetween: '. $gap .',
-                    centeredSlides: '. ($centered == true ? 'true' : 'false') .',
-                    grabCursor: true,';
-                    if ($rows != 1) {
-                        $output .= '
-                        loop: false,
-                        grid: {
-                            rows: '. $rows .',
-                            fill: "row"
-                        },';
-                    } else {
-                        $output .= '
-                        loop: true,';
+                    spaceBetween: ' . $gap . ',
+                    centeredSlides: ' . ($centered ? 'true' : 'false') . ',
+                    grabCursor: true,
+                    breakpoints: breakpoints
+                    ' . ($rows != 1 ? ',
+                    loop: false,
+                    grid: {
+                        rows: ' . $rows . ',
+                        fill: "row"
+                    }' : ',
+                    loop: true') . ',
+                    autoplay: {
+                        delay: 3000,
+                        disableOnInteraction: false,
+                        pauseOnMouseEnter: true
+                    }' . ($arrows ? ',
+                    navigation: {
+                        nextEl: "' . $id . ' .swiper-button-next",
+                        prevEl: "' . $id . ' .swiper-button-prev"
+                    }' : '') . ',
+                    pagination: {
+                        el: "' . $id . ' .swiper-nav",
+                        clickable: true,
+                        dynamicBullets: false,
+                        dynamicMainBullets: 3
                     }
-                    // if (stripos($id, 'partners-') !== false) {
-                    //     $output .= '
-                    //     direction: "vertical",';
-                    // }
-                    // $output .= '
-                    // autoplay: {
-                    //     delay: 3000,
-                    //     disableOnInteraction: false,
-                    //     pauseOnMouseEnter: true
-                    // },';
-                    $output .= '
-                    breakpoints: ' . $breakpoints_json;
-                    if ($arrows) {
-                        $output .= ',
-                        navigation: {
-                            nextEl: "' . $id . ' .swiper-button-next",
-                            prevEl: "' . $id . ' .swiper-button-prev"
-                        }';
-                    }
-                $output .= '
                 });
 
-                $root[0].__wcSwiper = swiper;
-                $root[0].__buildDots = buildDots;
+                const paginationEl = document.querySelector("' . $id . ' .swiper-nav");
 
-                const dotsWrap = $root.find(".swiper-dots")[0];
+                // Centering the active dot always
+                function scrollDotsToActive() {
+                    if (!paginationEl) return;
 
-                function buildDots(s){
-                    s = s || $root[0].__wcSwiper;
-                    if (!s) return;
+                    const active = paginationEl.querySelector(".swiper-pagination-bullet-active");
+                    if (!active) return;
 
-                    const spv = getSPV();
-                    const totalPages = Math.ceil(s.slides.length / spv);
-                    const navCount   = Math.min(4, totalPages);
-                    const groupSize  = Math.ceil(totalPages / navCount);
+                    const target =
+                        active.offsetLeft -
+                        (paginationEl.clientWidth / 2) +
+                        (active.clientWidth / 2);
 
-                    dotsWrap.style.setProperty("--side", Math.max(0, navCount - 1));
-                    dotsWrap.innerHTML = "";
-
-                    for (let i=0; i<navCount; i++){
-                    const btn = document.createElement("button");
-                    btn.type = "button";
-                    btn.className = "swiper-dot";
-                    btn.addEventListener("click", () => {
-                        const targetPage  = i * groupSize;
-                        const targetIndex = targetPage * spv;
-                        s.slideTo(targetIndex);
-                    });
-                    dotsWrap.appendChild(btn);
-                    }
-                    requestAnimationFrame(() => updateDots(s));
-                }
-
-                function updateDots(s){
-                    const spv = getSPV();
-                    const totalPages = Math.ceil(s.slides.length / spv);
-                    const navCount = Math.min(4, totalPages);
-                    const currentPage = Math.floor(s.activeIndex / spv);
-                    const activeIdx = Math.min(navCount - 1, currentPage % navCount);
-
-                    [...dotsWrap.children].forEach((el, idx) =>
-                        el.classList.toggle("swiper-dot--active", idx === activeIdx)
+                    $(paginationEl).stop(true).animate(
+                        { scrollLeft: Math.max(0, target) },
+                        300
                     );
                 }
 
-                if (dotsWrap) {
-                    requestAnimationFrame(() => buildDots(swiper));
-                    swiper.on("slideChangeTransitionEnd", () => updateDots(swiper));
-                    window.addEventListener("resize", () => buildDots(swiper));
-                };
+                swiper.on("slideChangeTransitionEnd", scrollDotsToActive);
+                swiper.on("resize", scrollDotsToActive);
+                setTimeout(scrollDotsToActive, 0);
 
                 if (partnersElAvailable == false) {
 
