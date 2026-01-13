@@ -1,12 +1,12 @@
-.pwe-statistics {
+#pweElementsAutoSwitch .pwe-statistics {
     padding: 36px 0;
 }
-.pwe-statistics__wrapper {
+#pweElementsAutoSwitch .pwe-statistics__wrapper {
     display: flex;
     gap: 12px;
     min-height: 260px;
 }
-.pwe-statistics__main-tile {
+#pweElementsAutoSwitch .pwe-statistics__main-tile {
     flex: .25;
     padding: 14px;
     border-radius: 12px;
@@ -15,86 +15,86 @@
     align-items: flex-start;
     gap: 14px;
 }
-.pwe-statistics__main-text p {
+#pweElementsAutoSwitch .pwe-statistics__main-text p {
     margin: 0;
     font-size: 18px;
 }
-.pwe-statistics__main-text strong p {
+#pweElementsAutoSwitch .pwe-statistics__main-text strong p {
     font-size: 20px;
     font-weight: 600;
 }
-.pwe-statistics__btn {
+#pweElementsAutoSwitch .pwe-statistics__btn {
     margin: auto auto 0;
 }
-.pwe-statistics__tiles {
+#pweElementsAutoSwitch .pwe-statistics__tiles {
     display: flex;
     flex: .75;
     gap: 12px;
 }
-.pwe-statistics__tiles-visitors {
+#pweElementsAutoSwitch .pwe-statistics__tiles-visitors {
     flex: .5;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     gap: 6px;
 }
-.pwe-statistics__tile-visitors {
+#pweElementsAutoSwitch .pwe-statistics__tile-visitors {
     flex: .5;
     display: flex;
     flex-direction: column;
 }
-.pwe-statistics__tile-visitors-abroad {
+#pweElementsAutoSwitch .pwe-statistics__tile-visitors-abroad {
     flex: .5;
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
-.pwe-statistics__tiles-other {
+#pweElementsAutoSwitch .pwe-statistics__tiles-other {
     display: flex;
     flex-direction: column;
     gap: 12px;
     flex: .5;
 }
-.pwe-statistics__tile-exhibitors {
+#pweElementsAutoSwitch .pwe-statistics__tile-exhibitors {
     flex: .5;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
-.pwe-statistics__tile-area {
+#pweElementsAutoSwitch .pwe-statistics__tile-area {
     flex: .5;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
-.pwe-statistics__tile-text {
+#pweElementsAutoSwitch .pwe-statistics__tile-text {
     display: flex;
     flex-direction: column;
     width: calc(100% - 80px);
     gap: 6px;
     padding: 14px;
 }
-.pwe-statistics__tile-divider {
+#pweElementsAutoSwitch .pwe-statistics__tile-divider {
     margin: 12px 0;
     width: 100%;
     height: 3px;
     background: var(--background-color);
     border: none;
 }
-.pwe-statistics__border {
+#pweElementsAutoSwitch .pwe-statistics__border {
     border: 2px solid var(--background-color);
     border-radius: 12px;
     position: relative;
 }
-.pwe-statistics__tile-number {
+#pweElementsAutoSwitch .pwe-statistics__tile-number {
     font-size: 30px;
     font-weight: 600;
 }
-.pwe-statistics__tile-number-desc {
+#pweElementsAutoSwitch .pwe-statistics__tile-number-desc {
     font-size: 18px;
     font-weight: 500;
 }
-.pwe-statistics__tile-percent {
+#pweElementsAutoSwitch .pwe-statistics__tile-percent {
     background: var(--accent-color);
     padding: 2px 8px;
     border-radius: 36px;
@@ -103,7 +103,7 @@
     color: white;
     font-weight: 500;
 }
-.pwe-statistics__icon-box {
+#pweElementsAutoSwitch .pwe-statistics__icon-box {
     background: var(--accent-color);
     border-radius: 0 10px 10px 0;
     width: 80px;
@@ -112,32 +112,32 @@
     align-items: center;
     justify-content: center;
 }
-.pwe-statistics__icon {
+#pweElementsAutoSwitch .pwe-statistics__icon {
     width: 100%;
     padding: 8px;
 }
 @media(max-width:960px) {
-    .pwe-statistics__tiles {
+    #pweElementsAutoSwitch .pwe-statistics__tiles {
         flex-direction: column;
     }
 }
 @media(max-width:570px) {
-    .pwe-statistics__wrapper {
+    #pweElementsAutoSwitch .pwe-statistics__wrapper {
         flex-direction: column;
     }
-    .pwe-statistics__main-tile {
+    #pweElementsAutoSwitch .pwe-statistics__main-tile {
         align-items: center;
     }
-    .pwe-statistics__main-text p {
+    #pweElementsAutoSwitch .pwe-statistics__main-text p {
         text-align: center;
     }
-    .pwe-statistics__icon-box {
+    #pweElementsAutoSwitch .pwe-statistics__icon-box {
         height: auto;
     }
-    .pwe-statistics__tile-number {
+    #pweElementsAutoSwitch .pwe-statistics__tile-number {
         font-size: 20px;
     }
-    .pwe-statistics__tile-number-desc {
+    #pweElementsAutoSwitch .pwe-statistics__tile-number-desc {
         font-size: 16px;
     }
 }

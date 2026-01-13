@@ -1,8 +1,6 @@
 <?php
-
-$output = '';
             
-$output .= '
+$output = '
 <div id="pweStatistics" class="pwe-statistics">
     <div class="pwe-statistics__wrapper">
         <div class="pwe-statistics__main-tile pwe-statistics__border">

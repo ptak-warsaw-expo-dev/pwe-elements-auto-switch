@@ -85,7 +85,8 @@
 }
 @media(max-width:960px) {
     #pweElementsAutoSwitch .pwe-profiles__card {
-        aspect-ratio: 1;
+        min-height: 250px;
+        aspect-ratio: unset;
     }
     #pweElementsAutoSwitch .pwe-profiles__card h5 {
         font-size: 18px;
@@ -95,9 +96,6 @@
     #pweElementsAutoSwitch .pwe-profiles__cards {
         display: flex;
         flex-direction: column;
-    }
-    #pweElementsAutoSwitch .pwe-profiles__card {
-        aspect-ratio: 3 / 2;
     }
     #pweElementsAutoSwitch .pwe-profiles__card h5 {
         font-size: 26px;

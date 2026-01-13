@@ -13,6 +13,7 @@ $output = '
                 // Generating HTML
                 foreach ($other_events_items_json as $other_events_item) {
                     $other_events_domain = $other_events_item["other_events_domain"];
+                    $other_events_short_desc = $other_events_item["other_events_short_desc"];
                     $other_events_text = $other_events_item["other_events_text"];
 
                     $other_events_text_content = !empty($other_events_text_content) ? $other_events_text_content : '<p>[pwe_desc_' . PWECommonFunctions::languageChecker('pl', 'en') . ' domain="' . $other_events_domain . '"]</p>';
@@ -24,7 +25,7 @@ $output = '
                                     <img data-no-lazy="1" src="https://'. $other_events_domain .'/doc/logo-color.webp"/>
                                 </div>
                                 <div class="pwe-other-events__item-statistic">
-                                    <div class="pwe-other-events__item-text">'. $other_events_text .'</div>
+                                    <div class="pwe-other-events__item-text">'. (!empty($other_events_short_desc) ? $other_events_short_desc : $other_events_text) .'</div>
                                     <div class="pwe-other-events__item-statistic-numbers-block">
                                         <div class="pwe-other-events__item-statistic-numbers">
                                             <div class="pwe-other-events__item-statistic-icon">

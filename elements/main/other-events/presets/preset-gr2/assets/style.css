@@ -8,25 +8,24 @@
     padding: 36px 18px;
     margin: 0 auto;
 }
-.pwe-other-events__title p {
+#pweElementsAutoSwitch .pwe-other-events__title p {
     margin: 0;
 }
-.pwe-other-events__items {
+#pweElementsAutoSwitch .pwe-other-events__items {
     width: 100%;
-    padding: 14px;
     margin: 14px 0 0;
 }
-.pwe-other-events__item {
+#pweElementsAutoSwitch .pwe-other-events__item {
     background: white;
     border-radius: 18px;
     transition: .3s ease;
 }
-.pwe-other-events__item a {
+#pweElementsAutoSwitch .pwe-other-events__item a {
     height: 100%;
     display: flex;
     flex-direction: column;
 }
-.pwe-other-events__item-logo {
+#pweElementsAutoSwitch .pwe-other-events__item-logo {
     height: 140px;
     flex: 0 0 140px;
     padding: 14px;
@@ -35,12 +34,12 @@
     justify-content: center;
     align-items: center;
 }
-.pwe-other-events__item-logo img {
+#pweElementsAutoSwitch .pwe-other-events__item-logo img {
     object-fit: contain;
     height: 100%;
     max-width: 160px;
 }
-.pwe-other-events__item-statistic {
+#pweElementsAutoSwitch .pwe-other-events__item-statistic {
     flex: 1 1 auto;
     padding: 14px;
     display: flex;
@@ -48,37 +47,37 @@
     align-items: flex-start;
     text-align: left;
     justify-content: space-between;
-    gap: 8px;
+    gap: 10px;
 }
-.pwe-other-events__item-text, 
-.pwe-other-events__item-text p {
+#pweElementsAutoSwitch .pwe-other-events__item-text, 
+#pweElementsAutoSwitch .pwe-other-events__item-text p {
     font-weight: 600;
     font-size: 16px;
     text-align: center;
     margin: 0;
 }
-.pwe-other-events__item-statistic-numbers-block {
+#pweElementsAutoSwitch .pwe-other-events__item-statistic-numbers-block {
     width: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
     gap: 6px;
 }
-.pwe-other-events__item-statistic-numbers {
+#pweElementsAutoSwitch .pwe-other-events__item-statistic-numbers {
     min-width: 170px;
     display: flex;
     gap: 4px;
     padding: 4px;
 }
-.pwe-other-events__item-statistic-number {
+#pweElementsAutoSwitch .pwe-other-events__item-statistic-number {
     font-weight: 600;
     font-size: 20px;
 }
-.pwe-other-events__item-statistic-name {
+#pweElementsAutoSwitch .pwe-other-events__item-statistic-name {
     font-size: 14px;
     font-weight: 500;
 }
-.pwe-other-events__show-more-btn {
+#pweElementsAutoSwitch .pwe-other-events__show-more-btn {
     color: var(--accent-color);
     font-weight: 600;
     text-align: center;
@@ -94,6 +93,6 @@
     gap: 6px;
     transition: .3s;
 }
-.pwe-other-events__show-more-btn:hover {
+#pweElementsAutoSwitch .pwe-other-events__show-more-btn:hover {
     gap: 10px;
 }

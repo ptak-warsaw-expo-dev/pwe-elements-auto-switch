@@ -10,14 +10,24 @@ $output = '
         </div>
 
         <div class="pwe-summary__logos">
-            <img src="/wp-content/plugins/pwe-media/media/numbers-el/certifed.webp" alt="">
-            <img src="/wp-content/plugins/pwe-media/media/numbers-el/ufi.webp" alt="">
+            <img src="/wp-content/plugins/pwe-media/media/numbers-el/certifed.webp" alt="Certified UFI Member">
+            <img src="/wp-content/plugins/pwe-media/media/numbers-el/ufi.webp" alt="Ufi">
         </div>
     </div>
 
-    <div class="pwe-summary__background" style="background:url(/wp-content/plugins/pwe-media/media/bg-object.jpg)">
+    <div class="pwe-summary__background mobile"></div>
+
+    <div class="pwe-summary__background">
         <div class="pwe-summary__background-wrapper">
             <div class="pwe-summary__stats">
+                <div class="pwe-summary__stat mobile">
+                    <img src="/wp-content/plugins/pwe-media/media/numbers-el/certifed.webp" alt="Certified UFI Member">
+                </div>
+                
+                <div class="pwe-summary__stat mobile">
+                    <img src="/wp-content/plugins/pwe-media/media/numbers-el/ufi.webp" alt="Ufi">
+                </div>
+
                 <div class="pwe-summary__stat">
                     <img src="/wp-content/plugins/pwe-media/media/numbers-el/exhibitors.webp" alt="">
                     <h3>2000+</h3>
@@ -45,7 +55,6 @@ $output = '
         </div>
     </div>
 
-</div>
-';  
+</div>';  
 
 return $output;

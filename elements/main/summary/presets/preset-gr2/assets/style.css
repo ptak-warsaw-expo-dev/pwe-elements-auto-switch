@@ -2,90 +2,158 @@
     max-width: 100%;
     padding: 0;
 }
-.pwe-summary {
+#pweElementsAutoSwitch .pwe-summary {
     width: 100%;
     font-family: inherit;
 }
-.pwe-summary__heading {
+#pweElementsAutoSwitch .pwe-summary__heading {
     display: flex;
     justify-content: space-between;
-    padding: 36px 0;
+    padding: 36px 18px 18px;
     max-width: 1200px;
     margin: 0 auto;
 }
-.pwe-summary__heading-text {
+#pweElementsAutoSwitch .pwe-summary__heading-text {
     display: flex;
     flex-direction: column;
 }
-.pwe-summary__title {
-    font-size: 48px;
-    font-weight: 700;
+#pweElementsAutoSwitch .pwe-summary__title {
     line-height: 1.1;
     margin: 0;
-    max-width: 650px;
+    max-width: 600px;
 }
-.pwe-summary__logos {
+#pweElementsAutoSwitch .pwe-summary__logos {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: end;
     align-items: center;
-    gap: 40px;
+    gap: 18px;
 }
-.pwe-summary__logos img {
+#pweElementsAutoSwitch .pwe-summary__logos img {
     height: 75px;
     width: auto;
     object-fit: contain;
 }
-.pwe-summary__background {
+#pweElementsAutoSwitch .pwe-summary__background {
+    background-image:url(/wp-content/plugins/pwe-media/media/bg-object.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
-.pwe-summary__background-wrapper {
+#pweElementsAutoSwitch .pwe-summary__background.mobile {
+    display: none;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    aspect-ratio: 16 / 9;
+}
+#pweElementsAutoSwitch .pwe-summary__background-wrapper {
     max-width: 1200px;
     margin: 0 auto;
     padding: 72px 0;
     display: flex;
     justify-content: right;
 }
-.pwe-summary__stats {
+#pweElementsAutoSwitch .pwe-summary__stats {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 25px;
     max-width: 600px;
 }
-.pwe-summary__stat {
+#pweElementsAutoSwitch .pwe-summary__stat {
     background: var(--accent-color);
     color: white;
-    border-radius: 24px;
+    border-radius: 16px;
     padding: 18px;
     position: relative;
     overflow: hidden;
     width: 260px;
 }
-.pwe-summary__stat img {
+#pweElementsAutoSwitch .pwe-summary__stat.mobile {
+    display: none;
+}
+#pweElementsAutoSwitch .pwe-summary__stat img {
     position: absolute;
     width: 50px;
     right: 18px;
     top: 18px;
     filter: brightness(0) invert(1);
 }
-.pwe-summary__stat h3 {
-    margin: 36px 0 0;
+#pweElementsAutoSwitch .pwe-summary__stat h3 {
+    margin: 46px 0 0;
     font-size: 40px;
     font-weight: 700;
     color: white;
 }
-.pwe-summary__stat p {
+#pweElementsAutoSwitch .pwe-summary__stat p {
     font-size: 14px;
     margin: 0;
 }
-@media (max-width: 900px) {
-    .pwe-summary__heading {
+@media (max-width: 960px) {
+    #pweElementsAutoSwitch .pwe-summary__heading {
         flex-direction: column;
         gap: 20px;
     }
-    .pwe-summary__stats {
-        grid-template-columns: 1fr;
-        margin: 40px 0;
+    #pweElementsAutoSwitch .pwe-summary__logos {
+        display: none;
+    }
+    #pweElementsAutoSwitch .pwe-summary__background-wrapper {
+        padding: 18px;
+        justify-content: center;
+    }
+    #pweElementsAutoSwitch .pwe-summary__stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-top: -50px;
+        gap: 12px;
+        max-width: 500px;
+    }
+    #pweElementsAutoSwitch .pwe-summary__stat {
+        width: auto;
+        aspect-ratio: 5 / 4;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+    }
+    #pweElementsAutoSwitch .pwe-summary__stat img {
+        width: 30px;
+    }
+    #pweElementsAutoSwitch .pwe-summary__stat h3 {
+        margin: 30px 0 0;
+        font-size: 32px;
+        font-weight: 500;
+    }
+    #pweElementsAutoSwitch .pwe-summary__stat p {
+        line-height: 1.3;
+    }
+    #pweElementsAutoSwitch .pwe-summary__stat.mobile {
+        display: flex;
+        background: white;
+        border: 1px solid #777;
+        justify-content: center;
+    }
+    #pweElementsAutoSwitch .pwe-summary__stat.mobile img {
+        position: relative;
+        width: auto;
+        right: unset;
+        top: unset;
+        filter: unset;
+        object-fit: contain;
+    }
+    #pweElementsAutoSwitch .pwe-summary__background {
+        background-image: unset;
+    }
+    #pweElementsAutoSwitch .pwe-summary__background.mobile {
+        display: block;
+        background-image:url(/wp-content/plugins/pwe-media/media/bg-object.jpg);
+    }
+    @media (max-width: 400px) {
+        #pweElementsAutoSwitch .pwe-summary__stat h3 {
+            font-size: 28px;
+        }
+        #pweElementsAutoSwitch .pwe-summary__stat p {
+            font-size: 12px;
+        }
     }
 }

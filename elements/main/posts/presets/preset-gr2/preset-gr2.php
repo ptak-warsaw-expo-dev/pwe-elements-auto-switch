@@ -32,13 +32,15 @@ if (!empty($vc_content)) {
 $output = '
 <div id="pwePosts" class="pwe-posts">
     <div class="pwe-posts__wrapper">
-        <h4 class="pwe-main-title">'. PWECommonFunctions::languageChecker('Expo Aktualności', 'Expo News') .'</h4>
-        
-        <div class="pwe-posts__slider swiper" role="group" aria-roledescription="carousel" aria-live="polite">
+        <div class="pwe-posts__title">
+            <h4 class="pwe-main-title">'. PWECommonFunctions::languageChecker('Expo Aktualności', 'Expo News') .'</h4>
             <div class="swiper-buttons-arrows">
                 <div class="swiper-button-prev">⏴</div>
                 <div class="swiper-button-next">⏵</div>
             </div>
+        </div>
+        
+        <div class="pwe-posts__slider swiper" role="group" aria-roledescription="carousel" aria-live="polite">
             <div class="swiper-wrapper">';
 
                 foreach ($pwe_posts['items'] as $item) {
@@ -64,10 +66,12 @@ $output = '
 
             $output .= '
             </div>
-            <div class="swiper-nav">
-                <div class="swiper-dots" aria-label="Slider navigation" role="tablist"></div>
-            </div>
         </div>
+
+        <div class="swiper-nav">
+          <div class="swiper-dots" aria-label="Slider navigation" role="tablist"></div>
+        </div>
+        
     </div>
 </div>';
 
