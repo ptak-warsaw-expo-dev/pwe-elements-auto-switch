@@ -44,6 +44,43 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
+        const labels = {
+            day: {
+                pl: ["dzień", "dni", "dni"],
+                en: ["day", "days"]
+            },
+            hour: {
+                desktop: {
+                    pl: ["godzina", "godziny", "godzin"],
+                    en: ["hour", "hours"]
+                },
+                mobile: {
+                    pl: ["godz", "godz", "godz"],
+                    en: ["hour", "hours"]
+                }
+            },
+            minute: {
+                desktop: {
+                    pl: ["minuta", "minuty", "minut"],
+                    en: ["minute", "minutes"]
+                },
+                mobile: {
+                    pl: ["min", "min", "min"],
+                    en: ["min", "min"]
+                }
+            },
+            second: {
+                desktop: {
+                    pl: ["sekunda", "sekundy", "sekund"],
+                    en: ["second", "seconds"]
+                },
+                mobile: {
+                    pl: ["sek", "sek", "sek"],
+                    en: ["sec", "sec"]
+                }
+            }
+        };
+
         function animateDigits(digitsEl, newNumber) {
             const oldNumber = digitsEl.dataset.value || "";
             const oldDigits = oldNumber.split("");
@@ -53,7 +90,10 @@ document.addEventListener("DOMContentLoaded", function () {
             while (oldDigits.length < maxLength) oldDigits.unshift("0");
             while (newDigits.length < maxLength) newDigits.unshift("0");
 
-            if (oldDigits.join("") === newDigits.join("")) return;
+            if (
+                oldDigits.join("") === newDigits.join("") &&
+                digitsEl.innerHTML !== ""
+            ) return;
 
             digitsEl.innerHTML = "";
 
@@ -95,15 +135,30 @@ document.addEventListener("DOMContentLoaded", function () {
             const now = new Date();
             let distance, label;
 
-            if (now < startDate) {
-                label = lang === "pl" ? "Do targów pozostało:" : "Until the fair starts:";
-                distance = startDate - now;
-            } else if (now >= startDate && now <= endDate) {
-                label = lang === "pl" ? "Do końca targów pozostało:" : "Until the fair ends:";
-                distance = endDate - now;
+            const isMobile = window.innerWidth < 960;
+
+            if (!isMobile) {
+                if (now < startDate) {
+                    label = lang === "pl" ? "Do targów pozostało:" : "Until the fair starts:";
+                    distance = startDate - now;
+                } else if (now >= startDate && now <= endDate) {
+                    label = lang === "pl" ? "Do końca targów pozostało:" : "Until the fair ends:";
+                    distance = endDate - now;
+                } else {
+                    label = lang === "pl" ? "Targi zakończone" : "Fair ended";
+                    distance = 0;
+                }
             } else {
-                label = lang === "pl" ? "Targi zakończone" : "Fair ended";
-                distance = 0;
+                if (now < startDate) {
+                    label = "START:";
+                    distance = startDate - now;
+                } else if (now >= startDate && now <= endDate) {
+                    label = lang === "pl" ? "KONIEC:" : "END:";
+                    distance = endDate - now;
+                } else {
+                    label = lang === "pl" ? "Targi zakończone" : "Fair ended";
+                    distance = 0;
+                }
             }
 
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -113,10 +168,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             labelEl.textContent = label;
 
-            const dayLabel = pluralize(days, lang === "pl" ? ["dzień", "dni", "dni"] : ["day", "days"]);
-            const hourLabel = pluralize(hours, lang === "pl" ? ["godzina", "godziny", "godzin"] : ["hour", "hours"]);
-            const minuteLabel = pluralize(minutes, lang === "pl" ? ["minuta", "minuty", "minut"] : ["minute", "minutes"]);
-            const secondLabel = pluralize(seconds, lang === "pl" ? ["sekunda", "sekundy", "sekund"] : ["second", "seconds"]);
+            const langKey = lang === "pl" ? "pl" : "en";
+            const viewKey = isMobile ? "mobile" : "desktop";
+
+            const dayLabel = pluralize(days, labels.day[langKey]);
+            const hourLabel = pluralize(hours, labels.hour[viewKey][langKey]);
+            const minuteLabel = pluralize(minutes, labels.minute[viewKey][langKey]);
+            const secondLabel = pluralize(seconds, labels.second[viewKey][langKey]);
 
             animateDigits(timerEl.querySelector(".days .digits"), days);
             animateDigits(timerEl.querySelector(".hours .digits"), hours);

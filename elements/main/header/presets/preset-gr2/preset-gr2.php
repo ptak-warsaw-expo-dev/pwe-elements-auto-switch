@@ -15,7 +15,7 @@ $output = '
                 </div>
                 <div class="pwe-header__date">
                     <h2>'. $trade_fair_date .'</h2>
-                    <p>'. PWE_Functions::multi_translation('warsaw') .'</p>
+                    <p>'. PWE_Functions::multi_translation('warsaw_poland') .'</p>
                 </div>
 
                 <div class="pwe-header__buttons">

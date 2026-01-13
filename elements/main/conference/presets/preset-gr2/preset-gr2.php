@@ -72,7 +72,7 @@ $output = '
                         </div>
                     </div>';
 
-                    $output .= PWE_Swiper::swiperScripts('#pweConference', [0   => ['slidesPerView' => 2],450   => ['slidesPerView' => 3]], false, true);
+                    $output .= PWE_Swiper::swiperScripts('#pweConference', [0   => ['slidesPerView' => 2],450   => ['slidesPerView' => 3],650   => ['slidesPerView' => 5],1120   => ['slidesPerView' => 3]], false, true);
                 }
 
             $output .= '

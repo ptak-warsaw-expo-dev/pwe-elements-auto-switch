@@ -10,18 +10,27 @@
     margin: 24px auto !important;
 }
 #pweElementsAutoSwitch .pwe-countdown__cta .pwe-btn {
+    position: relative;
     border-radius: 40px !important;
-    padding: 18px 32px !important;
+    padding: 12px 50px 12px 30px !important;
     margin: 10px auto;
     background-color: var(--main2-color);
-    padding: 10px 18px;
     color: #fff;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 700;
 }
 #pweElementsAutoSwitch .pwe-countdown__cta .pwe-btn:hover {
     background-color: var(--main2_darker_color);
     color: #fff;
+}
+#pweElementsAutoSwitch .pwe-countdown__cta .pwe-btn svg {
+    position: absolute;
+    right: 28px;
+    transition: .3s ease;
+}
+#pweElementsAutoSwitch .pwe-countdown__cta .pwe-btn:hover svg {
+    position: absolute;
+    right: 22px;
 }
 @media (max-width: 960px) {
     #pweElementsAutoSwitch .pwe-countdown__label,

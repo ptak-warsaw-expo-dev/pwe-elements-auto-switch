@@ -44,50 +44,90 @@
 }
 
 
-#pweElementsAutoSwitch .pwe-medals__item:nth-child(1) {
+#pweElementsAutoSwitch .pwe-medals__items .first {
     z-index: 1;
 }
-#pweElementsAutoSwitch .pwe-medals__item:nth-child(1) img {
-    width: 260px; 
+#pweElementsAutoSwitch .pwe-medals__items .first img {
+    width: 260px;
 }
-#pweElementsAutoSwitch .pwe-medals__item:nth-child(2) {
-    margin-left: -50px; 
+#pweElementsAutoSwitch .pwe-medals__items .second {
+    margin-left: -50px;
     z-index: 2;
 }
-#pweElementsAutoSwitch .pwe-medals__item:nth-child(2) img {
+#pweElementsAutoSwitch .pwe-medals__items .second img {
     width: 160px;
 }
-#pweElementsAutoSwitch .pwe-medals__item:nth-child(3) {
+#pweElementsAutoSwitch .pwe-medals__items .third {
     margin-left: -70px;
     z-index: 3;
 }
-#pweElementsAutoSwitch .pwe-medals__item:nth-child(3) img {
+#pweElementsAutoSwitch .pwe-medals__items .third img {
     width: 160px;
 }
-#pweElementsAutoSwitch .pwe-medals__item:nth-child(4) {
+#pweElementsAutoSwitch .pwe-medals__items .fourth {
     margin-left: -70px;
     z-index: 4;
 }
-#pweElementsAutoSwitch .pwe-medals__item:nth-child(4) img {
+#pweElementsAutoSwitch .pwe-medals__items .fourth img {
     width: 160px;
 }
+ 
 
-
-#pweElementsAutoSwitch .pwe-medals__items:hover .pwe-medals__item:nth-child(1) img {
-    width: 160px;
-}
-#pweElementsAutoSwitch .pwe-medals__items:hover .pwe-medals__item:nth-child(2) {
+/* HOVER – SECOND */
+#pweElementsAutoSwitch .pwe-medals__items .second:hover ~ .third,
+#pweElementsAutoSwitch .pwe-medals__items .second:hover ~ .fourth {
     margin-left: -50px;
 }
-#pweElementsAutoSwitch .pwe-medals__items:hover .pwe-medals__item:nth-child(2) img {
+
+#pweElementsAutoSwitch .pwe-medals__items .second:hover img {
     width: 260px;
 }
-#pweElementsAutoSwitch .pwe-medals__items:hover .pwe-medals__item:nth-child(3) {
-    margin-left: -70px;
+
+#pweElementsAutoSwitch .pwe-medals__items .second:hover ~ .third img,
+#pweElementsAutoSwitch .pwe-medals__items .second:hover ~ .fourth img,
+#pweElementsAutoSwitch .pwe-medals__items:has(.second:hover) .first img {
+    width: 160px;
 }
-#pweElementsAutoSwitch .pwe-medals__items:hover .pwe-medals__item:nth-child(4) {
+
+
+/* HOVER – THIRD */
+#pweElementsAutoSwitch .pwe-medals__items .third:hover {
+    z-index: 5;
+}
+
+#pweElementsAutoSwitch .pwe-medals__items .third:hover img {
+    width: 260px;
+}
+
+#pweElementsAutoSwitch .pwe-medals__items .third:hover ~ .fourth {
     margin-left: -50px;
 }
+
+#pweElementsAutoSwitch .pwe-medals__items .third:hover ~ .fourth img,
+#pweElementsAutoSwitch .pwe-medals__items .third:hover ~ .second img,
+#pweElementsAutoSwitch .pwe-medals__items:has(.third:hover) .first img {
+    width: 160px;
+}
+
+
+/* HOVER – FOURTH */
+#pweElementsAutoSwitch .pwe-medals__items .fourth:hover {
+    z-index: 6;
+}
+
+#pweElementsAutoSwitch .pwe-medals__items .fourth:hover img {
+    width: 260px;
+}
+
+#pweElementsAutoSwitch .pwe-medals__items .fourth:hover ~ .first img,
+#pweElementsAutoSwitch .pwe-medals__items .fourth:hover ~ .second img,
+#pweElementsAutoSwitch .pwe-medals__items:has(.fourth:hover) .first img {
+    width: 160px;
+}
+
+
+
+
 #pweElementsAutoSwitch .pwe-medals .pwe-btn-container {
     position: relative;
     justify-content: left;

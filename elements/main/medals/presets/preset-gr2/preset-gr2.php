@@ -28,16 +28,16 @@ $output = '
             </div>
         </div>
         <div class="pwe-medals__items">
-            <div class="pwe-medals__item">
+            <div class="pwe-medals__item first">
                 <img src="/wp-content/plugins/pwe-media/media/medals/'. $year .'/'. $lang .'/innowacyjnosc.webp"/>
             </div>
-            <div class="pwe-medals__item">
+            <div class="pwe-medals__item second">
                 <img src="/wp-content/plugins/pwe-media/media/medals/'. $year .'/'. $lang .'/produkt-targowy.webp"/>
             </div>
-            <div class="pwe-medals__item">
+            <div class="pwe-medals__item third">
                 <img src="/wp-content/plugins/pwe-media/media/medals/'. $year .'/'. $lang .'/premiera-targowa.webp"/>
             </div>
-            <div class="pwe-medals__item">
+            <div class="pwe-medals__item fourth">
                 <img src="/wp-content/plugins/pwe-media/media/medals/'. $year .'/'. $lang .'/ekspozycja-targowa.webp"/>
             </div>
         </div>

@@ -26,8 +26,8 @@
     letter-spacing: 0.8px;
     margin: 0;
 }
-#pweElementsAutoSwitch .pwe-conference-schedule__multi-table-wrapper {
-    margin-top: 36px;
+#pweElementsAutoSwitch .pwe-conference-schedule__content {
+    margin-top: 18px;
 }
 #pweElementsAutoSwitch .pwe-conference-schedule__table { 
     width: 100%; 
@@ -61,7 +61,13 @@
     background: white;
 }
 #pweElementsAutoSwitch .pwe-conference-schedule__row-link td {
-    border-radius: 6px;
+    transition: 0.3s;
+}
+#pweElementsAutoSwitch .pwe-conference-schedule__row-link td:first-child {
+    border-radius: 6px 0 0 6px;
+}
+#pweElementsAutoSwitch .pwe-conference-schedule__row-link td:last-child {
+    border-radius: 0 6px 6px 0;
 }
 #pweElementsAutoSwitch .pwe-conference-schedule__row-link:hover {
     transform: scale(1.01);
@@ -80,18 +86,6 @@
     margin: 0;
     color: black;
 }
-#pweElementsAutoSwitch .swiper-horizontal>.swiper-pagination-bullets, 
-#pweElementsAutoSwitch .swiper-pagination-bullets.swiper-pagination-horizontal, 
-#pweElementsAutoSwitch .swiper-pagination-custom, .swiper-pagination-fraction {
-    bottom: 10%;
-}
-#pweElementsAutoSwitch .swiper-pagination-bullet-active {
-    background: var(--accent-color);
-}
-#pweElementsAutoSwitch .swiper-pagination-bullet {
-    width: 10px;
-    height: 10px;
-} 
 #pweElementsAutoSwitch .pwe-conference-schedule__dates {
   display: flex;
   justify-content: center;
@@ -171,87 +165,114 @@
     right: 20px;
 }
 @media (min-width: 768px) {
-    #pweElementsAutoSwitch .pwe-conference-schedule__mobile-list-wrapper {
-        display: none;
+    #pweElementsAutoSwitch .pwe-conference-schedule__mobile-list-wrapper,
+    #pweElementsAutoSwitch .pwe-conference-schedule .swiper-buttons-arrows,
+    #pweElementsAutoSwitch .pwe-conference-schedule .swiper-nav {
+        display: none !important;
     }
 }
 @media (max-width: 768px) {
-    #pweElementsAutoSwitch .pwe-conference-schedule__top {
-        flex-direction: column;
-        text-align: center;
+    #pweElementsAutoSwitch .pwe-conference-schedule .swiper-buttons-arrows,
+    #pweElementsAutoSwitch .pwe-conference-schedule .swiper-nav {
+        display: flex !important;
     }
-
+    #pweElementsAutoSwitch .pwe-conference-schedule__wrapper {
+        background: inherit;
+        padding: 0;
+    }
+    #pweElementsAutoSwitch .pwe-conference-schedule__table {
+        display: none;
+    }
+    #pweElementsAutoSwitch .pwe-conference-schedule__mobile-list-wrapper {
+        display: flex;
+        margin-top: 16px;
+    }
+    #pweElementsAutoSwitch .pwe-conference-schedule__top {
+        text-align: start;
+        align-items: inherit;
+    }
+    #pweElementsAutoSwitch .pwe-conference-schedule__top .pwe-main-title,
+    #pweElementsAutoSwitch .pwe-conference-schedule__top img {
+        display: none;
+    }
+    #pweElementsAutoSwitch .pwe-conference-schedule__top .pwe-subtitle {
+        font-size: 28px;
+        color: black;
+    }
     #pweElementsAutoSwitch .pwe-conference-schedule__title-container {
-        flex-direction: column-reverse;
-        text-align: center;
-        align-items: center;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
         gap: 6px;
     }
-
     #pweElementsAutoSwitch .pwe-conference-schedule__top img {
         max-width: 180px;
         margin-bottom: 12px;
     }
-
     #pweElementsAutoSwitch .pwe-conference-schedule__top h2 {
         font-size: 12px;
         line-height: 1.3;
     }
-
     #pweElementsAutoSwitch .pwe-conference-schedule__top h3 {
         font-size: 16px;
     }
-
-    #pweElementsAutoSwitch .pwe-conference-schedule__multi-table-wrapper {
-        display: none;
+    #pweElementsAutoSwitch .pwe-conference-schedule__content {
+        margin: 0;
     }
-
-    #pweElementsAutoSwitch .pwe-conference-schedule__mobile-list-wrapper {
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        padding: 0 6px;
-    }
-
     #pweElementsAutoSwitch .pwe-conference-schedule__mobile-list {
         display: flex;
-        gap: 16px;
-        padding: 16px 0;
     }
-
     #pweElementsAutoSwitch .pwe-conference-schedule__mobile-card {
-        flex: 0 0 100%;
-        scroll-snap-align: center;
         background: white;
         border-radius: 12px;
+        border: 1px solid var(--accent-color);
         padding: 16px;
-        box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-        text-align: center;
+        box-shadow: unset;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        align-items: center;
         margin: 0 auto;
     }
-
     #pweElementsAutoSwitch .pwe-conference-schedule__mobile-card img {
         max-width: 80%;
+        background: white;
+        padding: 6px;
+        border-radius: 8px;
+        max-height: 70px;
     }
-
     #pweElementsAutoSwitch .pwe-conference-schedule__mobile-card h3 {
         margin-top: 18px;
-        font-size: 14px;
+        font-size: 22px;
     }
-
     #pweElementsAutoSwitch .pwe-conference-schedule__mobile-card p {
         font-size: 12px;
     }  
-
     #pweElementsAutoSwitch .pwe-conference-schedule__mobile-card em {
         background: var(--accent-color);
         padding: 4px 10px;
         color: white;
         border-radius: 12px;
         font-weight: 500;
+    }
+    #pweElementsAutoSwitch .pwe-conference-schedule__mobile-card-main-content {
+        width: 100%;
+        background: var(--background-color);
+        padding: 12px;
+        border-radius: 12px;
+        margin: 0;
+    }
+    #pweElementsAutoSwitch .pwe-conference-schedule__row-title {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 0;
+    }
+    #pweElementsAutoSwitch .pwe-conference-schedule__row-title p {
+        margin: 0;
+    }
+    #pweElementsAutoSwitch .pwe-conference-schedule__date {
+        padding: 8px 10px;
+        min-width: 100px;
     }
 }

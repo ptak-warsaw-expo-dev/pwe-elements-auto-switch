@@ -32,7 +32,12 @@ if ((($trade_fair_start_date_timestamp != false && $trade_fair_end_date_timestam
             <div class="pwe-countdown__label"></div>
             <div class="pwe-countdown__timer"></div>
             <div class="pwe-countdown__cta">
-                <a href="'. ($lang === 'pl' ? '/zostan-wystawca/' : '/en/become-an-exhibitor/') .'" class="pwe-btn">'. ($lang === 'pl' ? 'ZOSTAŃ WYSTAWCĄ' : 'BECOME AN EXHIBITOR') .'</a>
+                <a href="'. ($lang === 'pl' ? '/zostan-wystawca/' : '/en/become-an-exhibitor/') .'" class="pwe-btn">
+                    '. ($lang === 'pl' ? 'Zostań wystawcą' : 'Become an exhibitor') .'
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 7L1 7M13 7L7 13M13 7L7 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
             </div>
         </div>
     </div>';

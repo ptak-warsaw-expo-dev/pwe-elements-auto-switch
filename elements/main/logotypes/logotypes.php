@@ -13,6 +13,20 @@ class Logotypes {
         ];
     }
 
+    public static function url_returns_404(string $url): bool {
+        $headers = @get_headers($url, 1);
+
+        if ($headers === false) {
+            return true;
+        }
+
+        if (is_array($headers) && isset($headers[0])) {
+            return str_contains($headers[0], '404');
+        }
+
+        return true;
+    }
+
     public static function render($group, $params = []) {
         $data = self::get_data();
         $element_type = $data['types'][0];
@@ -30,29 +44,72 @@ class Logotypes {
         if ($preset_file && file_exists($preset_file)) {
             
             /* <-------------> General code start <-------------> */
-           
+
+            
+
             $cap_logotypes_data = PWECommonFunctions::get_database_logotypes_data();
             if (!empty($cap_logotypes_data)) {
 
                 $saving_paths = function (&$logotypes, $logo_data) {
-                    // Get desc_pl & desc_en from meta_data
                     $meta = json_decode($logo_data->meta_data, true);
-                    $name = $logo_data->logos_exh_name;
+                    $data = json_decode($logo_data->data ?? '{}', true);
+
+                    $currentLocale = get_locale();
+
+                    $visibilityFlags = array_filter($data, function ($key) {
+                        return preg_match('/^logos_[a-z]{2}_[A-Z]{2}$/', $key);
+                    }, ARRAY_FILTER_USE_KEY);
+
+                    if (empty($visibilityFlags)) {
+                        $showLogo = true;
+                    } else {
+                        // If no flags: show
+                        $allNull = true;
+                        foreach ($visibilityFlags as $val) {
+                            if (!is_null($val)) {
+                                $allNull = false;
+                                break;
+                            }
+                        }
+
+                        if ($allNull) {
+                            $showLogo = true;
+                        } else {
+                            $keyForCurrentLocale = 'logos_' . $currentLocale;
+
+                            if (isset($visibilityFlags[$keyForCurrentLocale])) {
+                                $showLogo = ($visibilityFlags[$keyForCurrentLocale] === 'true');
+                            } else {
+                                $showLogo = false;
+                            }
+                        }
+                    }
+
+                    if (!$showLogo) {
+                        return;
+                    }
+
                     $desc_pl = $meta["desc_pl"] ?? '';
                     $desc_en = $meta["desc_en"] ?? '';
-                    $link = $logo_data->logos_link;
-                    $alt = $logo_data->logos_alt;
+
+                    $linkKey = PWECommonFunctions::languageChecker('logos_link', 'logos_link_en');
+                    $altKey = PWECommonFunctions::languageChecker('logos_alt', 'logos_alt_en');
 
                     $element = [
-                        'url' => 'https://cap.warsawexpo.eu/public' . $logo_data->logos_url,
-                        'name' => $name,
+                        'url'  => 'https://cap.warsawexpo.eu/public' . $logo_data->logos_url,
+                        'name' => $data['logos_exh_name'] ?? '',
                         'desc_pl' => $desc_pl,
                         'desc_en' => $desc_en,
-                        'link' => $link,
-                        'alt' => $alt
+                        'link' => $data[$linkKey] ?? '',
+                        'alt' => $data[$altKey] ?? ''
                     ];
 
-                    // Adding logos_url to $logotypes only if it is not already there
+                    $isAdmin = current_user_can('administrator');
+
+                    if (!$isAdmin && self::url_returns_404($element['url'])) {
+                        return;
+                    }
+
                     if (!in_array($element, $logotypes)) {
                         $logotypes[] = $element;
                     }

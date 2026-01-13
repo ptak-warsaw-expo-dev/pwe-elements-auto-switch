@@ -57,13 +57,17 @@
 }
 #pweElementsAutoSwitch .pwe-conference__logo {
     margin-bottom: 20px;
+    max-width: 240px;
 }
 #pweElementsAutoSwitch .pwe-conference__logo img {
-    max-width: 50%;
     display: block;
 }
 #pweElementsAutoSwitch .pwe-conference__partners {
     margin-top: 18px;
+}
+#pweElementsAutoSwitch .pwe-conference__partners h5 {
+   margin: 0;
+   padding-bottom: 12px;
 }
 .pwe-conference .swiper-buttons-arrows {
     height: 45px;
