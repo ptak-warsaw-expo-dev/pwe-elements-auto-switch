@@ -60,7 +60,7 @@ $output .= '
 
                     if (!empty($exhibitor_website)) {
                         $output .= '
-                        <a class="exhibitor-catalog__exh-card-info-contanct-single" href="' . $exhibitor_website . '" target="_blank">
+                        <a class="exhibitor-catalog__exh-card-info-contanct-single" href="' . esc_html($exhibitor_website) . '" target="_blank">
                             ' . pwe_svg_icon('website') . '
                             <p class="exhibitor-catalog__exh-card-info-contanct-single-text">' . PWECommonFunctions::languageChecker('Strona Internetowa', 'Website') . '</p>
                         </a>';

@@ -317,8 +317,11 @@ $output .= '
 
     <div class="exhibitor-catalog__spinner" style="display:none;">
         <div class="exhibitor-catalog__spinner-inner"></div>
-    </div>
+    </div>';
 
+    $output .= ec_load_view('feedback', 'feedback.php', $context_view);
+
+$output .= '
 </div>';
 
 /**

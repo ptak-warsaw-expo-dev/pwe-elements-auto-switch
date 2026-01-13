@@ -1,3 +1,11 @@
+#exhibitorCatalog {
+    flex-direction: column;
+}
+#exhibitorCatalog .exhibitor-catalog__main {
+    padding-top: 0;
+    padding-bottom: 36px;
+}
+
 #exhibitorCatalog .catalog-mobile-panel {
     padding: 12px;
     background: #ffffff;
@@ -21,6 +29,7 @@
     width: 100%;
     max-width: 500px;
     display: flex;
+    margin: 0 auto;
 }
 
 #exhibitorCatalog .catalog-mobile-panel__search-form {

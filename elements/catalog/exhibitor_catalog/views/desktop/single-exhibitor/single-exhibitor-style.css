@@ -268,12 +268,8 @@ aside#usercentrics-cmp-ui {
     transition: 0.3s ease;
 }
 
-#exhibitorPage
-    .exhibitor-page__brands
-    .swiper-button-next:not(.swiper-button-disabled):hover,
-#exhibitorPage
-    .exhibitor-page__brands
-    .swiper-button-prev:not(.swiper-button-disabled):hover {
+#exhibitorPage .exhibitor-page__brands .swiper-button-next:not(.swiper-button-disabled):hover,
+#exhibitorPage .exhibitor-page__brands .swiper-button-prev:not(.swiper-button-disabled):hover {
     background-color: var(--main2-color);
     color: #f0f0f0;
 }
@@ -394,6 +390,21 @@ aside#usercentrics-cmp-ui {
 #exhibitorPage .exhibitor-page__document-link:hover {
     color: var(--accent-color);
     text-decoration: underline;
+}
+
+#exhibitorPage .ec-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#exhibitorPage .ec-pager__btn {
+    width: 45px;
+    height: 45px;
+    margin: 0 40px;
+    padding: 6px;
+    border-radius: 50%;
+    overflow: hidden;
 }
 
 #exhibitorPage .ec-pager__current {

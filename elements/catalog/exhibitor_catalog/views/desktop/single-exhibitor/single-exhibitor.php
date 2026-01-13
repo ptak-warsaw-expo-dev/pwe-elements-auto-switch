@@ -361,7 +361,7 @@ $output .= '
                             $next_url = ($current_doc_page < $total_doc_pages) ? exhibitor_single_build_url("document-page", $current_doc_page + 1) : "";
 
                             $output .= '
-                            <nav class="ec-pager exhibitor-catalog__pagination">
+                            <div class="ec-pager exhibitor-catalog__pagination">
                                 ' . (
                                     $prev_url
                                     ? '<a class="ec-pager__btn ec-pager__btn--prev" href="'.$prev_url.'" rel="prev">'
@@ -383,7 +383,7 @@ $output .= '
                                 ) . '
                                     <svg class="ec-pager__icon" viewBox="0 0 24 24"><path d="M8.5 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                 ' . ($next_url ? '</a>' : '</span>') . '
-                            </nav>';
+                            </div>';
                         }
 
                     $output .= '

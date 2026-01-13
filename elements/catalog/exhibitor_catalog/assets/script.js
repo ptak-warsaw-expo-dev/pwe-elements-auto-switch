@@ -646,6 +646,8 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('load', () => {
     const interval = setInterval(() => {
         const aside = document.querySelector('aside#usercentrics-cmp-ui');
+        const contact = document.querySelector('.exhibitor-single-mobile__contact');
+
         if (!aside) return;
 
         const shadow = aside.shadowRoot;

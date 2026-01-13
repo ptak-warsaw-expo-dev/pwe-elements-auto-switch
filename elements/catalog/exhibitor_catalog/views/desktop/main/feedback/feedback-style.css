@@ -1,0 +1,142 @@
+#exhibitorCatalog .catalog-feedback {
+    position: fixed;
+    bottom: 10px;
+    right: 66px;
+    z-index: 20;
+    width: 260px;
+    height: auto;
+    background: #fffffe;
+    box-shadow: 0 0 12px -8px black;
+    border-radius: 18px;
+    padding: 14px;
+    transform: translateY(310px);
+    transition: 0.5s ease;
+}
+
+#exhibitorCatalog .catalog-feedback:has(.gform_confirmation_wrapper) {
+    transform: translateY(56px);
+    text-align: center;
+}
+
+#exhibitorCatalog .catalog-feedback:hover {
+    transform: translateY(0);
+}
+
+#exhibitorCatalog .catalog-feedback.is-open {
+    transform: translateY(0);
+}
+
+#exhibitorCatalog .catalog-feedback.is-open:has(.gform_confirmation_wrapper) {
+    transform: translateY(0);
+}
+
+#exhibitorCatalog .catalog-feedback.is-1 {
+    background: #fff5f5;
+}
+
+#exhibitorCatalog .catalog-feedback.is-2 {
+    background: #fff7ed;
+}
+
+#exhibitorCatalog .catalog-feedback.is-3 {
+    background: #fafafa;
+}
+
+#exhibitorCatalog .catalog-feedback.is-4 {
+    background: #f0fdf4;
+}
+
+#exhibitorCatalog .catalog-feedback.is-5 {
+    background: #eafee8;
+}
+
+#exhibitorCatalog .catalog-feedback svg {
+    position: absolute;
+    top: -34px;
+    right: 34px;
+    width: 38px;
+}
+
+#exhibitorCatalog .catalog-feedback h3 {
+    margin: 0;
+    margin-bottom: 3px;
+    font-size: 16px;
+}
+
+#exhibitorCatalog .catalog-feedback p {
+    margin-top: 3px;
+    font-size: 12px;
+    text-align: center;
+}
+
+#exhibitorCatalog .catalog-feedback .gform_fields {
+    gap: 6px !important;
+}
+
+#exhibitorCatalog .catalog-feedback .gfield_radio {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0;
+}
+
+#exhibitorCatalog .catalog-feedback .gfield-choice-input {
+    display: none;
+}
+
+#exhibitorCatalog .catalog-feedback .gchoice:has(input[type='radio']) .gform-field-label {
+    font-size: 28px;
+    margin: 0;
+    cursor: pointer;
+    filter: grayscale(1);
+    transform: scale(1);
+    transition: 0.3s ease;
+}
+
+#exhibitorCatalog .catalog-feedback .gchoice:has(input[type='radio']) .gform-field-label:hover {
+    filter: grayscale(0);
+    transform: scale(1.05);
+}
+
+#exhibitorCatalog .catalog-feedback .gchoice:has(input[type='radio']:checked) .gform-field-label {
+    filter: grayscale(0);
+    transform: scale(1.15);
+}
+
+#exhibitorCatalog .catalog-feedback .gfield_label {
+    font-size: 13px;
+}
+
+#exhibitorCatalog .catalog-feedback textarea {
+    max-height: 80px;
+    min-block-size: 2rem;
+}
+
+#exhibitorCatalog .catalog-feedback .gform_footer {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#exhibitorCatalog .catalog-feedback .gform_footer input[type='submit'] {
+    background: var(--accent-color);
+    font-weight: 700 !important;
+    border-radius: 36px;
+    width: 60%;
+    transition: 0.3s ease;
+}
+
+#exhibitorCatalog .catalog-feedback .gform_footer input[type='submit']:hover {
+    background: var(--accent_dark_color);
+}
+#exhibitorCatalog .catalog-feedback:has(.gform_confirmation_wrapper) h3,
+#exhibitorCatalog .catalog-feedback:has(.gform_confirmation_wrapper) .rating-hint,
+#exhibitorCatalog .catalog-feedback:has(.gform_confirmation_wrapper) svg {
+    display: none;
+}
+#exhibitorCatalog .catalog-feedback .gform_confirmation_message {
+    font-size: 14px;
+}
