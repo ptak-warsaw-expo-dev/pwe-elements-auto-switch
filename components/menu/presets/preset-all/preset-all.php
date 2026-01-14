@@ -118,17 +118,21 @@ $output .= '
 <header id="pweMenuAutoSwitch" class="pwe-menu-auto-switch"> 
     <a style="opacity: 0; width: 0; height: 0;"  href="#main-content" class="skip-link">Skip to main content</a>
     <div class="pwe-menu-auto-switch__wrapper">
-        <div class="pwe-menu-auto-switch__main-logo">
-            <a class="pwe-menu-auto-switch__main-logo-ptak ' . (file_exists($_SERVER['DOCUMENT_ROOT'] . PWECommonFunctions::languageChecker('/doc/logo-x-pl.webp', '/doc/logo-x-en.webp')) ? "hidden-mobile" : "") . '" target="_blank" href="https://warsawexpo.eu'. PWECommonFunctions::languageChecker('/', '/en/') .'">
-                <img data-no-lazy="1" src="/wp-content/plugins/pwe-media/media/logo_pwe.webp" alt="logo ptak">
+        <div class="pwe-menu-auto-switch__main-logotypes">
+            <a class="pwe-logo ' . (file_exists($_SERVER['DOCUMENT_ROOT'] . PWECommonFunctions::languageChecker('/doc/logo-x-pl.webp', '/doc/logo-x-en.webp')) ? "hidden-mobile" : "") . '" target="_blank" href="https://warsawexpo.eu'. PWECommonFunctions::languageChecker('/', '/en/') .'">
+                <div class="pwe-menu-auto-switch__main-logo-container">
+                    <img data-no-lazy="1" src="/wp-content/plugins/pwe-media/media/logo_pwe.webp" alt="logo ptak">
+                </div>
             </a>
-            <a class="pwe-menu-auto-switch__main-logo-fair" href="'. PWECommonFunctions::languageChecker('/', '/en/') .'">';
-                if (PWECommonFunctions::lang_pl()) {
-                    $output .= '<img data-no-lazy="1" src="' . (file_exists($_SERVER['DOCUMENT_ROOT'] . "/doc/logo-x-pl.webp") ? "/doc/logo-x-pl.webp" : "/doc/favicon.webp") . '" alt="logo fair">';
-                } else {
-                    $output .= '<img data-no-lazy="1" src="' . (file_exists($_SERVER['DOCUMENT_ROOT'] . "/doc/logo-x-en.webp") ? "/doc/logo-x-en.webp" : "/doc/favicon.webp") . '" alt="logo fair">';
-                }
-            $output .= '
+            <a class="fair-logo" href="'. PWECommonFunctions::languageChecker('/', '/en/') .'">
+                <div class="pwe-menu-auto-switch__main-logo-container pwe-menu-auto-switch__main-logo-fair">';
+                    if (PWECommonFunctions::lang_pl()) {
+                        $output .= '<img data-no-lazy="1" src="' . (file_exists($_SERVER['DOCUMENT_ROOT'] . "/doc/logo-x-pl.webp") ? "/doc/logo-x-pl.webp" : "/doc/favicon.webp") . '" alt="logo fair">';
+                    } else {
+                        $output .= '<img data-no-lazy="1" src="' . (file_exists($_SERVER['DOCUMENT_ROOT'] . "/doc/logo-x-en.webp") ? "/doc/logo-x-en.webp" : "/doc/favicon.webp") . '" alt="logo fair">';
+                    }
+                $output .= '
+                </div>
             </a> 
         </div>
 
@@ -190,7 +194,7 @@ $output .= '
                                         </svg>
                                         <p>
                                             <span class="pwe-menu-auto-switch__lang-code notranslate">' . strtoupper($lang["language_code"]) . '</span>
-                                            <span class="pwe-menu-auto-switch__lang-text notranslate">'. PWECommonFunctions::languageChecker('Język', 'Language') .'</span>
+                                            <span class="pwe-menu-auto-switch__lang-text notranslate">'. (get_locale() === 'pl_PL' ? 'Język' : (get_locale() === 'de_DE' ? 'Sprache' : 'Language')) .'</span>
                                         </p>
                                     </div>
                                     <svg class="pwe-menu-auto-switch__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -278,8 +282,8 @@ $output .= '
 
         <div class="pwe-menu-auto-switch__container-mobile">
             <li class="pwe-menu-auto-switch__register-btn pwe-menu-auto-switch__item button">
-                <a href="'. PWECommonFunctions::languageChecker('/rejestracja/', '/en/registration/') .'">
-                    '. PWECommonFunctions::languageChecker('WEŹ UDZIAŁ', 'TAKE A PART') .'
+                <a href="'. (get_locale() === 'pl_PL' ? '/rejestracja/' : (get_locale() === 'de_DE' ? '/de/registrieren/' : '/en/registration/')) .'">
+                    <span class="pwe-menu-auto-switch__item-title">'. (get_locale() === 'pl_PL' ? 'WEŹ UDZIAŁ' : (get_locale() === 'de_DE' ? 'JETZT TEILNEHMEN' : 'JOIN US')) .'</span>
                 </a>
             </li>
             

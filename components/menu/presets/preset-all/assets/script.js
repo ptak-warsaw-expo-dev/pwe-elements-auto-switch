@@ -87,11 +87,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (menu_transparent === "true") {
         if (pweNavMenuHome && window.innerWidth >= 960) {
             if (window.scrollY > pweNavMenu.offsetHeight) {
-                pweNavMenuHome.style.background = accent_color;
+                pweNavMenuHome.style.background = "var(--accent-color)";
             }
             window.addEventListener("scroll", function () {
                 if (window.scrollY > pweNavMenu.offsetHeight) {
-                    pweNavMenuHome.style.background = accent_color;
+                    pweNavMenuHome.style.background = "var(--accent-color)";
                     pweNavMenuHome.classList.add('color');
 
                 } else {
@@ -105,10 +105,24 @@ document.addEventListener("DOMContentLoaded", function () {
     } 
     
     if (burgerButton && pweNavMenu) {
+        const lockScroll = () => {
+            document.documentElement.style.overflow = 'hidden';
+        };
+
+        const unlockScroll = () => {
+            document.documentElement.style.overflow = '';
+        };
+
         // Listening for click on burger menu
-        burgerButton.addEventListener("click", function() {
-            pweNavMenu.classList.toggle("burger-menu");
-            
+        burgerButton.addEventListener("click", function () {
+            const isOpen = pweNavMenu.classList.toggle("burger-menu");
+
+            if (isOpen) {
+                lockScroll();
+            } else {
+                unlockScroll();
+            }
+
             // If the menu is open, close all submenus
             const openSubmenus = document.querySelectorAll('.pwe-menu-auto-switch__submenu.visible');
             openSubmenus.forEach(submenu => {
@@ -118,8 +132,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Click outside the menu - close burger menu
         document.addEventListener("click", function (e) {
-            if (pweNavMenu.classList.contains("burger-menu") && !menuContainer.contains(e.target) && !burgerButton.contains(e.target)) {
+            if (
+                pweNavMenu.classList.contains("burger-menu") &&
+                !menuContainer.contains(e.target) &&
+                !burgerButton.contains(e.target)
+            ) {
                 pweNavMenu.classList.remove("burger-menu");
+                unlockScroll();
 
                 // Close all open submenus
                 const openSubmenus = document.querySelectorAll('.pwe-menu-auto-switch__submenu.visible');
@@ -234,11 +253,14 @@ document.addEventListener("DOMContentLoaded", function () {
         // Get the page language
         const htmlLang = document.documentElement.lang;
 
+        const labels = {
+            'pl-PL': ['weź udział', 'zostań wystawcą'],
+            'en-US': ['join us', 'book a stand'],
+            'de-DE': ['jetzt teilnehmen', 'stand buchen']
+        };
+
         registerButtons.forEach(registerButton => {
-            if (
-                registerButton.innerText.toLowerCase() === (htmlLang === 'pl-PL' ? 'weź udział' : 'join us') ||
-                registerButton.innerText.toLowerCase() === (htmlLang === 'pl-PL' ? 'zostań wystawcą' : 'book a stand')
-            ) {
+            if (labels[htmlLang]?.includes(registerButton.innerText.toLowerCase())) {
                 // Create a Date object based on the trade fair end date
                 let endDate = new Date(trade_fair_enddata);
 
@@ -261,15 +283,51 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Check if the current domain is NOT in the B2C domains list
                 if (!b2cDomains.includes(currentDomain)) {
                     let newText, newHref;
+
+                    if (endDate < threeMonths) {
+                        newText =
+                            htmlLang === 'pl-PL' ? 'WEŹ UDZIAŁ'
+                            : htmlLang === 'de-DE' ? 'JETZT TEILNEHMEN'
+                            : 'JOIN US';
+
+                        newHref =
+                            htmlLang === 'pl-PL' ? '/rejestracja/'
+                            : htmlLang === 'de-DE' ? '/de/registrierung/'
+                            : '/en/registration/';
+                    } else {
+                        newText =
+                            htmlLang === 'pl-PL' ? 'ZOSTAŃ WYSTAWCĄ'
+                            : htmlLang === 'de-DE' ? 'STAND BUCHEN'
+                            : 'BOOK A STAND';
+
+                        newHref =
+                            htmlLang === 'pl-PL' ? '/zostan-wystawca/'
+                            : htmlLang === 'de-DE' ? '/de/aussteller-werden/'
+                            : '/en/become-an-exhibitor/';
+                    }
                     
                     // Check if the trade fair end date is less than 90 days away
-                    if (endDate < threeMonths) {
-                        newText = (htmlLang === 'pl-PL') ? 'WEŹ UDZIAŁ' : 'JOIN US';
-                        newHref = (htmlLang === 'pl-PL') ? '/rejestracja/' : '/en/registration/';
-                    } else {
-                        newText = (htmlLang === 'pl-PL') ? 'ZOSTAŃ WYSTAWCĄ' : 'BOOK A STAND';
-                        newHref = (htmlLang === 'pl-PL') ? '/zostan-wystawca/' : '/en/become-an-exhibitor/';
-                    }
+                    const cta = {
+                        'pl-PL': {
+                            early: { text: 'WEŹ UDZIAŁ', href: '/rejestracja/' },
+                            late: { text: 'ZOSTAŃ WYSTAWCĄ', href: '/zostan-wystawca/' }
+                        },
+                        'en-US': {
+                            early: { text: 'JOIN US', href: '/en/registration/' },
+                            late: { text: 'BOOK A STAND', href: '/en/become-an-exhibitor/' }
+                        },
+                        'de-DE': {
+                            early: { text: 'JETZT TEILNEHMEN', href: '/de/registrierung/' },
+                            late: { text: 'STAND BUCHEN', href: '/de/aussteller-werden/' }
+                        }
+                    };
+
+                    const phase = endDate < threeMonths ? 'early' : 'late';
+                    const langConfig = cta[htmlLang] || cta['en-GB'];
+
+                    newText = langConfig[phase].text;
+                    newHref = langConfig[phase].href;
+
 
                     // Update text and link for both desktop and mobile buttons
                     registerButton.innerText = newText;
@@ -280,20 +338,20 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        window.addEventListener("resize", function () {
-            if (window.innerWidth < 960) {
-                mobileRegisterButtonContainer.classList.add("visible");
-            } else {
-                mobileRegisterButtonContainer.classList.remove("visible");
-            }
-        });
+        // window.addEventListener("resize", function () {
+        //     if (window.innerWidth < 960) {
+        //         mobileRegisterButtonContainer.classList.add("visible");
+        //     } else {
+        //         mobileRegisterButtonContainer.classList.remove("visible");
+        //     }
+        // });
         
-        // Run once on page load to set initial state
-        if (window.innerWidth < 960) {
-            mobileRegisterButtonContainer.classList.add("visible");
-        } else {
-            mobileRegisterButtonContainer.classList.remove("visible");
-        }
+        // // Run once on page load to set initial state
+        // if (window.innerWidth < 960) {
+        //     mobileRegisterButtonContainer.classList.add("visible");
+        // } else {
+        //     mobileRegisterButtonContainer.classList.remove("visible");
+        // }
         
     }
 
