@@ -25,7 +25,7 @@ if (!empty($premieres[0]->slug)) {
     <div id="pwePremieres" class="pwe-premieres">
         <div class="pwe-premieres__header">
             <div class="pwe-premieres__header-title">
-                <div class="pwe-subtitle">PRODUKTY '. do_shortcode('[trade_fair_name]') .'</div>
+                <div class="pwe-main-subtitle">PRODUKTY '. do_shortcode('[trade_fair_name]') .'</div>
                 <div class="pwe-main-title">'. PWECommonFunctions::languageChecker('Co zobaczysz na targach', 'What will you see at the fair?') .'</div>
             </div>
             <img class="pwe-premieres__header-img" src="/doc/logo-color.webp" alt="">
@@ -34,12 +34,20 @@ if (!empty($premieres[0]->slug)) {
         <div class="swiper">
             <div class="swiper-wrapper">';
 
-                foreach ($slides as $slide) {
+                foreach ($slides as $slide) { 
                     $output .= '
                             <div class="swiper-slide">
                                 <div class="pwe-premieres__slide">
                                     <div class="pwe-premieres__image">
                                         <img src="'.esc_url($slide['img']).'" alt="'.esc_attr($slide['name']).'">
+                                        <span class="pwe-premieres__fullscreen-icon">
+                                            <svg width="40px" height="40px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <g>
+                                                    <path fill="none" d="M0 0h24v24H0z"/>
+                                                    <path d="M20 3h2v6h-2V5h-4V3h4zM4 3h4v2H4v4H2V3h2zm16 16v-4h2v6h-6v-2h4zM4 19h4v2H2v-6h2v4z"/>
+                                                </g>
+                                            </svg>
+                                        </span>
                                     </div>
                                     <div class="pwe-premieres__content">
 

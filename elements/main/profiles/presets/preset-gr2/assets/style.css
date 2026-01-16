@@ -19,20 +19,43 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 18px;
+    padding: 38px 24px;
     border-radius: 22px;
     aspect-ratio: 3/4;
+    transition: .3s ease;
 }
-#pweElementsAutoSwitch .pwe-profiles__card:before {
+#pweElementsAutoSwitch .pwe-profiles__card::before,
+#pweElementsAutoSwitch .pwe-profiles__card::after {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    background: linear-gradient(to top, var(--accent-color) 0%, var(--accent-color) 30%, rgba(0, 0, 0, 0) 100%);
+    inset: 0;
     border-radius: 22px;
+    transition: opacity .4s ease;
+    z-index: 0;
+}
+#pweElementsAutoSwitch .pwe-profiles__card::before {
+    background: linear-gradient(
+        to top,
+        var(--accent-color) 0%,
+        var(--accent-color) 30%,
+        rgba(0,0,0,0) 100%
+    );
+    opacity: 1;
+}
+#pweElementsAutoSwitch .pwe-profiles__card::after {
+    background: linear-gradient(
+        to top,
+        var(--accent-color) 0%,
+        var(--accent-color) 80%,
+        rgba(0,0,0,0) 110%
+    );
+    opacity: 0;
+}
+#pweElementsAutoSwitch .pwe-profiles__card:hover::after {
+    opacity: 1;
+}
+#pweElementsAutoSwitch .pwe-profiles__card:hover::before {
+    opacity: 0;
 }
 #pweElementsAutoSwitch .pwe-profiles__card-content {
     padding-top: 36px;
@@ -61,6 +84,10 @@
     overflow-y: auto;
     transition: max-height 0.4s ease, opacity 0.4s ease;
     opacity: 0;
+    margin: 0;
+}
+#pweElementsAutoSwitch .pwe-profiles__card-text ul {
+    margin: 0;
 }
 #pweElementsAutoSwitch .pwe-profiles__card:hover .pwe-profiles__card-text {
     max-height: 400px;
