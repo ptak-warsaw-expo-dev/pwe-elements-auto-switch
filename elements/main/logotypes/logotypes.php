@@ -42,10 +42,10 @@ class Logotypes {
 
         $preset_file = self::get_data()['presets'][$group] ?? null;
         if ($preset_file && file_exists($preset_file)) {
-            
+
             /* <-------------> General code start <-------------> */
 
-            
+
 
             $cap_logotypes_data = PWECommonFunctions::get_database_logotypes_data();
             if (!empty($cap_logotypes_data)) {
@@ -146,8 +146,8 @@ class Logotypes {
                         }
                     }
 
-                    if (count($logotypes) < 1) { 
-                        return;
+                    if (count($logotypes) < 1) {
+                        $logotypes = [];
                     }
                 }
 
@@ -162,9 +162,9 @@ class Logotypes {
                     }
 
                     if (count($logotypes) < 1) {
-                        return;
+                        $logotypes = [];
                     }
-                } 
+                }
 
                 if ($logotypes_slug === 'patrons-partners-international') {
                     $logotypes = [];
@@ -177,7 +177,7 @@ class Logotypes {
                     }
 
                     if (count($logotypes) < 1) {
-                        return;
+                        $logotypes = [];
                     }
                 }
 
@@ -191,45 +191,40 @@ class Logotypes {
                     }
 
                     if (count($logotypes) < 1) {
-                        return;
+                        $logotypes = [];
                     }
                 }
 
-                if ($logotypes_slug === 'patrons-partners-pwe') {
-                    $logotypes = [];
-
-                    $files = glob(
-                        $_SERVER['DOCUMENT_ROOT'] . '/wp-content/plugins/pwe-media/media/wspieraja-nas/*.{jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP}', 
-                        GLOB_BRACE
-                    );
-
-                    foreach ($files as $file) {
-                        $relativePath = str_replace($_SERVER['DOCUMENT_ROOT'], '', $file);
-
-                        $element = [
-                            'url'     => $relativePath,
-                            'desc_pl' => '',
-                            'desc_en' => '',
-                            'link'    => '',
-                            'alt'     => pathinfo($file, PATHINFO_FILENAME),
-                        ];
-
-                        $exclude_file = (strpos($element['url'], 'Instytut-mysli-ekologicznej-logo.webp') !== false && $group === 'gr1');
-
-                        if (!$exclude_file) {
-                            $logotypes[] = $element;
-                        }
-                    }
-
-                    if (count($logotypes) < 1) {
-                        return;
-                    }
-                }
             }
 
-            if ($logotypes == null) {
-                echo '<style>.logotypes-'. $group .'{display:none;}</style>';
-                return;
+            if ($logotypes_slug === 'patrons-partners-pwe') {
+
+                $logotypes = [];
+
+                $files = glob(
+                    $_SERVER['DOCUMENT_ROOT'] . '/wp-content/plugins/pwe-media/media/wspieraja-nas/*.{jpeg,jpg,png,webp,JPEG,JPG,PNG,WEBP}',
+                    GLOB_BRACE
+                ) ?: [];
+
+                foreach ($files as $file) {
+                    $relativePath = str_replace($_SERVER['DOCUMENT_ROOT'], '', $file);
+
+                    $exclude_file =
+                        strpos($relativePath, 'Instytut-mysli-ekologicznej-logo.webp') !== false
+                        && $group === 'gr1';
+
+                    if ($exclude_file) {
+                        continue;
+                    }
+
+                    $logotypes[] = [
+                        'url'     => $relativePath,
+                        'desc_pl' => '',
+                        'desc_en' => '',
+                        'link'    => '',
+                        'alt'     => pathinfo($file, PATHINFO_FILENAME),
+                    ];
+                }
             }
 
             $slug_id = ucfirst(str_replace(' ', '', ucwords(str_replace('-', ' ', $logotypes_slug))));
@@ -251,11 +246,13 @@ class Logotypes {
             }
 
             /* <-------------> General code end <-------------> */
-            
+            if (empty($logotypes)) {
+                return;
+            }
             $output = include $preset_file;
-            
+
             if ($output) {
-                echo $output;         
+                echo $output;
             }
         }
     }

@@ -17,6 +17,12 @@
     padding: 18px;
     width: 220px;
 }
+#pweElementsAutoSwitch .pwe-halls__title p {
+    margin: 6px 0 0;
+}
+#pweElementsAutoSwitch .pwe-halls__info img {
+    padding: 0 10px;
+}
 #pweElementsAutoSwitch .pwe-halls__info p,
 #pweElementsAutoSwitch .pwe-halls__info span {
     margin: 0 auto;
@@ -27,7 +33,11 @@
     padding: 4px 0;
 }
 #pweElementsAutoSwitch .pwe-halls__info span {
-    
+    display: flex;
+    align-items: center;
+}
+#pweElementsAutoSwitch .pwe-halls__info svg {
+    margin-top: 8px;
 }
 #pweElementsAutoSwitch .pwe-halls__date,
 #pweElementsAutoSwitch .pwe-halls__halls,

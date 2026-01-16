@@ -26,7 +26,7 @@
     flex-direction: column;
     justify-content: space-between;
     background: var(--background-color);
-    padding: 18px;
+    padding: 30px;
     height: 100%;
     border-radius: 14px;
     gap: 18px;
@@ -38,10 +38,15 @@
     justify-content: space-between;
     align-items: center;
 }
+#pweElementsAutoSwitch .pwe-opinions__item-top-img {
+    display: flex;
+    background: #fff;
+    border-radius: 8px;
+    padding: 6px;
+}
 #pweElementsAutoSwitch .pwe-opinions__item-top img {
-    width: 100px;
+    height: 60px;
     object-fit: cover;
-    border-radius: 50%;
 }
 #pweElementsAutoSwitch .pwe-opinions__item-opinion-text {
     max-height: 140px;
@@ -50,6 +55,9 @@
     scrollbar-width: thin; /* Firefox */
     scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
     -webkit-overflow-scrolling: touch;
+}
+#pweElementsAutoSwitch .pwe-opinions__item-opinion-text p {
+    margin-top: 10px;
 }
 /* Chrome, Edge, Safari */
 #pweElementsAutoSwitch .pwe-opinions__item-opinion-text::-webkit-scrollbar {
@@ -71,27 +79,44 @@
 }
 #pweElementsAutoSwitch .pwe-opinions__item-opinion-text p {
     line-height: 1.3;
+    font-size: 15px;
 }
 #pweElementsAutoSwitch .pwe-opinions__item-bottom {
     width: 100%;
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    gap: 10px;
     margin-top: 36px;
 }
+#pweElementsAutoSwitch .pwe-opinions__item-bottom-img {
+    display: flex;
+    align-items: center;
+}
+#pweElementsAutoSwitch .pwe-opinions__item-bottom-img img {
+    width: 50px;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
 #pweElementsAutoSwitch .pwe-opinions__item-company-name {
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 18px;
+    font-weight: 700;
     margin: 0;
 }
+#pweElementsAutoSwitch .pwe-opinions__item-bottom-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
 #pweElementsAutoSwitch .pwe-opinions__item-person-name {
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 700;
-    margin: 10px 0 0;
+    margin: 0;
     color: var(--accent-color);
 }
 #pweElementsAutoSwitch .pwe-opinions__item-person-position {
+    font-size: 15px;
     margin: 0;
+    line-height: 1.2;
 }
 #pweElementsAutoSwitch .pwe-opinions .swiper-nav {
     margin-top: 46px !important;

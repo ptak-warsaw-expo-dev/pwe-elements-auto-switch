@@ -17,7 +17,7 @@
     flex-direction: column;
 }
 #pweElementsAutoSwitch .pwe-conference-schedule__top img {
-    max-width: 260px;
+    max-width: 200px;
 }
 #pweElementsAutoSwitch .pwe-conference-schedule__top h2 {
     color: var(--accent-color);
@@ -78,7 +78,7 @@
 #pweElementsAutoSwitch .pwe-conference-schedule__logos {
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
+    gap: 10px;
     border: none !important;
 }
 #pweElementsAutoSwitch .pwe-conference-schedule__conf-name {

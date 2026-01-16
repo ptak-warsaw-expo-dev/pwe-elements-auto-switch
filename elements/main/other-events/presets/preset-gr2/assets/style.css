@@ -9,7 +9,7 @@
     margin: 0 auto;
 }
 #pweElementsAutoSwitch .pwe-other-events__title p {
-    margin: 0;
+    margin: 6px 0 0;
 }
 #pweElementsAutoSwitch .pwe-other-events__items {
     width: 100%;
@@ -19,6 +19,9 @@
     background: white;
     border-radius: 18px;
     transition: .3s ease;
+}
+#pweElementsAutoSwitch .pwe-other-events__item:hover {
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12); 
 }
 #pweElementsAutoSwitch .pwe-other-events__item a {
     height: 100%;
@@ -41,16 +44,17 @@
 }
 #pweElementsAutoSwitch .pwe-other-events__item-statistic {
     flex: 1 1 auto;
-    padding: 14px;
+    padding: 0px 14px 14px; 
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    text-align: left;
+    text-align: center;
     justify-content: space-between;
     gap: 10px;
 }
 #pweElementsAutoSwitch .pwe-other-events__item-text, 
 #pweElementsAutoSwitch .pwe-other-events__item-text p {
+    width: 100%;
     font-weight: 600;
     font-size: 16px;
     text-align: center;
@@ -66,16 +70,26 @@
 #pweElementsAutoSwitch .pwe-other-events__item-statistic-numbers {
     min-width: 170px;
     display: flex;
-    gap: 4px;
+    gap: 8px;
     padding: 4px;
+    text-align: left;
 }
 #pweElementsAutoSwitch .pwe-other-events__item-statistic-number {
     font-weight: 600;
     font-size: 20px;
+    text-align: left;
 }
 #pweElementsAutoSwitch .pwe-other-events__item-statistic-name {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
+}
+#pweElementsAutoSwitch .pwe-other-events__item-statistic-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#pweElementsAutoSwitch .pwe-other-events__item-statistic-icon svg {
+    max-width: 24px;
 }
 #pweElementsAutoSwitch .pwe-other-events__show-more-btn {
     color: var(--accent-color);

@@ -3,13 +3,19 @@
 $output = '
 <div id="pweExhibitors" class="pwe-exhibitors">
     <div class="pwe-exhibitors__wrapper">
-        <div class="pwe-exhibitors__title">
+        <div class="pwe-exhibitors__top">
             <h4 class="pwe-main-title">Wystawcy</h4>
 
-            <div class="swiper-buttons-arrows">
-                <div class="swiper-button-prev">⏴</div>
-                <div class="swiper-button-next">⏵</div>
+            <div class="pwe-exhibitors__buttons">
+                <div class="pwe-exhibitors__button desktop">
+                    <a href="/katalog-wystawcow/">Zobacz Katalog</a>
+                </div>
+                <div class="swiper-buttons-arrows">
+                    <div class="swiper-button-prev">⏴</div>
+                    <div class="swiper-button-next">⏵</div>
+                </div>
             </div>
+            
         </div>
         <div class="pwe-exhibitors__items swiper">
             <div class="swiper-wrapper">';

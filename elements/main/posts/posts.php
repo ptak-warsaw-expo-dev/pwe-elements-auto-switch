@@ -66,24 +66,41 @@ class Posts {
 
                     $desc_word_count = 10;
                     $post_content = get_post_field('post_content', $post_id);
-
+                    $excerpt = '';
                     $vc_content = '';
-                    if (is_string($post_content) && $post_content !== '') {
-                        if (preg_match('/\[vc_column_text[^\]]*\](.*?)\[\/vc_column_text\]/is', $post_content, $m)) {
-                            $vc_content = $m[1];
-                        }
+
+                    if (preg_match('/pwe_news_summary_desc="([^"]+)"/', $post_content, $matches)) {
+                        $encoded = $matches[1];
+                        $decoded = wpb_js_remove_wpautop(urldecode(base64_decode($encoded)), true);
+                        $vc_content = $decoded;
+
+                    } elseif (preg_match('/pwe_news_upcoming_desc="([^"]+)"/', $post_content, $matches)) {
+                        $encoded = $matches[1];
+                        $decoded = wpb_js_remove_wpautop(urldecode(base64_decode($encoded)), true);
+                        $vc_content = $decoded;
+                    } elseif (preg_match('/news_say_about_us_description="([^"]+)"/', $post_content, $matches)) {
+                        $encoded = $matches[1];
+                        $decoded = wpb_js_remove_wpautop(urldecode(base64_decode($encoded)), true);
+                        $vc_content = $decoded;
+                    } elseif (preg_match('/\[vc_column_text.*?\](.*?)\[\/vc_column_text\]/s', $post_content, $matches)) {
+                        $vc_content = $matches[1];
                     }
 
-                    $text_source = $vc_content !== '' ? $vc_content : $post_content;
-                    $text_source = wp_strip_all_tags( strip_shortcodes( (string) $text_source ) );
-                    $description = trim( wp_trim_words( $text_source, $desc_word_count, '...' ) );
+                    $vc_content = wp_strip_all_tags($vc_content);
+
+                    if (!empty($vc_content)) {
+                        $words = preg_split('/\s+/', trim($vc_content));
+                        $excerpt = implode(' ', array_slice($words, 0, $desc_word_count)) . '...';
+                    } else {
+                        $excerpt = '';
+                    }
 
                     if (!empty($image) && !empty($link) && !empty($title)) {
                         $posts_items[] = [
                             'img'         => $image,
                             'link'        => $link,
                             'title'       => $title,
-                            'description' => $description,
+                            'excerpt'     => $excerpt,
                             'date'        => $date,
                         ];
                     }

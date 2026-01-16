@@ -35,12 +35,12 @@ if ($logotypes_slug === 'patrons-partners') {
       margin-top: 18px;
       display: flex;
     }
-    #pweLogotypes'. $slug_id .' .pwe-logotypes__filters{
+    #pweLogotypes'. $slug_id .' .pwe-logotypes__filters {
       display:flex;
       gap:10px;
       flex-wrap:wrap;
     }
-    #pweLogotypes'. $slug_id .' .pwe-logotypes__filter{
+    #pweLogotypes'. $slug_id .' .pwe-logotypes__filter {
       padding:12px 14px;
       border-radius:8px;
       background:#eef2ff;
@@ -48,7 +48,7 @@ if ($logotypes_slug === 'patrons-partners') {
       font-weight:600;
       line-height:1;
     }
-    #pweLogotypes'. $slug_id .' .pwe-logotypes__filter.is-active{
+    #pweLogotypes'. $slug_id .' .pwe-logotypes__filter.is-active {
       background:#cfe7ff;
     }
     #pweLogotypes'. $slug_id .' .pwe-logotypes__filters span {
@@ -64,7 +64,7 @@ if ($logotypes_slug === 'patrons-partners') {
     }
     #pweLogotypes'. $slug_id .' .pwe-logotypes__item {
       background:#fff;
-      border:1px solid #000;
+      border:1px solid #c8c8c8;
       border-radius:10px;
       display:flex;
       flex-direction:column;
@@ -272,7 +272,6 @@ if ($logotypes_slug === 'patrons-partners') {
     }
     #pweLogotypes'. $slug_id .' .pwe-logotypes__item {
       background: #fff;
-      border: 1px solid #000;
       border-radius: 10px;
       display: flex;
       flex-direction: column;
@@ -282,7 +281,7 @@ if ($logotypes_slug === 'patrons-partners') {
       overflow: hidden;
     }
     #pweLogotypes'. $slug_id .' .pwe-logotypes__item img {
-      aspect-ratio: 3/2;
+      aspect-ratio: 3/1.6;
       object-fit: contain;
       padding: 10px;
       max-width: 100%;

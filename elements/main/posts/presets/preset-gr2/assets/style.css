@@ -5,7 +5,7 @@
 #pweElementsAutoSwitch .pwe-posts__slider {
     position: relative;
     width: 100%;
-    margin: 14px 0 0;
+    margin: 26px 0 0;
 }
 #pweElementsAutoSwitch .pwe-posts__post {
     display: flex;
@@ -31,7 +31,7 @@
     background: var(--main2-color);
 }
 #pweElementsAutoSwitch .pwe-posts__post-thumbnail .image-container {
-    aspect-ratio: 21 / 9;
+    aspect-ratio: 19 / 9;
     width: 100%;
     background-size: cover;
     background-repeat: no-repeat;
@@ -44,6 +44,9 @@
 #pweElementsAutoSwitch .pwe-posts__post-excerpt {
     color: white;
 }
+#pweElementsAutoSwitch .pwe-posts__post-excerpt {
+    line-height: 1.3;
+}
 #pweElementsAutoSwitch .pwe-posts__post-btn {
     position: relative;
     background: #ffffff;
@@ -52,16 +55,16 @@
     font-weight: 600;
     line-height: 1;
     border-radius: 6px;
-    padding: 16px 46px 16px 22px;
+    padding: 16px 22px;
     min-width: 106px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    gap: 6px;
+    gap: 10px;
     transition: .3s;
     opacity: .8;
 }
 #pweElementsAutoSwitch .pwe-posts__post-btn:hover {
-    gap: 12px;
+    gap: 18px;
 }
