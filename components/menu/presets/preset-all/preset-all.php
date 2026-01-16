@@ -118,14 +118,14 @@ $output .= '
 <header id="pweMenuAutoSwitch" class="pwe-menu-auto-switch"> 
     <a style="opacity: 0; width: 0; height: 0;"  href="#main-content" class="skip-link">Skip to main content</a>
     <div class="pwe-menu-auto-switch__wrapper">
-        <div class="pwe-menu-auto-switch__main-logotypes">
+        <div class="pwe-menu-auto-switch__logotypes">
             <a class="pwe-logo ' . (file_exists($_SERVER['DOCUMENT_ROOT'] . PWECommonFunctions::languageChecker('/doc/logo-x-pl.webp', '/doc/logo-x-en.webp')) ? "hidden-mobile" : "") . '" target="_blank" href="https://warsawexpo.eu'. PWECommonFunctions::languageChecker('/', '/en/') .'">
-                <div class="pwe-menu-auto-switch__main-logo-container">
+                <div class="pwe-menu-auto-switch__logo-container">
                     <img data-no-lazy="1" src="/wp-content/plugins/pwe-media/media/logo_pwe.webp" alt="logo ptak">
                 </div>
             </a>
             <a class="fair-logo" href="'. PWECommonFunctions::languageChecker('/', '/en/') .'">
-                <div class="pwe-menu-auto-switch__main-logo-container pwe-menu-auto-switch__main-logo-fair">';
+                <div class="pwe-menu-auto-switch__logo-container pwe-menu-auto-switch__logo-fair">';
                     if (PWECommonFunctions::lang_pl()) {
                         $output .= '<img data-no-lazy="1" src="' . (file_exists($_SERVER['DOCUMENT_ROOT'] . "/doc/logo-x-pl.webp") ? "/doc/logo-x-pl.webp" : "/doc/favicon.webp") . '" alt="logo fair">';
                     } else {
@@ -297,5 +297,32 @@ $output .= '
     </div>
     <div class="pwe-menu-auto-switch__overlay"></div>
 </header>';
+
+if (!empty(do_shortcode('[trade_fair_catalog_id]')) && get_locale() == "pl_PL") {
+    $output .= '
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const pweMenuAutoSwitch = document.querySelector("#pweMenuAutoSwitch");
+
+            // Top main menu "For exhibitors"
+            const mainMenu = pweMenuAutoSwitch ? document.querySelector(".pwe-menu-auto-switch__nav") : document.querySelector("ul.menu-primary-inner");
+            const secondChild = mainMenu.children[1];
+            const dropMenu = pweMenuAutoSwitch ? secondChild.querySelector(".pwe-menu-auto-switch__submenu") : secondChild.querySelector("ul.drop-menu");
+
+            // Create new element li
+            const instructionMenuItem = document.createElement("li");
+            instructionMenuItem.className = pweMenuAutoSwitch ? "pwe-menu-auto-switch__submenu-item" : "menu-item menu-item-type-custom menu-item-object-custom menu-item-99999";
+            instructionMenuItem.innerHTML = `<a title="Instrukcja aplikacji" target="_blank" href="https://warsawexpo.eu/docs/Instrukcja-do-aplikacji.pdf">Instrukcja aplikacji</a>`;
+
+            // Add new element as penultimate in the list
+            if (dropMenu && dropMenu.children.length > 0) {
+            const penultimateItem = dropMenu.children[dropMenu.children.length - 1];
+                dropMenu.insertBefore(instructionMenuItem, penultimateItem);
+            } else {
+                dropMenu.appendChild(instructionMenuItem);
+            }
+        });
+    </script>'; 
+}
 
 return $output;

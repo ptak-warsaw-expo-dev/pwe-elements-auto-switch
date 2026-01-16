@@ -18,11 +18,13 @@ body.home .pwe-menu-auto-switch {
     background-color: transparent;
 }
 .pwe-menu-auto-switch__wrapper {
-    width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
     margin: 0 auto;
-    padding: 0 18px;
+    padding: 4px 18px;
     gap: 18px;
 }
 /* Mobile button take part */
@@ -34,34 +36,34 @@ body.home .pwe-menu-auto-switch {
     transition: .3s ease;
     z-index: 100;
 }
-.pwe-menu-auto-switch__main-logotypes {
+.pwe-menu-auto-switch__logotypes {
     display: flex;
-    align-items: center;
+    align-items: stretch;
+    height: 100%;
     gap: 8px;
     z-index: 100;
+    flex-shrink: 1;
 }
-.pwe-menu-auto-switch__main-logotypes a {
+.pwe-menu-auto-switch__logotypes a {
     display: flex;
-    max-height: 65px;
+    height: 100%;
 }
-.pwe-menu-auto-switch__main-logotypes a.pwe-logo,
-.pwe-menu-auto-switch__main-logotypes a.pwe-logo .pwe-menu-auto-switch__main-logo-container,
-.pwe-menu-auto-switch__main-logotypes a.pwe-logo .pwe-menu-auto-switch__main-logo-container img {
-    aspect-ratio: 1;
+.pwe-menu-auto-switch__logotypes a.pwe-logo img {
+    aspect-ratio: 1 / 1;
 }
-.pwe-menu-auto-switch__main-logotypes img {
+.pwe-menu-auto-switch__logo-container {
+    display: flex;
+    height: 100%;
+}
+.pwe-menu-auto-switch__logotypes img {
+    display: block;
+    max-height: 100%;
     width: auto;
+    height: auto;
     object-fit: contain;
 }
-.pwe-menu-auto-switch__main-logo-container {
-    display: flex;
-    min-height: 65px;
-}
-.pwe-menu-auto-switch__main-logo-ptak {
-    aspect-ratio: 1;
-}
 .pwe-menu-auto-switch__container {
-    width: 100%;
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -324,23 +326,6 @@ body.home .pwe-menu-auto-switch {
     .pwe-menu-auto-switch__wrapper {
         gap: 12px;
     }
-    .pwe-menu-auto-switch__main-logotypes a {
-        height: 100%;
-    }
-    .pwe-menu-auto-switch__main-logo-container {
-        min-height: auto;
-        padding: 5px 0;
-    }
-    .pwe-menu-auto-switch__main-logotypes img {
-        object-fit: contain;
-        min-height: auto;
-        height: 100%;
-    }
-    .pwe-menu-auto-switch__main-logotypes a.pwe-logo,
-    .pwe-menu-auto-switch__main-logotypes a.pwe-logo .pwe-menu-auto-switch__main-logo-container,
-    .pwe-menu-auto-switch__main-logotypes a.pwe-logo .pwe-menu-auto-switch__main-logo-container img {
-        aspect-ratio: auto;
-    }
     .pwe-menu-auto-switch.burger-menu .pwe-menu-auto-switch__container {
         transform: translateX(0);
         overflow: auto;
@@ -522,10 +507,7 @@ body.home .pwe-menu-auto-switch {
     .pwe-menu-auto-switch__wrapper {
         padding: 0 12px;
     }
-    .pwe-menu-auto-switch__main-logotypes {
-        max-width: 240px;
-    }
-    .pwe-menu-auto-switch__main-logotypes .hidden-mobile {
+    .pwe-menu-auto-switch__logotypes .hidden-mobile {
         display: none;
     }
 }

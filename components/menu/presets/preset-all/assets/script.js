@@ -292,7 +292,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         newHref =
                             htmlLang === 'pl-PL' ? '/rejestracja/'
-                            : htmlLang === 'de-DE' ? '/de/registrierung/'
+                            : htmlLang === 'de-DE' ? '/de/registrieren/'
                             : '/en/registration/';
                     } else {
                         newText =
@@ -302,7 +302,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         newHref =
                             htmlLang === 'pl-PL' ? '/zostan-wystawca/'
-                            : htmlLang === 'de-DE' ? '/de/aussteller-werden/'
+                            : htmlLang === 'de-DE' ? '/de/einen-stand-buchen/'
                             : '/en/become-an-exhibitor/';
                     }
                     
@@ -317,8 +317,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             late: { text: 'BOOK A STAND', href: '/en/become-an-exhibitor/' }
                         },
                         'de-DE': {
-                            early: { text: 'JETZT TEILNEHMEN', href: '/de/registrierung/' },
-                            late: { text: 'STAND BUCHEN', href: '/de/aussteller-werden/' }
+                            early: { text: 'JETZT TEILNEHMEN', href: '/de/registrieren/' },
+                            late: { text: 'STAND BUCHEN', href: '/de/einen-stand-buchen/' }
                         }
                     };
 
