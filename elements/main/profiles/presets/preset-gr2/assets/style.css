@@ -13,6 +13,8 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     margin-top: 18px;
+    overflow: hidden;
+    align-items: flex-start;
 }
 #pweElementsAutoSwitch .pwe-profiles__card {
     position: relative;
@@ -21,7 +23,7 @@
     justify-content: flex-end;
     padding: 38px 24px;
     border-radius: 22px;
-    aspect-ratio: 3/4;
+    min-height: 450px;
     transition: .3s ease;
 }
 #pweElementsAutoSwitch .pwe-profiles__card::before,
@@ -111,18 +113,16 @@
     background-color: rgba(255, 255, 255, 0.6);
 }
 @media(max-width:960px) {
-    #pweElementsAutoSwitch .pwe-profiles__card {
-        min-height: 250px;
-        aspect-ratio: unset;
-    }
-    #pweElementsAutoSwitch .pwe-profiles__card h5 {
-        font-size: 18px;
-    }
-}
-@media(max-width:650px) {
     #pweElementsAutoSwitch .pwe-profiles__cards {
         display: flex;
         flex-direction: column;
+    }
+    #pweElementsAutoSwitch .pwe-profiles__card {
+        min-height: 250px;
+        padding: 24px 18px;
+    }
+    #pweElementsAutoSwitch .pwe-profiles__card li {
+        line-height: 1.4;
     }
     #pweElementsAutoSwitch .pwe-profiles__card h5 {
         font-size: 26px;

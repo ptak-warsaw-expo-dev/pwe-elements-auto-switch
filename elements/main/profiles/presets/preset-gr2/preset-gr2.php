@@ -1,7 +1,6 @@
 <?php
 
 $output .= '
-
 <div class="pwe-profiles">
     <div class="pwe-profiles__wrapper">
         <div class="pwe-profiles__title">

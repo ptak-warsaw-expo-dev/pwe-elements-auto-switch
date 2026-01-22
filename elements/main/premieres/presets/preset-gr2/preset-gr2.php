@@ -67,7 +67,11 @@ if (!empty($premieres[0]->slug)) {
                                         </div>
 
                                         <div class="pwe-premieres__content-footer">
-                                            <div class="pwe-premieres__counter"><span>'.str_pad(array_search($slide, $slides)+1, 2, "0", STR_PAD_LEFT).'</span>/<span>'.str_pad(count($slides), 2, "0", STR_PAD_LEFT).'</span></div>
+                                            <div class="pwe-premieres__counter">
+                                                <span>'. str_pad(array_search($slide, $slides)+1, 2, "0", STR_PAD_LEFT).'</span>
+                                                /
+                                                <span>'.str_pad(count($slides), 2, "0", STR_PAD_LEFT) .'</span>
+                                            </div>
                                             <div class="swiper-buttons-arrows">
                                                 <div class="swiper-button-prev">⏴</div>
                                                 <div class="swiper-button-next">⏵</div>

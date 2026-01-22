@@ -1,10 +1,7 @@
-#pweElementsAutoSwitch .pwe-opinions {
-    padding: 18px 0;
-}
 #pweElementsAutoSwitch .pwe-opinions__wrapper {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 18px;
+    padding: 36px 18px;
     position: relative;
 }
 #pweElementsAutoSwitch .pwe-opinions__title {
@@ -15,7 +12,7 @@
     margin: 0;
 }
 #pweElementsAutoSwitch .pwe-opinions__items {
-    padding: 36px 0 0;
+    padding: 26px 0 0;
 }
 #pweElementsAutoSwitch .pwe-opinions__item {
     position: relative;
@@ -45,7 +42,8 @@
     padding: 6px;
 }
 #pweElementsAutoSwitch .pwe-opinions__item-top img {
-    height: 60px;
+    height: 70px;
+    width: auto;
     object-fit: cover;
 }
 #pweElementsAutoSwitch .pwe-opinions__item-opinion-text {
@@ -105,6 +103,7 @@
 #pweElementsAutoSwitch .pwe-opinions__item-bottom-info {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 4px;
 }
 #pweElementsAutoSwitch .pwe-opinions__item-person-name {
@@ -135,7 +134,7 @@
     #pweElementsAutoSwitch .swiper-slide-active .pwe-opinions__item-wrapper {
         transform: scale(1);
     }
-    #pweElementsAutoSwitch .pwe-opinions .swiper-nav {
-        margin-top: 36px !important;
+    #pweElementsAutoSwitch #pweOpinions .swiper-nav {
+        margin-top: 18px !important;
     }
 }
