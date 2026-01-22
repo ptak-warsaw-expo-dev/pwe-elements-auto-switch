@@ -1,16 +1,15 @@
 #pweElementsAutoSwitch .pwe-countdown__wrapper {
-    justify-content: start;
+    justify-content: center;
     gap: 18px;
     padding: 18px;
 }
 #pweElementsAutoSwitch .pwe-countdown__label,
 #pweElementsAutoSwitch .pwe-countdown__timer {
-    text-transform: capitalize;
+    text-transform: uppercase;
     padding: 0 18px;
     font-size: 20px;
 }
 #pweElementsAutoSwitch .pwe-countdown__timer {
-    /* font-size: 30px; */
     display: flex;
     gap: 24px;
 }
@@ -51,8 +50,7 @@
     #pweElementsAutoSwitch .pwe-countdown__timer {
         width: 100%;
         justify-content: center;
-        font-size: 24px;
-        gap: 12px;
+        gap: 10px;
     }
     #pweElementsAutoSwitch .pwe-countdown__wrapper {
         justify-content: center;
@@ -64,9 +62,6 @@
     #pweElementsAutoSwitch .pwe-countdown__timer {
         width: auto;
         padding: 0;
-    }
-    #pweElementsAutoSwitch .pwe-countdown__label {
-        font-size: 24px;
     }
     #pweElementsAutoSwitch .pwe-countdown__unit {
         gap: 4px;

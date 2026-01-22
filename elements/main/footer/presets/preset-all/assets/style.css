@@ -35,12 +35,20 @@
 #pweElementsAutoSwitch .pwe-footer__nav-column {
     width: 33.333%;
 }
+#pweElementsAutoSwitch .pwe-footer__nav-logo-column a {
+    display: flex;
+    height: 100%;
+}
 #pweElementsAutoSwitch .pwe-footer__nav-column h4 span {
+    font-size: 18px;
     color: white;
+}
+#pweElementsAutoSwitch .pwe-footer__nav-column h4 {
+    margin: 0;
 }
 #pweElementsAutoSwitch .pwe-footer__nav-logo-top,
 #pweElementsAutoSwitch .pwe-footer__nav-logo-bottom {
-    max-width: 200px !important;
+    max-width: 170px !important;
 }
 #pweElementsAutoSwitch .pwe-footer__nav-logo-bottom img {
     padding: 8px;
@@ -53,6 +61,12 @@
 }
 #pweElementsAutoSwitch .pwe-footer__nav-links ul li a {
     color: white !important;
+    padding: 4px 2px;
+    font-size: 14px; 
+    font-weight: 500; 
+}
+#pweElementsAutoSwitch .pwe-footer__nav-links ul li a:hover {
+    text-decoration: underline;
 }
 @media (max-width:1000px){
     #pweElementsAutoSwitch .pwe-footer__nav-column h4 span {
@@ -99,11 +113,59 @@
     }
     #pweElementsAutoSwitch .pwe-footer__nav-logo-top,
     #pweElementsAutoSwitch .pwe-footer__nav-logo-bottom {
-        max-width: 80% !important;
+        max-width: 170px !important;
+        margin: 0;
     }
     #pweElementsAutoSwitch .pwe-footer__nav-column {
-        width: 80%;
+        width: 100%;
         margin-left: auto;
         margin-right: auto;
     }
+}
+
+
+
+footer#colophon {
+    display: none !important;
+}
+
+
+
+#pweElementsAutoSwitch .pwe-footer__bottom {
+    background: var(--accent-color);
+}
+#pweElementsAutoSwitch .pwe-footer__bottom-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 18px 0;
+}
+#pweElementsAutoSwitch .pwe-footer__social {
+    display: flex;
+    justify-content: center;
+    margin: 0 0 10px;
+}
+#pweElementsAutoSwitch .pwe-footer__bottom li {
+    list-style: none !important;
+}
+#pweElementsAutoSwitch .pwe-footer__bottom a {
+    display: flex;
+}
+#pweElementsAutoSwitch .pwe-footer__bottom a i {
+    padding: 0px 6px;
+    font-size: 22px;
+    transition: .3s ease;
+    color: white;
+    margin: 0;
+}
+#pweElementsAutoSwitch .pwe-footer__bottom a i:hover {
+    transform: scale(1.1);
+}
+#pweElementsAutoSwitch .pwe-footer__bottom-text {
+    text-align: center;
+    color: white;
+}
+#pweElementsAutoSwitch .pwe-footer__bottom-text p {
+    margin: 0;
+    font-size: 14px;
 }

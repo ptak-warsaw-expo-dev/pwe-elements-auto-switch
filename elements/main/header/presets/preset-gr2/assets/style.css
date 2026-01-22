@@ -8,8 +8,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--accent_lighter_color);
-    opacity: 30%;
+    background: var(--accent_darker_color);
+    opacity: 70%;
     z-index: 1;
 }
 #pweElementsAutoSwitch .pwe-header__container {

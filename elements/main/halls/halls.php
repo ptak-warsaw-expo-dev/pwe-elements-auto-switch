@@ -27,9 +27,9 @@ class Halls {
 
         $preset_file = self::get_data()['presets'][$group] ?? null;
         if ($preset_file && file_exists($preset_file)) {
-            
+
             /* <-------------> General code start <-------------> */
-           
+
             // Get current domain
             $current_domain = do_shortcode('[trade_fair_domainadress]');
 
@@ -113,11 +113,11 @@ class Halls {
             // $less_1_day_after = ($trade_fair_start_timestamp != false || !empty($trade_fair_end)) && $days_after_event > 0 && $days_after_event < 1;
 
             /* <-------------> General code end <-------------> */
-            
+
             $output = include $preset_file;
-            
+
             if ($output) {
-                echo $output;         
+                echo $output;
             }
         }
     }

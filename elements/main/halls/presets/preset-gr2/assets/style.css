@@ -1,6 +1,7 @@
 #pweElementsAutoSwitch .pwe-halls__wrapper {
     display: flex;
     flex-direction: column;
+    padding: 18px 0;
 } 
 #pweElementsAutoSwitch .pwe-halls__container {
     display: flex;
@@ -62,7 +63,7 @@
     margin: 0 auto;
     align-items: center;
 }
-#pweElementsAutoSwitch .pwe-halls__location-icon.mobile svg {
+#pweElementsAutoSwitch .pwe-halls__location-icon svg {
     width: 20px;
     height: 20px;
 }
@@ -81,6 +82,15 @@
         width: 200px;
         margin: 0 auto;
     }
+    #pweElementsAutoSwitch .pwe-halls__info span {
+        align-items: start !important;
+    }
+    #pweElementsAutoSwitch .pwe-halls__info svg {
+        margin: 0;
+    }
+    #pweElementsAutoSwitch .pwe-halls__location-icon svg {
+        display: none;
+    }
     #pweElementsAutoSwitch .pwe-halls__location {
         max-width: 100%;
         font-weight: 700;
@@ -89,7 +99,7 @@
         font-size: 18px;
     }
     #pweElementsAutoSwitch .pwe-halls__halls {
-        font-size: 22px;
+        font-size: 20px;
         text-transform: uppercase;
     }
     #pweElementsAutoSwitch .pwe-halls__parking,

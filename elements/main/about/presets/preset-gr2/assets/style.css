@@ -2,6 +2,7 @@
     display: flex;
     justify-content: space-between;
     gap: 18px;
+    padding: 18px 0;
 }
 #pweElementsAutoSwitch .pwe-about__content {
     width: 45%;

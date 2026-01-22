@@ -43,6 +43,66 @@ $output = '
                 </div>
             </div>
         </div>';
+
+        $socials = array(
+            'facebook' => do_shortcode('[pwe_facebook]'),
+            'instagram' => do_shortcode('[pwe_instagram]'),
+            'linkedin' => do_shortcode('[pwe_linkedin]'),
+            'youtube' => do_shortcode('[pwe_youtube]')
+        );
+
+        $output .= ' 
+        <div class="pwe-footer__bottom pwe-footer__row">
+            <div class="pwe-footer__bottom-wrapper">';
+                    
+                    if (!empty($socials)) {
+                        $output .= '
+                        <div class="pwe-footer__bottom-icons">
+                            <ul class="pwe-footer__social">';
+                                if (!empty($socials['facebook'])) {
+                                    $output .= '
+                                    <li class="pwe-footer__social-item-link social-icon facebook">
+                                        <a href="'. esc_url($socials['facebook']) .'" class="social-menu-link" target="_blank" aria-label="Visit our Facebook profile">
+                                            <i class="fa fa-facebook-square"></i>
+                                        </a>
+                                    </li>';
+                                }
+                                if (!empty($socials['instagram'])) {
+                                    $output .= '
+                                    <li class="pwe-footer__social-item-link social-icon instagram">
+                                        <a href="'. esc_url($socials['instagram']) .'" class="social-menu-link" target="_blank" aria-label="Visit our Instagram profile">
+                                            <i class="fa fa-instagram"></i>
+                                        </a>
+                                    </li>';
+                                }
+                                if (!empty($socials['linkedin'])) {
+                                    $output .= '
+                                    <li class="pwe-footer__social-item-link social-icon linkedin">
+                                        <a href="'. esc_url($socials['linkedin']) .'" class="social-menu-link" target="_blank" aria-label="Visit our Linkedin profile">
+                                            <i class="fa fa-linkedin-square"></i>
+                                        </a>
+                                    </li>';
+                                }
+                                if (!empty($socials['youtube'])) {
+                                    $output .= '
+                                    <li class="pwe-footer__social-item-link social-icon youtube">
+                                        <a href="'. esc_url($socials['youtube']) .'" class="social-menu-link" target="_blank" aria-label="Visit our Youtube profile">
+                                            <i class="fa fa-youtube-play"></i>
+                                        </a>
+                                    </li>';
+                                }
+                        
+                                $output .= '
+                            </ul>
+                        </div>';
+                    }
+                
+                    $output .= '
+                <div class="pwe-footer__bottom-text">
+                    <p>© '. do_shortcode('[trade_fair_actualyear]') .' Ptak Warsaw Expo Sp. z o.o.</p> 
+                </div>
+            </div>
+        </div>';
     
         return $output;
     }

@@ -1,8 +1,6 @@
 <?php
 
-$socials = ot_get_option('_uncode_social_list');
-
-$socials_cap = array(
+$socials = array(
     'facebook' => do_shortcode('[pwe_facebook]'),
     'instagram' => do_shortcode('[pwe_instagram]'),
     'linkedin' => do_shortcode('[pwe_linkedin]'),
@@ -87,51 +85,42 @@ $output = '
             <div class="pwe-footer__bottom-wrapper">
                 <div class="pwe-footer__bottom-icons">';
                     
-                    if ((!empty($socials)) || !empty($socials_cap)) {
+                    if (!empty($socials)) {
                         $output .= '<ul class="pwe-footer__social">';
-                        if (!empty($socials_cap)) {
-                            if (!empty($socials_cap['facebook'])) {
+                       
+                            if (!empty($socials['facebook'])) {
                                 $output .= '
                                 <li class="pwe-footer__social-item-link social-icon facebook">
-                                    <a href="'. esc_url($socials_cap['facebook']) .'" class="social-menu-link" target="_blank" aria-label="Visit our Facebook profile">
+                                    <a href="'. esc_url($socials['facebook']) .'" class="social-menu-link" target="_blank" aria-label="Visit our Facebook profile">
                                         <i class="fa fa-facebook-square"></i>
                                     </a>
                                 </li>';
                             }
-                            if (!empty($socials_cap['instagram'])) {
+                            if (!empty($socials['instagram'])) {
                                 $output .= '
                                 <li class="pwe-footer__social-item-link social-icon instagram">
-                                    <a href="'. esc_url($socials_cap['instagram']) .'" class="social-menu-link" target="_blank" aria-label="Visit our Instagram profile">
+                                    <a href="'. esc_url($socials['instagram']) .'" class="social-menu-link" target="_blank" aria-label="Visit our Instagram profile">
                                         <i class="fa fa-instagram"></i>
                                     </a>
                                 </li>';
                             }
-                            if (!empty($socials_cap['linkedin'])) {
+                            if (!empty($socials['linkedin'])) {
                                 $output .= '
                                 <li class="pwe-footer__social-item-link social-icon linkedin">
-                                    <a href="'. esc_url($socials_cap['linkedin']) .'" class="social-menu-link" target="_blank" aria-label="Visit our Linkedin profile">
+                                    <a href="'. esc_url($socials['linkedin']) .'" class="social-menu-link" target="_blank" aria-label="Visit our Linkedin profile">
                                         <i class="fa fa-linkedin-square"></i>
                                     </a>
                                 </li>';
                             }
-                            if (!empty($socials_cap['youtube'])) {
+                            if (!empty($socials['youtube'])) {
                                 $output .= '
                                 <li class="pwe-footer__social-item-link social-icon youtube">
-                                    <a href="'. esc_url($socials_cap['youtube']) .'" class="social-menu-link" target="_blank" aria-label="Visit our Youtube profile">
+                                    <a href="'. esc_url($socials['youtube']) .'" class="social-menu-link" target="_blank" aria-label="Visit our Youtube profile">
                                         <i class="fa fa-youtube-play"></i>
                                     </a>
                                 </li>';
                             }
-                        } else if (!empty($socials)) {
-                            foreach ($socials as $social) { 
-                                $output .= '
-                                <li class="pwe-footer__social-item-link social-icon '.esc_attr($social['_uncode_social_unique_id']).'">
-                                    <a href="'.esc_url($social['_uncode_link']).'" class="social-menu-link" target="_blank">
-                                        <i class="'.esc_attr($social['_uncode_social']).'"></i>
-                                    </a>
-                                </li>';
-                            }
-                        }
+                        
                         $output .= '</ul>';
                     }
                 

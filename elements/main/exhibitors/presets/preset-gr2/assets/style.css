@@ -1,12 +1,11 @@
 #pweElementsAutoSwitch .exhibitors {
     background: var(--background-color);
     max-width: 100%;
-    padding: 0;
 }
 #pweElementsAutoSwitch .pwe-exhibitors__wrapper {
     max-width: 1200px;
-    padding: 18px;
     margin: 0 auto;
+    padding: 18px 0;
 }
 #pweElementsAutoSwitch .pwe-exhibitors__top {
     display: flex;
@@ -14,7 +13,7 @@
 }
 #pweElementsAutoSwitch .pwe-exhibitors__buttons {
     display: flex;
-    gap: 18px;
+    gap: 50px;
 }
 #pweElementsAutoSwitch .pwe-exhibitors__button {
     display: flex;
@@ -33,6 +32,11 @@
 #pweElementsAutoSwitch .pwe-exhibitors__button:hover a {
     background-color: var(--accent-color);
     color: #fff !important;
+}
+#pweElementsAutoSwitch .pwe-exhibitors__buttons .swiper-button-prev,
+#pweElementsAutoSwitch .pwe-exhibitors__buttons .swiper-button-next {
+    background: var(--accent_light_color) !important;
+    color: white !important;
 }
 #pweElementsAutoSwitch .pwe-exhibitors__items {
     margin-top: 18px;
