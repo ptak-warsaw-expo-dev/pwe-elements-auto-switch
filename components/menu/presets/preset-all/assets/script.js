@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Background color for nav menu
     if (menu_transparent === "true") {
-        if (pweNavMenuHome && window.innerWidth >= 960) {
+        if (pweNavMenuHome && window.innerWidth >= 1200) {
             if (window.scrollY > pweNavMenu.offsetHeight) {
                 pweNavMenuHome.style.background = "var(--accent-color)";
             }
@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Handling clicks on submenu links
     const menuLinks = document.querySelectorAll(".pwe-menu-auto-switch__item.has-children > a, .pwe-menu-auto-switch__submenu-item.has-children > a");
-    if (menuLinks.length && window.innerWidth < 960) {
+    if (menuLinks.length && window.innerWidth < 1199) {
         menuLinks.forEach(link => {
             let clickedOnce = false;
 
@@ -393,5 +393,24 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 500);
     });
 
+    // Block links on mobile if menu item have children
+    const menuItemLinks = document.querySelectorAll('.pwe-menu-auto-switch__item.has-children > a');
+    const mq = window.matchMedia('(max-width: 1199px)');
+
+    menuItemLinks.forEach(link => {
+        const originalHref = link.getAttribute('href');
+
+        const updateLinkState = () => {
+            if (mq.matches) {
+            link.removeAttribute('href');
+            } else {
+            link.setAttribute('href', originalHref);
+            }
+        };
+
+        updateLinkState();
+        mq.addEventListener('change', updateLinkState);
+    });
+ 
 });
  
