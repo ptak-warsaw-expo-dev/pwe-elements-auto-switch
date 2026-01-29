@@ -8,6 +8,7 @@ class Combined_Events {
             'types' => ['main'],
             'presets' => [
                 'gr1' => plugin_dir_path(__FILE__) . 'presets/preset-gr1/preset-gr1.php',
+                'week' => plugin_dir_path(__FILE__) . 'presets/preset-week/preset-week.php',
                 // 'gr2' => plugin_dir_path(__FILE__) . 'presets/preset-gr2/preset-gr2.php',
             ],
         ];
@@ -30,7 +31,7 @@ class Combined_Events {
             
             /* <-------------> General code start <-------------> */
            
-            $combined_events = PWECommonFunctions::get_database_associates_data();
+            $combined_events = PWE_Functions::get_database_associates_data();
 
             $main_event = !empty($combined_events) ? $combined_events[0]->main_fair_domain : '';
             $current_event = do_shortcode('[trade_fair_domainadress]');

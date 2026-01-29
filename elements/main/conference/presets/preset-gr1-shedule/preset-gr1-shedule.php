@@ -167,7 +167,7 @@ foreach ($allConferences as $conf) {
     }
 
     // Conference title
-    $title = PWECommonFunctions::languageChecker(
+    $title = PWE_Functions::languageChecker(
         $conf->conf_name_pl ?: ($conf->conf_name_en ?: $conf->conf_slug),
         $conf->conf_name_en ?: ($conf->conf_name_pl ?: $conf->conf_slug)
     );
@@ -241,8 +241,8 @@ $output  = '
             <table class="pwe-conference-schedule__table">
                 <thead>
                     <tr>
-                        <th>' . PWECommonFunctions::languageChecker('Organizator', 'Organizer') . '</th>
-                        <th>' . PWECommonFunctions::languageChecker('Temat', 'Subject') . '</th>';
+                        <th>' . PWE_Functions::languageChecker('Organizator', 'Organizer') . '</th>
+                        <th>' . PWE_Functions::languageChecker('Temat', 'Subject') . '</th>';
 
                         foreach ($fairDays as $date) {
                             $html .= '<th>' . date('d.m', strtotime($date)) . '</th>';
@@ -256,7 +256,7 @@ $output  = '
 
                     foreach ($group as $conf) {
 
-                        $href = '/' . PWECommonFunctions::languageChecker('wydarzenia', 'en/conferences')
+                        $href = '/' . PWE_Functions::languageChecker('wydarzenia', 'en/conferences')
                             . '/?konferencja=' . esc_attr($conf['slug']);
 
                         // Multiple logos (array -> HTML)
@@ -392,11 +392,11 @@ $output  = '
 
         $output .= '
         <div class="pwe-conference-schedule__buttons">
-            <a href="' . PWECommonFunctions::languageChecker('/rejestracja/', '/en/registration/') . '" class="pwe-main-btn--primary">'
-                . PWECommonFunctions::languageChecker('Weź udział', 'Take part') . '</a>
+            <a href="' . PWE_Functions::languageChecker('/rejestracja/', '/en/registration/') . '" class="pwe-main-btn--primary">'
+                . PWE_Functions::languageChecker('Weź udział', 'Take part') . '</a>
 
-            <a href="' . PWECommonFunctions::languageChecker('/wydarzenia/', '/en/conferences/') . '" class="pwe-main-btn--secondary">'
-                . PWECommonFunctions::languageChecker('Dowiedz się więcej', 'Find out more') . '</a>
+            <a href="' . PWE_Functions::languageChecker('/wydarzenia/', '/en/conferences/') . '" class="pwe-main-btn--secondary">'
+                . PWE_Functions::languageChecker('Dowiedz się więcej', 'Find out more') . '</a>
         </div>
     </div>
 </div>';

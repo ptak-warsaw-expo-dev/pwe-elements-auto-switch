@@ -100,6 +100,7 @@
     }
     .pwe-element-auto-switch .pwe-halls__halls {
         font-size: 20px;
+        text-transform: uppercase;
     }
     .pwe-element-auto-switch .pwe-halls__parking,
     .pwe-element-auto-switch .pwe-halls__date-icon.desktop,

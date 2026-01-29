@@ -4,7 +4,7 @@ $output .= '
 <style>
     .pwe-header__partners {
         position: absolute;
-        top: 53%;
+        top: 55%;
         transform: translate(0, -50%);
         right: 18px;
         display: flex;
@@ -81,7 +81,7 @@ $output .= '
 $files = [];
 $grouped_logos = [];
 
-$meta_data = PWECommonFunctions::get_database_meta_data('header_order');
+$meta_data = PWE_Functions::get_database_meta_data('header_order');
 
 if (!empty($meta_data)) {
     $header_order = $meta_data[0]->meta_data;
@@ -220,12 +220,12 @@ if (count($grouped_logos) > 0) {
                 $unique_id = uniqid();
 
                 // Group Title
-                $title_single = PWECommonFunctions::lang_pl() ? $files[0]["desc_pl"] : $files[0]["desc_en"];
+                $title_single = PWE_Functions::lang_pl() ? $files[0]["desc_pl"] : $files[0]["desc_en"];
 
                 // Automatic pluralization
                 if (count($files) > 1) {
                     // plural
-                    if (PWECommonFunctions::lang_pl()) {
+                    if (PWE_Functions::lang_pl()) {
                         $title = $plural_map_pl[$title_single] ?? $title_single;
                     } else {
                         $title = $plural_map_en[$title_single] ?? $title_single;
@@ -327,10 +327,10 @@ if (count($grouped_logos) > 0) {
 
                 const diff = Math.abs(partnersHeight - containerHeight);
 
-                if (containerHeight < partnersHeight || diff < 30) {
-                    pweHeaderContainer.style.minHeight = partnersHeight + 60 + "px";
+                if (containerHeight < partnersHeight || diff < 100) {
+                    pweHeaderContainer.style.minHeight = partnersHeight + 100 + "px";
                 }
-            }, 300);
+            }, 500);
            
         });
     </script>';

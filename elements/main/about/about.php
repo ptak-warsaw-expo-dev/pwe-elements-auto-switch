@@ -3,6 +3,17 @@ if (!defined('ABSPATH')) exit;
 
 class About {
 
+    public static function get_data() {
+        return [
+            'types' => ['main'],
+            'presets' => [
+                'gr1' => plugin_dir_path(__FILE__) . 'presets/preset-gr1/preset-gr1.php',
+                'gr2' => plugin_dir_path(__FILE__) . 'presets/preset-gr2/preset-gr2.php',
+                'week' => plugin_dir_path(__FILE__) . 'presets/preset-week/preset-week.php',
+            ],
+        ];
+    }
+
     private static function getExhibitorsData(): array {
         $merge_exhibitors = [];
         $logos = [];
@@ -48,16 +59,6 @@ class About {
         ];
     }
 
-    public static function get_data() {
-        return [
-            'types' => ['main'],
-            'presets' => [
-                'gr1' => plugin_dir_path(__FILE__) . 'presets/preset-gr1/preset-gr1.php',
-                'gr2' => plugin_dir_path(__FILE__) . 'presets/preset-gr2/preset-gr2.php',
-            ],
-        ];
-    }
-
     public static function render($group) {
         $data = self::get_data();
         $element_type = $data['types'][0];
@@ -75,10 +76,10 @@ class About {
 
             /* <-------------> General code start <-------------> */
 
-            $selected_lang = PWECommonFunctions::languageChecker('pl', 'en');
+            $selected_lang = PWE_Functions::languageChecker('pl', 'en');
             $domain = parse_url(site_url(), PHP_URL_HOST);
             
-            $fairs_data_adds = PWECommonFunctions::get_database_fairs_data_adds($domain);
+            $fairs_data_adds = PWE_Functions::get_database_fairs_data_adds($domain);
             $fair = $fairs_data_adds[0] ?? null;
             
             $title = $fair->{'about_title_' . $selected_lang} ?? '';
@@ -93,7 +94,7 @@ class About {
                     ? 'https://'. $_SERVER['HTTP_HOST'] . '/doc/new_template/fair_img.webp' 
                     : content_url('plugins/pwe-media/media/main-page/fair_img.webp')) 
                 . '" alt="' 
-                . PWECommonFunctions::languageChecker(
+                . PWE_Functions::languageChecker(
                     'Odwiedzający na targach ' . do_shortcode('[trade_fair_name]'),
                     'Visitors at the ' . do_shortcode('[trade_fair_name_eng]')
                 ) 

@@ -1,19 +1,19 @@
-#pweElementsAutoSwitch .pwe-conference__wrapper {
+.pwe-element-auto-switch .pwe-conference__wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: stretch;
 }
-#pweElementsAutoSwitch .pwe-conference__left {
+.pwe-element-auto-switch .pwe-conference__left {
     flex: 1 1 50%;
     z-index: 2;
 }
-#pweElementsAutoSwitch .pwe-conference__left img {
+.pwe-element-auto-switch .pwe-conference__left img {
     height: 100%;
     border-radius: 22px;
     object-fit: cover;
 }
-#pweElementsAutoSwitch .pwe-conference__right {
+.pwe-element-auto-switch .pwe-conference__right {
     flex: 1 1 50%;
     padding: 48px 36px 0;
     display: flex;
@@ -22,32 +22,32 @@
     gap: 36px;
     z-index: 2;
 }
-#pweElementsAutoSwitch .pwe-conference__right-content {
+.pwe-element-auto-switch .pwe-conference__right-content {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
-#pweElementsAutoSwitch .pwe-conference__title {
+.pwe-element-auto-switch .pwe-conference__title {
     font-size: 44px;
     font-weight: 800;
     margin: 0;
 }
-#pweElementsAutoSwitch .pwe-conference__name {
+.pwe-element-auto-switch .pwe-conference__name {
     font-size: 20px;
     font-weight: 800;
     margin: 0;
 }
-#pweElementsAutoSwitch .pwe-conference__subtitle {
+.pwe-element-auto-switch .pwe-conference__subtitle {
     font-weight: 600;
 }
-#pweElementsAutoSwitch .pwe-conference__btn-container {
+.pwe-element-auto-switch .pwe-conference__btn-container {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
 }
-#pweElementsAutoSwitch .pwe-conference__btn {
+.pwe-element-auto-switch .pwe-conference__btn {
     flex: .5;
     margin: 6px;
     text-align: center;
@@ -57,10 +57,10 @@
     color: white !important;
     border-radius: 36px;
 }
-#pweElementsAutoSwitch .pwe-conference__btn_accent {
+.pwe-element-auto-switch .pwe-conference__btn_accent {
     background: var(--accent-color);
 }
-#pweElementsAutoSwitch .pwe-conference__logo {
+.pwe-element-auto-switch .pwe-conference__logo {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -68,20 +68,20 @@
     padding: 18px;
     border-radius: 22px;
 }
-#pweElementsAutoSwitch .pwe-conference__logo img {
+.pwe-element-auto-switch .pwe-conference__logo img {
     max-width: 240px;
     max-height: 80px;
     object-fit: contain;
     width: 100%;
 }
 @media(min-width: 1120px) {
-    #pweElementsAutoSwitch .pwe-conference__btn {
+    .pwe-element-auto-switch .pwe-conference__btn {
         min-width: 220px;
         max-width: 220px;
     }
 }
 @media(max-width:960px) {
-    #pweElementsAutoSwitch .pwe-conference__btn {
+    .pwe-element-auto-switch .pwe-conference__btn {
         font-size: 14px;
         padding: 12px;
     }
@@ -91,27 +91,27 @@
     .row.limit-width.row-parent:has(#PWEConferenceShortInfo) {
         padding: 0;
     }
-    #pweElementsAutoSwitch .pwe-conference__wrapper {
+    .pwe-element-auto-switch .pwe-conference__wrapper {
         flex-direction: column-reverse;
         gap: 18px;
     }
-    #pweElementsAutoSwitch .pwe-conference__right {
+    .pwe-element-auto-switch .pwe-conference__right {
         flex: 1 1 100%;
         width: 100%;
         padding: 0;
         gap: 18px;
     }
-    #pweElementsAutoSwitch .pwe-conference__title {
+    .pwe-element-auto-switch .pwe-conference__title {
         text-align: center;
     }
-    #pweElementsAutoSwitch .pwe-conference__logo {
+    .pwe-element-auto-switch .pwe-conference__logo {
         z-index: 1;
         padding: 18px;
     }
-    #pweElementsAutoSwitch .pwe-conference__logo img {
+    .pwe-element-auto-switch .pwe-conference__logo img {
         max-width: 180px;
     }
-    #pweElementsAutoSwitch .pwe-conference__btn {
+    .pwe-element-auto-switch .pwe-conference__btn {
         min-width: 160px;
     }
 }

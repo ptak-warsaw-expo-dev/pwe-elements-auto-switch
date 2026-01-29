@@ -1,15 +1,15 @@
-#pweElementsAutoSwitch .pwe-countdown__wrapper {
+.pwe-element-auto-switch .pwe-countdown__wrapper {
     justify-content: space-between;
 }
-#pweElementsAutoSwitch .pwe-countdown__label,
-#pweElementsAutoSwitch .pwe-countdown__timer {
+.pwe-element-auto-switch .pwe-countdown__label,
+.pwe-element-auto-switch .pwe-countdown__timer {
     font-size: 26px !important;
     margin: 24px auto !important;
 }
-#pweElementsAutoSwitch .pwe-countdown__cta {
+.pwe-element-auto-switch .pwe-countdown__cta {
     margin: 24px auto !important;
 }
-#pweElementsAutoSwitch .pwe-countdown__cta .pwe-btn {
+.pwe-element-auto-switch .pwe-countdown__cta .pwe-btn {
     position: relative;
     border-radius: 40px !important;
     padding: 12px 50px 12px 30px !important;
@@ -19,38 +19,38 @@
     text-decoration: none;
     font-weight: 700;
 }
-#pweElementsAutoSwitch .pwe-countdown__cta .pwe-btn:hover {
+.pwe-element-auto-switch .pwe-countdown__cta .pwe-btn:hover {
     background-color: var(--main2_darker_color);
     color: #fff;
 }
-#pweElementsAutoSwitch .pwe-countdown__cta .pwe-btn svg {
+.pwe-element-auto-switch .pwe-countdown__cta .pwe-btn svg {
     position: absolute;
     right: 28px;
     transition: .3s ease;
 }
-#pweElementsAutoSwitch .pwe-countdown__cta .pwe-btn:hover svg {
+.pwe-element-auto-switch .pwe-countdown__cta .pwe-btn:hover svg {
     position: absolute;
     right: 22px;
 }
 @media (max-width: 960px) {
-    #pweElementsAutoSwitch .pwe-countdown__label,
-    #pweElementsAutoSwitch .pwe-countdown__timer {
+    .pwe-element-auto-switch .pwe-countdown__label,
+    .pwe-element-auto-switch .pwe-countdown__timer {
         margin: 8px auto !important;
     }
-    #pweElementsAutoSwitch .pwe-countdown__cta {
+    .pwe-element-auto-switch .pwe-countdown__cta {
         margin-bottom: 28px !important;
         width: 100%;
         
     }
 }
 @media (max-width: 570px) {
-    #pweElementsAutoSwitch .pwe-countdown {
+    .pwe-element-auto-switch .pwe-countdown {
         border-radius: 18px 18px 0 0;
     }
 }
 @media (max-width: 450px) {
-    #pweElementsAutoSwitch .pwe-countdown__label,
-    #pweElementsAutoSwitch .pwe-countdown__timer {
+    .pwe-element-auto-switch .pwe-countdown__label,
+    .pwe-element-auto-switch .pwe-countdown__timer {
         font-size: 20px !important; 
     }
 }

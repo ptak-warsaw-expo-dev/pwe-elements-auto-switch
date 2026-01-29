@@ -1,4 +1,4 @@
-#pweElementsAutoSwitch .header {
+.pwe-element-auto-switch.header {
     max-width: 100%;
     padding: 0;
 }
@@ -12,27 +12,27 @@
 .wpb_column:has(.pwe-header) {
     max-width: 100%;
 }
-#pweElementsAutoSwitch .pwe-header__container {
+.pwe-element-auto-switch .pwe-header__container {
     position: relative;
     padding-top: 80px;
 }
-#pweElementsAutoSwitch .pwe-header__wrapper {
+.pwe-element-auto-switch .pwe-header__wrapper {
     min-height: 60vh;
     max-width: 1200px;
-    margin: 36px auto 0;
+    margin: 36px 0;
     display: flex;
     z-index: 2;
 }
-#pweElementsAutoSwitch .pwe-header__column {
+.pwe-element-auto-switch .pwe-header__column {
     z-index: 1;
 }
-#pweElementsAutoSwitch .pwe-header__logo {
+.pwe-element-auto-switch .pwe-header__logo {
     max-width: 360px;
     width: 100%;
     height: auto;
     z-index: 1;
 }
-#pweElementsAutoSwitch .pwe-header__background {
+.pwe-element-auto-switch .pwe-header__background {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -41,22 +41,22 @@
     height: 100%;
     overflow: hidden;
 }
-#pweElementsAutoSwitch .pwe-header__text {
+.pwe-element-auto-switch .pwe-header__text {
     padding: 18px 0;
     z-index: 1;
 }
-#pweElementsAutoSwitch .pwe-header__text :is(h1, h2) {
+.pwe-element-auto-switch .pwe-header__text :is(h1, h2) {
     text-transform: uppercase;
     text-align: center;
     width: auto;
 }
-#pweElementsAutoSwitch .pwe-header__text h1 {
+.pwe-element-auto-switch .pwe-header__text h1 {
     font-size: 30px;
 }
-#pweElementsAutoSwitch .pwe-header__text h2 {
+.pwe-element-auto-switch .pwe-header__text h2 {
     font-size: 36px;
 }
-#pweElementsAutoSwitch .pwe-header .pwe-bg-image {
+.pwe-element-auto-switch .pwe-header .pwe-bg-image {
     position: absolute; 
     inset: 0; 
     background-size: cover; 
@@ -66,18 +66,18 @@
     transition: opacity 800ms ease-in-out; 
     z-index: 0;
 }
-#pweElementsAutoSwitch .pwe-header .pwe-bg-image.is-active { 
+.pwe-element-auto-switch .pwe-header .pwe-bg-image.is-active { 
     opacity: 1; 
 }
-#pweElementsAutoSwitch .pwe-header .swiper .swiper-notification {
+.pwe-element-auto-switch .pwe-header .swiper .swiper-notification {
     display: none !important;
 }
 
 @media (min-width: 300px) and (max-width: 1200px) {
-    #pweElementsAutoSwitch .pwe-header__text h1 {
+    .pwe-element-auto-switch .pwe-header__text h1 {
         font-size: calc(20px + (30 - 20) * ( (100vw - 300px) / (1200 - 300) ));
     }
-    #pweElementsAutoSwitch .pwe-header__text h2 {
+    .pwe-element-auto-switch .pwe-header__text h2 {
         font-size: calc(24px + (36 - 24) * ( (100vw - 300px) / (1200 - 300) ));
     }
 }

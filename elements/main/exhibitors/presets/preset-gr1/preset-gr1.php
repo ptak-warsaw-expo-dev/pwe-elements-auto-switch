@@ -5,9 +5,9 @@ $output = '
     <div class="pwe-exhibitors__wrapper">
         <div class="pwe-exhibitors__text">
             <div class="pwe-exhibitors__text-wrapper">
-                <h4 class="pwe-main-title">'. PWECommonFunctions::languageChecker('Wystawcy na targach', 'Exhibitors at the fair') .'</h4>
+                <h4 class="pwe-main-title">'. PWE_Functions::languageChecker('Wystawcy na targach', 'Exhibitors at the fair') .'</h4>
                 <p>Zobacz wszystkich wystawców '. (ceil(count($exhibitors) / 100) * 100) .'+</p>
-                <a class="pwe-main-btn--secondary" href="'. PWECommonFunctions::languageChecker('/katalog-wystawcow/', '/en/exhibitors-catalog/') .'">'. PWECommonFunctions::languageChecker('Pełen katalog', 'Full catalog') .'</a>
+                <a class="pwe-main-btn--secondary" href="'. PWE_Functions::languageChecker('/katalog-wystawcow/', '/en/exhibitors-catalog/') .'">'. PWE_Functions::languageChecker('Pełen katalog', 'Full catalog') .'</a>
             </div>
         </div>
         <div class="pwe-exhibitors__items swiper">

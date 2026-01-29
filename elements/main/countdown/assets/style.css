@@ -1,15 +1,15 @@
-#pweElementsAutoSwitch .countdown {
+.pwe-element-auto-switch.countdown {
     max-width: 100%;
     padding: 0;
 }
 
-#pweElementsAutoSwitch .pwe-countdown {
+.pwe-element-auto-switch .pwe-countdown {
     background-color: var(--accent-color);
     color: #fff;
     text-align: center;
     font-weight: bold;
 }
-#pweElementsAutoSwitch .pwe-countdown__wrapper {
+.pwe-element-auto-switch .pwe-countdown__wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -18,27 +18,27 @@
 }
 
 @media (max-width: 960px) {
-    #pweElementsAutoSwitch .pwe-countdown__wrapper {
+    .pwe-element-auto-switch .pwe-countdown__wrapper {
         flex-wrap: wrap;
     }
-    #pweElementsAutoSwitch .pwe-countdown__label,
-    #pweElementsAutoSwitch .pwe-countdown__timer {
+    .pwe-element-auto-switch .pwe-countdown__label,
+    .pwe-element-auto-switch .pwe-countdown__timer {
         width: 50%;
     }
 }
 @media (max-width: 768px) {
-    #pweElementsAutoSwitch .pwe-countdown__wrapper {
+    .pwe-element-auto-switch .pwe-countdown__wrapper {
         flex-direction: column;
     }
-    #pweElementsAutoSwitch .pwe-countdown__label,
-    #pweElementsAutoSwitch .pwe-countdown__timer {
+    .pwe-element-auto-switch .pwe-countdown__label,
+    .pwe-element-auto-switch .pwe-countdown__timer {
         width: 100%;
     }
 }
 
 
 
-#pweElementsAutoSwitch .opening-hours {
+.pwe-element-auto-switch .opening-hours {
     background-color: var(--accent-color);
     display: flex;
     flex-wrap: wrap;
@@ -47,62 +47,62 @@
     margin: 0 auto;
     padding: 10px 36px;
 }
-#pweElementsAutoSwitch .opening-hours p {
+.pwe-element-auto-switch .opening-hours p {
     font-size: 20px;
     color: white;
     margin: 0 !important;
 }
-#pweElementsAutoSwitch .opening-hours__block {
+.pwe-element-auto-switch .opening-hours__block {
     display: flex;
 }
-#pweElementsAutoSwitch .opening-hours__title {
+.pwe-element-auto-switch .opening-hours__title {
     font-weight: 700;
 }
-#pweElementsAutoSwitch .opening-hours__date {
+.pwe-element-auto-switch .opening-hours__date {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     padding: 0 18px;
 }
-#pweElementsAutoSwitch .opening-hours__date .hours {
+.pwe-element-auto-switch .opening-hours__date .hours {
     font-weight: 700;
     padding: 0 18px;
 }
-#pweElementsAutoSwitch .opening-hours__hall {
+.pwe-element-auto-switch .opening-hours__hall {
     padding:0 25px;
     display: flex;
 }
-#pweElementsAutoSwitch .opening-hours__hall p {
+.pwe-element-auto-switch .opening-hours__hall p {
     padding:0 10px;
 }
 @media(max-width: 1050px) {
-    #pweElementsAutoSwitch .opening-hours {
+    .pwe-element-auto-switch .opening-hours {
         justify-content: center;
     }
-    #pweElementsAutoSwitch .opening-hours p {
+    .pwe-element-auto-switch .opening-hours p {
         font-size: 18px;
     }
-    #pweElementsAutoSwitch .opening-hours__block {
+    .pwe-element-auto-switch .opening-hours__block {
         flex-wrap: wrap;
         justify-content: center;
         gap: 0;
     }
 }
 @media(max-width: 500px) {
-    #pweElementsAutoSwitch .opening-hours {
+    .pwe-element-auto-switch .opening-hours {
         padding: 10px 18px;
     }
-    #pweElementsAutoSwitch .opening-hours p {
+    .pwe-element-auto-switch .opening-hours p {
         font-size: 16px;
         text-align: center;
         line-height: 1.4;
     }
-    #pweElementsAutoSwitch .opening-hours__date {
+    .pwe-element-auto-switch .opening-hours__date {
         padding: 0;
     }
 }
 @media(max-width: 370px) {
-    #pweElementsAutoSwitch .opening-hours p {
+    .pwe-element-auto-switch .opening-hours p {
         font-size: 14px;
     }
 }

@@ -9,6 +9,7 @@ class Header {
             'presets' => [
                 'gr1' => plugin_dir_path(__FILE__) . 'presets/preset-gr1/preset-gr1.php',
                 'gr2' => plugin_dir_path(__FILE__) . 'presets/preset-gr2/preset-gr2.php',
+                'week' => plugin_dir_path(__FILE__) . 'presets/preset-week/preset-week.php',
             ],
         ];
     }
@@ -30,10 +31,10 @@ class Header {
 
             /* <-------------> General code start <-------------> */
             
-            $el_id = PWECommonFunctions::id_rnd();
+            $el_id = PWE_Functions::id_rnd();
 
-            $trade_fair_name = (PWECommonFunctions::lang_pl()) ? do_shortcode('[trade_fair_name]') : do_shortcode('[trade_fair_name_eng]');
-            $trade_fair_desc = (PWECommonFunctions::lang_pl()) ? do_shortcode('[trade_fair_desc]') : do_shortcode('[trade_fair_desc_eng]');
+            $trade_fair_name = (PWE_Functions::lang_pl()) ? do_shortcode('[trade_fair_name]') : do_shortcode('[trade_fair_name_eng]');
+            $trade_fair_desc = (PWE_Functions::lang_pl()) ? do_shortcode('[trade_fair_desc]') : do_shortcode('[trade_fair_desc_eng]');
             $trade_fair_date = do_shortcode('[trade_fair_date_multilang]');
 
             $trade_fair_dates_custom_format = do_shortcode('[trade_fair_date_custom_format]');

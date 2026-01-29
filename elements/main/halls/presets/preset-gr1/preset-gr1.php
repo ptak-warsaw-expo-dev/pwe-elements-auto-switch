@@ -8,20 +8,20 @@ if (!empty($all_halls)) {
         <div class="pwe-halls__wrapper">
 
             <div class="pwe-halls__title">
-                <h4 class="pwe-main-title">'. PWECommonFunctions::languageChecker('Największa powierzchnia wystawiennicza w Polsce', 'The largest exhibition space in Poland') .'</h4>
+                <h4 class="pwe-main-title">'. PWE_Functions::languageChecker('Największa powierzchnia wystawiennicza w Polsce', 'The largest exhibition space in Poland') .'</h4>
             </div>
 
             <div class="pwe-halls__details">
                 <div class="pwe-halls__details-wrapper">
                     <div class="pwe-halls__details-column logo">
-                        <img src="'. PWECommonFunctions::languageChecker('/doc/logo-color.webp', '/doc/logo-color-en.webp') .'"/>
-                        <p class="pwe-halls__date"><strong>'. PWECommonFunctions::languageChecker(do_shortcode('[trade_fair_date]'), do_shortcode('[trade_fair_date_eng]')) .'</strong></p>
+                        <img src="'. PWE_Functions::languageChecker('/doc/logo-color.webp', '/doc/logo-color-en.webp') .'"/>
+                        <p class="pwe-halls__date"><strong>'. PWE_Functions::languageChecker(do_shortcode('[trade_fair_date]'), do_shortcode('[trade_fair_date_eng]')) .'</strong></p>
                     </div>
                     <div class="pwe-halls__details-column info">
                         <div class="pwe-halls__information">
                             <p class="pwe-halls__letters">'. $halls_word .' '. $all_halls .'</p>
                             <p class="pwe-halls__time">10:00-17:00</p>
-                            <p class="pwe-halls__parking">'. PWECommonFunctions::languageChecker('DARMOWY PARKING', 'FREE PARKING') .'</p>
+                            <p class="pwe-halls__parking">'. PWE_Functions::languageChecker('DARMOWY PARKING', 'FREE PARKING') .'</p>
                         </div>
                         <div class="pwe-halls__location">
                             <i class="fa fa-location2 fa-1x fa-fw"></i>

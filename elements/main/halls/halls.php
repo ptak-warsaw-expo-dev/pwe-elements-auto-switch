@@ -9,6 +9,7 @@ class Halls {
             'presets' => [
                 'gr1' => plugin_dir_path(__FILE__) . 'presets/preset-gr1/preset-gr1.php',
                 'gr2' => plugin_dir_path(__FILE__) . 'presets/preset-gr2/preset-gr2.php',
+                'week' => plugin_dir_path(__FILE__) . 'presets/preset-week/preset-week.php',
             ],
         ];
     }
@@ -42,7 +43,7 @@ class Halls {
             $trade_fair_end_timestamp = strtotime($trade_fair_end);
 
             // Get JSON
-            $fairs_json = PWECommonFunctions::json_fairs();
+            $fairs_json = PWE_Functions::json_fairs();
 
             $fair_items_json = [];
 
@@ -100,8 +101,8 @@ class Halls {
             $all_halls = rtrim($all_halls, ', ');
 
             $halls_word = (count(array_filter(array_map('trim', explode(',', $all_halls)))) > 1)
-                ? PWECommonFunctions::languageChecker('Hale', 'Halls')
-                : PWECommonFunctions::languageChecker('Hala', 'Hall');
+                ? PWE_Functions::languageChecker('Hale', 'Halls')
+                : PWE_Functions::languageChecker('Hala', 'Hall');
 
 
             // $current_day_timestamp = time();

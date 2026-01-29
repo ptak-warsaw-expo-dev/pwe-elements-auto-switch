@@ -9,6 +9,7 @@ class Countdown {
             'presets' => [
                 'gr1' => plugin_dir_path(__FILE__) . 'presets/preset-gr1/preset-gr1.php',
                 'gr2' => plugin_dir_path(__FILE__) . 'presets/preset-gr2/preset-gr2.php',
+                'week' => plugin_dir_path(__FILE__) . 'presets/preset-week/preset-week.php',
             ],
         ];
     }
@@ -66,7 +67,7 @@ class Countdown {
             }
 
             // Get JSON
-            $fairs_json = PWECommonFunctions::json_fairs();
+            $fairs_json = PWE_Functions::json_fairs();
 
             $fair_items_json = [];
 
@@ -122,8 +123,8 @@ class Countdown {
 
             // Using the plural or singular form of a word
             $halls_word = (count(array_filter(array_map('trim', explode(',', $all_halls)))) > 1)
-                ? PWECommonFunctions::languageChecker('Hale', 'Halls')
-                : PWECommonFunctions::languageChecker('Hala', 'Hall');
+                ? PWE_Functions::languageChecker('Hale', 'Halls')
+                : PWE_Functions::languageChecker('Hala', 'Hall');
 
 
             $all_entries = '';
@@ -164,8 +165,8 @@ class Countdown {
 
             // Using the plural or singular form of a word
             $entries_word = (count(array_filter(array_map('trim', explode(',', $all_entries)))) > 1)
-                ? PWECommonFunctions::languageChecker('Wejścia', 'Entrances')
-                : PWECommonFunctions::languageChecker('Wejście', 'Entrance');
+                ? PWE_Functions::languageChecker('Wejścia', 'Entrances')
+                : PWE_Functions::languageChecker('Wejście', 'Entrance');
 
             $diff_timestamp = ($trade_fair_start_date_timestamp - $current_timestamp);
             $time_to_end_timestamp = ($trade_fair_end_date_timestamp - $current_timestamp);

@@ -13,7 +13,7 @@ $maxImages = 10;
 shuffle($allImages);
 $mediaImages = array_slice($allImages, 0, $maxImages);
 
-$video = '/wp-content/plugins/pwe-media/media/video_pwe.mp4';
+$video = 'https://mr.glasstec.pl/wp-content/uploads/2025/12/roof-expo-intro-test-video-4.mp4';
 
 $output = '
 <div id="pweAbout" class="pwe-about" data-images=\''. json_encode($mediaImages) .'\'>
@@ -43,7 +43,7 @@ $output = '
                     </div>
 
                     <span class="pwe-about__media-item video">
-                        <video autoplay muted loop preload="auto" playsinline webkit-playsinline>
+                        <video autoplay muted loop preload="auto">
                             <source src="'. htmlspecialchars($video) .'">
                         </video>
                         <img src="/wp-content/plugins/pwe-media/media/logo_pwe.webp">

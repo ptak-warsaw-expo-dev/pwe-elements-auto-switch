@@ -4,11 +4,11 @@ $output = '
 <div id="pweExhibitors" class="pwe-exhibitors">
     <div class="pwe-exhibitors__wrapper">
         <div class="pwe-exhibitors__top">
-            <h4 class="pwe-main-title">'. PWE_Functions::languageChecker('Wystawcy', 'Exhibitors') .'</h4> 
+            <h4 class="pwe-main-title">Wystawcy</h4>
 
             <div class="pwe-exhibitors__buttons">
                 <div class="pwe-exhibitors__button desktop">
-                    <a href="'. PWE_Functions::languageChecker('/katalog-wystawcow/', '/en/exhibitors-catalog/') .'">'. PWE_Functions::languageChecker('Zobacz Katalog', 'View Catalog') .'</a>
+                    <a href="/katalog-wystawcow/">Zobacz Katalog</a>
                 </div>
                 <div class="swiper-buttons-arrows">
                     <div class="swiper-button-prev">⏴</div>

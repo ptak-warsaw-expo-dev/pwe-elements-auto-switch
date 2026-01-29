@@ -46,6 +46,9 @@
 .pwe-element-auto-switch .pwe-about__media-item.video {
     pointer-events: none;
 }
+.pwe-element-auto-switch .pwe-about__media-item:first-child {
+    aspect-ratio: 3 / 2;
+}
 .pwe-element-auto-switch .pwe-about__media-item:not(.video) img {
     object-fit: cover;
     height: 100%;
@@ -58,10 +61,6 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    pointer-events: none;
-}
-.pwe-element-auto-switch .pwe-about__media-item.video video::-webkit-media-controls {
-    display: none !important;
 }
 .pwe-element-auto-switch .flip-card {
     position: relative;

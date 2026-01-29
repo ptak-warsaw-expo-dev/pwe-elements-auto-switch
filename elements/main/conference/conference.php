@@ -3,8 +3,39 @@ if (!defined('ABSPATH')) exit;
 
 class Conference {
 
+    public static function get_data() {
+        $domain = parse_url(site_url(), PHP_URL_HOST);
+
+        $rows = self::get_conferences_brief($domain);
+
+        $useSchedule = false;
+        foreach ($rows as $r) {
+            if (!empty($r->conf_date_range) && self::conference_overlaps_fair((string)$r->conf_date_range)) {
+                $useSchedule = true;
+                break;
+            }
+        }
+
+        $presets = $useSchedule
+            ? [
+                'gr1' => plugin_dir_path(__FILE__) . 'presets/preset-gr1-shedule/preset-gr1-shedule.php',
+                'gr2' => plugin_dir_path(__FILE__) . 'presets/preset-gr2-shedule/preset-gr2-shedule.php',
+            ]
+            : [
+                'gr1' => plugin_dir_path(__FILE__) . 'presets/preset-gr1/preset-gr1.php',
+                'gr2' => plugin_dir_path(__FILE__) . 'presets/preset-gr2/preset-gr2.php',
+                'week' => plugin_dir_path(__FILE__) . 'presets/preset-week/preset-week.php',
+            ];
+
+        return [
+            'types'       => ['main'],
+            'presets'     => $presets,
+            'useSchedule' => $useSchedule,
+        ];
+    }
+
     public static function get_conferences_brief($domain) {
-        $cap_db = PWECommonFunctions::connect_database();
+        $cap_db = PWE_Functions::connect_database();
         if (!$cap_db) {
             if (current_user_can('administrator') && !is_admin()) {
                 echo '<script>console.error("Brak połączenia z bazą danych.")</script>';
@@ -62,7 +93,7 @@ class Conference {
 
         $preferred_slugs = ($lang === 'pl') ? ['org-name_pl'] : ['org-name_en', 'org-name_pl'];
 
-        $cap_db = PWECommonFunctions::connect_database();
+        $cap_db = PWE_Functions::connect_database();
         if ($cap_db) {
             $placeholders = implode(',', array_fill(0, count($preferred_slugs), '%s'));
             $sql = $cap_db->prepare(
@@ -93,7 +124,7 @@ class Conference {
     }
 
     public static function getConferenceOrganizersAll($conf_slug) {
-        $cap_db = PWECommonFunctions::connect_database();
+        $cap_db = PWE_Functions::connect_database();
         if (!$cap_db) {
             return [];
         }
@@ -142,36 +173,6 @@ class Conference {
         return $results;
     }
 
-    public static function get_data() {
-        $domain = parse_url(site_url(), PHP_URL_HOST);
-
-        $rows = self::get_conferences_brief($domain);
-
-        $useSchedule = false;
-        foreach ($rows as $r) {
-            if (!empty($r->conf_date_range) && self::conference_overlaps_fair((string)$r->conf_date_range)) {
-                $useSchedule = true;
-                break;
-            }
-        }
-
-        $presets = $useSchedule
-            ? [
-                'gr1' => plugin_dir_path(__FILE__) . 'presets/preset-gr1-shedule/preset-gr1-shedule.php',
-                'gr2' => plugin_dir_path(__FILE__) . 'presets/preset-gr2-shedule/preset-gr2-shedule.php',
-            ]
-            : [
-                'gr1' => plugin_dir_path(__FILE__) . 'presets/preset-gr1/preset-gr1.php',
-                'gr2' => plugin_dir_path(__FILE__) . 'presets/preset-gr2/preset-gr2.php',
-            ];
-
-        return [
-            'types'       => ['main'],
-            'presets'     => $presets,
-            'useSchedule' => $useSchedule,
-        ];
-    }
-
     public static function render($group) {
         $data = self::get_data();
         $useSchedule = !empty($data['useSchedule']);
@@ -195,10 +196,10 @@ class Conference {
 
             /* <-------------> General code start <-------------> */
 
-                $lang = PWECommonFunctions::languageChecker('pl', 'en');
+                $lang = PWE_Functions::languageChecker('pl', 'en');
                 $domain = parse_url(site_url(), PHP_URL_HOST);
 
-                $fairs_data_adds = PWECommonFunctions::get_database_fairs_data_adds($domain);
+                $fairs_data_adds = PWE_Functions::get_database_fairs_data_adds($domain);
 
                 $first_fair_adds = $fairs_data_adds[0] ?? null;
                 $name  = $first_fair_adds ? ($first_fair_adds->{'konf_name'} ?? '') : '';
@@ -210,7 +211,7 @@ class Conference {
                 }
 
                 // CAP logotypes of partners
-                $cap_logotypes_data = PWECommonFunctions::get_database_logotypes_data();
+                $cap_logotypes_data = PWE_Functions::get_database_logotypes_data();
                 $partners = [];
                 if (!empty($cap_logotypes_data)) {
                     $allowed_types = [

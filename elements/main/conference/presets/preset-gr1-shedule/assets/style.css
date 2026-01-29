@@ -1,48 +1,48 @@
 :root {
     --border-color: #f2f2f2;
 }
-#pweElementsAutoSwitch .pwe-conference-schedule__wrapper {
+.pwe-element-auto-switch .pwe-conference-schedule__wrapper {
     background-color: color-mix(in srgb, var(--accent-color) 40%, white 60%);
     background-color: #f2f2f2;
     padding: 24px 12px;
     border-radius: 12px;
     margin: 0 !important;
 }
-#pweElementsAutoSwitch .pwe-conference-schedule__top {
+.pwe-element-auto-switch .pwe-conference-schedule__top {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 14px;
 }
-#pweElementsAutoSwitch .pwe-conference-schedule__top img {
+.pwe-element-auto-switch .pwe-conference-schedule__top img {
     max-width: 260px;
 }
-#pweElementsAutoSwitch .pwe-conference-schedule__top h3 {
+.pwe-element-auto-switch .pwe-conference-schedule__top h3 {
     font-size: 29px;
     font-weight: 700;
     max-width: 560px;
     margin: 0;
 }
-#pweElementsAutoSwitch .pwe-conference-schedule__title-container {
+.pwe-element-auto-switch .pwe-conference-schedule__title-container {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     text-align: right;
 }
-#pweElementsAutoSwitch .pwe-conference-schedule__table { 
+.pwe-element-auto-switch .pwe-conference-schedule__table { 
     width: 100%; 
     border: none;
     border-collapse: collapse; 
     margin: 0px; 
 }
-#pweElementsAutoSwitch .pwe-conference-schedule__table th, 
-#pweElementsAutoSwitch .pwe-conference-schedule__table td {
+.pwe-element-auto-switch .pwe-conference-schedule__table th, 
+.pwe-element-auto-switch .pwe-conference-schedule__table td {
     border: 2px solid var(--border-color) !important;
     padding: 6px;
     text-align: center;
     background: white !important;
 }
-#pweElementsAutoSwitch .pwe-conference-schedule__timeline-bar { 
+.pwe-element-auto-switch .pwe-conference-schedule__timeline-bar { 
     height: 20px; 
     background-color: var(--accent-color); 
     animation: slide 1s ease-out; 
@@ -50,45 +50,45 @@
 }
 @keyframes slide { from { width: 0; } to { width: 100%; } }
 
-#pweElementsAutoSwitch .pwe-conference-schedule__table td:not(:nth-child(1)):not(:nth-child(2)) {
+.pwe-element-auto-switch .pwe-conference-schedule__table td:not(:nth-child(1)):not(:nth-child(2)) {
     border-left: none !important;
     border-right: none !important;
 }
 
-#pweElementsAutoSwitch .pwe-conference-schedule__wrapper .pwe-conference-schedule__table td:last-of-type {
+.pwe-element-auto-switch .pwe-conference-schedule__wrapper .pwe-conference-schedule__table td:last-of-type {
     border-right: 2px solid var(--border-color) !important;
 }
 
-#pweElementsAutoSwitch .pwe-conference-schedule__table tbody tr:not(:nth-child(1)) {
+.pwe-element-auto-switch .pwe-conference-schedule__table tbody tr:not(:nth-child(1)) {
     border-top-style: dashed;
     border-bottom-style: dashed;
     border-color: var(--border-color);
 }
-#pweElementsAutoSwitch .pwe-conference-schedule__org-logo {
+.pwe-element-auto-switch .pwe-conference-schedule__org-logo {
     max-height: 60px;
 }
 
-#pweElementsAutoSwitch .pwe-conference-schedule__buttons {
+.pwe-element-auto-switch .pwe-conference-schedule__buttons {
     display: flex;
     justify-content: space-around;
     align-items: center;
     margin-top: 18px;
 }
 
-#pweElementsAutoSwitch .pwe-conference-schedule__row-link {
+.pwe-element-auto-switch .pwe-conference-schedule__row-link {
     transition: 0.3s;
     border: none !important;
 }
 
-#pweElementsAutoSwitch .pwe-conference-schedule__row-link:hover {
+.pwe-element-auto-switch .pwe-conference-schedule__row-link:hover {
     transform: scale(1.01);
 }
     
-#pweElementsAutoSwitch .pwe-conference-schedule__row-link:hover td {
+.pwe-element-auto-switch .pwe-conference-schedule__row-link:hover td {
     background-color: color-mix(in srgb, var(--accent-color) 10%, white 90%) !important;
 }
 
-#pweElementsAutoSwitch .pwe-conference-schedule__logos {
+.pwe-element-auto-switch .pwe-conference-schedule__logos {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -96,7 +96,7 @@
     border: none !important;
 }
 
-#pweElementsAutoSwitch .pwe-conference-schedule__conf-name {
+.pwe-element-auto-switch .pwe-conference-schedule__conf-name {
     font-size: 16px !important;
     margin: 0;
     color: black;
@@ -118,61 +118,61 @@
 } 
 
 @media (min-width: 768px) {
-    #pweElementsAutoSwitch .pwe-conference-schedule__mobile-list-wrapper {
+    .pwe-element-auto-switch .pwe-conference-schedule__mobile-list-wrapper {
         display: none;
     }
 }
 
 @media (max-width: 768px) {
-    #pweElementsAutoSwitch .pwe-conference-schedule__top {
+    .pwe-element-auto-switch .pwe-conference-schedule__top {
         flex-direction: column;
         text-align: center;
     }
 
-    #pweElementsAutoSwitch .pwe-conference-schedule__title-container {
+    .pwe-element-auto-switch .pwe-conference-schedule__title-container {
         flex-direction: column-reverse;
         text-align: center;
         align-items: center;
         gap: 6px;
     }
 
-    #pweElementsAutoSwitch .pwe-conference-schedule__top img {
+    .pwe-element-auto-switch .pwe-conference-schedule__top img {
         max-width: 180px;
         margin-bottom: 12px;
     }
 
-    #pweElementsAutoSwitch .pwe-conference-schedule__top h2 {
+    .pwe-element-auto-switch .pwe-conference-schedule__top h2 {
         font-size: 12px;
         line-height: 1.3;
     }
 
-    #pweElementsAutoSwitch .pwe-conference-schedule__top h3 {
+    .pwe-element-auto-switch .pwe-conference-schedule__top h3 {
         font-size: 16px;
     }
 
-    #pweElementsAutoSwitch .pwe-conference-schedule__multi-table-wrapper {
+    .pwe-element-auto-switch .pwe-conference-schedule__multi-table-wrapper {
         display: none;
     }
 
-    #pweElementsAutoSwitch .pwe-conference-schedule__buttons {
+    .pwe-element-auto-switch .pwe-conference-schedule__buttons {
         flex-direction: column;
         gap: 10px;
     }
 
-    #pweElementsAutoSwitch .pwe-conference-schedule__mobile-list-wrapper {
+    .pwe-element-auto-switch .pwe-conference-schedule__mobile-list-wrapper {
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
         padding: 0 12px;
     }
 
-    #pweElementsAutoSwitch .pwe-conference-schedule__mobile-list {
+    .pwe-element-auto-switch .pwe-conference-schedule__mobile-list {
         display: flex;
         gap: 16px;
         padding: 16px 0;
     }
 
-    #pweElementsAutoSwitch .pwe-conference-schedule__mobile-card {
+    .pwe-element-auto-switch .pwe-conference-schedule__mobile-card {
         flex: 0 0 80%;
         scroll-snap-align: center;
         background: white;
@@ -187,20 +187,20 @@
         margin: 0 auto;
     }
 
-    #pweElementsAutoSwitch .pwe-conference-schedule__mobile-card img {
+    .pwe-element-auto-switch .pwe-conference-schedule__mobile-card img {
         max-width: 80%;
     }
 
-    #pweElementsAutoSwitch .pwe-conference-schedule__mobile-card h3 {
+    .pwe-element-auto-switch .pwe-conference-schedule__mobile-card h3 {
         margin-top: 18px;
         font-size: 14px;
     }
 
-    #pweElementsAutoSwitch .pwe-conference-schedule__mobile-card p {
+    .pwe-element-auto-switch .pwe-conference-schedule__mobile-card p {
         font-size: 12px;
     }  
 
-    #pweElementsAutoSwitch .pwe-conference-schedule__mobile-card em {
+    .pwe-element-auto-switch .pwe-conference-schedule__mobile-card em {
         background: var(--accent-color);
         padding: 4px 10px;
         color: white;
