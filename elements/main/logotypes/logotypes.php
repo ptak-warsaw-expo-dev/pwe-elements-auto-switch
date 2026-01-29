@@ -9,29 +9,31 @@ class Logotypes {
             'presets' => [
                 'gr1' => plugin_dir_path(__FILE__) . 'presets/preset-gr1/preset-gr1.php',
                 'gr2' => plugin_dir_path(__FILE__) . 'presets/preset-gr2/preset-gr2.php',
+                'week' => plugin_dir_path(__FILE__) . 'presets/preset-week/preset-week.php',
             ],
         ];
     }
 
-    public static function url_returns_404(string $url): bool {
-        $headers = @get_headers($url, 1);
+    // public static function url_returns_404(string $url): bool {
+    //     $headers = @get_headers($url, 1);
 
-        if ($headers === false) {
-            return true;
-        }
+    //     if ($headers === false) {
+    //         return true;
+    //     }
 
-        if (is_array($headers) && isset($headers[0])) {
-            return str_contains($headers[0], '404');
-        }
+    //     if (is_array($headers) && isset($headers[0])) {  !!! PHP Fatal error:  Uncaught Error: Call to undefined function str_contains() in .../pwe-elements-auto-switch/elements/main/logotypes/logotypes.php:24
+    //         return str_contains($headers[0], '404');
+    //     }
 
-        return true;
-    }
+    //     return true;
+    // }
 
-    public static function render($group, $params = []) {
+    public static function render($group, $params = [], $atts = []) {
         $data = self::get_data();
         $element_type = $data['types'][0];
         $element_slug = strtolower(str_replace('_', '-', __CLASS__));
-        $logotypes_slug = $params['slug'] ?? 'default';
+        $logotypes_slug = $atts['slug'] ?? $params['slug'] ?? 'patrons-partners';
+
 
         // Add context to translations function
         PWE_Functions::set_translation_context($element_slug, $group, $element_type);
@@ -47,7 +49,7 @@ class Logotypes {
 
 
 
-            $cap_logotypes_data = PWECommonFunctions::get_database_logotypes_data();
+            $cap_logotypes_data = PWE_Functions::get_database_logotypes_data();
             if (!empty($cap_logotypes_data)) {
 
                 $saving_paths = function (&$logotypes, $logo_data) {
@@ -92,8 +94,8 @@ class Logotypes {
                     $desc_pl = $meta["desc_pl"] ?? '';
                     $desc_en = $meta["desc_en"] ?? '';
 
-                    $linkKey = PWECommonFunctions::languageChecker('logos_link', 'logos_link_en');
-                    $altKey = PWECommonFunctions::languageChecker('logos_alt', 'logos_alt_en');
+                    $linkKey = PWE_Functions::languageChecker('logos_link', 'logos_link_en');
+                    $altKey = PWE_Functions::languageChecker('logos_alt', 'logos_alt_en');
 
                     $element = [
                         'url'  => 'https://cap.warsawexpo.eu/public' . $logo_data->logos_url,
@@ -104,11 +106,11 @@ class Logotypes {
                         'alt' => $data[$altKey] ?? ''
                     ];
 
-                    $isAdmin = current_user_can('administrator');
+                    // $isAdmin = current_user_can('administrator');
 
-                    if (!$isAdmin && self::url_returns_404($element['url'])) {
-                        return;
-                    }
+                    // if (!$isAdmin && self::url_returns_404($element['url'])) {
+                    //     return;
+                    // }
 
                     if (!in_array($element, $logotypes)) {
                         $logotypes[] = $element;
@@ -231,18 +233,18 @@ class Logotypes {
 
             if ($logotypes_slug === 'patrons-partners-international') {
                 if (do_shortcode("[trade_fair_group]") === "gr2") {
-                    $title = PWECommonFunctions::languageChecker('Patroni i Partnerzy Zagraniczni', 'Foreign Patrons and Partners');
+                    $title = PWE_Functions::languageChecker('Patroni i Partnerzy Zagraniczni', 'Foreign Patrons and Partners');
                 } else {
-                    $title = PWECommonFunctions::languageChecker('Patroni Międzynarodowi', 'International Patrons');
+                    $title = PWE_Functions::languageChecker('Patroni Międzynarodowi', 'International Patrons');
                 }
             } else if ($logotypes_slug === 'patrons-partners') {
-                $title = PWECommonFunctions::languageChecker('Patroni i Partnerzy', 'Patrons and Partners');
+                $title = PWE_Functions::languageChecker('Patroni i Partnerzy', 'Patrons and Partners');
             } else if ($logotypes_slug === 'patrons-partners-pwe') {
-                $title = PWECommonFunctions::languageChecker('Partnerzy Ptak Warsaw Expo', 'Partners of Ptak Warsaw Expo');
+                $title = PWE_Functions::languageChecker('Partnerzy Ptak Warsaw Expo', 'Partners of Ptak Warsaw Expo');
             } else if ($logotypes_slug === 'patrons-partners-conference') {
-                $title = PWECommonFunctions::languageChecker('Patroni Targów i Konferencji', 'Patrons Of The Trade Fair And Conference');
+                $title = PWE_Functions::languageChecker('Patroni Targów i Konferencji', 'Patrons Of The Trade Fair And Conference');
             } else if ($logotypes_slug === 'europe-event') {
-                $title = PWECommonFunctions::languageChecker('Najważniejsze wydarzenia branżowe w europie', 'Key industry events in europe');
+                $title = PWE_Functions::languageChecker('Najważniejsze wydarzenia branżowe w europie', 'Key industry events in europe');
             }
 
             /* <-------------> General code end <-------------> */

@@ -11,26 +11,15 @@ if ($logotypes_slug === 'patrons-partners') {
       return trim($text,'-') ?: 'inne';
   }
 
-  $is_pl = (get_locale() === 'pl_PL');
-
   // Categories dynamically from desc_pl / desc_en
-  $cats = [];
+  $cats = [];          // ['slug' => ['label' => 'Partner Merytoryczny', 'count' => 7]]
   $total = count($logotypes);
 
-  foreach ($logotypes as $logo){
-      $label = trim($is_pl ? $logo['desc_pl'] : $logo['desc_en']);
-      if ($label === '') {
-          $label = $is_pl ? 'Inne' : 'Other';
-      }
-
-      $slug = pwe_slugify($label);
-
-      if (!isset($cats[$slug])) {
-          $cats[$slug] = [
-              'label' => $label,
-              'count' => 0
-          ];
-      }
+  foreach ($logotypes as $it){
+      $label = trim($it['desc_pl'] ?? $it['desc_en'] ?? '');
+      if ($label === '') $label = 'Inne';
+      $slug  = pwe_slugify($label);
+      if (!isset($cats[$slug])) $cats[$slug] = ['label'=>$label,'count'=>0];
       $cats[$slug]['count']++;
   }
 
@@ -177,7 +166,7 @@ if ($logotypes_slug === 'patrons-partners') {
 
                   <div class="pwe-logotypes__filter-all">
                     <button class="pwe-logotypes__filter is-active" data-filter="all">
-                      ' . PWE_Functions::languageChecker('Wszyscy', 'All') . ' <span>'. intval($total) .'</span>
+                        Wszyscy <span>'. intval($total) .'</span>
                     </button>
                     <div class="swiper-buttons-arrows">
                       <div class="swiper-button-prev">⏴</div>
@@ -188,7 +177,6 @@ if ($logotypes_slug === 'patrons-partners') {
                   <div class="pwe-logotypes__filter-other">';
 
                       foreach ($cats as $slug=>$data){
-             
                         $output .= '
                         <button class="pwe-logotypes__filter" data-filter="'. esc_attr($slug) .'">'
                           . esc_html($data['label']) .' 
@@ -205,12 +193,9 @@ if ($logotypes_slug === 'patrons-partners') {
               <div class="swiper-wrapper">';
 
                   foreach ($logotypes as $logo){
-                      $label = trim($is_pl ? $logo['desc_pl'] : $logo['desc_en']);
-                      if ($label === '') {
-                          $label = $is_pl ? 'Inne' : 'Other';
-                      }
+                      $label = trim($logo['desc_pl'] ?? $logo['desc_en'] ?? 'Inne');
+                      $cat   = pwe_slugify($label);
 
-                      $cat = pwe_slugify($label);
                       $name  = $logo['name'] ?? '';
                       $alt   = $logo['alt']  ?? $name;
 
@@ -248,14 +233,12 @@ if ($logotypes_slug === 'patrons-partners') {
 
   $output .= PWE_Swiper::swiperScripts('#pweLogotypes'. $slug_id, [0=>['slidesPerView'=>2],650=>['slidesPerView'=>3],960=>['slidesPerView'=>5]], true, true, 3);
 
-  $logos_data = array_map(function($l) use ($is_pl){
-      $label = trim($is_pl ? $l['desc_pl'] : $l['desc_en']);
-      if ($label === '') {
-          $label = $is_pl ? 'Inne' : 'Other';
-      }
-
+  $logos_data = array_map(function($l){
+      $label = trim($l['desc_pl'] ?? $l['desc_en'] ?? 'Inne');
+      $slug  = function_exists('sanitize_title') ? sanitize_title($label)
+                                                : strtolower(trim(preg_replace('~[^a-z0-9]+~i','-',$label),'-'));
       return [
-          'cat'  => pwe_slugify($label),
+          'cat'  => $slug,
           'url'  => $l['url'],
           'name' => $l['name'] ?? '',
           'alt'  => $l['alt'] ?? ($l['name'] ?? ''),

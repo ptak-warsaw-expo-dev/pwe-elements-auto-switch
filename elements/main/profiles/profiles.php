@@ -9,6 +9,7 @@ class Profiles {
             'presets' => [
                 'gr1' => plugin_dir_path(__FILE__) . 'presets/preset-gr1/preset-gr1.php',
                 'gr2' => plugin_dir_path(__FILE__) . 'presets/preset-gr2/preset-gr2.php',
+                'week' => plugin_dir_path(__FILE__) . 'presets/preset-week/preset-week.php',
             ],
         ];
     }
@@ -30,27 +31,56 @@ class Profiles {
             
             /* <-------------> General code start <-------------> */
            
-            $data = PWECommonFunctions::get_database_fairs_data_profiles();  
-            
+            $data = PWE_Functions::get_database_fairs_data_profiles();  
+
+            $validate_img_url = function(?string $url, string $default): string {
+                if (empty($url)) {
+                    return $default;
+                }
+
+                $response = wp_remote_head($url, ['timeout' => 3]);
+
+                if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
+                    return $default;
+                }
+
+                return $url;
+            };
+         
+            $default_visitors_img   = '/wp-content/plugins/pwe-media/media/default-profiles/visitors.webp';
+            $default_exhibitors_img = '/wp-content/plugins/pwe-media/media/default-profiles/exhibitors.webp';
+            $default_industry_img   = '/wp-content/plugins/pwe-media/media/default-profiles/industry.webp';
+
             if (!empty($data)) {
                 $decoded_data = json_decode($data[0]->data, true);
 
-                $profile_for_visitors_img       = $decoded_data['profile_for_visitors_img'] ?? null;
-                $profile_for_exhibitors_img     = $decoded_data['profile_for_exhibitors_img'] ?? null;
-                $profile_industry_scope_img     = $decoded_data['profile_industry_scope_img'] ?? null;
+                $profile_for_visitors_img = $validate_img_url(
+                    $decoded_data['profile_for_visitors_img'] ?? null,
+                    $default_visitors_img
+                );
 
-                $profile_for_visitors_pl        = $decoded_data['profile_for_visitors_pl'] ?? null;
-                $profile_for_exhibitors_pl      = $decoded_data['profile_for_exhibitors_pl'] ?? null;
-                $profile_industry_scope_pl      = $decoded_data['profile_industry_scope_pl'] ?? null;
+                $profile_for_exhibitors_img = $validate_img_url(
+                    $decoded_data['profile_for_exhibitors_img'] ?? null,
+                    $default_exhibitors_img
+                );
 
-                $profile_for_visitors_en        = $decoded_data['profile_for_visitors_en'] ?? null;
-                $profile_for_exhibitors_en      = $decoded_data['profile_for_exhibitors_en'] ?? null;
-                $profile_industry_scope_en      = $decoded_data['profile_industry_scope_en'] ?? null;
+                $profile_industry_scope_img = $validate_img_url(
+                    $decoded_data['profile_industry_scope_img'] ?? null,
+                    $default_industry_img
+                );
+
+                $profile_for_visitors_pl   = $decoded_data['profile_for_visitors_pl'] ?? null;
+                $profile_for_exhibitors_pl = $decoded_data['profile_for_exhibitors_pl'] ?? null;
+                $profile_industry_scope_pl = $decoded_data['profile_industry_scope_pl'] ?? null;
+
+                $profile_for_visitors_en   = $decoded_data['profile_for_visitors_en'] ?? null;
+                $profile_for_exhibitors_en = $decoded_data['profile_for_exhibitors_en'] ?? null;
+                $profile_industry_scope_en = $decoded_data['profile_industry_scope_en'] ?? null;
             }
 
-            if (PWECommonFunctions::lang_pl() && (empty($profile_for_visitors_pl) || empty($profile_for_exhibitors_pl) || empty($profile_industry_scope_pl))) {
+            if (PWE_Functions::lang_pl() && (empty($profile_for_visitors_pl) || empty($profile_for_exhibitors_pl) || empty($profile_industry_scope_pl))) {
                 return;
-            } else if (!PWECommonFunctions::lang_pl() && (empty($profile_for_visitors_en) || empty($profile_for_exhibitors_en) || empty($profile_industry_scope_en))) {
+            } else if (!PWE_Functions::lang_pl() && (empty($profile_for_visitors_en) || empty($profile_for_exhibitors_en) || empty($profile_industry_scope_en))) {
                 return;
             }
 

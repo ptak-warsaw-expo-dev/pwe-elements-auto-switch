@@ -105,8 +105,8 @@ $output .= '
                 <div class="swiper-wrapper">';
 
                     foreach ($logotypes as $logo) {
-                        $logo_caption = '<p>'. (PWECommonFunctions::lang_pl() ? $logo['desc_pl'] : $logo['desc_en']) .'</p>';
-                        $logo_caption = str_replace((PWECommonFunctions::lang_pl() ? "międzynarodowy" : "international"), "", mb_strtolower($logo_caption, "UTF-8"));
+                        $logo_caption = '<p>'. (PWE_Functions::lang_pl() ? $logo['desc_pl'] : $logo['desc_en']) .'</p>';
+                        $logo_caption = str_replace((PWE_Functions::lang_pl() ? "międzynarodowy" : "international"), "", mb_strtolower($logo_caption, "UTF-8"));
 
                         $output .= '
                         <div class="pwe-logotypes__item swiper-slide">
@@ -170,8 +170,8 @@ $output .= '
                                                                                 
                         $output .= '
                         <div class="pwe-logotypes__item swiper-slide">
-                            <img src="'. $logo["url"] .'" alt="'. (PWECommonFunctions::lang_pl() ? $title_pl : $title_en) .'"/>
-                            <div class="pwe-logotypes__item-title"><span>'. (PWECommonFunctions::lang_pl() ? $formatted_title_pl : $formatted_title_en) .'</span></div>
+                            <img src="'. $logo["url"] .'" alt="'. (PWE_Functions::lang_pl() ? $title_pl : $title_en) .'"/>
+                            <div class="pwe-logotypes__item-title"><span>'. (PWE_Functions::lang_pl() ? $formatted_title_pl : $formatted_title_en) .'</span></div>
                         </div>'; 
                     }
     
@@ -186,8 +186,8 @@ $output .= '
             <div class="pwe-logotypes__items">';
 
                 foreach ($logotypes as $logo) {
-                    $logo_caption = '<p>'. (PWECommonFunctions::lang_pl() ? $logo['desc_pl'] : $logo['desc_en']) .'</p>';
-                    $logo_caption = str_replace((PWECommonFunctions::lang_pl() ? "międzynarodowy" : "international"), "", mb_strtolower($logo_caption, "UTF-8"));
+                    $logo_caption = '<p>'. (PWE_Functions::lang_pl() ? $logo['desc_pl'] : $logo['desc_en']) .'</p>';
+                    $logo_caption = str_replace((PWE_Functions::lang_pl() ? "międzynarodowy" : "international"), "", mb_strtolower($logo_caption, "UTF-8"));
 
                     $target_blank = (strpos($logo["link"], 'http') !== false) ? 'target="_blank"' : '';
 
@@ -215,7 +215,7 @@ $output .= '
         if ($logotypes_slug === 'patrons-partners' || $logotypes_slug === 'patrons-partners-international') {
             $output .= '
             <div class="pwe-logotypes__button pwe-main-btn--primary">
-                <a class="" href="'. PWECommonFunctions::languageChecker('/rejestracja/', '/en/registration/') .'">'. PWECommonFunctions::languageChecker('Weź udział', 'Take a part') .'</a> 
+                <a class="" href="'. PWE_Functions::languageChecker('/rejestracja/', '/en/registration/') .'">'. PWE_Functions::languageChecker('Weź udział', 'Take a part') .'</a> 
             </div>';
         }
 

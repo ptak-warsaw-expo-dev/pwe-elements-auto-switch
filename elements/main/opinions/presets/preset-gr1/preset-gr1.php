@@ -4,7 +4,7 @@ $output = '
 <div id="pweOpinions" class="pwe-opinions">
     <div class="pwe-opinions__wrapper">
         <div class="pwe-opinions__title">
-            <h4 class="pwe-main-title">'. PWECommonFunctions::languageChecker('Opinie wystawców i odwiedzających', '') .'</h4>
+            <h4 class="pwe-main-title">'. PWE_Functions::languageChecker('Opinie wystawców i odwiedzających', '') .'</h4>
         </div>
         <div class="pwe-opinions__items swiper">
             <div class="swiper-wrapper">';
@@ -12,10 +12,10 @@ $output = '
                 foreach ($opinions_to_render as $opinion_item) {
                     $opinion_person_img = $opinion_item['opinion_person_img'];
                     $opinion_company_img = $opinion_item["opinion_company_img"];
-                    $opinion_company_name = PWECommonFunctions::lang_pl() ? $opinion_item['opinion_company_name_pl'] : $opinion_item['opinion_company_name_en'];
+                    $opinion_company_name = PWE_Functions::lang_pl() ? $opinion_item['opinion_company_name_pl'] : $opinion_item['opinion_company_name_en'];
                     $opinion_person_name = $opinion_item['opinion_person_name'];
-                    $opinion_person_position = PWECommonFunctions::lang_pl() ? $opinion_item['opinion_person_position_pl'] : $opinion_item['opinion_person_position_en'];
-                    $opinion_text = PWECommonFunctions::lang_pl() ? $opinion_item['opinion_text_pl'] : $opinion_item['opinion_text_en'];
+                    $opinion_person_position = PWE_Functions::lang_pl() ? $opinion_item['opinion_person_position_pl'] : $opinion_item['opinion_person_position_en'];
+                    $opinion_text = PWE_Functions::lang_pl() ? $opinion_item['opinion_text_pl'] : $opinion_item['opinion_text_en'];
 
                     $words = explode(' ', strip_tags($opinion_text));
                     if (count($words) > 30) {

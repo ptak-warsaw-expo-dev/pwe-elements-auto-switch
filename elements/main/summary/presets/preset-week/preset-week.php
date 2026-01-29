@@ -6,7 +6,7 @@ $output = '
     <div class="pwe-summary__heading">
         <div class="pwe-summary__heading-text">
             <p class="pwe-main-subtitle">PTAK WARSAW EXPO</p>
-            <h2 class="pwe-summary__title pwe-main-title">'. PWE_Functions::languageChecker('Największe Centrum Targowe w Europie Środkowo-Wschodniej', 'The largest trade fair center in Central and Eastern Europe') .'</h2>
+            <h2 class="pwe-summary__title pwe-main-title">Największe Centrum Targowe w Europie Środkowo-Wschodniej</h2>
         </div>
 
         <div class="pwe-summary__logos">
@@ -31,25 +31,25 @@ $output = '
                 <div class="pwe-summary__stat">
                     <img src="/wp-content/plugins/pwe-media/media/numbers-el/exhibitors.webp" alt="">
                     <h3>2000+</h3>
-                    <p>'. PWE_Functions::languageChecker('Wystawców rocznie', 'Exhibitors per year') .'</p>
+                    <p>Wystawców rocznie</p>
                 </div>
 
                 <div class="pwe-summary__stat">
                     <img src="/wp-content/plugins/pwe-media/media/numbers-el/visitors.webp" alt="">
                     <h3>1 mln+</h3>
-                    <p>'. PWE_Functions::languageChecker('Odwiedzających rocznie', 'Visitors per year') .'</p>
+                    <p>Odwiedzających rocznie</p>
                 </div>
 
                 <div class="pwe-summary__stat">
                     <img src="/wp-content/plugins/pwe-media/media/numbers-el/fairs.webp" alt="">
-                    <h3>150+</h3>
-                    <p>'. PWE_Functions::languageChecker('Targów B2B rocznie', 'B2B fairs per year') .'</p>
+                    <h3>140+</h3>
+                    <p>Targów B2B rocznie</p>
                 </div>
 
                 <div class="pwe-summary__stat">
                     <img src="/wp-content/plugins/pwe-media/media/numbers-el/area.webp" alt="">
                     <h3>153k</h3>
-                    <p>'. PWE_Functions::languageChecker('Powierzchni m²', 'Area m²') .'</p>
+                    <p>Powierzchni m²</p>
                 </div>
             </div>
         </div>

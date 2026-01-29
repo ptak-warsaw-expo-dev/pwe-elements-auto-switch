@@ -1,4 +1,4 @@
-    #pweElementsAutoSwitch .medals {
+    .pwe-element-auto-switch.medals {
         max-width: 100%;
         padding: 0;
         background: var(--background-color);

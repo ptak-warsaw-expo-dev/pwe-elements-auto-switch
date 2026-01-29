@@ -9,6 +9,7 @@ class Opinions {
             'presets' => [
                 'gr1' => plugin_dir_path(__FILE__) . 'presets/preset-gr1/preset-gr1.php',
                 'gr2' => plugin_dir_path(__FILE__) . 'presets/preset-gr2/preset-gr2.php',
+                'week' => plugin_dir_path(__FILE__) . 'presets/preset-week/preset-week.php',
             ],
         ];
     }
@@ -33,7 +34,7 @@ class Opinions {
             $edition = do_shortcode('[trade_fair_edition]');
 
             // Loading JSON with default opinions
-            $opinions_file = ABSPATH . 'doc/pwe-opinions.json';
+            $opinions_file = 'https://mr.glasstec.pl/doc/pwe-opinions.json';
             $opinions_data = json_decode(file_get_contents($opinions_file), true);
 
             $default_opinions = $opinions_data['default'] ?? [];
@@ -54,7 +55,7 @@ class Opinions {
             }
 
             // Get opinions from the database
-            $data = PWECommonFunctions::get_database_fairs_data_opinions(); 
+            $data = PWE_Functions::get_database_fairs_data_opinions(); 
             if (!empty($data)) {
                 // If there are 2 opinions in the summary – overwrite
                 if (count($data) >= 2) {

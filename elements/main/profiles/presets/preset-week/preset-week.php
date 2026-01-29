@@ -4,12 +4,12 @@ $output = '
 <div class="pwe-profiles">
     <div class="pwe-profiles__wrapper">
         <div class="pwe-profiles__title">
-            <h4 class="pwe-main-title">'. PWE_Functions::languageChecker('Profile', 'Profiles') .'</h4>
+            <h4 class="pwe-main-title">'. PWE_Functions::languageChecker('Profil', 'Profile') .'</h4>
         </div>
         <div class="pwe-profiles__cards">
             <div id="profile_for_visitors" class="pwe-profiles__card" style="background: url('. $profile_for_visitors_img  .')">
                 <div class="pwe-profiles__card-content">
-                    <p>'. PWE_Functions::languageChecker('Profil', 'Profile') .'</p>
+                    <p>Profil</p>
                     <h5>'. PWE_Functions::languageChecker('Odwiedzającego', 'Visitor') .'</h5>
                     <div class="pwe-profiles__show-more-btn">
                         <span>'. PWE_Functions::languageChecker('Pokaż więcej', 'See more') .'</span>
@@ -26,7 +26,7 @@ $output = '
 
             <div id="profile_for_exhibitors" class="pwe-profiles__card" style="background: url('. $profile_for_exhibitors_img .')">
                 <div class="pwe-profiles__card-content">
-                    <p>'. PWE_Functions::languageChecker('Profil', 'Profile') .'</p>
+                    <p>Profil</p>
                     <h5>'. PWE_Functions::languageChecker('Wystawcy', 'Exhibitor') .'</h5>
                     <div class="pwe-profiles__show-more-btn">
                         <span>'. PWE_Functions::languageChecker('Pokaż więcej', 'See more') .'</span>
@@ -43,7 +43,7 @@ $output = '
 
             <div id="profile_industry_scope" class="pwe-profiles__card" style="background: url('. $profile_industry_scope_img .')">
                 <div class="pwe-profiles__card-content">
-                    <p>'. PWE_Functions::languageChecker('Profil', 'Profile') .'</p>
+                    <p>Profil</p>
                     <h5>'. PWE_Functions::languageChecker('Branżowy', 'Industry') .'</h5>
                     <div class="pwe-profiles__show-more-btn">
                         <span>'. PWE_Functions::languageChecker('Pokaż więcej', 'See more') .'</span>

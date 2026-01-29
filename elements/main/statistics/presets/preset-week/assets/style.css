@@ -89,9 +89,9 @@
 }
 .pwe-element-auto-switch .pwe-statistics__map .pwe-statistics__map-svg {
     position: absolute;
-    top: 20px;
-    left: 0;
-    width: 100%;
+    top: 0;
+    right: 50px;
+    max-width: 480px;
     z-index: 0;
 }
 .pwe-element-auto-switch .pwe-statistics__map-tabs {
