@@ -14,7 +14,7 @@ class Menu {
 
     public static function render($group) {
         $data = self::get_data();
-        $element_type = $data['types'][0];
+        $element_type = $data['types'][0] ?? '';
         $element_slug = strtolower(str_replace('_', '-', __CLASS__));
 
         $atts = [

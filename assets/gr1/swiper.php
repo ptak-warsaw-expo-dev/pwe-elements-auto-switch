@@ -19,10 +19,10 @@ class PWE_Swiper
 
         $output = '
         <style>
-            #pweElementsAutoSwitch ' . $id . ' .swiper {
+            .pwe-element-auto-switch ' . $id . ' .swiper {
                 width: 100%;
             }
-            #pweElementsAutoSwitch ' . $id . ' .swiper-wrapper {
+            .pwe-element-auto-switch ' . $id . ' .swiper-wrapper {
                 display: flex;
             }
         </style>';
@@ -30,7 +30,7 @@ class PWE_Swiper
         if ($scrollbar) {
             $output .= '
             <style>
-                #pweElementsAutoSwitch ' . $id . ' .swiper-scrollbar {
+                .pwe-element-auto-switch ' . $id . ' .swiper-scrollbar {
                     margin-top: 18px;
                     position: inherit;
                     height: 8px;
@@ -80,10 +80,10 @@ class PWE_Swiper
                 let maxHeight = 0;
 
                 // Reset the heights before calculations
-                $("#pweElementsAutoSwitch ' . $id . ' .swiper-slide").css("height", "auto");
+                $(".pwe-element-auto-switch ' . $id . ' .swiper-slide").css("height", "auto");
 
                 // Calculate the maximum height
-                $("#pweElementsAutoSwitch ' . $id . ' .swiper-slide").each(function() {
+                $(".pwe-element-auto-switch ' . $id . ' .swiper-slide").each(function() {
                     const thisHeight = $(this).outerHeight();
                     if (thisHeight > maxHeight) {
                         maxHeight = thisHeight;
@@ -91,23 +91,23 @@ class PWE_Swiper
                 });
 
                 // Set the same height for all
-                $("#pweElementsAutoSwitch ' . $id . ' .swiper-slide").css("minHeight", maxHeight);
+                $(".pwe-element-auto-switch ' . $id . ' .swiper-slide").css("minHeight", maxHeight);
             }
 
             // Call the function after loading the slider
-            $("#pweElementsAutoSwitch ' . $id . ' .swiper").on("init", function() {
+            $(".pwe-element-auto-switch ' . $id . ' .swiper").on("init", function() {
                 setEqualHeight();
             });
 
             // Call the function when changing the slide
-            $("#pweElementsAutoSwitch ' . $id . ' .swiper").on("afterChange", function() {
+            $(".pwe-element-auto-switch ' . $id . ' .swiper").on("afterChange", function() {
                 setEqualHeight();
             });
 
             // Call the function at the beginning
             setEqualHeight();
 
-            $("#pweElementsAutoSwitch ' . $id . '").css("visibility", "visible").animate({ opacity: 1 }, 500);
+            $(".pwe-element-auto-switch ' . $id . '").css("visibility", "visible").animate({ opacity: 1 }, 500);
             });
         </script>';
 

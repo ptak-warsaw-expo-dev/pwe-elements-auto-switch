@@ -1,4 +1,7 @@
-#pweElementsAutoSwitch .wpb_column {
+.pwe-element-auto-switch {
+    margin: 0 auto !important;
+}
+.pwe-element-auto-switch .wpb_column {
     padding: 0;
 }
 

@@ -29,8 +29,8 @@ if (!function_exists('render_submenu')) {
 
                     $target_blank = !empty($child->target) ? 'target="_blank"' : '';
 
-                    $aria_label_for_visitors = (strpos(esc_url($child->url), PWECommonFunctions::languageChecker('/dla-odwiedzajacych/', '/for-visitors/')) !== false && $has_submenu_children != true) ? 'aria-label="Dlaczego warto: dla odwiedzajacych"' : '';
-                    $aria_label_for_exhibitors = (strpos(esc_url($child->url), PWECommonFunctions::languageChecker('/dla-wystawcow/', '/for-exhibitors/')) !== false && $has_submenu_children != true) ? 'aria-label="Dlaczego warto: dla wystawcow"' : '';
+                    $aria_label_for_visitors = (strpos(esc_url($child->url), PWE_Functions::languageChecker('/dla-odwiedzajacych/', '/for-visitors/')) !== false && $has_submenu_children != true) ? 'aria-label="Dlaczego warto: dla odwiedzajacych"' : '';
+                    $aria_label_for_exhibitors = (strpos(esc_url($child->url), PWE_Functions::languageChecker('/dla-wystawcow/', '/for-exhibitors/')) !== false && $has_submenu_children != true) ? 'aria-label="Dlaczego warto: dla wystawcow"' : '';
 
                     if (!empty($aria_label_for_visitors)) {
                         $aria_label = $aria_label_for_visitors;
@@ -99,9 +99,9 @@ $output = '';
 if (empty(get_option('pwe_menu_options', [])['pwe_menu_transparent'])) {
     $output .= '
     <style>
-    body.home .pwe-menu-auto-switch {
-        background-color: var(--accent-color);
-    }
+        body.home .pwe-menu-auto-switch {
+            background-color: var(--accent-color);
+        }
     </style>';
 }
 
@@ -119,14 +119,14 @@ $output .= '
     <a style="opacity: 0; width: 0; height: 0;"  href="#main-content" class="skip-link">Skip to main content</a>
     <div class="pwe-menu-auto-switch__wrapper">
         <div class="pwe-menu-auto-switch__logotypes">
-            <a class="pwe-logo ' . (file_exists($_SERVER['DOCUMENT_ROOT'] . PWECommonFunctions::languageChecker('/doc/logo-x-pl.webp', '/doc/logo-x-en.webp')) ? "hidden-mobile" : "") . '" target="_blank" href="https://warsawexpo.eu'. PWECommonFunctions::languageChecker('/', '/en/') .'">
+            <a class="pwe-logo ' . (file_exists($_SERVER['DOCUMENT_ROOT'] . PWE_Functions::languageChecker('/doc/logo-x-pl.webp', '/doc/logo-x-en.webp')) ? "hidden-mobile" : "") . '" target="_blank" href="https://warsawexpo.eu'. PWE_Functions::languageChecker('/', '/en/') .'">
                 <div class="pwe-menu-auto-switch__logo-container">
                     <img data-no-lazy="1" src="/wp-content/plugins/pwe-media/media/logo_pwe.webp" alt="logo ptak">
                 </div>
             </a>
-            <a class="fair-logo" href="'. PWECommonFunctions::languageChecker('/', '/en/') .'">
+            <a class="fair-logo" href="'. PWE_Functions::languageChecker('/', '/en/') .'">
                 <div class="pwe-menu-auto-switch__logo-container pwe-menu-auto-switch__logo-fair">';
-                    if (PWECommonFunctions::lang_pl()) {
+                    if (PWE_Functions::lang_pl()) {
                         $output .= '<img data-no-lazy="1" src="' . (file_exists($_SERVER['DOCUMENT_ROOT'] . "/doc/logo-x-pl.webp") ? "/doc/logo-x-pl.webp" : "/doc/favicon.webp") . '" alt="logo fair">';
                     } else {
                         $output .= '<img data-no-lazy="1" src="' . (file_exists($_SERVER['DOCUMENT_ROOT'] . "/doc/logo-x-en.webp") ? "/doc/logo-x-en.webp" : "/doc/favicon.webp") . '" alt="logo fair">';
@@ -298,7 +298,7 @@ $output .= '
     <div class="pwe-menu-auto-switch__overlay"></div>
 </header>';
 
-if (!empty(do_shortcode('[trade_fair_catalog_id]')) && get_locale() == "pl_PL") {
+if (!empty(do_shortcode('[trade_fair_catalog_id]'))) {
     $output .= '
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -312,7 +312,7 @@ if (!empty(do_shortcode('[trade_fair_catalog_id]')) && get_locale() == "pl_PL") 
             // Create new element li
             const instructionMenuItem = document.createElement("li");
             instructionMenuItem.className = pweMenuAutoSwitch ? "pwe-menu-auto-switch__submenu-item" : "menu-item menu-item-type-custom menu-item-object-custom menu-item-99999";
-            instructionMenuItem.innerHTML = `<a title="Instrukcja aplikacji" target="_blank" href="https://warsawexpo.eu/docs/Instrukcja-do-aplikacji.pdf">Instrukcja aplikacji</a>`;
+            instructionMenuItem.innerHTML = `<a title="'. PWE_Functions::languageChecker('Instrukcja aplikacji', 'Application instructions') .'" target="_blank" href="https://warsawexpo.eu/docs/'. PWE_Functions::languageChecker('Instrukcja-do-aplikacji.pdf', 'Instrukcja-do-aplikacji-EN') .'">'. PWE_Functions::languageChecker('Instrukcja aplikacji', 'Application instructions') .'</a>`;
 
             // Add new element as penultimate in the list
             if (dropMenu && dropMenu.children.length > 0) {
@@ -320,6 +320,19 @@ if (!empty(do_shortcode('[trade_fair_catalog_id]')) && get_locale() == "pl_PL") 
                 dropMenu.insertBefore(instructionMenuItem, penultimateItem);
             } else {
                 dropMenu.appendChild(instructionMenuItem);
+            }
+
+            // Create new element li
+            const loginMenuItem = document.createElement("li");
+            loginMenuItem.className = pweMenuAutoSwitch ? "pwe-menu-auto-switch__submenu-item" : "menu-item menu-item-type-custom menu-item-object-custom menu-item-99999";
+            loginMenuItem.innerHTML = `<a title="'. PWE_Functions::languageChecker('Zaloguj się do aplikacji', 'Log in to the application') .'" target="_blank" href="https://wystawca.exhibitorlist.eu/login">'. PWE_Functions::languageChecker('Zaloguj się do aplikacji', 'Log in to the application') .'</a>`;
+
+            // Add new element as penultimate in the list
+            if (dropMenu && dropMenu.children.length > 0) {
+            const penultimateItem = dropMenu.children[dropMenu.children.length - 2];
+                dropMenu.insertBefore(loginMenuItem, penultimateItem);
+            } else {
+                dropMenu.appendChild(loginMenuItem);
             }
         });
     </script>'; 
