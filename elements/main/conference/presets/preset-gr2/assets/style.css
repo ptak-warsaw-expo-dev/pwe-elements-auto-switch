@@ -26,7 +26,7 @@
     width: 100%;
     height: 100%;
     z-index: 0;
-    background: linear-gradient(to top, var(--accent-color) 0%, rgba(0, 0, 0, 0) 50%);
+    background: linear-gradient(to top, #000000 0%, rgba(0, 0, 0, 0) 50%);
     border-radius: 30px;
 }
 .pwe-element-auto-switch .pwe-conference__right {
@@ -103,8 +103,8 @@
     min-width: 140px;
 }
 .pwe-element-auto-switch .pwe-conference__buttons .pwe-btn.btn-more {
-    background: var(--background-color);
-    color: var(--accent-color) !important;
+    background: var(--accent-color);
+    color: white !important;
     max-width: 170px;
     min-width: 170px;
 }

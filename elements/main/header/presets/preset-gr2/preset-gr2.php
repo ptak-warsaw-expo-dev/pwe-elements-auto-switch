@@ -1,6 +1,37 @@
 <?php
 
-$output = '
+$desc_length = mb_strlen($trade_fair_desc, 'UTF-8');
+
+if ($desc_length < 30) {
+    $output .= '
+    <style>
+        @media(min-width:961px) {
+            .pwe-element-auto-switch .pwe-header__title h1 {
+                font-size: 64px !important;
+            }
+        }
+    </style>';
+} else if ($desc_length > 30 && $desc_length < 60) {
+    $output .= '
+    <style>
+        @media(min-width:961px) {
+            .pwe-element-auto-switch .pwe-header__title h1 {
+                font-size: 46px !important;
+            }
+        }
+    </style>';
+} else {
+    $output .= '
+    <style>
+        @media(min-width:961px) {
+            .pwe-element-auto-switch .pwe-header__title h1 {
+                font-size: 36px !important;
+            }
+        }
+    </style>';
+}
+
+$output .= '
 <div id="pweHeader" class="pwe-header">
     <div class="pwe-header__container pwe-header__background" style="background-image: url(doc/background.webp);">
         
