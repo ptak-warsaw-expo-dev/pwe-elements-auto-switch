@@ -124,6 +124,8 @@ class PWE_Elements {
                             'description' => __('Select a slug for this element', 'pwe-elements-auto-switch'),
                         ];
                     }
+
+                    
                     if ($class === 'PWE_Flipbook') {
                         $params[] = [
                             'type' => 'textfield',

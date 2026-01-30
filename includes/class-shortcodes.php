@@ -22,7 +22,7 @@ class PWE_Shortcodes {
 
         add_filter('wpseo_register_extra_replacements', [$this, 'wpseo_register_extra_replacements']);
         add_filter('wpseo_replacements', [$this, 'wpseo_replacements']);
-        add_filter('gform_replace_merge_tags', [$this, 'GF_shortcodes'], 10, 7 );
+        add_filter('gform_replace_merge_tags', [$this, 'replace_gf_merge_tags'], 10, 7);
     }
 
     // ALL SHORTCODES START <------------------------------------------------------------------------------<
@@ -177,7 +177,7 @@ class PWE_Shortcodes {
         // If the shortcode already exists, remove it
         foreach ($this->get_shortcodes_map() as $tag => $callback) {
             if (shortcode_exists($tag)) {
-                remove_shortcode($tag); // usuwa stary shortcode
+                remove_shortcode($tag);
             }
             add_shortcode($tag, [$this, $callback]);
         }
@@ -2408,21 +2408,26 @@ class PWE_Shortcodes {
 
     // FOR YOAST SEO END <----------------------------------------------------------------------<
 
-    public function GF_shortcodes($text, $form, $entry, $url_encode, $esc_html, $nl2br, $format) {
-        // Define the merge tags and their replacements
-        foreach ($this->get_gf_shortcodes_map() as $tag => $callback) {
-            if (is_callable([$this, $callback])) {
-                $value = call_user_func([$this, $callback]);
-                $text = str_replace($tag, $value, $text);
+    public function replace_gf_merge_tags($text, $form, $entry, $url_encode, $esc_html, $nl2br, $format) {
+        $map = $this->get_gf_shortcodes_map();
+
+        foreach ($map as $tag => $function_name) {
+
+            if (!function_exists($function_name)) {
+                continue;
             }
+
+            $value = call_user_func($function_name);
+
+            $text = str_replace(
+                ['{' . $tag . '}', '[' . $tag . ']'],
+                $value,
+                $text
+            );
         }
 
         return $text;
     }
 }
 
-// Load flipbook class and register its hooks early
-require_once plugin_dir_path(__DIR__) . 'elements/flip-book/flip-book.php';
-
 PWE_Shortcodes::init();
-PWE_Elements::init();
