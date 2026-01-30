@@ -19,6 +19,11 @@
     margin-top: 12px;
 }
 .pwe-element-auto-switch .pwe-statistics__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.pwe-element-auto-switch .pwe-statistics__cards-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 18px;
@@ -104,14 +109,14 @@
 .pwe-element-auto-switch .pwe-statistics__year {
     padding: 18px 22px;
     border-radius: 10px;
-    background: var(--accent-color);
+    background: var(--accent_darker_color);
     color: #fff;
     font-weight: 700;
     font-size: 14px;
     cursor: pointer;
 }
 .pwe-element-auto-switch .pwe-statistics__year--alt {
-    background: var(--accent_light_color);
+    background: var(--accent-color);
 }
 .pwe-element-auto-switch .pwe-statistics__map-comparative {
     position: relative;
@@ -163,7 +168,7 @@
     
 }
 .pwe-element-auto-switch .pwe-statistics__map-bar-number-prev {
-    background: var(--accent_light_color);
+    background: var(--accent_darker_color);
 }
 
 @media (max-width: 960px) {

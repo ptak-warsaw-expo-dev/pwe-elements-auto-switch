@@ -57,7 +57,7 @@ $output = '
                                                 </svg>
                                             </div>
                                             <div class="pwe-other-events__item-statistic-text">
-                                                <div class="pwe-other-events__item-statistic-number">' . do_shortcode('[pwe_area domain="'. $other_events_domain .'"]') . ' m2</div>
+                                                <div class="pwe-other-events__item-statistic-number">' . do_shortcode('[pwe_area domain="'. $other_events_domain .'"]') . ' m<sup>2</sup></div>
                                                 <div class="pwe-other-events__item-statistic-name">'. PWE_Functions::languageChecker('Powierzchni<br>wystawienniczej', 'Exhibition space') .'</div>
                                             </div>
                                         </div>

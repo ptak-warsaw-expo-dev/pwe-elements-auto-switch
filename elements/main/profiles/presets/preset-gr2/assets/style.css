@@ -36,21 +36,11 @@
     z-index: 0;
 }
 .pwe-element-auto-switch .pwe-profiles__card::before {
-    background: linear-gradient(
-        to top,
-        var(--accent-color) 0%,
-        var(--accent-color) 30%,
-        rgba(0,0,0,0) 100%
-    );
+    background: linear-gradient(to top, var(--accent-color) 0%, #1c1c1cbd 30%, rgba(0, 0, 0, 0) 100%);
     opacity: 1;
 }
 .pwe-element-auto-switch .pwe-profiles__card::after {
-    background: linear-gradient(
-        to top,
-        var(--accent-color) 0%,
-        var(--accent-color) 80%,
-        rgba(0,0,0,0) 110%
-    );
+    background: linear-gradient(to top, var(--accent-color) 0%, #1c1c1cbd 80%, rgba(0, 0, 0, 0) 110%);
     opacity: 0;
 }
 .pwe-element-auto-switch .pwe-profiles__card:hover::after {

@@ -177,12 +177,19 @@
         display: block;
         background-image:url(/wp-content/plugins/pwe-media/media/bg-object.jpg);
     }
-    @media (max-width: 400px) {
-        .pwe-element-auto-switch .pwe-summary__stat h3 {
-            font-size: 28px;
-        }
-        .pwe-element-auto-switch .pwe-summary__stat p {
-            font-size: 12px;
-        }
+}
+@media (max-width: 400px) {
+    .pwe-element-auto-switch .pwe-summary__stat h3 {
+        font-size: 28px;
     }
+    .pwe-element-auto-switch .pwe-summary__stat {
+        padding: 12px;
+    }
+    .pwe-element-auto-switch .pwe-summary__stat h3 {
+        font-size: 24px;
+    }
+    .pwe-element-auto-switch .pwe-summary__stat p {
+        font-size: 12px;
+    }
+    
 }

@@ -1,7 +1,7 @@
 .pwe-element-auto-switch.medals {
     max-width: 100%;
     padding: 0;
-    background: linear-gradient(to right, transparent, var(--accent_light_color));
+    background: var(--background-color);
 }
 .pwe-element-auto-switch .pwe-medals {
     max-width: 1200px;
