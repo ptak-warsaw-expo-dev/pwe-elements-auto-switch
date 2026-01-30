@@ -46,7 +46,7 @@ class PWE_Elements_Data {
             // ['class' => 'Logotypes',     'file' => 'elements/main/logotypes/logotypes.php',             'order' => ['gr1' => 9, 'gr2' => 9, 'b2c' => 9, 'week' => 1],        'params' => ['slug' => 'patrons-partners-conference']],
         ],
         'catalog' => [
-            ['class' => 'Exhibitor_Catalog',    'file' => 'elements/catalog/exhibitor_catalog/exhibitor_catalog.php',   'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
+            ['class' => 'Exhibitor_Catalog',    'file' => 'elements/catalog/exhibitor_catalog_vue/exhibitor_catalog_vue.php',   'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
             ['class' => 'Footer',               'file' => 'components/footer/footer.php',                               'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
         ],
         'flip-book' => [
@@ -84,11 +84,6 @@ class PWE_Elements_Data {
         }
 
         foreach (self::$elements_files[$type] as $element) {
-
-            if ($element['class'] === 'Exhibitor_Catalog' && $_SERVER['HTTP_HOST'] == 'mr.glasstec.pl') {
-
-                $element['file'] = 'elements/catalog/exhibitor_catalog_vue/exhibitor_catalog_vue.php';
-            }
 
             $path = plugin_dir_path(__DIR__) . $element['file'];
 
