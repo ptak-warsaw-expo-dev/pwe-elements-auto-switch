@@ -8,7 +8,7 @@ $output = '
             <h4 class="pwe-main-title">'. PWE_Functions::languageChecker('Konferencja', 'Conference') .'</h4>
         </div>
 
-        <div class="pwe-conference__left" style="background: url(/doc/new_template/conference_img.webp) center / cover no-repeat;">
+        <div class="pwe-conference__left" style="background: url('. $conference_img .') center / cover no-repeat;">
             <div class="pwe-conference__buttons">
                 <div class="pwe-btn-container">
                     <a class="pwe-link pwe-btn btn-visitors" 

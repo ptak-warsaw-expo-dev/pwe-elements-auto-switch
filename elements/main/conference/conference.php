@@ -232,6 +232,15 @@ class Conference {
                     }
                 }
 
+                $conference_img = '/doc/new_template/conference_img.web';
+                $fallback_img   = '/wp-content/plugins/pwe-media/media/main-page/conference_img.webp';
+
+                $conference_img_path = ABSPATH . ltrim($conference_img, '/');
+
+                if (!is_file($conference_img_path)) {
+                    $conference_img = $fallback_img;
+                }
+
             /* <-------------> General code end <-------------> */
 
             $output = include $preset_file;

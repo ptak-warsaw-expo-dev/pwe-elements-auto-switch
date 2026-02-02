@@ -5,7 +5,7 @@ $output = '';
 // Layout
 $output .= '<div class="pwe-conference__wrapper">
     <div class="pwe-conference__left">
-        <img src="/doc/new_template/conference_img.webp" alt="Publiczność konferencji">
+        <img src="'. $conference_img .'" alt="Publiczność konferencji">
     </div>
     <div class="pwe-conference__right">
         <div class="pwe-conference__right-content">
