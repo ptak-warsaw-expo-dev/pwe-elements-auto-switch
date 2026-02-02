@@ -2,7 +2,7 @@
 
 $output = '';
 
-if (empty($pwe_visitors_prev) && empty($pwe_exhibitors_prev) && empty($pwe_area_prev)) {
+if (empty($pwe_visitors_prev) || empty($pwe_exhibitors_prev) || empty($pwe_area_prev)) {
   $output .= '
   <style>
     .pwe-element-auto-switch .pwe-statistics__wrapper {

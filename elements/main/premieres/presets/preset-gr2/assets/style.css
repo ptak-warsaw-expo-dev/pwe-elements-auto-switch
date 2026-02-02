@@ -73,6 +73,7 @@
     max-height: 90%;
     object-fit: contain;
     border-radius: 20px;
+    background: white;
 }
 .pwe-premieres__fullscreen-close {
     position: absolute;

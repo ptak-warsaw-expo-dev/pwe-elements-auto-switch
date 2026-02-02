@@ -109,6 +109,7 @@
     }
     .pwe-element-auto-switch .pwe-profiles__card {
         min-height: 250px;
+        width: 100%;
         padding: 24px 18px;
     }
     .pwe-element-auto-switch .pwe-profiles__card li {

@@ -21,6 +21,27 @@ $output = '
                     $opinion_person_position = PWE_Functions::lang_pl() ? $opinion_item['opinion_person_position_pl'] : $opinion_item['opinion_person_position_en'];
                     $opinion_text = PWE_Functions::lang_pl() ? $opinion_item['opinion_text_pl'] : $opinion_item['opinion_text_en'];
 
+                    $img_exists = false;
+
+                    // if URL
+                    if (filter_var($opinion_company_img, FILTER_VALIDATE_URL)) {
+
+                        $headers = @get_headers($opinion_company_img);
+                        if ($headers && strpos($headers[0], '200') !== false) {
+                            $img_exists = true;
+                        }
+
+                    // if local path (ex. /wp-content/...)
+                    } else {
+
+                        // changing URL path → system path
+                        $local_path = ABSPATH . ltrim($opinion_company_img, '/');
+
+                        if (is_file($local_path)) {
+                            $img_exists = true;
+                        }
+                    }
+
                     // $words = explode(' ', strip_tags($opinion_text));
                     // if (count($words) > 30) {
                     //     $opinion_text = implode(' ', array_slice($words, 0, 30)) . '...';
@@ -32,10 +53,16 @@ $output = '
                             <div class="pwe-opinions__item-top">
                                 <svg width="74" height="56" viewBox="0 0 74 56" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M34.4871 0C36.3938 0 37.0871 0.953334 36.5671 2.86L19.4071 53.04C18.8871 54.4267 17.8471 55.12 16.2871 55.12H2.24714C0.340476 55.12 -0.352857 54.1667 0.167143 52.26L12.3871 2.34C12.7338 0.779996 13.6871 0 15.2471 0H34.4871ZM70.8871 0C72.7938 0 73.4872 0.953334 72.9672 2.86L55.5471 53.04C55.0271 54.4267 53.9871 55.12 52.4271 55.12H38.3871C36.4805 55.12 35.7871 54.1667 36.3071 52.26L48.7871 2.34C49.1338 0.779996 50.0871 0 51.6471 0H70.8871Z" fill="var(--accent-color)"/>
-                                </svg>
-                                <div class="pwe-opinions__item-top-img">
-                                    <img data-no-lazy="1" src="' . $opinion_company_img . '">
-                                </div>
+                                </svg>';
+
+                                if ($img_exists) {
+                                    $output .= '
+                                    <div class="pwe-opinions__item-top-img">
+                                        <img data-no-lazy="1" src="' . $opinion_company_img . '">
+                                    </div>';
+                                }
+                                
+                                $output .= '
                             </div>
                             <div class="pwe-opinions__item-opinion">
                                 <h5 class="pwe-opinions__item-company-name">' . $opinion_company_name . '</h5>

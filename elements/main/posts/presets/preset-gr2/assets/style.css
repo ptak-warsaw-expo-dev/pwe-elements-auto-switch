@@ -17,6 +17,7 @@
 }
 .pwe-element-auto-switch .pwe-posts__post-content {
     min-height: 160px;
+    max-height: 250px;
     padding: 32px;
     flex: 1;
     display: flex;

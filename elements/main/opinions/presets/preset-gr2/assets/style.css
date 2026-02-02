@@ -54,7 +54,7 @@
     scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
     -webkit-overflow-scrolling: touch;
 }
-.pwe-element-auto-switch .pwe-opinions__item-opinion-text p {
+.pwe-element-auto-switch .pwe-opinions__item-opinion-text {
     margin-top: 10px;
 }
 /* Chrome, Edge, Safari */
@@ -78,6 +78,7 @@
 .pwe-element-auto-switch .pwe-opinions__item-opinion-text p {
     line-height: 1.3;
     font-size: 15px;
+    margin: 0;
 }
 .pwe-element-auto-switch .pwe-opinions__item-bottom {
     width: 100%;
@@ -120,7 +121,7 @@
 .pwe-element-auto-switch .pwe-opinions .swiper-nav {
     margin-top: 46px !important;
 }
-.pwe-element-auto-switch .pwe-opinions__item.swiper-slide-active :is(h5, h4, p) {
+.pwe-element-auto-switch .pwe-opinions__item.swiper-slide-active :is(h5, h4, p, .pwe-opinions__item-opinion-text) {
     color: white !important;
 }
 .pwe-element-auto-switch .swiper-slide-active .pwe-opinions__item-wrapper {
