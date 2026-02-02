@@ -67,7 +67,7 @@ class PWE_Elements {
                 vc_map([
                     'name'     => __('PWE Elements AutoSwitch: ' . $data['title'], 'pwe-elements-auto-switch'),
                     'base'     => $data['shortcode'],
-                    'category' => __('PWE Elements', 'pwe-elements-auto-switch'),
+                    'category' => __('PWE Elements Auto Switch', 'pwe-elements-auto-switch'),
                     'icon'     => 'icon-wpb-layer-shape',
                     'params'   => $params,
                 ]);
@@ -125,7 +125,6 @@ class PWE_Elements {
                         ];
                     }
 
-                    
                     if ($class === 'PWE_Flipbook') {
                         $params[] = [
                             'type' => 'textfield',
@@ -138,9 +137,8 @@ class PWE_Elements {
                         ];
                     }
 
-
                     vc_map([
-                        'name'     => __('PWE Elements AutoSwitch: ' . $class, 'pwe-elements-auto-switch'),
+                        'name'     => __('PWE Single AutoSwitch: ' . $class, 'pwe-elements-auto-switch'),
                         'base'     => $shortcode,
                         'category' => __('PWE Elements Auto Switch', 'pwe-elements-auto-switch'),
                         'icon'     => 'icon-wpb-layer-shape',
@@ -157,31 +155,31 @@ class PWE_Elements {
             $class = $comp['class'];
             $shortcode = 'pwe-elements-component-' . strtolower(str_replace('_', '-', $class));
 
-            // Rejestracja shortcode
+            // Shortcode registration
             add_shortcode($shortcode, function($atts = [], $content = null) use ($class) {
                 return PWE_Elements::render_single_element($class, $atts);
             });
 
-            // Rejestracja w WPBakery
+            // Register at WPBakery
             add_action('vc_before_init', function() use ($shortcode, $class) {
                 if (!function_exists('vc_map')) return;
 
                 $params = [];
 
-                // Jeśli komponent może mieć slug, można dodać param dropdown/text
-                $params[] = [
-                    'type' => 'textfield',
-                    'heading' => __('Slug', 'pwe-elements-auto-switch'),
-                    'param_name' => 'slug',
-                    'group' => 'Custom Settings',
-                    'description' => __('Optional slug for this component', 'pwe-elements-auto-switch'),
-                    'save_always' => true,
-                ];
+                // // If the component have a slug, add the dropdown/text param
+                // $params[] = [
+                //     'type' => 'textfield',
+                //     'heading' => __('Slug', 'pwe-elements-auto-switch'),
+                //     'param_name' => 'slug',
+                //     'group' => 'Custom Settings',
+                //     'description' => __('Optional slug for this component', 'pwe-elements-auto-switch'),
+                //     'save_always' => true,
+                // ];
 
                 vc_map([
-                    'name'     => __('PWE Component: ' . $class, 'pwe-elements-auto-switch'),
+                    'name'     => __('PWE Component AutoSwitch: ' . $class, 'pwe-elements-auto-switch'),
                     'base'     => $shortcode,
-                    'category' => __('PWE Components', 'pwe-elements-auto-switch'),
+                    'category' => __('PWE Elements Auto Switch', 'pwe-elements-auto-switch'),
                     'icon'     => 'icon-wpb-layer-shape',
                     'params'   => $params,
                 ]);

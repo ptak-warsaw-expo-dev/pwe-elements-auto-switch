@@ -23,7 +23,7 @@
     margin: 0;
     font-weight: 500;
     line-height: 1.5;
-    color: var(--accent-color);
+    color: black;
 }
 @media(max-width:650px) {
     .pwe-element-auto-switch .pwe-main-title {

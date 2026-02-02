@@ -411,35 +411,6 @@ document.addEventListener("DOMContentLoaded", function () {
         updateLinkState();
         mq.addEventListener('change', updateLinkState);
     });
-    // Change Exhibitor List to Exhibitor Catalog in all languages
-    const lang = document.documentElement.lang;
-
-    const replacements = {
-    'pl-PL': {
-        from: 'lista wystawców',
-        to: 'Katalog wystawców'
-    },
-    'en-US': {
-        from: 'exhibitors list',
-        to: 'Exhibitor catalogue'
-    },
-    'de-DE': {
-        from: 'ausstellerliste',
-        to: 'Ausstellerkatalog'
-    }
-    };
-
-    document
-    .querySelectorAll('#pweMenuAutoSwitch .pwe-menu-auto-switch__item-title')
-    .forEach(el => {
-        const text = el.textContent.trim().toLowerCase();
-        const config = replacements[lang];
-
-        if (config && text === config.from) {
-        el.textContent = config.to;
-        }
-    });
-
 
 });
  

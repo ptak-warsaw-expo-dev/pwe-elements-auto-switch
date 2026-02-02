@@ -155,6 +155,25 @@ $output .= '
                         $target_blank = !empty($item->target) ? 'target="_blank"' : '';
 
                         if ((strpos($item->ID, 'wpml') === false)) {
+                                $locale=get_locale();
+                                $title = trim(mb_strtolower($item->title));
+
+                                $map = [
+                                    'pl_PL' => [                 
+                                        'lista wystawców' => 'Katalog wystawców',
+                                    ],
+                                    'en_US' => [
+                                        'exhibitors list' => 'Exhibitor catalogue',
+                                    ],
+                                    'de_DE' => [
+                                        'ausstellerliste' => 'Ausstellerkatalog',
+                                    ],
+                                ];        
+                                
+                                if (isset($map[$locale][$title])) {
+                                    $item->title = $map[$locale][$title];
+                                }
+
                             $output .= '
                             <li class="pwe-menu-auto-switch__item' . ($has_children ? ' has-children' : '') . ' ' . ($item->button ?? '') . '">
                                 <a '. $target_blank .' href="' . esc_url($item->url) . '">

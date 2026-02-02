@@ -207,11 +207,11 @@ class PWE_Swiper
                     });
 
                     // Call the function at the beginning
-                    setTimeout(setEqualHeight, 500);
+                    setTimeout(setEqualHeight, 700);
 
                 }
 
-                $(".pwe-element-auto-switch ' . $id . '").css("visibility", "visible").animate({ opacity: 1 }, 500);
+                $(".pwe-element-auto-switch ' . $id . '").css("visibility", "visible").animate({ opacity: 1 }, 700);
             });
         </script>';
 
