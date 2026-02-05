@@ -13,13 +13,13 @@
     border-radius: 18px;
     transition: .3s ease;
     background-color: white;
+    height: 100%;
     overflow: hidden;
 }
 .pwe-element-auto-switch .pwe-posts__post-content {
     min-height: 160px;
-    max-height: 250px;
+    height: 100%;
     padding: 32px;
-    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -32,7 +32,7 @@
     background: var(--main2-color);
 }
 .pwe-element-auto-switch .pwe-posts__post-thumbnail {
-    display: contents;
+    display: block;
 }
 .pwe-element-auto-switch .pwe-posts__post-thumbnail .image-container {
     aspect-ratio: 19 / 9;

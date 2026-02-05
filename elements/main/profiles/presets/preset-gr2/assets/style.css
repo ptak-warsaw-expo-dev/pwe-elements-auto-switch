@@ -17,6 +17,9 @@
     align-items: flex-start;
 }
 .pwe-element-auto-switch .pwe-profiles__card {
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
     position: relative;
     display: flex;
     flex-direction: column;
