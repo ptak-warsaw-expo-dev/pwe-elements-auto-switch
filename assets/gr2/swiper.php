@@ -34,6 +34,9 @@ class PWE_Swiper
             .pwe-element-auto-switch ' . $id . ' .swiper-wrapper {
                 display: flex;
             }
+            .pwe-element-auto-switch ' . $id . ' .swiper-slide {
+                height: auto;
+            }
         </style>';
         
         if ($dots) {
@@ -207,11 +210,11 @@ class PWE_Swiper
                     });
 
                     // Call the function at the beginning
-                    setTimeout(setEqualHeight, 700);
+                    setTimeout(setEqualHeight, 1000);
 
                 }
 
-                $(".pwe-element-auto-switch ' . $id . '").css("visibility", "visible").animate({ opacity: 1 }, 700);
+                $(".pwe-element-auto-switch ' . $id . '").css("visibility", "visible").animate({ opacity: 1 }, 500);
             });
         </script>';
 

@@ -3,7 +3,7 @@
  * Plugin Name: PWE Elements AutoSwitch
  * Plugin URI: https://github.com/ptak-warsaw-expo-dev/pwe-elements-auto-switch
  * Description: Elements that dynamically adapt to groups.
- * Version: 1.1.7
+ * Version: 1.1.8
  * Author: Anton Melnychuk
  * Co-author: Piotr Krupniewski, Marek Rumianek, Jakub Choła
  * Author URI: https://github.com/antonmelnychuk1
@@ -26,6 +26,8 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/class-hooks.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-shortcodes.php';
 
 require_once plugin_dir_path( __FILE__ ) . 'components/menu/menu.php';
+
+if (!class_exists('Flip_Book')){require_once plugin_dir_path( __FILE__ ) . 'elements/flip-book/flip-book.php';}
 
 if ( ! class_exists( 'PWE_Elements_AutoSwitch' ) ) {
 

@@ -1,0 +1,38 @@
+{
+  "pl_PL": {
+    "award": "Zdobądź prestiżową nagrodę w Ptak Warsaw Expo!",
+    "text_premier": "Dołącz do najlepszych na Targach Ptak Warsaw Expo i pokaż swoją firmę jako lidera! Zdobądź prestiżowy medal przyznawany przez Krajową Izbę Targową i Ptak Warsaw Expo.",
+    "category_premier": "Honorujemy wyjątkowych partnerów w dwóch kategoriach:",
+    "partner_premier": "Dla Izb i Stowarzyszeń:<br><strong>„Kluczowy Partner Targów”</strong>",
+    "cocreator_premier": "Dla Firm:<br><strong>„Współtwórca Sukcesu Targów”</strong>",
+    "book_stand": "/ceremonia-medalowa/",
+    "book_stand_button": "Zgłoszenie ceremonia medalowa",
+    "text": "Dołącz do grona najlepszych na <strong>Targach Ptak Warsaw Expo</strong> i pokaż swoją firmę w świetle zwycięzców! Nagrody są przyznawane przez <strong>Krajową Izbę Targową</strong> oraz <strong>Ptak Warsaw Expo</strong>  – wyróżnij się i zdobądź uznanie!",
+    "lider_text":"POKAŻ SIĘ ŚWIATU JAKO LIDER W PTAK WARSAW EXPO!",
+    "premier_fair": "/wp-content/plugins/pwe-media/media/medals/premier-fair.webp"
+  },
+  "en_US": {
+    "award": "Win a prestigious award at Ptak Warsaw Expo!",
+    "text_premier": "Join the best at Ptak Warsaw Expo and showcase your company as a leader! Earn the prestigious medal awarded by the National Chamber of Exhibitions and Ptak Warsaw Expo.",
+    "category_premier": "We honor exceptional partners in two categories:",
+    "partner_premier": "For Chambers and Associations:<br><strong>“Key Partner of the Fair”</strong>",
+    "cocreator_premier": "For Companies:<br><strong>“Co-Creator of Fair Success”</strong>",
+    "book_stand": "/en/medal-ceremony/",
+    "book_stand_button": "Medal ceremony application",
+    "text": "Join the ranks of the best at <strong>Ptak Warsaw Expo</strong> and showcase your company as a winner! Awards are granted by the <strong>National Chamber of Trade Fairs</strong> and <strong>Ptak Warsaw Expo</strong> – stand out and gain recognition!",
+    "lider_text":"SHOWCASE YOURSELF AS A LEADER AT PTAK WARSAW EXPO!",
+    "premier_fair": "/wp-content/plugins/pwe-media/media/medals/premier-fair-en.webp"
+  },
+  "de_DE": {
+    "award": "Gewinnen Sie einen prestigeträchtigen Preis bei der Ptak Warsaw Expo!",
+    "text_premier":  "Schließen Sie sich den Besten auf der Ptak Warsaw Expo an und präsentieren Sie Ihr Unternehmen als Marktführer! Gewinnen Sie die prestigeträchtige Medaille, die von der Polnischen Messekammer und der Ptak Warsaw Expo verliehen wird.",
+    "category_premier": "Wir ehren außergewöhnliche Partner in zwei Kategorien:",
+    "partner_premier": "Für Kammern und Verbände:<br><strong>„Key Partner der Messe”</strong>",
+    "cocreator_premier": "Für Unternehmen:<br><strong>„Mitgestalter des Messeerfolgs”</strong>",
+    "book_stand": "/en/medal-ceremony/",
+    "book_stand_button": "Antrag auf Medaillenverleihung",
+    "text": "Schließen Sie sich den Besten auf der <strong>Ptak Warsaw Expo</strong> an und präsentieren Sie Ihr Unternehmen als Gewinner! Die Auszeichnungen werden von der <strong>Nationalen Messekammer</strong> und der <strong>Ptak Warsaw Expo</strong> vergeben – heben Sie sich von der Masse ab und gewinnen Sie Anerkennung!",
+    "lider_text":"Präsentieren Sie sich der Welt als Marktführer auf der Ptak Warsaw Expo!",
+    "premier_fair": "/wp-content/plugins/pwe-media/media/medals/premier-fair-en.webp"
+  }
+}

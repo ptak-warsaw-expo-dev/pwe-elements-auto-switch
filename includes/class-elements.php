@@ -15,6 +15,7 @@ class PWE_Elements {
         add_action('wp_enqueue_scripts', [__CLASS__, 'adding_styles']);
         add_action('wp_enqueue_scripts', [__CLASS__, 'adding_scripts']);
 
+        // Shortcodes and VC for page elements <-----------------------------------------------------------------<
         foreach ($shortcodes as $key => $data) {
             // Shortcode registration for page elements
             add_shortcode($data['shortcode'], function($atts = [], $content = null) use ($key) {
@@ -43,8 +44,9 @@ class PWE_Elements {
                             'group' => 'Custom Settings',
                             'description' => __(
                                 'Changer for exhibitors divided by ";;". Try to put names.<br>
-                                Change places "name<=>name or position";<br>
-                                Move to position "name=>>name or position";',
+                                Change places "name<=>name or position,<br>
+                                Move to position "name=>>name or position,
+                                Do not use exhibitor ID',
                                 'auto_pwe_katalog'
                             ),
                             'save_always' => true,
@@ -74,7 +76,7 @@ class PWE_Elements {
             });
         }
 
-        // Shortcodes and VC for single elements
+        // Shortcodes and VC for single elements <---------------------------------------------------------------<
         $all_elements = PWE_Elements_Data::get_all_elements();
         $registered_classes = [];
 
@@ -148,7 +150,7 @@ class PWE_Elements {
             }
         }
 
-        // Shortcodes for components
+        // Shortcodes and VC for components <---------------------------------------------------------------------<
         $all_components = PWE_Elements_Data::get_all_components();
 
         foreach ($all_components as $component_key => $comp) {
@@ -261,9 +263,9 @@ class PWE_Elements {
 
                 ob_start();
                 echo '<div 
-                      id="' . $base_id . $camel_id . ucfirst($group) . '" 
-                      class="' . $base_class . '-' . $group . ' ' . $base_class . ' pwe-element-auto-switch pwe-limit-width">';
-                      $class_name::render($group, $params, $atts);
+                        id="' . $base_id . $camel_id . ucfirst($group) . '" 
+                        class="' . $base_class . '-' . $group . ' ' . $base_class . ' pwe-element-auto-switch pwe-limit-width">';
+                        $class_name::render($group, $params, $atts);
                 echo '</div>';
 
                 return ob_get_clean();
@@ -326,9 +328,9 @@ class PWE_Elements {
             $camel_id = ucfirst(str_replace(' ', '', ucwords(str_replace('-', ' ', $el_slug))));
 
             echo '<div 
-                  id="'. lcfirst(str_replace('_', '', $el['class'])) . $camel_id . ucfirst($group) .'" 
-                  class="pwe-element-auto-switch '. lcfirst(str_replace('_', '-', strtolower($el['class']))) . '-' . $group . ' ' . lcfirst(str_replace('_', '-', strtolower($el['class']))) .' pwe-limit-width">';
-                  $el['class']::render($group, $el['params'], $atts);
+                    id="'. lcfirst(str_replace('_', '', $el['class'])) . $camel_id . ucfirst($group) .'" 
+                    class="pwe-element-auto-switch '. lcfirst(str_replace('_', '-', strtolower($el['class']))) . '-' . $group . ' ' . lcfirst(str_replace('_', '-', strtolower($el['class']))) .' pwe-limit-width">';
+                    $el['class']::render($group, $el['params'], $atts);
             echo '</div>';
         }
         echo '</div>';

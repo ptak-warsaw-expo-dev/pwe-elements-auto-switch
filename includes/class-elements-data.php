@@ -50,7 +50,7 @@ class PWE_Elements_Data {
             ['class' => 'Footer',               'file' => 'components/footer/footer.php',                               'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
         ],
         'flip-book' => [
-            ['class' => 'PWE_Flipbook',    'file' => 'elements/flip-book/flip-book.php',   'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
+            ['class' => 'Flip_Book',       'file' => 'elements/flip-book/flip-book.php',   'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
             ['class' => 'Footer',          'file' => 'components/footer/footer.php',       'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
         ],
     ];
