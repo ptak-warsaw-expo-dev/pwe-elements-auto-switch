@@ -47,8 +47,6 @@ class Logotypes {
 
             /* <-------------> General code start <-------------> */
 
-
-
             $cap_logotypes_data = PWE_Functions::get_database_logotypes_data();
             if (!empty($cap_logotypes_data)) {
 

@@ -22,10 +22,19 @@ class Conference {
                 'gr2' => plugin_dir_path(__FILE__) . 'presets/preset-gr2-shedule/preset-gr2-shedule.php',
             ]
             : [
-                'gr1' => plugin_dir_path(__FILE__) . 'presets/preset-gr1/preset-gr1.php',
-                'gr2' => plugin_dir_path(__FILE__) . 'presets/preset-gr2/preset-gr2.php',
+                'gr1'  => plugin_dir_path(__FILE__) . 'presets/preset-gr1/preset-gr1.php',
+                'gr2'  => plugin_dir_path(__FILE__) . 'presets/preset-gr2/preset-gr2.php',
                 'week' => plugin_dir_path(__FILE__) . 'presets/preset-week/preset-week.php',
             ];
+
+        // Nadpisanie presetu dla konkretnej domeny
+        if (strpos($domain, 'warsawsecuritydefenceexpo.com') !== false) {
+            $presets = [
+                'gr2'  => plugin_dir_path(__FILE__) . 'presets/preset-gr2/preset-gr2.php',
+            ];
+            $useSchedule = true;
+        }
+
 
         return [
             'types'       => ['main'],
@@ -33,6 +42,8 @@ class Conference {
             'useSchedule' => $useSchedule,
         ];
     }
+
+
 
     public static function get_conferences_brief($domain) {
         $cap_db = PWE_Functions::connect_database();
@@ -178,6 +189,8 @@ class Conference {
         $useSchedule = !empty($data['useSchedule']);
         $element_type = $data['types'][0];
         $element_slug = strtolower(str_replace('_', '-', __CLASS__));
+        $domain = parse_url(site_url(), PHP_URL_HOST);
+
 
         // Add context to translations function
         PWE_Functions::set_translation_context($element_slug, $group, $element_type);
@@ -186,12 +199,17 @@ class Conference {
 
         // Assets per group (schedule vs normal)
         if ($useSchedule) {
-            PWE_Functions::assets_per_group($element_slug, $group .'-shedule', $element_type);
+            if (strpos($domain, 'warsawsecuritydefenceexpo.com') !== false) {
+                PWE_Functions::assets_per_group($element_slug, $group, $element_type);
+            } else {
+                PWE_Functions::assets_per_group($element_slug, $group .'-shedule', $element_type);
+            }
         } else {
             PWE_Functions::assets_per_group($element_slug, $group, $element_type);
         }
 
         $preset_file = $data['presets'][$group] ?? null;
+
         if ($preset_file && file_exists($preset_file)) {
 
             /* <-------------> General code start <-------------> */
@@ -242,7 +260,6 @@ class Conference {
                 }
 
             /* <-------------> General code end <-------------> */
-
             $output = include $preset_file;
             if ($output) {
                 echo $output;
