@@ -10,7 +10,16 @@ if (!defined('ABSPATH')) exit;
 
 class Flip_Book {
 
+    private static $instance;
+
     public static function init() {
+        if ( null === self::$instance ) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+
+    private function __construct() {
         add_action('wp_enqueue_scripts', [self::class, 'register_assets']);
         add_filter('rocket_delay_js_exclusions', [self::class, 'pwe_exclude_from_wp_rocket']);
         add_filter('script_loader_tag', [self::class, 'pwe_add_attributes'], 10, 2);

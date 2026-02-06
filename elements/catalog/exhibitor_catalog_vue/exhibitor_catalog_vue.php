@@ -247,8 +247,7 @@ class Exhibitor_Catalog {
         return $version;
     }
 
-    private static function inject_config($atts) {
-
+    private static function inject_config($atts) {        
         wp_add_inline_script(
             'vue-catalog',
             'window.VUE_CATALOG_CONFIG = ' . json_encode([
