@@ -1,0 +1,181 @@
+.pwe-element-auto-switch.footer {
+    max-width: 100%;
+    padding: 0;
+    z-index: 100;
+    position: relative;
+}
+.pwe-element-auto-switch .pwe-footer__nav {
+    background-color: black;
+    padding: 36px;
+}
+.pwe-element-auto-switch .pwe-footer__nav-wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 18px;
+}
+.pwe-element-auto-switch .menu-item a {
+    color: white;
+}
+.pwe-element-auto-switch .pwe-footer__nav-left-column, 
+.pwe-element-auto-switch .pwe-footer__nav-right-column {
+    display: flex;
+    gap: 18px;
+}
+.pwe-element-auto-switch .pwe-footer__nav-left-column {
+    width: 25%;
+}
+.pwe-element-auto-switch .pwe-footer__nav-right-column {
+    width: 75%;
+}
+.pwe-element-auto-switch .pwe-footer__nav-logo-column {
+    width: 100%;
+}
+.pwe-element-auto-switch .pwe-footer__nav-column {
+    width: 33.333%;
+}
+.pwe-element-auto-switch .pwe-footer__nav-logo-column a {
+    display: flex;
+    height: 100%;
+}
+.pwe-element-auto-switch .pwe-footer__nav-logo-column {
+    object-fit: contain;
+}
+.pwe-element-auto-switch .pwe-footer__nav-column h4 span {
+    font-size: 18px;
+    color: white;
+}
+.pwe-element-auto-switch .pwe-footer__nav-column h4 {
+    margin: 0;
+}
+.pwe-element-auto-switch .pwe-footer__nav-logo-top,
+.pwe-element-auto-switch .pwe-footer__nav-logo-bottom {
+    max-width: 170px !important;
+    display: flex;
+}
+.pwe-element-auto-switch .pwe-footer__nav-logo-bottom img {
+    padding: 8px;
+    max-height: 150px;
+    object-fit: contain;
+}
+.pwe-element-auto-switch .pwe-footer__nav-links ul {
+    padding: 0 !important;
+    list-style: none !important;
+}
+.pwe-element-auto-switch #pweFooter .pwe-footer__nav-links ul li a {
+    color: white !important;
+    padding: 4px 2px;
+    font-size: 14px; 
+    font-weight: 500; 
+}
+.pwe-element-auto-switch .pwe-footer__nav-links ul li a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width:1000px){
+    .pwe-element-auto-switch .pwe-footer__nav-column h4 span {
+        font-size: 16px;
+    }
+    .pwe-element-auto-switch .pwe-footer__nav-left-column {
+        width: 30%;
+    }
+    .pwe-element-auto-switch .pwe-footer__nav-right-column {
+        width: 70%;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .pwe-element-auto-switch .pwe-footer__nav-column {
+        width: 47%;
+    }
+}
+@media (max-width:720px) {
+    .pwe-element-auto-switch .pwe-footer__nav-column h4 span {
+        font-size: 14px;
+    }
+    .pwe-element-auto-switch .pwe-footer__nav-links ul li a {
+        font-size: 14px;
+    }
+}
+@media (max-width:640px) {
+    .pwe-element-auto-switch .pwe-footer__nav-wrapper {
+        flex-direction: column;
+    }
+    .pwe-element-auto-switch .pwe-footer__nav-left-column {
+        width: 100%;
+    }
+    .pwe-element-auto-switch .pwe-footer__nav-logo-top,
+    .pwe-element-auto-switch .pwe-footer__nav-logo-bottom {
+        margin: 0 auto;
+    }
+    .pwe-element-auto-switch .pwe-footer__nav-right-column {
+        width: 100%;
+    }
+}
+@media (max-width:500px) {
+    .pwe-element-auto-switch .pwe-footer__nav-right-column {
+        flex-direction: column;
+    }
+    .pwe-element-auto-switch .pwe-footer__nav-logo-top,
+    .pwe-element-auto-switch .pwe-footer__nav-logo-bottom {
+        max-width: 170px !important;
+        margin: 0;
+    }
+    .pwe-element-auto-switch .pwe-footer__nav-column {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+
+
+
+.pwe-element-auto-switch .pwe-footer__bottom {
+    background: var(--accent-color);
+}
+.pwe-element-auto-switch .pwe-footer__bottom-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 18px 0;
+}
+.pwe-element-auto-switch .pwe-footer__social {
+    display: flex;
+    justify-content: center;
+    margin: 0 0 10px;
+}
+.pwe-element-auto-switch .pwe-footer__bottom li {
+    list-style: none !important;
+    display: flex !important;
+}
+.pwe-element-auto-switch .pwe-footer__bottom a {
+    display: flex;
+}
+.pwe-element-auto-switch .pwe-footer__bottom a i {
+    padding: 0px 6px;
+    font-size: 22px;
+    transition: .3s ease;
+    color: white;
+    margin: 0;
+}
+.pwe-element-auto-switch .pwe-footer__bottom a i:hover {
+    transform: scale(1.1);
+}
+.pwe-element-auto-switch .pwe-footer__bottom-text {
+    text-align: center;
+    color: white;
+}
+.pwe-element-auto-switch .pwe-footer__bottom-text p {
+    margin: 0;
+    font-size: 14px;
+}
+
+
+footer#colophon .footer-last {
+    display: none !important;
+}
+footer#colophon .row-parent:has(.pwe-element-auto-switch) {
+    padding: 0 !important;
+    max-width: 100% !important;
+}

@@ -32,6 +32,13 @@ class PWE_Elements {
                     $params = [
                         [
                             'type' => 'textfield',
+                            'heading' => __('Archive year', 'auto_pwe_katalog'),
+                            'param_name' => 'archive_catalog_year',
+                            'group' => 'Custom Settings',
+                            'save_always' => true,
+                        ],
+                        [
+                            'type' => 'textfield',
                             'heading' => __('Archive ids', 'auto_pwe_katalog'),
                             'param_name' => 'archive_catalog_id',
                             'group' => 'Custom Settings',

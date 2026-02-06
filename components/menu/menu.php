@@ -6,8 +6,7 @@ class Menu {
     public static function get_data() {
         return [
             'presets' => [
-                'all' => plugin_dir_path(__FILE__) . 'presets/preset-all/preset-all.php',
-                'gr1' => plugin_dir_path(__FILE__) . 'presets/preset-gr1/preset-gr1.php',
+                'all' => plugin_dir_path(__FILE__) . 'presets/all/preset.php',
             ],
         ];
     }
@@ -16,6 +15,8 @@ class Menu {
         $data = self::get_data();
         $element_type = $data['types'][0] ?? '';
         $element_slug = strtolower(str_replace('_', '-', __CLASS__));
+
+        $group = 'all';
 
         $atts = [
             'menu_transparent'       => !empty(get_option('pwe_menu_options', [])['pwe_menu_transparent']) ? "true" : "false",
@@ -28,9 +29,9 @@ class Menu {
         // Global assets
         PWE_Functions::assets_per_element($element_slug, $element_type = '', $folder = 'components');
         // Assets per group
-        PWE_Functions::assets_per_group($element_slug, $group = 'all', $element_type = '', $folder = 'components', $atts);
+        PWE_Functions::assets_per_group($element_slug, $group, $element_type = '', $folder = 'components', $atts);
 
-        $preset_file = self::get_data()['presets']['all'] ?? null;
+        $preset_file = self::get_data()['presets'][$group] ?? null;
         if ($preset_file && file_exists($preset_file)) {
             
             /* <-------------> General code start <-------------> */

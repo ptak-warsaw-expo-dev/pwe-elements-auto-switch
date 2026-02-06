@@ -25,10 +25,7 @@ class PWE_Functions {
 
         $locale = get_locale();
 
-        $translations_file = plugin_dir_url(__DIR__) .
-            'translations/elements/' . $ctx['element_type'] . '/' .
-            $ctx['element_slug'] . '/' .
-            $ctx['element_slug'] . '-' . $ctx['group'] . '.json';
+        $translations_file = plugin_dir_url(__DIR__) . 'translations/elements/' . $ctx['element_type'] . '/' . $ctx['element_slug'] . '/' . $ctx['group'] . '.json';
 
         $translations_data = json_decode(file_get_contents($translations_file), true);
 
@@ -74,7 +71,7 @@ class PWE_Functions {
 
     // Assets per group
     public static function assets_per_group($element_slug, $group, $element_type = 'main', $folder = 'elements', $atts = null) {
-        $src = $folder .'/'. (!empty($element_type) ? $element_type .'/' : '') . $element_slug . '/presets/preset-' . $group . '/assets/';
+        $src = $folder .'/'. (!empty($element_type) ? $element_type .'/' : '') . $element_slug . '/presets/' . $group . '/assets/';
         
         $base_dir = plugin_dir_path(__DIR__) . $src;
         $base_url = plugin_dir_url(__DIR__) . $src;

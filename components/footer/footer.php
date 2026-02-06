@@ -9,7 +9,7 @@ class Footer {
         return [
             'types' => ['main', 'catalog', 'flip-book'],
             'presets' => [
-                'all' => plugin_dir_path(__FILE__) . 'presets/preset-all/preset-all.php',
+                'all' => plugin_dir_path(__FILE__) . 'presets/all/preset.php',
             ],
         ];
     }
@@ -27,7 +27,7 @@ class Footer {
         $element_type = $data['types'][0];
         $element_slug = strtolower(str_replace('_', '-', __CLASS__));
 
-        $group = 'all'; // <-------------------------------------- Temporary solution ---------------------------------------<
+        $group = 'all';
 
         // Add context to translations function
         PWE_Functions::set_translation_context($element_slug, $group, '');
