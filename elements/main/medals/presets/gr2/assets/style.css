@@ -1,0 +1,174 @@
+.pwe-element-auto-switch.medals {
+    max-width: 100%;
+    padding: 0;
+    background: var(--background-color);
+}
+.pwe-element-auto-switch .pwe-medals {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 36px 18px;
+}
+.pwe-element-auto-switch .pwe-medals__wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+.pwe-element-auto-switch .pwe-medals__content {
+    padding: 18px 0;
+}
+.pwe-element-auto-switch .pwe-medals__content-mobile {
+    display: none;
+}
+.pwe-element-auto-switch .pwe-medals__sub-heading {
+    margin: 0;
+    font-weight: 600;
+}
+.pwe-element-auto-switch .pwe-medals__heading {
+    margin-top: 18px;
+}
+.pwe-element-auto-switch .pwe-medals__items {
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: center;
+}
+.pwe-element-auto-switch .pwe-medals__item {
+    position: relative;
+    transition: 0.5s ease;
+}
+.pwe-element-auto-switch .pwe-medals__item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: 0.5s ease;
+}
+
+
+.pwe-element-auto-switch .pwe-medals__items .first {
+    z-index: 1;
+}
+.pwe-element-auto-switch .pwe-medals__items .first img {
+    width: 260px;
+}
+.pwe-element-auto-switch .pwe-medals__items .second {
+    margin-left: -50px;
+    z-index: 2;
+}
+.pwe-element-auto-switch .pwe-medals__items .second img {
+    width: 160px;
+}
+.pwe-element-auto-switch .pwe-medals__items .third {
+    margin-left: -70px;
+    z-index: 3;
+}
+.pwe-element-auto-switch .pwe-medals__items .third img {
+    width: 160px;
+}
+.pwe-element-auto-switch .pwe-medals__items .fourth {
+    margin-left: -70px;
+    z-index: 4;
+}
+.pwe-element-auto-switch .pwe-medals__items .fourth img {
+    width: 160px;
+}
+ 
+
+/* HOVER – SECOND */
+.pwe-element-auto-switch .pwe-medals__items .second:hover ~ .third,
+.pwe-element-auto-switch .pwe-medals__items .second:hover ~ .fourth {
+    margin-left: -50px;
+}
+
+.pwe-element-auto-switch .pwe-medals__items .second:hover img {
+    width: 260px;
+}
+
+.pwe-element-auto-switch .pwe-medals__items .second:hover ~ .third img,
+.pwe-element-auto-switch .pwe-medals__items .second:hover ~ .fourth img,
+.pwe-element-auto-switch .pwe-medals__items:has(.second:hover) .first img {
+    width: 160px;
+}
+
+
+/* HOVER – THIRD */
+.pwe-element-auto-switch .pwe-medals__items .third:hover {
+    z-index: 5;
+}
+
+.pwe-element-auto-switch .pwe-medals__items .third:hover img {
+    width: 260px;
+}
+
+.pwe-element-auto-switch .pwe-medals__items .third:hover ~ .fourth {
+    margin-left: -50px;
+}
+
+.pwe-element-auto-switch .pwe-medals__items .third:hover ~ .fourth img,
+.pwe-element-auto-switch .pwe-medals__items .third:hover ~ .second img,
+.pwe-element-auto-switch .pwe-medals__items:has(.third:hover) .first img {
+    width: 160px;
+}
+
+
+/* HOVER – FOURTH */
+.pwe-element-auto-switch .pwe-medals__items .fourth:hover {
+    z-index: 6;
+}
+
+.pwe-element-auto-switch .pwe-medals__items .fourth:hover img {
+    width: 260px;
+}
+
+.pwe-element-auto-switch .pwe-medals__items .fourth:hover ~ .first img,
+.pwe-element-auto-switch .pwe-medals__items .fourth:hover ~ .second img,
+.pwe-element-auto-switch .pwe-medals__items:has(.fourth:hover) .first img {
+    width: 160px;
+}
+
+
+
+
+.pwe-element-auto-switch .pwe-medals .pwe-btn-container {
+    position: relative;
+    justify-content: left;
+}
+.pwe-element-auto-switch .pwe-medals .pwe-btn {
+    display: flex;
+    color: white !important;
+    transform: scale(1);
+    transition: .3s ease;
+    font-size: 16px;
+    align-items: flex-end;
+    border-radius: 10px;
+    padding: 18px 60px 18px 18px;
+    font-weight: 600;
+    gap: 10px;
+    min-width: auto;
+}
+.pwe-element-auto-switch .pwe-medals .pwe-btn {
+    background: var(--main2-color);
+    max-width: 130px;
+    min-width: 130px;
+}
+.pwe-element-auto-switch .pwe-medals .pwe-btn-container .btn-angle-right {
+    position: absolute;
+    right: 28px;
+    transition: .3s ease;
+}
+.pwe-element-auto-switch .pwe-medals .pwe-btn-container:hover .btn-angle-right {
+    right: 18px;
+}
+@media(max-width:960px) {
+    .pwe-element-auto-switch .pwe-medals__wrapper {
+        grid-template-columns: 1fr;
+    }
+    .pwe-element-auto-switch .pwe-medals__content {
+        padding: 0;
+    }
+    .pwe-element-auto-switch .pwe-medals__content-desktop {
+        display: none;
+    }
+    .pwe-element-auto-switch .pwe-medals__content-mobile {
+        display: block;
+    }
+}

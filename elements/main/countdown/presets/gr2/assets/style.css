@@ -1,0 +1,73 @@
+.pwe-element-auto-switch .pwe-countdown__wrapper {
+    justify-content: center;
+    gap: 18px;
+    padding: 18px;
+}
+.pwe-element-auto-switch .pwe-countdown__label,
+.pwe-element-auto-switch .pwe-countdown__timer {
+    text-transform: uppercase;
+    padding: 0 18px;
+    font-size: 20px;
+}
+.pwe-element-auto-switch .pwe-countdown__timer {
+    display: flex;
+    gap: 24px;
+}
+.pwe-element-auto-switch .pwe-countdown__unit {
+    display: flex;
+    text-align: center;
+    gap: 8px;
+}
+.pwe-element-auto-switch .pwe-countdown .digits {
+    display: flex;
+}
+.pwe-element-auto-switch .pwe-countdown .digit {
+    position: relative;
+    width: 1ch;
+    overflow: hidden;
+    margin: 0;
+}
+.pwe-element-auto-switch .pwe-countdown .digit span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    transition: transform 0.3s ease;
+}
+.pwe-element-auto-switch .pwe-countdown .digit span.old {
+    transform: translateY(0);
+}
+.pwe-element-auto-switch .pwe-countdown .digit span.new {
+    transform: translateY(100%);
+}
+.pwe-element-auto-switch .pwe-countdown .digit span.static {
+    position: relative;
+    transform: translateY(0);
+}
+.pwe-element-auto-switch .pwe-countdown .label {
+    display: block;
+}
+@media (max-width: 960px) {
+    .pwe-element-auto-switch .pwe-countdown__timer {
+        width: 100%;
+        justify-content: center;
+        gap: 10px;
+    }
+    .pwe-element-auto-switch .pwe-countdown__wrapper {
+        justify-content: center;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        gap: 12px;
+    }
+    .pwe-element-auto-switch .pwe-countdown__label, 
+    .pwe-element-auto-switch .pwe-countdown__timer {
+        width: auto;
+        padding: 0;
+    }
+    .pwe-element-auto-switch .pwe-countdown__unit {
+        gap: 4px;
+    }
+    .pwe-element-auto-switch .pwe-countdown__unit.seconds {
+        display: none;
+    }
+
+}

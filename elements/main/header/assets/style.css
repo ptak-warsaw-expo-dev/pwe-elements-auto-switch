@@ -19,7 +19,8 @@
 .pwe-element-auto-switch .pwe-header__wrapper {
     min-height: 60vh;
     max-width: 1200px;
-    margin: 36px 0;
+    width: 100%;
+    margin: 36px auto 0;
     display: flex;
     z-index: 2;
 }

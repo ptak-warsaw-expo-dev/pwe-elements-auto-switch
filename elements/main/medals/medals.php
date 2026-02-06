@@ -6,14 +6,10 @@ class Medals {
     public static function get_data() {
         return [
             'types' => ['main'],
-            'order' => [
-                'gr1' => 999,
-                'gr2' => 999,
-            ],
             'presets' => [
-                'gr1' => plugin_dir_path(__FILE__) . 'presets/preset-gr1/preset-gr1.php',
-                'gr2' => plugin_dir_path(__FILE__) . 'presets/preset-gr2/preset-gr2.php',
-                'week' => plugin_dir_path(__FILE__) . 'presets/preset-week/preset-week.php',
+                'gr1' => plugin_dir_path(__FILE__) . 'presets/gr1/preset.php',
+                'gr2' => plugin_dir_path(__FILE__) . 'presets/gr2/preset.php',
+                'week' => plugin_dir_path(__FILE__) . 'presets/week/preset.php',
             ],
         ];
     }

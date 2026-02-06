@@ -1,0 +1,150 @@
+.pwe-element-auto-switch .pwe-about__wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 18px 0;
+}
+.pwe-element-auto-switch .pwe-about__content {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.pwe-element-auto-switch .pwe-about__logo {
+    max-width: 240px;
+}
+.pwe-element-auto-switch .pwe-about__subtitle {
+    font-size: 22px !important;
+    margin: 0;
+}
+.pwe-element-auto-switch .pwe-about__media {
+    width: 45%;
+}
+.pwe-element-auto-switch .pwe-about__media-wrapper {
+    display: flex;
+    height: 100%;
+    gap: 10px;
+}
+.pwe-element-auto-switch .pwe-about__media-column:first-child {
+    width: 40%;
+}
+.pwe-element-auto-switch .pwe-about__media-column:last-child {
+    width: 60%;
+}
+.pwe-element-auto-switch .pwe-about__media-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 100%;
+}
+.pwe-element-auto-switch .pwe-about__media-item {
+    border-radius: 20px;
+    overflow: hidden;
+    perspective: 1000px;
+    cursor: pointer;
+}
+.pwe-element-auto-switch .pwe-about__media-item.video {
+    pointer-events: none;
+}
+.pwe-element-auto-switch .pwe-about__media-item:not(.video) img {
+    object-fit: cover;
+    height: 100%;
+}
+.pwe-about__media-item.video {
+    cursor: default;
+    perspective: none;
+}
+.pwe-element-auto-switch .pwe-about__media-item.video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+.pwe-element-auto-switch .pwe-about__media-item.video video::-webkit-media-controls {
+    display: none !important;
+}
+.pwe-element-auto-switch .flip-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.35s ease;
+}
+.pwe-element-auto-switch .pwe-about__media-item.flipped .flip-card {
+    transform: rotateY(180deg);
+}
+.pwe-element-auto-switch .flip-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+}
+.pwe-element-auto-switch .flip-face img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    transition: transform 0.25s ease;
+}
+/* back side */
+.pwe-element-auto-switch .flip-face.back {
+    transform: rotateY(180deg);
+}
+/* hover zoom */
+.pwe-element-auto-switch .pwe-about__media-item:hover:not(.flipped):not(.video) .flip-face.front img {
+    transform: scale(1.03);
+}
+.pwe-element-auto-switch .pwe-about__media-column:first-child .pwe-about__media-item:first-child {
+    height: 30%;
+}
+.pwe-element-auto-switch .pwe-about__media-column:first-child .pwe-about__media-item:last-child {
+    height: 70%;
+    position: relative;
+    background-position: center !important;
+    background-size: cover !important;
+    overflow: hidden;
+}
+.pwe-element-auto-switch .pwe-about__media-column:first-child .pwe-about__media-item:last-child img {
+    position: absolute;
+    width: 60px;
+    left: 50%;
+    bottom: 40px;
+    transform: translate(-50%);
+}
+.pwe-element-auto-switch .pwe-about__media-column:first-child .pwe-about__media-item:last-child:before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--accent-color);
+    opacity: 80%;
+    z-index: 0;
+}
+.pwe-element-auto-switch .pwe-about__media-column:last-child .pwe-about__media-item:first-child {
+    height: 60%;
+}
+.pwe-element-auto-switch .pwe-about__media-column:last-child .pwe-about__media-item:last-child {
+    height: 40%;
+}
+@media(max-weight:1200px) {
+    .pwe-element-auto-switch .pwe-about__media {
+        width: 45%;
+    }
+}
+@media(max-width:960px) {
+    .pwe-element-auto-switch .pwe-about__media {
+        width: 50%;
+    }
+}
+@media(max-width:650px) {
+    .pwe-element-auto-switch .pwe-about__wrapper {
+        flex-direction: column-reverse;
+    }
+    .pwe-element-auto-switch .pwe-about__logo {
+        max-width: 180px;
+    }
+    .pwe-element-auto-switch .pwe-about__content,
+    .pwe-element-auto-switch .pwe-about__media {
+        width: 100%;
+    }
+}

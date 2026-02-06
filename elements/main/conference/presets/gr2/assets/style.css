@@ -1,0 +1,182 @@
+.pwe-element-auto-switch .pwe-conference__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto !important;
+    align-items: stretch;
+    gap: 18px;
+}
+.pwe-element-auto-switch .pwe-conference__left {
+    position: relative;
+    flex: 1;
+    width: 50%;
+    padding: 0;
+    display: flex;
+    align-items: end;
+    justify-content: end;
+    gap: 18px;
+    border-radius: 30px;
+    padding: 36px;
+}
+.pwe-element-auto-switch .pwe-conference__left:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background: linear-gradient(to top, #000000 0%, rgba(0, 0, 0, 0) 50%);
+    border-radius: 30px;
+}
+.pwe-element-auto-switch .pwe-conference__right {
+    flex: 1;
+    width: 50%;
+    padding: 24px 24px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    border: 1px solid black;
+    border-radius: 30px;
+}
+.pwe-element-auto-switch .pwe-conference__right-content {
+    height: 90%;
+    width: 100%;
+}
+.pwe-element-auto-switch .pwe-conference__right-content-main {
+    background: var(--background-color);
+    padding: 36px;
+    border-radius: 18px 18px 0 0;
+}
+.pwe-element-auto-switch .pwe-conference__title {
+    width: 100%;
+}
+.pwe-element-auto-switch .pwe-conference__name {
+    margin-bottom: 16px !important;
+}
+.pwe-element-auto-switch .pwe-conference__logo {
+    margin-bottom: 20px;
+    max-width: 240px;
+}
+.pwe-element-auto-switch .pwe-conference__logo img {
+    display: block;
+}
+.pwe-element-auto-switch .pwe-conference__partners {
+    margin-top: 18px;
+}
+.pwe-element-auto-switch .pwe-conference__partners h5 {
+   margin: 0;
+   padding-bottom: 12px;
+}
+.pwe-conference .swiper-buttons-arrows {
+    height: 45px;
+    margin: 18px auto;
+    justify-content: center;
+}
+.pwe-element-auto-switch .pwe-conference__buttons {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    justify-content: start;
+    gap: 10px;
+}
+.pwe-element-auto-switch .pwe-conference__buttons .pwe-btn-container {
+    position: relative;
+}
+.pwe-element-auto-switch .pwe-conference__buttons .pwe-btn {
+    display: flex;
+    color: white !important;
+    transform: scale(1);
+    transition: .3s ease;
+    font-size: 16px;
+    align-items: flex-end;
+    border-radius: 10px;
+    padding: 30px 60px 18px 18px;
+    font-weight: 600;
+    gap: 10px;
+    min-width: auto;
+}
+.pwe-element-auto-switch .pwe-conference__buttons .pwe-btn.btn-visitors {
+    background: var(--main2-color);
+    max-width: 140px;
+    min-width: 140px;
+}
+.pwe-element-auto-switch .pwe-conference__buttons .pwe-btn.btn-more {
+    background: var(--accent-color);
+    color: white !important;
+    max-width: 170px;
+    min-width: 170px;
+}
+.pwe-element-auto-switch .pwe-conference__buttons .pwe-btn-container .btn-angle-right {
+    position: absolute;
+    right: 36px;
+    transition: .3s ease;
+}
+.pwe-element-auto-switch .pwe-conference__buttons .pwe-btn-container:hover .btn-angle-right {
+    right: 20px;
+}
+
+.pwe-element-auto-switch .pwe-conference__logo-pwe {
+    width: 100px;
+    z-index: 1;  
+}
+@media (max-width: 960px) {
+    .pwe-element-auto-switch .pwe-conference__left {
+        aspect-ratio: 21 / 6;
+    }
+}
+@media (max-width: 768px) {
+    .pwe-element-auto-switch .pwe-conference__wrapper {
+        flex-direction: column;
+    }
+    .pwe-element-auto-switch .pwe-conference__left, 
+    .pwe-element-auto-switch .pwe-conference__right {
+        flex: 1 1 100% !important;
+        width: 100% !important;
+    }
+}
+@media (max-width: 550px) {
+    .pwe-element-auto-switch .pwe-conference__left {
+        padding: 18px;
+        aspect-ratio: 5 / 4;
+    }
+    .pwe-element-auto-switch .pwe-conference__buttons {
+        gap: 8px;
+    }
+    .pwe-element-auto-switch .pwe-conference__buttons .pwe-btn-container {
+       padding-top: 0;
+    }
+    .pwe-element-auto-switch .pwe-conference__buttons .pwe-btn {
+        padding: 22px 30px 12px 12px;
+    }
+    .pwe-element-auto-switch .pwe-conference__buttons .pwe-btn.btn-visitors {
+        max-width: 100px;
+        min-width: 100px;
+    }
+    .pwe-element-auto-switch .pwe-conference__buttons .pwe-btn.btn-more {
+        max-width: 130px;
+        min-width: 130px;
+    }
+    .pwe-element-auto-switch .pwe-conference__buttons .pwe-btn-container .btn-angle-right {
+        right: 12px;
+    }
+    .pwe-element-auto-switch .pwe-conference__logo-pwe {
+        width: 70px;
+    }
+    .pwe-element-auto-switch .pwe-conference__right,
+    .pwe-element-auto-switch .pwe-conference__right-content-main {
+        padding: 18px;
+    }
+    .pwe-element-auto-switch .pwe-conference__right-content-main {
+        border-radius: 22px 22px 0 0;
+    }
+    .pwe-element-auto-switch .pwe-conference__partners h5 {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .pwe-element-auto-switch .pwe-conference__partners .swiper {
+        margin: 8px;
+    }
+}

@@ -18,19 +18,19 @@ class Conference {
 
         $presets = $useSchedule
             ? [
-                'gr1' => plugin_dir_path(__FILE__) . 'presets/preset-gr1-shedule/preset-gr1-shedule.php',
-                'gr2' => plugin_dir_path(__FILE__) . 'presets/preset-gr2-shedule/preset-gr2-shedule.php',
+                'gr1' => plugin_dir_path(__FILE__) . 'presets/gr1-shedule/preset.php',
+                'gr2' => plugin_dir_path(__FILE__) . 'presets/gr2-shedule/preset.php',
             ]
             : [
-                'gr1'  => plugin_dir_path(__FILE__) . 'presets/preset-gr1/preset-gr1.php',
-                'gr2'  => plugin_dir_path(__FILE__) . 'presets/preset-gr2/preset-gr2.php',
-                'week' => plugin_dir_path(__FILE__) . 'presets/preset-week/preset-week.php',
+                'gr1'  => plugin_dir_path(__FILE__) . 'presets/gr1/preset.php',
+                'gr2'  => plugin_dir_path(__FILE__) . 'presets/gr2/preset.php',
+                'week' => plugin_dir_path(__FILE__) . 'presets/week/preset.php',
             ];
 
         // Nadpisanie presetu dla konkretnej domeny
         if (strpos($domain, 'warsawsecuritydefenceexpo.com') !== false) {
             $presets = [
-                'gr2'  => plugin_dir_path(__FILE__) . 'presets/preset-gr2/preset-gr2.php',
+                'gr2'  => plugin_dir_path(__FILE__) . 'presets/gr2/preset.php',
             ];
             $useSchedule = true;
         }
@@ -220,11 +220,11 @@ class Conference {
                 $fairs_data_adds = PWE_Functions::get_database_fairs_data_adds($domain);
 
                 $first_fair_adds = $fairs_data_adds[0] ?? null;
-                $name  = $first_fair_adds ? ($first_fair_adds->{'konf_name'} ?? '') : '';
-                $title = $first_fair_adds ? ($first_fair_adds->{'konf_title_' . $lang} ?? '') : '';
-                $desc  = $first_fair_adds ? ($first_fair_adds->{'konf_desc_' . $lang} ?? '') : '';
+                $conf_name  = $first_fair_adds ? ($first_fair_adds->{'konf_name'} ?? '') : '';
+                $conf_title = $first_fair_adds ? ($first_fair_adds->{'konf_title_' . $lang} ?? '') : '';
+                $conf_desc  = $first_fair_adds ? ($first_fair_adds->{'konf_desc_' . $lang} ?? '') : '';
 
-                if (empty($desc)) {
+                if (empty($conf_desc)) {
                     return;
                 }
 
