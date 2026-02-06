@@ -1,15 +1,13 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
-class Other_Events {
+class Speakers {
 
     public static function get_data() {
         return [
             'types' => ['main'],
             'presets' => [
-                'gr1' => plugin_dir_path(__FILE__) . 'presets/gr1/preset.php',
                 'gr2' => plugin_dir_path(__FILE__) . 'presets/gr2/preset.php',
-                'week' => plugin_dir_path(__FILE__) . 'presets/week/preset.php',
             ],
         ];
     }

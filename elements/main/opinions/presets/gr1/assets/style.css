@@ -1,0 +1,183 @@
+.pwe-element-auto-switch .pwe-opinions {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    padding: 18px 0;
+    background: #efefef;
+}
+.pwe-element-auto-switch .pwe-opinions.pwe-visible {
+    opacity: 1;
+    visibility: visible;
+}
+.pwe-element-auto-switch .pwe-opinions__wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 18px;
+    position: relative;
+}
+.pwe-element-auto-switch .pwe-opinions__title {
+    margin: 0 auto;
+}
+.pwe-element-auto-switch .pwe-opinions__title > h4 {
+    margin: 0;
+}
+.pwe-element-auto-switch .pwe-opinions__items {
+    margin: 36px 0;
+}
+.pwe-element-auto-switch .pwe-opinions__item {
+    position: relative;
+    padding: 18px;
+}
+
+.pwe-element-auto-switch .pwe-opinions__item {
+    padding: 0;
+}
+.pwe-element-auto-switch .pwe-opinions__item-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: white;
+    padding: 6px;
+    height: 100%;
+    border-radius: 14px;
+}
+.pwe-element-auto-switch .pwe-opinions__item-top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 18px;
+}
+.pwe-element-auto-switch .pwe-opinions__item-person-container {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+.pwe-element-auto-switch .pwe-opinions__item-person-container img{
+    object-fit: cover;
+    width: 80px;
+    border-radius: 50%;
+}
+.pwe-element-auto-switch .pwe-opinions__item-bottom {
+    width: 100%;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+}
+.pwe-element-auto-switch .pwe-opinions__item-info-container {
+    display: flex;
+    justify-content: space-between;
+}
+.pwe-element-auto-switch .pwe-opinions__item-person-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.pwe-element-auto-switch .pwe-opinions__item-person-info-desc {
+    font-size: 14px !important;
+    font-weight: 500;
+    margin: 0;
+}
+.pwe-element-auto-switch .pwe-opinions__item-person-info-name {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+}
+.pwe-element-auto-switch .pwe-opinions__item-company-info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    max-width: 200px;
+}
+.pwe-element-auto-switch .pwe-opinions__item-company_logo img {
+    max-width: 100px;
+    margin-left: auto;
+}
+.pwe-element-auto-switch .pwe-opinions__item-opinion-text {
+    max-height: 140px;
+    overflow-y: auto;
+    padding-right: 8px;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+    -webkit-overflow-scrolling: touch;
+}
+/* Chrome, Edge, Safari */
+.pwe-element-auto-switch .pwe-opinions__item-opinion-text::-webkit-scrollbar {
+    width: 6px;
+}
+.pwe-element-auto-switch .pwe-opinions__item-opinion-text::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+}
+.pwe-element-auto-switch .pwe-opinions__item-opinion-text::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+.pwe-element-auto-switch .pwe-opinions__item-opinion-text::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.pwe-element-auto-switch .pwe-opinions__item-opinion-text::-webkit-scrollbar-button {
+    display: none;
+}
+.pwe-element-auto-switch .pwe-opinions__item-opinion-text p {
+    font-size: 14px;
+    line-height: 1.3;
+    text-align: left;
+    display: inline-block;
+    margin: 0;
+}
+
+@media(max-width:600px){
+    .pwe-element-auto-switch .pwe-opinions__item {
+        flex-direction: column;
+    }
+    .pwe-element-auto-switch .pwe-opinions__item-top {
+        width: 100%;
+        flex-direction: column;
+        padding: 12px;
+    }
+    .pwe-element-auto-switch .pwe-opinions__item-person-info-container :is(h4, h5) {
+        text-align: left;
+    }
+    .pwe-element-auto-switch .pwe-opinions__item-person-info-container h4 {
+        font-size: 16px;
+    }
+    .pwe-element-auto-switch .pwe-opinions__item-bottom {
+        flex-direction: column;
+        width: 100%;
+        padding: 12px;
+    }
+    .pwe-element-auto-switch .pwe-opinions__item-person-container img {
+        width: 70px;
+        box-shadow: 0px 0px 10px -4px black;
+    }
+    .pwe-element-auto-switch .pwe-opinions__item-info-container {
+        flex-direction: column;
+        align-items: center;
+        max-width: 100%;
+    }
+    .pwe-element-auto-switch .pwe-opinions__item-company-name,
+    .pwe-element-auto-switch .pwe-opinions__item-person-info-desc,
+    .pwe-element-auto-switch .pwe-opinions__item-person-info-name {
+        text-align: center;
+        width: 100%;
+    }
+    .pwe-element-auto-switch .pwe-opinions__item-company_logo {
+        margin: 0 auto;
+    }
+    .pwe-element-auto-switch .slick-list {
+        overflow: visible;
+    }
+    .pwe-element-auto-switch .pwe-opinions__item-company_logo img {
+        height: 70px;
+    }
+
+}
+
+.pwe-element-auto-switch .pwe-opinions .swiper {
+    width: 100%;
+    padding: 14px;
+    margin: 14px 0 0;
+}
+
