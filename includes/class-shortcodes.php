@@ -40,6 +40,8 @@ class PWE_Shortcodes {
             'trade_fair_date_custom_format' => 'show_trade_fair_date_custom_format',
             'trade_fair_catalog' => 'show_trade_fair_catalog',
             'trade_fair_catalog_id' => 'show_trade_fair_catalog_id',
+            'trade_fair_catalog_archive' => 'show_trade_fair_catalog_archive',
+            'trade_fair_catalog_id_archive' => 'show_trade_fair_catalog_id_archive',
             'trade_fair_catalog_year' => 'show_trade_fair_catalog_year',
             'trade_fair_conferance' => 'show_trade_fair_conferance',
             'trade_fair_conferance_eng' => 'show_trade_fair_conferance_eng',
@@ -68,8 +70,6 @@ class PWE_Shortcodes {
             'second_day_eng' => 'show_second_day_eng',
             'third_day' => 'show_third_day',
             'third_day_eng' => 'show_third_day_eng',
-            'super_shortcode_1' => 'show_super_shortcode_1',
-            'super_shortcode_2' => 'show_super_shortcode_2',
             'trade_fair_domainadress' => 'show_trade_fair_domainadress',
             'trade_fair_actualyear' => 'show_trade_fair_actualyear',
             'trade_fair_rejestracja' => 'show_trade_fair_rejestracja',
@@ -388,7 +388,9 @@ class PWE_Shortcodes {
             'trade_fair_name' => 'Nazwa targów PL<hr><p>[trade_fair_name]</p>',
             'trade_fair_name_eng' => 'Nazwa targów EN<hr><p>[trade_fair_name_eng]</p>',
             'trade_fair_catalog' => 'ID katalogu wystawców (OLD)<hr><p>[trade_fair_catalog]</p>',
+            'trade_fair_catalog_archive' => 'Rok-ID archiwalnych katalogów wystawców (OLD)<hr><p>[trade_fair_catalog_archive]</p>',
             'trade_fair_catalog_id' => 'ID/IDs katalogu/ów wystawców (NEW)<hr><p>[trade_fair_catalog_id]</p>',
+            'trade_fair_catalog_id_archive' => 'Rok-ID archiwalnych katalogów wystawców (NEW)<hr><p>[trade_fair_catalog_id_archive]</p>',
             'trade_fair_catalog_year' => 'Rok aktualnego katalogu wystawców<hr><p>[trade_fair_catalog_year]</p>',
             'trade_fair_desc' => 'Opis targów PL<hr><p>[trade_fair_desc]</p>',
             'trade_fair_desc_eng' => 'Opis targów EN<hr><p>[trade_fair_desc_eng]</p>',
@@ -423,8 +425,6 @@ class PWE_Shortcodes {
             'first_day_eng' => 'Pierwszy dzień targów (ENG)<hr><p>[first_day_eng]</p>',
             'second_day_eng' => 'Drugi dzień targów (ENG)<hr><p>[second_day_eng]</p>',
             'third_day_eng' => 'Trzeci dzień targów (ENG)<hr><p>[third_day_eng]</p>',
-            'super_shortcode_1' => 'Shortcode dodatkowy 1<hr><p>[super_shortcode_1]</p>',
-            'super_shortcode_2' => 'Shortcode dodatkowy 2<hr><p>[super_shortcode_2]</p>',
             'trade_fair_rejestracja' => 'Adres email do automatycznej odpowiedzi<hr><p>[trade_fair_rejestracja]</p>',
             'trade_fair_contact' => 'Adres email do formularza kontaktu<hr><p>[trade_fair_contact]</p>',
             'trade_fair_contact_tech' => 'Adres email do formularza kontaktu działu technicznego<hr><p>[trade_fair_contact_tech]</p>',
@@ -922,6 +922,40 @@ class PWE_Shortcodes {
                     value="<?php echo $pwe_catalog_id_available ? $pwe_catalog_id : get_option('trade_fair_catalog_id'); ?>" 
                 />
                 <p><?php echo $pwe_catalog_id_available ? "Dane pobrane z CAP DB" : "np. 69"; ?></p>
+            </div>
+        <?php
+    }
+
+    public function display_trade_fair_catalog_archive() {
+        $pwe_catalog_archive = shortcode_exists("pwe_catalog_archive") ? do_shortcode('[pwe_catalog_archive]') : "";
+        $pwe_catalog_archive_available = (empty(get_option('pwe_general_options', [])['pwe_dp_shortcodes_unactive']) && !empty($pwe_catalog_archive) && $pwe_catalog_archive !== "");
+        ?>
+            <div class="form-field">
+                <input 	
+                    <?php echo $pwe_catalog_archive_available ? "style='pointer-events: none; opacity: 0.5;'" : ""; ?> 
+                    type="text" 
+                    name="trade_fair_catalog_archive" 
+                    id="trade_fair_catalog_archive" 
+                    value="<?php echo $pwe_catalog_archive_available ? $pwe_catalog_archive : get_option('trade_fair_catalog_archive'); ?>" 
+                />
+                <p><?php echo $pwe_catalog_archive_available ? "Dane pobrane z CAP DB" : "np. 2025-1447; 2024-1578..."; ?></p>
+            </div>
+        <?php
+    }
+
+    public function display_trade_fair_catalog_id_archive() {
+        $pwe_catalog_id_archive = shortcode_exists("pwe_catalog_id_archive") ? do_shortcode('[pwe_catalog_id_archive]') : "";
+        $pwe_catalog_id_archive_available = (empty(get_option('pwe_general_options', [])['pwe_dp_shortcodes_unactive']) && !empty($pwe_catalog_id_archive) && $pwe_catalog_id_archive !== "");
+        ?>
+            <div class="form-field">
+                <input 	
+                    <?php echo $pwe_catalog_id_archive_available ? "style='pointer-events: none; opacity: 0.5;'" : ""; ?> 
+                    type="text" 
+                    name="trade_fair_catalog_id_archive" 
+                    id="trade_fair_catalog_id_archive" 
+                    value="<?php echo $pwe_catalog_id_archive_available ? $pwe_catalog_id_archive : get_option('trade_fair_catalog_id_archive'); ?>" 
+                />
+                <p><?php echo $pwe_catalog_id_archive_available ? "Dane pobrane z CAP DB" : "np. 2025-47,48;2024-78,79..."; ?></p>
             </div>
         <?php
     }
@@ -1453,24 +1487,6 @@ class PWE_Shortcodes {
         <?php
     }
 
-    public function display_super_shortcode_1() {
-        ?>
-            <div class="form-field">
-                <input type="text" name="super_shortcode_1" id="super_shortcode_1" value="<?php echo get_option('super_shortcode_1'); ?>" />
-                <p>"np. cokolwiek"</p>
-            </div>
-        <?php
-    }
-
-    public function display_super_shortcode_2() {
-        ?>
-            <div class="form-field">
-                <input type="text" name="super_shortcode_2" id="super_shortcode_2" value="<?php echo get_option('super_shortcode_2'); ?>" />
-                <p>"np. cokolwiek"</p>
-            </div>
-        <?php
-    }
-
     public function days_difference() {
         $trade_fair_date = do_shortcode('[trade_fair_date_custom_format]');
         
@@ -1714,7 +1730,21 @@ class PWE_Shortcodes {
         $pwe_catalog_id_available = (empty(get_option('pwe_general_options', [])['pwe_dp_shortcodes_unactive']) && !empty($pwe_catalog_id) && $pwe_catalog_id !== "");
         $result = $pwe_catalog_id_available ? $pwe_catalog_id : get_option('trade_fair_catalog_id');
         return $result;
+    }   
+    
+    public function show_trade_fair_catalog_archive() {
+        $pwe_catalog_archive = shortcode_exists("pwe_catalog_archive") ? do_shortcode('[pwe_catalog_archive]') : "";
+        $pwe_catalog_archive_available = (empty(get_option('pwe_general_options', [])['pwe_dp_shortcodes_unactive']) && !empty($pwe_catalog_archive) && $pwe_catalog_archive !== "");
+        $result = $pwe_catalog_archive_available ? $pwe_catalog_archive : get_option('trade_fair_catalog_archive');
+        return $result;
     }    
+
+    public function show_trade_fair_catalog_id_archive() {
+        $pwe_catalog_id_archive = shortcode_exists("pwe_catalog_id_archive") ? do_shortcode('[pwe_catalog_id_archive]') : "";
+        $pwe_catalog_id_archive_available = (empty(get_option('pwe_general_options', [])['pwe_dp_shortcodes_unactive']) && !empty($pwe_catalog_id_archive) && $pwe_catalog_id_archive !== "");
+        $result = $pwe_catalog_id_archive_available ? $pwe_catalog_id_archive : get_option('trade_fair_catalog_id_archive');
+        return $result;
+    }   
 
     public function show_trade_fair_catalog_year() {
         $pwe_date_start = shortcode_exists("pwe_date_start") ? do_shortcode('[pwe_date_start]') : "";
@@ -1995,16 +2025,6 @@ class PWE_Shortcodes {
     
     public function show_third_day_eng() {
         $result = get_option('third_day_eng');
-        return $result;
-    }
-    
-    public function show_super_shortcode_1() {
-        $result = get_option('super_shortcode_1');
-        return $result;
-    }
-    
-    public function show_super_shortcode_2() {
-        $result = get_option('super_shortcode_2');
         return $result;
     }
     

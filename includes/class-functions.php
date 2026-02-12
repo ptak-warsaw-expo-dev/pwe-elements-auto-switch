@@ -319,7 +319,7 @@ class PWE_Functions {
 
 
     // <============================================================================================>
-    // Functions from plugin PWElements 3.1.5 <========================================================>
+    // Functions from plugin PWElements 3.1.9 <========================================================>
     // <============================================================================================>
 
 
@@ -495,7 +495,9 @@ class PWE_Functions {
                 MAX(CASE WHEN fa.slug = 'category_pl' THEN fa.data END) AS category_pl,
                 MAX(CASE WHEN fa.slug = 'category_en' THEN fa.data END) AS category_en,
                 MAX(CASE WHEN fa.slug = 'konf_name' THEN fa.data END) AS konf_name,
-                MAX(CASE WHEN fa.slug = 'fair_kw_new' THEN fa.data END) AS fair_kw_new
+                MAX(CASE WHEN fa.slug = 'fair_kw_new' THEN fa.data END) AS fair_kw_new,
+                MAX(CASE WHEN fa.slug = 'fair_kw_old_arch' THEN fa.data END) AS fair_kw_old_arch,
+                MAX(CASE WHEN fa.slug = 'fair_kw_new_arch' THEN fa.data END) AS fair_kw_new_arch
 
             FROM fairs f
             LEFT JOIN fair_adds fa ON fa.fair_id = f.id
@@ -1302,6 +1304,8 @@ class PWE_Functions {
             "badge" => $fair->fair_badge ?? "",
             "catalog" => $fair->fair_kw ?? "",
             "catalog_id" => $fair->fair_kw_new ?? "",
+            "catalog_archive" => $fair->fair_kw_old_arch ?? "",
+            "catalog_id_archive" => $fair->fair_kw_new_arch ?? "",
             "shop" => $fair->fair_shop ?? "",
             "category_pl" => $fair->category_pl ?? "",
             "category_en" => $fair->category_en ?? "",
@@ -1802,7 +1806,6 @@ class PWE_Functions {
             vc_add_shortcode_param( 'input_range', array('PWEHeader', 'input_range_field_html') );
         }
     }
-    
     public static function input_range_field_html( $settings, $value ) {
         $id = uniqid('range_');
         return '<div class="pwe-input-range">'

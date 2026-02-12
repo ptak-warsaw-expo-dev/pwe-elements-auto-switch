@@ -27,6 +27,7 @@ class PWE_Elements_Data {
             // ['class' => 'Combined_Events',  'file' => 'elements/main/combined-events/combined-events.php', 'order' => ['gr1' => 2, 'gr2' => 0, 'b2c' => 2, 'week' => 1]],
             ['class' => 'About',            'file' => 'elements/main/about/about.php',                     'order' => ['gr1' => 3, 'gr2' => 3, 'b2c' => 3, 'week' => 1]],
             ['class' => 'Conference',       'file' => 'elements/main/conference/conference.php',           'order' => ['gr1' => 4, 'gr2' => 5, 'b2c' => 4, 'week' => 1]],
+            // ['class' => 'Speakers',         'file' => 'elements/main/speakers/speakers.php',               'order' => ['gr1' => 4, 'gr2' => 5, 'b2c' => 4, 'week' => 1]],
             ['class' => 'Premieres',        'file' => 'elements/main/premieres/premieres.php',             'order' => ['gr1' => 0, 'gr2' => 5, 'b2c' => 0, 'week' => 1]],
             ['class' => 'Opinions',         'file' => 'elements/main/opinions/opinions.php',               'order' => ['gr1' => 13, 'gr2' => 12, 'b2c' => 5, 'week' => 1]],
             ['class' => 'Exhibitors',       'file' => 'elements/main/exhibitors/exhibitors.php',           'order' => ['gr1' => 7, 'gr2' => 4, 'b2c' => 6, 'week' => 1]],

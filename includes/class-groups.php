@@ -46,6 +46,9 @@ class PWE_Groups {
             if ($host === "mr.glasstec.pl") {
                 return 'gr2';
             }
+            if ($host === "new.warsawmetaltech.pl") {
+                return 'week';
+            }
             // Temporary <---------------------------------<
         }
         return null;
