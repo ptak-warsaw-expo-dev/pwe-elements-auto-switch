@@ -158,6 +158,10 @@ class Exhibitor_Catalog {
         </div>
         <div id="vue-catalog" style="min-height: 130vh;"></div>';
 
+        if (current_user_can('administrator')) {
+            echo '<script>console.log("Link od odświeżenia/pobrania katalogu: https://'. $_SERVER['HTTP_HOST'] .'/wp-content/plugins/custom-element/other/cron_catalog.php?pass=iR8gCdZlITxRvVBS")</script>';
+        }
+
         $feedback = EX_PATH . 'addons/feedback/feedback.php';
         if (file_exists($feedback)) {
             require_once $feedback;
@@ -268,13 +272,10 @@ class Exhibitor_Catalog {
             file_put_contents($logFile, "[$time] $msg\n", FILE_APPEND);
         };
 
-        $log("START [NEW CATALOG] sync_archive_catalog_entry | catalog_id={$catalog_id}, catalog_year={$catalog_year}");
-
         // --------------------------------------------------
         // Basic validation
         // --------------------------------------------------
         if (empty($catalog_id)) {
-            // $log("STOP: catalog_id is missing");
             return;
         }
 
@@ -285,9 +286,10 @@ class Exhibitor_Catalog {
         }
 
         if (!$year) {
-            // $log("STOP: valid year not found in catalog_year");
             return;
         }
+
+        $log("START [NEW CATALOG] sync_archive_catalog_entry | catalog_id={$catalog_id}, catalog_year={$year}");
 
         $domain = $_SERVER['HTTP_HOST'] ?? null;
         if (!$domain) {
@@ -408,11 +410,26 @@ class Exhibitor_Catalog {
         $log("--------------------------------------------------");
     }
 
-    private static function inject_config($atts) {        
+    private static function inject_config($atts) {   
+        $catalog_year = !empty($atts['archive_catalog_year']) ? trim($atts['archive_catalog_year']) : '';
+        
+        $base_path = '/wp-content/uploads/exhibitor-catalogs/';
+        $default_file = 'pwe-exhibitors.json';
+        $data_url = $base_path . $default_file;
+
+        if (!empty($catalog_year)) {
+            $year_file = 'pwe-exhibitors-' . $catalog_year . '.json';
+            $year_file_path = ABSPATH . ltrim($base_path, '/') . $year_file;
+
+            if (file_exists($year_file_path)) {
+                $data_url = $base_path . $year_file;
+            }
+        }
+
         wp_add_inline_script(
             'vue-catalog',
             'window.VUE_CATALOG_CONFIG = ' . json_encode([
-                'dataUrl' => site_url('/doc/pwe-exhibitors-data.json'),
+                'dataUrl' => site_url($data_url),
                 'atts'    => $atts,
                 'locale'  => get_locale(),
             ]) . ';',
