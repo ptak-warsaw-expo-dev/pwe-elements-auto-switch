@@ -410,9 +410,9 @@ class Exhibitor_Catalog {
         $log("--------------------------------------------------");
     }
 
-    private static function inject_config($atts) {   
+    private static function inject_config($atts) {
         $catalog_year = !empty($atts['archive_catalog_year']) ? trim($atts['archive_catalog_year']) : '';
-        
+
         $base_path = '/wp-content/uploads/exhibitor-catalogs/';
         $default_file = 'pwe-exhibitors.json';
         $data_url = $base_path . $default_file;
@@ -429,6 +429,7 @@ class Exhibitor_Catalog {
         wp_add_inline_script(
             'vue-catalog',
             'window.VUE_CATALOG_CONFIG = ' . json_encode([
+                'csrfToken' => wp_create_nonce('catalog_action'),
                 'dataUrl' => site_url($data_url),
                 'atts'    => $atts,
                 'locale'  => get_locale(),
