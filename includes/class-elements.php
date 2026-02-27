@@ -5,6 +5,8 @@ class PWE_Elements {
 
     // Register all shortcodes and WPBakery
     public static function init() {
+        $group        = PWE_Groups::get_current_group();
+
         // Array of shortcodes and configuration of their "types"
         $shortcodes = [
             'main'  => ['shortcode' => 'pwe-elements-auto-switch-page-main',  'title' => 'Main'],
@@ -84,7 +86,7 @@ class PWE_Elements {
         }
 
         // Shortcodes and VC for single elements <---------------------------------------------------------------<
-        $all_elements = PWE_Elements_Data::get_all_elements();
+        $all_elements = PWE_Elements_Data::get_all_elements($group);
         $registered_classes = [];
 
         foreach ($all_elements as $type => $elements) {
@@ -231,7 +233,7 @@ class PWE_Elements {
     public static function render_single_element($class_name, $atts = []) {
         $group = PWE_Groups::get_current_group();
 
-        $all_elements = PWE_Elements_Data::get_all_elements();
+        $all_elements = PWE_Elements_Data::get_all_elements($group);
 
         foreach ($all_elements as $type => $elements) {
             foreach ($elements as $el) {
@@ -286,7 +288,7 @@ class PWE_Elements {
     public static function render_elements($type, $atts = []) {
         $group        = PWE_Groups::get_current_group();
 
-        $all_elements = PWE_Elements_Data::get_all_elements();
+        $all_elements = PWE_Elements_Data::get_all_elements($group);
         $elements     = [];
 
         $elements_for_type = $all_elements[$type] ?? [];

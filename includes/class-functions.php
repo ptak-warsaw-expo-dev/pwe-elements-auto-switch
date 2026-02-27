@@ -15,7 +15,7 @@ class PWE_Functions {
         self::$translation_context['element_type'] = $element_type;
     }
 
-    // Get translations from JSONs 
+    // Get translations from JSONs
     public static function multi_translation($key) {
         $ctx = self::$translation_context;
 
@@ -72,7 +72,7 @@ class PWE_Functions {
     // Assets per group
     public static function assets_per_group($element_slug, $group, $element_type = 'main', $folder = 'elements', $atts = null) {
         $src = $folder .'/'. (!empty($element_type) ? $element_type .'/' : '') . $element_slug . '/presets/' . $group . '/assets/';
-        
+
         $base_dir = plugin_dir_path(__DIR__) . $src;
         $base_url = plugin_dir_url(__DIR__) . $src;
 
@@ -119,7 +119,7 @@ class PWE_Functions {
     public static function exhibitor_logos($catalog_id, $count = null, $shuffle = true) {
         $catalog_id = do_shortcode('[trade_fair_catalog]');
         $catalog_ids = do_shortcode('[trade_fair_catalog_id]');
-        $fair_date = do_shortcode('[trade_fair_date]'); 
+        $fair_date = do_shortcode('[trade_fair_date]');
 
         if (!empty($catalog_ids) && stripos($fair_date, 'nowa data') === false) {
 
@@ -319,14 +319,12 @@ class PWE_Functions {
 
 
     // <============================================================================================>
-    // Functions from plugin PWElements 3.1.9 <========================================================>
+    // Functions from plugin PWElements 3.2.2 <========================================================>
     // <============================================================================================>
 
 
-    
+
     private static $cached_db_connection = null;
-    private static $connection_attempts = 0;
-    private static $max_connection_attempts = 2;
 
     /**
      * Random number
@@ -336,128 +334,140 @@ class PWE_Functions {
         return $id_rnd;
     }
 
-    private static function resolveServerAddrFallback() {
+    private static function resolve_server_addr_fallback() {
         $host = php_uname('n');
             switch ($host) {
-            case 'dedyk180.cyber-folks.pl':
-                return '94.152.207.180';
-            case 'dedyk93.cyber-folks.pl':
-                return '94.152.206.93';
-            case 'dedyk239.cyber-folks.pl':
-                return '91.225.28.47';
-            default:
-                return '94.152.207.180';
+            case 'dedyk180.cyber-folks.pl': return '94.152.207.180';
+            case 'dedyk93.cyber-folks.pl': return '94.152.206.93';
+            case 'dedyk239.cyber-folks.pl': return '91.225.28.47';
+            default: return '';
         }
+    }
+
+    /**
+     * List of DB servers
+     */
+    private static function get_database_servers() {
+        $servers = [
+            ['host'=>'dedyk180.cyber-folks.pl',  'name'=>PWE_DB_NAME_180,  'user'=>PWE_DB_USER_180,  'pass'=>PWE_DB_PASSWORD_180],
+            ['host'=>'dedyk93.cyber-folks.pl',   'name'=>PWE_DB_NAME_93,   'user'=>PWE_DB_USER_93,   'pass'=>PWE_DB_PASSWORD_93],
+            ['host'=>'dedyk239.cyber-folks.pl',  'name'=>PWE_DB_NAME_239,  'user'=>PWE_DB_USER_239,  'pass'=>PWE_DB_PASSWORD_239],
+        ];
+
+        // For CRON
+        if (empty($_SERVER['SERVER_ADDR'])) {
+            $_SERVER['SERVER_ADDR'] = self::resolve_server_addr_fallback();
+        }
+
+        // If there is current server — try localhost first
+        switch ($_SERVER['SERVER_ADDR']) {
+            case '94.152.207.180': $servers[0]['host'] = 'localhost'; break;
+            case '94.152.206.93':  $servers[1]['host'] = 'localhost'; break;
+            case '91.225.28.47':   $servers[2]['host'] = 'localhost'; break;
+        }
+
+        return $servers;
     }
 
     /**
      * Connecting to CAP database
      */
     public static function connect_database() {
-         // Return cached connection if already established
+
+        // Cache within the request
         if (self::$cached_db_connection !== null) {
-            // Return cache if connection already exists
             return self::$cached_db_connection;
         }
 
-        // Limit the number of connection attempts
-        if (self::$connection_attempts >= self::$max_connection_attempts) {
-            // End attempt after 2 failed attempts
+        // If there was a recent failure - do not try again
+        if (get_transient('pwe_db_connection_fail')) {
+            error_log('PWE DB: Skipping connection attempt due to recent failure.');
             return false;
         }
 
-        // Initialize connection variables
-        $cap_db = null;
-
-        if (!isset($_SERVER['SERVER_ADDR'])) {
-            $_SERVER['SERVER_ADDR'] = self::resolveServerAddrFallback();
-        }
-
-        $database_host = $database_name = $database_user = $database_password = '';
-
-        // Set connection data depending on the server
-        switch ($_SERVER['SERVER_ADDR']) {
-            case '94.152.207.180':
-                $database_host = 'localhost';
-                $database_name = defined('PWE_DB_NAME_180') ? PWE_DB_NAME_180 : '';
-                $database_user = defined('PWE_DB_USER_180') ? PWE_DB_USER_180 : '';
-                $database_password = defined('PWE_DB_PASSWORD_180') ? PWE_DB_PASSWORD_180 : '';
-                break;
-
-            case '94.152.206.93':
-                $database_host = 'localhost';
-                $database_name = defined('PWE_DB_NAME_93') ? PWE_DB_NAME_93 : '';
-                $database_user = defined('PWE_DB_USER_93') ? PWE_DB_USER_93 : '';
-                $database_password = defined('PWE_DB_PASSWORD_93') ? PWE_DB_PASSWORD_93 : '';
-                break;
-
-            case '91.225.28.47':
-                $database_host = 'localhost';
-                $database_name = defined('PWE_DB_NAME_239') ? PWE_DB_NAME_239 : '';
-                $database_user = defined('PWE_DB_USER_239') ? PWE_DB_USER_239 : '';
-                $database_password = defined('PWE_DB_PASSWORD_239') ? PWE_DB_PASSWORD_239 : '';
-                break;
-
-            default:
-                $database_host = 'dedyk180.cyber-folks.pl';
-                $database_name = defined('PWE_DB_NAME_180') ? PWE_DB_NAME_180 : '';
-                $database_user = defined('PWE_DB_USER_180') ? PWE_DB_USER_180 : '';
-                $database_password = defined('PWE_DB_PASSWORD_180') ? PWE_DB_PASSWORD_180 : '';
-        }
-
-        // Check if there is complete data for connection
-        if (!empty($database_user) && !empty($database_password) && !empty($database_name) && !empty($database_host)) {
-            try {
-                $cap_db = new wpdb($database_user, $database_password, $database_name, $database_host);
-
-                // Check if the connection was successful
-                if ($cap_db->dbh) {
-                    self::$cached_db_connection = $cap_db; // Cache the connection if successful
-                } else {
-                    throw new Exception('Nie udało się połączyć z bazą danych.');
-                }
-
-            } catch (Exception $e) {
-                self::$connection_attempts++;
-                if (current_user_can("administrator") && !is_admin()) {
-                    echo '<script>console.error("Błąd połączenia z bazą danych: '. addslashes($e->getMessage()) .'")</script>';
-                }
-            }
-        } else {
-            self::$connection_attempts++;
-            if (current_user_can("administrator") && !is_admin()) {
-                echo '<script>console.error("Nieprawidłowe dane połączenia z bazą danych.")</script>';
-                error_log("Nieprawidłowe dane połączenia z bazą danych.");
-            }
-        }
-
-        // Check for connection errors
-        if (!$cap_db || !$cap_db->dbh || mysqli_connect_errno()) {
-            self::$connection_attempts++;
-            if (current_user_can("administrator") && !is_admin()) {
-                echo '<script>console.error("Błąd połączenia MySQL: '. addslashes(mysqli_connect_error()) .'")</script>';
-            }
+        $servers = self::get_database_servers();
+        if (empty($servers)) {
+            error_log('PWE DB: No database servers defined in get_database_servers().');
+            set_transient('pwe_db_connection_fail', 1, 60);
             return false;
         }
 
-        // error_log("connected to database");
-        return $cap_db;
+        foreach ($servers as $server_index => $server) {
+
+            if (empty($server['user']) || empty($server['pass']) || empty($server['name'])) {
+                error_log("PWE DB: Server #$server_index skipped - missing user, pass or db name.");
+                continue;
+            }
+
+            $host = $server['host'] ?? 'localhost';
+
+            // Quick timeout
+            add_filter('wpdb_connect_timeout', function() { return 2; });
+
+            $wpdb = @new wpdb(
+                $server['user'],
+                $server['pass'],
+                $server['name'],
+                $host
+            );
+
+            if (empty($wpdb->dbh)) {
+                error_log("PWE DB: Failed to connect to server #$server_index ($host).");
+                continue;
+            }
+
+            // Test query
+            $test = @$wpdb->get_var("SELECT 1");
+            if ($test != 1) {
+                error_log("PWE DB: Test query failed on server #$server_index ($host).");
+                continue;
+            }
+
+            // Success
+            self::$cached_db_connection = $wpdb;
+            // error_log("PWE DB: Connected successfully to server #$server_index ($host).");
+            return $wpdb;
+        }
+
+        // Cache the fail for 60 seconds to avoid blocking workers
+        error_log('PWE DB: All connection attempts failed. Caching failure for 60 seconds.');
+        set_transient('pwe_db_connection_fail', 1, 60);
+
+        return false;
     }
 
     /**
      * Get data from CAP databases
      */
-    public static function get_database_fairs_data($fair_domain = null) {
-        // Database connection
-        $cap_db = self::connect_database();
-        // If connection failed, return empty array
-        if (!$cap_db) {
-            return [];
-            if (current_user_can('administrator') && !is_admin()) {
-                echo '<script>console.error("Brak połączenia z bazą danych.")</script>';
-            }
+    private static $fairs_cache = [];
+    public static function get_database_fairs_data($fair_domain = null): array {
+        // Check runtime cache first
+        $cache_key = $fair_domain ?? 'all';
+        if (isset(self::$fairs_cache[$cache_key])) {
+            return self::$fairs_cache[$cache_key];
         }
 
+        // Connect to database
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            if (current_user_can('administrator') && !is_admin()) {
+                echo '<script>console.error("No database connection.")</script>';
+            }
+            self::$fairs_cache[$cache_key] = [];
+            return [];
+        }
+
+        // Transient key unique for this domain
+        $transient_key = 'pwe_fairs_' . md5($cache_key);
+
+        // Try to get cached data from transient
+        $cached = get_transient($transient_key);
+        if ($cached !== false) {
+            self::$fairs_cache[$cache_key] = $cached;
+            return $cached;
+        }
+
+        // SQL query
         $sql = "
             SELECT
                 f.id,
@@ -491,16 +501,23 @@ class PWE_Functions {
                 f.fair_domain,
                 f.fair_shop,
                 f.fair_group,
-
-                MAX(CASE WHEN fa.slug = 'category_pl' THEN fa.data END) AS category_pl,
-                MAX(CASE WHEN fa.slug = 'category_en' THEN fa.data END) AS category_en,
-                MAX(CASE WHEN fa.slug = 'konf_name' THEN fa.data END) AS konf_name,
-                MAX(CASE WHEN fa.slug = 'fair_kw_new' THEN fa.data END) AS fair_kw_new,
-                MAX(CASE WHEN fa.slug = 'fair_kw_old_arch' THEN fa.data END) AS fair_kw_old_arch,
-                MAX(CASE WHEN fa.slug = 'fair_kw_new_arch' THEN fa.data END) AS fair_kw_new_arch
-
+                fa_category_pl.data AS category_pl,
+                fa_category_en.data AS category_en,
+                fa_konf_name.data AS konf_name,
+                fa_konf_title_pl.data AS konf_title_pl,
+                fa_konf_title_en.data AS konf_title_en,
+                fa_fair_kw_new.data AS fair_kw_new,
+                fa_fair_kw_old_arch.data AS fair_kw_old_arch,
+                fa_fair_kw_new_arch.data AS fair_kw_new_arch
             FROM fairs f
-            LEFT JOIN fair_adds fa ON fa.fair_id = f.id
+            LEFT JOIN fair_adds fa_category_pl       ON fa_category_pl.fair_id = f.id AND fa_category_pl.slug = 'category_pl'
+            LEFT JOIN fair_adds fa_category_en       ON fa_category_en.fair_id = f.id AND fa_category_en.slug = 'category_en'
+            LEFT JOIN fair_adds fa_konf_name         ON fa_konf_name.fair_id = f.id AND fa_konf_name.slug = 'konf_name'
+            LEFT JOIN fair_adds fa_konf_title_pl     ON fa_konf_title_pl.fair_id = f.id AND fa_konf_title_pl.slug = 'konf_title_pl'
+            LEFT JOIN fair_adds fa_konf_title_en     ON fa_konf_title_en.fair_id = f.id AND fa_konf_title_en.slug = 'konf_title_en'
+            LEFT JOIN fair_adds fa_fair_kw_new       ON fa_fair_kw_new.fair_id = f.id AND fa_fair_kw_new.slug = 'fair_kw_new'
+            LEFT JOIN fair_adds fa_fair_kw_old_arch  ON fa_fair_kw_old_arch.fair_id = f.id AND fa_fair_kw_old_arch.slug = 'fair_kw_old_arch'
+            LEFT JOIN fair_adds fa_fair_kw_new_arch  ON fa_fair_kw_new_arch.fair_id = f.id AND fa_fair_kw_new_arch.slug = 'fair_kw_new_arch'
         ";
 
         $params = [];
@@ -509,121 +526,166 @@ class PWE_Functions {
             $params[] = $fair_domain;
         }
 
-        // Grouping
         $sql .= " GROUP BY f.id";
 
-        // Execution of the query
+        // Execute query
         if (!empty($params)) {
             $results = $cap_db->get_results($cap_db->prepare($sql, $params));
         } else {
             $results = $cap_db->get_results($sql);
         }
 
-
-        // SQL error checking
+        // Handle SQL errors
         if ($cap_db->last_error) {
-            return [];
             if (current_user_can("administrator") && !is_admin()) {
-                echo '<script>console.error("Błąd SQL: '. addslashes($cap_db->last_error) .'")</script>';
+                echo '<script>console.error("SQL error: ' . addslashes($cap_db->last_error) . '")</script>';
             }
+            self::$fairs_cache[$cache_key] = [];
+            return [];
         }
+
+        // Save to transient for 1 hour
+        set_transient($transient_key, $results, 3600);
+
+        // Save to runtime cache
+        self::$fairs_cache[$cache_key] = $results;
 
         return $results;
     }
 
-    public static function get_database_premieres_data($fair_domain = null) {
-        // Database connection
-        $cap_db = self::connect_database();
-        // If connection failed, return empty array
-        if (!$cap_db) {
-            return [];
-            if (current_user_can('administrator') && !is_admin()) {
-                echo '<script>console.error("Brak połączenia z bazą danych.")</script>';
-            }
+    /**
+     * Get premieres data
+     */
+    private static $premieres_cache = [];
+    public static function get_database_premieres_data($fair_domain = null): array {
+        $cache_key = $fair_domain ?? 'all';
+        if (isset(self::$premieres_cache[$cache_key])) {
+            return self::$premieres_cache[$cache_key];
         }
 
-        // Build column list
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::$premieres_cache[$cache_key] = [];
+            return [];
+        }
+
+        $transient_key = 'pwe_premieres_' . md5($cache_key);
+        $cached = get_transient($transient_key);
+        if ($cached !== false) {
+            self::$premieres_cache[$cache_key] = $cached;
+            return $cached;
+        }
+
         $sql = "
-            SELECT
-                f.id,
-                f.fair_domain,
-                p.slug,
-                p.data
+            SELECT f.id, f.fair_domain, p.slug, p.data
             FROM fairs f
             LEFT JOIN fair_premieres p ON p.fair_id = f.id
         ";
 
-        if (!isset($fair_domain)) {
-            $results = $cap_db->get_results($sql);
-        } else {
+        $params = [];
+        if ($fair_domain !== null) {
             $sql .= " WHERE f.fair_domain = %s";
-            $results = $cap_db->get_results($cap_db->prepare($sql, $fair_domain));
+            $params[] = $fair_domain;
         }
 
+        $results = !empty($params)
+            ? $cap_db->get_results($cap_db->prepare($sql, $params))
+            : $cap_db->get_results($sql);
 
-        // SQL error checking
         if ($cap_db->last_error) {
+            self::$premieres_cache[$cache_key] = [];
             return [];
-            if (current_user_can("administrator") && !is_admin()) {
-                echo '<script>console.error("Błąd SQL: '. addslashes($cap_db->last_error) .'")</script>';
-            }
         }
 
+        set_transient($transient_key, $results, 3600);
+        self::$premieres_cache[$cache_key] = $results;
         return $results;
     }
 
-    public static function get_database_fairs_data_adds($fair_domain = null) {
-        // Database connection
-        $cap_db = self::connect_database();
-        // If connection failed, return empty array
-        if (!$cap_db) {
-            return [];
-            if (current_user_can('administrator') && !is_admin()) {
-                echo '<script>console.error("Brak połączenia z bazą danych.")</script>';
-            }
+    /**
+     * Get fairs additional data
+     */
+    private static $fairs_adds_cache = [];
+    public static function get_database_fairs_data_adds($fair_domain = null): array {
+        $fair_domain = $fair_domain ?? $_SERVER['HTTP_HOST'];
+        if (isset(self::$fairs_adds_cache[$fair_domain])) {
+            return self::$fairs_adds_cache[$fair_domain];
         }
 
-        $fair_domain = ($fair_domain == null) ? $_SERVER['HTTP_HOST'] : $fair_domain;
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::$fairs_adds_cache[$fair_domain] = [];
+            return [];
+        }
 
-        // Build column list
+        $transient_key = 'pwe_fairs_adds_' . md5($fair_domain);
+        $cached = get_transient($transient_key);
+        if ($cached !== false) {
+            self::$fairs_adds_cache[$fair_domain] = $cached;
+            return $cached;
+        }
+
         $sql = "
             SELECT
                 f.id,
                 f.fair_domain,
-                (SELECT data FROM fair_adds WHERE fair_id = f.id AND slug = 'konf_name' ORDER BY id ASC LIMIT 1) AS konf_name,
-                (SELECT data FROM fair_adds WHERE fair_id = f.id AND slug = 'konf_title_pl' ORDER BY id ASC LIMIT 1) AS konf_title_pl,
-                (SELECT data FROM fair_adds WHERE fair_id = f.id AND slug = 'konf_title_en' ORDER BY id ASC LIMIT 1) AS konf_title_en,
-                (SELECT data FROM fair_adds WHERE fair_id = f.id AND slug = 'konf_desc_pl' ORDER BY id ASC LIMIT 1) AS konf_desc_pl,
-                (SELECT data FROM fair_adds WHERE fair_id = f.id AND slug = 'konf_desc_en' ORDER BY id ASC LIMIT 1) AS konf_desc_en,
-                (SELECT data FROM fair_adds WHERE fair_id = f.id AND slug = 'about_title_pl' ORDER BY id ASC LIMIT 1) AS about_title_pl,
-                (SELECT data FROM fair_adds WHERE fair_id = f.id AND slug = 'about_title_en' ORDER BY id ASC LIMIT 1) AS about_title_en,
-                (SELECT data FROM fair_adds WHERE fair_id = f.id AND slug = 'about_desc_pl' ORDER BY id ASC LIMIT 1) AS about_desc_pl,
-                (SELECT data FROM fair_adds WHERE fair_id = f.id AND slug = 'about_desc_en' ORDER BY id ASC LIMIT 1) AS about_desc_en
+                fa_konf_name.data AS konf_name,
+                fa_konf_title_pl.data AS konf_title_pl,
+                fa_konf_title_en.data AS konf_title_en,
+                fa_konf_desc_pl.data AS konf_desc_pl,
+                fa_konf_desc_en.data AS konf_desc_en,
+                fa_about_title_pl.data AS about_title_pl,
+                fa_about_title_en.data AS about_title_en,
+                fa_about_desc_pl.data AS about_desc_pl,
+                fa_about_desc_en.data AS about_desc_en
             FROM fairs f
+            LEFT JOIN fair_adds fa_konf_name      ON fa_konf_name.fair_id = f.id AND fa_konf_name.slug = 'konf_name'
+            LEFT JOIN fair_adds fa_konf_title_pl  ON fa_konf_title_pl.fair_id = f.id AND fa_konf_title_pl.slug = 'konf_title_pl'
+            LEFT JOIN fair_adds fa_konf_title_en  ON fa_konf_title_en.fair_id = f.id AND fa_konf_title_en.slug = 'konf_title_en'
+            LEFT JOIN fair_adds fa_konf_desc_pl   ON fa_konf_desc_pl.fair_id = f.id AND fa_konf_desc_pl.slug = 'konf_desc_pl'
+            LEFT JOIN fair_adds fa_konf_desc_en   ON fa_konf_desc_en.fair_id = f.id AND fa_konf_desc_en.slug = 'konf_desc_en'
+            LEFT JOIN fair_adds fa_about_title_pl ON fa_about_title_pl.fair_id = f.id AND fa_about_title_pl.slug = 'about_title_pl'
+            LEFT JOIN fair_adds fa_about_title_en ON fa_about_title_en.fair_id = f.id AND fa_about_title_en.slug = 'about_title_en'
+            LEFT JOIN fair_adds fa_about_desc_pl  ON fa_about_desc_pl.fair_id = f.id AND fa_about_desc_pl.slug = 'about_desc_pl'
+            LEFT JOIN fair_adds fa_about_desc_en  ON fa_about_desc_en.fair_id = f.id AND fa_about_desc_en.slug = 'about_desc_en'
+            WHERE f.fair_domain = %s
         ";
 
-        if (!isset($fair_domain)) {
-            $results = $cap_db->get_results($sql);
-        } else {
-            $sql .= " WHERE f.fair_domain = %s";
-            $results = $cap_db->get_results($cap_db->prepare($sql, $fair_domain));
-        }
+        $results = $cap_db->get_results($cap_db->prepare($sql, $fair_domain));
 
-
-        // SQL error checking
         if ($cap_db->last_error) {
+            self::$fairs_adds_cache[$fair_domain] = [];
             return [];
-            if (current_user_can("administrator") && !is_admin()) {
-                echo '<script>console.error("Błąd SQL: '. addslashes($cap_db->last_error) .'")</script>';
-            }
         }
+
+        set_transient($transient_key, $results, 3600);
+        self::$fairs_adds_cache[$fair_domain] = $results;
 
         return $results;
     }
 
-    public static function get_database_translations_data($fair_domain = null) {
+    /**
+     * Get fairs translations data
+     */
+    private static $translations_cache = [];
+    public static function get_database_translations_data($fair_domain = null): array {
+        $cache_key = $fair_domain ?? 'all';
+        if (isset(self::$translations_cache[$cache_key])) {
+            return self::$translations_cache[$cache_key];
+        }
+
         $cap_db = self::connect_database();
-        if (!$cap_db) return [];
+        if (!$cap_db) {
+            self::$translations_cache[$cache_key] = [];
+            return [];
+        }
+
+        $transient_key = 'pwe_translations_' . md5($cache_key);
+        $cached = get_transient($transient_key);
+        if ($cached !== false) {
+            self::$translations_cache[$cache_key] = $cached;
+            return $cached;
+        }
 
         $columns = "
             id,
@@ -638,76 +700,76 @@ class PWE_Functions {
             fair_full_desc_en
         ";
 
-        // Pobierz wszystkie targi
-        if (!isset($fair_domain)){
-            // Retrieving all data from the database
-            $fairs = $cap_db->get_results("SELECT $columns FROM fairs");
-        } else {
-            // Retrieving fair data from the database
-            $fairs = $cap_db->get_results(
-                $cap_db->prepare("SELECT $columns FROM fairs WHERE fair_domain = %s", $fair_domain)
-            );
-        }
+        $fairs = $fair_domain === null
+            ? $cap_db->get_results("SELECT $columns FROM fairs")
+            : $cap_db->get_results($cap_db->prepare("SELECT $columns FROM fairs WHERE fair_domain = %s", $fair_domain));
 
-        // Download all translations
         $translations = $cap_db->get_results("SELECT * FROM translations");
 
-        // Map translations by fair_id and language
+        // Map translations
         $translations_map = [];
         foreach ($translations as $tr) {
             $fair_id = $tr->fair_id;
-            $lang = strtolower($tr->language); // ex. de, es
+            $lang = strtolower($tr->language);
             $data = json_decode($tr->translation, true);
-            if ($data) {
-                $translations_map[$fair_id][$lang] = $data;
-            }
+            if ($data) $translations_map[$fair_id][$lang] = $data;
         }
 
-        // Building the final array
         $results = [];
         foreach ($fairs as $fair) {
             $row = [
-                'fair_domain'           => $fair->fair_domain,
-                'fair_name_pl'          => $fair->fair_name_pl,
-                'fair_name_en'          => $fair->fair_name_en,
-                'fair_desc_pl'          => $fair->fair_desc_pl,
-                'fair_desc_en'          => $fair->fair_desc_en,
-                'fair_short_desc_pl'    => $fair->fair_short_desc_pl,
-                'fair_short_desc_en'    => $fair->fair_short_desc_en,
-                'fair_full_desc_pl'     => $fair->fair_full_desc_pl,
-                'fair_full_desc_en'     => $fair->fair_full_desc_en,
+                'fair_domain' => $fair->fair_domain,
+                'fair_name_pl' => $fair->fair_name_pl,
+                'fair_name_en' => $fair->fair_name_en,
+                'fair_desc_pl' => $fair->fair_desc_pl,
+                'fair_desc_en' => $fair->fair_desc_en,
+                'fair_short_desc_pl' => $fair->fair_short_desc_pl,
+                'fair_short_desc_en' => $fair->fair_short_desc_en,
+                'fair_full_desc_pl' => $fair->fair_full_desc_pl,
+                'fair_full_desc_en' => $fair->fair_full_desc_en,
             ];
 
-            // If there are translations - add them as additional languages
             if (isset($translations_map[$fair->id])) {
                 foreach ($translations_map[$fair->id] as $lang => $fields) {
-                    if (isset($fields['fair_name']))         $row["fair_name_$lang"] = $fields['fair_name'];
-                    if (isset($fields['fair_desc']))         $row["fair_desc_$lang"] = $fields['fair_desc'];
-                    if (isset($fields['fair_short_desc']))   $row["fair_short_desc_$lang"] = $fields['fair_short_desc'];
-                    if (isset($fields['fair_full_desc']))    $row["fair_full_desc_$lang"] = $fields['fair_full_desc'];
+                    if (isset($fields['fair_name'])) $row["fair_name_$lang"] = $fields['fair_name'];
+                    if (isset($fields['fair_desc'])) $row["fair_desc_$lang"] = $fields['fair_desc'];
+                    if (isset($fields['fair_short_desc'])) $row["fair_short_desc_$lang"] = $fields['fair_short_desc'];
+                    if (isset($fields['fair_full_desc'])) $row["fair_full_desc_$lang"] = $fields['fair_full_desc'];
                 }
             }
 
             $results[] = $row;
         }
 
+        set_transient($transient_key, $results, 3600);
+        self::$translations_cache[$cache_key] = $results;
+
         return $results;
     }
 
-    public static function get_database_associates_data($fair_domain = null) {
-        // Database connection
+    /**
+     * Get associates data
+     */
+    private static $associates_cache = [];
+    public static function get_database_associates_data($fair_domain = null): array {
+        $fair_domain = $fair_domain ?? $_SERVER['HTTP_HOST'];
+        if (isset(self::$associates_cache[$fair_domain])) {
+            return self::$associates_cache[$fair_domain];
+        }
+
         $cap_db = self::connect_database();
-        // If connection failed, return empty array
         if (!$cap_db) {
-            if (current_user_can('administrator') && !is_admin()) {
-                echo '<script>console.error("Brak połączenia z bazą danych.")</script>';
-            }
+            self::$associates_cache[$fair_domain] = [];
             return [];
         }
 
-        $fair_domain = ($fair_domain == null) ? $_SERVER['HTTP_HOST'] : $fair_domain;
+        $transient_key = 'pwe_associates_' . md5($fair_domain);
+        $cached = get_transient($transient_key);
+        if ($cached !== false) {
+            self::$associates_cache[$fair_domain] = $cached;
+            return $cached;
+        }
 
-        // Retrieving filtered data directly from database
         $query = $cap_db->prepare("
             SELECT *
             FROM associates
@@ -716,287 +778,532 @@ class PWE_Functions {
 
         $results = $cap_db->get_results($query);
 
-        // SQL error checking
         if ($cap_db->last_error) {
-            if (current_user_can("administrator") && !is_admin()) {
-                echo '<script>console.error("Błąd SQL: '. addslashes($cap_db->last_error) .'")</script>';
-            }
+            self::$associates_cache[$fair_domain] = [];
             return [];
         }
+
+        set_transient($transient_key, $results, 3600);
+        self::$associates_cache[$fair_domain] = $results;
 
         return $results;
     }
 
-    public static function get_database_store_data() {
-        // Database connection
-        $cap_db = self::connect_database();
-        // If connection failed, return empty array
-        if (!$cap_db) {
-            return [];
-            if (current_user_can('administrator') && !is_admin()) {
-                echo '<script>console.error("Brak połączenia z bazą danych.")</script>';
-            }
+    /**
+     * Get store data
+     */
+    private static $store_cache = null;
+    public static function get_database_store_data(): array {
+        if (self::$store_cache !== null) {
+            return self::$store_cache;
         }
 
-        // Retrieving data from the database
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::$store_cache = [];
+            return [];
+        }
+
+        $transient_key = 'pwe_store_data';
+        $cached = get_transient($transient_key);
+        if ($cached !== false) {
+            self::$store_cache = $cached;
+            return $cached;
+        }
+
         $results = $cap_db->get_results("SELECT * FROM shop");
 
-        // SQL error checking
         if ($cap_db->last_error) {
-            if (current_user_can("administrator") && !is_admin()) {
-                echo '<script>console.error("Błąd SQL: '. addslashes($cap_db->last_error) .'")</script>';
-            }
+            self::$store_cache = [];
             return [];
         }
+
+        set_transient($transient_key, $results, 3600);
+        self::$store_cache = $results;
 
         return $results;
     }
 
-    public static function get_database_store_packages_data() {
-        // Database connection
-        $cap_db = self::connect_database();
-        // If connection failed, return empty array
-        if (!$cap_db) {
-            return [];
-            if (current_user_can('administrator') && !is_admin()) {
-                echo '<script>console.error("Brak połączenia z bazą danych.")</script>';
-            }
+    /**
+     * Get store packages data
+     */
+    private static $store_packages_cache = null;
+    public static function get_database_store_packages_data(): array {
+        if (self::$store_packages_cache !== null) {
+            return self::$store_packages_cache;
         }
 
-        // Retrieving data from the database
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::$store_packages_cache = [];
+            return [];
+        }
+
+        $transient_key = 'pwe_store_packages';
+        $cached = get_transient($transient_key);
+        if ($cached !== false) {
+            self::$store_packages_cache = $cached;
+            return $cached;
+        }
+
         $results = $cap_db->get_results("SELECT * FROM shop_packs");
 
-        // SQL error checking
         if ($cap_db->last_error) {
+            self::$store_packages_cache = [];
             return [];
-            if (current_user_can("administrator") && !is_admin()) {
-                echo '<script>console.error("Błąd SQL: '. addslashes($cap_db->last_error) .'")</script>';
-            }
         }
+
+        set_transient($transient_key, $results, 3600);
+        self::$store_packages_cache = $results;
 
         return $results;
     }
 
+    /**
+     * Get meta data
+     */
+    private static $meta_cache = [];
     public static function get_database_meta_data($data_id = null) {
-        // Database connection
-        $cap_db = self::connect_database();
-        // If connection failed, return empty array
-        if (!$cap_db) {
-            if (current_user_can('administrator') && !is_admin()) {
-                echo '<script>console.error("Brak połączenia z bazą danych.")</script>';
-            }
-            return [];
-        }
-
         $domain = $_SERVER['HTTP_HOST'] ?? '';
         $domain = preg_replace('/:\d+$/', '', $domain);
+        $cache_key = $data_id . '_' . $domain;
 
-        if($data_id === null){
-            // Retrieving data from the database
-            $results = $cap_db->get_results("SELECT * FROM meta_data");
-        } else {
-            if ($data_id === 'header_order') {
-                $query = "
-                    SELECT m.meta_data
-                    FROM meta_data AS m
-                    INNER JOIN fairs AS f ON m.rights = f.id
-                    WHERE m.slug = 'header_order'
-                    AND f.fair_domain = %s
-                ";
-
-                $results = $cap_db->get_results($cap_db->prepare($query, $domain));
-            } else {
-                $results = $cap_db->get_var(
-                    $cap_db->prepare("SELECT meta_data FROM meta_data WHERE slug = %s", $data_id)
-                );
-            }
+        if (isset(self::$meta_cache[$cache_key])) {
+            return self::$meta_cache[$cache_key];
         }
 
-        // SQL error checking
-        if ($cap_db->last_error) {
-            if (current_user_can("administrator") && !is_admin()) {
-                echo '<script>console.error("Błąd SQL: '. addslashes($cap_db->last_error) .'")</script>';
-            }
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::$meta_cache[$cache_key] = [];
             return [];
         }
+
+        $transient_key = 'pwe_meta_' . md5($cache_key);
+        $cached = get_transient($transient_key);
+        if ($cached !== false) {
+            self::$meta_cache[$cache_key] = $cached;
+            return $cached;
+        }
+
+        if ($data_id === null) {
+            $results = $cap_db->get_results("SELECT * FROM meta_data");
+        } elseif ($data_id === 'header_order') {
+            $query = "
+                SELECT m.meta_data
+                FROM meta_data AS m
+                INNER JOIN fairs AS f ON m.rights = f.id
+                WHERE m.slug = 'header_order'
+                AND f.fair_domain = %s
+            ";
+            $results = $cap_db->get_results($cap_db->prepare($query, $domain));
+        } else {
+            $results = $cap_db->get_var(
+                $cap_db->prepare("SELECT meta_data FROM meta_data WHERE slug = %s", $data_id)
+            );
+        }
+
+        if ($cap_db->last_error) {
+            self::$meta_cache[$cache_key] = [];
+            return [];
+        }
+
+        set_transient($transient_key, $results, 3600);
+        self::$meta_cache[$cache_key] = $results;
 
         return $results;
     }
 
+    /**
+     * Get group contacts data
+     */
+    private static $groups_contacts_cache = null;
     public static function get_database_groups_contacts_data() {
-        // Database connection
-        $cap_db = self::connect_database();
-        // If connection failed, return empty array
-        if (!$cap_db) {
-            return [];
-            if (current_user_can('administrator') && !is_admin()) {
-                echo '<script>console.error("Brak połączenia z bazą danych.")</script>';
-            }
+
+        if (self::$groups_contacts_cache !== null) {
+            return self::$groups_contacts_cache;
         }
 
-        // Retrieving data from the database
+        $cap_db = self::connect_database();
+        if (!$cap_db) return [];
+
+        $transient_key = 'pwe_groups_contacts';
+        $cached = get_transient($transient_key);
+
+        if ($cached !== false) {
+            self::$groups_contacts_cache = $cached;
+            return $cached;
+        }
+
         $results = $cap_db->get_results("SELECT * FROM groups");
 
-        // SQL error checking
-        if ($cap_db->last_error) {
-            return [];
-            if (current_user_can("administrator") && !is_admin()) {
-                echo '<script>console.error("Błąd SQL: '. addslashes($cap_db->last_error) .'")</script>';
-            }
-        }
+        if ($cap_db->last_error) return [];
+
+        set_transient($transient_key, $results, 3600);
+        self::$groups_contacts_cache = $results;
 
         return $results;
     }
 
-    public static function get_database_groups_callcenter_data() {
-        // Database connection
-        $cap_db = self::connect_database();
-        // If connection failed, return empty array
-        if (!$cap_db) {
-            return [];
-            if (current_user_can('administrator') && !is_admin()) {
-                echo '<script>console.error("Brak połączenia z bazą danych.")</script>';
-            }
+    /**
+     * Get group callcenter data
+     */
+    private static $groups_callcenter_cache = null;
+    public static function get_database_groups_callcenter_data(): array {
+        if (self::$groups_callcenter_cache !== null) {
+            return self::$groups_callcenter_cache;
         }
 
-        // Retrieving data from the database
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::$groups_callcenter_cache = [];
+            return [];
+        }
+
+        $transient_key = 'pwe_groups_callcenter';
+        $cached = get_transient($transient_key);
+        if ($cached !== false) {
+            self::$groups_callcenter_cache = $cached;
+            return $cached;
+        }
+
         $results = $cap_db->get_results("SELECT * FROM form_senders");
 
-        // SQL error checking
         if ($cap_db->last_error) {
+            self::$groups_callcenter_cache = [];
             return [];
-            if (current_user_can("administrator") && !is_admin()) {
-                echo '<script>console.error("Błąd SQL: '. addslashes($cap_db->last_error) .'")</script>';
-            }
         }
+
+        set_transient($transient_key, $results, 3600);
+        self::$groups_callcenter_cache = $results;
 
         return $results;
     }
 
+    /**
+     * Get groups data
+     */
+    private static $groups_cache = null;
     public static function get_database_groups_data() {
-        // Database connection
-        $cap_db = self::connect_database();
-        // If connection failed, return empty array
-        if (!$cap_db) {
-            return [];
-            if (current_user_can('administrator') && !is_admin()) {
-                echo '<script>console.error("Brak połączenia z bazą danych.")</script>';
-            }
+
+        if (self::$groups_cache !== null) {
+            return self::$groups_cache;
         }
 
-        // Retrieving data from the database
+        $transient_key = 'pwe_groups';
+        $cached = get_transient($transient_key);
+
+        if ($cached !== false) {
+            self::$groups_cache = $cached;
+            return $cached;
+        }
+
+        $cap_db = self::connect_database();
+        if (!$cap_db) return [];
+
         $results = $cap_db->get_results("SELECT fair_domain, fair_group FROM fairs");
 
-        // SQL error checking
-        if ($cap_db->last_error) {
-            return [];
-            if (current_user_can("administrator") && !is_admin()) {
-                echo '<script>console.error("Błąd SQL: '. addslashes($cap_db->last_error) .'")</script>';
-            }
-        }
+        if ($cap_db->last_error) return [];
+
+        set_transient($transient_key, $results, 3600);
+
+        self::$groups_cache = $results;
 
         return $results;
     }
 
-    public static function get_database_week_data($fair_domain = null) {
-
-        $cap_db = self::connect_database();
-        if (!$cap_db) {
-            if (current_user_can('administrator') && !is_admin()) {
-                echo '<script>console.error("Brak połączenia z bazą danych.")</script>';
-            }
-            return [];
+    /**
+     * Get weeks data
+     */
+    private static $week_data_cache = [];
+    public static function get_database_week_data($fair_domain = null): array {
+        $current_domain = $fair_domain ?? $_SERVER['HTTP_HOST'];
+        if (isset(self::$week_data_cache[$current_domain])) {
+            return self::$week_data_cache[$current_domain];
         }
 
-        $current_domain = $fair_domain ?? $_SERVER['HTTP_HOST'];
+        $cap_db = self::connect_database();
+        if (!$cap_db) return [];
+
+        $transient_key = 'pwe_week_data_' . md5($current_domain);
+        $cached = get_transient($transient_key);
+        if ($cached !== false) {
+            self::$week_data_cache[$current_domain] = $cached;
+            return $cached;
+        }
 
         $week = $cap_db->get_row(
-            $cap_db->prepare(
-                "SELECT fairs_domains
-                FROM fair_weeks
-                WHERE week_domain = %s
-                LIMIT 1",
-                $current_domain
-            )
+            $cap_db->prepare("SELECT fairs_domains FROM fair_weeks WHERE week_domain = %s LIMIT 1", $current_domain)
         );
 
+        $results = [];
         if ($week && !empty($week->fairs_domains)) {
-            return array_map('trim', explode(',', $week->fairs_domains));
+            $results = array_map('trim', explode(',', $week->fairs_domains));
         }
 
-        return [];
+        set_transient($transient_key, $results, 3600);
+        self::$week_data_cache[$current_domain] = $results;
+        return $results;
     }
 
-    public static function get_database_week_all($fair_domain = null){
-        $cap_db = self::connect_database();
-        if (!$cap_db) {
-            if (current_user_can('administrator') && !is_admin()) {
-                echo '<script>console.error("Brak połączenia z bazą danych.")</script>';
-            }
-            return null;
+    /**
+     * Get all weeks data
+     */
+    private static $week_all_cache = [];
+    public static function get_database_week_all($fair_domain = null) {
+        $current_domain = $fair_domain ?? $_SERVER['HTTP_HOST'];
+        if (isset(self::$week_all_cache[$current_domain])) {
+            return self::$week_all_cache[$current_domain];
         }
 
-        $current_domain = $fair_domain ?? $_SERVER['HTTP_HOST'];
+        $cap_db = self::connect_database();
+        if (!$cap_db) return null;
+
+        $transient_key = 'pwe_week_all_' . md5($current_domain);
+        $cached = get_transient($transient_key);
+        if ($cached !== false) {
+            self::$week_all_cache[$current_domain] = $cached;
+            return $cached;
+        }
 
         $week = $cap_db->get_row(
+            $cap_db->prepare("SELECT week_data FROM fair_weeks WHERE week_domain = %s LIMIT 1", $current_domain)
+        );
+
+        $results = null;
+        if ($week && !empty($week->week_data)) {
+            $decoded = json_decode($week->week_data, true);
+            $results = (json_last_error() === JSON_ERROR_NONE) ? $decoded : $week->week_data;
+        }
+
+        set_transient($transient_key, $results, 3600);
+        self::$week_all_cache[$current_domain] = $results;
+        return $results;
+    }
+
+    /**
+     * Get all week domains data
+     */
+    private static $all_week_domains_cache = null;
+    public static function get_all_week_domains(): array {
+        if (self::$all_week_domains_cache !== null) return self::$all_week_domains_cache;
+
+        $cap_db = self::connect_database();
+        if (!$cap_db) return [];
+
+        $transient_key = 'pwe_all_week_domains';
+        $cached = get_transient($transient_key);
+        if ($cached !== false) {
+            self::$all_week_domains_cache = $cached;
+            return $cached;
+        }
+
+        $rows = $cap_db->get_results("SELECT week_domain FROM fair_weeks");
+        $domains = [];
+        if (!empty($rows)) {
+            foreach ($rows as $row) {
+                if (!empty($row->week_domain)) $domains[] = trim($row->week_domain);
+            }
+        }
+
+        $results = array_values(array_unique($domains));
+        set_transient($transient_key, $results, 3600);
+        self::$all_week_domains_cache = $results;
+        return $results;
+    }
+
+    /**
+     * Get logotypes data
+     */
+    private static $logotypes_cache = [];
+    public static function get_database_logotypes_data($fair_domain = null): array {
+        $current_domain = $fair_domain ?? $_SERVER['HTTP_HOST'];
+        if (isset(self::$logotypes_cache[$current_domain])) {
+            return self::$logotypes_cache[$current_domain];
+        }
+
+        $cap_db = self::connect_database();
+        if (!$cap_db) return [];
+
+        $transient_key = 'pwe_logotypes_' . md5($current_domain);
+        $cached = get_transient($transient_key);
+        if ($cached !== false) {
+            self::$logotypes_cache[$current_domain] = $cached;
+            return $cached;
+        }
+
+        $week = $cap_db->get_row(
+            $cap_db->prepare("SELECT fairs_domains FROM fair_weeks WHERE week_domain = %s LIMIT 1", $current_domain)
+        );
+
+        $results = [];
+        if ($week && !empty($week->fairs_domains)) {
+            $domains = json_decode($week->fairs_domains, true);
+            if (!is_array($domains)) $domains = [];
+            $domains = array_values(array_filter(array_map('trim', $domains)));
+
+            if (!empty($domains)) {
+                $placeholders = implode(',', array_fill(0, count($domains), '%s'));
+                $query = "
+                    SELECT DISTINCT logos.*, meta_data.meta_data AS meta_data
+                    FROM logos
+                    INNER JOIN fairs ON logos.fair_id = fairs.id
+                    LEFT JOIN meta_data ON meta_data.slug = 'patrons'
+                        AND JSON_UNQUOTE(JSON_EXTRACT(meta_data.meta_data, '$.slug')) = logos.logos_type
+                    WHERE fairs.fair_domain IN ($placeholders)
+                ";
+                $results = $cap_db->get_results($cap_db->prepare($query, $domains));
+            }
+        } else {
+            $query = "
+                SELECT logos.*, meta_data.meta_data AS meta_data
+                FROM logos
+                INNER JOIN fairs ON logos.fair_id = fairs.id
+                LEFT JOIN meta_data ON meta_data.slug = 'patrons'
+                    AND JSON_UNQUOTE(JSON_EXTRACT(meta_data.meta_data, '$.slug')) = logos.logos_type
+                WHERE fairs.fair_domain = %s
+            ";
+            $results = $cap_db->get_results($cap_db->prepare($query, $current_domain));
+        }
+
+        if ($cap_db->last_error) {
+            self::$logotypes_cache[$current_domain] = [];
+            return [];
+        }
+
+        $results = self::remove_logo_duplicates($results);
+        set_transient($transient_key, $results, 3600);
+        self::$logotypes_cache[$current_domain] = $results;
+        return $results;
+    }
+
+    /**
+     * Get conferences data
+     */
+    private static $conferences_cache = [];
+    public static function get_database_conferences_data($domain = null): array {
+        $domain = $domain ?? $_SERVER['HTTP_HOST'];
+        if (isset(self::$conferences_cache[$domain])) return self::$conferences_cache[$domain];
+
+        $cap_db = self::connect_database();
+        if (!$cap_db) return [];
+
+        $transient_key = 'pwe_conferences_' . md5($domain);
+        $cached = get_transient($transient_key);
+        if ($cached !== false) {
+            self::$conferences_cache[$domain] = $cached;
+            return $cached;
+        }
+
+        $results = $cap_db->get_results(
             $cap_db->prepare(
-                "SELECT week_data
-                FROM fair_weeks
-                WHERE week_domain = %s
-                LIMIT 1",
-                $current_domain
+                "SELECT * FROM conferences WHERE conf_site_link LIKE %s AND deleted_at IS NULL",
+                '%' . $domain . '%'
             )
         );
 
-        if (!$week || empty($week->week_data)) {
-            return null;
-        }
-
-        // dekodujemy JSON
-        $decoded = json_decode($week->week_data, true);
-
-        // jeśli JSON jest poprawny → zwróć tablicę
-        if (json_last_error() === JSON_ERROR_NONE) {
-            return $decoded;
-        }
-
-        // fallback – zwróć surowy string
-        return $week->week_data;
-    }
-
-    public static function get_all_week_domains() {
-
-        $cap_db = self::connect_database();
-        if (!$cap_db) {
+        if ($cap_db->last_error) {
+            self::$conferences_cache[$domain] = [];
             return [];
         }
 
-        $rows = $cap_db->get_results(
-            "SELECT week_domain FROM fair_weeks"
-        );
+        foreach ($results as &$row) {
+            if (!empty($row->conf_data)) {
+                $decoded = html_entity_decode($row->conf_data);
+                $decoded = preg_replace_callback('/style="([^"]+)"/is', function ($match) {
+                    $style = $match[1];
+                    $style = preg_replace('/font-family\s*:\s*[^;"]+("[^"]+"[, ]*)*[^;"]*;?/i', '', $style);
+                    $style = trim(preg_replace('/\s*;\s*/', '; ', $style), '; ');
+                    return $style ? 'style="' . $style . '"' : '';
+                }, $decoded);
 
-        if (empty($rows)) {
-            return [];
-        }
-
-        $domains = [];
-
-        foreach ($rows as $row) {
-            if (!empty($row->week_domain)) {
-                $domains[] = trim($row->week_domain);
+                if (json_decode($decoded, true) !== null) {
+                    $row->conf_data = $decoded;
+                } else {
+                    error_log("Error JSON in conf_data: " . json_last_error_msg());
+                }
             }
         }
 
-        return array_values(array_unique($domains));
+        set_transient($transient_key, $results, 3600);
+        self::$conferences_cache[$domain] = $results;
+        return $results;
+    }
+
+    /**
+     * Get fair profiles data
+     */
+    private static $fairs_profiles_cache = [];
+    public static function get_database_fairs_data_profiles($fair_domain = null): array {
+        $current_domain = $fair_domain ?? $_SERVER['HTTP_HOST'];
+        if (isset(self::$fairs_profiles_cache[$current_domain])) return self::$fairs_profiles_cache[$current_domain];
+
+        $cap_db = self::connect_database();
+        if (!$cap_db) return [];
+
+        $transient_key = 'pwe_fairs_profiles_' . md5($current_domain);
+        $cached = get_transient($transient_key);
+        if ($cached !== false) {
+            self::$fairs_profiles_cache[$current_domain] = $cached;
+            return $cached;
+        }
+
+        $sql = "
+            SELECT f.id, f.fair_domain, fp.data
+            FROM fairs f
+            LEFT JOIN fair_profiles fp ON fp.fair_id = f.id AND fp.slug = f.fair_domain
+        ";
+
+        $results = $fair_domain
+            ? $cap_db->get_results($cap_db->prepare($sql . " WHERE f.fair_domain = %s", $fair_domain))
+            : $cap_db->get_results($sql);
+
+        if ($cap_db->last_error) $results = [];
+
+        set_transient($transient_key, $results, 3600);
+        self::$fairs_profiles_cache[$current_domain] = $results;
+        return $results;
+    }
+
+    /**
+     * Get fair opinions data
+     */
+    private static $fairs_opinions_cache = [];
+    public static function get_database_fairs_data_opinions($fair_domain = null): array {
+        $current_domain = $fair_domain ?? $_SERVER['HTTP_HOST'];
+        if (isset(self::$fairs_opinions_cache[$current_domain])) return self::$fairs_opinions_cache[$current_domain];
+
+        $cap_db = self::connect_database();
+        if (!$cap_db) return [];
+
+        $transient_key = 'pwe_fairs_opinions_' . md5($current_domain);
+        $cached = get_transient($transient_key);
+        if ($cached !== false) {
+            self::$fairs_opinions_cache[$current_domain] = $cached;
+            return $cached;
+        }
+
+        $sql = "
+            SELECT f.id, f.fair_domain, fp.data, fp.slug, fp.order
+            FROM fairs f
+            LEFT JOIN fair_opinions fp ON fp.fair_id = f.id
+        ";
+
+        $results = $fair_domain
+            ? $cap_db->get_results($cap_db->prepare($sql . " WHERE f.fair_domain = %s", $fair_domain))
+            : $cap_db->get_results($sql);
+
+        if ($cap_db->last_error) $results = [];
+
+        set_transient($transient_key, $results, 3600);
+        self::$fairs_opinions_cache[$current_domain] = $results;
+        return $results;
     }
 
     private static function remove_logo_duplicates(array $logos): array {
-
         $unique = [];
         $seen = [];
 
         foreach ($logos as $logo) {
-
             if (empty($logo->logos_url)) {
                 $unique[] = $logo;
                 continue;
@@ -1009,240 +1316,15 @@ class PWE_Functions {
             }
 
             $filename = basename($logo->logos_url);
-
             $key = $partner_type . '|' . $filename;
 
-            if (isset($seen[$key])) {
-                continue;
+            if (!isset($seen[$key])) {
+                $seen[$key] = true;
+                $unique[] = $logo;
             }
-
-            $seen[$key] = true;
-            $unique[] = $logo;
         }
 
         return $unique;
-    }
-
-    public static function get_database_logotypes_data($fair_domain = null) {
-
-        $cap_db = self::connect_database();
-        if (!$cap_db) {
-            if (current_user_can('administrator') && !is_admin()) {
-                echo '<script>console.error("Brak połączenia z bazą danych.")</script>';
-            }
-            return [];
-        }
-
-        $current_domain = $fair_domain ?? $_SERVER['HTTP_HOST'];
-
-        $week = $cap_db->get_row(
-            $cap_db->prepare(
-                "SELECT fairs_domains
-                FROM fair_weeks
-                WHERE week_domain = %s
-                LIMIT 1",
-                $current_domain
-            )
-        );
-
-        if ($week && !empty($week->fairs_domains)) {
-
-            $domains = json_decode($week->fairs_domains, true);
-
-            if (!is_array($domains)) {
-                $domains = [];
-            }
-
-            $domains = array_values(array_filter(array_map('trim', $domains)));
-
-
-            if (!empty($domains)) {
-
-                $placeholders = implode(',', array_fill(0, count($domains), '%s'));
-
-                $query = "
-                    SELECT DISTINCT logos.*,
-                        meta_data.meta_data AS meta_data
-                    FROM logos
-                    INNER JOIN fairs ON logos.fair_id = fairs.id
-                    LEFT JOIN meta_data ON meta_data.slug = 'patrons'
-                        AND JSON_UNQUOTE(JSON_EXTRACT(meta_data.meta_data, '$.slug')) = logos.logos_type
-                    WHERE fairs.fair_domain IN ($placeholders)
-                ";
-
-                $results = $cap_db->get_results(
-                    $cap_db->prepare($query, $domains)
-                );
-
-            } else {
-                $results = [];
-            }
-        } else {
-
-            $query = "
-                SELECT logos.*,
-                    meta_data.meta_data AS meta_data
-                FROM logos
-                INNER JOIN fairs ON logos.fair_id = fairs.id
-                LEFT JOIN meta_data ON meta_data.slug = 'patrons'
-                    AND JSON_UNQUOTE(JSON_EXTRACT(meta_data.meta_data, '$.slug')) = logos.logos_type
-                WHERE fairs.fair_domain = %s
-            ";
-
-            $results = $cap_db->get_results(
-                $cap_db->prepare($query, $current_domain)
-            );
-        }
-
-        if ($cap_db->last_error) {
-            if (current_user_can("administrator") && !is_admin()) {
-                echo '<script>console.error("Błąd SQL: ' . addslashes($cap_db->last_error) . '")</script>';
-            }
-            return [];
-        }
-        $results = self::remove_logo_duplicates($results);
-        return $results;
-    }
-
-    public static function get_database_conferences_data($domain = null) {
-        // Database connection
-        $cap_db = self::connect_database();
-        // If connection failed, return empty array
-        if (!$cap_db) {
-            return [];
-            if (current_user_can('administrator') && !is_admin()) {
-                echo '<script>console.error("Brak połączenia z bazą danych.")</script>';
-            }
-        }
-
-        $domain = ($domain == null) ? $_SERVER['HTTP_HOST'] : $domain;
-
-        // Pobieramy dane bez względu na język
-        $results = $cap_db->get_results(
-            $cap_db->prepare(
-                "SELECT * FROM conferences WHERE conf_site_link LIKE %s AND deleted_at IS NULL",
-                '%' . $domain . '%'
-            )
-        );
-
-        // SQL error checking
-        if ($cap_db->last_error) {
-            return [];
-            if (current_user_can("administrator") && !is_admin()) {
-                echo '<script>console.error("Błąd SQL: '. addslashes($cap_db->last_error) .'")</script>';
-            }
-        }
-
-        foreach ($results as &$row) {
-            if (!empty($row->conf_data)) {
-                $decoded = html_entity_decode($row->conf_data);
-
-                // Czyścimy WSZYSTKIE wystąpienia font-family z atrybutów style (w tym wieloliniowe!)
-                $decoded = preg_replace_callback('/style="([^"]+)"/is', function ($match) {
-                    $style = $match[1];
-                    $style = preg_replace('/font-family\s*:\s*[^;"]+("[^"]+"[, ]*)*[^;"]*;?/i', '', $style);
-                    $style = trim(preg_replace('/\s*;\s*/', '; ', $style), '; ');
-                    return $style ? 'style="' . $style . '"' : '';
-                }, $decoded);
-
-                // Sprawdzamy poprawność JSON
-                $test = json_decode($decoded, true);
-                if (json_last_error() === JSON_ERROR_NONE) {
-                    $row->conf_data = $decoded;
-                } else {
-                    error_log("❌ Błąd JSON w conf_data: " . json_last_error_msg());
-                }
-            }
-        }
-
-        return $results;
-    }
-
-    public static function get_database_fairs_data_profiles($fair_domain = null) {
-        // Database connection
-        $cap_db = self::connect_database();
-        // If connection failed, return empty array
-        if (!$cap_db) {
-            if (current_user_can('administrator') && !is_admin()) {
-                echo '<script>console.error("Brak połączenia z bazą danych.")</script>';
-            }
-            return [];
-        }
-
-        $fair_domain = ($fair_domain == null) ? $_SERVER['HTTP_HOST'] : $fair_domain;
-
-        // Build column list
-        $sql = "
-            SELECT
-                f.id,
-                f.fair_domain,
-                fp.data
-            FROM fairs f
-            LEFT JOIN fair_profiles fp
-                ON fp.fair_id = f.id
-            AND fp.slug = f.fair_domain
-        ";
-
-        if (!isset($fair_domain)) {
-            $results = $cap_db->get_results($sql);
-        } else {
-            $sql .= " WHERE f.fair_domain = %s";
-            $results = $cap_db->get_results($cap_db->prepare($sql, $fair_domain));
-        }
-
-        // SQL error checking
-        if ($cap_db->last_error) {
-            if (current_user_can("administrator") && !is_admin()) {
-                echo '<script>console.error("Błąd SQL: '. addslashes($cap_db->last_error) .'")</script>';
-            }
-            return [];
-        }
-
-        return $results;
-    }
-
-    public static function get_database_fairs_data_opinions($fair_domain = null) {
-        // Database connection
-        $cap_db = self::connect_database();
-        // If connection failed, return empty array
-        if (!$cap_db) {
-            if (current_user_can('administrator') && !is_admin()) {
-                echo '<script>console.error("Brak połączenia z bazą danych.")</script>';
-            }
-            return [];
-        }
-
-        $fair_domain = ($fair_domain == null) ? $_SERVER['HTTP_HOST'] : $fair_domain;
-
-        // Build column list
-        $sql = "
-            SELECT
-                f.id,
-                f.fair_domain,
-                fp.data,
-                fp.slug,
-                fp.order
-            FROM fairs f
-            LEFT JOIN fair_opinions fp
-                ON fp.fair_id = f.id
-        ";
-
-        if (!isset($fair_domain)) {
-            $results = $cap_db->get_results($sql);
-        } else {
-            $sql .= " WHERE f.fair_domain = %s";
-            $results = $cap_db->get_results($cap_db->prepare($sql, $fair_domain));
-        }
-
-        // SQL error checking
-        if ($cap_db->last_error) {
-            if (current_user_can("administrator") && !is_admin()) {
-                echo '<script>console.error("Błąd SQL: '. addslashes($cap_db->last_error) .'")</script>';
-            }
-            return [];
-        }
-
-        return $results;
     }
 
     /**
@@ -1310,6 +1392,8 @@ class PWE_Functions {
             "category_pl" => $fair->category_pl ?? "",
             "category_en" => $fair->category_en ?? "",
             "conference_name" => $fair->konf_name ?? "",
+            "conference_title_pl" => $fair->konf_title_pl ?? "",
+            "conference_title_en" => $fair->konf_title_en ?? "",
             "group" => $fair->fair_group ?? "",
         ];
 
@@ -1361,6 +1445,12 @@ class PWE_Functions {
      * JSON all trade fairs
      */
     public static function json_fairs() {
+        static $runtime_cache = null;
+
+        if ($runtime_cache !== null) {
+            return $runtime_cache;
+        }
+
         $pwe_fairs = self::get_database_fairs_data();
         $pwe_fairs_desc_translations = self::get_database_translations_data();
 
@@ -1449,7 +1539,8 @@ class PWE_Functions {
             }
         }
 
-        return $fairs_data['fairs'];
+        $runtime_cache = $fairs_data['fairs'];
+        return $runtime_cache;
     }
 
     /**

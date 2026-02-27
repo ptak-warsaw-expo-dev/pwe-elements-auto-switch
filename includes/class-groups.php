@@ -34,7 +34,7 @@ class PWE_Groups {
             if ( in_array( $host, $domains, true ) ) {
 
                 // Temporary <---------------------------------<
-                if ($group === 'gr3' || $group === 'b2c') {
+                if ($group !== 'gr1') {
                     return 'gr2';
                 }
                 // Temporary <---------------------------------<
@@ -43,9 +43,6 @@ class PWE_Groups {
             }
 
             // Temporary <---------------------------------<
-            if ($host === "mr.glasstec.pl") {
-                return 'gr2';
-            }
             if ($host === "new.warsawmetaltech.pl") {
                 return 'week';
             }
