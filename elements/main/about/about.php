@@ -89,7 +89,8 @@ class About {
                 return;
             }
 
-            $img = '<img class="pwe-about__img" src="' 
+            $img = '
+            <img class="pwe-about__img" src="' 
                 . (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/new_template/fair_img.webp') 
                     ? 'https://'. $_SERVER['HTTP_HOST'] . '/doc/new_template/fair_img.webp' 
                     : content_url('plugins/pwe-media/media/main-page/fair_img.webp')) 
@@ -98,7 +99,7 @@ class About {
                     'Odwiedzający na targach ' . do_shortcode('[trade_fair_name]'),
                     'Visitors at the ' . do_shortcode('[trade_fair_name_eng]')
                 ) 
-                . '">';
+            . '">';
 
             $exhibitorsData = self::getExhibitorsData();
 

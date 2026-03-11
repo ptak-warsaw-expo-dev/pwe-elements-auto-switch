@@ -8,7 +8,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--accent_darker_color);
+    background: #3e3e3ec7;
     opacity: 70%;
     z-index: 1;
 }
@@ -47,6 +47,7 @@
     font-size: 64px;
     font-weight: 700;
     text-transform: uppercase;
+    padding: 6px 0 10px;
 }
 .pwe-element-auto-switch .pwe-header__date h2 {
     font-size: 30px;

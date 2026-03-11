@@ -29,21 +29,34 @@ function getFairDays(): array {
 
 
 /**
- * Parses a date range in the format "Y/m/d to Y/m/d".
+ * Parses a date range in the format:
+ * - "Y/m/d to Y/m/d"
+ * - "Y/m/d" (single day)
  */
 function parseDateRange(?string $range): ?array {
     if (!$range) return null;
 
-    $parts = explode(' to ', trim($range), 2);
-    if (count($parts) !== 2) return null;
+    $range = trim($range);
 
-    $start = DateTime::createFromFormat('Y/m/d', trim($parts[0]));
-    $end   = DateTime::createFromFormat('Y/m/d', trim($parts[1]));
+    if (strpos($range, ' to ') !== false) {
 
-    if (!$start || !$end) return null;
+        $parts = explode(' to ', $range, 2);
 
-    if ($end < $start) {
-        [$start, $end] = [$end, $start];
+        $start = DateTime::createFromFormat('Y/m/d', trim($parts[0]));
+        $end   = DateTime::createFromFormat('Y/m/d', trim($parts[1]));
+
+        if (!$start || !$end) return null;
+
+        if ($end < $start) {
+            [$start, $end] = [$end, $start];
+        }
+
+    } else {
+        // single day
+        $start = DateTime::createFromFormat('Y/m/d', $range);
+        if (!$start) return null;
+
+        $end = clone $start;
     }
 
     return [

@@ -17,9 +17,9 @@ $output .= '
             <h4 class="pwe-about__media-title">' . PWE_Functions::languageChecker('Top Wystawcy', 'Top Exhibitors') . '</h4>
             <div id="pweAboutLogos" class="pwe-about__logos pwe-container-logotypes" data-logos=\'' . $logos_json . '\'>';
 
-            for ($i = 0; $i < 9; $i++) {
+            for ($i = 0; $i < 9; $i++) { 
                 $output .= '<img class="pwe-about__logo logo-placeholder"
-                    src="' . $logoUrl . '" alt="" style="visibility:hidden;opacity:0">';
+                    src="" alt="exhibitor" style="visibility:hidden;opacity:0">';
             }
 
             $output .= '</div>';

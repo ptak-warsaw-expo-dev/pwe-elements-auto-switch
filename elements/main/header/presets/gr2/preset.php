@@ -2,6 +2,8 @@
 
 $desc_length = mb_strlen($trade_fair_desc, 'UTF-8');
 
+$output = '';
+
 if ($desc_length < 30) {
     $output .= '
     <style>

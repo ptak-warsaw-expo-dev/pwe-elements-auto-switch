@@ -43,8 +43,6 @@ class Conference {
         ];
     }
 
-
-
     public static function get_conferences_brief($domain) {
         $cap_db = PWE_Functions::connect_database();
         if (!$cap_db) {
@@ -72,7 +70,7 @@ class Conference {
         return $results;
     }
 
-    public static function conference_overlaps_fair(string $conf_date_range): bool {
+    public static function conference_overlaps_fair(string $conf_date_range): bool { 
         // zawsze z shortcodów
         $start_raw = do_shortcode('[trade_fair_datetotimer]'); // "Y/m/d H:i"
         $end_raw   = do_shortcode('[trade_fair_enddata]');     // "Y/m/d H:i"
@@ -80,20 +78,38 @@ class Conference {
         $fairStart = DateTime::createFromFormat('Y/m/d H:i', $start_raw);
         $fairEnd   = DateTime::createFromFormat('Y/m/d H:i', $end_raw);
         if (!$fairStart || !$fairEnd) return false;
-        if ($fairEnd < $fairStart) [$fairStart, $fairEnd] = [$fairEnd, $fairStart];
+
+        if ($fairEnd < $fairStart) {
+            [$fairStart, $fairEnd] = [$fairEnd, $fairStart];
+        }
 
         // porównujemy po datach (bez czasu)
         $fairStart = new DateTime($fairStart->format('Y-m-d'));
         $fairEnd   = new DateTime($fairEnd->format('Y-m-d'));
 
-        // "YYYY/MM/DD to YYYY/MM/DD"
-        $parts = explode(' to ', trim($conf_date_range), 2);
-        if (count($parts) !== 2) return false;
+        $conf_date_range = trim($conf_date_range);
 
-        $cStart = DateTime::createFromFormat('Y/m/d', trim($parts[0]));
-        $cEnd   = DateTime::createFromFormat('Y/m/d', trim($parts[1]));
-        if (!$cStart || !$cEnd) return false;
-        if ($cEnd < $cStart) [$cStart, $cEnd] = [$cEnd, $cStart];
+        // sprawdzamy czy jest zakres
+        if (strpos($conf_date_range, ' to ') !== false) {
+
+            $parts = explode(' to ', $conf_date_range, 2);
+
+            $cStart = DateTime::createFromFormat('Y/m/d', trim($parts[0]));
+            $cEnd   = DateTime::createFromFormat('Y/m/d', trim($parts[1]));
+
+            if (!$cStart || !$cEnd) return false;
+
+            if ($cEnd < $cStart) {
+                [$cStart, $cEnd] = [$cEnd, $cStart];
+            }
+
+        } else {
+            // pojedynczy dzień
+            $cStart = DateTime::createFromFormat('Y/m/d', $conf_date_range);
+            if (!$cStart) return false;
+
+            $cEnd = clone $cStart;
+        }
 
         return ($cStart <= $fairEnd) && ($cEnd >= $fairStart);
     }

@@ -1,339 +1,162 @@
 const halls = document.getElementById("pweHalls");
-
 const allItems = JSON.parse(halls.dataset.allItems);
-const activeItems = JSON.parse(halls.dataset.activeItems);
+const currentDomain = window.location.hostname;
 
-const allItemsObject = [];
 const allActiveItemsObject = [];
 
-const addActiveClassToFullObject = () => {
-    let activeItemsFull = [];
-    activeItems.forEach(item => {
-        if (/^[A-Z]$/.test(item.id)) {
-            activeItemsFull.push({
-                id: item.id,
-                color: item.color
-            });
-        }
-    });
+// =========================
+// GROUP (letter + domain)
+// =========================
+const grouped = {};
 
-    // Iterate over active elements (full halls)
-    activeItemsFull.forEach(item => {
-        const fullObject = document.querySelector(`#${item.id}`);
+allItems.forEach(item => {
+    const letter = item.id[0];
+    const key = `${letter}_${item.domain}`;
 
-        if (fullObject) {
-            // Adding the "active" class to the hall
-            fullObject.classList.add("active");
-
-            // Find all elements with class "pwe-halls__element-color" in the active element
-            const fullObjectColors = fullObject.querySelectorAll(".pwe-halls__element-color");
-            fullObjectColors.forEach(colorElement => {
-                // Set the color for the active element
-                colorElement.style.fill = item.color;
-            });
-        }
-
-        allActiveItemsObject.push({
-            id: fullObject.id
-        });
-    });
-}
-
-addActiveClassToFullObject();
-
-
-const addActiveClassToHalfObject = () => {
-    let activeItemsQuarter = [];
-    activeItems.forEach(item => {
-        if (/^[A-Z]\d$/.test(item.id)) {
-            activeItemsQuarter.push({
-                id: item.id,
-                color: item.color
-            });
-        }
-    });
-
-    // Iterate over active elements (half halls)
-    const combinedId = [];
-    activeItemsQuarter.forEach((item1, index) => {
-        activeItemsQuarter.slice(index + 1).forEach(item2 => {
-
-            const combinedIds = [
-                `${item1.id}_${item2.id}`,
-                `${item2.id}_${item1.id}`
-            ];
-
-            combinedIds.forEach(id => {
-                const combinedElement = document.getElementById(id);
-                if (combinedElement) {
-                    // Sprawdzamy rodzica z klasą pwe-halls__element-full
-                    const parentFullElement = combinedElement.closest(".pwe-halls__element.full");
-                    if (parentFullElement && !parentFullElement.classList.contains("active")) {
-                        combinedElement.classList.add("active");
-
-                        // Znalezienie wszystkich elementów z klasą "pwe-halls__element-color" w aktywnym elemencie
-                        const fullObjectColors = combinedElement.querySelectorAll(".pwe-halls__element-color");
-                        fullObjectColors.forEach(colorElement => {
-                            // Ustawienie koloru dla aktywnego elementu
-                            colorElement.style.fill = item1.color;
-                        });
-                    }
-
-                    allActiveItemsObject.push({
-                        id: combinedElement.id
-                    });
-                }
-            });
-        });
-    });
-}
-
-addActiveClassToHalfObject();
-
-const addActiveClassToQuarterObject = () => {
-    let activeItemsQuarter = [];
-    activeItems.forEach(item => {
-        if (/^[A-Z]\d$/.test(item.id)) {
-            activeItemsQuarter.push({
-                id: item.id,
-                color: item.color
-            });
-        }
-    });
-
-    // Iterate over active elements (quarter halls)
-    activeItemsQuarter.forEach(item => {
-        const quarterObject = document.querySelector(`#${item.id}`);
-        if (quarterObject) {
-            // Check the parent with class pwe-halls__element-full
-            const parentFullElement = quarterObject.closest(".pwe-halls__element.half");
-            if (parentFullElement && !parentFullElement.classList.contains("active")) {
-                quarterObject.classList.add("active");
-
-                // Find all elements with class "pwe-halls__element-color" in the active element
-                const quarterObjectColors = quarterObject.querySelectorAll(".pwe-halls__element-color");
-                quarterObjectColors.forEach(colorElement => {
-                    // Ustawienie koloru dla aktywnego elementu
-                    colorElement.style.fill = item.color;
-                });
-            }
-
-            allActiveItemsObject.push({
-                id: quarterObject.id
-            });
-        }
-    });
-}
-
-addActiveClassToQuarterObject();
-
-const addLogoToFullObject = () => {
-    let allItemsFull = [];
-    allItems.forEach(item => {
-        if (/^[A-Z]$/.test(item.id)) {
-            allItemsFull.push({
-                id: item.id,
-                domain: item.domain,
-                color: item.color
-            });
-        }
-    });
-
-    // Iterate over all elements (full halls)
-    allItemsFull.forEach(item => {
-        const fullObject = document.querySelector(`#${item.id}`);
-
-        if (fullObject) {
-            
-            const fullObjectsLogotypes = fullObject.querySelectorAll(".pwe-halls__element-logo-link.full");
-            fullObjectsLogotypes.forEach(logoElement => {
-                const logo = logoElement.querySelector(".pwe-halls__element-logo");
-                // if (fullObject.classList.contains("active")) {
-                    // Set white logo for active element
-                    logoElement.setAttribute("href", `https://${item.domain}`);
-                    logo.setAttribute("href", `https://${item.domain}/doc/logo.webp`);
-                // } else {
-                //     // Set a colored logo for the active element
-                //     logoElement.setAttribute("href", `https://${item.domain}`);
-                //     logo.setAttribute("href", `https://${item.domain}/doc/logo-color.webp`);
-                // }
-            });
-
-            const fullObjectsColors = fullObject.querySelectorAll(".pwe-halls__element-color");
-            fullObjectsColors.forEach(colorElement => {
-                // Set the color for the element
-                colorElement.style.fill = item.color;
-            });
-
-            allItemsObject.push({
-                id: fullObject.id
-            });
-        }
-    });
-}
-
-addLogoToFullObject();
-
-const addLogoToHalfObject = () => {
-    let allItemsQuarter = [];
-    allItems.forEach(item => {
-        if (/^[A-Z]\d$/.test(item.id)) {
-            allItemsQuarter.push({
-                id: item.id,
-                domain: item.domain,
-                color: item.color
-            });
-        }
-    });
-
-    // Iterate over all elements (half halls)
-    const combinedId = [];
-    allItemsQuarter.forEach((item1, index) => {
-        allItemsQuarter.slice(index + 1).forEach(item2 => {
-            // Check if domains are the same
-            if (item1.domain === item2.domain) {
-                const combinedIds = [
-                    `${item1.id}_${item2.id}`,
-                    `${item2.id}_${item1.id}`
-                ];
-
-                combinedIds.forEach(id => {
-                    const combinedElement = document.getElementById(id);
-                    if (combinedElement) {
-
-                        const halfObjectsLogotypes = combinedElement.querySelectorAll(".pwe-halls__element-favicon-link.half");
-                        halfObjectsLogotypes.forEach(logoElement => {
-                            const logo = logoElement.querySelector(".pwe-halls__element-favicon");
-                            // if (combinedElement.classList.contains("active")) {
-                                // Set white logo for active element
-                                logoElement.setAttribute("href", `https://${item1.domain}`);
-                                logo.setAttribute("href", `https://${item1.domain}/doc/favicon.webp`);
-                            // } else {
-                            //     // Set a colored logo for the active element
-                            //     logoElement.setAttribute("href", `https://${item1.domain}`);
-                            //     logo.setAttribute("href", `https://${item1.domain}/doc/favicon-color.webp`);
-                            // }
-                        });
-
-                        const halfObjectsColors = combinedElement.querySelectorAll(".pwe-halls__element-color");
-                        halfObjectsColors.forEach(colorElement => {
-                            // Set the color for the element
-                            colorElement.style.fill = item1.color;
-                        });
-
-                        allItemsObject.push({
-                            id: combinedElement.id
-                        });
-                    }
-                });
-            }
-        });
-    });
-}
-
-addLogoToHalfObject();
-
-const addLogoToQuarterObject = () => {
-    let allItemsQuarter = [];
-    allItems.forEach(item => {
-        if (/^[A-Z]\d$/.test(item.id)) {
-            allItemsQuarter.push({
-                id: item.id,
-                domain: item.domain,
-                color: item.color
-            });
-        }
-    });
-
-    // Iterate over all elements (quarter halls)
-    allItemsQuarter.forEach(item => {
-        const quarterObject = document.querySelector(`#${item.id}`);
-
-        if (quarterObject) {
-            
-            const quarterObjectsLogotypes = quarterObject.querySelectorAll(".pwe-halls__element-logo-link.quarter");
-            quarterObjectsLogotypes.forEach(logoElement => {
-                const logo = logoElement.querySelector(".pwe-halls__element-logo");
-                // if (quarterObject.classList.contains("active")) {
-                    // Set white logo for active element
-                    logoElement.setAttribute("href", `https://${item.domain}`);
-                    logo.setAttribute("href", `https://${item.domain}/doc/logo.webp`);
-                // } else {
-                //     // Set a colored logo for the active element
-                //     logoElement.setAttribute("href", `https://${item.domain}`);
-                //     logo.setAttribute("href", `https://${item.domain}/doc/logo-color.webp`);
-                // }
-            });
-
-            const quarterObjectColors = quarterObject.querySelectorAll(".pwe-halls__element-color");
-            quarterObjectColors.forEach(colorElement => {
-                // Set the color for the element
-                colorElement.style.fill = item.color;
-            });
-
-            allItemsObject.push({
-                id: quarterObject.id
-            });
-        }
-    });
-}
-
-addLogoToQuarterObject();
-
-const filterCombinedIds = (items) => {
-    // Extract all composite ids
-    const combinedIds = items
-        .filter(item => item.id.includes("_")) // Filtruje elementy zawierające "_"
-        .map(item => item.id.split("_"));    // Dzieli je na poszczególne identyfikatory
-
-    // Convert array of composite ids into single ids
-    const idsToRemove = new Set(combinedIds.flat());
-
-    // Filter the array by removing objects with IDs in `idsToRemove`
-    return items.filter(item => !idsToRemove.has(item.id));
-};
-
-const filteredAllItems = filterCombinedIds(allItemsObject);
-const filteredActiveItems = filterCombinedIds(allActiveItemsObject);
-
-// Iterate over all elements that match JSON
-filteredAllItems.forEach(item => {
-    const svgElement = document.querySelector(`#${item.id}`);
-    if (svgElement) {
-        // Check if the element is active
-        const isActive = filteredActiveItems.some(activeItem => activeItem.id === item.id);
-        if (!isActive) {
-            // Dodanie klasy "unactive"
-            svgElement.classList.add("unactive");
-        }
-    }
+    if (!grouped[key]) grouped[key] = [];
+    grouped[key].push(item);
 });
 
-// if (window.innerWidth >= 960) {
-//     const svgHale = document.querySelector("#pweHallsSvg");
-//     const zoomFactor = 2;
+// =========================
+// FULL
+// =========================
+const activateFull = () => {
+    const letters = [...new Set(allItems.map(item => item.id[0]))];
 
-//     if (svgHale) {
-//         // Get original viewBox
-//         const originalViewBox = svgHale.getAttribute("viewBox");
-//         const viewBoxValues = originalViewBox.split(" ").map(Number);
+    letters.forEach(letter => {
+        const itemsForLetter = allItems.filter(item => item.id[0] === letter);
 
-//         svgHale.addEventListener("mousemove", (e) => {
-//             const rect = svgHale.getBoundingClientRect();
-//             const x = e.clientX - rect.left;
-//             const y = e.clientY - rect.top;
+        // Extracting all unique domains
+        const domains = [...new Set(itemsForLetter.map(i => i.domain))];
+        if (domains.length !== 1) return;
 
-//             // Calculating a new viewBox
-//             const viewBoxX = viewBoxValues[0] + (x / rect.width) * viewBoxValues[2] - (viewBoxValues[2] / zoomFactor) / 2;
-//             const viewBoxY = viewBoxValues[1] + (y / rect.height) * viewBoxValues[3] - (viewBoxValues[3] / zoomFactor) / 2;
-//             const viewBoxWidth = viewBoxValues[2] / zoomFactor;
-//             const viewBoxHeight = viewBoxValues[3] / zoomFactor;
+        // If exist full element (e.g. F)
+        const fullLetterItem = itemsForLetter.find(i => i.id.length === 1);
+        if (fullLetterItem) {
+            const el = document.getElementById(letter);
+            if (!el) return;
 
-//             svgHale.setAttribute("viewBox", `${viewBoxX} ${viewBoxY} ${viewBoxWidth} ${viewBoxHeight}`);
-//         });
+            el.classList.add("active");
 
-//         svgHale.addEventListener("mouseleave", () => {
-//             svgHale.setAttribute("viewBox", originalViewBox); // Resetujemy viewBox do oryginalnego
-//         });
-//     }
-// }
+            if (itemsForLetter[0].domain === currentDomain) {
+                el.classList.add("current-fair");
+            }
+
+            const colors = el.querySelectorAll(".pwe-halls__element-color");
+            colors.forEach(c => c.style.fill = fullLetterItem.color);
+
+            const logoLinksFull = el.querySelectorAll(".pwe-halls__element-logo-link.full");
+            logoLinksFull.forEach(link => {
+                const logo = link.querySelector(".pwe-halls__element-logo");
+                if (!logo) return;
+
+                link.setAttribute("href", `https://${fullLetterItem.domain}`);
+                logo.setAttribute("href", `https://${fullLetterItem.domain}/doc/logo.webp`);
+            });
+
+            allActiveItemsObject.push({ id: letter });
+            return;
+        }
+
+        // If all sub-elements (F1..F4) exist and are of the same domain, activate full element
+        const subItems = itemsForLetter.filter(i => i.id.length > 1);
+        if (subItems.length === 4) {
+            const el = document.getElementById(letter);
+            if (!el) return;
+
+            el.classList.add("active");
+
+            if (itemsForLetter[0].domain === currentDomain) {
+                el.classList.add("current-fair");
+            }
+
+            const colors = el.querySelectorAll(".pwe-halls__element-color");
+            colors.forEach(c => c.style.fill = subItems[0].color);
+
+            const logoLinksFull = el.querySelectorAll(".pwe-halls__element-logo-link.full");
+            logoLinksFull.forEach(link => {
+                const logo = link.querySelector(".pwe-halls__element-logo");
+                if (!logo) return;
+
+                link.setAttribute("href", `https://${subItems[0].domain}`);
+                logo.setAttribute("href", `https://${subItems[0].domain}/doc/logo.webp`);
+            });
+
+            allActiveItemsObject.push({ id: letter });
+        }
+    });
+};
+
+// =========================
+// HALF
+// =========================
+const activateHalf = () => {
+    Object.entries(grouped).forEach(([key, items]) => {
+        if (items.length !== 2) return;
+
+        const id = `${items[0].id}_${items[1].id}`;
+        const reverseId = `${items[1].id}_${items[0].id}`;
+
+        let el = document.getElementById(id);
+        if (!el) el = document.getElementById(reverseId);
+        if (!el) return;
+
+        el.classList.add("active");
+
+        if (items[0].domain === currentDomain) {
+            el.classList.add("current-fair");
+        }
+
+        const colors = el.querySelectorAll(".pwe-halls__element-color");
+        colors.forEach(c => c.style.fill = items[0].color);
+
+        const logoLinksHalf = el.querySelectorAll(".pwe-halls__element-favicon-link.half");
+        logoLinksHalf.forEach(link => {
+            const logo = link.querySelector(".pwe-halls__element-favicon");
+            if (!logo) return;
+
+            link.setAttribute("href", `https://${items[0].domain}`);
+            logo.setAttribute("href", `https://${items[0].domain}/doc/favicon.webp`);
+        });
+
+        allActiveItemsObject.push({ id: el.id });
+    });
+};
+
+// =========================
+// QUARTER
+// =========================
+const activateQuarter = () => {
+    Object.entries(grouped).forEach(([key, items]) => {
+        if (items.length !== 1) return;
+
+        const item = items[0];
+        const el = document.getElementById(item.id);
+        if (!el) return;
+
+        el.classList.add("active");
+
+        const colors = el.querySelectorAll(".pwe-halls__element-color");
+        colors.forEach(c => c.style.fill = item.color);
+
+        const logoLinks = el.querySelectorAll(".pwe-halls__element-logo-link.quarter");
+        logoLinks.forEach(link => {
+            const logo = link.querySelector(".pwe-halls__element-logo");
+            if (!logo) return;
+
+            link.setAttribute("href", `https://${item.domain}`);
+            logo.setAttribute("href", `https://${item.domain}/doc/logo.webp`);
+        });
+
+        allActiveItemsObject.push({ id: item.id });
+    });
+};
+
+// =========================
+// INIT
+// =========================
+window.addEventListener("load", () => {
+    activateFull();
+    activateHalf();
+    activateQuarter();
+});

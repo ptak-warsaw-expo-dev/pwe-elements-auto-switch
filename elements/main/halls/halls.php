@@ -73,13 +73,13 @@ class Halls {
             foreach ($fair_items_json as $item) {
                 $halls = array_map('trim', explode(',', $item['halls']));
                 foreach ($halls as $hall) {
-                    if (strpos($item['domain'], "mr.glasstec.pl") === false) {
+                    // if (strpos($item['domain'], "mr.glasstec.pl") === false) {
                         $json_data_all[] = [
                             "id" => $hall,
                             "domain" => $item['domain'],
                             "color" => $item['color']
                         ];
-                    }
+                    // }
                 }
 
                 if ($item['domain'] === $current_domain) {
@@ -103,7 +103,6 @@ class Halls {
             $halls_word = (count(array_filter(array_map('trim', explode(',', $all_halls)))) > 1)
                 ? PWE_Functions::languageChecker('Hale', 'Halls')
                 : PWE_Functions::languageChecker('Hala', 'Hall');
-
 
             // $current_day_timestamp = time();
 

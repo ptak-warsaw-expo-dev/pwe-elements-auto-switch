@@ -42,6 +42,16 @@ class Exhibitors {
             if (!is_array($exhibitors)) {
                 $exhibitors = [];
             }
+
+            // Temporary <----------------------------------------------------------<
+            if ($_SERVER['HTTP_HOST'] === 'woodwarsawexpo.com') {
+                usort($exhibitors, function ($a, $b) {
+                    if ($a['name'] === 'HOMAG POLSKA') return -1;
+                    if ($b['name'] === 'HOMAG POLSKA') return 1;
+                    return 0;
+                });
+            }
+            // Temporary <----------------------------------------------------------<
             
             if (count($exhibitors) < 16) {
                 echo '<style>.exhibitors-'. $group .'{display:none;}</style>';

@@ -177,7 +177,7 @@
 @media (max-width: 768px) {
     .pwe-element-auto-switch .pwe-conference-schedule .swiper-buttons-arrows,
     .pwe-element-auto-switch .pwe-conference-schedule .swiper-nav {
-        display: flex !important;
+        display: flex;
     }
     .pwe-element-auto-switch .pwe-conference-schedule__wrapper {
         background: inherit;
