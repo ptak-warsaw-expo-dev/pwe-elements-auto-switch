@@ -48,9 +48,6 @@ body.home .pwe-menu-auto-switch {
     display: flex;
     height: 100%;
 }
-.pwe-menu-auto-switch__logotypes a.pwe-logo img {
-    aspect-ratio: 1 / 1;
-}
 .pwe-menu-auto-switch__logo-container {
     display: flex;
     height: 100%;

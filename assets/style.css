@@ -19,3 +19,10 @@
         --button-size: 30px;
     }
 /* } */
+
+.row-parent:has(#pweElementsAutoSwitch),
+.pwe-element-auto-switch.header,
+.pwe-element-auto-switch.footer {
+    max-width: 100% !important;
+    padding: 0 !important;
+}
