@@ -48,6 +48,7 @@ class Other_Events {
             if (!empty($fairs_json)) {
                 $other_events_items_json = [];
 
+
                 foreach ($fairs_json as $fair) {
                     // Getting start and end dates
                     $date_start = isset($fair['date_start']) ? strtotime($fair['date_start']) : null;

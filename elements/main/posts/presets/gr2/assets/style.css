@@ -19,6 +19,7 @@
 .pwe-element-auto-switch .pwe-posts__post-content {
     min-height: 160px;
     height: 100%;
+    max-height: 250px;
     padding: 32px;
     display: flex;
     flex-direction: column;
@@ -37,6 +38,7 @@
 .pwe-element-auto-switch .pwe-posts__post-thumbnail .image-container {
     aspect-ratio: 19 / 9;
     width: 100%;
+    max-height: 270px;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;

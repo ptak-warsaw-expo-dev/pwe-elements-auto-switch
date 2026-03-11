@@ -57,8 +57,8 @@ class Opinions {
             // Get opinions from the database
             $data = PWE_Functions::get_database_fairs_data_opinions(); 
             if (!empty($data)) {
-                // If there are 2 opinions in the summary – overwrite
-                if (count($data) >= 2) {
+                // If there are 4 opinions in the summary – overwrite
+                if (count($data) >= 4) {
                     $opinions_indexed = []; 
                 }
 

@@ -7,7 +7,9 @@ class Speakers {
         return [
             'types' => ['main'],
             'presets' => [
+                'gr1' => plugin_dir_path(__FILE__) . 'presets/gr1/preset.php',
                 'gr2' => plugin_dir_path(__FILE__) . 'presets/gr2/preset.php',
+                'week' => plugin_dir_path(__FILE__) . 'presets/week/preset.php',
             ],
         ];
     }
@@ -29,49 +31,69 @@ class Speakers {
 
             /* <-------------> General code start <-------------> */
 
-            // Get current domain
-            $current_domain = do_shortcode('[trade_fair_domainadress]');
+            // Get speakers from the database
+            $data = PWE_Functions::get_database_fairs_data_speakers(); 
+            if (!empty($data)) {
 
-            // Fair dates
-            $trade_fair_start = do_shortcode('[trade_fair_datetotimer]');
-            $trade_fair_end = do_shortcode('[trade_fair_enddata]');
+                foreach ($data as $row) {
+                    if (!empty($row->data)) {
+                        $decoded = json_decode($row->data, true);
 
-            // Converting dates to timestamps
-            $trade_fair_start_timestamp = strtotime($trade_fair_start);
-            $trade_fair_end_timestamp = strtotime($trade_fair_end);
-
-            $fairs_json = PWE_Functions::json_fairs();
-
-            // Check if there is any data entered into the element
-            if (!empty($fairs_json)) {
-                $other_events_items_json = [];
-
-                foreach ($fairs_json as $fair) {
-                    // Getting start and end dates
-                    $date_start = isset($fair['date_start']) ? strtotime($fair['date_start']) : null;
-                    $date_end = isset($fair['date_end']) ? strtotime($fair['date_end']) : null;
-
-                    // Checking if the date is in the range
-                    if ($date_start && $date_end) {
-                        if ((($date_start >= $trade_fair_start_timestamp && $date_start <= $trade_fair_end_timestamp) ||
-                            ($date_end >= $trade_fair_start_timestamp && $date_end <= $trade_fair_end_timestamp)) &&
-                            strpos($fair['domain'], $current_domain) === false &&
-                            (
-                            strpos($fair['domain'], "mr.glasstec.pl") === false &&
-                            strpos($fair['domain'], "patryk.targibiurowe.com") === false &&
-                            strpos($fair['domain'], "fasttextile.com") === false &&
-                            strpos($fair['domain'], "expotrends.eu") === false &&
-                            strpos($fair['domain'], "warsawsecuritydefenceexpo.com") === false &&
-                            strpos($fair['domain'], "fabrics-expo.eu") === false)
-                            )
-                            {
-                            $other_events_items_json[] = [
-                                "other_events_domain" => $fair["domain"],
-                                "other_events_short_desc" => PWE_Functions::languageChecker($fair["short_desc_pl"], $fair["short_desc_en"]),
-                                "other_events_text" => PWE_Functions::languageChecker($fair["desc_pl"], $fair["desc_en"])
+                        if ($decoded) {
+                            $speaker = [
+                                'speakers_slug'         => $row->slug ?? '',
+                                'speaker_img'           => !empty($decoded['prelegent_person_img'])
+                                    ? 'https://cap.warsawexpo.eu/public/uploads/domains/' . str_replace('.', '-', $_SERVER['HTTP_HOST']) . '/prelegents/' . $row->slug . '/' . $decoded['prelegent_person_img']
+                                    : '',
+                                'speaker_company_img'   => !empty($decoded['prelegent_company_img'])
+                                    ? 'https://cap.warsawexpo.eu/public/uploads/domains/' . str_replace('.', '-', $_SERVER['HTTP_HOST']) . '/prelegents/' . $row->slug . '/' . $decoded['prelegent_company_img']
+                                    : '',
+                                'speaker_company_name'  => PWE_Functions::lang_pl() ? ($decoded['prelegent_company_name_pl'] ?? '') : ($decoded['prelegent_company_name_en'] ?? ''),
+                                'speaker_name'          => $decoded['prelegent_person_name'] ?? '',
+                                'speaker_position'      => PWE_Functions::lang_pl() ? ($decoded['prelegent_person_position_pl'] ?? '') : ($decoded['prelegent_person_position_en'] ?? ''),
+                                'speaker_text'          => PWE_Functions::lang_pl() ? ($decoded['prelegent_text_pl'] ?? '') : ($decoded['prelegent_text_en'] ?? ''),
+                                'speakers_order'        => $row->order ?? ''
                             ];
+
+                            $order = $speaker['speakers_order'];
+                            if (!empty($order)) {
+                                if ($order == 99) {
+                                    // add to the end of the array
+                                    $speakers_indexed[99][] = $speaker;
+                                } else {
+                                    // normal index by order
+                                    $speakers_indexed[$order][] = $speaker;
+                                }
+                            }
                         }
                     }
+                }
+            }
+
+            if (empty($speakers_indexed)) {
+                echo '<style>.pwe-element-auto-switch.speakers {display:none;}</style>';
+                return; 
+            }
+
+            // Sorted by speakers_order (without 99)
+            ksort($speakers_indexed);
+
+            // Build a score
+            $speakers = [];
+
+            // First, these are sorted out
+            foreach ($speakers_indexed as $order => $items) {
+                if ($order != 99) {
+                    foreach ($items as $op) {
+                        $speakers[] = $op;
+                    }
+                }
+            }
+
+            // At the end all with order = 99
+            if (!empty($speakers_indexed[99])) {
+                foreach ($speakers_indexed[99] as $op) {
+                    $speakers[] = $op;
                 }
             }
 
@@ -79,7 +101,7 @@ class Speakers {
 
             $output = include $preset_file;
 
-            if ($output && count($other_events_items_json) > 0) {
+            if ($output) {
                 echo $output;
             }
         }

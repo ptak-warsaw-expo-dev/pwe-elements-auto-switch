@@ -1,0 +1,112 @@
+.pwe-element-auto-switch.other-events {
+    background: var(--background-color);
+    max-width: 100%;
+    padding: 0;
+}
+.pwe-element-auto-switch .pwe-other-events__wrapper {
+    max-width: 1200px;
+    padding: 36px 18px;
+    margin: 0 auto;
+}
+.pwe-element-auto-switch .pwe-other-events__title p {
+    margin: 6px 0 0;
+}
+.pwe-element-auto-switch .pwe-other-events__items {
+    width: 100%;
+    margin: 14px 0 0;
+}
+.pwe-element-auto-switch .pwe-other-events__item {
+    background: white;
+    border-radius: 18px;
+    transition: .3s ease;
+}
+.pwe-element-auto-switch .pwe-other-events__item:hover {
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12); 
+}
+.pwe-element-auto-switch .pwe-other-events__item a {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.pwe-element-auto-switch .pwe-other-events__item-logo {
+    height: 140px;
+    flex: 0 0 140px;
+    padding: 14px;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.pwe-element-auto-switch .pwe-other-events__item-logo img {
+    object-fit: contain;
+    height: 100%;
+    max-width: 160px;
+}
+.pwe-element-auto-switch .pwe-other-events__item-statistic {
+    flex: 1 1 auto;
+    padding: 0px 36px 24px; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+.pwe-element-auto-switch .pwe-other-events__item-text, 
+.pwe-element-auto-switch .pwe-other-events__item-text p {
+    width: 100%;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    margin: 0;
+}
+.pwe-element-auto-switch .pwe-other-events__item-statistic-numbers-block {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 6px;
+}
+.pwe-element-auto-switch .pwe-other-events__item-statistic-numbers {
+    min-width: 170px;
+    display: flex;
+    gap: 8px;
+    padding: 4px;
+    text-align: left;
+}
+.pwe-element-auto-switch .pwe-other-events__item-statistic-number {
+    font-weight: 600;
+    font-size: 20px;
+    text-align: left;
+}
+.pwe-element-auto-switch .pwe-other-events__item-statistic-name {
+    font-size: 12px;
+    font-weight: 500;
+}
+.pwe-element-auto-switch .pwe-other-events__item-statistic-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pwe-element-auto-switch .pwe-other-events__item-statistic-icon svg {
+    max-width: 24px;
+}
+.pwe-element-auto-switch .pwe-other-events__show-more-btn {
+    color: var(--accent-color);
+    font-weight: 600;
+    text-align: center;
+    background: #e7e7e7;
+    padding: 6px 18px;
+    border-radius: 36px;
+    max-width: 120px;
+    width: 120px;
+    text-transform: capitalize;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    transition: .3s;
+}
+.pwe-element-auto-switch .pwe-other-events__show-more-btn:hover {
+    gap: 10px;
+}
