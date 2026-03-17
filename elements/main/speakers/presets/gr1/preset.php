@@ -14,7 +14,7 @@ $output = '
                 $count = 0;
                 foreach ($speakers as $speaker) {
                     if ($is_mobile) {
-                        if ($count >= 6) break;
+                        if ($count >= 3) break;
                     } else {
                         if ($count >= 9) break;
                     }

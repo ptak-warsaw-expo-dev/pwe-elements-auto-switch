@@ -110,7 +110,10 @@ $output .= '
 
                         $output .= '
                         <div class="pwe-logotypes__item swiper-slide">
-                            <img src="'. $logo["url"] .'">
+                            <img 
+                                src="'. $logo["url"] .'"
+                                onerror="this.onerror=null; this.closest(\'.pwe-logotypes__item\').style.display=\'none\';"
+                            />
                             '. $logo_caption .'
                         </div>';
                     }
@@ -170,7 +173,11 @@ $output .= '
                                                                                 
                         $output .= '
                         <div class="pwe-logotypes__item swiper-slide">
-                            <img src="'. $logo["url"] .'" alt="'. (PWE_Functions::lang_pl() ? $title_pl : $title_en) .'"/>
+                            <img 
+                                src="'. $logo["url"] .'" 
+                                alt="'. (PWE_Functions::lang_pl() ? $title_pl : $title_en) .'" 
+                                onerror="this.onerror=null; this.closest(\'.pwe-logotypes__item\').style.display=\'none\';"
+                            />
                             <div class="pwe-logotypes__item-title"><span>'. (PWE_Functions::lang_pl() ? $formatted_title_pl : $formatted_title_en) .'</span></div>
                         </div>'; 
                     }
@@ -194,14 +201,20 @@ $output .= '
                     if (empty($logo["link"])) {
                         $output .= '
                         <div class="pwe-logotypes__item">
-                            <img src="'. $logo["url"] .'">
+                            <img 
+                                src="'. $logo["url"] .'"
+                                onerror="this.onerror=null; this.closest(\'.pwe-logotypes__item\').style.display=\'none\';"
+                            />
                             '. $logo_caption .'
                         </div>';
                     } else {
                         $output .= '
-                        <a ' . $target_blank . ' href="' . $logo["link"] . '">
+                        <a class="pwe-logotypes__item-link" ' . $target_blank . ' href="' . $logo["link"] . '">
                             <div class="pwe-logotypes__item">
-                                <img src="'. $logo["url"] .'">
+                                <img 
+                                    src="'. $logo["url"] .'"
+                                    onerror="this.onerror=null; this.closest(\'.pwe-logotypes__item-link\').style.display=\'none\';"
+                                />
                                 '. $logo_caption .'
                             </div>
                         </a>';

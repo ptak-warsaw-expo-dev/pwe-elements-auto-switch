@@ -120,7 +120,7 @@ if ($logotypes_slug === 'patrons-partners') {
       }
 
       $output .= '
-              <img src="'.$img.'" alt="'.$alt.'">
+              <img src="'.$img.'" alt="'.$alt.'" onerror="this.onerror=null; this.closest(\'.pwe-logotype\').style.display=\'none\';">
 
       ';
 

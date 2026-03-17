@@ -217,20 +217,28 @@ if ($logotypes_slug === 'patrons-partners') {
                       if (empty($logo['link'])) {
                           $output .= '
                           <div class="swiper-slide" data-cat="'. esc_attr($cat) .'">
-                          <div class="pwe-logotypes__item">
-                              <img src="'. esc_url($logo['url']) .'" alt="'. esc_attr($alt) .'">';
-                              $output .= ($name ? '<p>'. esc_html($name) .'</p>' : '');
-                              $output .= '
-                          </div>
+                            <div class="pwe-logotypes__item">
+                                <img 
+                                  src="'. esc_url($logo['url']) .'" 
+                                  alt="'. esc_attr($alt) .'"
+                                  onerror="this.onerror=null; this.closest(\'.swiper-slide\').style.display=\'none\';"
+                                />';
+                                $output .= ($name ? '<p>'. esc_html($name) .'</p>' : '');
+                                $output .= '
+                            </div>
                           </div>';
                       } else {
                           $output .= '
                           <div class="swiper-slide" data-cat="'. esc_attr($cat) .'">
-                          <a class="pwe-logotypes__item" target="_blank" href="'. esc_url($logo['link']) .'">
-                              <img src="'. esc_url($logo['url']) .'" alt="'. esc_attr($alt) .'">';
-                              $output .= ($name ? '<p>'. esc_html($name) .'</p>' : ''); 
-                              $output .= '
-                          </a>
+                            <a class="pwe-logotypes__item" target="_blank" href="'. esc_url($logo['link']) .'">
+                                <img 
+                                  src="'. esc_url($logo['url']) .'" 
+                                  alt="'. esc_attr($alt) .'"
+                                  onerror="this.onerror=null; this.closest(\'.swiper-slide\').style.display=\'none\';"
+                                />';
+                                $output .= ($name ? '<p>'. esc_html($name) .'</p>' : ''); 
+                                $output .= '
+                            </a>
                           </div>';
                       }
                   }

@@ -14,20 +14,6 @@ class Logotypes {
         ];
     }
 
-    // public static function url_returns_404(string $url): bool {
-    //     $headers = @get_headers($url, 1);
-
-    //     if ($headers === false) {
-    //         return true;
-    //     }
-
-    //     if (is_array($headers) && isset($headers[0])) {  !!! PHP Fatal error:  Uncaught Error: Call to undefined function str_contains() in .../pwe-elements-auto-switch/elements/main/logotypes/logotypes.php:24
-    //         return str_contains($headers[0], '404');
-    //     }
-
-    //     return true;
-    // }
-
     public static function render($group, $params = [], $atts = []) {
         $data = self::get_data();
         $element_type = $data['types'][0];
@@ -95,20 +81,17 @@ class Logotypes {
                     $linkKey = PWE_Functions::languageChecker('logos_link', 'logos_link_en');
                     $altKey = PWE_Functions::languageChecker('logos_alt', 'logos_alt_en');
 
+                    $logo_url = preg_replace('#^/uploads/domains/[^/]+/#', '/', $logo_data->logos_url);
+                    $domain_server = str_replace('.', '-', strtolower($_SERVER['HTTP_HOST']));
+
                     $element = [
-                        'url'  => 'https://cap.warsawexpo.eu/public' . $logo_data->logos_url,
+                        'url'  => 'https://cap.warsawexpo.eu/public/uploads/domains/' . $domain_server . $logo_url,
                         'name' => $data['logos_exh_name'] ?? '',
                         'desc_pl' => $desc_pl,
                         'desc_en' => $desc_en,
                         'link' => $data[$linkKey] ?? '',
                         'alt' => $data[$altKey] ?? ''
                     ];
-
-                    // $isAdmin = current_user_can('administrator');
-
-                    // if (!$isAdmin && self::url_returns_404($element['url'])) {
-                    //     return;
-                    // }
 
                     if (!in_array($element, $logotypes)) {
                         $logotypes[] = $element;

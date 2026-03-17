@@ -31,7 +31,29 @@ class Premieres {
             
         /* <-------------> General code start <-------------> */
 
+        $current_domain = $_SERVER['HTTP_HOST'];
+        $premieres = PWE_Functions::get_database_premieres_data($current_domain);
 
+        if (empty($premieres[0]->slug)) {
+            echo '<style>.pwe-element-auto-switch.premieres {display:none;}</style>';
+            return;
+        }
+
+        $slides = [];
+        foreach ($premieres as $premiere) {
+            $data = json_decode($premiere->data, true);
+            if (!isset($data[$premiere->slug])) continue;
+            $item = $data[$premiere->slug];
+
+            $slides[] = [
+                'name'      => PWE_Functions::lang_pl() ? $item['name_pl'] : ($item['name_en'] ?? $item['name_pl']),
+                'desc'      => PWE_Functions::lang_pl() ? $item['desc_pl'] : ($item['desc_en'] ?? $item['desc_pl']),
+                'exhibitor' => $item['exhibitor'] ?? '',
+                'stand'     => $item['stand'],
+                'img'       => $item['background'] ?? '',
+                'logo'      => $item['logo'] ?? ''
+            ];
+        }
 
         /* <-------------> General code end <-------------> */
 

@@ -80,11 +80,11 @@
 .pwe-element-auto-switch .pwe-speakers__company-img {
     display: flex;
     align-items: center;
-    max-width: 60px;
+    max-width: 105px;
 }
 .pwe-element-auto-switch .pwe-speakers__company-img img {
     width: 100%;
-    min-width: 60px;
+    min-width: 105px;
 }
 .pwe-element-auto-switch .pwe-speakers__bottom {
     display: flex;

@@ -12,7 +12,7 @@
 .pwe-element-auto-switch .pwe-speakers__item {
     display: flex;
     flex-direction: column;
-    border: 1px solid var(--accent-color);
+    border: 1px solid rgba(64, 64, 64, 0.32);
     border-radius: 18px;
     overflow: hidden;
 }
@@ -42,12 +42,15 @@
     justify-content: space-between;
     gap: 6px;
 }
+.pwe-element-auto-switch .pwe-speakers__item-company {
+    font-size: 14px;
+}
 .pwe-element-auto-switch .pwe-speakers__company-img {
     display: flex;
     align-items: center;
-    max-width: 75px;
+    max-width: 105px;
 }
 .pwe-element-auto-switch .pwe-speakers__company-img img {
     width: 100%;
-    min-width: 75px;
+    min-width: 105px;
 }
