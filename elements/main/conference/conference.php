@@ -240,7 +240,8 @@ class Conference {
                 $conf_title = $first_fair_adds ? ($first_fair_adds->{'konf_title_' . $lang} ?? '') : '';
                 $conf_desc  = $first_fair_adds ? ($first_fair_adds->{'konf_desc_' . $lang} ?? '') : '';
 
-                if (empty($conf_desc)) {
+                if (empty($conf_desc) && $useSchedule != true) {
+                    echo '<style>.pwe-element-auto-switch.conference {display:none;}</style>';
                     return;
                 }
 
