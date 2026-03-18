@@ -133,15 +133,13 @@ echo '
 
       // blocking translation
       el.classList.add("notranslate");
-      el.setAttribute("translate", "no");
+      el.setAttribute("translate","no");
 
       // cleanup fonts added by GT
       if (typeof stripTranslateFonts === "function") stripTranslateFonts(el);
       el.textContent = orig;
     });
   }
-
-
 
   // delete <font> inside element (Google Translate adds these)
   function stripTranslateFonts(el){
@@ -162,8 +160,10 @@ echo '
       ".exhibitor-product-modal .swiper-pagination-total, " +
       ".exhibitor-product-modal .sep"
     ).forEach(function(el){
+
       el.setAttribute("translate","no");
       el.classList.add("notranslate");
+
       stripTranslateFonts(el);
     });
   }
@@ -171,44 +171,47 @@ echo '
   // adding translate="no" and notranslate class
   function hardNoTranslate(el){
     if (!el) return;
+
     el.setAttribute("translate","no");
     el.classList.add("notranslate");
+
     // also for all children
     $all("*", el).forEach(function(ch){
       ch.setAttribute("translate","no");
       ch.classList.add("notranslate");
     });
+
     stripTranslateFonts(el);
   }
 
-function setLabelTextPreserveCount(labelEl, newText){
-  if (!labelEl) return;
+  function setLabelTextPreserveCount(labelEl, newText){
+    if (!labelEl) return;
 
-  if (labelEl.getAttribute("data-pwe-label") === newText) return;
-  labelEl.setAttribute("data-pwe-label", newText);
+    if (labelEl.getAttribute("data-pwe-label") === newText) return;
+    labelEl.setAttribute("data-pwe-label", newText);
 
-  stripTranslateFonts(labelEl);
-  Array.from(labelEl.childNodes).forEach(function(n){
-    if (n.nodeType === Node.TEXT_NODE) {
-      // deleting old text like "Hall X "
-      n.nodeValue = "";
-    }
-  });
+    stripTranslateFonts(labelEl);
 
-  // finding span with counter label and inserting before it
-  var firstEl = null;
-  for (var i=0;i<labelEl.childNodes.length;i++){
-    if (labelEl.childNodes[i].nodeType === Node.ELEMENT_NODE) {
-      firstEl = labelEl.childNodes[i];
-      break;
+    // find item with counter
+    var countEl = null;
+    Array.from(labelEl.children).forEach(function(el){
+      var txt = (el.textContent || "").replace(/\u00A0/g, " ").trim();
+      if (/^\(\d+\)$/.test(txt)) {
+        countEl = el.cloneNode(true);
+      }
+    });
+
+    // clear entire label
+    labelEl.innerHTML = "";
+
+    // set new text
+    labelEl.appendChild(document.createTextNode(newText + " "));
+
+    // restore counter
+    if (countEl) {
+      labelEl.appendChild(countEl);
     }
   }
-
-  var textNode = document.createTextNode(newText + " ");
-  if (firstEl) labelEl.insertBefore(textNode, firstEl);
-  else labelEl.appendChild(textNode);
-}
-
 
   // =========================
   // 3) APPLY TRANSLATION SCOPE
@@ -261,7 +264,6 @@ function setLabelTextPreserveCount(labelEl, newText){
     });
   }
 
-
   function fixType(){
     var r = document.querySelector("#vue-catalog");
     if (!r) return;
@@ -287,8 +289,6 @@ function setLabelTextPreserveCount(labelEl, newText){
     if (labels[2]) { hardNoTranslate(labels[2]); setLabelTextPreserveCount(labels[2], "Product"); }
   }
 
-
-
   // =========================
   // 6) APPLY + OBSERVER
   // =========================
@@ -309,28 +309,26 @@ function setLabelTextPreserveCount(labelEl, newText){
   var watchRoot = $(".filters", $(ROOT)) || $(ROOT) || document.body;
   var t = null;
 
-  new MutationObserver(function () {
-    if (t) clearTimeout(t);
-    t = setTimeout(applyAll, 250);
-  }).observe(watchRoot, { childList: true, subtree: true });
+  // new MutationObserver(function () {
+  //   if (t) clearTimeout(t);
+  //   t = setTimeout(applyAll, 250);
+  // }).observe(watchRoot, { childList: true, subtree: true });
   
-  // Looking for modal addition to pre-block swiper there immediately
-new MutationObserver(function(muts){
-  for (var i=0; i<muts.length; i++){
-    var added = muts[i].addedNodes;
-    if (!added) continue;
-    for (var j=0; j<added.length; j++){
-      var n = added[j];
-      if (n.nodeType !== 1) continue;
-      if (n.matches && (n.matches(".exhibitor-product-modal") || n.querySelector(".exhibitor-product-modal"))){
-        preBlockSwiper();
-        return;
-      }
-    }
-  }
-}).observe(document.body, { childList: true, subtree: true });
-
+  // // Looking for modal addition to pre-block swiper there immediately
+  // new MutationObserver(function(muts){
+  //   for (var i=0; i<muts.length; i++){
+  //     var added = muts[i].addedNodes;
+  //     if (!added) continue;
+  //     for (var j=0; j<added.length; j++){
+  //       var n = added[j];
+  //       if (n.nodeType !== 1) continue;
+  //       if (n.matches && (n.matches(".exhibitor-product-modal") || n.querySelector(".exhibitor-product-modal"))){
+  //         preBlockSwiper();
+  //         return;
+  //       }
+  //     }
+  //   }
+  // }).observe(document.body, { childList: true, subtree: true });
 
 })();
-</script>
-';
+</script>';
