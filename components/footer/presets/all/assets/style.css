@@ -171,7 +171,13 @@
     font-size: 14px;
 }
 
-
+footer#colophon {
+    display: flex !important;
+    height: auto !important;
+}
+footer#colophon .row-container {
+    width: 100%;
+}
 footer#colophon .footer-last {
     display: none !important;
 }

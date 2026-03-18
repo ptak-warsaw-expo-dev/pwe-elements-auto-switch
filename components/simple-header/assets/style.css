@@ -1,0 +1,86 @@
+.pwe-element-auto-switch.simple-header {
+    max-width: 100%;
+    padding: 0; 
+}
+.main-container {
+    margin-top: 0px !important;   
+} 
+.row-parent:has(.pwe-simple-header) {
+    max-width: 100%;
+    padding: 0 !important;
+}
+.wpb_column:has(.pwe-simple-header) {
+    max-width: 100%;
+}
+.pwe-element-auto-switch .pwe-simple-header__container {
+    position: relative;
+    padding-top: 80px;
+}
+.pwe-element-auto-switch .pwe-simple-header__background {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.pwe-element-auto-switch .pwe-simple-header__wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    min-height: 300px;
+    max-width: 1200px;
+    width: 100%;
+    margin: auto 0;
+}
+.pwe-element-auto-switch .pwe-simple-header__logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    max-width: 360px;
+    width: 100%;
+    height: auto;
+    z-index: 1;
+}
+.pwe-element-auto-switch .pwe-simple-header__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+}
+.pwe-element-auto-switch .pwe-simple-header__info :is(h2, h1) {
+    margin: 0;
+    color: white;
+}
+.pwe-element-auto-switch .pwe-simple-header__logo .pwe-btn {
+        background: var(--main2-color);
+        color: white !important;
+        width: 100%;
+        height: 100%;
+        text-transform: uppercase;
+        transition: .3s ease;
+        font-size: 15px;
+        font-weight: 600;
+        padding: 14px 18px;
+        letter-spacing: 0.1em;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        border-radius: 10px;
+        margin: 0;
+    }
+    .pwe-element-auto-switch .pwe-simple-header__logo .pwe-btn:hover {
+        background: var(--main2_darker_color);
+    }
+
+
+@media (max-width: 960px) {
+    .row-parent:has(.pwe-simple-header) {
+        padding: 0 !important;
+    }
+}

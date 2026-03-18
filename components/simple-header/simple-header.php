@@ -1,13 +1,13 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
-class Footer {
+class Simple_Header {
 
     private static $rendered = false;
 
     public static function get_data() {
         return [
-            'types' => ['main', 'catalog', 'flip-book', 'speakers'],
+            'types' => ['speakers'],
             'presets' => [
                 'all' => plugin_dir_path(__FILE__) . 'presets/all/preset.php',
             ],
@@ -35,29 +35,14 @@ class Footer {
         PWE_Functions::assets_per_element($element_slug, '', 'components');
         // Assets per group
         PWE_Functions::assets_per_group($element_slug, $group, '', 'components');
-
+        
         $preset_file = self::get_data()['presets'][$group] ?? null;
         if ($preset_file && file_exists($preset_file)) {
-            
+
             /* <-------------> General code start <-------------> */
 
-            $menus = wp_get_nav_menus();
-
-            foreach ($menus as $menu) {
-                $menu_name_lower = strtolower($menu->name);
-                $patterns = ['1 pl', '1 en', '2 pl', '2 en', '3 pl', '3 en'];
-                foreach ($patterns as $pattern) {
-                    if (strpos($menu_name_lower, $pattern) !== false) {
-                        $varName = 'menu_' . str_replace(' ', '_', $pattern);
-                        // $menu_1_pl, $menu_2_pl ...
-                        $$varName = $menu->name;
-                        break;
-                    }
-                }
-            } 
-
-            $base_url = ( (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http' ) . '' . $_SERVER['HTTP_HOST'];
-            $page_url = 'https://' . $_SERVER['HTTP_HOST'] . PWE_Functions::languageChecker('', '/en/', '/de/');
+            $trade_fair_name = (PWE_Functions::lang_pl()) ? do_shortcode('[trade_fair_name]') : do_shortcode('[trade_fair_name_eng]');
+            $trade_fair_date = do_shortcode('[trade_fair_date_multilang]');
 
             /* <-------------> General code end <-------------> */
             
