@@ -28,6 +28,7 @@ class PWE_Shortcodes {
     // ALL SHORTCODES START <------------------------------------------------------------------------------<
 
     private function get_shortcodes_map() {
+        $lang = ICL_LANGUAGE_CODE;
         return [
             'trade_fair_name' => 'show_trade_fair_name', // [trade_fair_name]
             'trade_fair_name_eng' => 'show_trade_fair_name_eng', // [trade_fair_name_eng]
@@ -53,8 +54,11 @@ class PWE_Shortcodes {
             'trade_fair_catalog_year' => 'show_trade_fair_catalog_year',
 
             'trade_fair_conference' => 'show_trade_fair_conference',
-            'trade_fair_conference_title' => 'show_trade_fair_conference_title',
+            'trade_fair_conference_title' => 'show_trade_fair_conference_title',   
             'trade_fair_conference_title_eng' => 'show_trade_fair_conference_title_eng',
+
+            'trade_fair_conferance' => 'show_trade_fair_conference_title', // OLD (get data from [trade_fair_conference_title])
+            'trade_fair_conferance_eng' => 'show_trade_fair_conference_title_eng', // OLD (get data from [trade_fair_conference_title_eng])
 
             'trade_fair_1stbuildday' => 'show_trade_fair_1stbuildday',
             'trade_fair_2ndbuildday' => 'show_trade_fair_2ndbuildday',
@@ -89,6 +93,7 @@ class PWE_Shortcodes {
 
             // shortcodes for Yoast SEO
             'trade_fair_full_desc' => 'sc_pwe_trade_fair_full_desc',
+            'sc_pwe_trade_fair_conference_title' => $lang === 'pl' ? 'show_trade_fair_conference_title' : 'show_trade_fair_conference_title_eng', 
             'sc_pwe_text_news' => 'sc_pwe_text_news',
             'sc_pwe_text_for_visitors' => 'sc_pwe_text_for_visitors',
             'sc_pwe_text_for_exhibitors' => 'sc_pwe_text_for_exhibitors',
@@ -107,6 +112,7 @@ class PWE_Shortcodes {
     }
 
     private function get_gf_shortcodes_map() {
+        $lang = ICL_LANGUAGE_CODE;
         return [
             'trade_fair_name' => 'show_trade_fair_name', // {trade_fair_name}
             'trade_fair_name_eng' => 'show_trade_fair_name_eng', // {trade_fair_name_eng}
@@ -157,23 +163,24 @@ class PWE_Shortcodes {
     private function get_yoast_shortcodes_map() {
         $lang = ICL_LANGUAGE_CODE;
         return [
-            'sc_pwe_trade_fair_year'          => 'show_trade_fair_catalog_year', // %%sc_pwe_trade_fair_year%% || [trade_fair_catalog_year]
-            'sc_pwe_trade_fair_desc'          => $lang === 'pl' ? 'show_trade_fair_desc' : 'show_trade_fair_desc_eng', // %%sc_pwe_trade_fair_desc%% || [trade_fair_desc] && [trade_fair_desc_eng]
-            'sc_pwe_trade_fair_full_desc'     => 'sc_pwe_trade_fair_full_desc', // %%sc_pwe_trade_fair_full_desc%% || [trade_fair_full_desc]
-            'sc_pwe_text_news'                => 'sc_pwe_text_news', // %%sc_pwe_text_news%% || [sc_pwe_text_news]
-            'sc_pwe_text_for_visitors'        => 'sc_pwe_text_for_visitors', // %%sc_pwe_text_for_visitors%% || [sc_pwe_text_for_visitors]
-            'sc_pwe_text_for_exhibitors'      => 'sc_pwe_text_for_exhibitors', // %%sc_pwe_text_for_exhibitors%% || [sc_pwe_text_for_exhibitors]
-            'sc_pwe_text_add_calendar'        => 'sc_pwe_text_add_calendar', // %%sc_pwe_text_add_calendar%% || [sc_pwe_text_add_calendar]
-            'sc_pwe_text_gallery'             => 'sc_pwe_text_gallery', // %%sc_pwe_text_gallery%% || [sc_pwe_text_gallery]
-            'sc_pwe_text_org_info'            => 'sc_pwe_text_org_info', // %%sc_pwe_text_org_info%% || [sc_pwe_text_org_info]
-            'sc_pwe_text_exh_catalog'         => 'sc_pwe_text_exh_catalog', // %%sc_pwe_text_exh_catalog%% || [sc_pwe_text_exh_catalog]
-            'sc_pwe_text_events'              => 'sc_pwe_text_events', // %%sc_pwe_text_events%% || [sc_pwe_text_events]
-            'sc_pwe_text_contact'             => 'sc_pwe_text_contact', // %%sc_pwe_text_contact%% || [sc_pwe_text_contact]
-            'sc_pwe_text_fair_plan'           => 'sc_pwe_text_fair_plan', // %%sc_pwe_text_fair_plan%% || [sc_pwe_text_fair_plan]
-            'sc_pwe_text_registration'        => 'sc_pwe_text_registration', // %%sc_pwe_text_registration%% || [sc_pwe_text_registration]
-            'sc_pwe_text_promote_yourself'    => 'sc_pwe_text_promote_yourself', // %%sc_pwe_text_promote_yourself%% || [sc_pwe_text_promote_yourself]
-            'sc_pwe_text_become_an_exhibitor' => 'sc_pwe_text_become_an_exhibitor', // %%sc_pwe_text_become_an_exhibitor%% || [sc_pwe_text_become_an_exhibitor]
-            'sc_pwe_text_store'               => 'sc_pwe_text_store', // %%sc_pwe_text_store%% || [sc_pwe_text_store]
+            'sc_pwe_trade_fair_year'             => 'show_trade_fair_catalog_year', // %%sc_pwe_trade_fair_year%% || [trade_fair_catalog_year]
+            'sc_pwe_trade_fair_desc'             => $lang === 'pl' ? 'show_trade_fair_desc' : 'show_trade_fair_desc_eng', // %%sc_pwe_trade_fair_desc%% || [trade_fair_desc] && [trade_fair_desc_eng]
+            'sc_pwe_trade_fair_conference_title' => $lang === 'pl' ? 'show_trade_fair_conference_title' : 'show_trade_fair_conference_title_eng', // %%sc_pwe_trade_fair_conference_title%% || [sc_pwe_trade_fair_conference_title]
+            'sc_pwe_trade_fair_full_desc'        => 'sc_pwe_trade_fair_full_desc', // %%sc_pwe_trade_fair_full_desc%% || [trade_fair_full_desc]
+            'sc_pwe_text_news'                   => 'sc_pwe_text_news', // %%sc_pwe_text_news%% || [sc_pwe_text_news]
+            'sc_pwe_text_for_visitors'           => 'sc_pwe_text_for_visitors', // %%sc_pwe_text_for_visitors%% || [sc_pwe_text_for_visitors]
+            'sc_pwe_text_for_exhibitors'         => 'sc_pwe_text_for_exhibitors', // %%sc_pwe_text_for_exhibitors%% || [sc_pwe_text_for_exhibitors]
+            'sc_pwe_text_add_calendar'           => 'sc_pwe_text_add_calendar', // %%sc_pwe_text_add_calendar%% || [sc_pwe_text_add_calendar]
+            'sc_pwe_text_gallery'                => 'sc_pwe_text_gallery', // %%sc_pwe_text_gallery%% || [sc_pwe_text_gallery]
+            'sc_pwe_text_org_info'               => 'sc_pwe_text_org_info', // %%sc_pwe_text_org_info%% || [sc_pwe_text_org_info]
+            'sc_pwe_text_exh_catalog'            => 'sc_pwe_text_exh_catalog', // %%sc_pwe_text_exh_catalog%% || [sc_pwe_text_exh_catalog]
+            'sc_pwe_text_events'                 => 'sc_pwe_text_events', // %%sc_pwe_text_events%% || [sc_pwe_text_events]
+            'sc_pwe_text_contact'                => 'sc_pwe_text_contact', // %%sc_pwe_text_contact%% || [sc_pwe_text_contact]
+            'sc_pwe_text_fair_plan'              => 'sc_pwe_text_fair_plan', // %%sc_pwe_text_fair_plan%% || [sc_pwe_text_fair_plan]
+            'sc_pwe_text_registration'           => 'sc_pwe_text_registration', // %%sc_pwe_text_registration%% || [sc_pwe_text_registration]
+            'sc_pwe_text_promote_yourself'       => 'sc_pwe_text_promote_yourself', // %%sc_pwe_text_promote_yourself%% || [sc_pwe_text_promote_yourself]
+            'sc_pwe_text_become_an_exhibitor'    => 'sc_pwe_text_become_an_exhibitor', // %%sc_pwe_text_become_an_exhibitor%% || [sc_pwe_text_become_an_exhibitor]
+            'sc_pwe_text_store'                  => 'sc_pwe_text_store', // %%sc_pwe_text_store%% || [sc_pwe_text_store]
         ];
     }
 

@@ -319,7 +319,7 @@ class PWE_Functions {
 
 
     // <============================================================================================>
-    // Functions from plugin PWElements 3.2.4 <========================================================>
+    // Functions from plugin PWElements 3.2.6 <========================================================>
     // <============================================================================================>
 
 
@@ -389,23 +389,31 @@ class PWE_Functions {
      * List of DB servers
      */
     private static function get_database_servers() {
+
+        // All PWE servers
         $servers = [
-            ['host'=>'dedyk180.cyber-folks.pl',  'name'=>PWE_DB_NAME_180,  'user'=>PWE_DB_USER_180,  'pass'=>PWE_DB_PASSWORD_180],
-            ['host'=>'dedyk93.cyber-folks.pl',   'name'=>PWE_DB_NAME_93,   'user'=>PWE_DB_USER_93,   'pass'=>PWE_DB_PASSWORD_93],
-            ['host'=>'dedyk239.cyber-folks.pl',  'name'=>PWE_DB_NAME_239,  'user'=>PWE_DB_USER_239,  'pass'=>PWE_DB_PASSWORD_239],
+            ['host'=>'dedyk180.cyber-folks.pl',  'name'=>PWE_DB_NAME_180,  'user'=>PWE_DB_USER_180,  'pass'=>PWE_DB_PASSWORD_180,  'ip'  => '94.152.207.180'],
+            ['host'=>'dedyk93.cyber-folks.pl',   'name'=>PWE_DB_NAME_93,   'user'=>PWE_DB_USER_93,   'pass'=>PWE_DB_PASSWORD_93,   'ip'  => '94.152.206.93'],
+            ['host'=>'dedyk239.cyber-folks.pl',  'name'=>PWE_DB_NAME_239,  'user'=>PWE_DB_USER_239,  'pass'=>PWE_DB_PASSWORD_239,  'ip'  => '91.225.28.47'],  
         ];
 
-        // For CRON
+        // CRON fallback
         if (empty($_SERVER['SERVER_ADDR'])) {
             $_SERVER['SERVER_ADDR'] = self::resolve_server_addr_fallback();
         }
 
-        // If there is current server — try localhost first
-        switch ($_SERVER['SERVER_ADDR']) {
-            case '94.152.207.180': $servers[0]['host'] = 'localhost'; break;
-            case '94.152.206.93':  $servers[1]['host'] = 'localhost'; break;
-            case '91.225.28.47':   $servers[2]['host'] = 'localhost'; break;
+        $current_ip = $_SERVER['SERVER_ADDR'];
+
+        // Finding which host is localhost
+        foreach ($servers as &$server) {
+            if ($server['ip'] === $current_ip) {
+                $server['host'] = 'localhost';
+                $server['is_local'] = true;
+            } else {
+                $server['is_local'] = false;
+            }
         }
+        unset($server);
 
         return $servers;
     }
@@ -418,29 +426,39 @@ class PWE_Functions {
 
         // Return cached connection if already connected
         if (self::$cached_db_connection !== null) {
-            return self::$cached_db_connection;
+            if (self::$cached_db_connection->dbh) {
+                return self::$cached_db_connection;
+            }
         }
 
         $servers = self::get_database_servers();
-        if (empty($servers)) {
-            error_log('PWE DB: No database servers defined.');
-            return false;
-        }
 
-        // Add timeout filter only once
+        // Timeout filter (only once)
         static $timeout_filter_added = false;
         if (!$timeout_filter_added) {
             add_filter('wpdb_connect_timeout', [self::class, 'set_db_timeout']);
             $timeout_filter_added = true;
         }
 
-        // Put localhost at the top
-        usort($servers, function ($a, $b) {
-            return ($a['host'] === 'localhost') ? -1 : 0;
-        });
+        // Checking servers, looking for the current one
+        $is_local_server = false;
+        foreach ($servers as $s) {
+            if (!empty($s['is_local'])) {
+                $is_local_server = true;
 
-        foreach ($servers as $server_index => $server) {
+                break;
+            }
+        }
 
+        // If return true - localhost only
+        if ($is_local_server) {
+            $servers = array_values(array_filter($servers, function ($s) {
+                return !empty($s['is_local']);
+            }));
+        }
+
+        foreach ($servers as $server) {
+            
             if (empty($server['user']) || empty($server['pass']) || empty($server['name'])) {
                 // Skip server with missing data
                 continue;
@@ -449,16 +467,22 @@ class PWE_Functions {
             $host = $server['host'] ?? 'localhost';
             $fail_key = 'pwe_db_fail_' . md5($host);
 
-            // Skip hosts that failed recently
+            // Temporary blocking
+            static $logged_blocked_hosts = [];
             if (get_transient($fail_key)) {
-                error_log("PWE DB: Skipping recently failed host $host.");
+
+                if (empty($logged_blocked_hosts[$host])) {
+                    error_log("PWE DB: Host $host is temporarily blocked. Will retry later.");
+                    $logged_blocked_hosts[$host] = true;
+                }
+
                 continue;
             }
 
             // Attempt DB connection
             $wpdb = new wpdb($server['user'], $server['pass'], $server['name'], $host);
 
-            if (empty($wpdb->dbh)) {
+            if (!$wpdb->dbh) {
                 error_log("PWE DB: Cannot connect to $host. Blocking for 30s.");
                 set_transient($fail_key, 1, 30);
                 continue;
@@ -486,7 +510,7 @@ class PWE_Functions {
      * Timeout filter for wpdb connection
      */
     public static function set_db_timeout() {
-        return 10;
+        return 2;
     }
 
     // DATABASE CONNECTIONS START <==================================================================================>
@@ -533,7 +557,6 @@ class PWE_Functions {
         $transient_key = 'pwe_fairs_' . md5($cache_key);
 
         $cached = ($_SERVER['HTTP_HOST'] === 'mr.glasstec.pl') ? false : get_transient($transient_key);
-        // $cached = false; // FOR TEST
 
         if ($cached !== false) {
 
@@ -546,7 +569,7 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_fairs_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .', expires in '. $time_left_str);
+            self::debug_log('get_database_fairs_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
 
             self::$fairs_cache[$cache_key] = $cached;
             return $cached;
@@ -644,24 +667,31 @@ class PWE_Functions {
                 return [];
             }
 
-            // range ±17 days
-            $start = date('Y/m/d', strtotime($current_fair->fair_date_start . ' -17 days'));
-            $end   = date('Y/m/d', strtotime($current_fair->fair_date_end . ' +17 days'));
+            if (!$current_fair || empty($current_fair->fair_date_start) || empty($current_fair->fair_date_end)) {
 
-            // getting the fairs in this area
-            $sql .= "
-                WHERE f.fair_date_start >= %s
-                AND f.fair_date_end <= %s
-            ";
+                // return all fairs (no WHERE)
+                
+            } else {
 
-            $params[] = $start;
-            $params[] = $end;
+                // range ±17 days
+                $start = date('Y/m/d', strtotime($current_fair->fair_date_start . ' -17 days'));
+                $end   = date('Y/m/d', strtotime($current_fair->fair_date_end . ' +17 days'));
+
+                // getting the fairs in this area
+                $sql .= "
+                    WHERE f.fair_date_start >= %s
+                    AND f.fair_date_end <= %s
+                ";
+
+                $params[] = $start;
+                $params[] = $end;
+
+            }
         }
 
         $sql .= " GROUP BY f.id ";
 
         $start_time = microtime(true);
-        $start_memory  = memory_get_usage();
 
         // Execute query
         if (!empty($params)) {
@@ -680,7 +710,6 @@ class PWE_Functions {
         }
 
         $time = round((microtime(true) - $start_time) * 1000, 2);
-        $memory = round((memory_get_usage() - $start_memory) / 1024, 2);
 
 
         // SQL error
@@ -694,7 +723,7 @@ class PWE_Functions {
         set_transient($transient_key, $results, 600);
 
         self::$fairs_cache[$cache_key] = $results;
-        self::debug_log('get_database_fairs_data: data from database DIRECTLY (SQL time ' . $time . 'ms | memory ' . $memory . ' KB) → key=' . $cache_key .', host=' . $cap_db->dbhost .' and saved to TRANSIENT.');
+        self::debug_log('get_database_fairs_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -739,7 +768,7 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_fairs_data_adds: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .', expires in '. $time_left_str);
+            self::debug_log('get_database_fairs_data_adds: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
             self::$fairs_adds_cache[$cache_key] = $cached;
             return $cached;
         }
@@ -781,13 +810,11 @@ class PWE_Functions {
         ";
 
         $start_time = microtime(true);
-        $start_memory  = memory_get_usage();
 
         // Execute query
         $results = $cap_db->get_results($cap_db->prepare($sql, $fair_domain));
 
         $time = round((microtime(true) - $start_time) * 1000, 2);
-        $memory = round((memory_get_usage() - $start_memory) / 1024, 2);
 
         // Handle SQL errors
         if ($cap_db->last_error) {
@@ -801,7 +828,7 @@ class PWE_Functions {
 
         // Save to runtime cache
         self::$fairs_adds_cache[$cache_key] = $results;
-        self::debug_log('get_database_fairs_data_adds: data from database DIRECTLY (SQL time ' . $time . 'ms | memory ' . $memory . ' KB) → key='. $cache_key .', host='. $cap_db->dbhost .' and saved to TRANSIENT.');
+        self::debug_log('get_database_fairs_data_adds: data from database DIRECTLY (SQL time ' . $time . 'ms) → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -843,7 +870,7 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_translations_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .', expires in '. $time_left_str);
+            self::debug_log('get_database_translations_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
             self::$translations_cache[$cache_key] = $cached;
             return $cached;
         }
@@ -872,7 +899,6 @@ class PWE_Functions {
         ";
 
         $start_time = microtime(true);
-        $start_memory  = memory_get_usage();
 
         if ($fair_domain !== null) {
             $sql .= " WHERE f.fair_domain = %s";
@@ -882,7 +908,6 @@ class PWE_Functions {
         }
 
         $time = round((microtime(true) - $start_time) * 1000, 2);
-        $memory = round((memory_get_usage() - $start_memory) / 1024, 2);
 
         // SQL error
         if ($cap_db->last_error) {
@@ -950,7 +975,7 @@ class PWE_Functions {
 
         // Save STATIC cache
         self::$translations_cache[$cache_key] = $results;
-        self::debug_log('get_database_translations_data: data from database DIRECTLY (SQL time ' . $time . 'ms | memory ' . $memory . ' KB) → key='. $cache_key .', host='. $cap_db->dbhost .' and saved to TRANSIENT.');
+        self::debug_log('get_database_translations_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -994,7 +1019,7 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_associates_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .', expires in '. $time_left_str);
+            self::debug_log('get_database_associates_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
             self::$associates_cache[$cache_key] = $cached;
             return $cached;
         }
@@ -1007,13 +1032,11 @@ class PWE_Functions {
         ", $fair_domain);
 
         $start_time = microtime(true);
-        $start_memory  = memory_get_usage();
 
         // Execute query
         $results = $cap_db->get_results($query);
 
         $time = round((microtime(true) - $start_time) * 1000, 2);
-        $memory = round((memory_get_usage() - $start_memory) / 1024, 2);
 
         // Handle SQL errors
         if ($cap_db->last_error) {
@@ -1027,7 +1050,7 @@ class PWE_Functions {
 
         // Save to runtime cache
         self::$associates_cache[$cache_key] = $results;
-        self::debug_log('get_database_associates_data: data from database DIRECTLY (SQL time ' . $time . 'ms | memory ' . $memory . ' KB) → key='. $cache_key .', host='. $cap_db->dbhost .' and saved to TRANSIENT.');
+        self::debug_log('get_database_associates_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -1069,7 +1092,7 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_store_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .', expires in '. $time_left_str);
+            self::debug_log('get_database_store_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
             self::$store_cache = $cached;
             return $cached;
         }
@@ -1078,13 +1101,11 @@ class PWE_Functions {
         $sql = "SELECT * FROM shop";
 
         $start_time = microtime(true);
-        $start_memory  = memory_get_usage();
 
         // Execute query
         $results = $cap_db->get_results($sql);
 
         $time = round((microtime(true) - $start_time) * 1000, 2);
-        $memory = round((memory_get_usage() - $start_memory) / 1024, 2);
 
         // Handle SQL errors
         if ($cap_db->last_error) {
@@ -1098,7 +1119,7 @@ class PWE_Functions {
 
         // Save to runtime cache
         self::$store_cache = $results;
-        self::debug_log('get_database_store_data: data from database DIRECTLY (SQL time ' . $time . 'ms | memory ' . $memory . ' KB) → key='. $cache_key .', host='. $cap_db->dbhost .' and saved to TRANSIENT.');
+        self::debug_log('get_database_store_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -1140,7 +1161,7 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_store_packages_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .', expires in '. $time_left_str);
+            self::debug_log('get_database_store_packages_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
             self::$store_packages_cache = $cached;
             return $cached;
         }
@@ -1149,13 +1170,11 @@ class PWE_Functions {
         $sql = "SELECT * FROM shop_packs";
 
         $start_time = microtime(true);
-        $start_memory  = memory_get_usage();
 
         // Execute query
         $results = $cap_db->get_results($sql);
 
         $time = round((microtime(true) - $start_time) * 1000, 2);
-        $memory = round((memory_get_usage() - $start_memory) / 1024, 2);
 
         // Handle SQL errors
         if ($cap_db->last_error) {
@@ -1169,7 +1188,7 @@ class PWE_Functions {
 
         // Save to runtime cache
         self::$store_packages_cache = $results;
-        self::debug_log('get_database_store_packages_data: data from database DIRECTLY (SQL time ' . $time . 'ms | memory ' . $memory . ' KB) → key='. $cache_key .', host='. $cap_db->dbhost .' and saved to TRANSIENT.');
+        self::debug_log('get_database_store_packages_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -1213,13 +1232,12 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_meta_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .', expires in '. $time_left_str);
+            self::debug_log('get_database_meta_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
             self::$meta_cache[$cache_key] = $cached;
             return $cached;
         }
 
         $start_time = microtime(true);
-        $start_memory  = memory_get_usage();
 
         // SQL query
         if ($data_id === null) {
@@ -1240,8 +1258,6 @@ class PWE_Functions {
         }
 
         $time = round((microtime(true) - $start_time) * 1000, 2);
-        $memory = round((memory_get_usage() - $start_memory) / 1024, 2);
-        $peak_memory = round(memory_get_peak_usage() / 1024, 2);
 
         // Handle SQL errors
         if ($cap_db->last_error) {
@@ -1255,7 +1271,7 @@ class PWE_Functions {
 
         // Save to runtime cache
         self::$meta_cache[$cache_key] = $results;
-        self::debug_log('get_database_meta_data: data from database DIRECTLY (SQL time ' . $time . 'ms | memory ' . $memory . ' KB | peak '. $peak_memory .') → key='. $cache_key .', host='. $cap_db->dbhost .' and saved to TRANSIENT.');
+        self::debug_log('get_database_meta_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -1297,7 +1313,7 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_groups_contacts_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .', expires in '. $time_left_str);
+            self::debug_log('get_database_groups_contacts_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
             self::$groups_contacts_cache = $cached;
             return $cached;
         }
@@ -1306,13 +1322,11 @@ class PWE_Functions {
         $sql = "SELECT * FROM groups";
 
         $start_time = microtime(true);
-        $start_memory  = memory_get_usage();
 
         // Execute query
         $results = $cap_db->get_results($sql);
 
         $time = round((microtime(true) - $start_time) * 1000, 2);
-        $memory = round((memory_get_usage() - $start_memory) / 1024, 2);
 
         // Handle SQL errors
         if ($cap_db->last_error) {
@@ -1326,7 +1340,7 @@ class PWE_Functions {
 
         // Save to runtime cache
         self::$groups_contacts_cache = $results;
-        self::debug_log('get_database_groups_contacts_data: data from database DIRECTLY (SQL time ' . $time . 'ms | memory ' . $memory . ' KB) → key='. $cache_key .', host='. $cap_db->dbhost .' and saved to TRANSIENT.');
+        self::debug_log('get_database_groups_contacts_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -1368,7 +1382,7 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_groups_callcenter_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .', expires in '. $time_left_str);
+            self::debug_log('get_database_groups_callcenter_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
             self::$groups_callcenter_cache = $cached;
             return $cached;
         }
@@ -1377,13 +1391,11 @@ class PWE_Functions {
         $sql = "SELECT * FROM form_senders";
 
         $start_time = microtime(true);
-        $start_memory  = memory_get_usage();
 
         // Execute query
         $results = $cap_db->get_results($sql);
 
         $time = round((microtime(true) - $start_time) * 1000, 2);
-        $memory = round((memory_get_usage() - $start_memory) / 1024, 2);
 
         // Handle SQL errors
         if ($cap_db->last_error) {
@@ -1397,7 +1409,7 @@ class PWE_Functions {
 
         // Save to runtime cache
         self::$groups_callcenter_cache = $results;
-        self::debug_log('get_database_groups_callcenter_data: data from database DIRECTLY (SQL time ' . $time . 'ms | memory ' . $memory . ' KB) → key='. $cache_key .', host='. $cap_db->dbhost .' and saved to TRANSIENT.');
+        self::debug_log('get_database_groups_callcenter_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -1439,7 +1451,7 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_groups_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .', expires in '. $time_left_str);
+            self::debug_log('get_database_groups_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
             self::$groups_cache = $cached;
             return $cached;
         }
@@ -1448,13 +1460,11 @@ class PWE_Functions {
         $sql = "SELECT fair_domain, fair_group FROM fairs";
 
         $start_time = microtime(true);
-        $start_memory  = memory_get_usage();
 
         // Execute query
         $results = $cap_db->get_results($sql);
 
         $time = round((microtime(true) - $start_time) * 1000, 2);
-        $memory = round((memory_get_usage() - $start_memory) / 1024, 2);
 
         // Handle SQL errors
         if ($cap_db->last_error) {
@@ -1468,7 +1478,7 @@ class PWE_Functions {
 
         // Save to runtime cache
         self::$groups_cache = $results;
-        self::debug_log('get_database_groups_data: data from database DIRECTLY (SQL time ' . $time . 'ms | memory ' . $memory . ' KB) → key='. $cache_key .', host='. $cap_db->dbhost .' and saved to TRANSIENT.');
+        self::debug_log('get_database_groups_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -1511,7 +1521,7 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_week_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .', expires in '. $time_left_str);
+            self::debug_log('get_database_week_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
             self::$week_data_cache[$cache_key] = $cached;
             return $cached;
         }
@@ -1532,7 +1542,6 @@ class PWE_Functions {
         }
 
         $start_time = microtime(true);
-        $start_memory  = memory_get_usage();
 
         $results = [];
         if ($week && !empty($week->fairs_domains)) {
@@ -1540,14 +1549,13 @@ class PWE_Functions {
         }
 
         $time = round((microtime(true) - $start_time) * 1000, 2);
-        $memory = round((memory_get_usage() - $start_memory) / 1024, 2);
 
         // Save to transient for 10 minutes
         set_transient($transient_key, $results, 600);
 
         // Save to runtime cache
         self::$week_data_cache[$cache_key] = $results;
-        self::debug_log('get_database_week_data: data from database DIRECTLY (SQL time ' . $time . 'ms | memory ' . $memory . ' KB) → key='. $cache_key .', host='. $cap_db->dbhost .' and saved to TRANSIENT.');
+        self::debug_log('get_database_week_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -1590,7 +1598,7 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_week_all: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .', expires in '. $time_left_str);
+            self::debug_log('get_database_week_all: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
             self::$week_all_cache[$cache_key] = $cached;
             return $cached;
         }
@@ -1611,7 +1619,6 @@ class PWE_Functions {
         }
 
         $start_time = microtime(true);
-        $start_memory  = memory_get_usage();
 
         $results = null;
         if ($week && !empty($week->week_data)) {
@@ -1620,14 +1627,13 @@ class PWE_Functions {
         }
 
         $time = round((microtime(true) - $start_time) * 1000, 2);
-        $memory = round((memory_get_usage() - $start_memory) / 1024, 2);
 
         // Save to transient for 10 minutes
         set_transient($transient_key, $results, 600);
 
         // Save to runtime cache
         self::$week_all_cache[$cache_key] = $results;
-        self::debug_log('get_database_week_all: data from database DIRECTLY (SQL time ' . $time . 'ms | memory ' . $memory . ' KB) → key='. $cache_key .', host='. $cap_db->dbhost .' and saved to TRANSIENT.');
+        self::debug_log('get_database_week_all: data from database DIRECTLY (SQL time ' . $time . 'ms) → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -1669,7 +1675,7 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_all_week_domains: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .', expires in '. $time_left_str);
+            self::debug_log('get_all_week_domains: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
             self::$all_week_domains_cache = $cached;
             return $cached;
         }
@@ -1685,7 +1691,6 @@ class PWE_Functions {
         }
 
         $start_time = microtime(true);
-        $start_memory  = memory_get_usage();
 
         $domains = [];
         foreach ($rows as $row) {
@@ -1695,7 +1700,6 @@ class PWE_Functions {
         }
 
         $time = round((microtime(true) - $start_time) * 1000, 2);
-        $memory = round((memory_get_usage() - $start_memory) / 1024, 2);
 
         $results = array_values(array_unique($domains));
 
@@ -1704,7 +1708,7 @@ class PWE_Functions {
 
         // Save to runtime cache
         self::$all_week_domains_cache = $results;
-        self::debug_log('get_all_week_domains: data from database DIRECTLY (SQL time ' . $time . 'ms | memory ' . $memory . ' KB) → key='. $cache_key .', host='. $cap_db->dbhost .' and saved to TRANSIENT.');
+        self::debug_log('get_all_week_domains: data from database DIRECTLY (SQL time ' . $time . 'ms) → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -1747,7 +1751,7 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_logotypes_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .', expires in '. $time_left_str);
+            self::debug_log('get_database_logotypes_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
             self::$logotypes_cache[$cache_key] = $cached;
             return $cached;
         }
@@ -1795,20 +1799,18 @@ class PWE_Functions {
         }
 
         $start_time = microtime(true);
-        $start_memory  = memory_get_usage();
 
         // Remove duplicates (helper function)
         $results = self::remove_logo_duplicates($results);
 
         $time = round((microtime(true) - $start_time) * 1000, 2);
-        $memory = round((memory_get_usage() - $start_memory) / 1024, 2);
 
         // Save to transient for 10 minutes
         set_transient($transient_key, $results, 600);
 
         // Save to runtime cache
         self::$logotypes_cache[$cache_key] = $results;
-        self::debug_log('get_database_logotypes_data: data from database DIRECTLY (SQL time ' . $time . 'ms | memory ' . $memory . ' KB) → key='. $cache_key .', host='. $cap_db->dbhost .' and saved to TRANSIENT.');
+        self::debug_log('get_database_logotypes_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -1851,13 +1853,12 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_conferences_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .', expires in '. $time_left_str);
+            self::debug_log('get_database_conferences_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
             self::$conferences_cache[$cache_key] = $cached;
             return $cached;
         }
 
         $start_time = microtime(true);
-        $start_memory  = memory_get_usage();
 
         // SQL query
         $results = $cap_db->get_results(
@@ -1868,7 +1869,6 @@ class PWE_Functions {
         );
 
         $time = round((microtime(true) - $start_time) * 1000, 2);
-        $memory = round((memory_get_usage() - $start_memory) / 1024, 2);
 
         // Handle SQL errors
         if ($cap_db->last_error) {
@@ -1901,7 +1901,7 @@ class PWE_Functions {
 
         // Save to runtime cache
         self::$conferences_cache[$cache_key] = $results;
-        self::debug_log('get_database_conferences_data: data from database DIRECTLY (SQL time ' . $time . 'ms | memory ' . $memory . ' KB) → key='. $cache_key .', host='. $cap_db->dbhost .' and saved to TRANSIENT.');
+        self::debug_log('get_database_conferences_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -1912,10 +1912,12 @@ class PWE_Functions {
     private static $fairs_profiles_cache = [];
     public static function get_database_fairs_data_profiles($fair_domain = null): array {
 
-        $current_domain = $fair_domain ?? $_SERVER['HTTP_HOST'];
-        $cache_key = $current_domain;
+        if ($fair_domain === null) {
+            $fair_domain = $_SERVER['HTTP_HOST'] ?? '';
+        }
 
         // Check runtime cache first
+        $cache_key = $fair_domain ?? ($_SERVER['HTTP_HOST'] ?? '');
         if (isset(self::$fairs_profiles_cache[$cache_key])) {
             self::debug_log('get_database_fairs_data_profiles: data from STATIC → key='. $cache_key);
             return self::$fairs_profiles_cache[$cache_key];
@@ -1944,7 +1946,7 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_fairs_data_profiles: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .', expires in '. $time_left_str);
+            self::debug_log('get_database_fairs_data_profiles: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
             self::$fairs_profiles_cache[$cache_key] = $cached;
             return $cached;
         }
@@ -1957,14 +1959,12 @@ class PWE_Functions {
         ";
 
         $start_time = microtime(true);
-        $start_memory  = memory_get_usage();
 
-        $results = $fair_domain
-            ? $cap_db->get_results($cap_db->prepare($sql . " WHERE f.fair_domain = %s", $fair_domain))
-            : $cap_db->get_results($sql);
+        $results = $cap_db->get_results(
+            $cap_db->prepare($sql . " WHERE f.fair_domain = %s", $fair_domain)
+        );
 
         $time = round((microtime(true) - $start_time) * 1000, 2);
-        $memory = round((memory_get_usage() - $start_memory) / 1024, 2);
 
         // Handle SQL errors
         if ($cap_db->last_error) {
@@ -1977,7 +1977,7 @@ class PWE_Functions {
 
         // Save to runtime cache
         self::$fairs_profiles_cache[$cache_key] = $results;
-        self::debug_log('get_database_fairs_data_profiles: data from database DIRECTLY (SQL time ' . $time . 'ms | memory ' . $memory . ' KB) → key='. $cache_key .', host='. $cap_db->dbhost .' and saved to TRANSIENT.');
+        self::debug_log('get_database_fairs_data_profiles: data from database DIRECTLY (SQL time ' . $time . 'ms) → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -2018,7 +2018,7 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_premieres_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .', expires in '. $time_left_str);
+            self::debug_log('get_database_premieres_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
             self::$premieres_cache[$cache_key] = $cached;
             return $cached;
         }
@@ -2037,7 +2037,6 @@ class PWE_Functions {
         }
 
         $start_time = microtime(true);
-        $start_memory  = memory_get_usage();
 
         // Execute query
         $results = !empty($params)
@@ -2045,7 +2044,6 @@ class PWE_Functions {
             : $cap_db->get_results($sql);
 
         $time = round((microtime(true) - $start_time) * 1000, 2);
-        $memory = round((memory_get_usage() - $start_memory) / 1024, 2);
 
         // Handle SQL errors
         if ($cap_db->last_error) {
@@ -2059,7 +2057,7 @@ class PWE_Functions {
 
         // Save to runtime cache
         self::$premieres_cache[$cache_key] = $results;
-        self::debug_log('get_database_premieres_data: data from database DIRECTLY (SQL time ' . $time . 'ms | memory ' . $memory . ' KB) → key='. $cache_key .', host='. $cap_db->dbhost .' and saved to TRANSIENT.');
+        self::debug_log('get_database_premieres_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -2104,7 +2102,7 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_fairs_data_opinions: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .', expires in '. $time_left_str);
+            self::debug_log('get_database_fairs_data_opinions: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
             self::$fairs_opinions_cache[$cache_key] = $cached;
             return $cached;
         }
@@ -2131,7 +2129,6 @@ class PWE_Functions {
         $sql .= " ORDER BY fp.order ASC";
 
         $start_time = microtime(true);
-        $start_memory  = memory_get_usage();
 
         // Execute query
         if (!empty($params)) {
@@ -2141,7 +2138,6 @@ class PWE_Functions {
         }
 
         $time = round((microtime(true) - $start_time) * 1000, 2);
-        $memory = round((memory_get_usage() - $start_memory) / 1024, 2);
 
         // Handle SQL errors
         if ($cap_db->last_error) {
@@ -2155,7 +2151,7 @@ class PWE_Functions {
 
         // Save to runtime cache
         self::$fairs_opinions_cache[$cache_key] = $results;
-        self::debug_log('get_database_fairs_data_opinions: data from database DIRECTLY (SQL time ' . $time . 'ms | memory ' . $memory . ' KB) → key='. $cache_key .', host='. $cap_db->dbhost .' and saved to TRANSIENT.');
+        self::debug_log('get_database_fairs_data_opinions: data from database DIRECTLY (SQL time ' . $time . 'ms) → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -2200,7 +2196,7 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_fairs_data_speakers: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .', expires in '. $time_left_str);
+            self::debug_log('get_database_fairs_data_speakers: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
             self::$fairs_speakers_cache[$cache_key] = $cached;
             return $cached;
         }
@@ -2227,7 +2223,6 @@ class PWE_Functions {
         $sql .= " ORDER BY fp.order ASC";
 
         $start_time = microtime(true);
-        $start_memory  = memory_get_usage();
 
         // Execute query
         if (!empty($params)) {
@@ -2237,7 +2232,6 @@ class PWE_Functions {
         }
 
         $time = round((microtime(true) - $start_time) * 1000, 2);
-        $memory = round((memory_get_usage() - $start_memory) / 1024, 2);
 
         // Handle SQL errors
         if ($cap_db->last_error) {
@@ -2251,7 +2245,7 @@ class PWE_Functions {
 
         // Save to runtime cache
         self::$fairs_speakers_cache[$cache_key] = $results;
-        self::debug_log('get_database_fairs_data_speakers: data from database DIRECTLY (SQL time ' . $time . 'ms | memory ' . $memory . ' KB) → key='. $cache_key .', host='. $cap_db->dbhost .' and saved to TRANSIENT.');
+        self::debug_log('get_database_fairs_data_speakers: data from database DIRECTLY (SQL time ' . $time . 'ms) → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'] and saved to TRANSIENT.');
 
         return $results;
     }
