@@ -5,13 +5,14 @@ class PWE_Elements {
 
     // Register all shortcodes and WPBakery
     public static function init() {
-        $group        = PWE_Groups::get_current_group();
+        $group = PWE_Groups::get_current_group();
 
         // Array of shortcodes and configuration of their "types"
         $shortcodes = [
-            'main'  => ['shortcode' => 'pwe-elements-auto-switch-page-main',  'title' => 'Main'],
-            'catalog' => ['shortcode' => 'pwe-elements-auto-switch-page-catalog', 'title' => 'Catalog'],
+            'main'      => ['shortcode' => 'pwe-elements-auto-switch-page-main',      'title' => 'Main'],
+            'catalog'   => ['shortcode' => 'pwe-elements-auto-switch-page-catalog',   'title' => 'Catalog'],
             'flip-book' => ['shortcode' => 'pwe-elements-auto-switch-page-flip-book', 'title' => 'Flip Book'],
+            'speakers'  => ['shortcode' => 'pwe-elements-auto-switch-page-speakers',  'title' => 'Speakers'],
         ];
 
         add_action('wp_enqueue_scripts', [__CLASS__, 'adding_styles']);

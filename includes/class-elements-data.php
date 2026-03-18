@@ -144,6 +144,11 @@ class PWE_Elements_Data {
             ['class' => 'Flip_Book',       'file' => 'elements/flip-book/flip-book.php',   'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
             ['class' => 'Footer',          'file' => 'components/footer/footer.php',       'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
         ],
+        'speakers' => [
+            ['class' => 'Simple_Header',   'file' => 'components/simple-header/simple-header.php',  'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
+            ['class' => 'Speakers',        'file' => 'elements/speakers/speakers/speakers.php',     'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2]],
+            ['class' => 'Footer',          'file' => 'components/footer/footer.php',                'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
+        ],
     ]; 
 
     /**
