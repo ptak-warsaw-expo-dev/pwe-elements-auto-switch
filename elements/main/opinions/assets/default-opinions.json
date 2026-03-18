@@ -1,0 +1,98 @@
+{
+  "default": [
+    {
+      "opinions_slug": "default-1",
+      "opinion_person_img": "/wp-content/plugins/pwe-media/media/default-opinions/Jerzy_Romanski.webp",
+      "opinion_company_img": "/wp-content/plugins/pwe-media/media/default-opinions/ofmisp-logo.webp",
+      "opinion_company_name_pl": "Ogólnopolska Federacja Małych i Średnich Przedsiębiorców",
+      "opinion_company_name_en": "Polish Federation of Small and Medium Enterprises",
+      "opinion_person_name": "Jerzy Romański",
+      "opinion_person_position_pl": "Wiceprezes",
+      "opinion_person_position_en": "Vice President",
+      "opinion_person_position_de": "Vizepräsident",
+      "opinion_text_pl": "<p>Zbudowanie przyjaznej więzi pomiędzy organizatorem targów, firmą wystawiającą się i organizacjami wspierającymi jest kluczowe, by uniknąć błędów i w pełni wykorzystać potencjał wydarzenia.</p>",
+      "opinion_text_en": "<p>Building a friendly relationship between the trade fair organizer, the exhibiting company, and supporting organizations is key to avoiding mistakes and fully utilizing the potential of the event.</p>",
+      "opinion_text_de": "<p>Der Aufbau einer freundschaftlichen Beziehung zwischen dem Messeveranstalter, dem ausstellenden Unternehmen und den unterstützenden Organisationen ist entscheidend, um Fehler zu vermeiden und das volle Potenzial der Veranstaltung auszuschöpfen.</p>",
+      "opinions_order": 1
+    },
+    {
+      "opinions_slug": "default-2",
+      "opinion_person_img": "/wp-content/plugins/pwe-media/media/default-opinions/Krzysztof-Niczyporczuk.webp",
+      "opinion_company_img": "/wp-content/plugins/pwe-media/media/default-opinions/pio-logo.webp",
+      "opinion_company_name_pl": "Polska Izba Opakowań",
+      "opinion_company_name_en": "Polish Packaging Chamber",
+      "opinion_person_name": "Mgr inż. Krzysztof Niczyporuk",
+      "opinion_person_position_pl": "",
+      "opinion_person_position_en": "",
+      "opinion_person_position_de": "",
+      "opinion_text_pl": "<p>PTAK Warsaw Expo to wysokiej klasy organizator imprez targowych i konferencji. Polska Izba Opakowań pozytywnie ocenia współpracę z Ptak Warsaw Expo jako rzetelnym partnerem.</p>",
+      "opinion_text_en": "<p>PTAK Warsaw Expo is a high-quality organizer of trade fairs and conferences. The Polish Packaging Chamber positively evaluates cooperation with Ptak Warsaw Expo as a reliable partner.</p>",
+      "opinion_text_de": "<p>PTAK Warsaw Expo ist ein hochwertiger Veranstalter von Messen und Konferenzen. Die Polnische Verpackungskammer bewertet die Zusammenarbeit mit Ptak Warsaw Expo als einen zuverlässigen Partner positiv.</p>",
+      "opinions_order": 2
+    },
+    {
+      "opinions_slug": "default-3",
+      "opinion_person_img": "/wp-content/plugins/pwe-media/media/default-opinions/Piotr-Fiejkiewicz.webp",
+      "opinion_company_img": "/wp-content/plugins/pwe-media/media/default-opinions/pts-logo.webp",
+      "opinion_company_name_pl": "Polskie Towarzystwo Stomatologiczne",
+      "opinion_company_name_en": "Polish Dental Society",
+      "opinion_person_name": "Piotr Flejszar",
+      "opinion_person_position_pl": "Dyrektor Biura Zarządu",
+      "opinion_person_position_en": "Director of the Management Office",
+      "opinion_person_position_de": "Direktor*in des Managementbüros",
+      "opinion_text_pl": "<p>PTAK Warsaw Expo jest największym centrum wystawienniczym, z jakim współpracujemy. Firma inwestuje w rozwój infrastruktury, co zwiększa jakość organizowanych wydarzeń.</p>",
+      "opinion_text_en": "<p>PTAK Warsaw Expo is the largest exhibition center we work with. The company invests in infrastructure development, which enhances the quality of organized events.</p>",
+      "opinion_text_de": "<p>PTAK Warsaw Expo ist das größte Messezentrum, mit dem wir zusammenarbeiten. Das Unternehmen investiert in die Entwicklung der Infrastruktur, was die Qualität der veranstalteten Events weiter verbessert.</p>",
+      "opinions_order": 3
+    },
+    {
+      "opinions_slug": "default-4",
+      "opinion_person_img": "/wp-content/plugins/pwe-media/media/default-opinions/Pawel_Babski.webp",
+      "opinion_company_img": "/wp-content/plugins/pwe-media/media/default-opinions/kit-logo.webp",
+      "opinion_company_name_pl": "Krajowa Izba Targowa",
+      "opinion_company_name_en": "National Chamber of Trade Fairs",
+      "opinion_person_name": "Paweł Babski",
+      "opinion_person_position_pl": "Prezes",
+      "opinion_person_position_en": "President",
+      "opinion_person_position_de": "Präsident",
+      "opinion_text_pl": "<p>Nic nie zastąpi spotkania z producentem, wystawcą. Możliwość obserwowania i wpływania na kierunek, w którym rozwija się branża jest możliwa dzięki takim spotkaniom. Premierowe edycje targów dają właśnie taką możliwość.</p>",
+      "opinion_text_en": "<p>Nothing can replace a meeting with a manufacturer, an exhibitor. The possibility of observing and influencing the direction in which the industry is developing is possible thanks to such meetings. Premiere editions of trade fairs offer exactly that opportunity.</p>",
+      "opinion_text_de": "<p>Nichts kann ein Treffen mit einem Hersteller, einem Aussteller ersetzen. Die Möglichkeit, die Entwicklung der Branche zu beobachten und darauf Einfluss zu nehmen, entsteht gerade durch solche Begegnungen. Premiere-Ausgaben von Fachmessen bieten genau diese Gelegenheit.</p>",
+      "opinions_order": 4
+    }
+  ],
+  "premiere": [
+    {
+      "opinions_slug": "default-5-premiere",
+      "opinion_person_img": "/wp-content/plugins/pwe-media/media/default-opinions/Marlena-Wronkowska.webp",
+      "opinion_company_img": "/wp-content/plugins/pwe-media/media/default-opinions/wprost-logo.webp",
+      "opinion_company_name_pl": "Wprost",
+      "opinion_company_name_en": "Wprost",
+      "opinion_person_name": "Marlena Wronkowska",
+      "opinion_person_position_pl": "Dyrektor Projektów Biznesowych",
+      "opinion_person_position_en": "Director of Business Projects",
+      "opinion_person_position_de": "Direktor für Geschäftsprojekte",
+      "opinion_text_pl": "<p>Tygodnik „Wprost” z uznaniem odnosi się do premierowych wydarzeń targowych organizowanych w 2025 roku przez Ptak Warsaw Expo. Nowe inicjatywy, takie jak Clean Tech Expo, Composite Poland czy Wire Tech Poland, nie tylko wzbogacają kalendarz targowy, ale również odpowiadają na aktualne potrzeby poszczególnych branż, oferując platformę do prezentacji innowacyjnych rozwiązań i nawiązywania wartościowych kontaktów biznesowych.​ Ptak Warsaw Expo, poprzez organizację tych premierowych wydarzeń, potwierdza swoją pozycję jako lidera wśród centrów targowych w Europie Środkowo-Wschodniej, oferując platformę sprzyjającą rozwojowi innowacji i współpracy międzybranżowej.</p>",
+      "opinion_text_en": "<p>The weekly magazine Wprost expresses appreciation for the premiere trade fair events organized in 2025 by Ptak Warsaw Expo. New initiatives such as Clean Tech Expo, Composite Poland, and Wire Tech Poland not only enrich the trade fair calendar but also respond to the current needs of specific industries by providing a platform for showcasing innovative solutions and fostering valuable business connections. By organizing these premiere events, Ptak Warsaw Expo reaffirms its position as a leader among trade fair centers in Central and Eastern Europe, offering an environment conducive to innovation and cross-industry collaboration.</p>",
+      "opinion_text_de": "<p>Das Wochenmagazin Wprost würdigt die Premieren-Fachmessen, die 2025 von Ptak Warsaw Expo organisiert werden. Neue Initiativen wie die Clean Tech Expo, Composite Poland und Wire Tech Poland bereichern nicht nur den Messekalender, sondern entsprechen auch den aktuellen Bedürfnissen spezifischer Branchen, indem sie eine Plattform für die Präsentation innovativer Lösungen und die Förderung wertvoller Geschäftskontakte bieten. Mit der Organisation dieser Premierenveranstaltungen bestätigt Ptak Warsaw Expo seine Position als führendes Messezentrum in Mittel- und Osteuropa und schafft ein Umfeld, das Innovation und branchenübergreifende Zusammenarbeit fördert.</p>",
+      "opinions_order": 5
+    }
+  ],
+  "no_premiere": [
+    {
+      "opinions_slug": "default-5-no-premiere",
+      "opinion_person_img": "/wp-content/plugins/pwe-media/media/default-opinions/Radoslaw-Dziuba.webp",
+      "opinion_company_img": "/wp-content/plugins/pwe-media/media/default-opinions/lukasiewicz-logo.webp",
+      "opinion_company_name_pl": "Łukasiewicz – Łódzki Instytut Technologiczny",
+      "opinion_company_name_en": "Łukasiewicz – Łódź Institute of Technology",
+      "opinion_person_name": "dr Radosław Dziuba",
+      "opinion_person_position_pl": "Dyrektor Sieci Badawczej Łukasiewicz",
+      "opinion_person_position_en": "Director of the Łukasiewicz Research Network",
+      "opinion_person_position_de": "Direktor des Forschungsnetzwerks Łukasiewicz",
+      "opinion_text_pl": "<p>Ptak Warsaw Expo to partner, z którym wymieniamy się wiedzą i doświadczeniem w dziedzinach związanych z działalnością obydwu instytucji. Centrum targowo-wystawienniczym Ptak Warsaw Expo pozwala na nawiązywanie kluczowych kontaktów biznesowych, budowanie relacji z klientami oraz poznanie nowych trendów.</p>",
+      "opinion_text_en": "<p>Ptak Warsaw Expo is a partner with whom we exchange knowledge and experience in areas related to the activities of both institutions. The Ptak Warsaw Expo exhibition center facilitates establishing key business contacts, building client relationships, and discovering new trends.</p>",
+      "opinion_text_de": "<p>Ptak Warsaw Expo ist ein Partner, mit dem wir Wissen und Erfahrungen in Bereichen austauschen, die mit der Tätigkeit beider Institutionen verbunden sind. Das Messezentrum Ptak Warsaw Expo erleichtert die Anbahnung wichtiger Geschäftskontakte, den Aufbau von Kundenbeziehungen und die Entdeckung neuer Trends.</p>",
+      "opinions_order": 5
+    }
+  ]
+}

@@ -34,7 +34,7 @@ class Opinions {
             $edition = do_shortcode('[trade_fair_edition]');
 
             // Loading JSON with default opinions
-            $opinions_file = 'https://mr.glasstec.pl/doc/pwe-opinions.json';
+            $opinions_file = __DIR__ . '/assets/default-opinions.json';
             $opinions_data = json_decode(file_get_contents($opinions_file), true);
 
             $default_opinions = $opinions_data['default'] ?? [];

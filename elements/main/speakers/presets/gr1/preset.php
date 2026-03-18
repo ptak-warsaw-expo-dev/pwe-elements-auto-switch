@@ -16,7 +16,7 @@ $output = '
                     if ($is_mobile) {
                         if ($count >= 3) break;
                     } else {
-                        if ($count >= 9) break;
+                        if ($count >= 6) break;
                     }
                     
                     $output .= '
@@ -43,10 +43,9 @@ $output = '
             $output .= '
         </div>';
 
-        if (count($speakers) > 9) {
+        if (count($speakers) > 6) {
             $output .= '
             <div class="pwe-speakers__bottom">
-                <p>' . PWE_Functions::languageChecker('Chcesz być częścią naszego wydarzenia?', 'Do you want to be part of our event?') . '</p>
                 <div class="pwe-speakers__btn">
                     <a class="pwe-main-btn--secondary" href="' . PWE_Functions::languageChecker('/prelegenci/', '/en/speakers/') . '">' . PWE_Functions::languageChecker('Zobacz wszystkich prelegentów', 'See all speakers') . '</a>
                 </div>
