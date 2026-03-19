@@ -25,6 +25,53 @@
     line-height: 1.5;
     color: black;
 }
+.pwe-element-auto-switch .pwe-main-btn--primary {
+    background: var(--accent-color);
+    text-decoration: none;
+    color: white !important;
+    font-size: 16px;
+    text-align: center;
+    font-weight: 600;
+    padding: 13px 29px;
+    border-radius: 10px;
+    min-width: 220px;
+    cursor: pointer;
+    transition: .3s ease;
+}
+.pwe-element-auto-switch .pwe-main-btn--primary:hover {
+    background: var(--accent_darker_color);
+}
+.pwe-element-auto-switch .pwe-main-btn--secondary {
+    background: var(--main2-color);
+    text-decoration: none;
+    color: white !important;
+    font-size: 16px;
+    text-align: center;
+    font-weight: 600;
+    padding: 13px 29px;
+    border-radius: 10px;
+    min-width: 220px;
+    cursor: pointer;
+    transition: .3s ease;
+}
+.pwe-element-auto-switch .pwe-main-btn--secondary:hover {
+    background: var(--main2_darker_color);
+}
+.pwe-element-auto-switch .pwe-main-btn--black {
+    background: black;
+    text-decoration: none;
+    color: white !important;
+    font-size: 16px;
+    text-align: center;
+    font-weight: 600;
+    padding: 13px 29px;
+    border-radius: 10px;
+    min-width: 220px;
+    transition: .3s ease;
+}
+.pwe-element-auto-switch .pwe-main-btn--black:hover {
+    background: color-mix(in srgb, black 80%, white 20%);
+}
 @media(max-width:650px) {
     .pwe-element-auto-switch .pwe-main-title {
         font-size: 24px;

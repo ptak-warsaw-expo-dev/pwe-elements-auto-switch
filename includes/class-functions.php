@@ -544,24 +544,13 @@ class PWE_Functions {
             return self::$fairs_cache[$cache_key];
         }
 
-        // Connect database
-        $cap_db = self::connect_database();
-
-        if (!$cap_db) {
-            self::debug_log('get_database_fairs_data: no database connection.', 'error');
-            self::$fairs_cache[$cache_key] = [];
-            return [];
-        }
-
         // Transient cache
         $transient_key = 'pwe_fairs_' . md5($cache_key);
-
-        $cached = ($_SERVER['HTTP_HOST'] === 'mr.glasstec.pl') ? false : get_transient($transient_key);
+        $cached = get_transient($transient_key);
 
         if ($cached !== false) {
 
             $timeout = get_option('_transient_timeout_' . $transient_key);
-
             if ($timeout !== false) {
                 $time_left = $timeout - time();
                 $time_left_str = gmdate('H:i:s', max($time_left, 0));
@@ -569,10 +558,19 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_fairs_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
+            self::debug_log('get_database_fairs_data: data from TRANSIENT → key='. $cache_key .', expires in '. $time_left_str);
 
             self::$fairs_cache[$cache_key] = $cached;
             return $cached;
+        }
+
+        // Connect database
+        $cap_db = self::connect_database();
+
+        if (!$cap_db) {
+            self::debug_log('get_database_fairs_data: no database connection.', 'error');
+            self::$fairs_cache[$cache_key] = [];
+            return [];
         }
 
         // Base SQL
@@ -685,7 +683,6 @@ class PWE_Functions {
 
                 $params[] = $start;
                 $params[] = $end;
-
             }
         }
 
@@ -710,7 +707,6 @@ class PWE_Functions {
         }
 
         $time = round((microtime(true) - $start_time) * 1000, 2);
-
 
         // SQL error
         if ($cap_db->last_error) {
@@ -744,19 +740,11 @@ class PWE_Functions {
             return self::$fairs_adds_cache[$cache_key];
         }
 
-        // Connect to database
-        $cap_db = self::connect_database();
-        if (!$cap_db) {
-            self::debug_log('get_database_fairs_data_adds: no database connection.', 'error');
-            self::$fairs_adds_cache[$cache_key] = [];
-            return [];
-        }
-
         // Transient key
         $transient_key = 'pwe_fairs_adds_' . md5($cache_key);
 
         // Try transient
-        $cached = ($_SERVER['HTTP_HOST'] === 'mr.glasstec.pl') ? false : get_transient($transient_key);
+        $cached = get_transient($transient_key);
         if ($cached !== false) {
 
             // Getting the transient expiration time
@@ -768,9 +756,17 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_fairs_data_adds: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
+            self::debug_log('get_database_fairs_data_adds: data from TRANSIENT → key='. $cache_key .', expires in '. $time_left_str);
             self::$fairs_adds_cache[$cache_key] = $cached;
             return $cached;
+        }
+
+        // Connect to database
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::debug_log('get_database_fairs_data_adds: no database connection.', 'error');
+            self::$fairs_adds_cache[$cache_key] = [];
+            return [];
         }
 
         // SQL query
@@ -848,18 +844,10 @@ class PWE_Functions {
             return self::$translations_cache[$cache_key];
         }
 
-        // Connect DB
-        $cap_db = self::connect_database();
-        if (!$cap_db) {
-            self::debug_log('get_database_translations_data: no database connection.', 'error', 'error');
-            self::$translations_cache[$cache_key] = [];
-            return [];
-        }
-
         // Transient
         $transient_key = 'pwe_translations_' . md5($cache_key);
 
-        $cached = ($_SERVER['HTTP_HOST'] === 'mr.glasstec.pl') ? false : get_transient($transient_key);
+        $cached = get_transient($transient_key);
         if ($cached !== false) {
             // Getting the transient expiration time
             $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -870,9 +858,17 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_translations_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
+            self::debug_log('get_database_translations_data: data from TRANSIENT → key='. $cache_key .', expires in '. $time_left_str);
             self::$translations_cache[$cache_key] = $cached;
             return $cached;
+        }
+
+        // Connect DB
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::debug_log('get_database_translations_data: no database connection.', 'error', 'error');
+            self::$translations_cache[$cache_key] = [];
+            return [];
         }
 
         // SQL
@@ -996,19 +992,11 @@ class PWE_Functions {
             return self::$associates_cache[$cache_key];
         }
 
-        // Connect to database
-        $cap_db = self::connect_database();
-        if (!$cap_db) {
-            self::debug_log('get_database_associates_data: no database connection.', 'error');
-            self::$associates_cache[$cache_key] = [];
-            return [];
-        }
-
         // Transient key
         $transient_key = 'pwe_associates_' . md5($cache_key);
 
         // Try transient
-        $cached = ($_SERVER['HTTP_HOST'] === 'mr.glasstec.pl') ? false : get_transient($transient_key);
+        $cached = get_transient($transient_key);
         if ($cached !== false) {
             // Getting the transient expiration time
             $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -1019,9 +1007,17 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_associates_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
+            self::debug_log('get_database_associates_data: data from TRANSIENT → key='. $cache_key .', expires in '. $time_left_str);
             self::$associates_cache[$cache_key] = $cached;
             return $cached;
+        }
+
+        // Connect to database
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::debug_log('get_database_associates_data: no database connection.', 'error');
+            self::$associates_cache[$cache_key] = [];
+            return [];
         }
 
         // SQL query
@@ -1069,19 +1065,11 @@ class PWE_Functions {
             return self::$store_cache;
         }
 
-        // Connect to database
-        $cap_db = self::connect_database();
-        if (!$cap_db) {
-            self::debug_log('get_database_store_data: no database connection.', 'error');
-            self::$store_cache = [];
-            return [];
-        }
-
         // Transient key
         $transient_key = 'pwe_store_data';
 
         // Try to get cached data from transient
-        $cached = ($_SERVER['HTTP_HOST'] === 'mr.glasstec.pl') ? false : get_transient($transient_key);
+        $cached = get_transient($transient_key);
         if ($cached !== false) {
             // Getting the transient expiration time
             $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -1092,9 +1080,17 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_store_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
+            self::debug_log('get_database_store_data: data from TRANSIENT → key='. $cache_key .', expires in '. $time_left_str);
             self::$store_cache = $cached;
             return $cached;
+        }
+
+        // Connect to database
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::debug_log('get_database_store_data: no database connection.', 'error');
+            self::$store_cache = [];
+            return [];
         }
 
         // SQL query
@@ -1138,19 +1134,11 @@ class PWE_Functions {
             return self::$store_packages_cache;
         }
 
-        // Connect to database
-        $cap_db = self::connect_database();
-        if (!$cap_db) {
-            self::debug_log('get_database_store_packages_data: no database connection.', 'error');
-            self::$store_packages_cache = [];
-            return [];
-        }
-
         // Transient key
         $transient_key = 'pwe_store_packages';
 
         // Try transient
-        $cached = ($_SERVER['HTTP_HOST'] === 'mr.glasstec.pl') ? false : get_transient($transient_key);
+        $cached = get_transient($transient_key);
         if ($cached !== false) {
             // Getting the transient expiration time
             $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -1161,9 +1149,17 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_store_packages_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
+            self::debug_log('get_database_store_packages_data: data from TRANSIENT → key='. $cache_key .', expires in '. $time_left_str);
             self::$store_packages_cache = $cached;
             return $cached;
+        }
+
+        // Connect to database
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::debug_log('get_database_store_packages_data: no database connection.', 'error');
+            self::$store_packages_cache = [];
+            return [];
         }
 
         // SQL query
@@ -1209,19 +1205,11 @@ class PWE_Functions {
             return self::$meta_cache[$cache_key];
         }
 
-        // Connect to database
-        $cap_db = self::connect_database();
-        if (!$cap_db) {
-            self::debug_log('get_database_meta_data: no database connection.', 'error');
-            self::$meta_cache[$cache_key] = [];
-            return [];
-        }
-
         // Transient key
         $transient_key = 'pwe_meta_' . md5($cache_key);
 
         // Try transient
-        $cached = ($_SERVER['HTTP_HOST'] === 'mr.glasstec.pl') ? false : get_transient($transient_key);
+        $cached = get_transient($transient_key);
         if ($cached !== false) {
             // Getting the transient expiration time
             $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -1232,9 +1220,17 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_meta_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
+            self::debug_log('get_database_meta_data: data from TRANSIENT → key='. $cache_key .', expires in '. $time_left_str);
             self::$meta_cache[$cache_key] = $cached;
             return $cached;
+        }
+
+        // Connect to database
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::debug_log('get_database_meta_data: no database connection.', 'error');
+            self::$meta_cache[$cache_key] = [];
+            return [];
         }
 
         $start_time = microtime(true);
@@ -1290,19 +1286,11 @@ class PWE_Functions {
             return self::$groups_contacts_cache;
         }
 
-        // Connect to database
-        $cap_db = self::connect_database();
-        if (!$cap_db) {
-            self::debug_log('get_database_groups_contacts_data: no database connection.', 'error');
-            self::$groups_contacts_cache = [];
-            return [];
-        }
-
         // Transient key
         $transient_key = 'pwe_groups_contacts';
 
         // Try transient
-        $cached = ($_SERVER['HTTP_HOST'] === 'mr.glasstec.pl') ? false : get_transient($transient_key);
+        $cached = get_transient($transient_key);
         if ($cached !== false) {
             // Getting the transient expiration time
             $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -1313,9 +1301,17 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_groups_contacts_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
+            self::debug_log('get_database_groups_contacts_data: data from TRANSIENT → key='. $cache_key .', expires in '. $time_left_str);
             self::$groups_contacts_cache = $cached;
             return $cached;
+        }
+
+        // Connect to database
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::debug_log('get_database_groups_contacts_data: no database connection.', 'error');
+            self::$groups_contacts_cache = [];
+            return [];
         }
 
         // SQL query
@@ -1359,19 +1355,11 @@ class PWE_Functions {
             return self::$groups_callcenter_cache;
         }
 
-        // Connect to database
-        $cap_db = self::connect_database();
-        if (!$cap_db) {
-            self::debug_log('get_database_groups_callcenter_data: no database connection.', 'error');
-            self::$groups_callcenter_cache = [];
-            return [];
-        }
-
         // Transient key
         $transient_key = 'pwe_groups_callcenter';
 
         // Try transient
-        $cached = ($_SERVER['HTTP_HOST'] === 'mr.glasstec.pl') ? false : get_transient($transient_key);
+        $cached = get_transient($transient_key);
         if ($cached !== false) {
             // Getting the transient expiration time
             $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -1382,9 +1370,17 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_groups_callcenter_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
+            self::debug_log('get_database_groups_callcenter_data: data from TRANSIENT → key='. $cache_key .', expires in '. $time_left_str);
             self::$groups_callcenter_cache = $cached;
             return $cached;
+        }
+
+        // Connect to database
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::debug_log('get_database_groups_callcenter_data: no database connection.', 'error');
+            self::$groups_callcenter_cache = [];
+            return [];
         }
 
         // SQL query
@@ -1428,19 +1424,11 @@ class PWE_Functions {
             return self::$groups_cache;
         }
 
-        // Connect to database
-        $cap_db = self::connect_database();
-        if (!$cap_db) {
-            self::debug_log('get_database_groups_data: no database connection.', 'error');
-            self::$groups_cache = [];
-            return [];
-        }
-
         // Transient key
         $transient_key = 'pwe_groups';
 
         // Try transient
-        $cached = ($_SERVER['HTTP_HOST'] === 'mr.glasstec.pl') ? false : get_transient($transient_key);
+        $cached = get_transient($transient_key);
         if ($cached !== false) {
             // Getting the transient expiration time
             $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -1451,9 +1439,17 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_groups_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
+            self::debug_log('get_database_groups_data: data from TRANSIENT → key='. $cache_key .', expires in '. $time_left_str);
             self::$groups_cache = $cached;
             return $cached;
+        }
+
+        // Connect to database
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::debug_log('get_database_groups_data: no database connection.', 'error');
+            self::$groups_cache = [];
+            return [];
         }
 
         // SQL query
@@ -1498,19 +1494,11 @@ class PWE_Functions {
             return self::$week_data_cache[$cache_key];
         }
 
-        // Connect to database
-        $cap_db = self::connect_database();
-        if (!$cap_db) {
-            self::debug_log('get_database_week_data: no database connection.', 'error');
-            self::$week_data_cache[$cache_key] = [];
-            return [];
-        }
-
         // Transient key
         $transient_key = 'pwe_week_data_' . md5($cache_key);
 
         // Try transient
-        $cached = ($_SERVER['HTTP_HOST'] === 'mr.glasstec.pl') ? false : get_transient($transient_key);
+        $cached = get_transient($transient_key);
         if ($cached !== false) {
             // Getting the transient expiration time
             $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -1521,9 +1509,17 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_week_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
+            self::debug_log('get_database_week_data: data from TRANSIENT → key='. $cache_key .', expires in '. $time_left_str);
             self::$week_data_cache[$cache_key] = $cached;
             return $cached;
+        }
+
+        // Connect to database
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::debug_log('get_database_week_data: no database connection.', 'error');
+            self::$week_data_cache[$cache_key] = [];
+            return [];
         }
 
         // SQL query
@@ -1575,19 +1571,11 @@ class PWE_Functions {
             return self::$week_all_cache[$cache_key];
         }
 
-        // Connect to database
-        $cap_db = self::connect_database();
-        if (!$cap_db) {
-            self::debug_log('get_database_week_all: no database connection.', 'error');
-            self::$week_all_cache[$cache_key] = null;
-            return null;
-        }
-
         // Transient key
         $transient_key = 'pwe_week_all_' . md5($cache_key);
 
         // Try transient
-        $cached = ($_SERVER['HTTP_HOST'] === 'mr.glasstec.pl') ? false : get_transient($transient_key);
+        $cached = get_transient($transient_key);
         if ($cached !== false) {
             // Getting the transient expiration time
             $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -1598,9 +1586,17 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_week_all: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
+            self::debug_log('get_database_week_all: data from TRANSIENT → key='. $cache_key .', expires in '. $time_left_str);
             self::$week_all_cache[$cache_key] = $cached;
             return $cached;
+        }
+
+        // Connect to database
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::debug_log('get_database_week_all: no database connection.', 'error');
+            self::$week_all_cache[$cache_key] = null;
+            return null;
         }
 
         // SQL query
@@ -1652,19 +1648,11 @@ class PWE_Functions {
             return self::$all_week_domains_cache;
         }
 
-        // Connect to database
-        $cap_db = self::connect_database();
-        if (!$cap_db) {
-            self::debug_log('get_all_week_domains: no database connection.', 'error');
-            self::$all_week_domains_cache = [];
-            return [];
-        }
-
         // Transient key
         $transient_key = 'pwe_all_week_domains';
 
         // Try transient
-        $cached = ($_SERVER['HTTP_HOST'] === 'mr.glasstec.pl') ? false : get_transient($transient_key);
+        $cached = get_transient($transient_key);
         if ($cached !== false) {
             // Getting the transient expiration time
             $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -1675,9 +1663,17 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_all_week_domains: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
+            self::debug_log('get_all_week_domains: data from TRANSIENT → key='. $cache_key .', expires in '. $time_left_str);
             self::$all_week_domains_cache = $cached;
             return $cached;
+        }
+
+        // Connect to database
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::debug_log('get_all_week_domains: no database connection.', 'error');
+            self::$all_week_domains_cache = [];
+            return [];
         }
 
         // SQL query
@@ -1728,19 +1724,11 @@ class PWE_Functions {
             return self::$logotypes_cache[$cache_key];
         }
 
-        // Connect to database
-        $cap_db = self::connect_database();
-        if (!$cap_db) {
-            self::debug_log('get_database_logotypes_data: no database connection.', 'error');
-            self::$logotypes_cache[$cache_key] = [];
-            return [];
-        }
-
         // Transient key
         $transient_key = 'pwe_logotypes_' . md5($cache_key);
 
         // Try transient
-        $cached = ($_SERVER['HTTP_HOST'] === 'mr.glasstec.pl') ? false : get_transient($transient_key);
+        $cached = get_transient($transient_key);
         if ($cached !== false) {
             // Getting the transient expiration time
             $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -1751,9 +1739,17 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_logotypes_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
+            self::debug_log('get_database_logotypes_data: data from TRANSIENT → key='. $cache_key .', expires in '. $time_left_str);
             self::$logotypes_cache[$cache_key] = $cached;
             return $cached;
+        }
+
+        // Connect to database
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::debug_log('get_database_logotypes_data: no database connection.', 'error');
+            self::$logotypes_cache[$cache_key] = [];
+            return [];
         }
 
         // SQL query
@@ -1830,19 +1826,11 @@ class PWE_Functions {
             return self::$conferences_cache[$cache_key];
         }
 
-        // Connect to database
-        $cap_db = self::connect_database();
-        if (!$cap_db) {
-            self::debug_log('get_database_conferences_data: no database connection.', 'error');
-            self::$conferences_cache[$cache_key] = [];
-            return [];
-        }
-
         // Transient key
         $transient_key = 'pwe_conferences_' . md5($cache_key);
 
         // Try transient
-        $cached = ($_SERVER['HTTP_HOST'] === 'mr.glasstec.pl') ? false : get_transient($transient_key);
+        $cached = get_transient($transient_key);
         if ($cached !== false) {
             // Getting the transient expiration time
             $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -1853,9 +1841,17 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_conferences_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
+            self::debug_log('get_database_conferences_data: data from TRANSIENT → key='. $cache_key .', expires in '. $time_left_str);
             self::$conferences_cache[$cache_key] = $cached;
             return $cached;
+        }
+
+        // Connect to database
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::debug_log('get_database_conferences_data: no database connection.', 'error');
+            self::$conferences_cache[$cache_key] = [];
+            return [];
         }
 
         $start_time = microtime(true);
@@ -1923,19 +1919,11 @@ class PWE_Functions {
             return self::$fairs_profiles_cache[$cache_key];
         }
 
-        // Connect to database
-        $cap_db = self::connect_database();
-        if (!$cap_db) {
-            self::debug_log('get_database_fairs_data_profiles: no database connection.', 'error');
-            self::$fairs_profiles_cache[$cache_key] = [];
-            return [];
-        }
-
         // Transient key
         $transient_key = 'pwe_fairs_profiles_' . md5($cache_key);
 
         // Try transient
-        $cached = ($_SERVER['HTTP_HOST'] === 'mr.glasstec.pl') ? false : get_transient($transient_key);
+        $cached = get_transient($transient_key);
         if ($cached !== false) {
             // Getting the transient expiration time
             $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -1946,9 +1934,17 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_fairs_data_profiles: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
+            self::debug_log('get_database_fairs_data_profiles: data from TRANSIENT → key='. $cache_key .', expires in '. $time_left_str);
             self::$fairs_profiles_cache[$cache_key] = $cached;
             return $cached;
+        }
+
+        // Connect to database
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::debug_log('get_database_fairs_data_profiles: no database connection.', 'error');
+            self::$fairs_profiles_cache[$cache_key] = [];
+            return [];
         }
 
         // SQL query
@@ -1995,19 +1991,11 @@ class PWE_Functions {
             return self::$premieres_cache[$cache_key];
         }
 
-        // Connect to database
-        $cap_db = self::connect_database();
-        if (!$cap_db) {
-            self::debug_log('get_database_premieres_data: no database connection.', 'error');
-            self::$premieres_cache[$cache_key] = [];
-            return [];
-        }
-
         // Transient key unique for this domain
         $transient_key = 'pwe_premieres_' . md5($cache_key);
 
         // Try to get cached data from transient
-        $cached = ($_SERVER['HTTP_HOST'] === 'mr.glasstec.pl') ? false : get_transient($transient_key);
+        $cached = get_transient($transient_key);
         if ($cached !== false) {
             // Getting the transient expiration time
             $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -2018,9 +2006,17 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_premieres_data: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
+            self::debug_log('get_database_premieres_data: data from TRANSIENT → key='. $cache_key .', expires in '. $time_left_str);
             self::$premieres_cache[$cache_key] = $cached;
             return $cached;
+        }
+
+        // Connect to database
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::debug_log('get_database_premieres_data: no database connection.', 'error');
+            self::$premieres_cache[$cache_key] = [];
+            return [];
         }
 
         // SQL query
@@ -2079,19 +2075,11 @@ class PWE_Functions {
             return self::$fairs_opinions_cache[$cache_key];
         }
 
-        // Connect to database
-        $cap_db = self::connect_database();
-        if (!$cap_db) {
-            self::debug_log('get_database_fairs_data_opinions: no database connection.', 'error', 'error');
-            self::$fairs_opinions_cache[$cache_key] = [];
-            return [];
-        }
-
         // Transient key
         $transient_key = 'pwe_fairs_opinions_' . md5($cache_key);
 
         // Try to get cached data from transient
-        $cached = ($_SERVER['HTTP_HOST'] === 'mr.glasstec.pl') ? false : get_transient($transient_key);
+        $cached = get_transient($transient_key);
         if ($cached !== false) {
             // Getting the transient expiration time
             $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -2102,9 +2090,17 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_fairs_data_opinions: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
+            self::debug_log('get_database_fairs_data_opinions: data from TRANSIENT → key='. $cache_key .', expires in '. $time_left_str);
             self::$fairs_opinions_cache[$cache_key] = $cached;
             return $cached;
+        }
+
+        // Connect to database
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::debug_log('get_database_fairs_data_opinions: no database connection.', 'error', 'error');
+            self::$fairs_opinions_cache[$cache_key] = [];
+            return [];
         }
 
         // SQL query
@@ -2173,19 +2169,11 @@ class PWE_Functions {
             return self::$fairs_speakers_cache[$cache_key];
         }
 
-        // Connect to database
-        $cap_db = self::connect_database();
-        if (!$cap_db) {
-            self::debug_log('get_database_fairs_data_speakers: no database connection.', 'error', 'error');
-            self::$fairs_speakers_cache[$cache_key] = [];
-            return [];
-        }
-
         // Transient key
         $transient_key = 'pwe_fairs_speakers_' . md5($cache_key);
 
         // Try to get cached data from transient
-        $cached = ($_SERVER['HTTP_HOST'] === 'mr.glasstec.pl') ? false : get_transient($transient_key);
+        $cached = get_transient($transient_key);
         if ($cached !== false) {
             // Getting the transient expiration time
             $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -2196,9 +2184,17 @@ class PWE_Functions {
                 $time_left_str = 'unknown';
             }
 
-            self::debug_log('get_database_fairs_data_speakers: data from TRANSIENT → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'], expires in '. $time_left_str);
+            self::debug_log('get_database_fairs_data_speakers: data from TRANSIENT → key='. $cache_key .', expires in '. $time_left_str);
             self::$fairs_speakers_cache[$cache_key] = $cached;
             return $cached;
+        }
+
+        // Connect to database
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::debug_log('get_database_fairs_data_speakers: no database connection.', 'error', 'error');
+            self::$fairs_speakers_cache[$cache_key] = [];
+            return [];
         }
 
         // SQL query

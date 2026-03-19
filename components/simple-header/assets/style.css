@@ -31,7 +31,8 @@
     min-height: 300px;
     max-width: 1200px;
     width: 100%;
-    margin: auto 0;
+    margin: 0 auto;
+    padding: 30px;
 }
 .pwe-element-auto-switch .pwe-simple-header__logo {
     display: flex;
@@ -42,7 +43,6 @@
     max-width: 360px;
     width: 100%;
     height: auto;
-    z-index: 1;
 }
 .pwe-element-auto-switch .pwe-simple-header__info {
     display: flex;
@@ -54,33 +54,54 @@
 .pwe-element-auto-switch .pwe-simple-header__info :is(h2, h1) {
     margin: 0;
     color: white;
+    text-transform: uppercase;
+    text-align: center;
+}
+.pwe-element-auto-switch .pwe-simple-header__info h1 {
+    font-size: 30px;
+}
+.pwe-element-auto-switch .pwe-simple-header__info h2 {
+    font-size: 40px;
 }
 .pwe-element-auto-switch .pwe-simple-header__logo .pwe-btn {
-        background: var(--main2-color);
-        color: white !important;
-        width: 100%;
-        height: 100%;
-        text-transform: uppercase;
-        transition: .3s ease;
-        font-size: 15px;
-        font-weight: 600;
-        padding: 14px 18px;
-        letter-spacing: 0.1em;
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: none;
-        border-radius: 10px;
-        margin: 0;
-    }
-    .pwe-element-auto-switch .pwe-simple-header__logo .pwe-btn:hover {
-        background: var(--main2_darker_color);
-    }
-
-
+    background: var(--main2-color);
+    color: white !important;
+    width: 100%;
+    height: 100%;
+    text-transform: uppercase;
+    transition: .3s ease;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 14px 18px;
+    letter-spacing: 0.1em;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 10px;
+    margin: 0;
+}
+.pwe-element-auto-switch .pwe-simple-header__logo .pwe-btn:hover {
+    background: var(--main2_darker_color);
+}
 @media (max-width: 960px) {
     .row-parent:has(.pwe-simple-header) {
         padding: 0 !important;
+    }
+    .pwe-element-auto-switch .pwe-simple-header__wrapper {
+        flex-direction: column;
+        gap: 18px;
+        min-height: auto;
+        margin: 0 auto;
+    }
+    .pwe-element-auto-switch .pwe-simple-header__logo {
+        margin: 0 auto;
+    }
+    .pwe-element-auto-switch .pwe-simple-header__info h1 {
+        font-size: 26px;
+    }
+    .pwe-element-auto-switch .pwe-simple-header__info h2 {
+        font-size: 28px;
     }
 }
