@@ -54,3 +54,14 @@
     width: 100%;
     min-width: 105px;
 }
+.pwe-element-auto-switch .pwe-speakers__bottom {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    gap: 18px;
+}
+.pwe-element-auto-switch .pwe-speakers__btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 18px;
+}

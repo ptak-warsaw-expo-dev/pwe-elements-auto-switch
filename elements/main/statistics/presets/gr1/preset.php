@@ -4,12 +4,12 @@ $output = '
 <div id="pweStatistics" class="pwe-statistics">
     <div class="pwe-statistics__wrapper">
         <div class="pwe-statistics__main-tile pwe-statistics__border">
-            <h4 class="pwe-main-title">'. PWE_Functions::languageChecker('Estymacje', 'Estimates') .'</h4>
+            <h4 class="pwe-main-title">'. ($edition === "1" ? PWE_Functions::languageChecker('Estymacje', 'Estimates') : PWE_Functions::languageChecker('Statystyki', 'Statistics')) .'</h4>
             <div class="pwe-statistics__main-text">
                 <strong><p>' . do_shortcode('[pwe_edition]') . PWE_Functions::languageChecker('. edycja', ' edition') .'</p></strong>
                 <p>'. do_shortcode(PWE_Functions::languageChecker('[trade_fair_date]', '[trade_fair_date_eng]')) .'</p>
             </div>
-            <a class="pwe-statistics__btn pwe-main-btn--secondary" href="' . PWE_Functions::languageChecker('/rejestracja/', '/en/registration/') . '">' . PWE_Functions::languageChecker('Zarejestruj się', 'Registration') . '</a>
+            <a class="pwe-statistics__btn pwe-main-btn--secondary" href="' . PWE_Functions::languageChecker('/rejestracja/', '/en/registration/') . '">' . ($b2c ? PWE_Functions::languageChecker('Kup bilet', 'Buy a ticket') : PWE_Functions::languageChecker('Zarejestruj się', 'Registration')) . '</a>
         </div>
         <div class="pwe-statistics__tiles">
             <div class="pwe-statistics__tiles-visitors pwe-statistics__border">

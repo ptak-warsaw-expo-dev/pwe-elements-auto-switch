@@ -39,7 +39,18 @@ $output = '
             <div class="swiper-nav">
                 <div class="swiper-dots" aria-label="Slider navigation" role="tablist"></div>
             </div>
-        </div>
+        </div>';
+
+        if (count($speakers) > 6) {
+            $output .= '
+            <div class="pwe-speakers__bottom">
+                <div class="pwe-speakers__btn">
+                    <a class="pwe-main-btn--secondary" href="' . PWE_Functions::languageChecker('/prelegenci/', '/en/speakers/') . '">' . PWE_Functions::languageChecker('Zobacz wszystkich prelegentów', 'See all speakers') . '</a>
+                </div>
+            </div>';
+        }
+        
+    $output .= '    
     </div>
 </div>';
 

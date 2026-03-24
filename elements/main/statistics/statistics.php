@@ -18,7 +18,7 @@ class Statistics {
         ];
     }
 
-    public static function render($group) {
+    public static function render($group = '', $params = [], $atts = []) {
         $data = self::get_data();
         $element_type = $data['types'][0];
         $element_slug = strtolower(__CLASS__);
@@ -35,6 +35,8 @@ class Statistics {
             
             /* <-------------> General code start <-------------> */
 
+                $b2c = isset($atts['b2c']) ? $atts['b2c'] : false;
+
                 $visitors_total = (int) do_shortcode('[pwe_visitors]');
                 $visitors_abroad = (int) do_shortcode('[pwe_visitors_foreign]');
 
@@ -43,7 +45,7 @@ class Statistics {
                     $visitors_percent = round(($visitors_abroad / $visitors_total) * 100);
                 }
 
-
+                $edition = do_shortcode('[pwe_edition]');
 
                 // 2 GR
                 function ordinal_suffix($n) {

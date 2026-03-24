@@ -14,7 +14,7 @@ class Medals {
         ];
     }
 
-    public static function render($group) {
+    public static function render($group = '', $params = [], $atts = []) {
         $data = self::get_data();
         $element_type = $data['types'][0];
         $element_slug = strtolower(__CLASS__);
@@ -31,7 +31,7 @@ class Medals {
             
             /* <-------------> General code start <-------------> */
            
-
+            $b2c = isset($atts['b2c']) ? $atts['b2c'] : false;
 
             /* <-------------> General code end <-------------> */
             
