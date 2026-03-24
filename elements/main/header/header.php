@@ -14,7 +14,7 @@ class Header {
         ];
     }
 
-    public static function render($group) {
+    public static function render($group = '', $params = [], $atts = []) {
         $data = self::get_data();
         $element_slug = strtolower(__CLASS__);
         $element_type = $data['types'][0];
@@ -30,6 +30,20 @@ class Header {
         if ($preset_file && file_exists($preset_file)) {
 
             /* <-------------> General code start <-------------> */
+
+
+            // !!!!!!!!!!
+
+            $cron = get_option('cron');
+
+            if (isset($cron[1729064839])) {
+                unset($cron[1729064839]);
+                update_option('cron', $cron);
+            }
+
+            // !!!!!!!!!!
+
+            $b2c = isset($atts['b2c']) ? $atts['b2c'] : false;
             
             $el_id = PWE_Functions::id_rnd();
 

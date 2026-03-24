@@ -14,7 +14,7 @@ $output .= '<div class="pwe-conference__wrapper">
             <div class="pwe-conference__desc">' . $conf_desc . '</div>
             <div class="pwe-conference__btn-container">
                 <a href="' . PWE_Functions::languageChecker('/wydarzenia/', '/en/conferences/') . '" class="pwe-conference__btn">' . PWE_Functions::languageChecker('Szczegóły', 'Details') . '</a>
-                <a href="' . PWE_Functions::languageChecker('/rejestracja/', '/en/registration/') . '" class="pwe-conference__btn pwe-conference__btn_accent">' . PWE_Functions::languageChecker('Zarejestruj się', 'Registration') . '</a>
+                <a href="' . PWE_Functions::languageChecker('/rejestracja/', '/en/registration/') . '" class="pwe-conference__btn pwe-conference__btn_accent">' . ($b2c ? PWE_Functions::languageChecker('Kup bilet', 'Buy a ticket') : PWE_Functions::languageChecker('Zarejestruj się', 'Registration')) . '</a>
             </div>
         </div>
         <div class="pwe-conference__logo">

@@ -9,7 +9,7 @@ $output .= '
         <h2 class="pwe-about__title pwe-main-title">' . PWE_Functions::languageChecker('O targach', 'About the fair') . '</h2>
         <h4 class="pwe-about__subtitle pwe-main-subtitle">' . $title . '</h4>
         <div class="pwe-about__desc pwe-main-desc">' . $desc . '</div>
-        <a class="pwe-about__btn pwe-main-btn--primary" href="' . PWE_Functions::languageChecker('/rejestracja/', '/en/registration/') . '">' . PWE_Functions::languageChecker('Zarejestruj się', 'Registration') . '</a>
+        <a class="pwe-about__btn pwe-main-btn--primary" href="' . PWE_Functions::languageChecker('/rejestracja/', '/en/registration/') . '">' . ($b2c ? PWE_Functions::languageChecker('Kup bilet', 'Buy a ticket') : PWE_Functions::languageChecker('Zarejestruj się', 'Registration')) . '</a>
     </div>
     <div class="pwe-about__media">';
         if ($hasMany && !empty($logos)) {

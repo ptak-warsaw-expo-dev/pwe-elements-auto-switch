@@ -200,7 +200,7 @@ class Conference {
         return $results;
     }
 
-    public static function render($group) {
+    public static function render($group = '', $params = [], $atts = []) {
         $data = self::get_data();
         $useSchedule = !empty($data['useSchedule']);
         $element_type = $data['types'][0];
@@ -229,6 +229,8 @@ class Conference {
         if ($preset_file && file_exists($preset_file)) {
 
             /* <-------------> General code start <-------------> */
+
+                $b2c = isset($atts['b2c']) ? $atts['b2c'] : false;
 
                 $lang = PWE_Functions::languageChecker('pl', 'en');
                 $domain = parse_url(site_url(), PHP_URL_HOST);
@@ -267,7 +269,7 @@ class Conference {
                     }
                 }
 
-                $conference_img = '/doc/new_template/conference_img.web';
+                $conference_img = '/doc/new_template/conference_img.webp';
                 $fallback_img   = '/wp-content/plugins/pwe-media/media/main-page/conference_img.webp';
 
                 $conference_img_path = ABSPATH . ltrim($conference_img, '/');

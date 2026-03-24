@@ -228,7 +228,7 @@ $output .= '
         if ($logotypes_slug === 'patrons-partners' || $logotypes_slug === 'patrons-partners-international') {
             $output .= '
             <div class="pwe-logotypes__button pwe-main-btn--primary">
-                <a class="" href="'. PWE_Functions::languageChecker('/rejestracja/', '/en/registration/') .'">'. PWE_Functions::languageChecker('Weź udział', 'Take a part') .'</a> 
+                <a class="" href="'. PWE_Functions::languageChecker('/rejestracja/', '/en/registration/') .'">'. ($b2c ? PWE_Functions::languageChecker('Kup bilet', 'Buy a ticket') : PWE_Functions::languageChecker('Weź udział', 'Take a part')) .'</a> 
             </div>';
         }
 

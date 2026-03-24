@@ -59,7 +59,7 @@ class About {
         ];
     }
 
-    public static function render($group) {
+    public static function render($group = '', $params = [], $atts = []) {
         $data = self::get_data();
         $element_type = $data['types'][0];
         $element_slug = strtolower(str_replace('_', '-', __CLASS__));
@@ -76,6 +76,8 @@ class About {
 
             /* <-------------> General code start <-------------> */
 
+            $b2c = isset($atts['b2c']) ? $atts['b2c'] : false;
+ 
             $selected_lang = PWE_Functions::languageChecker('pl', 'en');
             $domain = parse_url(site_url(), PHP_URL_HOST);
             

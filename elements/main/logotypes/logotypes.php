@@ -14,7 +14,7 @@ class Logotypes {
         ];
     }
 
-    public static function render($group, $params = [], $atts = []) {
+    public static function render($group = '', $params = [], $atts = []) {
         $data = self::get_data();
         $element_type = $data['types'][0];
         $element_slug = strtolower(str_replace('_', '-', __CLASS__));
@@ -32,6 +32,8 @@ class Logotypes {
         if ($preset_file && file_exists($preset_file)) {
 
             /* <-------------> General code start <-------------> */
+
+            $b2c = isset($atts['b2c']) ? $atts['b2c'] : false;
 
             $cap_logotypes_data = PWE_Functions::get_database_logotypes_data();
             if (!empty($cap_logotypes_data)) {

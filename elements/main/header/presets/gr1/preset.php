@@ -39,7 +39,7 @@ $output = '
                                 class="pwe-link pwe-btn"
                                 href="'. PWE_Functions::languageChecker('/rejestracja/', '/en/registration/') .'"
                                 alt="'. PWE_Functions::multi_translation('link_to_registration') .'">
-                                '. PWE_Functions::multi_translation('register') .'
+                                '. ($b2c ? PWE_Functions::languageChecker('Kup bilet', 'Buy a ticket') : PWE_Functions::multi_translation('register')) .'
                                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M13 7L1 7M13 7L7 13M13 7L7 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>

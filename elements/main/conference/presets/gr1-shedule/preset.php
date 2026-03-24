@@ -201,13 +201,12 @@ foreach ($allConferences as $conf) {
 }
 
 // If conference is empty
-
 if (empty($processed)) {
-    admin_log("Brak konferencji – wczytuję preset-gr1.php");
+    admin_log("Brak konferencji – wczytuję preset.php (gr1)");
 
     PWE_Functions::assets_per_group($element_slug, 'gr1', $element_type);
 
-    $output = include_once plugin_dir_path(__DIR__) . 'preset-gr1/preset-gr1.php';
+    $output = include_once plugin_dir_path(__DIR__) . 'gr1/preset.php';
     echo $output;
 
     return;

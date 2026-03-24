@@ -14,7 +14,7 @@ class Halls {
         ];
     }
 
-    public static function render($group) {
+    public static function render($group = '', $params = [], $atts = []) {
         $data = self::get_data();
         $element_type = $data['types'][0];
         $element_slug = strtolower(str_replace('_', '-', __CLASS__));
