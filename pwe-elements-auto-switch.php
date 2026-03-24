@@ -3,7 +3,7 @@
  * Plugin Name: PWE Elements AutoSwitch
  * Plugin URI: https://github.com/ptak-warsaw-expo-dev/pwe-elements-auto-switch
  * Description: Elements that dynamically adapt to groups.
- * Version: 1.2.9
+ * Version: 1.3.0
  * Author: Anton Melnychuk
  * Co-author: Piotr Krupniewski, Marek Rumianek, Jakub Choła
  * Author URI: https://github.com/antonmelnychuk1
@@ -60,6 +60,16 @@ if ( ! class_exists( 'PWE_Elements_AutoSwitch' ) ) {
 
             // PWE_Groups::init();
             PWE_Elements::init();
+
+            // // Checking the connection to the CAP database
+            // $cap_db = PWE_Functions::connect_database();
+            // if ($cap_db === false) {
+            //     wp_die(
+            //         '<h1>Przepraszamy</h1><p>Trwają prace techniczne. Spróbuj ponownie później.</p>',
+            //         'Strona tymczasowo niedostępna',
+            //         ['response' => 503]
+            //     );
+            // }
         }
 
         /**

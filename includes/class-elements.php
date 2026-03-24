@@ -31,6 +31,19 @@ class PWE_Elements {
 
                 $params = [];
 
+                if ($data['shortcode'] === 'pwe-elements-auto-switch-page-main') {
+                    $params = [
+                        [
+                            'type' => 'checkbox',
+                            'heading' => __('B2C', 'pwe-elements-auto-switch-main'),
+                            'param_name' => 'b2c',
+                            'group' => 'Custom Settings',
+                            'value' => array(__('True', 'pwe_header') => 'true',),
+                            'save_always' => true,
+                            'admin_label' => true,
+                        ],
+                    ];
+                }
                 if ($data['shortcode'] === 'pwe-elements-auto-switch-page-catalog') {
                     $params = [
                         [
@@ -39,6 +52,7 @@ class PWE_Elements {
                             'param_name' => 'archive_catalog_year',
                             'group' => 'Custom Settings',
                             'save_always' => true,
+                            'admin_label' => true,
                         ],
                         [
                             'type' => 'textfield',
@@ -46,6 +60,7 @@ class PWE_Elements {
                             'param_name' => 'archive_catalog_id',
                             'group' => 'Custom Settings',
                             'save_always' => true,
+                            'admin_label' => true,
                         ],
                         [
                             'type' => 'textfield',
@@ -60,6 +75,7 @@ class PWE_Elements {
                                 'auto_pwe_katalog'
                             ),
                             'save_always' => true,
+                            'admin_label' => true,
                         ],
                     ];
                 }
@@ -67,11 +83,12 @@ class PWE_Elements {
                     $params = [
                         [
                             'type' => 'textfield',
-                            'heading' => __('PDF URL', 'pwe-elements-auto-switch'),
+                            'heading' => __('PDF URL', 'pwe-elements-auto-switch-flip-book'),
                             'param_name' => 'pdf_url',
                             'group' => 'Custom Settings',
-                            'description' => __('URL to the PDF file for the flip book.', 'pwe-elements-auto-switch'),
+                            'description' => __('URL to the PDF file for the flip book.', 'pwe-elements-auto-switch-flip-book'),
                             'save_always' => true,
+                            'admin_label' => true,
                         ],
                     ];
                 }
