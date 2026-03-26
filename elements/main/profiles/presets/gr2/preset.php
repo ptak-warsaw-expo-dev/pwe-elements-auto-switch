@@ -7,7 +7,7 @@ $output = '
             <h4 class="pwe-main-title">'. PWE_Functions::languageChecker('Profile', 'Profiles') .'</h4>
         </div>
         <div class="pwe-profiles__cards">
-            <div id="profile_for_visitors" class="pwe-profiles__card" style="background: url('. $profile_for_visitors_img  .')">
+            <div id="profile_for_visitors" class="pwe-profiles__card" style="background: url('. $profile_for_visitors_img  .'), url(' . $default_visitors_img . ')">
                 <div class="pwe-profiles__card-content">
                     <p>'. PWE_Functions::languageChecker('Profil', 'Profile') .'</p>
                     <h5>'. PWE_Functions::languageChecker('Odwiedzającego', 'Visitor') .'</h5>
@@ -19,12 +19,11 @@ $output = '
                             </svg>
                         </span>
                     </div>
-                    <div class="pwe-profiles__card-text">'. PWE_Functions::languageChecker($profile_for_visitors_pl, $profile_for_visitors_en) .'</div>
-                    
+                    <div class="pwe-profiles__card-text">'. PWE_Functions::languageChecker($profile_for_visitors_pl, $profile_for_visitors_en) .'</div>   
                 </div>
             </div>
 
-            <div id="profile_for_exhibitors" class="pwe-profiles__card" style="background: url('. $profile_for_exhibitors_img .')">
+            <div id="profile_for_exhibitors" class="pwe-profiles__card" style="background: url('. $profile_for_exhibitors_img .'), url(' . $default_exhibitors_img . ')">
                 <div class="pwe-profiles__card-content">
                     <p>'. PWE_Functions::languageChecker('Profil', 'Profile') .'</p>
                     <h5>'. PWE_Functions::languageChecker('Wystawcy', 'Exhibitor') .'</h5>
@@ -37,11 +36,10 @@ $output = '
                         </span>
                     </div>
                     <div class="pwe-profiles__card-text">'. PWE_Functions::languageChecker($profile_for_exhibitors_pl, $profile_for_exhibitors_en) .'</div>
-                    
                 </div>
             </div>
 
-            <div id="profile_industry_scope" class="pwe-profiles__card" style="background: url('. $profile_industry_scope_img .')">
+            <div id="profile_industry_scope" class="pwe-profiles__card" style="background: url('. $profile_industry_scope_img .'), url(' . $default_industry_img . ')">
                 <div class="pwe-profiles__card-content">
                     <p>'. PWE_Functions::languageChecker('Profil', 'Profile') .'</p>
                     <h5>'. PWE_Functions::languageChecker('Branżowy', 'Industry') .'</h5>

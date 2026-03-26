@@ -24,7 +24,11 @@ $output = '
                 <button class="pwe-profiles__show-more-btn">'. PWE_Functions::languageChecker('więcej', 'more') .' ▼</button>
             </div>
             <div class="pwe-profiles__tab-image">
-                <img src="'. $profile_for_visitors_img  .'" alt="'. PWE_Functions::languageChecker('Odwiedzającego', 'Visitor') .'">
+                <img 
+                    src="'. $profile_for_visitors_img  .'" 
+                    alt="'. PWE_Functions::languageChecker('Odwiedzającego', 'Visitor') .'" 
+                    onerror="this.onerror=null; this.src=\''. $default_visitors_img  .'\';"
+                >
             </div>
         </div>
 
@@ -34,7 +38,11 @@ $output = '
                 <button class="pwe-profiles__show-more-btn">'. PWE_Functions::languageChecker('więcej', 'more') .' ▼</button>
             </div>
             <div class="pwe-profiles__tab-image">
-                <img src="'. $profile_for_exhibitors_img .'" alt="'. PWE_Functions::languageChecker('Wystawcy', 'Exhibitor') .'">
+                <img 
+                    src="'. $profile_for_exhibitors_img .'" 
+                    alt="'. PWE_Functions::languageChecker('Wystawcy', 'Exhibitor') .'"
+                    onerror="this.onerror=null; this.src=\''. $default_exhibitors_img  .'\';"
+                >
             </div>
         </div>
 
@@ -44,7 +52,11 @@ $output = '
                 <button class="pwe-profiles__show-more-btn">'. PWE_Functions::languageChecker('więcej', 'more') .' ▼</button>
             </div>
             <div class="pwe-profiles__tab-image">
-                <img src="'. $profile_industry_scope_img .'" alt="'. PWE_Functions::languageChecker('Branżowy', 'Industry') .'">
+                <img 
+                    src="'. $profile_industry_scope_img .'" 
+                    alt="'. PWE_Functions::languageChecker('Branżowy', 'Industry') .'"
+                    onerror="this.onerror=null; this.src=\''. $default_industry_img  .'\';"
+                >
             </div>
         </div>
     </div>

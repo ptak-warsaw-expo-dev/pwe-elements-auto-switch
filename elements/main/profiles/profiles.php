@@ -32,42 +32,17 @@ class Profiles {
             /* <-------------> General code start <-------------> */
            
             $data = PWE_Functions::get_database_fairs_data_profiles();  
-
-            $validate_img_url = function(?string $url, string $default): string {
-                if (empty($url)) {
-                    return $default;
-                }
-
-                $response = wp_remote_head($url, ['timeout' => 3]);
-
-                if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
-                    return $default;
-                }
-
-                return $url;
-            };
          
-            $default_visitors_img   = '/wp-content/plugins/pwe-media/media/default-profiles/visitors.webp';
-            $default_exhibitors_img = '/wp-content/plugins/pwe-media/media/default-profiles/exhibitors.webp';
-            $default_industry_img   = '/wp-content/plugins/pwe-media/media/default-profiles/industry.webp';
+            $default_visitors_img   =  get_site_url() . '/wp-content/plugins/pwe-media/media/default-profiles/visitors.webp';
+            $default_exhibitors_img =  get_site_url() . '/wp-content/plugins/pwe-media/media/default-profiles/exhibitors.webp';
+            $default_industry_img   =  get_site_url() . '/wp-content/plugins/pwe-media/media/default-profiles/industry.webp';
 
             if (!empty($data)) {
                 $decoded_data = json_decode($data[0]->data, true);
 
-                $profile_for_visitors_img = $validate_img_url(
-                    $decoded_data['profile_for_visitors_img'] ?? null,
-                    $default_visitors_img
-                );
-
-                $profile_for_exhibitors_img = $validate_img_url(
-                    $decoded_data['profile_for_exhibitors_img'] ?? null,
-                    $default_exhibitors_img
-                );
-
-                $profile_industry_scope_img = $validate_img_url(
-                    $decoded_data['profile_industry_scope_img'] ?? null,
-                    $default_industry_img
-                );
+                $profile_for_visitors_img = $decoded_data['profile_for_visitors_img'];
+                $profile_for_exhibitors_img = $decoded_data['profile_for_exhibitors_img'];
+                $profile_industry_scope_img = $decoded_data['profile_industry_scope_img'];
 
                 $profile_for_visitors_pl   = $decoded_data['profile_for_visitors_pl'] ?? null;
                 $profile_for_exhibitors_pl = $decoded_data['profile_for_exhibitors_pl'] ?? null;
