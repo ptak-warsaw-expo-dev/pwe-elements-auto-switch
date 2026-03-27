@@ -20,7 +20,7 @@ class Exhibitor_Catalog {
         ];
     }
 
-    public static function render($group, $params, $atts) {
+    public static function render($group = '', $params = [], $atts = []) {
 
         self::enqueue_assets();
         self::enqueue_feedback_assets();
@@ -303,9 +303,30 @@ class Exhibitor_Catalog {
         // Database configurations
         // --------------------------------------------------
         $databases = [
-            ['host'=>'dedyk180.cyber-folks.pl','name'=>PWE_DB_NAME_180,'user'=>PWE_DB_USER_180,'pass'=>PWE_DB_PASSWORD_180],
-            ['host'=>'dedyk93.cyber-folks.pl','name'=>PWE_DB_NAME_93,'user'=>PWE_DB_USER_93,'pass'=>PWE_DB_PASSWORD_93],
-            ['host'=>'dedyk239.cyber-folks.pl','name'=>PWE_DB_NAME_239,'user'=>PWE_DB_USER_239,'pass'=>PWE_DB_PASSWORD_239],
+            [
+                'host' => 'dedyk180.cyber-folks.pl',
+                'name' => defined('PWE_DB_NAME_180') ? PWE_DB_NAME_180 : null,
+                'user' => defined('PWE_DB_USER_180') ? PWE_DB_USER_180 : null,
+                'pass' => defined('PWE_DB_PASSWORD_180') ? PWE_DB_PASSWORD_180 : null,
+            ],
+            [
+                'host' => 'dedyk93.cyber-folks.pl',
+                'name' => defined('PWE_DB_NAME_93') ? PWE_DB_NAME_93 : null,
+                'user' => defined('PWE_DB_USER_93') ? PWE_DB_USER_93 : null,
+                'pass' => defined('PWE_DB_PASSWORD_93') ? PWE_DB_PASSWORD_93 : null,
+            ],
+            [
+                'host' => 'dedyk239.cyber-folks.pl',
+                'name' => defined('PWE_DB_NAME_239') ? PWE_DB_NAME_239 : null,
+                'user' => defined('PWE_DB_USER_239') ? PWE_DB_USER_239 : null,
+                'pass' => defined('PWE_DB_PASSWORD_239') ? PWE_DB_PASSWORD_239 : null,
+            ],
+            [
+                'host' => 'dedyk1072.cyber-folks.pl',
+                'name' => defined('PWE_DB_NAME_1072') ? PWE_DB_NAME_1072 : null,
+                'user' => defined('PWE_DB_USER_1072') ? PWE_DB_USER_1072 : null,
+                'pass' => defined('PWE_DB_PASSWORD_1072') ? PWE_DB_PASSWORD_1072 : null,
+            ],
         ];
 
         // Use localhost on the current server
@@ -313,6 +334,7 @@ class Exhibitor_Catalog {
             case '94.152.207.180': $databases[0]['host'] = 'localhost'; break;
             case '94.152.206.93':  $databases[1]['host'] = 'localhost'; break;
             case '91.225.28.47':   $databases[2]['host'] = 'localhost'; break;
+            case '91.225.28.72':   $databases[3]['host'] = 'localhost'; break;
         }
 
         // --------------------------------------------------
@@ -326,6 +348,7 @@ class Exhibitor_Catalog {
 
             if ($wpdb->last_error) {
                 $log("DB CONNECTION ERROR: " . $wpdb->last_error);
+                PWE_Functions::add_log('[Exhibitor_Catalog] DB CONNECTION FAILED: Host: ' . $db['host'] . ' User: ' . $db['user'] .' Error: ' . mysqli_connect_error(), 'db-connections');
                 continue;
             }
 
@@ -423,6 +446,25 @@ class Exhibitor_Catalog {
 
             if (file_exists($year_file_path)) {
                 $data_url = $base_path . $year_file;
+            } 
+        }
+
+        $full_path = ABSPATH . ltrim($data_url, '/');
+
+        if (file_exists($full_path)) {
+            if (current_user_can('administrator')) {
+                echo '<script>console.log("Dane pobrane z pliku: https://' . $_SERVER['HTTP_HOST'] . $data_url . '")</script>';
+            }
+        } else {
+            if (current_user_can('administrator')) {
+                echo '
+                <script>
+                    console.log(
+                        "Plik ' . (!empty($catalog_year) ? $year_file : $default_file) . ' nie został znaleziony. " +
+                        "Możesz pobrać aktualną wersję pod adresem: " +
+                        "https://' . $_SERVER['HTTP_HOST'] . '/wp-content/plugins/custom-element/other/cron_catalog.php?pass=iR8gCdZlITxRvVBS"
+                    );
+                </script>';
             }
         }
 
