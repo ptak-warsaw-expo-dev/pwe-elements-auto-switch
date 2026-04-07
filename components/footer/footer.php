@@ -14,7 +14,7 @@ class Footer {
         ];
     }
 
-    public static function render($group) {
+    public static function render($group = '', $params = [], $atts = []) {
 
         // Locking the element if the footer has been rendered
         if (self::$rendered) {

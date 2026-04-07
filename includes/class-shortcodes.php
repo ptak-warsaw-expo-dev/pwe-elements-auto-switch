@@ -496,7 +496,7 @@ class PWE_Shortcodes {
                     type="text" 
                     name="trade_fair_name_eng" 
                     id="trade_fair_name_eng" 
-                    value="<?php echo $pwe_name_en_available ? $pwe_name_pl : get_option('trade_fair_name_eng'); ?>" 
+                    value="<?php echo $pwe_name_en_available ? $pwe_name_en : get_option('trade_fair_name_eng'); ?>" 
                 />
                 <p><?php echo $pwe_name_en_available ? "Dane pobrane z CAP DB" : "np. Warsaw Fleet Expo"; ?></p>
             </div>
@@ -1709,7 +1709,7 @@ class PWE_Shortcodes {
         $pwe_name_en = shortcode_exists("pwe_name_en") ? do_shortcode('[pwe_name_en]') : "";
         $pwe_name_en = !empty($pwe_name_en) ? $pwe_name_en : $pwe_name_pl; 
         $pwe_name_en_available = (empty(get_option('pwe_general_options', [])['pwe_dp_shortcodes_unactive']) && !empty($pwe_name_en) && $pwe_name_en !== "");
-        $result = $pwe_name_en_available ? $pwe_name_pl : get_option('trade_fair_name_eng');
+        $result = $pwe_name_en_available ? $pwe_name_en : get_option('trade_fair_name_eng');
 
         $result = html_entity_decode($result, ENT_QUOTES | ENT_HTML5, 'UTF-8');
         

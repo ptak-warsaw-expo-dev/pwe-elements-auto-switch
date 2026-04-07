@@ -16,19 +16,39 @@ class PWE_Functions {
     }
 
     // Get translations from JSONs
+    private static $translation_cache = [];
     public static function multi_translation($key) {
         $ctx = self::$translation_context;
 
-        if (!$ctx['element_slug'] || !$ctx['group']) {
+        if (empty($ctx['element_slug']) || empty($ctx['group'])) {
             return $key;
         }
 
         $locale = get_locale();
 
-        $translations_file = plugin_dir_url(__DIR__) . 'translations/elements/' . $ctx['element_type'] . '/' . $ctx['element_slug'] . '/' . $ctx['group'] . '.json';
+        // Cache key for this file
+        $cache_key = $ctx['element_type'] . '/' . $ctx['element_slug'] . '/' . $ctx['group'] . '.json';
 
-        $translations_data = json_decode(file_get_contents($translations_file), true);
+        // If not loaded yet, load it
+        if (!isset(self::$translation_cache[$cache_key])) {
 
+            $translations_file = plugin_dir_path(__DIR__) .
+                'translations/elements/' . $cache_key;
+
+            if (file_exists($translations_file)) {
+                $json = file_get_contents($translations_file);
+                $data = json_decode($json, true);
+                self::$translation_cache[$cache_key] = is_array($data) ? $data : [];
+            } else {
+                // If the file is missing, the cache is empty
+                self::$translation_cache[$cache_key] = [];
+            }
+        }
+
+        // Download from the cache
+        $translations_data = self::$translation_cache[$cache_key];
+
+        // Choosing the right map
         $map = $translations_data[$locale]
             ?? $translations_data['en_US']
             ?? [];
@@ -332,6 +352,23 @@ class PWE_Functions {
     }
 
     /**
+     * Add logs to uploads/logs/{$filename}.log
+     */
+    public static function add_log($message, $filename = 'logs') {
+        $upload_dir = wp_upload_dir();
+        $dir = $upload_dir['basedir'] . '/logs';
+        $file = $dir . '/'. $filename .'.log';
+
+        if (!is_dir($dir)) {
+            mkdir($dir, 0755, true);
+        }
+
+        $line = date('Y-m-d H:i:s') . ' - ' . $message . PHP_EOL;
+
+        file_put_contents($file, $line, FILE_APPEND);
+    }
+
+    /**
      * Collecting all logs
      */
     private static $debug_logs = [];
@@ -352,7 +389,7 @@ class PWE_Functions {
     }
 
     /**
-     * Output console & error logs 
+     * Output console logs 
      */
     public static function output_db_connection_logs() {
 
@@ -466,68 +503,71 @@ class PWE_Functions {
             $timeout_filter_added = true;
         }
 
-        // Checking servers, looking for the current one
+        // Find local server
         $is_local_server = false;
         foreach ($servers as $s) {
             if (!empty($s['is_local'])) {
                 $is_local_server = true;
-
                 break;
             }
         }
 
-        // If return true - localhost only
+        // If running on local server, only use that one
         if ($is_local_server) {
             $servers = array_values(array_filter($servers, function ($s) {
                 return !empty($s['is_local']);
             }));
         }
 
+        // Local in-request blocking (no transient)
+        static $blocked_hosts = [];
+
         foreach ($servers as $server) {
-            
+
             if (empty($server['user']) || empty($server['pass']) || empty($server['name'])) {
-                // Skip server with missing data
                 continue;
             }
 
             $host = $server['host'] ?? 'localhost';
-            $fail_key = 'pwe_db_fail_' . md5($host);
 
-            // Temporary blocking
-            static $logged_blocked_hosts = [];
-            if (get_transient($fail_key)) {
-
-                if (empty($logged_blocked_hosts[$host])) {
-                    error_log("PWE DB: Host $host is temporarily blocked. Will retry later.");
-                    $logged_blocked_hosts[$host] = true;
-                }
-
+            // Skip if already marked as blocked in THIS request
+            if (!empty($blocked_hosts[$host])) {
                 continue;
             }
 
-            // Attempt DB connection
+            // Try connecting
             $wpdb = new wpdb($server['user'], $server['pass'], $server['name'], $host);
 
             if (!$wpdb->dbh) {
-                error_log("PWE DB: Cannot connect to $host. Blocking for 30s.");
-                set_transient($fail_key, 1, 30);
+
+                error_log("PWE DB: Cannot connect to $host (immediate block).");
+                error_log(json_encode([
+                    'error' => mysqli_connect_error(),
+                    'host'  => $host,
+                    'db'    => $server['name']
+                ], JSON_UNESCAPED_UNICODE));
+
+                self::add_log('[PWE_Functions] DB CONNECTION FAILED: Host: ' . $host . ' User: ' . $server['name'] . ' Error: ' . mysqli_connect_error(), 'db-connections');
+
+                // Mark blocked for this request so next iterations skip it
+                $blocked_hosts[$host] = true;
                 continue;
             }
 
             // Test query
             $test = $wpdb->get_var("SELECT 1");
             if ((int)$test !== 1) {
-                error_log("PWE DB: Test query failed on $host. Blocking for 30s.");
-                set_transient($fail_key, 1, 30);
+                error_log("PWE DB: Test query failed on $host (immediate block).");
+                $blocked_hosts[$host] = true;
                 continue;
             }
 
-            // Cache connection for this request
+            // Cache connection
             self::$cached_db_connection = $wpdb;
             return $wpdb;
         }
 
-        // All connection attempts failed
+        // No server worked
         error_log('PWE DB: All connection attempts failed.');
         return false;
     }
@@ -1203,11 +1243,11 @@ class PWE_Functions {
      * Get meta data from CAP databases
      */
     private static $meta_cache = [];
-    public static function get_database_meta_data($data_id = null) {
+    public static function get_database_meta_data($data_id = null, $domain = null) {
 
-        $domain = $_SERVER['HTTP_HOST'] ?? '';
-        $domain = preg_replace('/:\d+$/', '', $domain);
-        $cache_key = $data_id . '_' . $domain;
+        $current_domain = $_SERVER['HTTP_HOST'] ?? '';
+        $current_domain = preg_replace('/:\d+$/', '', $current_domain);
+        $cache_key = $data_id . '_' . $current_domain;
 
         // STATIC cache
         if (isset(self::$meta_cache[$cache_key])) {
@@ -1248,15 +1288,17 @@ class PWE_Functions {
         // SQL query
         if ($data_id === null) {
             $results = $cap_db->get_results("SELECT * FROM meta_data");
-        } elseif ($data_id === 'header_order') {
+        } elseif ($domain !== null) {
             $query = "
                 SELECT m.meta_data
                 FROM meta_data AS m
                 INNER JOIN fairs AS f ON m.rights = f.id
-                WHERE m.slug = 'header_order'
+                WHERE m.slug = %s
                 AND f.fair_domain = %s
             ";
-            $results = $cap_db->get_results($cap_db->prepare($query, $domain));
+            $results = $cap_db->get_results(
+                $cap_db->prepare($query, $data_id, $domain)
+            );
         } else {
             $results = $cap_db->get_var(
                 $cap_db->prepare("SELECT meta_data FROM meta_data WHERE slug = %s", $data_id)
@@ -2100,6 +2142,152 @@ class PWE_Functions {
         // Save to runtime cache
         self::$fairs_speakers_cache[$cache_key] = $results;
         self::debug_log('get_database_fairs_data_speakers: data from database DIRECTLY (SQL time ' . $time . 'ms) → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'] and saved to TRANSIENT.');
+
+        return $results;
+    }
+
+    /**
+     * Get elements data from CAP databases
+     */
+    private static $elements_cache = null;
+    public static function get_database_elements_data(): array {
+
+        $cache_key = 'elements';
+
+        // STATIC cache
+        if (self::$elements_cache !== null) {
+            self::debug_log('get_database_elements_data: data from STATIC memory');
+            return self::$elements_cache;
+        }
+
+        // Transient
+        $transient_key = 'pwe_elements_data';
+        $cached = get_transient($transient_key);
+
+        // Log transient timeout
+        $timeout = get_option('_transient_timeout_' . $transient_key);
+        if ($timeout !== false) {
+            $time_left = $timeout - time();
+            $time_left_str = gmdate('H:i:s', max($time_left, 0));
+        } else {
+            $time_left_str = 'unknown';
+        }
+
+        if ($cached !== false) {
+            self::debug_log('get_database_elements_data: data from TRANSIENT → key='. $cache_key .', expires in '. $time_left_str);
+            self::$elements_cache = $cached;
+            return $cached;
+        }
+
+        // Connect DB
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            if ($cached !== false) {
+                set_transient($transient_key, $cached, 600);
+                self::debug_log('get_database_elements_data: NO DB connection → using last TRANSIENT and extending 10min → key='. $cache_key, 'error');
+                self::$elements_cache = $cached;
+                return $cached;
+            }
+            self::debug_log('get_database_elements_data: NO DB connection and no TRANSIENT → returning empty → key='. $cache_key, 'error');
+            self::$elements_cache = [];
+            return [];
+        }
+
+        // SQL query
+        $sql = "SELECT * FROM pwelements";
+        $start_time = microtime(true);
+        $results = $cap_db->get_results($sql);
+        $time = round((microtime(true) - $start_time) * 1000, 2);
+
+        // SQL error
+        if ($cap_db->last_error) {
+            self::debug_log('get_database_elements_data: SQL error: '. addslashes($cap_db->last_error), 'error');
+            if ($cached !== false) {
+                set_transient($transient_key, $cached, 600);
+                self::$elements_cache = $cached;
+                return $cached;
+            }
+            self::$elements_cache = [];
+            return [];
+        }
+
+        // Save transient + STATIC cache
+        set_transient($transient_key, $results, 600);
+        self::$elements_cache = $results;
+        self::debug_log('get_database_elements_data: data from database DIRECTLY (SQL time '.$time.'ms) → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'] and saved to TRANSIENT.');
+
+        return $results;
+    }
+
+    /**
+     * Get elements order data from CAP databases
+     */
+    private static $elements_order_cache = null;
+    public static function get_database_elements_order_data(): array {
+
+        $cache_key = 'elements_order';
+
+        // STATIC cache
+        if (self::$elements_order_cache !== null) {
+            self::debug_log('get_database_elements_order_data: data from STATIC memory');
+            return self::$elements_order_cache;
+        }
+
+        // Transient
+        $transient_key = 'pwe_elements_order_data';
+        $cached = get_transient($transient_key);
+
+        // Log transient timeout
+        $timeout = get_option('_transient_timeout_' . $transient_key);
+        if ($timeout !== false) {
+            $time_left = $timeout - time();
+            $time_left_str = gmdate('H:i:s', max($time_left, 0));
+        } else {
+            $time_left_str = 'unknown';
+        }
+
+        if ($cached !== false) {
+            self::debug_log('get_database_elements_order_data: data from TRANSIENT → key='. $cache_key .', expires in '. $time_left_str);
+            self::$elements_order_cache = $cached;
+            return $cached;
+        }
+
+        // Connect DB
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            if ($cached !== false) {
+                set_transient($transient_key, $cached, 600);
+                self::debug_log('get_database_elements_order_data: NO DB connection → using last TRANSIENT and extending 10min → key='. $cache_key, 'error');
+                self::$elements_order_cache = $cached;
+                return $cached;
+            }
+            self::debug_log('get_database_elements_order_data: NO DB connection and no TRANSIENT → returning empty → key='. $cache_key, 'error');
+            self::$elements_order_cache = [];
+            return [];
+        }
+
+        // SQL query
+        $sql = "SELECT * FROM pwe_order";
+        $start_time = microtime(true);
+        $results = $cap_db->get_results($sql);
+        $time = round((microtime(true) - $start_time) * 1000, 2);
+
+        // SQL error
+        if ($cap_db->last_error) {
+            self::debug_log('get_database_elements_order_data: SQL error: '. addslashes($cap_db->last_error), 'error');
+            if ($cached !== false) {
+                set_transient($transient_key, $cached, 600);
+                self::$elements_order_cache = $cached;
+                return $cached;
+            }
+            self::$elements_order_cache = [];
+            return [];
+        }
+
+        // Save transient + STATIC cache
+        set_transient($transient_key, $results, 600);
+        self::$elements_order_cache = $results;
+        self::debug_log('get_database_elements_order_data: data from database DIRECTLY (SQL time '.$time.'ms) → key='. $cache_key .', host='. $cap_db->dbhost .' ['. gethostname() .'] and saved to TRANSIENT.');
 
         return $results;
     }

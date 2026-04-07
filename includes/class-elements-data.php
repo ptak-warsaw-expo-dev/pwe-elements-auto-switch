@@ -19,31 +19,40 @@ class PWE_Elements_Data {
      * Retrieves elements order data from the database.
      */
     public static function get_elements_order_from_db() {
-        $db_data = PWE_Functions::get_database_elements_order_data();
+        // $db_elements_data = PWE_Functions::get_database_elements_data();
+        $db_elements_order_data = PWE_Functions::get_database_elements_order_data();
         
-        if (empty($db_data)) {
+        if (empty($db_elements_order_data)) {
             return [];
         }
 
         // Mapping of slug -> class and file path
         $slug_map = [
-            'header'        => ['class' => 'Header',        'file' => 'elements/main/header/header.php'],
-            'countdown'     => ['class' => 'Countdown',     'file' => 'elements/main/countdown/countdown.php'],
-            'about'         => ['class' => 'About',         'file' => 'elements/main/about/about.php'],
-            'conference'    => ['class' => 'Conference',    'file' => 'elements/main/conference/conference.php'],
-            'speakers'      => ['class' => 'speakers',      'file' => 'elements/main/speakers/speakers.php'],
-            'premieres'     => ['class' => 'Premieres',     'file' => 'elements/main/premieres/premieres.php'],
-            'opinions'      => ['class' => 'Opinions',      'file' => 'elements/main/opinions/opinions.php'],
-            'exhibitors'    => ['class' => 'Exhibitors',    'file' => 'elements/main/exhibitors/exhibitors.php'],
-            'statistics'    => ['class' => 'Statistics',    'file' => 'elements/main/statistics/statistics.php'],
-            'speakers'      => ['class' => 'Speakers',      'file' => 'elements/main/speakers/speakers.php'],
-            'halls'         => ['class' => 'Halls',         'file' => 'elements/main/halls/halls.php'],
-            'other-events'  => ['class' => 'Other_Events',  'file' => 'elements/main/other-events/other-events.php'],
-            'profiles'      => ['class' => 'Profiles',      'file' => 'elements/main/profiles/profiles.php'],
-            'posts'         => ['class' => 'Posts',         'file' => 'elements/main/posts/posts.php'],
-            'medals'        => ['class' => 'Medals',        'file' => 'elements/main/medals/medals.php'],
-            'summary'       => ['class' => 'Summary',       'file' => 'elements/main/summary/summary.php'],
-            'footer'        => ['class' => 'Footer',        'file' => 'components/footer/footer.php'],
+            'header'          => ['class' => 'Header',            'file' => 'elements/main/header/header.php'],
+            'footer'          => ['class' => 'Footer',            'file' => 'components/footer/footer.php'],
+            'simple-header'   => ['class' => 'Simple_Header',     'file' => 'components/simple-header/simple-header.php'],
+
+            'countdown'       => ['class' => 'Countdown',         'file' => 'elements/main/countdown/countdown.php'],
+            'about'           => ['class' => 'About',             'file' => 'elements/main/about/about.php'],
+            'conference'      => ['class' => 'Conference',        'file' => 'elements/main/conference/conference.php'],
+            'speakers'        => ['class' => 'speakers',          'file' => 'elements/main/speakers/speakers.php'],
+            'premieres'       => ['class' => 'Premieres',         'file' => 'elements/main/premieres/premieres.php'],
+            'opinions'        => ['class' => 'Opinions',          'file' => 'elements/main/opinions/opinions.php'],
+            'exhibitors'      => ['class' => 'Exhibitors',        'file' => 'elements/main/exhibitors/exhibitors.php'],
+            'statistics'      => ['class' => 'Statistics',        'file' => 'elements/main/statistics/statistics.php'],
+            'speakers'        => ['class' => 'Speakers',          'file' => 'elements/main/speakers/speakers.php'],
+            'halls'           => ['class' => 'Halls',             'file' => 'elements/main/halls/halls.php'],
+            'other-events'    => ['class' => 'Other_Events',      'file' => 'elements/main/other-events/other-events.php'],
+            'profiles'        => ['class' => 'Profiles',          'file' => 'elements/main/profiles/profiles.php'],
+            'posts'           => ['class' => 'Posts',             'file' => 'elements/main/posts/posts.php'],
+            'medals'          => ['class' => 'Medals',            'file' => 'elements/main/medals/medals.php'],
+            'summary'         => ['class' => 'Summary',           'file' => 'elements/main/summary/summary.php'],
+
+            'exhibitor-catalog'    => ['class' => 'Exhibitor_Catalog', 'file' => 'elements/catalog/exhibitor_catalog_vue/exhibitor_catalog_vue.php'],
+
+            'flip-book'            => ['class' => 'Flip_Book',         'file' => 'elements/flip-book/flip-book.php'],
+
+            'speakers'             => ['class' => 'Speakers',          'file' => 'elements/speakers/speakers/speakers.php'],
         ];
 
         $result = [];
@@ -51,7 +60,7 @@ class PWE_Elements_Data {
         $grouped = [];
 
         // Iterate over DB rows to build grouped positions
-        foreach ($db_data as $row) {
+        foreach ($db_elements_order_data as $row) {
             $page  = $row->page;
             $group = $row->fair_id;
 
@@ -152,12 +161,11 @@ class PWE_Elements_Data {
     ]; 
 
     /**
-     * Components files (static parts like footer)
+     * Components files
      */
     private static $components_files = [
-        'footer' => [
-            'class' => 'Footer',    'file' => 'components/footer/footer.php',       'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]
-        ],
+        'simple-header' => ['class' => 'Simple_Header',   'file' => 'components/simple-header/simple-header.php',     'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
+        'footer'        => ['class' => 'Footer',          'file' => 'components/footer/footer.php',                   'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
     ];
 
     /**
@@ -167,6 +175,8 @@ class PWE_Elements_Data {
     public static function get_all_elements($current_group = null) {
 
         // $elements_from_db = self::get_elements_order_from_db();
+
+        // echo '<script>console.log('. json_encode($elements_from_db) .');</script>';
 
         // // If DB empty - fallback
         // if (empty($elements_from_db)) {
