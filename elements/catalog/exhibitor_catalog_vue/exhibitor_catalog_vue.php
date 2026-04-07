@@ -25,7 +25,7 @@ class Exhibitor_Catalog {
         self::enqueue_assets();
         self::enqueue_feedback_assets();
         self::inject_config($atts);
-        self::sync_archive_catalog_entry($atts);
+        // self::sync_archive_catalog_entry($atts);
 
         echo '
         <style>
