@@ -50,10 +50,7 @@ $output = '
             </div>';
 
             // Partners widget --------------------------------------------------------------------------------------<
-            $cap_logotypes_data = PWE_Functions::get_database_logotypes_data();
-            if (!empty($cap_logotypes_data)) {
-                require_once plugin_dir_path(dirname(dirname(__FILE__))) . 'widgets/gr1.php';
-            }
+            require_once plugin_dir_path(dirname(dirname(__FILE__))) . 'widgets/gr1.php';
 
             $output .= '
 

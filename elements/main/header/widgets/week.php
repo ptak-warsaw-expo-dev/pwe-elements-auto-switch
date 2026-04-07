@@ -109,10 +109,9 @@ $output .= '
 $files = [];
 $grouped_logos = [];
 
-$meta_data = PWE_Functions::get_database_meta_data('header_order');
-
-if (!empty($meta_data)) {
-    $header_order = $meta_data[0]->meta_data;
+$header_order = PWE_Functions::get_database_meta_data('logos_meta_order', $_SERVER['HTTP_HOST']);
+if (!empty($header_order)) { 
+    $header_order = $header_order[0]->meta_data; 
 }
 
 $grouped_logos = [];
@@ -213,12 +212,21 @@ if (count($grouped_logos) > 0) {
     $ordered_types = [];
 
     if (!empty($header_order)) {
-        // Explode and remove empty elements/spaces
-        $parts = array_filter(array_map('trim', explode(',', $header_order)));
+        // If it is not an array, replace
+        if (!is_array($header_order)) {
+            $header_order = json_decode($header_order, true);
+        }
 
-        // Keep original values, but only those that start with "header-"
-        foreach ($parts as $p) {
-            if ($p !== '') $ordered_types[] = $p;
+        if (is_array($header_order)) {
+            // Sorting by value ASC
+            asort($header_order, SORT_NUMERIC);
+
+            // Extracting keys that start with 'header-'
+            foreach ($header_order as $key => $val) {
+                if (strpos($key, 'header-') === 0) {
+                    $ordered_types[] = $key;
+                }
+            }
         }
     } else {
         // Default: all types in the order they are in $grouped_logos

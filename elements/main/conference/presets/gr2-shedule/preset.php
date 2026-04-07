@@ -114,10 +114,10 @@ foreach ($allConferences as $conf) {
     $cStart = max($cStart, $fairStart);
     $cEnd   = min($cEnd,   $fairEnd);
 
-    $startIndex = array_search($cStart->format('Y-m-d'), $fairDays, true);
-    $endIndex   = array_search($cEnd->format('Y-m-d'),   $fairDays, true);
+    $start_index = array_search($cStart->format('Y-m-d'), $fairDays, true);
+    $end_index   = array_search($cEnd->format('Y-m-d'),   $fairDays, true);
 
-    if ($startIndex === false || $endIndex === false) {
+    if ($start_index === false || $end_index === false) {
         admin_log("Nie znaleziono start/end w fairDays");
         continue;
     }
@@ -190,8 +190,8 @@ foreach ($allConferences as $conf) {
         'title'       => $title,
         'logo'        => $org_src,      // Array
         'organizer'   => $org_name,     // "ABC, XYZ"
-        'start_index' => $startIndex,
-        'end_index'   => $endIndex,
+        'start_index' => $start_index,
+        'end_index'   => $end_index,
         'slug'        => (string)$conf->conf_slug,
         'order'       => $order,
     ];
@@ -276,6 +276,8 @@ $output  = '
                 </thead>
 
                 <tbody>';
+
+                //var_dump($processed);
                     foreach ($processed as $conf) {
                         $href = '/' . PWE_Functions::languageChecker('wydarzenia', 'en/conferences') . '/?konferencja=' . esc_attr($conf['slug']);
 
@@ -315,7 +317,7 @@ $output  = '
                                     $dates_html = '<div class="pwe-conference-schedule__dates">';
 
                                     foreach ($days as $index => $day) {
-                                        $dayFormatted = date_i18n('D, d M', strtotime($day));
+                                        $dayFormatted = wp_date('D, d M', strtotime($day . ' 00:00:00'), wp_timezone());
 
                                         // aktywny (dzień konferencji) / nieaktywny (dzień targów, ale poza zakresem)
                                         $isActive = ($index >= $conf['start_index'] && $index <= $conf['end_index']);
@@ -398,7 +400,7 @@ $output  = '
                                 $dates_html = '<div class="pwe-conference-schedule__dates">';
 
                                 foreach ($days as $index => $day) {
-                                    $dayFormatted = date_i18n('D, d M', strtotime($day));
+                                    $dayFormatted = wp_date('D, d M', strtotime($day . ' 00:00:00'), wp_timezone());
 
                                     // aktywny (dzień konferencji) / nieaktywny (dzień targów, ale poza zakresem)
                                     $isActive = ($index >= $conf['start_index'] && $index <= $conf['end_index']);

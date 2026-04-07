@@ -70,7 +70,7 @@ class Conference {
         return $results;
     }
 
-    public static function conference_overlaps_fair(string $conf_date_range): bool { 
+    public static function conference_overlaps_fair(string $conf_date_range): bool {
         // zawsze z shortcodów
         $start_raw = do_shortcode('[trade_fair_datetotimer]'); // "Y/m/d H:i"
         $end_raw   = do_shortcode('[trade_fair_enddata]');     // "Y/m/d H:i"

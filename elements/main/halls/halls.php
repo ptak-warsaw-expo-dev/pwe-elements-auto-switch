@@ -73,22 +73,17 @@ class Halls {
             foreach ($fair_items_json as $item) {
                 $halls = array_map('trim', explode(',', $item['halls']));
                 foreach ($halls as $hall) {
-                    // if (strpos($item['domain'], "mr.glasstec.pl") === false) {
+                    if ((strpos($item['domain'], "mr.glasstec.pl") === false || $_SERVER['HTTP_HOST'] === "mr.glasstec.pl") ||
+                        (strpos($item['domain'], "patryk.targibiurowe.com") === false || $_SERVER['HTTP_HOST'] === "patryk.targibiurowe.com")) {
+                            
                         $json_data_all[] = [
                             "id" => $hall,
                             "domain" => $item['domain'],
                             "color" => $item['color']
                         ];
-                    // }
-                }
-
-                if ($item['domain'] === $current_domain) {
-                    foreach ($halls as $hall) {
-                        $json_data_active[] = [
-                            "id" => $hall,
-                            "color" => $item['color']
-                        ];
-
+                    } 
+                    
+                    if ($item['domain'] === $current_domain) {
                         // Adding halls to $all_halls without numbers
                         $clean_hall = preg_replace('/\d/', '', $hall);
                         if (!str_contains($all_halls, $clean_hall)) {
@@ -103,6 +98,10 @@ class Halls {
             $halls_word = (count(array_filter(array_map('trim', explode(',', $all_halls)))) > 1)
                 ? PWE_Functions::languageChecker('Hale', 'Halls')
                 : PWE_Functions::languageChecker('Hala', 'Hall');
+
+            if (empty($all_halls)) {
+                return;
+            }
 
             // $current_day_timestamp = time();
 
