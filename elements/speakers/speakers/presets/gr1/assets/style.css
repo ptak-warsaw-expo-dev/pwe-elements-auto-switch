@@ -40,8 +40,11 @@
 }
 .pwe-element-auto-switch .pwe-speakers__speaker-img {
     display: flex;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
     max-width: 80px;
+    gap: 10px;
 }
 .pwe-element-auto-switch .pwe-speakers__speaker-img img {
     width: 100%;
@@ -49,10 +52,24 @@
     aspect-ratio: 1;
     border-radius: 50%;
 }
+.pwe-element-auto-switch .pwe-speakers__speaker-img button {
+    background: var(--accent_color_95_white);
+    border-radius: 30px;
+    color: var(--accent-color);
+    padding: 7px 6px;
+    font-size: 11px;
+    font-weight: 600;
+    transition: .3s ease;
+    line-height: 1;
+}
+.pwe-element-auto-switch .pwe-speakers__speaker-img button:hover {
+    background: var(--accent-color);
+    color: white;
+}
 .pwe-element-auto-switch .pwe-speakers__item-text {
     display: flex;
     width: 100%;
-    justify-content: center;
+    justify-content: space-between;
     flex-direction: column;
     gap: 5px;
 }
@@ -62,9 +79,9 @@
 }
 .pwe-element-auto-switch .pwe-speakers__item h3 {
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 600;
 }
-.pwe-element-auto-switch .pwe-speakers__item p {
+.pwe-element-auto-switch .pwe-speakers__item :is(.pwe-speakers__item-position, .pwe-speakers__item-company) {
     font-size: 12px;
     display: flex;
     align-items: center;
@@ -72,7 +89,12 @@
 .pwe-element-auto-switch .pwe-speakers__item-position {
     color: var(--accent-color);
 }
-.pwe-element-auto-switch .pwe-speakers__item-company-wrapper {
+.pwe-element-auto-switch .pwe-speakers__item-top-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.pwe-element-auto-switch .pwe-speakers__item-bottom-wrapper {
     display: flex;
     justify-content: space-between;
     gap: 6px;
@@ -86,6 +108,9 @@
     width: 100%;
     min-width: 105px;
 }
+.pwe-element-auto-switch .pwe-speakers__item-desc {
+    display: none;
+}
 .pwe-element-auto-switch .pwe-speakers__bottom {
     display: flex;
     flex-direction: column;
@@ -95,6 +120,8 @@
 .pwe-element-auto-switch .pwe-speakers__btn {
     display: flex;
 }
+
+
 @media (max-width:960px) {
     .pwe-element-auto-switch .pwe-speakers__items {
         grid-template-columns: repeat(2, 1fr);
