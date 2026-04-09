@@ -7,7 +7,6 @@ $output = '
     <div class="pwe-speakers__wrapper">
         <div class="pwe-speakers__title">
             <h4 class="pwe-speakers__heading pwe-main-title">' . PWE_Functions::languageChecker('Prelegenci', 'Speakers') . '</h4>
-            <p>' . PWE_Functions::languageChecker('Poznaj ekspertów i praktyków, którzy wyznaczają kierunki rozwoju nowoczesnego przemysłu i technologii produkcyjnych', 'Meet the experts and practitioners who set the directions for the development of modern industry and production technologies.') . '</p>
         </div>
         
         <div class="pwe-speakers__items">';
@@ -25,9 +24,11 @@ $output = '
                             <img data-no-lazy="1" src="'. $speaker['speaker_img'] .'" onerror="this.onerror=null; this.style.display=\'none\';" alt="Speaker photo"/>
                         </div>
                         <div class="pwe-speakers__item-text">
-                            <h3 class="pwe-speakers__item-name">'. $speaker['speaker_name'] .'</h3>
-                            <p class="pwe-speakers__item-position">'. $speaker['speaker_position'] .'</p>
-                            <div class="pwe-speakers__item-company-wrapper">
+                            <div class="pwe-speakers__item-top-wrapper">
+                                <h3 class="pwe-speakers__item-name">'. $speaker['speaker_name'] .'</h3>
+                                <p class="pwe-speakers__item-position">'. $speaker['speaker_position'] .'</p>
+                            </div>
+                            <div class="pwe-speakers__item-bottom-wrapper">
                                 <p class="pwe-speakers__item-company">'. $speaker['speaker_company_name'] .'</p>
                                 <div class="pwe-speakers__company-img">
                                     <img data-no-lazy="1" src="'. $speaker['speaker_company_img'] .'" onerror="this.onerror=null; this.style.display=\'none\';" alt="Company logo"/>
