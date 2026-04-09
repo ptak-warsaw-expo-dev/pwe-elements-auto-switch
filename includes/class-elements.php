@@ -279,7 +279,8 @@ class PWE_Elements {
                 }
 
                 // Params: defaults + shortcode
-                $default_params = $el['params'] ?? [];
+                $default_params = is_array($el['params'] ?? null) ? $el['params'] : [];
+                $atts = is_array($atts) ? $atts : [];
                 $params = array_merge($default_params, $atts);
 
                 $el_slug  = $params['slug'] ?? '';
