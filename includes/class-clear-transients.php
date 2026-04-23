@@ -29,9 +29,9 @@ class PWE_Clear_Transients {
 
             echo '<a style="font-size:24px;" href="/">Na stronę główną 🡒</a>';
 
-            echo '<p id="countdown">Zamknięcie karty za 5 sekund...</p>
+            echo '<p id="countdown">Zamknięcie karty za 10 sekund...</p>
                   <script>
-                    let time = 5;
+                    let time = 10;
                     const el = document.getElementById("countdown");
                     
                     const timer = setInterval(() => {

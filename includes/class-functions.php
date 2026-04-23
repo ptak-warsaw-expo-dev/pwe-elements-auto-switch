@@ -704,7 +704,8 @@ class PWE_Functions {
                 MAX(CASE WHEN fa.slug = 'konf_title_en' THEN fa.data END) AS konf_title_en,
                 MAX(CASE WHEN fa.slug = 'fair_kw_new' THEN fa.data END) AS fair_kw_new,
                 MAX(CASE WHEN fa.slug = 'fair_kw_old_arch' THEN fa.data END) AS fair_kw_old_arch,
-                MAX(CASE WHEN fa.slug = 'fair_kw_new_arch' THEN fa.data END) AS fair_kw_new_arch
+                MAX(CASE WHEN fa.slug = 'fair_kw_new_arch' THEN fa.data END) AS fair_kw_new_arch,
+                MAX(CASE WHEN fa.slug = 'fair_entrance' THEN fa.data END) AS fair_entrance
 
             FROM fairs f
             LEFT JOIN fair_adds fa
@@ -717,7 +718,8 @@ class PWE_Functions {
                     'konf_title_en',
                     'fair_kw_new',
                     'fair_kw_old_arch',
-                    'fair_kw_new_arch'
+                    'fair_kw_new_arch',
+                    'fair_entrance'
                 )
         ";
 
@@ -2375,6 +2377,7 @@ class PWE_Functions {
             "color_accent" => $fair->fair_color_accent ?? "",
             "color_main2" => $fair->fair_color_main2 ?? "",
             "hall" => $fair->fair_hall ?? "",
+            "hall_entrance" => $fair->fair_entrance ?? "",
             "facebook" => $fair->fair_facebook ?? "",
             "instagram" => $fair->fair_instagram ?? "",
             "linkedin" => $fair->fair_linkedin ?? "",

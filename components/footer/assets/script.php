@@ -13,9 +13,21 @@ $output .= '
         const pweNavMenu = document.querySelector("#pweMenuAutoSwitch");
 
         // Top main menu "For exhibitors"
-        const mainMenu = pweNavMenu ? document.querySelector(".pwe-menu-auto-switch__nav") : document.querySelector("ul.menu-primary-inner");
+        const mainMenu = pweNavMenu 
+            ? document.querySelector(".pwe-menu-auto-switch__nav") 
+            : document.querySelector("ul.menu-primary-inner");
+
+        if (!mainMenu || !mainMenu.children || mainMenu.children.length < 2) return;
+
         const secondChild = mainMenu.children[1];
-        const dropMenu = pweNavMenu ? secondChild.querySelector(".pwe-menu-auto-switch__submenu") : secondChild.querySelector("ul.drop-menu");
+
+        if (!secondChild) return;
+
+        const dropMenu = pweNavMenu 
+            ? secondChild.querySelector(".pwe-menu-auto-switch__submenu") 
+            : secondChild.querySelector("ul.drop-menu");
+
+        if (!dropMenu) return;
 
         // Create new element li
         const newMenuItem = document.createElement("li");
@@ -24,19 +36,26 @@ $output .= '
         newMenuItem.innerHTML = `<a title="'. (get_locale() == "pl_PL" ? 'Zostań agentem' : 'Become an agent') .'" target="_blank" href="https://warsawexpo.eu'. (get_locale() == "pl_PL" ? '/formularz-dla-agentow/' : '/en/forms-for-agents/') .'">'. (get_locale() == "pl_PL" ? 'Zostań agentem' : 'Become an agent') .'</a>`;
 
         // Add new element as second in the list
-        if (dropMenu && dropMenu.children.length > 1) {
+        if (dropMenu.children && dropMenu.children.length > 1) {
             dropMenu.insertBefore(newMenuItem, dropMenu.children[1]);
         } else {
             dropMenu.appendChild(newMenuItem);
-        }';
-        
-        $output .= '
+        }
+
         // --------------------------------------------
 
         // Bottom main menu "For exhibitors"
         const footerMenu = document.querySelector(".pwe-footer__nav-right-column");
+
+        if (!footerMenu || !footerMenu.children || footerMenu.children.length < 3) return;
+
         const footerThirdChild = footerMenu.children[2];
+
+        if (!footerThirdChild) return;
+
         const footerMenuChild = footerThirdChild.querySelector(".pwe-footer__nav-column .menu");
+
+        if (!footerMenuChild) return;
 
         // Create new element li
         const newFooterMenuItem = document.createElement("li");
@@ -45,7 +64,7 @@ $output .= '
         newFooterMenuItem.innerHTML = `<a title="'. (get_locale() == "pl_PL" ? 'Zostań agentem' : 'Become an agent') .'" target="_blank" href="https://warsawexpo.eu'. (get_locale() == "pl_PL" ? '/formularz-dla-agentow/' : '/en/forms-for-agents/') .'">'. (get_locale() == "pl_PL" ? 'Zostań agentem' : 'Become an agent') .'</a>`;
 
         // Add new element as second in the footer list
-        if (footerMenuChild && footerMenuChild.children.length > 1) {
+        if (footerMenuChild.children && footerMenuChild.children.length > 1) {
             footerMenuChild.insertBefore(newFooterMenuItem, footerMenuChild.children[1]);
         } else {
             footerMenuChild.appendChild(newFooterMenuItem);

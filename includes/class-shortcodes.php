@@ -65,6 +65,9 @@ class PWE_Shortcodes {
             'trade_fair_1stdismantlday' => 'show_trade_fair_1stdismantlday',
             'trade_fair_2nddismantlday' => 'show_trade_fair_2nddismantlday',
 
+            'trade_fair_hall' => 'show_trade_fair_hall',
+            'trade_fair_hall_entrance' => 'show_trade_fair_hall_entrance',
+
             'trade_fair_edition' => 'show_trade_fair_edition',
             'trade_fair_accent' => 'show_trade_fair_accent',
             'trade_fair_main2' => 'show_trade_fair_main2',
@@ -136,6 +139,8 @@ class PWE_Shortcodes {
             'trade_fair_2ndbuildday' => 'show_trade_fair_2ndbuildday',
             'trade_fair_1stdismantlday' => 'show_trade_fair_1stdismantlday',
             'trade_fair_2nddismantlday' => 'show_trade_fair_2nddismantlday',
+            'trade_fair_hall' => 'show_trade_fair_hall',
+            'trade_fair_hall_entrance' => 'show_trade_fair_hall_entrance',
             'trade_fair_accent' => 'show_trade_fair_accent',
             'trade_fair_edition' => 'show_trade_fair_edition',
             'trade_fair_main2' => 'show_trade_fair_main2',
@@ -420,6 +425,9 @@ class PWE_Shortcodes {
             'trade_fair_first_day' => 'Pierwszy dzień targów<hr><p>[trade_fair_first_day]</p>',
             'trade_fair_second_day' => 'Drugi dzień targów<hr><p>[trade_fair_second_day]</p>',
             'trade_fair_third_day' => 'Trzeci dzień targów<hr><p>[trade_fair_third_day]</p>',
+
+            'trade_fair_hall' => 'Hala targów<hr><p>[trade_fair_hall]</p>',
+            'trade_fair_hall_entrance' => 'Wejścia na targi <hr><p>[trade_fair_hall_entrance]</p>',
 
             'trade_fair_edition' => 'Numer Edycji targów<hr><p>[trade_fair_edition]</p>',
             'trade_fair_accent' => 'Kolor Accent (Main) strony<hr><p>[trade_fair_accent]</p>',
@@ -1282,6 +1290,40 @@ class PWE_Shortcodes {
         $this->display_trade_fair_branzowy_field("en");
     }
 
+    public function display_trade_fair_hall() {
+        $pwe_hall = shortcode_exists("pwe_hall") ? do_shortcode('[pwe_hall]') : "";
+        $pwe_hall_available = (empty(get_option('pwe_general_options', [])['pwe_dp_shortcodes_unactive']) && !empty($pwe_hall) && $pwe_hall !== "");
+        ?>
+            <div class="form-field">
+                <input 
+                    <?php echo $pwe_hall_available ? "style='pointer-events: none; opacity: 0.5;'" : ""; ?>  
+                    type="text" 
+                    name="trade_fair_hall" 
+                    id="trade_fair_hall" 
+                    value="<?php echo $pwe_hall_available ? $pwe_hall : get_option('trade_fair_hall'); ?>" 
+                />
+                <p><?php echo $pwe_hall_available ? "Dane pobrane z CAP DB" : "np -> B albo B1"; ?></p>
+            </div>
+        <?php
+    }
+
+    public function display_trade_fair_hall_entrance() {
+        $pwe_hall_entrance = shortcode_exists("pwe_hall_entrance") ? do_shortcode('[pwe_hall_entrance]') : "";
+        $pwe_hall_entrance_available = (empty(get_option('pwe_general_options', [])['pwe_dp_shortcodes_unactive']) && !empty($pwe_hall_entrance) && $pwe_hall_entrance !== "");
+        ?>
+            <div class="form-field">
+                <input 
+                    <?php echo $pwe_hall_entrance_available ? "style='pointer-events: none; opacity: 0.5;'" : ""; ?>  
+                    type="text" 
+                    name="trade_fair_hall_entrance" 
+                    id="trade_fair_hall_entrance" 
+                    value="<?php echo $pwe_hall_entrance_available ? $pwe_hall_entrance : get_option('trade_fair_hall_entrance'); ?>" 
+                />
+                <p><?php echo $pwe_hall_entrance_available ? "Dane pobrane z CAP DB" : "np -> B16"; ?></p>
+            </div>
+        <?php
+    }
+
     public function display_trade_fair_edition() {
         $pwe_edition = shortcode_exists("pwe_edition") ? do_shortcode('[pwe_edition]') : "";
         $pwe_edition_available = (empty(get_option('pwe_general_options', [])['pwe_dp_shortcodes_unactive']) && !empty($pwe_edition) && $pwe_edition !== "");
@@ -1978,6 +2020,22 @@ class PWE_Shortcodes {
         // } else {
             $result = date('d.m.Y', strtotime(($pwe_date_end_available ? $pwe_date_end : get_option('trade_fair_enddata')) . ' +1 day')) . ' 8:00-12:00';
         // }
+        return $result;
+    }
+
+    public function show_trade_fair_hall() {
+        $pwe_hall = shortcode_exists("pwe_hall") ? do_shortcode('[pwe_hall]') : "";
+        $pwe_hall_available = (empty(get_option('pwe_general_options', [])['pwe_dp_shortcodes_unactive']) && !empty($pwe_hall) && $pwe_hall !== "");
+        $result = $pwe_hall_available ? $pwe_hall : get_option('trade_fair_hall');
+
+        return $result;
+    }
+
+    public function show_trade_fair_hall_entrance() {
+        $pwe_hall_entrance = shortcode_exists("pwe_hall_entrance") ? do_shortcode('[pwe_hall_entrance]') : "";
+        $pwe_hall_entrance_available = (empty(get_option('pwe_general_options', [])['pwe_dp_shortcodes_unactive']) && !empty($pwe_hall_entrance) && $pwe_hall_entrance !== "");
+        $result = $pwe_hall_entrance_available ? $pwe_hall_entrance : get_option('trade_fair_hall_entrance');
+
         return $result;
     }
 
