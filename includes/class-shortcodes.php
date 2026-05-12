@@ -1375,10 +1375,18 @@ class PWE_Shortcodes {
     }
 
     public function display_trade_fair_badge() {
+        $pwe_badge = shortcode_exists("pwe_badge") ? do_shortcode('[pwe_badge]') : "";
+        $pwe_badge_available = (empty(get_option('pwe_general_options', [])['pwe_dp_shortcodes_unactive']) && !empty($pwe_badge) && $pwe_badge !== "");
         ?>
             <div class="form-field">
-                <input type="text" name="trade_fair_badge" id="trade_fair_badge" value="<?php echo get_option('trade_fair_badge'); ?>" />
-                <p>"Początek nazwy badge -> ..._gosc_a6 "</p>
+                <input 
+                    <?php echo !empty(get_option('trade_fair_badge')) ? "" : ($pwe_badge_available ? "style='pointer-events: none; opacity: 0.5;'" : ""); ?>  
+                    type="text" 
+                    name="trade_fair_badge" 
+                    id="trade_fair_badge" 
+                    value="<?php echo (!empty(get_option('trade_fair_badge')) ? get_option('trade_fair_badge') : ($pwe_badge_available ? $pwe_badge : '')); ?>" 
+                />
+                <p><?php echo !empty(get_option('trade_fair_badge')) ? "Początek nazwy badge -> ..._gosc_a6 " : ($pwe_badge_available ? "Dane pobrane z CAP DB" : ""); ?></p>
             </div>
         <?php
     }
@@ -2107,7 +2115,6 @@ class PWE_Shortcodes {
         return $result;
     }
     
-
     public function show_trade_fair_branzowy_eng() {
         $result = $this->trade_fair_branzowy_result("en");
 
@@ -2118,7 +2125,9 @@ class PWE_Shortcodes {
     }
     
     public function show_trade_fair_badge() {
-        $result = get_option('trade_fair_badge');
+        $pwe_badge = shortcode_exists("pwe_badge") ? do_shortcode('[pwe_badge]') : "";
+        $pwe_badge_available = (empty(get_option('pwe_general_options', [])['pwe_dp_shortcodes_unactive']) && !empty($pwe_badge) && $pwe_badge !== "");
+        $result = !empty(get_option('trade_fair_badge')) ? get_option('trade_fair_badge') : ($pwe_badge_available ? $pwe_badge : "");
         return $result;
     }
     
@@ -2567,11 +2576,11 @@ class PWE_Shortcodes {
 
         foreach ($map as $tag => $function_name) {
 
-            if (!function_exists($function_name)) {
+            if (!is_callable([$this, $function_name])) {
                 continue;
             }
 
-            $value = call_user_func($function_name);
+            $value = call_user_func([$this, $function_name]);
 
             $text = str_replace(
                 ['{' . $tag . '}', '[' . $tag . ']'],
@@ -2584,4 +2593,4 @@ class PWE_Shortcodes {
     }
 }
 
-PWE_Shortcodes::init();
+PWE_Shortcodes::init(); 

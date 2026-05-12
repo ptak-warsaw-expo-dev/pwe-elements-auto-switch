@@ -2083,6 +2083,7 @@ class PWE_Functions {
     public static function get_database_fairs_data_speakers($fair_domain = null): array {
 
         $fair_domain = $fair_domain ?? $_SERVER['HTTP_HOST'] ?? '';
+        // $fair_domain = 'dentalmedicashow.pl';
         $cache_key = $fair_domain;
 
         // Check runtime cache first
@@ -2115,21 +2116,29 @@ class PWE_Functions {
 
         // SQL query
         $sql = "
-            SELECT f.id, f.fair_domain, fp.data, fp.slug, fp.order
+            SELECT f.id, fp.domains, fp.slug, fp.conf_slug, fp.data, fp.order
             FROM fairs f
-            LEFT JOIN prelegents fp ON fp.fair_id = f.id
+            LEFT JOIN prelegents fp ON FIND_IN_SET(f.id, fp.fair_id)
         ";
+
         $params = [];
-        if ($fair_domain !== null) {
-            $sql .= " WHERE f.fair_domain = %s";
+
+        if (!empty($fair_domain)) {
+            $sql .= " 
+                WHERE f.fair_domain = %s
+                AND FIND_IN_SET(%s, fp.domains)
+            ";
+            $params[] = $fair_domain;
             $params[] = $fair_domain;
         }
+
         $sql .= " ORDER BY fp.order ASC";
 
         $start_time = microtime(true);
 
         // Execute query
         $results = !empty($params) ? $cap_db->get_results($cap_db->prepare($sql, $params)) : $cap_db->get_results($sql);
+
         $time = round((microtime(true) - $start_time) * 1000, 2);
 
         // Handle SQL errors

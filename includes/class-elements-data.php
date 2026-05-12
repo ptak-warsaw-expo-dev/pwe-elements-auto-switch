@@ -35,12 +35,11 @@ class PWE_Elements_Data {
             'countdown'       => ['class' => 'Countdown',         'file' => 'elements/main/countdown/countdown.php'],
             'about'           => ['class' => 'About',             'file' => 'elements/main/about/about.php'],
             'conference'      => ['class' => 'Conference',        'file' => 'elements/main/conference/conference.php'],
-            'speakers'        => ['class' => 'speakers',          'file' => 'elements/main/speakers/speakers.php'],
+            // 'speakers'        => ['class' => 'Speakers',          'file' => 'elements/main/speakers/speakers.php'],
             'premieres'       => ['class' => 'Premieres',         'file' => 'elements/main/premieres/premieres.php'],
             'opinions'        => ['class' => 'Opinions',          'file' => 'elements/main/opinions/opinions.php'],
             'exhibitors'      => ['class' => 'Exhibitors',        'file' => 'elements/main/exhibitors/exhibitors.php'],
             'statistics'      => ['class' => 'Statistics',        'file' => 'elements/main/statistics/statistics.php'],
-            // 'speakers'        => ['class' => 'Speakers',          'file' => 'elements/main/speakers/speakers.php'],
             'halls'           => ['class' => 'Halls',             'file' => 'elements/main/halls/halls.php'],
             'other-events'    => ['class' => 'Other_Events',      'file' => 'elements/main/other-events/other-events.php'],
             'profiles'        => ['class' => 'Profiles',          'file' => 'elements/main/profiles/profiles.php'],
@@ -52,7 +51,7 @@ class PWE_Elements_Data {
 
             'flip-book'            => ['class' => 'Flip_Book',         'file' => 'elements/flip-book/flip-book.php'],
 
-            'speakers'             => ['class' => 'Speakers',          'file' => 'elements/speakers/speakers/speakers.php'],
+            // 'speakers'             => ['class' => 'Speakers',          'file' => 'elements/speakers/speakers/speakers.php'],
         ];
 
         $result = [];
