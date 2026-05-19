@@ -71,42 +71,44 @@ class Conference {
     }
 
     public static function conference_overlaps_fair(string $conf_date_range): bool {
-        // zawsze z shortcodów
         $start_raw = do_shortcode('[trade_fair_datetotimer]'); // "Y/m/d H:i"
         $end_raw   = do_shortcode('[trade_fair_enddata]');     // "Y/m/d H:i"
 
         $fairStart = DateTime::createFromFormat('Y/m/d H:i', $start_raw);
         $fairEnd   = DateTime::createFromFormat('Y/m/d H:i', $end_raw);
-        if (!$fairStart || !$fairEnd) return false;
+
+        if (!$fairStart || !$fairEnd) {
+            return false;
+        }
 
         if ($fairEnd < $fairStart) {
             [$fairStart, $fairEnd] = [$fairEnd, $fairStart];
         }
 
-        // porównujemy po datach (bez czasu)
-        $fairStart = new DateTime($fairStart->format('Y-m-d'));
-        $fairEnd   = new DateTime($fairEnd->format('Y-m-d'));
+        // porównujemy po dniach
+        $fairStart = DateTime::createFromFormat('!Y-m-d', $fairStart->format('Y-m-d'));
+        $fairEnd   = DateTime::createFromFormat('!Y-m-d', $fairEnd->format('Y-m-d'));
 
         $conf_date_range = trim($conf_date_range);
 
-        // sprawdzamy czy jest zakres
         if (strpos($conf_date_range, ' to ') !== false) {
-
             $parts = explode(' to ', $conf_date_range, 2);
 
-            $cStart = DateTime::createFromFormat('Y/m/d', trim($parts[0]));
-            $cEnd   = DateTime::createFromFormat('Y/m/d', trim($parts[1]));
+            $cStart = DateTime::createFromFormat('!Y/m/d', trim($parts[0]));
+            $cEnd   = DateTime::createFromFormat('!Y/m/d', trim($parts[1]));
 
-            if (!$cStart || !$cEnd) return false;
+            if (!$cStart || !$cEnd) {
+                return false;
+            }
 
             if ($cEnd < $cStart) {
                 [$cStart, $cEnd] = [$cEnd, $cStart];
             }
-
         } else {
-            // pojedynczy dzień
-            $cStart = DateTime::createFromFormat('Y/m/d', $conf_date_range);
-            if (!$cStart) return false;
+            $cStart = DateTime::createFromFormat('!Y/m/d', $conf_date_range);
+            if (!$cStart) {
+                return false;
+            }
 
             $cEnd = clone $cStart;
         }
@@ -279,7 +281,7 @@ class Conference {
                 }
 
             /* <-------------> General code end <-------------> */
-            $output = include $preset_file;
+            $output = require_once $preset_file;
             if ($output) {
                 echo $output;
             }

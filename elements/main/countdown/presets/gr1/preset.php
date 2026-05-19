@@ -40,8 +40,7 @@ if ((($trade_fair_start_date_timestamp != false && $trade_fair_end_date_timestam
                 </a>
             </div>
         </div>
-    </div>';
-    
+    </div>'; 
 }
 
 return $output;

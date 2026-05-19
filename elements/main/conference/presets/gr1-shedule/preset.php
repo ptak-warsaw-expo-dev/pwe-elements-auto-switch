@@ -194,7 +194,8 @@ foreach ($allConferences as $conf) {
         'start_index' => $startIndex,
         'end_index'   => $endIndex,
         'slug'        => (string)$conf->conf_slug,
-        'order'       => $order,
+        // 'order'       => $order,
+        'start_ts'       => $cStart->getTimestamp(),
     ];
 
     admin_log("Dodano konferencję: " . json_encode(end($processed)));
@@ -212,10 +213,15 @@ if (empty($processed)) {
     return;
 }
 
-// Sorting
+// // Sorting
+// usort($processed, function($a, $b) {
+//     return $a['order'] <=> $b['order']
+//         ?: strcasecmp($a['title'], $b['title']);
+// });
 
+// Sorting
 usort($processed, function($a, $b) {
-    return $a['order'] <=> $b['order']
+    return $a['start_ts'] <=> $b['start_ts']
         ?: strcasecmp($a['title'], $b['title']);
 });
 
@@ -231,8 +237,8 @@ $output  = '
         <div class="pwe-conference-schedule__top">
             <img src="/doc/kongres-color.webp" alt="Congress logo">
             <div class="pwe-conference-schedule__title-container">
-                <h2 class="pwe-conference-schedule__conf-name">' . do_shortcode('[trade_fair_conferance]') . '</h2>
-                <h3>' . esc_html($conf_title) . '</h3>
+                <h2 class="pwe-conference-schedule__conf-name">'. PWE_Functions::languageChecker('Konferencje', 'Conferences') .'</h2>
+                <h3>'. PWE_Functions::languageChecker(do_shortcode('[trade_fair_conference_title]'), do_shortcode('[trade_fair_conference_title_eng]')) .'</h3>
             </div>
         </div>
 

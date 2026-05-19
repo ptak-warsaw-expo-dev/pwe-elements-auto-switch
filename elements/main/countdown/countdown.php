@@ -160,8 +160,11 @@ class Countdown {
                 }
             }
 
+            $changed_entries = do_shortcode('[trade_fair_hall_entrance]');
+
             // Remove duplicates and convert to string
             $all_entries = implode(', ', array_unique($matching_entries));
+            $all_entries = !empty($changed_entries) ? $changed_entries : $all_entries;
 
             // Using the plural or singular form of a word
             $entries_word = (count(array_filter(array_map('trim', explode(',', $all_entries)))) > 1)
@@ -173,7 +176,7 @@ class Countdown {
 
             /* <-------------> General code end <-------------> */
             
-            $output = include $preset_file;
+            $output = require_once $preset_file;
             
             if ($output) {
                 echo $output;         

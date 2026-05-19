@@ -61,7 +61,7 @@ class Header {
 
             /* <-------------> General code end <-------------> */
             
-            $output = include $preset_file;
+            $output = require_once $preset_file;
             
             if ($output) {
                 echo $output;         

@@ -73,15 +73,19 @@ class Halls {
             foreach ($fair_items_json as $item) {
                 $halls = array_map('trim', explode(',', $item['halls']));
                 foreach ($halls as $hall) {
-                    if ((strpos($item['domain'], "mr.glasstec.pl") === false || $_SERVER['HTTP_HOST'] === "mr.glasstec.pl") ||
-                        (strpos($item['domain'], "patryk.targibiurowe.com") === false || $_SERVER['HTTP_HOST'] === "patryk.targibiurowe.com")) {
-                            
+                    if (strpos($item['domain'], "mr.glasstec.pl") === false && strpos($item['domain'], "patryk.targibiurowe.com") === false) {
                         $json_data_all[] = [
                             "id" => $hall,
                             "domain" => $item['domain'],
                             "color" => $item['color']
                         ];
-                    } 
+                    } else if ($_SERVER['HTTP_HOST'] === "mr.glasstec.pl" || $_SERVER['HTTP_HOST'] === "patryk.targibiurowe.com") {
+                        $json_data_all[] = [
+                            "id" => $hall,
+                            "domain" => $item['domain'],
+                            "color" => $item['color']
+                        ];
+                    }
                     
                     if ($item['domain'] === $current_domain) {
                         // Adding halls to $all_halls without numbers
@@ -113,7 +117,7 @@ class Halls {
 
             /* <-------------> General code end <-------------> */
 
-            $output = include $preset_file;
+            $output = require_once $preset_file;
 
             if ($output) {
                 echo $output;
