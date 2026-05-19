@@ -111,7 +111,13 @@ $output = '
         $output .= generateFooterNavEl('pl_PL', [$menu_1_pl, $menu_2_pl, $menu_3_pl]);
     } elseif (isset($menu_1_en, $menu_2_en, $menu_3_en)) {
         $output .= generateFooterNavEl('en_US', [$menu_1_en, $menu_2_en, $menu_3_en]);
-    }
+    } elseif (isset($menu_1_lt, $menu_2_lt, $menu_3_lt)) {
+        $output .= generateFooterNavEl('lt_LT', [$menu_1_lt, $menu_2_lt, $menu_3_lt]);
+    } elseif (isset($menu_1_de, $menu_2_de, $menu_3_de)) {
+        $output .= generateFooterNavEl('de_DE', [$menu_1_de, $menu_2_de, $menu_3_de]);
+    } elseif (isset($menu_1_it, $menu_2_it, $menu_3_it)) {
+        $output .= generateFooterNavEl('it_IT', [$menu_1_it, $menu_2_it, $menu_3_it]);
+    } 
 
     $output .= '  
     </div>

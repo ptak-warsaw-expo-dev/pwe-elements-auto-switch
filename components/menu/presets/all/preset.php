@@ -344,7 +344,7 @@ if (!empty(do_shortcode('[trade_fair_catalog_id]'))) {
             // Create new element li
             const loginMenuItem = document.createElement("li");
             loginMenuItem.className = pweMenuAutoSwitch ? "pwe-menu-auto-switch__submenu-item" : "menu-item menu-item-type-custom menu-item-object-custom menu-item-99999";
-            loginMenuItem.innerHTML = `<a title="'. PWE_Functions::languageChecker('Zaloguj się do aplikacji', 'Log in to the application') .'" target="_blank" href="https://wystawca.exhibitorlist.eu/login">'. PWE_Functions::languageChecker('Zaloguj się do aplikacji', 'Log in to the application') .'</a>`;
+            loginMenuItem.innerHTML = `<a title="'. PWE_Functions::languageChecker('Zaloguj się do aplikacji', 'Log in to the application') .'" target="_blank" href="https://wystawca.exhibitorlist.warsawexpo.eu/login">'. PWE_Functions::languageChecker('Zaloguj się do aplikacji', 'Log in to the application') .'</a>`;
 
             // Add new element as penultimate in the list
             if (dropMenu && dropMenu.children.length > 0) {

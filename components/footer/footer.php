@@ -45,7 +45,7 @@ class Footer {
 
             foreach ($menus as $menu) {
                 $menu_name_lower = strtolower($menu->name);
-                $patterns = ['1 pl', '1 en', '2 pl', '2 en', '3 pl', '3 en'];
+                $patterns = ['1 pl', '1 en', '1 lt', '1 de', '1 it', '2 pl', '2 en', '2 lt', '2 de', '2 it', '3 pl', '3 en', '3 lt', '3 de', '3 it'];
                 foreach ($patterns as $pattern) {
                     if (strpos($menu_name_lower, $pattern) !== false) {
                         $varName = 'menu_' . str_replace(' ', '_', $pattern);
@@ -61,7 +61,7 @@ class Footer {
 
             /* <-------------> General code end <-------------> */
             
-            $output = include $preset_file;
+            $output = require_once $preset_file;
             
             if ($output) {
                 echo $output;         

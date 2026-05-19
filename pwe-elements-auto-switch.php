@@ -3,7 +3,7 @@
  * Plugin Name: PWE Elements AutoSwitch
  * Plugin URI: https://github.com/ptak-warsaw-expo-dev/pwe-elements-auto-switch
  * Description: Elements that dynamically adapt to groups.
- * Version: 1.3.9
+ * Version: 1.4.0
  * Author: Anton Melnychuk
  * Co-author: Piotr Krupniewski, Marek Rumianek, Jakub Choła
  * Author URI: https://github.com/antonmelnychuk1
@@ -15,22 +15,27 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define('PWE_PLUGIN_FILE', __FILE__);
+define('PWE_PLUGIN_FILE', __FILE__); // Main plugin file path
+define('PWE_PLUGIN_PATH', plugin_dir_path(__FILE__)); // Main plugin directory path
+define('PWE_LANG', substr(determine_locale(), 0, 2)); // Get the current locale (pl/en/de/...)
 
 date_default_timezone_set('Europe/Warsaw');
 
 // Load all classes
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-groups.php';
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-elements-data.php';
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-elements.php';
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-functions.php';
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-hooks.php';
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-shortcodes.php';
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-clear-transients.php';
+require_once PWE_PLUGIN_PATH . 'includes/class-groups.php';
+require_once PWE_PLUGIN_PATH . 'includes/class-elements-data.php';
+require_once PWE_PLUGIN_PATH . 'includes/class-elements.php';
+require_once PWE_PLUGIN_PATH . 'includes/class-functions.php';
+require_once PWE_PLUGIN_PATH . 'includes/class-hooks.php';
+require_once PWE_PLUGIN_PATH . 'includes/class-shortcodes.php';
+require_once PWE_PLUGIN_PATH . 'includes/class-clear-transients.php';
+require_once PWE_PLUGIN_PATH . 'includes/class-updater.php';
 
-require_once plugin_dir_path( __FILE__ ) . 'components/menu/menu.php';
+require_once PWE_PLUGIN_PATH . 'components/menu/menu.php';
 
-if (!class_exists('Flip_Book')){require_once plugin_dir_path( __FILE__ ) . 'elements/flip-book/flip-book.php';}
+if (!class_exists('Flip_Book')){
+    require_once PWE_PLUGIN_PATH . 'elements/flip-book/flip-book.php';
+}
 
 if ( ! class_exists( 'PWE_Elements_AutoSwitch' ) ) {
 
@@ -58,74 +63,13 @@ if ( ! class_exists( 'PWE_Elements_AutoSwitch' ) ) {
          */
         private function __construct() {
             // Autoupdate
-            $this->setup_updater();
+            add_action('init', function() {
+                new PWE_Updater();
+            });
 
-            // PWE_Groups::init();
-            PWE_Elements::init();
-
-            // // Checking the connection to the CAP database
-            // $cap_db = PWE_Functions::connect_database();
-            // if ($cap_db === false) {
-            //     wp_die(
-            //         '<h1>Przepraszamy</h1><p>Trwają prace techniczne. Spróbuj ponownie później.</p>',
-            //         'Strona tymczasowo niedostępna',
-            //         ['response' => 503]
-            //     );
-            // }
+            // Initialize elements
+            PWE_Elements::init(); 
         }
-
-        /**
-         * Retrieving the GitHub key from the database
-         *
-         * @return string|null
-         */
-        private function get_github_key() {
-            global $wpdb;
-
-            $table_name = $wpdb->prefix . 'custom_klavio_setup';
-            if ( $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $table_name ) ) != $table_name ) {
-                return null;
-            }
-
-            $github_pre = $wpdb->prepare(
-                "SELECT klavio_list_id FROM $table_name WHERE klavio_list_name = %s",
-                'github_secret_2'
-            );
-            $github_result = $wpdb->get_results( $github_pre );
-
-            if ( ! empty( $github_result ) ) {
-                return $github_result[0]->klavio_list_id;
-            }
-
-            return null;
-        }
-
-        /**
-         * Setting the auto-update mechanism
-         */
-        private function setup_updater() {
-            $checker_file = plugin_dir_path( __FILE__ ) . 'plugin-update-checker/plugin-update-checker.php';
-
-            if ( file_exists( $checker_file ) ) {
-                require_once $checker_file;
-
-                $updateChecker = Puc_v4_Factory::buildUpdateChecker(
-                    'https://github.com/ptak-warsaw-expo-dev/pwe-elements-auto-switch',
-                    __FILE__,
-                    'pwe-elements-auto-switch'
-                );
-
-                // Key from the database
-                $githubKey = $this->get_github_key();
-                if ( $githubKey ) {
-                    $updateChecker->setAuthentication( $githubKey );
-                }
-
-                // Downloading assets (release zips)
-                $updateChecker->getVcsApi()->enableReleaseAssets();
-            }
-        }
-
     }
 
     // Plugin start

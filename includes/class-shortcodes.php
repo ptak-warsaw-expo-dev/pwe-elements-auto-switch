@@ -28,7 +28,7 @@ class PWE_Shortcodes {
     // ALL SHORTCODES START <------------------------------------------------------------------------------<
 
     private function get_shortcodes_map() {
-        $lang = ICL_LANGUAGE_CODE;
+        $lang = PWE_LANG;
         return [
             'trade_fair_name' => 'show_trade_fair_name', // [trade_fair_name]
             'trade_fair_name_eng' => 'show_trade_fair_name_eng', // [trade_fair_name_eng]
@@ -115,7 +115,7 @@ class PWE_Shortcodes {
     }
 
     private function get_gf_shortcodes_map() {
-        $lang = ICL_LANGUAGE_CODE;
+        $lang = PWE_LANG;
         return [
             'trade_fair_name' => 'show_trade_fair_name', // {trade_fair_name}
             'trade_fair_name_eng' => 'show_trade_fair_name_eng', // {trade_fair_name_eng}
@@ -166,7 +166,7 @@ class PWE_Shortcodes {
     }
 
     private function get_yoast_shortcodes_map() {
-        $lang = ICL_LANGUAGE_CODE;
+        $lang = PWE_LANG;
         return [
             'sc_pwe_trade_fair_year'             => 'show_trade_fair_catalog_year', // %%sc_pwe_trade_fair_year%% || [trade_fair_catalog_year]
             'sc_pwe_trade_fair_desc'             => $lang === 'pl' ? 'show_trade_fair_desc' : 'show_trade_fair_desc_eng', // %%sc_pwe_trade_fair_desc%% || [trade_fair_desc] && [trade_fair_desc_eng]
@@ -840,7 +840,7 @@ class PWE_Shortcodes {
     public function display_trade_fair_datetotimer() {
         list($start_date, $end_date, $pwe_date_start_available, $pwe_date_end_available, $pwe_shortcodes_available) = $this->get_trade_fair_dates();
 
-        $lang = strtolower(ICL_LANGUAGE_CODE);
+        $lang = strtolower(PWE_LANG);
         $current_time = strtotime("now");
 
         $date = (empty($start_date) || (!empty($end_date) && (strtotime($end_date . " +20 hours")) < $current_time))
@@ -872,7 +872,7 @@ class PWE_Shortcodes {
     public function display_trade_fair_enddata() {
         list($start_date, $end_date, $pwe_date_start_available, $pwe_date_end_available, $pwe_shortcodes_available) = $this->get_trade_fair_dates();
 
-        $lang = strtolower(ICL_LANGUAGE_CODE);
+        $lang = strtolower(PWE_LANG);
         $current_time = strtotime("now");
 
         $date = (empty($start_date) || (!empty($end_date) && (strtotime($end_date . " +20 hours")) < $current_time))
@@ -904,7 +904,7 @@ class PWE_Shortcodes {
     public function display_trade_fair_date_custom_format() {
         list($start_date, $end_date, $pwe_date_start_available, $pwe_date_end_available, $pwe_shortcodes_available) = $this->get_trade_fair_dates();
 
-        $lang = strtolower(ICL_LANGUAGE_CODE);
+        $lang = strtolower(PWE_LANG);
         $new_date_comming_soon = "Nowa data wkrótce / New date comming soon";
 
         $current_time = strtotime("now");
@@ -1804,7 +1804,7 @@ class PWE_Shortcodes {
     public function show_trade_fair_datetotimer() {
         list($start_date, $end_date, $pwe_date_start_available, $pwe_date_end_available, $pwe_shortcodes_available) = $this->get_trade_fair_dates();
 
-        $lang = strtolower(ICL_LANGUAGE_CODE);
+        $lang = strtolower(PWE_LANG);
         $current_time = strtotime("now");
         $new_date_comming_soon = ($lang === "pl") ? "Nowa data wkrótce" : "New date comming soon";
 
@@ -1823,7 +1823,7 @@ class PWE_Shortcodes {
     public function show_trade_fair_enddata() {
         list($start_date, $end_date, $pwe_date_start_available, $pwe_date_end_available, $pwe_shortcodes_available) = $this->get_trade_fair_dates();
 
-        $lang = strtolower(ICL_LANGUAGE_CODE);
+        $lang = strtolower(PWE_LANG);
         $current_time = strtotime("now");
         $new_date_comming_soon = ($lang === "pl") ? "Nowa data wkrótce" : "New date comming soon";
 
@@ -1842,7 +1842,7 @@ class PWE_Shortcodes {
     public function show_trade_fair_date_custom_format() {
         list($start_date, $end_date, $pwe_date_start_available, $pwe_date_end_available, $pwe_shortcodes_available) = $this->get_trade_fair_dates();
 
-        $lang = strtolower(ICL_LANGUAGE_CODE);
+        $lang = strtolower(PWE_LANG);
         $current_time = strtotime("now");
         $new_date_comming_soon = ($lang === "pl") ? "Nowa data wkrótce" : "New date comming soon";
 
@@ -1856,7 +1856,7 @@ class PWE_Shortcodes {
     public function show_trade_fair_date() {
         list($start_date, $end_date, $pwe_date_start_available, $pwe_date_end_available, $pwe_shortcodes_available) = $this->get_trade_fair_dates();
 
-        $lang = strtolower(ICL_LANGUAGE_CODE);
+        $lang = strtolower(PWE_LANG);
         $current_time = strtotime("now");
         $new_date_comming_soon = ($lang === "pl") ? "Nowa data wkrótce" : "New date comming soon";
 
@@ -1870,7 +1870,7 @@ class PWE_Shortcodes {
     public function show_trade_fair_date_eng() {
         list($start_date, $end_date, $pwe_date_start_available, $pwe_date_end_available, $pwe_shortcodes_available) = $this->get_trade_fair_dates();
 
-        $lang = strtolower(ICL_LANGUAGE_CODE);
+        $lang = strtolower(PWE_LANG);
         $current_time = strtotime("now");
         $new_date_comming_soon = ($lang === "pl") ? "Nowa data wkrótce" : "New date comming soon";
 
@@ -1885,7 +1885,7 @@ class PWE_Shortcodes {
         list($start_date, $end_date, $pwe_date_start_available, $pwe_date_end_available, $pwe_shortcodes_available) = $this->get_trade_fair_dates();
 
         // WPML language e.g. pl, en etc.
-        $lang = strtolower(ICL_LANGUAGE_CODE);
+        $lang = strtolower(PWE_LANG);
 
         $current_time = strtotime("now");
 
@@ -2383,12 +2383,12 @@ class PWE_Shortcodes {
     public function sc_pwe_trade_fair_full_desc() {
         $domain = $_SERVER['HTTP_HOST'];
         $shortcodes_active = empty(get_option('pwe_general_options', [])['pwe_dp_shortcodes_unactive']);
-        $lang = strtolower(ICL_LANGUAGE_CODE);
+        $lang = strtolower(PWE_LANG);
 
         if (!function_exists('get_translated_field')) {
             function get_translated_field($fair, $field_base_name) {
                 // Get the language in the format e.g. "de", "pl"
-                $lang = strtolower(ICL_LANGUAGE_CODE); // "de"
+                $lang = strtolower(PWE_LANG); // "de"
 
                 // Check if a specific translation exists (e.g. fair_name_{lang})
                 $field_with_lang = "{$field_base_name}_{$lang}";
@@ -2433,7 +2433,7 @@ class PWE_Shortcodes {
     }
 
     public function sc_pwe_text_news() {
-        if (ICL_LANGUAGE_CODE == "pl") {
+        if (PWE_LANG == "pl") {
             return 'Bądź na bieżąco z wydarzeniami i nowościami związanymi z '. do_shortcode('[trade_fair_name]') .' '. do_shortcode('[trade_fair_catalog_year]') .'.';
         } else {
             return 'Stay up to date with events and news related to '. do_shortcode('[trade_fair_name_eng]') .' '. do_shortcode('[trade_fair_catalog_year]') .'.';
@@ -2441,7 +2441,7 @@ class PWE_Shortcodes {
     }
     
     public function sc_pwe_text_for_visitors() {
-        if (ICL_LANGUAGE_CODE == "pl") {
+        if (PWE_LANG == "pl") {
             return 'Sprawdź, dlaczego warto odwiedzić '. do_shortcode('[trade_fair_name]') .' '. do_shortcode('[trade_fair_catalog_year]') .' – znajdziesz tu najnowsze trendy, innowacje i inspirujące rozwiązania.';
         } else {
             return 'Check out why you should visit '. do_shortcode('[trade_fair_name_eng]') .' '. do_shortcode('[trade_fair_catalog_year]') .' – discover the latest trends, innovations, and inspiring solutions.';
@@ -2449,7 +2449,7 @@ class PWE_Shortcodes {
     }
     
     public function sc_pwe_text_for_exhibitors() {
-        if (ICL_LANGUAGE_CODE == "pl") {
+        if (PWE_LANG == "pl") {
             return 'Zdobądź nowych klientów i pokaż swoją markę na '. do_shortcode('[trade_fair_name]') .' '. do_shortcode('[trade_fair_catalog_year]') .'.';
         } else {
             return 'Gain new customers and showcase your brand at '. do_shortcode('[trade_fair_name_eng]') .' '. do_shortcode('[trade_fair_catalog_year]') .'.';
@@ -2457,7 +2457,7 @@ class PWE_Shortcodes {
     }
     
     public function sc_pwe_text_add_calendar() {
-        if (ICL_LANGUAGE_CODE == "pl") {
+        if (PWE_LANG == "pl") {
             return 'Nie przegap '. do_shortcode('[trade_fair_name]') .' '. do_shortcode('[trade_fair_catalog_year]').'! Dodaj wydarzenie do swojego kalendarza.';
         } else {
             return 'Don\'t miss '. do_shortcode('[trade_fair_name_eng]') .' '. do_shortcode('[trade_fair_catalog_year]').'! Add the event to your calendar.';
@@ -2465,7 +2465,7 @@ class PWE_Shortcodes {
     }
     
     public function sc_pwe_text_gallery() {
-        if (ICL_LANGUAGE_CODE == "pl") {
+        if (PWE_LANG == "pl") {
             return 'Zobacz galerię '. do_shortcode('[trade_fair_name]') .' – sprawdź jak wyglądają targi z perspektywy obiektywu.';
         } else {
             return 'See the gallery of '. do_shortcode('[trade_fair_name_eng]') .' – check out the fair through the lens of the camera.';
@@ -2473,7 +2473,7 @@ class PWE_Shortcodes {
     }
     
     public function sc_pwe_text_org_info() {
-        if (ICL_LANGUAGE_CODE == "pl") {
+        if (PWE_LANG == "pl") {
             return 'Wszystkie niezbędne informacje organizacyjne dla wystawców '. do_shortcode('[trade_fair_name]') .' '. do_shortcode('[trade_fair_catalog_year]') .'.';
         } else {
             return 'All necessary organizational information for exhibitors at '. do_shortcode('[trade_fair_name_eng]') .' '. do_shortcode('[trade_fair_catalog_year]') .'.';
@@ -2481,7 +2481,7 @@ class PWE_Shortcodes {
     }
     
     public function sc_pwe_text_exh_catalog() {
-        if (ICL_LANGUAGE_CODE == "pl") {
+        if (PWE_LANG == "pl") {
             return 'Poznaj firmy i marki obecne na '. do_shortcode('[trade_fair_name]') .' '. do_shortcode('[trade_fair_catalog_year]') .'.';
         } else {
             return 'Get to know the companies and brands present at '. do_shortcode('[trade_fair_name_eng]') .' '. do_shortcode('[trade_fair_catalog_year]') .'.';
@@ -2489,7 +2489,7 @@ class PWE_Shortcodes {
     }
     
     public function sc_pwe_text_events() {
-        if (ICL_LANGUAGE_CODE == "pl") {
+        if (PWE_LANG == "pl") {
             return 'Sprawdź wydarzenia towarzyszące '. do_shortcode('[trade_fair_name]') .' '. do_shortcode('[trade_fair_catalog_year]') .' – konferencje, prelekcje, spotkania.';
         } else {
             return 'Check out the events accompanying '. do_shortcode('[trade_fair_name_eng]') .' '. do_shortcode('[trade_fair_catalog_year]') .' – conferences, lectures, meetings.';
@@ -2497,7 +2497,7 @@ class PWE_Shortcodes {
     }
     
     public function sc_pwe_text_contact() {
-        if (ICL_LANGUAGE_CODE == "pl") {
+        if (PWE_LANG == "pl") {
             return 'Skontaktuj się z organizatorami '. do_shortcode('[trade_fair_name]') .' i uzyskaj potrzebne informacje o wydarzeniu.';
         } else {
             return 'Contact the organizers of '. do_shortcode('[trade_fair_name_eng]') .' to get the information you need about the event.';
@@ -2505,7 +2505,7 @@ class PWE_Shortcodes {
     }
     
     public function sc_pwe_text_fair_plan() {
-        if (ICL_LANGUAGE_CODE == "pl") {
+        if (PWE_LANG == "pl") {
             return 'Zobacz plan stoisk i atrakcji '. do_shortcode('[trade_fair_name]') .' '. do_shortcode('[trade_fair_catalog_year]') .'.';
         } else {
             return 'See the booth and attraction plan for '. do_shortcode('[trade_fair_name_eng]') .' '. do_shortcode('[trade_fair_catalog_year]') .'.';
@@ -2513,7 +2513,7 @@ class PWE_Shortcodes {
     }
     
     public function sc_pwe_text_registration() {
-        if (ICL_LANGUAGE_CODE == "pl") {
+        if (PWE_LANG == "pl") {
             return 'Zarejestruj się na '. do_shortcode('[trade_fair_name]') .' '. do_shortcode('[trade_fair_catalog_year]') .' i odbierz swój bilet na targi.';
         } else {
             return 'Register for '. do_shortcode('[trade_fair_name_eng]') .' '. do_shortcode('[trade_fair_catalog_year]') .' and get your ticket to the fair.';
@@ -2521,7 +2521,7 @@ class PWE_Shortcodes {
     }
     
     public function sc_pwe_text_promote_yourself() {
-        if (ICL_LANGUAGE_CODE == "pl") {
+        if (PWE_LANG == "pl") {
             return 'Zwiększ rozpoznawalność swojej marki – wypromuj się na '. do_shortcode('[trade_fair_name]') .' '. do_shortcode('[trade_fair_catalog_year]') .'.';
         } else {
             return 'Increase your brand visibility – promote yourself at '. do_shortcode('[trade_fair_name_eng]') .' '. do_shortcode('[trade_fair_catalog_year]') .'.';
@@ -2529,7 +2529,7 @@ class PWE_Shortcodes {
     }
     
     public function sc_pwe_text_become_an_exhibitor() {
-        if (ICL_LANGUAGE_CODE == "pl") {
+        if (PWE_LANG == "pl") {
             return 'Dołącz do grona wystawców '. do_shortcode('[trade_fair_name]') .' '. do_shortcode('[trade_fair_catalog_year]') .' i zaprezentuj swoją ofertę.';
         } else {
             return 'Join the exhibitors at '. do_shortcode('[trade_fair_name_eng]') .' '. do_shortcode('[trade_fair_catalog_year]') .' and present your offer.';
@@ -2537,7 +2537,7 @@ class PWE_Shortcodes {
     }
     
     public function sc_pwe_text_store() {
-        if (ICL_LANGUAGE_CODE == "pl") {
+        if (PWE_LANG == "pl") {
             return 'Zamów bilety lub pakiety promocyjne związane z '. do_shortcode('[trade_fair_name]') .' '. do_shortcode('[trade_fair_catalog_year]') .' w naszym sklepie online.';
         } else {
             return 'Order tickets or promotional packages related to '. do_shortcode('[trade_fair_name_eng]') .' '. do_shortcode('[trade_fair_catalog_year]') .' in our online store.';
@@ -2593,4 +2593,4 @@ class PWE_Shortcodes {
     }
 }
 
-PWE_Shortcodes::init(); 
+PWE_Shortcodes::init();
