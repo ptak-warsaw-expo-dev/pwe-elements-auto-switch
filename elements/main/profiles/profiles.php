@@ -61,7 +61,7 @@ class Profiles {
 
             /* <-------------> General code end <-------------> */
             
-            $output = include $preset_file;
+            $output = require_once $preset_file;
             
             if ($output && !empty($decoded_data)) {
                 echo $output;         

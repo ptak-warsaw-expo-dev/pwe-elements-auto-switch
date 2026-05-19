@@ -5,7 +5,7 @@ class Speakers {
 
     public static function get_data() {
         return [
-            'types' => ['main'],
+            'types' => ['main'], 
             'presets' => [
                 'gr1' => plugin_dir_path(__FILE__) . 'presets/gr1/preset.php',
                 'gr2' => plugin_dir_path(__FILE__) . 'presets/gr2/preset.php',
@@ -33,35 +33,35 @@ class Speakers {
 
             // Get speakers from the database
             $data = PWE_Functions::get_database_fairs_data_speakers(); 
+
             if (!empty($data)) {
 
                 foreach ($data as $row) {
                     if (!empty($row->data)) {
                         $decoded = json_decode($row->data, true);
 
-                        if ($decoded) {
+                        if (!empty($decoded)) {
+
+                            $lang = PWE_Functions::lang_pl() ? 'pl' : 'en';
+                            $langData = $decoded[$lang] ?? [];
+
                             $speaker = [
-                                'speakers_slug'         => $row->slug ?? '',
-                                'speaker_img'           => !empty($decoded['prelegent_person_img'])
-                                    ? 'https://cap.warsawexpo.eu/public/uploads/domains/' . str_replace('.', '-', $_SERVER['HTTP_HOST']) . '/prelegents/' . $row->slug . '/' . $decoded['prelegent_person_img']
-                                    : '',
-                                'speaker_company_img'   => !empty($decoded['prelegent_company_img'])
-                                    ? 'https://cap.warsawexpo.eu/public/uploads/domains/' . str_replace('.', '-', $_SERVER['HTTP_HOST']) . '/prelegents/' . $row->slug . '/' . $decoded['prelegent_company_img']
-                                    : '',
-                                'speaker_company_name'  => PWE_Functions::lang_pl() ? ($decoded['prelegent_company_name_pl'] ?? '') : ($decoded['prelegent_company_name_en'] ?? ''),
-                                'speaker_name'          => $decoded['prelegent_person_name'] ?? '',
-                                'speaker_position'      => PWE_Functions::lang_pl() ? ($decoded['prelegent_person_position_pl'] ?? '') : ($decoded['prelegent_person_position_en'] ?? ''),
-                                'speaker_text'          => PWE_Functions::lang_pl() ? ($decoded['prelegent_text_pl'] ?? '') : ($decoded['prelegent_text_en'] ?? ''),
-                                'speakers_order'        => $row->order ?? ''
+                                'speakers_slug'       => $row->slug ?? '',
+                                'speaker_img'         => $langData['url'] ?? '',
+                                'speaker_company_img' => '', 
+                                'speaker_company_name'=> '', 
+                                'speaker_name'        => $langData['name'] ?? '',
+                                'speaker_position'    => '',
+                                'speaker_text'        => $langData['desc'] ?? '',
+                                'speakers_order'      => $row->order ?? ''
                             ];
 
-                            $order = $speaker['speakers_order'];
-                            if (!empty($order)) {
-                                if ($order == 99) {
-                                    // add to the end of the array
+                            $order = (int)$speaker['speakers_order'];
+
+                            if ($order !== 0) {
+                                if ($order === 99) {
                                     $speakers_indexed[99][] = $speaker;
                                 } else {
-                                    // normal index by order
                                     $speakers_indexed[$order][] = $speaker;
                                 }
                             }
@@ -99,7 +99,7 @@ class Speakers {
 
             /* <-------------> General code end <-------------> */
 
-            $output = include $preset_file;
+            $output = require_once $preset_file;
 
             if ($output) {
                 echo $output;
