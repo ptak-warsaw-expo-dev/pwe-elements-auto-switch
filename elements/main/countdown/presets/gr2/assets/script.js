@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const wrappers = document.querySelectorAll(".pwe-countdown__wrapper");
     if (!wrappers.length) return;
 
+    const translations = window.pweCountdownTranslations || {};
+
     wrappers.forEach(wrapper => {
         const startDate = new Date(wrapper.dataset.start);
         const endDate = new Date(wrapper.dataset.end);
@@ -45,40 +47,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         const labels = {
-            day: {
-                pl: ["dzień", "dni", "dni"],
-                en: ["day", "days"]
-            },
-            hour: {
-                desktop: {
-                    pl: ["godzina", "godziny", "godzin"],
-                    en: ["hour", "hours"]
-                },
-                mobile: {
-                    pl: ["godz", "godz", "godz"],
-                    en: ["hour", "hours"]
-                }
-            },
-            minute: {
-                desktop: {
-                    pl: ["minuta", "minuty", "minut"],
-                    en: ["minute", "minutes"]
-                },
-                mobile: {
-                    pl: ["min", "min", "min"],
-                    en: ["min", "min"]
-                }
-            },
-            second: {
-                desktop: {
-                    pl: ["sekunda", "sekundy", "sekund"],
-                    en: ["second", "seconds"]
-                },
-                mobile: {
-                    pl: ["sek", "sek", "sek"],
-                    en: ["sec", "sec"]
-                }
-            }
+            day: translations.day || ["day", "days", "days"],
+            hour: translations.hour || ["hour", "hours", "hours"],
+            minute: translations.minute || ["minute", "minutes", "minutes"],
+            second: translations.second || ["second", "seconds", "seconds"]
         };
 
         function animateDigits(digitsEl, newNumber) {
@@ -139,24 +111,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (!isMobile) {
                 if (now < startDate) {
-                    label = lang === "pl" ? "Do targów pozostało:" : "Until the fair starts:";
+                    label = translations.countdown_start || "Until the fair starts:";
                     distance = startDate - now;
                 } else if (now >= startDate && now <= endDate) {
-                    label = lang === "pl" ? "Do końca targów pozostało:" : "Until the fair ends:";
+                    label = translations.countdown_end || "Until the fair ends:";
                     distance = endDate - now;
                 } else {
-                    label = lang === "pl" ? "Targi zakończone" : "Fair ended";
+                    label = translations.countdown_ended || "Fair ended";
                     distance = 0;
                 }
             } else {
                 if (now < startDate) {
-                    label = "START:";
+                    label = translations.countdown_mobile_start || "START:";
                     distance = startDate - now;
                 } else if (now >= startDate && now <= endDate) {
-                    label = lang === "pl" ? "KONIEC:" : "END:";
+                    label = translations.countdown_mobile_end || "END:";
                     distance = endDate - now;
                 } else {
-                    label = lang === "pl" ? "Targi zakończone" : "Fair ended";
+                    label = translations.countdown_ended || "Fair ended";
                     distance = 0;
                 }
             }
@@ -171,10 +143,10 @@ document.addEventListener("DOMContentLoaded", function () {
             const langKey = lang === "pl" ? "pl" : "en";
             const viewKey = isMobile ? "mobile" : "desktop";
 
-            const dayLabel = pluralize(days, labels.day[langKey]);
-            const hourLabel = pluralize(hours, labels.hour[viewKey][langKey]);
-            const minuteLabel = pluralize(minutes, labels.minute[viewKey][langKey]);
-            const secondLabel = pluralize(seconds, labels.second[viewKey][langKey]);
+            const dayLabel = pluralize(days, labels.day);
+            const hourLabel = pluralize(hours, labels.hour);
+            const minuteLabel = pluralize(minutes, labels.minute);
+            const secondLabel = pluralize(seconds, labels.second);
 
             animateDigits(timerEl.querySelector(".days .digits"), days);
             animateDigits(timerEl.querySelector(".hours .digits"), hours);

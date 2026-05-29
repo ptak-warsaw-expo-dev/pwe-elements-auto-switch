@@ -47,8 +47,10 @@ class Header {
             
             $el_id = PWE_Functions::id_rnd();
 
-            $trade_fair_name = (PWE_Functions::lang_pl()) ? do_shortcode('[trade_fair_name]') : do_shortcode('[trade_fair_name_eng]');
-            $trade_fair_desc = (PWE_Functions::lang_pl()) ? do_shortcode('[trade_fair_desc]') : do_shortcode('[trade_fair_desc_eng]');
+            $lang = PWE_Functions::lang();
+            $trade_fair_name = do_shortcode('[pwe_name_' . $lang . ']');
+            $trade_fair_desc = do_shortcode('[pwe_desc_' . $lang . ']');
+
             $trade_fair_date = do_shortcode('[trade_fair_date_multilang]');
 
             $trade_fair_dates_custom_format = do_shortcode('[trade_fair_date_custom_format]');
@@ -61,7 +63,7 @@ class Header {
 
             /* <-------------> General code end <-------------> */
             
-            $output = require_once $preset_file;
+            $output = include $preset_file;
             
             if ($output) {
                 echo $output;         

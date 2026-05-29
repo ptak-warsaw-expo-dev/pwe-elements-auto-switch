@@ -1,0 +1,74 @@
+.pwe-header__partners {
+            position: absolute;
+            top: 55%;
+            transform: translate(0, -50%);
+            right: 18px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            background-color: white;
+            border-radius: 18px;
+            padding: 10px;
+            z-index: 1;
+            opacity: 0;
+            transition: .3s ease-in;
+        }
+        .pwe-header__partners-container {
+            width: 100%;
+            max-width: 280px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .pwe-header__partners-container:not(:first-child) {
+            margin-top: 10px;
+        }
+        .pwe-header__partners-title {
+            margin: 0 auto;
+        }
+        .pwe-header__partners-title h3 {
+            color: black;
+            text-transform: uppercase;
+            max-width: 280px;
+            text-align: center;
+            margin: 0;
+            font-size: 18px;
+        }
+        .pwe-header__partners-items {
+            width: 100%;
+        }
+        .pwe-header__partners-item, 
+        .pwe-header__partners-item a {
+            text-align: center;
+        }
+        .pwe-header__partners-item span {
+            font-weight: 600;
+        }
+        .pwe-header__partners-item img {
+            aspect-ratio: 3/2;
+            object-fit: contain;    
+        }
+
+        @media(max-width:960px){
+            .pwe-header__partners {
+                position: static;
+                top: unset;
+                right: unset;
+                transform: unset;
+                flex-direction: row;
+                flex-wrap: wrap;
+                width: 100%;
+            }
+        }
+        @media(max-width:570px) {
+            .pwe-header__partners {
+                margin-bottom: -2px;
+                border-radius: 18px 18px 0 0;
+            }
+        }
+        @media(max-width:450px) {
+            .pwe-header__partners-container {
+                max-width: 340px;
+            }
+        }

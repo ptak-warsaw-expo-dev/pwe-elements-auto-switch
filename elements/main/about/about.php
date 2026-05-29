@@ -78,14 +78,10 @@ class About {
 
             $b2c = isset($atts['b2c']) ? $atts['b2c'] : false;
  
-            $selected_lang = PWE_Functions::languageChecker('pl', 'en');
-            $domain = parse_url(site_url(), PHP_URL_HOST);
-            
-            $fairs_data_adds = PWE_Functions::get_database_fairs_data_adds($domain);
-            $fair = $fairs_data_adds[0] ?? null;
-            
-            $title = $fair->{'about_title_' . $selected_lang} ?? '';
-            $desc = $fair->{'about_desc_' . $selected_lang} ?? '';
+            $selected_lang = PWE_Functions::lang();
+
+            $title = do_shortcode('[pwe_conference_title_'. $selected_lang .']');
+            $desc  = do_shortcode('[pwe_conference_desc_'. $selected_lang .']');
 
             if (empty($desc)) {
                 return;
@@ -113,7 +109,7 @@ class About {
 
             /* <-------------> General code end <-------------> */
 
-            $output = require_once $preset_file;
+            $output = include $preset_file;
             
             if ($output) {
                 echo $output;         

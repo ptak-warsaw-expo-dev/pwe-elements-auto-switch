@@ -150,7 +150,7 @@
 }
 .pwe-element-auto-switch .pwe-conference-schedule__buttons .pwe-btn.btn-visitors {
     background: var(--main2-color);
-    max-width: 140px;
+    /* max-width: 140px; */
     min-width: 140px;
 }
 .pwe-element-auto-switch .pwe-conference-schedule__buttons .pwe-btn.btn-more {

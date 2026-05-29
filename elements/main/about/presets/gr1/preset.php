@@ -6,15 +6,15 @@ $output = '';
 $output .= '
 <div id="pweAbout" class="pwe-about">
     <div class="pwe-about__content">
-        <h2 class="pwe-about__title pwe-main-title">' . PWE_Functions::languageChecker('O targach', 'About the fair') . '</h2>
+        <h2 class="pwe-about__title pwe-main-title">' . PWE_Functions::multi_translation("about_fair") . '</h2>
         <h4 class="pwe-about__subtitle pwe-main-subtitle">' . $title . '</h4>
         <div class="pwe-about__desc pwe-main-desc">' . $desc . '</div>
-        <a class="pwe-about__btn pwe-main-btn--primary" href="' . PWE_Functions::languageChecker('/rejestracja/', '/en/registration/') . '">' . ($b2c ? PWE_Functions::languageChecker('Kup bilet', 'Buy a ticket') : PWE_Functions::languageChecker('Zarejestruj się', 'Registration')) . '</a>
+        <a class="pwe-about__btn pwe-main-btn--primary" href="' . PWE_Functions::multi_translation("reg_url") . '">' . ($b2c ? PWE_Functions::multi_translation("buy_ticket") : PWE_Functions::multi_translation("registration")) . '</a>
     </div>
     <div class="pwe-about__media">';
         if ($hasMany && !empty($logos)) {
             $output .= '
-            <h4 class="pwe-about__media-title">' . PWE_Functions::languageChecker('Top Wystawcy', 'Top Exhibitors') . '</h4>
+            <h4 class="pwe-about__media-title">' . PWE_Functions::multi_translation("top_exhibitors") . '</h4>
             <div id="pweAboutLogos" class="pwe-about__logos pwe-container-logotypes" data-logos=\'' . $logos_json . '\'>';
 
             for ($i = 0; $i < 9; $i++) { 

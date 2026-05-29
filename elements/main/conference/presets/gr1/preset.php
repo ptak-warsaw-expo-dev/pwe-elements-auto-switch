@@ -9,12 +9,12 @@ $output .= '<div class="pwe-conference__wrapper">
     </div>
     <div class="pwe-conference__right">
         <div class="pwe-conference__right-content">
-            <h2 class="pwe-conference__title">' . PWE_Functions::languageChecker('Konferencja', 'Conference') . '</h2>
+            <h2 class="pwe-conference__title">' . PWE_Functions::multi_translation("conference") . '</h2>
             <h4 class="pwe-conference__name">' . $conf_name . '</h4>
             <div class="pwe-conference__desc">' . $conf_desc . '</div>
             <div class="pwe-conference__btn-container">
-                <a href="' . PWE_Functions::languageChecker('/wydarzenia/', '/en/conferences/') . '" class="pwe-conference__btn">' . PWE_Functions::languageChecker('Szczegóły', 'Details') . '</a>
-                <a href="' . PWE_Functions::languageChecker('/rejestracja/', '/en/registration/') . '" class="pwe-conference__btn pwe-conference__btn_accent">' . ($b2c ? PWE_Functions::languageChecker('Kup bilet', 'Buy a ticket') : PWE_Functions::languageChecker('Zarejestruj się', 'Registration')) . '</a>
+                <a href="' . PWE_Functions::languageChecker('/wydarzenia/', '/en/conferences/') . '" class="pwe-conference__btn">' . PWE_Functions::multi_translation("details") . '</a>
+                <a href="' . PWE_Functions::multi_translation("reg_url") . '" class="pwe-conference__btn pwe-conference__btn_accent">' . ($b2c ? PWE_Functions::multi_translation("buy_ticket") : PWE_Functions::multi_translation("registration")) . '</a>
             </div>
         </div>
         <div class="pwe-conference__logo">

@@ -123,8 +123,8 @@ class Countdown {
 
             // Using the plural or singular form of a word
             $halls_word = (count(array_filter(array_map('trim', explode(',', $all_halls)))) > 1)
-                ? PWE_Functions::languageChecker('Hale', 'Halls')
-                : PWE_Functions::languageChecker('Hala', 'Hall');
+                ? PWE_Functions::multi_translation("halls")
+                : PWE_Functions::multi_translation("hall");
 
 
             $all_entries = '';
@@ -168,18 +168,18 @@ class Countdown {
 
             // Using the plural or singular form of a word
             $entries_word = (count(array_filter(array_map('trim', explode(',', $all_entries)))) > 1)
-                ? PWE_Functions::languageChecker('Wejścia', 'Entrances')
-                : PWE_Functions::languageChecker('Wejście', 'Entrance');
+                ? PWE_Functions::multi_translation("entries")
+                : PWE_Functions::multi_translation("entry");
 
             $diff_timestamp = ($trade_fair_start_date_timestamp - $current_timestamp);
             $time_to_end_timestamp = ($trade_fair_end_date_timestamp - $current_timestamp);
 
             /* <-------------> General code end <-------------> */
             
-            $output = require_once $preset_file;
-            
+            $output = include $preset_file;
+
             if ($output) {
-                echo $output;         
+                echo $output;
             }
         }
     }

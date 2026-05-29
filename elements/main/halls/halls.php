@@ -100,8 +100,8 @@ class Halls {
             $all_halls = rtrim($all_halls, ', ');
 
             $halls_word = (count(array_filter(array_map('trim', explode(',', $all_halls)))) > 1)
-                ? PWE_Functions::languageChecker('Hale', 'Halls')
-                : PWE_Functions::languageChecker('Hala', 'Hall');
+                ? PWE_Functions::multi_translation("multiple_halls")
+                : PWE_Functions::multi_translation("single_hall");
 
             if (empty($all_halls)) {
                 return;
@@ -117,7 +117,7 @@ class Halls {
 
             /* <-------------> General code end <-------------> */
 
-            $output = require_once $preset_file;
+            $output = include $preset_file;
 
             if ($output) {
                 echo $output;

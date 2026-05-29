@@ -3,12 +3,14 @@
 if ($logotypes_slug === 'patrons-partners') {
 
   // Helper for slugs
-  function pwe_slugify($text){
-      if (function_exists('sanitize_title')) return sanitize_title($text);
-      $text = iconv('UTF-8','ASCII//TRANSLIT//IGNORE',$text);
-      $text = strtolower($text);
-      $text = preg_replace('~[^a-z0-9]+~','-',$text);
-      return trim($text,'-') ?: 'inne';
+  if (!function_exists('pwe_slugify')) {
+    function pwe_slugify($text){
+        if (function_exists('sanitize_title')) return sanitize_title($text);
+        $text = iconv('UTF-8','ASCII//TRANSLIT//IGNORE',$text);
+        $text = strtolower($text);
+        $text = preg_replace('~[^a-z0-9]+~','-',$text);
+        return trim($text,'-') ?: 'inne';
+    }
   }
 
   $is_pl = (get_locale() === 'pl_PL');
@@ -177,7 +179,7 @@ if ($logotypes_slug === 'patrons-partners') {
 
                   <div class="pwe-logotypes__filter-all">
                     <button class="pwe-logotypes__filter is-active" data-filter="all">
-                      ' . PWE_Functions::languageChecker('Wszyscy', 'All') . ' <span>'. intval($total) .'</span>
+                      ' . PWE_Functions::multi_translation('all') . ' <span>'. intval($total) .'</span>
                     </button>
                     <div class="swiper-buttons-arrows">
                       <div class="swiper-button-prev">⏴</div>

@@ -241,8 +241,12 @@ class Conference {
 
                 $first_fair_adds = $fairs_data_adds[0] ?? null;
                 $conf_name  = $first_fair_adds ? ($first_fair_adds->{'konf_name'} ?? '') : '';
-                $conf_title = $first_fair_adds ? ($first_fair_adds->{'konf_title_' . $lang} ?? '') : '';
-                $conf_desc  = $first_fair_adds ? ($first_fair_adds->{'konf_desc_' . $lang} ?? '') : '';
+                // $conf_title = $first_fair_adds ? ($first_fair_adds->{'konf_title_' . $lang} ?? '') : '';
+                // $conf_desc  = $first_fair_adds ? ($first_fair_adds->{'konf_desc_' . $lang} ?? '') : '';
+
+                $multi_lang = PWE_Functions::lang();
+                $conf_title = do_shortcode('[pwe_conference_title_' . $multi_lang . ']');
+                $conf_desc = do_shortcode('[pwe_conference_desc_' . $multi_lang . ']');
 
                 if (empty($conf_desc) && $useSchedule != true) {
                     echo '<style>.pwe-element-auto-switch.conference {display:none;}</style>';
@@ -281,7 +285,7 @@ class Conference {
                 }
 
             /* <-------------> General code end <-------------> */
-            $output = require_once $preset_file;
+            $output = include $preset_file;
             if ($output) {
                 echo $output;
             }

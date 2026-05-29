@@ -1,5 +1,4 @@
 <?php
-
 $desc_length = mb_strlen($trade_fair_desc, 'UTF-8');
 
 $output = '';
@@ -54,8 +53,8 @@ $output .= '
                 <div class="pwe-header__buttons">
                     <div class="pwe-btn-container header-button">
                         <a class="pwe-link pwe-btn btn-visitors" 
-                           href="'. PWE_Functions::languageChecker('/rejestracja/', '/en/registration/') .'" 
-                           alt="'. PWE_Functions::multi_translation('link_to_registration') .'">
+                           href="'. PWE_Functions::multi_translation('link_to_registration') .'" 
+                           alt="'. PWE_Functions::multi_translation('link_to_registration_text') .'">
                             '. ($b2c ? PWE_Functions::languageChecker('Kup<br>bilet', 'Buy<br>a ticket') : PWE_Functions::multi_translation('register') .'<br>'. PWE_Functions::multi_translation('free_ticket')).' 
                             <span class="btn-angle-right">
                                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -66,8 +65,8 @@ $output .= '
                     </div>
                     <div class="pwe-btn-container header-button">
                         <a class="pwe-link pwe-btn btn-exhibitors" 
-                           href="'. PWE_Functions::languageChecker('/zostan-wystawca/', '/en/become-an-exhibitor/') .'" 
-                           alt="'. PWE_Functions::multi_translation('link_to_registration_exh') .'">
+                           href="'. PWE_Functions::multi_translation('link_to_registration_exh') .'" 
+                           alt="'. PWE_Functions::multi_translation('link_to_registration_text_exh') .'">
                             '. PWE_Functions::multi_translation('become_exhibitor') .' 
                             <span class="btn-angle-right">
                                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -81,7 +80,7 @@ $output .= '
             </div>';
 
             // Partners widget --------------------------------------------------------------------------------------<
-            require_once plugin_dir_path(dirname(dirname(__FILE__))) . 'widgets/gr2.php';
+            require_once plugin_dir_path(dirname(dirname(__FILE__))) . 'widgets/partners/partners.php';
             
             $output .= '
         </div>

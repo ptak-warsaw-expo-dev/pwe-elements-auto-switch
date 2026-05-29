@@ -310,25 +310,26 @@ class Logotypes {
 
             if ($logotypes_slug === 'patrons-partners-international') {
                 if (do_shortcode("[trade_fair_group]") === "gr2") {
-                    $title = PWE_Functions::languageChecker('Patroni i Partnerzy Zagraniczni', 'Foreign Patrons and Partners');
+                    $title = PWE_Functions::multi_translation("patrons_int_gr2");
                 } else {
-                    $title = PWE_Functions::languageChecker('Patroni Międzynarodowi', 'International Patrons');
+                    $title = PWE_Functions::multi_translation("patrons_int");
                 }
             } else if ($logotypes_slug === 'patrons-partners') {
-                $title = PWE_Functions::languageChecker('Patroni i Partnerzy', 'Patrons and Partners');
+                $title = PWE_Functions::multi_translation("patrons");
             } else if ($logotypes_slug === 'patrons-partners-pwe') {
-                $title = PWE_Functions::languageChecker('Partnerzy Ptak Warsaw Expo', 'Partners of Ptak Warsaw Expo');
+                $title = PWE_Functions::multi_translation("pwe_partners");
             } else if ($logotypes_slug === 'patrons-partners-conference') {
-                $title = PWE_Functions::languageChecker('Patroni Targów i Konferencji', 'Patrons Of The Trade Fair And Conference');
+                $title = PWE_Functions::multi_translation("conf_patrons");
             } else if ($logotypes_slug === 'europe-event') {
-                $title = PWE_Functions::languageChecker('Najważniejsze wydarzenia branżowe w europie', 'Key industry events in europe');
+                $title = PWE_Functions::multi_translation("eu_events");
             }
 
             /* <-------------> General code end <-------------> */
             if (empty($logotypes)) {
                 return;
             }
-            $output = require_once $preset_file;
+
+            $output = include $preset_file;
 
             if ($output) {
                 echo $output;

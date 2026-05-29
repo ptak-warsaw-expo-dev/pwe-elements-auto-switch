@@ -27,10 +27,10 @@ document.addEventListener("DOMContentLoaded", function() {
         let distance, label;
 
         if (now < startDate) {
-            label = lang === "pl" ? "Do targów pozostało:" : "Until the fair starts:";
+            label = pweCountdownTranslations.countdown_start;
             distance = startDate - now;
         } else if (now >= startDate && now <= endDate) {
-            label = lang === "pl" ? "Do końca targów pozostało:" : "Until the fair ends:";
+            label = pweCountdownTranslations.countdown_end;
             distance = endDate - now;
         }
 
@@ -39,14 +39,14 @@ document.addEventListener("DOMContentLoaded", function() {
         const minutes = Math.floor((distance / (1000 * 60)) % 60);
         const seconds = Math.floor((distance / 1000) % 60);
 
-        const dWord = pluralize(days, lang === "pl" ? ["dzień", "dni", "dni"] : ["day", "days"]);
-        const hWord = pluralize(hours, lang === "pl" ? ["godzina", "godziny", "godzin"] : ["hour", "hours"]);
-        const mWord = pluralize(minutes, lang === "pl" ? ["minuta", "minuty", "minut"] : ["minute", "minutes"]);
+        const dWord = pluralize(days, pweCountdownTranslations.day);
+        const hWord = pluralize(hours, pweCountdownTranslations.hour);
+        const mWord = pluralize(minutes, pweCountdownTranslations.minute);
 
         let output = `<span>${days} ${dWord}</span> <span>${hours} ${hWord}</span> <span>${minutes} ${mWord}</span>`;
 
         if (showSeconds) {
-            const sWord = pluralize(seconds, lang === "pl" ? ["sekunda", "sekundy", "sekund"] : ["second", "seconds"]);
+            const sWord = pluralize(seconds, pweCountdownTranslations.second);
             output += ` <span>${seconds} ${sWord}</span>`;
         }
 

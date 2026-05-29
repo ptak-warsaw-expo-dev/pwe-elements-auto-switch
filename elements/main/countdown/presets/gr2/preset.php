@@ -1,5 +1,4 @@
 <?php
-
 $output = '<div style="visibility: hidden; width: 0; height: 0;" id="main-content">...</div>';
 
 if ((($trade_fair_start_date_timestamp != false && $trade_fair_end_date_timestamp != false) && !empty($trade_fair_start_date)) &&
@@ -8,7 +7,7 @@ if ((($trade_fair_start_date_timestamp != false && $trade_fair_end_date_timestam
     $output .= '
     <div id="openingHours" class="opening-hours">
         <div class="opening-hours__block">
-            <p class="opening-hours__title">'. PWE_Functions::languageChecker('GODZINY OTWARCIA:', 'OPENING HOURS:') .'</p>
+            <p class="opening-hours__title">test</p>
             <p class="opening-hours__date pwe-uppercase">'. $trade_fair_start_date_week .' - '. $trade_fair_end_date_week .'<span class="hours">'. $trade_fair_start_date_hour .' - '. $trade_fair_end_date_hour .'</span></p>
             <div class="opening-hours__hall">
                 <p>'. $halls_word .' <strong>'. $all_halls .'</strong></p>
@@ -32,7 +31,39 @@ if ((($trade_fair_start_date_timestamp != false && $trade_fair_end_date_timestam
             <div class="pwe-countdown__label"></div>
             <div class="pwe-countdown__timer"></div>
         </div>
-    </div>';
+    </div>
+    
+    <script>
+    {
+        window.pweCountdownTranslations = {
+            countdown_start: ' . json_encode(PWE_Functions::multi_translation("countdown_start")) . ',
+            countdown_end: ' . json_encode(PWE_Functions::multi_translation("countdown_end")) . ',
+            countdown_ended: ' . json_encode(PWE_Functions::multi_translation("countdown_ended")) . ',
+            countdown_mobile_start: ' . json_encode(PWE_Functions::multi_translation("countdown_mobile_start")) . ',
+            countdown_mobile_end: ' . json_encode(PWE_Functions::multi_translation("countdown_mobile_end")) . ',
+            day: [
+                ' . json_encode(PWE_Functions::multi_translation("day_1")) . ',
+                ' . json_encode(PWE_Functions::multi_translation("day_2")) . ',
+                ' . json_encode(PWE_Functions::multi_translation("day_5")) . '
+            ],
+            hour: [
+                ' . json_encode(PWE_Functions::multi_translation("hour_1")) . ',
+                ' . json_encode(PWE_Functions::multi_translation("hour_2")) . ',
+                ' . json_encode(PWE_Functions::multi_translation("hour_5")) . '
+            ],
+            minute: [
+                ' . json_encode(PWE_Functions::multi_translation("minute_1")) . ',
+                ' . json_encode(PWE_Functions::multi_translation("minute_2")) . ',
+                ' . json_encode(PWE_Functions::multi_translation("minute_5")) . '
+            ],
+            second: [
+                ' . json_encode(PWE_Functions::multi_translation("second_1")) . ',
+                ' . json_encode(PWE_Functions::multi_translation("second_2")) . ',
+                ' . json_encode(PWE_Functions::multi_translation("second_5")) . '
+            ]
+        };
+    }
+    </script>';
     
 }
 

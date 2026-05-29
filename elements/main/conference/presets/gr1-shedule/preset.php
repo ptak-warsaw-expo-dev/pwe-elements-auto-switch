@@ -237,8 +237,8 @@ $output  = '
         <div class="pwe-conference-schedule__top">
             <img src="/doc/kongres-color.webp" alt="Congress logo">
             <div class="pwe-conference-schedule__title-container">
-                <h2 class="pwe-conference-schedule__conf-name">'. PWE_Functions::languageChecker('Konferencje', 'Conferences') .'</h2>
-                <h3>'. PWE_Functions::languageChecker(do_shortcode('[trade_fair_conference_title]'), do_shortcode('[trade_fair_conference_title_eng]')) .'</h3>
+                <h2 class="pwe-conference-schedule__conf-name">'. PWE_Functions::multi_translation("schedule_conferences") .'</h2>
+                <h3>'. $conf_title .'</h3>
             </div>
         </div>
 
@@ -259,8 +259,8 @@ $output  = '
             <table class="pwe-conference-schedule__table">
                 <thead>
                     <tr>
-                        <th>' . PWE_Functions::languageChecker('Organizator', 'Organizer') . '</th>
-                        <th>' . PWE_Functions::languageChecker('Temat', 'Subject') . '</th>';
+                        <th>' . PWE_Functions::multi_translation("schedule_organizer") . '</th>
+                        <th>' . PWE_Functions::multi_translation("schedule_subject") . '</th>';
 
                         foreach ($fairDays as $date) {
                             $html .= '<th>' . date('d.m', strtotime($date)) . '</th>';
@@ -410,11 +410,11 @@ $output  = '
 
         $output .= '
         <div class="pwe-conference-schedule__buttons">
-            <a href="' . PWE_Functions::languageChecker('/rejestracja/', '/en/registration/') . '" class="pwe-main-btn--primary">'
-                . PWE_Functions::languageChecker('Weź udział', 'Take part') . '</a>
+            <a href="' . PWE_Functions::multi_translation("schedule_reg_url") . '" class="pwe-main-btn--primary">'
+                . PWE_Functions::multi_translation("schedule_take_part") . '</a>
 
             <a href="' . PWE_Functions::languageChecker('/wydarzenia/', '/en/conferences/') . '" class="pwe-main-btn--secondary">'
-                . PWE_Functions::languageChecker('Dowiedz się więcej', 'Find out more') . '</a>
+                . PWE_Functions::multi_translation("schedule_find_more") . '</a>
         </div>
     </div>
 </div>';
