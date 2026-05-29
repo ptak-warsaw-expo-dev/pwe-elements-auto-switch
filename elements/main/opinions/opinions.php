@@ -33,6 +33,8 @@ class Opinions {
             
             $edition = do_shortcode('[trade_fair_edition]');
 
+            $lang = defined('ICL_LANGUAGE_CODE') ? ICL_LANGUAGE_CODE : 'en';
+
             // Loading JSON with default opinions
             $opinions_file = __DIR__ . '/assets/default-opinions.json';
             $opinions_data = json_decode(file_get_contents($opinions_file), true);
@@ -75,14 +77,11 @@ class Opinions {
                                 'opinion_company_img'        => !empty($decoded['opinion_company_img'])
                                     ? 'https://cap.warsawexpo.eu/public/uploads/domains/' . str_replace('.', '-', $_SERVER['HTTP_HOST']) . '/opinions/' . $row->slug . '/' . $decoded['opinion_company_img']
                                     : '',
-                                'opinion_company_name_pl'    => $decoded['opinion_company_name_pl'] ?? '',
-                                'opinion_company_name_en'    => $decoded['opinion_company_name_en'] ?? '',
-                                'opinion_person_name'        => $decoded['opinion_person_name'] ?? '',
-                                'opinion_person_position_pl' => $decoded['opinion_person_position_pl'] ?? '',
-                                'opinion_person_position_en' => $decoded['opinion_person_position_en'] ?? '',
-                                'opinion_text_pl'            => $decoded['opinion_text_pl'] ?? '',
-                                'opinion_text_en'            => $decoded['opinion_text_en'] ?? '',
-                                'opinions_order'             => $row->order ?? ''
+                                'opinion_company_name_' . $lang    => $decoded['opinion_company_name_' . $lang] ?? '',
+                                'opinion_person_name'              => $decoded['opinion_person_name'] ?? '',
+                                'opinion_person_position_' . $lang => $decoded['opinion_person_position_' . $lang] ?? '',
+                                'opinion_text_' . $lang            => $decoded['opinion_text_' . $lang] ?? '',
+                                'opinions_order'                   => $row->order ?? ''
                             ];
 
                             $order = $opinion['opinions_order'];
@@ -122,7 +121,7 @@ class Opinions {
 
             /* <-------------> General code end <-------------> */
             
-            $output = require_once $preset_file;
+            $output = include $preset_file;
             
             if ($output) {
                 echo $output;         

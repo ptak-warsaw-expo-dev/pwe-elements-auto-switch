@@ -35,7 +35,7 @@ class Summary {
 
             /* <-------------> General code end <-------------> */
             
-            $output = require_once $preset_file;
+            $output = include $preset_file;
             
             if ($output) {
                 echo $output;         

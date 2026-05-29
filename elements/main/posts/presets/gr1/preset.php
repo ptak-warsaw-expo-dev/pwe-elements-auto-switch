@@ -5,7 +5,7 @@ $output = '';
 $output .= '
 <div id="pwePosts" class="pwe-posts">
     <div class="pwe-posts__wrapper">
-        <h4 class="pwe-main-title">'. PWE_Functions::languageChecker('Aktualności', 'News') .'</h4>
+        <h4 class="pwe-main-title">'. PWE_Functions::multi_translation("title") .'</h4>
         <div class="pwe-posts__slider swiper" role="group" aria-roledescription="carousel" aria-live="polite">
             <div class="swiper-wrapper">';
 
@@ -17,7 +17,7 @@ $output .= '
                         </div>
                         <div class="pwe-posts__post-content">
                             <h4 class="pwe-posts__post-title">' . esc_html($item['title']) . '</h4>
-                            <span class="pwe-posts__post-btn">Więcej <span class="pwe-posts__post-arrow">➜</span></span>
+                            <span class="pwe-posts__post-btn">'. PWE_Functions::multi_translation("more") .' <span class="pwe-posts__post-arrow">➜</span></span>
                         </div>
                     </a>';
                 }
@@ -27,7 +27,7 @@ $output .= '
             <div class="swiper-scrollbar"></div>
         </div>
         <div class="pwe-posts__btn-container">
-            <a class="pwe-posts__see-all pwe-main-btn--secondary" href="/'. PWE_Functions::languageChecker('aktualnosci', 'news') .'">'. PWE_Functions::languageChecker('Zobacz wszystkie', 'See all') .'</a>
+            <a class="pwe-posts__see-all pwe-main-btn--secondary" href="/'. PWE_Functions::languageChecker('aktualnosci', 'news') .'">'. PWE_Functions::multi_translation("read_all") .'</a>
         </div>
     </div>
 </div>';

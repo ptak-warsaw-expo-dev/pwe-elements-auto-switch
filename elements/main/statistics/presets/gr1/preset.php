@@ -4,24 +4,24 @@ $output = '
 <div id="pweStatistics" class="pwe-statistics">
     <div class="pwe-statistics__wrapper">
         <div class="pwe-statistics__main-tile pwe-statistics__border">
-            <h4 class="pwe-main-title">'. ($edition === "1" ? PWE_Functions::languageChecker('Estymacje', 'Estimates') : PWE_Functions::languageChecker('Statystyki', 'Statistics')) .'</h4>
+            <h4 class="pwe-main-title">'. ($edition === "1" ? PWE_Functions::multi_translation("estimates") : PWE_Functions::multi_translation("statistics")) .'</h4>
             <div class="pwe-statistics__main-text">
-                <strong><p>' . do_shortcode('[pwe_edition]') . PWE_Functions::languageChecker('. edycja', ' edition') .'</p></strong>
-                <p>'. do_shortcode(PWE_Functions::languageChecker('[trade_fair_date]', '[trade_fair_date_eng]')) .'</p>
+                <strong><p>' . do_shortcode('[pwe_edition]') . PWE_Functions::multi_translation("edition") .'</p></strong>
+                <p>'. do_shortcode('[trade_fair_date_multilang]') .'</p>
             </div>
-            <a class="pwe-statistics__btn pwe-main-btn--secondary" href="' . PWE_Functions::languageChecker('/rejestracja/', '/en/registration/') . '">' . ($b2c ? PWE_Functions::languageChecker('Kup bilet', 'Buy a ticket') : PWE_Functions::languageChecker('Zarejestruj się', 'Registration')) . '</a>
+            <a class="pwe-statistics__btn pwe-main-btn--secondary" href="' . PWE_Functions::multi_translation("reg_url") . '">' . ($b2c ? PWE_Functions::multi_translation("buy_ticket") : PWE_Functions::multi_translation("registration")) . '</a>
         </div>
         <div class="pwe-statistics__tiles">
             <div class="pwe-statistics__tiles-visitors pwe-statistics__border">
                 <div class="pwe-statistics__tile-text">
                     <div class="pwe-statistics__tile-visitors">
                         <span class="pwe-statistics__tile-number" data-target="' . do_shortcode('[pwe_visitors]') . '">0</span>
-                        <span class="pwe-statistics__tile-number-desc">'. PWE_Functions::languageChecker('Odwiedzający', 'Visitors') .'</span>
+                        <span class="pwe-statistics__tile-number-desc">'. PWE_Functions::multi_translation("visitors") .'</span>
                     </div>
                     <hr class="pwe-statistics__tile-divider">
                     <div class="pwe-statistics__tile-visitors-abroad">
                         <span class="pwe-statistics__tile-number" data-target="' . do_shortcode('[pwe_visitors_foreign]') . '">0</span>
-                        <span class="pwe-statistics__tile-number-desc">'. PWE_Functions::languageChecker('W tym z zagranicy', 'Including from abroad') .'</span>
+                        <span class="pwe-statistics__tile-number-desc">'. PWE_Functions::multi_translation("visitors_abroad") .'</span>
                         <span class="pwe-statistics__tile-percent" data-target="' . $visitors_percent . '" data-suffix=" %">0</span>
                     </div>
                 </div>
@@ -35,7 +35,7 @@ $output = '
                 <div class="pwe-statistics__tile-exhibitors pwe-statistics__border">
                     <div class="pwe-statistics__tile-text">
                         <span class="pwe-statistics__tile-number" data-target="' . do_shortcode('[pwe_exhibitors]') . '">0</span>
-                        <span class="pwe-statistics__tile-number-desc">'. PWE_Functions::languageChecker('Wystawcy', 'Exhibitors') .'</span>
+                        <span class="pwe-statistics__tile-number-desc">'. PWE_Functions::multi_translation("exhibitors") .'</span>
                     </div>
                     <div class="pwe-statistics__icon-box">
                         <svg class="pwe-statistics__icon pwe-statistics__icon-visitor" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#FFFFFF">
@@ -46,7 +46,7 @@ $output = '
                 <div class="pwe-statistics__tile-area pwe-statistics__border">
                     <div class="pwe-statistics__tile-text">
                         <span class="pwe-statistics__tile-number" data-target="' . do_shortcode('[pwe_area]') . '" data-suffix="&nbsp;m<sup>2</sup>">0&nbsp;m<sup>2</sup>">0</span>
-                        <span class="pwe-statistics__tile-number-desc">'. PWE_Functions::languageChecker('Powierzchni wystawienniczej', 'Exhibition space') .'</span>
+                        <span class="pwe-statistics__tile-number-desc">'. PWE_Functions::multi_translation("area") .'</span>
                     </div>
                     <div class="pwe-statistics__icon-box">
                         <svg class="pwe-statistics__icon pwe-statistics__icon-area" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg">

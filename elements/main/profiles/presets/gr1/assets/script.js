@@ -33,9 +33,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 btn.addEventListener("click", function () {
                     ul.classList.toggle("collapsed");
                     if (ul.classList.contains("collapsed")) {
-                        btn.innerHTML = "więcej ▼";
+                        btn.innerHTML = pweProfilesTranslations.more + " ▼";
                     } else {
-                        btn.innerHTML = "zwiń ▲";
+                        btn.innerHTML = pweProfilesTranslations.less + " ▲";
                     }
                 });
             } else {

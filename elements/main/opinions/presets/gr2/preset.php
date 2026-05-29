@@ -4,7 +4,7 @@ $output = '
 <div id="pweOpinions" class="pwe-opinions">
     <div class="pwe-opinions__wrapper">
         <div class="pwe-opinions__title">
-            <h4 class="pwe-main-title">'. PWE_Functions::languageChecker('Rekomendacje', 'Recomendations') .'</h4>
+            <h4 class="pwe-main-title">'. PWE_Functions::multi_translation('title') .'</h4>
             <div class="swiper-buttons-arrows">
                 <div class="swiper-button-prev">⏴</div>
                 <div class="swiper-button-next">⏵</div>
@@ -16,10 +16,10 @@ $output = '
                 foreach ($opinions_to_render as $opinion_item) {
                     $opinion_person_img = $opinion_item['opinion_person_img'];
                     $opinion_company_img = $opinion_item["opinion_company_img"];
-                    $opinion_company_name = PWE_Functions::lang_pl() ? $opinion_item['opinion_company_name_pl'] : $opinion_item['opinion_company_name_en'];
+                    $opinion_company_name = $opinion_item['opinion_company_name_' . $lang];
                     $opinion_person_name = $opinion_item['opinion_person_name'];
-                    $opinion_person_position = PWE_Functions::lang_pl() ? $opinion_item['opinion_person_position_pl'] : $opinion_item['opinion_person_position_en'];
-                    $opinion_text = PWE_Functions::lang_pl() ? $opinion_item['opinion_text_pl'] : $opinion_item['opinion_text_en'];
+                    $opinion_person_position = $opinion_item['opinion_person_position_' . $lang];
+                    $opinion_text = $opinion_item['opinion_text_' . $lang];
 
                     $output .= '
                     <div class="pwe-opinions__item swiper-slide">

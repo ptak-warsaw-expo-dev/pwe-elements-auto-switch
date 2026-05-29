@@ -2,7 +2,7 @@
 
 $output = '
 <div id="pweSummary" class="pwe-summary">
-    <h2 class="pwe-main-title">'. PWE_Functions::languageChecker('Ptak Warsaw Expo - łączymy świat biznesu', 'Ptak Warsaw Expo - we connect the world of business') .'</h2>
+    <h2 class="pwe-main-title">'. PWE_Functions::multi_translation("summary_title") .'</h2>
 
     <div class="pwe-summary__top">
 
@@ -17,11 +17,11 @@ $output = '
 
         <div class="pwe-summary__info-overlay">
             <div class="pwe-summary__info-item">
-            <h2 class="pwe-summary__info-title">'. PWE_Functions::languageChecker('Stolica targów', 'The capital of trade fairs') .'</h2>
-            <p class="pwe-summary__info-description">'. PWE_Functions::languageChecker('Targi / Konferencje / Eventy', 'Trade fairs / Conferences / Events') .'</p>
+            <h2 class="pwe-summary__info-title">'. PWE_Functions::multi_translation("info_title") .'</h2>
+            <p class="pwe-summary__info-description">'. PWE_Functions::multi_translation("info_desc") .'</p>
             </div>
-            <a href="'. PWE_Functions::languageChecker('https://warsawexpo.eu/kalendarz-targowy/', 'https://warsawexpo.eu/en/fair-calendar/') .'" target="_blank">
-                <div class="pwe-summary__calendar-link">'. PWE_Functions::languageChecker('Kalendarz targowy', 'Trade show calendar') .'</div>
+            <a href="'. PWE_Functions::multi_translation("calendar_link") .'" target="_blank">
+                <div class="pwe-summary__calendar-link">'. PWE_Functions::multi_translation("calendar_link_name") .'</div>
             </a>
         </div>
         </div>
@@ -32,24 +32,30 @@ $output = '
         <div class="pwe-summary__stat">
             <img src="/wp-content/plugins/pwe-media/media/numbers-el/exhibitors.webp" alt="Ikona wystawców" class="pwe-summary__stat-icon" />
             <h2 class="pwe-summary__stat-value">20000</h2>
-            <p class="pwe-summary__stat-description">'. PWE_Functions::languageChecker('Wystawców rocznie', 'Exhibitors per year') .'</p>
+            <p class="pwe-summary__stat-description">'. PWE_Functions::multi_translation("exhibitor_year") .'</p>
         </div>
         <div class="pwe-summary__stat">
             <img src="/wp-content/plugins/pwe-media/media/numbers-el/visitors.webp" alt="Ikona odwiedzających" class="pwe-summary__stat-icon" />
             <h2 class="pwe-summary__stat-value">2mln+</h2>
-            <p class="pwe-summary__stat-description">'. PWE_Functions::languageChecker('Odwiedzających rocznie', 'Visitors per year') .'</p>
+            <p class="pwe-summary__stat-description">'. PWE_Functions::multi_translation("visitors_year") .'</p>
         </div>
         <div class="pwe-summary__stat">
             <img src="/wp-content/plugins/pwe-media/media/numbers-el/fairs.webp" alt="Ikona targów" class="pwe-summary__stat-icon" />
             <h2 class="pwe-summary__stat-value">150+</h2>
-            <p class="pwe-summary__stat-description">'. PWE_Functions::languageChecker('Targów B2B rocznie', 'B2B trade fairs <br>per year') .'</p>
+            <p class="pwe-summary__stat-description">'. PWE_Functions::multi_translation("fairs_year") .'</p>
         </div>
         <div class="pwe-summary__stat">
             <img src="/wp-content/plugins/pwe-media/media/numbers-el/area.webp" alt="Ikona powierzchni" class="pwe-summary__stat-icon" />
             <h2 class="pwe-summary__stat-value">153k</h2>
-            <p class="pwe-summary__stat-description">'. PWE_Functions::languageChecker('Powierzchni wystawienniczej m²', 'Exhibition space m²') .'</p>
+            <p class="pwe-summary__stat-description">'. PWE_Functions::multi_translation("exhibition_space") .'</p>
         </div>
     </div>
-</div>';  
+</div>
+
+<script>
+const pweSummaryUfi = {
+    ufi_info_text: ' . json_encode(PWE_Functions::multi_translation("ufi_info_text")) . '
+};
+</script>';  
 
 return $output;

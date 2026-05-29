@@ -39,6 +39,8 @@ class Premieres {
             return;
         }
 
+        $lang = defined('ICL_LANGUAGE_CODE') ? ICL_LANGUAGE_CODE : 'en';
+
         $slides = [];
         foreach ($premieres as $premiere) {
             $data = json_decode($premiere->data, true);
@@ -46,8 +48,8 @@ class Premieres {
             $item = $data[$premiere->slug];
 
             $slides[] = [
-                'name'      => PWE_Functions::lang_pl() ? $item['name_pl'] : ($item['name_en'] ?? $item['name_pl']),
-                'desc'      => PWE_Functions::lang_pl() ? $item['desc_pl'] : ($item['desc_en'] ?? $item['desc_pl']),
+                'name'      => $item['name_' . $lang] ?? '',
+                'desc'      => $item['desc_' . $lang] ?? '',
                 'exhibitor' => $item['exhibitor'] ?? '',
                 'stand'     => $item['stand'],
                 'img'       => $item['background'] ?? '',
@@ -58,7 +60,7 @@ class Premieres {
         /* <-------------> General code end <-------------> */
 
             
-            $output = require_once $preset_file;
+            $output = include $preset_file;
             
             if ($output) {
                 echo $output;         

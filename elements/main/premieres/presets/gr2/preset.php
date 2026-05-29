@@ -4,8 +4,8 @@ $output = '
 <div id="pwePremieres" class="pwe-premieres">
     <div class="pwe-premieres__header">
         <div class="pwe-premieres__header-title">
-            <div class="pwe-main-subtitle">'. PWE_Functions::languageChecker('PRODUKTY', 'PRODUCTS') .' '. do_shortcode('[trade_fair_name]') .'</div>
-            <div class="pwe-main-title">'. PWE_Functions::languageChecker('Co zobaczysz na targach', 'What will you see at the fair?') .'</div>
+            <div class="pwe-main-subtitle">' . PWE_Functions::multi_translation("premieres_subtitle") . ' '. do_shortcode('[trade_fair_name]') .'</div>
+            <div class="pwe-main-title">' . PWE_Functions::multi_translation("premieres_title") . '</div>
         </div>
         <img class="pwe-premieres__header-img" src="/doc/logo-color.webp" alt="">
     </div>

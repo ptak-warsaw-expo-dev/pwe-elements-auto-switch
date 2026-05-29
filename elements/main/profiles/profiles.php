@@ -40,28 +40,24 @@ class Profiles {
             if (!empty($data)) {
                 $decoded_data = json_decode($data[0]->data, true);
 
+                $lang = defined('ICL_LANGUAGE_CODE') ? ICL_LANGUAGE_CODE : 'en';
+
                 $profile_for_visitors_img = $decoded_data['profile_for_visitors_img'];
                 $profile_for_exhibitors_img = $decoded_data['profile_for_exhibitors_img'];
                 $profile_industry_scope_img = $decoded_data['profile_industry_scope_img'];
 
-                $profile_for_visitors_pl   = $decoded_data['profile_for_visitors_pl'] ?? null;
-                $profile_for_exhibitors_pl = $decoded_data['profile_for_exhibitors_pl'] ?? null;
-                $profile_industry_scope_pl = $decoded_data['profile_industry_scope_pl'] ?? null;
-
-                $profile_for_visitors_en   = $decoded_data['profile_for_visitors_en'] ?? null;
-                $profile_for_exhibitors_en = $decoded_data['profile_for_exhibitors_en'] ?? null;
-                $profile_industry_scope_en = $decoded_data['profile_industry_scope_en'] ?? null;
+                $profile_for_visitors = $decoded_data['profile_for_visitors_' . $lang] ?? null;
+                $profile_for_exhibitors = $decoded_data['profile_for_exhibitors_' . $lang] ?? null;
+                $profile_industry_scope = $decoded_data['profile_industry_scope_' . $lang] ?? null;
             }
 
-            if (PWE_Functions::lang_pl() && (empty($profile_for_visitors_pl) || empty($profile_for_exhibitors_pl) || empty($profile_industry_scope_pl))) {
-                return;
-            } else if (!PWE_Functions::lang_pl() && (empty($profile_for_visitors_en) || empty($profile_for_exhibitors_en) || empty($profile_industry_scope_en))) {
+            if ((empty($profile_for_visitors) || empty($profile_for_exhibitors) || empty($profile_industry_scope))) {
                 return;
             }
 
             /* <-------------> General code end <-------------> */
             
-            $output = require_once $preset_file;
+            $output = include $preset_file;
             
             if ($output && !empty($decoded_data)) {
                 echo $output;         

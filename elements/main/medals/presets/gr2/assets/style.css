@@ -147,7 +147,7 @@
 }
 .pwe-element-auto-switch .pwe-medals .pwe-btn {
     background: var(--main2-color);
-    max-width: 130px;
+    /* max-width: 130px; */
     min-width: 130px;
 }
 .pwe-element-auto-switch .pwe-medals .pwe-btn-container .btn-angle-right {
