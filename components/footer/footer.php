@@ -41,27 +41,11 @@ class Footer {
             
             /* <-------------> General code start <-------------> */
 
-            $menus = wp_get_nav_menus();
-
-            foreach ($menus as $menu) {
-                $menu_name_lower = strtolower($menu->name);
-                $patterns = ['1 pl', '1 en', '1 lt', '1 de', '1 it', '2 pl', '2 en', '2 lt', '2 de', '2 it', '3 pl', '3 en', '3 lt', '3 de', '3 it'];
-                foreach ($patterns as $pattern) {
-                    if (strpos($menu_name_lower, $pattern) !== false) {
-                        $varName = 'menu_' . str_replace(' ', '_', $pattern);
-                        // $menu_1_pl, $menu_2_pl ...
-                        $$varName = $menu->name;
-                        break;
-                    }
-                }
-            } 
-
-            $base_url = ( (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http' ) . '' . $_SERVER['HTTP_HOST'];
-            $page_url = 'https://' . $_SERVER['HTTP_HOST'] . PWE_Functions::languageChecker('', '/en/', '/de/');
+        
 
             /* <-------------> General code end <-------------> */
             
-            $output = require_once $preset_file;
+            $output = include $preset_file;
             
             if ($output) {
                 echo $output;         

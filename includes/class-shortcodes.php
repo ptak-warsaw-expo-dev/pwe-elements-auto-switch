@@ -189,6 +189,80 @@ class PWE_Shortcodes {
         ];
     }
 
+    private function other_shortcodes_map() {
+        $lang = PWE_LANG;   
+
+        return [
+            'pwe_name_pl',
+            'pwe_name_en',
+            'pwe_desc_pl',
+            'pwe_desc_en',
+            'pwe_fair_id',
+            'pwe_short_desc_pl',
+            'pwe_short_desc_en',
+            'pwe_full_desc_pl',    
+            'pwe_full_desc_en',      
+            'pwe_date_start',           
+            'pwe_date_start_hour',       
+            'pwe_date_end',             
+            'pwe_date_end_hour',         
+            'pwe_edition',               
+            'pwe_visitors',              
+            'pwe_visitors_foreign',      
+            'pwe_exhibitors',            
+            'pwe_countries',             
+            'pwe_area',                  
+            'pwe_statistics_year_curr',  
+            'pwe_visitors_prev',         
+            'pwe_visitors_foreign_prev',  
+            'pwe_exhibitors_prev',       
+            'pwe_countries_prev',        
+            'pwe_area_prev',             
+            'pwe_statistics_year_prev',  
+            'pwe_hall',                  
+            'pwe_hall_entrance',         
+            'pwe_color_accent',          
+            'pwe_color_main2',           
+            'pwe_badge',                
+            'pwe_facebook',              
+            'pwe_instagram',             
+            'pwe_linkedin',              
+            'pwe_youtube',               
+            'pwe_catalog',               
+            'pwe_catalog_id',            
+            'pwe_catalog_archive',       
+            'pwe_catalog_id_archive',    
+            'pwe_category_pl',          
+            'pwe_category_en',           
+            'pwe_group',                 
+            'pwe_conference_name',       
+            'pwe_conference_title_pl',   
+            'pwe_conference_title_en',   
+            'pwe_conference_desc_pl', 
+            'pwe_conference_desc_en',    
+            'pwe_about_title_pl',        
+            'pwe_about_title_en',        
+            'pwe_about_desc_pl',        
+            'pwe_about_desc_en',   
+        ];
+    }
+
+    private function translates_shortcodes_map() {
+        $lang = PWE_Functions::lang();
+
+        return [
+            'pwe_name_'. $lang,
+            'pwe_desc_'. $lang,
+            'pwe_short_desc_'. $lang,
+            'pwe_full_desc_'. $lang,
+            'pwe_conference_title_'. $lang,
+            'pwe_conference_desc_'. $lang,
+            'pwe_about_title_'. $lang,
+            'pwe_about_desc_'. $lang,
+            'pwe_category_'. $lang
+        ];
+    }
+
     // ALL SHORTCODES END <------------------------------------------------------------------------------<
 
     public function register_shortcodes() {
@@ -361,6 +435,41 @@ class PWE_Shortcodes {
                                                 <code>%%' . esc_html($key) . '%%</code>
                                                 <small style="margin-left:10px;color:#666;">'
                                                     . esc_html($this->shorten_value($value)) .
+                                                '</small>
+                                            </li>';
+                                        }
+                                        ?>
+                                    </ul>
+                                </details>
+
+                                <p><strong>Dodatkowe shortkody:</strong> <code>[shortcode]</code></p>
+
+                                <details class="shortcodes-box">
+                                    <summary>Dodatkowe shortkody</summary>
+                                    <ul>
+                                        <?php
+                                        foreach ($this->other_shortcodes_map() as $shortcode) {
+
+                                            echo '
+                                            <li>
+                                                <code>[' . esc_html($shortcode) . ']</code>
+                                                <small style="margin-left:10px;color:#666;">'
+                                                . $this->shorten_value(do_shortcode('[' . $shortcode . ']')) .
+                                                '</small>
+                                            </li>';
+                                        }
+                                        ?>
+                                    </ul>
+                                    <summary>Przetłumaczalne shortkody [pwe_name_{lang}]</summary>
+                                    <ul>
+                                        <?php
+                                        foreach ($this->translates_shortcodes_map() as $shortcode) {
+
+                                            echo '
+                                            <li>
+                                                <code>[' . esc_html($shortcode) . ']</code>
+                                                <small style="margin-left:10px;color:#666;">'
+                                                . $this->shorten_value(do_shortcode('[' . $shortcode . ']')) .
                                                 '</small>
                                             </li>';
                                         }
@@ -642,6 +751,20 @@ class PWE_Shortcodes {
                 "11" => "november",
                 "12" => "dezember",
             ],
+            "it" => [
+                "01" => "gennaio",
+                "02" => "febbraio",
+                "03" => "marzo",
+                "04" => "aprile",
+                "05" => "maggio",
+                "06" => "giugno",
+                "07" => "luglio",
+                "08" => "agosto",
+                "09" => "settembre",
+                "10" => "ottobre",
+                "11" => "novembre",
+                "12" => "dicembre",
+            ],
             "lt" => [
                 "01" => "sausio",
                 "02" => "vasario",
@@ -772,6 +895,12 @@ class PWE_Shortcodes {
                     return "$start_day.-$end_day. $start_month_name $year";
                 }
                 return "$start_day. $start_month_name - $end_day. $end_month_name $year";
+
+            case "IT":
+                if ($start_month === $end_month) {
+                    return "$start_day-$end_day $start_month_name $year";
+                }
+                return "$start_day $start_month_name - $end_day $end_month_name $year";
 
             case "SK":
                 if ($start_month === $end_month) {
@@ -1894,6 +2023,7 @@ class PWE_Shortcodes {
             case "pl": $new_date_coming_soon = "Nowa data wkrótce"; break;
             case "en": $new_date_coming_soon = "New date coming soon"; break;
             case "de": $new_date_coming_soon = "Neuer Termin folgt in Kürze"; break;
+            case "it": $new_date_coming_soon = "Nuova data in arrivo"; break;
             case "lt": $new_date_coming_soon = "Nauja data netrukus"; break;
             case "lv": $new_date_coming_soon = "Jauns datums drīzumā"; break;
             case "uk": $new_date_coming_soon = "Нова дата незабаром"; break;

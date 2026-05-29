@@ -1,0 +1,112 @@
+{
+    "anchor-faq": {
+        "pl": { "label": "Praktyczne informacje", "url": "/dla-odwiedzajacych/#faq" },
+        "en": { "label": "FAQ", "url": "/en/for-visitors/#faq" },
+        "cs": { "label": "Praktické informace", "url": "/cs/pro-navstevniky/#faq" },
+        "de": { "label": "Praktische Informationen", "url": "/de/fur-besucher/#faq" },
+        "it": { "label": "Informazioni pratiche", "url": "/it/per-i-visitatori/#faq" },
+        "lt": { "label": "Praktinė informacija", "url": "/lt/lankytojams/#faq" },
+        "lv": { "label": "Praktiska informācija", "url": "/lv/apmekletajiem/#faq" },
+        "sk": { "label": "Praktické informácie", "url": "/sk/pre-navstevnikov/#faq" },
+        "uk": { "label": "Практична інформація", "url": "/uk/dlya-vidviduvachiv/#faq" }
+    },
+    "anchor-dojazd": {
+        "pl": { "label": "Dojazd", "url": "/dla-odwiedzajacych/#dojazd" },
+        "en": { "label": "Directions", "url": "/en/for-visitors/#dojazd" },
+        "cs": { "label": "Doprava", "url": "/cs/pro-navstevniky/#dojazd" },
+        "de": { "label": "Anfahrt", "url": "/de/fur-besucher/#dojazd" },
+        "it": { "label": "Come arrivare", "url": "/it/per-i-visitatori/#dojazd" },
+        "lt": { "label": "Kaip atvykti", "url": "/lt/lankytojams/#dojazd" },
+        "lv": { "label": "Kā nokļūt", "url": "/lv/apmekletajiem/#dojazd" },
+        "sk": { "label": "Doprava", "url": "/sk/pre-navstevnikov/#dojazd" },
+        "uk": { "label": "Як дістатися", "url": "/uk/dlya-vidviduvachiv/#dojazd" }
+    },
+    "anchor-media": {
+        "pl": { "label": "Media", "url": "https://warsawexpo.eu/biuro-prasowe" },
+        "en": { "label": "Media", "url": "https://warsawexpo.eu/en/press-room" },
+        "cs": { "label": "Média", "url": "https://warsawexpo.eu/en/press-room" },
+        "de": { "label": "Medien", "url": "https://warsawexpo.eu/en/press-room" },
+        "it": { "label": "Media", "url": "https://warsawexpo.eu/en/press-room" },
+        "lt": { "label": "Medija", "url": "https://warsawexpo.eu/en/press-room" },
+        "lv": { "label": "Mediji", "url": "https://warsawexpo.eu/en/press-room" },
+        "sk": { "label": "Médiá", "url": "https://warsawexpo.eu/en/press-room" },
+        "uk": { "label": "Медіа", "url": "https://warsawexpo.eu/en/press-room" }
+    },
+    "anchor-hotels": {
+        "pl": { "label": "Baza hotelowa", "url": "https://warsawexpo.eu/baza-hotelowa/" },
+        "en": { "label": "Accomodation", "url": "https://warsawexpo.eu/en/accomodation/" },
+        "cs": { "label": "Ubytování", "url": "https://warsawexpo.eu/en/accomodation/" },
+        "de": { "label": "Unterkunft", "url": "https://warsawexpo.eu/en/accomodation/" },
+        "it": { "label": "Alloggio", "url": "https://warsawexpo.eu/en/accomodation/" },
+        "lt": { "label": "Apgyvendinimas", "url": "https://warsawexpo.eu/en/accomodation/" },
+        "lv": { "label": "Izmitināšana", "url": "https://warsawexpo.eu/en/accomodation/" },
+        "sk": { "label": "Ubytovanie", "url": "https://warsawexpo.eu/en/accomodation/" },
+        "uk": { "label": "Проживання", "url": "https://warsawexpo.eu/en/accomodation/" }
+    },
+    "anchor-calendar": {
+        "pl": { "label": "Kalendarz targowy", "url": "https://warsawexpo.eu/kalendarz-targowy/" },
+        "en": { "label": "Exhibition calendar", "url": "https://warsawexpo.eu/en/exhibition-calendar/" },
+        "cs": { "label": "Kalendář veletrhů", "url": "https://warsawexpo.eu/cs/kalendar-veletrhu/" },
+        "de": { "label": "Messetermine", "url": "https://warsawexpo.eu/de/messekalender/" },
+        "it": { "label": "Calendario delle fiere", "url": "https://warsawexpo.eu/en/exhibition-calendar/" },
+        "lt": { "label": "Parodų kalendorius", "url": "https://warsawexpo.eu/lt/parodu-kalendorius/" },
+        "lv": { "label": "Targu kalendārs", "url": "https://warsawexpo.eu/lv/targu-kalendars/" },
+        "sk": { "label": "Kalendár veľtrhov", "url": "https://warsawexpo.eu/sk/kalendar-veltrhov/" },
+        "uk": { "label": "КАЛЕНДАР ВИСТАВОК", "url": "https://warsawexpo.eu/uk/kalendar-vystavok/" }
+    },
+    "anchor-stand": {
+        "pl": { "label": "Dedykowana zabudowa targowa", "url": "/dla-wystawcow/#stand" },
+        "en": { "label": "Designed exhibition stands", "url": "/en/for-exhibitors/#stand" },
+        "cs": { "label": "Navržené výstavní stánky", "url": "/cs/pro-vystavovatele/#stand" },
+        "de": { "label": "Entworfene Messestände", "url": "/de/fur-aussteller/#stand" },
+        "it": { "label": "Allestimento di stand fieristici", "url": "/it/per-gli-espositori/#stand" },
+        "lt": { "label": "Sukurti parodų stendai", "url": "/lt/eksponentams/#stand" },
+        "lv": { "label": "Projektēti izstāžu stendi", "url": "/lv/izstades-dalibniekiem/#stand" },
+        "sk": { "label": "Navrhnuté výstavné stánky", "url": "/sk/pre-vystavovatelov/#stand" },
+        "uk": { "label": "Дизайн виставкових стендів", "url": "/uk/dlya-eksponentiv/#stand" }
+    },
+    "anchor-download": {
+        "pl": { "label": "Dokumenty do pobrania", "url": "/dla-wystawcow/#download" },
+        "en": { "label": "Documents to download", "url": "/en/for-exhibitors/#download" },
+        "cs": { "label": "Dokumenty ke stažení", "url": "/cs/pro-vystavovatele/#download" },
+        "de": { "label": "Dokumente zum Herunterladen", "url": "/de/fur-aussteller/#download" },
+        "it": { "label": "Documenti da scaricare", "url": "/it/per-gli-espositori/#download" },
+        "lt": { "label": "Atsisiųsti dokumentus", "url": "/lt/eksponentams/#download" },
+        "lv": { "label": "Lejupielādējamie dokumenti", "url": "/lv/izstades-dalibniekiem/#download" },
+        "sk": { "label": "Dokumenty na stiahnutie", "url": "/sk/pre-vystavovatelov/#download" },
+        "uk": { "label": "Документи для завантаження", "url": "/uk/dlya-eksponentiv/#download" }
+    },
+    "anchor-privacy": {
+        "pl": { "label": "Polityka prywatności", "url": "https://warsawexpo.eu/polityka-prywatnosci/" },
+        "en": { "label": "Privacy policy", "url": "https://warsawexpo.eu/en/privacy-policy" },
+        "cs": { "label": "Zásady ochrany osobních údajů", "url": "https://warsawexpo.eu/en/privacy-policy" },
+        "de": { "label": "Datenschutzerklärung", "url": "https://warsawexpo.eu/en/privacy-policy" },
+        "it": { "label": "Informativa sulla privacy", "url": "https://warsawexpo.eu/en/privacy-policy" },
+        "lt": { "label": "Privatumo politika", "url": "https://warsawexpo.eu/en/privacy-policy" },
+        "lv": { "label": "Privātuma politika", "url": "https://warsawexpo.eu/en/privacy-policy" },
+        "sk": { "label": "Zásady ochrany osobných údajov", "url": "https://warsawexpo.eu/en/privacy-policy" },
+        "uk": { "label": "Політика конфіденційності", "url": "https://warsawexpo.eu/en/privacy-policy" }
+    },
+    "anchor-why-worth": {
+        "pl": { "label": "Dlaczego warto", "url": "/dla-wystawcow/#why-worth" },
+        "en": { "label": "Why is it worth it", "url": "/en/for-exhibitors/#why-worth" },
+        "cs": { "label": "Proč se to vyplatí", "url": "/cs/pro-vystavovatele/#why-worth" },
+        "de": { "label": "Warum lohnt es sich?", "url": "/de/fur-aussteller/#why-worth" },
+        "it": { "label": "Perché ne vale la pena", "url": "/it/per-gli-espositori/#why-worth" },
+        "lt": { "label": "Kodėl tai verta", "url": "/lt/eksponentams/#why-worth" },
+        "lv": { "label": "Kāpēc tas ir tā vērts?", "url": "/lv/izstades-dalibniekiem/#why-worth" },
+        "sk": { "label": "Prečo sa to oplatí", "url": "/sk/pre-vystavovatelov/#why-worth" },
+        "uk": { "label": "Чому це варто робити", "url": "/uk/dlya-eksponentiv/#why-worth" }
+    },
+    "anchor-archive": {
+        "pl": { "label": "Poprzednie edycje", "url": "" },
+        "en": { "label": "Previous editions", "url": "" },
+        "cs": { "label": "Předchozí vydání", "url": "" },
+        "de": { "label": "Vorherige Ausgaben", "url": "" },
+        "it": { "label": "Edizioni precedenti", "url": "" },
+        "lt": { "label": "Ankstesnės leidėjų", "url": "" },
+        "lv": { "label": "Iepriekšējās izdodes", "url": "" },
+        "sk": { "label": "Predchádzajúce edície", "url": "" },
+        "uk": { "label": "Попередні видання", "url": "" }
+    }
+}

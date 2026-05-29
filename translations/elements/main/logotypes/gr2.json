@@ -1,0 +1,56 @@
+{
+  "pl_PL": {
+    "patrons_int_gr2": "Patroni i Partnerzy Zagraniczni",
+    "patrons": "Patroni i Partnerzy",
+    "pwe_partners": "Partnerzy Ptak Warsaw Expo",
+    "all": "Wszyscy"
+  },
+  "en_US": {
+    "patrons_int_gr2": "Foreign Patrons and Partners",
+    "patrons": "Patrons and Partners",
+    "pwe_partners": "Partners of Ptak Warsaw Expo",
+    "all": "All"
+  },
+  "cs_CZ": {
+    "patrons_int_gr2": "Zahraniční patroni a partneři",
+    "patrons": "Patroni a partneři",
+    "pwe_partners": "Partneři Ptak Warsaw Expo",
+    "all": "Všichni"
+  },
+  "de_DE": {
+    "patrons_int_gr2": "Ausländische Schirmherren und Partner",
+    "patrons": "Schirmherren und Partner",
+    "pwe_partners": "Partner der Ptak Warsaw Expo",
+    "all": "Alle"
+  },
+  "it_IT": {
+    "patrons_int_gr2": "Patrocini e partner esteri",
+    "patrons": "Patrocini e partner",
+    "pwe_partners": "Partner di Ptak Warsaw Expo",
+    "all": "Tutti"
+  },
+  "lt_LT": {
+    "patrons_int_gr2": "Užsienio globėjai ir partneriai",
+    "patrons": "Globėjai ir partneriai",
+    "pwe_partners": "Ptak Warsaw Expo partneriai",
+    "all": "Visi"
+  },
+  "lv_LV": {
+    "patrons_int_gr2": "Ārvalstu patroni un partneri",
+    "patrons": "Patroni un partneri",
+    "pwe_partners": "Ptak Warsaw Expo partneri",
+    "all": "Visi"
+  },
+  "sk_SK": {
+    "patrons_int_gr2": "Zahraniční patróni a partneri",
+    "patrons": "Patróni a partneri",
+    "pwe_partners": "Partneri Ptak Warsaw Expo",
+    "all": "Všichni"
+  },
+  "uk": {
+    "patrons_int_gr2": "Іноземні патрони та партнери",
+    "patrons": "Патрони та партнери",
+    "pwe_partners": "Партнери Ptak Warsaw Expo",
+    "all": "Всі"
+  }
+}

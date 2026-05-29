@@ -253,109 +253,102 @@ document.addEventListener("DOMContentLoaded", function () {
         const mobileRegisterButtonContainer = document.querySelector('.pwe-menu-auto-switch__register-btn');
 
         if (registerButtons.length > 0 && mobileRegisterButton) {
-            // Get the page language
-            const htmlLang = document.documentElement.lang;
+
+            // normalize lang (pl-PL -> pl, en-US -> en itd.)
+            const rawLang = document.documentElement.lang || 'en';
+            const lang = rawLang.toLowerCase().split('-')[0];
 
             const labels = {
-                'pl-PL': ['weź udział', 'zostań wystawcą'],
-                'en-US': ['join us', 'book a stand'],
-                'de-DE': ['jetzt teilnehmen', 'stand buchen']
+                pl: ['weź udział', 'zostań wystawcą'],
+                en: ['join us', 'book a stand'],
+                de: ['jetzt teilnehmen', 'stand buchen'],
+                it: ['unisciti a noi', 'prenota uno stand'],
+                cs: ['zúčastnit se', 'rezervovat stánek'],
+                sk: ['zúčastniť sa', 'rezervovať stánok'],
+                uk: ['приєднатися', 'забронювати стенд'],
+                lt: ['dalyvauk', 'rezervuoti stendą'],
+                lv: ['piedalīties', 'rezervēt stendu']
+            };
+
+            const cta = {
+                pl: {
+                    early: { text: 'WEŹ UDZIAŁ', href: '/rejestracja/' },
+                    late: { text: 'ZOSTAŃ WYSTAWCĄ', href: '/zostan-wystawca/' }
+                },
+                en: {
+                    early: { text: 'JOIN US', href: '/en/registration/' },
+                    late: { text: 'BOOK A STAND', href: '/en/become-an-exhibitor/' }
+                },
+                de: {
+                    early: { text: 'JETZT TEILNEHMEN', href: '/de/anmeldung/' },
+                    late: { text: 'STAND BUCHEN', href: '/de/werden-sie-aussteller/' }
+                },
+                it: {
+                    early: { text: 'UNISCITI A NOI', href: '/it/registrazione/' },
+                    late: { text: 'PRENOTA UNO STAND', href: '/it/diventa-espositore/' }
+                },
+                cs: {
+                    early: { text: 'ZÚČASTNIT SE', href: '/cs/registrace/' },
+                    late: { text: 'REZERVOVAT STÁNEK', href: '/cs/stante-se-vystavovatelem/' }
+                },
+                sk: {
+                    early: { text: 'ZÚČASTNIŤ SA', href: '/sk/registracia/' },
+                    late: { text: 'REZERVOVAŤ STÁNOK', href: '/sk/stante-sa-vystavovatelom/' }
+                },
+                uk: {
+                    early: { text: 'ПРИЄДНАТИСЯ', href: '/uk/reyestraciya/' },
+                    late: { text: 'ЗАБРОНЮВАТИ СТЕНД', href: '/uk/staty-eksponentom/' }
+                },
+                lt: {
+                    early: { text: 'DALYVAUK', href: '/lt/registracija/' },
+                    late: { text: 'REZERVUOTI STENDĄ', href: '/lt/tapkite-eksponentu/' }
+                },
+                lv: {
+                    early: { text: 'PIEDALĪTIES', href: '/lv/registracija/' },
+                    late: { text: 'REZERVĒT STENDU', href: '/lv/klusti-par-izstades-dalibnieku/' }
+                }
             };
 
             registerButtons.forEach(registerButton => {
-                if (labels[htmlLang]?.includes(registerButton.innerText.toLowerCase())) {
-                    // Create a Date object based on the trade fair end date
-                    let endDate = new Date(trade_fair_enddata);
 
-                    // Get today's date
-                    let todayDate = new Date();
+                const btnText = registerButton.innerText.trim().toLowerCase();
 
-                    // Add 90 days to today's date
-                    let threeMonths = new Date(todayDate);
-                    threeMonths.setDate(todayDate.getDate() + 90);
+                // if button text doesn't include any of the expected labels for the current language, skip it
+                if (!labels[lang]?.some(label => btnText.includes(label))) return;
 
-                    const currentDomain = window.location.hostname;
-                    const b2cDomains = [
-                        'animalsdays.eu',
-                        'fiwe.pl',
-                        'warsawmotorshow.com',
-                        'oldtimerwarsaw.com',
-                        'motorcycleshow.pl'
-                    ];
+                let endDate = new Date(trade_fair_enddata);
+                let todayDate = new Date();
 
-                    // Check if the current domain is NOT in the B2C domains list
-                    if (!b2cDomains.includes(currentDomain)) {
-                        let newText, newHref;
+                let threeMonths = new Date(todayDate);
+                threeMonths.setDate(todayDate.getDate() + 90);
 
-                        if (endDate < threeMonths) {
-                            newText =
-                                htmlLang === 'pl-PL' ? 'WEŹ UDZIAŁ'
-                                : htmlLang === 'de-DE' ? 'JETZT TEILNEHMEN'
-                                : 'JOIN US';
+                const currentDomain = window.location.hostname;
+                const b2cDomains = [
+                    'animalsdays.eu',
+                    'fiwe.pl',
+                    'warsawmotorshow.com',
+                    'oldtimerwarsaw.com',
+                    'motorcycleshow.pl'
+                ];
 
-                            newHref =
-                                htmlLang === 'pl-PL' ? '/rejestracja/'
-                                : htmlLang === 'de-DE' ? '/de/registrieren/'
-                                : '/en/registration/';
-                        } else {
-                            newText =
-                                htmlLang === 'pl-PL' ? 'ZOSTAŃ WYSTAWCĄ'
-                                : htmlLang === 'de-DE' ? 'STAND BUCHEN'
-                                : 'BOOK A STAND';
+                if (b2cDomains.includes(currentDomain)) return;
 
-                            newHref =
-                                htmlLang === 'pl-PL' ? '/zostan-wystawca/'
-                                : htmlLang === 'de-DE' ? '/de/einen-stand-buchen/'
-                                : '/en/become-an-exhibitor/';
-                        }
+                const phase = endDate < threeMonths ? 'early' : 'late';
 
-                        // Check if the trade fair end date is less than 90 days away
-                        const cta = {
-                            'pl-PL': {
-                                early: { text: 'WEŹ UDZIAŁ', href: '/rejestracja/' },
-                                late: { text: 'ZOSTAŃ WYSTAWCĄ', href: '/zostan-wystawca/' }
-                            },
-                            'en-US': {
-                                early: { text: 'JOIN US', href: '/en/registration/' },
-                                late: { text: 'BOOK A STAND', href: '/en/become-an-exhibitor/' }
-                            },
-                            'de-DE': {
-                                early: { text: 'JETZT TEILNEHMEN', href: '/de/registrieren/' },
-                                late: { text: 'STAND BUCHEN', href: '/de/einen-stand-buchen/' }
-                            }
-                        };
+                // fallback
+                const langConfig = cta[lang] || cta['en'];
 
-                        const phase = endDate < threeMonths ? 'early' : 'late';
-                        const langConfig = cta[htmlLang] || cta['en-GB'];
+                const newText = langConfig[phase].text;
+                const newHref = langConfig[phase].href;
 
-                        newText = langConfig[phase].text;
-                        newHref = langConfig[phase].href;
+                registerButton.innerText = newText;
+                registerButton.href = newHref;
 
-
-                        // Update text and link for both desktop and mobile buttons
-                        registerButton.innerText = newText;
-                        registerButton.href = newHref;
-                        mobileRegisterButton.innerText = newText;
-                        mobileRegisterButton.href = newHref;
-                    }
+                if (mobileRegisterButton) {
+                    mobileRegisterButton.innerText = newText;
+                    mobileRegisterButton.href = newHref;
                 }
             });
-
-            // window.addEventListener("resize", function () {
-            //     if (window.innerWidth < 960) {
-            //         mobileRegisterButtonContainer.classList.add("visible");
-            //     } else {
-            //         mobileRegisterButtonContainer.classList.remove("visible");
-            //     }
-            // });
-
-            // // Run once on page load to set initial state
-            // if (window.innerWidth < 960) {
-            //     mobileRegisterButtonContainer.classList.add("visible");
-            // } else {
-            //     mobileRegisterButtonContainer.classList.remove("visible");
-            // }
-
         }
 
         window.addEventListener('load', () => {

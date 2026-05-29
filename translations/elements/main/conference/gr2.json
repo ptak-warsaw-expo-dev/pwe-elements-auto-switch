@@ -1,0 +1,83 @@
+{
+  "pl_PL": {
+    "schedule_conferences": "Konferencje",
+    "schedule_organizer": "Organizator",
+    "schedule_subject": "Temat",
+    "schedule_date": "Termin",
+    "schedule_reg_url": "/rejestracja/",
+    "schedule_reg_text": "Weź udział",
+    "schedule_find_more": "Dowiedz się więcej"
+  },
+  "en_US": {
+    "schedule_conferences": "Conferences",
+    "schedule_organizer": "Organizer",
+    "schedule_subject": "Subject",
+    "schedule_date": "Deadline",
+    "schedule_reg_url": "/en/registration/",
+    "schedule_reg_text": "Take a part",
+    "schedule_find_more": "Find out more"
+  },
+  "cs_CZ": {
+    "schedule_conferences": "Konference",
+    "schedule_organizer": "Organizátor",
+    "schedule_subject": "Téma",
+    "schedule_date": "Termín",
+    "schedule_reg_url": "/cs/registrace/",
+    "schedule_reg_text": "Zúčastněte se",
+    "schedule_find_more": "Zjistit více"
+  },
+  "de_DE": {
+    "schedule_conferences": "Konferenzen",
+    "schedule_organizer": "Veranstalter",
+    "schedule_subject": "Thema",
+    "schedule_date": "Termin",
+    "schedule_reg_url": "/de/anmeldung/",
+    "schedule_reg_text": "Teilnehmen",
+    "schedule_find_more": "Mehr erfahren"
+  },
+  "it_IT": {
+    "schedule_conferences": "Conferenze",
+    "schedule_organizer": "Organizzatore",
+    "schedule_subject": "Tema",
+    "schedule_date": "Data",
+    "schedule_reg_url": "/it/registrazione/",
+    "schedule_reg_text": "Partecipa",
+    "schedule_find_more": "Scopri di più"
+  },
+  "lt_LT": {
+    "schedule_conferences": "Konferencijos",
+    "schedule_organizer": "Organizatorius",
+    "schedule_subject": "Tema",
+    "schedule_date": "Data",
+    "schedule_reg_url": "/lt/registracija/",
+    "schedule_reg_text": "Dalyvaukite",
+    "schedule_find_more": "Sužinokite daugiau"
+  },
+  "lv_LV": {
+    "schedule_conferences": "Konferences",
+    "schedule_organizer": "Organizators",
+    "schedule_subject": "Tēma",
+    "schedule_date": "Datums",
+    "schedule_reg_url": "/lv/registracija/",
+    "schedule_reg_text": "Piedalieties",
+    "schedule_find_more": "Uzzināt vairāk"
+  },
+  "sk_SK": {
+    "schedule_conferences": "Konferencie",
+    "schedule_organizer": "Organizátor",
+    "schedule_subject": "Téma",
+    "schedule_date": "Termín",
+    "schedule_reg_url": "/sk/registracia/",
+    "schedule_reg_text": "Zúčastnite sa",
+    "schedule_find_more": "Zistiť viac"
+  },
+  "uk": {
+    "schedule_conferences": "Конференції",
+    "schedule_organizer": "Організатор",
+    "schedule_subject": "Тема",
+    "schedule_date": "Дата",
+    "schedule_reg_url": "/uk/reyestraciya/",
+    "schedule_reg_text": "Взяти участь",
+    "schedule_find_more": "Дізнатися більше"
+  }
+}

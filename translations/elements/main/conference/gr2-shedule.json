@@ -1,0 +1,41 @@
+{
+  "pl_PL": {
+    "conferences": "Konferencje",
+    "organizer": "Organizator",
+    "subject": "Temat",
+    "date": "Termin",
+    "reg_url": "/rejestracja/",
+    "reg_text": "Weź udział",
+    "find_more": "Dowiedz się więcej"
+  },
+  "en_US": {
+    "conferences": "Conferences",
+    "organizer": "Organizer",
+    "subject": "Subject",
+    "date": "Deadline",
+    "reg_url": "/en/registration/",
+    "reg_text": "Take a part",
+    "find_more": "Find out more"
+  },
+  "cs_CZ": {
+
+  },
+  "de_DE": {
+
+  },
+  "it_IT": {
+
+  },
+  "lt_LT": {
+
+  },
+  "lv_LV": {
+
+  },
+  "sk_SK": {
+ 
+  },
+  "uk": {
+
+  }
+}

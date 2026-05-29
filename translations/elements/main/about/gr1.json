@@ -1,0 +1,65 @@
+{
+  "pl_PL": {
+    "about_fair": "O targach",
+    "reg_url": "/rejestracja/",
+    "buy_ticket": "Kup bilet",
+    "registration": "Zarejestruj się",
+    "top_exhibitors": "Top Wystawcy"
+  },
+  "en_US": {
+    "about_fair": "About the fair",
+    "reg_url": "/en/registration/",
+    "buy_ticket": "Buy a ticket",
+    "registration": "Registration",
+    "top_exhibitors": "Top Exhibitors"
+  },
+  "cs_CZ": {
+    "about_fair": "O veletrhu",
+    "reg_url": "/cs/registrace/",
+    "buy_ticket": "Koupit vstupenku",
+    "registration": "Registrace",
+    "top_exhibitors": "Top vystavovatelé"
+  },
+  "de_DE": {
+    "about_fair": "Über die Messe",
+    "reg_url": "/de/Anmeldung/",
+    "buy_ticket": "Ticket kaufen",
+    "registration": "Anmeldung",
+    "top_exhibitors": "Top-Aussteller"
+  },
+  "it_IT": {
+    "about_fair": "Informazioni sulla fiera",
+    "reg_url": "/it/registrazione/",
+    "buy_ticket": "Acquista un biglietto",
+    "registration": "Registrazione",
+    "top_exhibitors": "Top espositori"
+  },
+  "lt_LT": {
+    "about_fair": "Apie mugę",
+    "reg_url": "/lt/registracija/",
+    "buy_ticket": "Pirkti bilietą",
+    "registration": "Registracija",
+    "top_exhibitors": "Geriausi eksponentai"
+  },
+  "lv_LV": {
+    "about_fair": "Par izstādi",
+    "reg_url": "/lv/reģistrācija/",
+    "buy_ticket": "Pirkt biļeti",
+    "registration": "Reģistrācija",
+    "top_exhibitors": "Top izstādes dalībnieki"
+  },
+  "sk_SK": {
+    "about_fair": "O veľtrhu",
+    "reg_url": "/sk/registrácia/",
+    "buy_ticket": "Kúpiť vstupenku",
+    "registration": "Registrácia",
+    "top_exhibitors": "Top vystavovatelia"
+  },
+  "uk": {
+    "about_fair": "Про виставку",
+    "reg_url": "/uk/реєстрація/",
+    "buy_ticket": "Купити квиток",
+    "registration": "Реєстрація",
+    "top_exhibitors": "Топ експоненти"
+  }
+}

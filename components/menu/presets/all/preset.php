@@ -1,5 +1,160 @@
 <?php
 
+$lang = PWE_Functions::lang();
+
+// Functions to handle menu item translations based on anchor classes
+if (!function_exists('get_anchor_from_classes')) {
+    function get_anchor_from_classes($classes) {
+        if (empty($classes) || !is_array($classes)) {
+            return null;
+        }
+
+        $classes = array_filter(array_map('trim', $classes));
+
+        foreach ($classes as $class) {
+            if (str_starts_with($class, 'anchor-')) {
+                return $class;
+            }
+        }
+
+        return null;
+    }
+}
+
+// Function to load menu translations from JSON file
+if (!function_exists('get_menu_translations')) {
+    function get_menu_translations() {
+        static $translations = null;
+
+        if ($translations === null) {
+            $file = dirname(__FILE__, 5) . '/translations/components/menu/menu.json';
+
+            if (file_exists($file)) {
+                $translations = json_decode(file_get_contents($file), true);
+            } else {
+                $translations = [];
+            }
+        }
+
+        return $translations;
+    }
+}
+
+// Function to apply translations to a menu item based on its anchor class
+if (!function_exists('apply_anchor_translation')) {
+    function apply_anchor_translation(&$item) {
+    
+        $anchor_class = get_anchor_from_classes($item->classes);
+        if (!$anchor_class) return;
+
+        $translations = get_menu_translations();
+        if (empty($translations[$anchor_class])) return;
+
+        $lang = PWE_Functions::lang();
+
+        $data =
+            $translations[$anchor_class][$lang]
+            ?? $translations[$anchor_class]['en']
+            ?? null;
+
+        if (empty($data)) return;
+
+        // try to replace the label
+        if (!empty($data['label'])) {
+            $item->title = $data['label'];
+        }
+
+        // URL only if exists
+        if (!empty($data['url'])) {
+            $item->url = $data['url'];
+        }
+    }
+}
+
+// Preprocess menu items to apply translations
+if (!function_exists('preprocess_menu_items')) {
+    function preprocess_menu_items(&$menu_items) {
+        foreach ($menu_items as $id => $item) {
+            apply_anchor_translation($item);
+            $menu_items[$id] = $item;
+
+            $lang = PWE_Functions::lang();
+
+            if (!empty($item->title)) {
+                $item->title = translate_global_label($item->title, $lang);
+            }
+        }
+    }
+}
+
+// Label maps to translate
+if (!function_exists('get_global_label_translations')) {
+    function get_global_label_translations() {
+        return [
+            'post_trade_report' => [
+                'pl' => ['Raport potargowy', 'Post Show Report'],
+                'en' => ['Post-trade fair report', 'Post Show Report'],
+                'de' => ['Post-Messe-Bericht'],
+                'it' => ['Rapporto post-fiera'],
+                'cs' => ['Raport po targach'],
+                'sk' => ['Raport po veletrhu'],
+                'uk' => ['Звіт після виставки'],
+                'lt' => ['Po parodos ataskaita'],
+                'lv' => ['Pēc tirdzniecības izstādes ziņojums'],
+            ],
+
+            'edition' => [
+                'pl' => ['Edycja'],
+                'en' => ['Edition'],
+                'de' => ['Ausgabe'],
+                'it' => ['Edizione'],
+                'cs' => ['Vydání'],
+                'sk' => ['Vydanie'],
+                'uk' => ['Видання'],
+                'lt' => ['Leidimas'],
+                'lv' => ['Izdevums'],
+            ],
+        ];
+    }
+}
+
+// Translation labels from maps
+if (!function_exists('translate_global_label')) {
+    function translate_global_label($text, $lang) {
+
+        $map = get_global_label_translations();
+
+        $clean = html_entity_decode(strip_tags($text));
+        $clean = str_replace("\xc2\xa0", ' ', $clean);
+        $clean = preg_replace('/\s+/u', ' ', trim($clean));
+
+        foreach ($map as $key => $translations) {
+
+            foreach ($translations as $locale => $variants) {
+
+                if (!is_array($variants)) continue;
+
+                foreach ($variants as $variant) {
+
+                    if (mb_stripos($clean, $variant) === 0) {
+
+                        $rest = trim(mb_substr($clean, mb_strlen($variant)));
+
+                        // selecting the target translation
+                        $target_list = $translations[$lang] ?? $translations['en'];
+
+                        $target = is_array($target_list) ? $target_list[0] : $target_list;
+
+                        return $target . ($rest ? ' ' . $rest : '');
+                    }
+                }
+            }
+        }
+
+        return $text;
+    }
+}
+
 // Function to display submenu
 if (!function_exists('render_submenu')) {
     function render_submenu($parent_id, $menu_items, $depth = 1, $root_index = null) {
@@ -12,8 +167,8 @@ if (!function_exists('render_submenu')) {
         }
 
         // Filter children for a given parent
-        $children = array_filter($menu_items, function($item) use ($parent_id) { 
-            return $item->menu_item_parent == $parent_id;
+        $children = array_filter($menu_items, function($item) use ($parent_id) {
+            return isset($item->menu_item_parent) && $item->menu_item_parent == $parent_id;
         });
 
         if (!empty($children)) {
@@ -75,7 +230,9 @@ $menu_id = $locations['primary'];
 
 // WPML - Get the translated menu ID for the current language
 if (function_exists('icl_object_id')) {
-    $menu_id = icl_object_id($menu_id, 'nav_menu', true, ICL_LANGUAGE_CODE);
+    // force EN as base
+    $default_lang = 'en';
+    $menu_id = apply_filters('wpml_object_id', $menu_id, 'nav_menu', true, $default_lang);
 }
 
 // Get menu items
@@ -93,6 +250,8 @@ foreach ($menu as $item) {
         return '<script>console.error("Menu item without valid ID found.");</script>';
     }
 }
+
+preprocess_menu_items($menu_items);
 
 $output = '';
 
@@ -119,12 +278,12 @@ $output .= '
     <a style="opacity: 0; width: 0; height: 0;"  href="#main-content" class="skip-link">Skip to main content</a>
     <div class="pwe-menu-auto-switch__wrapper">
         <div class="pwe-menu-auto-switch__logotypes">
-            <a class="pwe-logo ' . (file_exists($_SERVER['DOCUMENT_ROOT'] . PWE_Functions::languageChecker('/doc/logo-x-pl.webp', '/doc/logo-x-en.webp')) ? "hidden-mobile" : "") . '" target="_blank" href="https://warsawexpo.eu'. PWE_Functions::languageChecker('/', '/en/') .'">
+            <a class="pwe-logo ' . (file_exists($_SERVER['DOCUMENT_ROOT'] . PWE_Functions::lang_pl() ? '/doc/logo-x-pl.webp' : '/doc/logo-x-en.webp') ? "hidden-mobile" : "") . '" target="_blank" href="https://warsawexpo.eu'. (PWE_Functions::lang_pl() ? '/' : '/'. $lang .'/') .'">
                 <div class="pwe-menu-auto-switch__logo-container">
                     <img data-no-lazy="1" src="/wp-content/plugins/pwe-media/media/logo_pwe.webp" alt="logo ptak">
                 </div>
             </a>
-            <a class="fair-logo" href="'. PWE_Functions::languageChecker('/', '/en/') .'">
+            <a class="fair-logo" href="'. (PWE_Functions::lang_pl() ? '/' : '/'. $lang .'/') .'">
                 <div class="pwe-menu-auto-switch__logo-container pwe-menu-auto-switch__logo-fair">';
                     if (PWE_Functions::lang_pl()) {
                         $output .= '<img data-no-lazy="1" src="' . (file_exists($_SERVER['DOCUMENT_ROOT'] . "/doc/logo-x-pl.webp") ? "/doc/logo-x-pl.webp" : "/doc/favicon.webp") . '" alt="logo fair">';
@@ -140,7 +299,7 @@ $output .= '
             <ul class="pwe-menu-auto-switch__nav">';
                 
                 $menu_index = 0;
-                foreach ($menu_items as $item) {
+                foreach ($menu_items as $id => $item) {
                     
                     if (!isset($item->menu_item_parent) || !isset($item->ID)) {
                         $output .= '<script>console.error("Invalid menu item structure detected.");</script>';
@@ -148,6 +307,7 @@ $output .= '
                     }
 
                     if ($item->menu_item_parent == 0) {
+
                         $has_children = !empty(array_filter($menu_items, function($child) use ($item) {
                             return $child->menu_item_parent == $item->ID;
                         }));
@@ -155,25 +315,6 @@ $output .= '
                         $target_blank = !empty($item->target) ? 'target="_blank"' : '';
 
                         if ((strpos($item->ID, 'wpml') === false)) {
-                                $locale=get_locale();
-                                $title = trim(mb_strtolower($item->title));
-
-                                $map = [
-                                    'pl_PL' => [                 
-                                        'lista wystawców' => 'Katalog wystawców',
-                                    ],
-                                    'en_US' => [
-                                        'exhibitors list' => 'Exhibitor catalogue',
-                                    ],
-                                    'de_DE' => [
-                                        'ausstellerliste' => 'Ausstellerkatalog',
-                                    ],
-                                ];        
-                                
-                                if (isset($map[$locale][$title])) {
-                                    $item->title = $map[$locale][$title];
-                                }
-
                             $output .= '
                             <li class="pwe-menu-auto-switch__item' . ($has_children ? ' has-children' : '') . ' ' . ($item->button ?? '') . '">
                                 <a '. $target_blank .' href="' . esc_url($item->url) . '">
@@ -199,11 +340,25 @@ $output .= '
                 $languages = apply_filters("wpml_active_languages", null);
                 if (!empty($languages)) {
 
+                    $language_label_map = [
+                        "pl" => "Język",
+                        "en" => "Language",
+                        "de" => "Sprache",
+                        "uk" => "Мова",
+                        "lt" => "Kalba",
+                        "lv" => "Valoda",
+                        "cs" => "Jazyk",
+                        "sk" => "Jazyk",
+                        "it" => "Lingua",
+                    ];
+
                     $output .= '
                     <div class="pwe-menu-auto-switch__lang-switch">';
 
                         // Display active language
                         foreach ($languages as $lang) {
+                            $lang_label = $language_label_map[$lang['language_code']] ?? "Language";
+
                             if ($lang["active"]) {
                                 $output .= '
                                 <div class="pwe-menu-auto-switch__lang-current">
@@ -213,7 +368,7 @@ $output .= '
                                         </svg>
                                         <p>
                                             <span class="pwe-menu-auto-switch__lang-code notranslate">' . strtoupper($lang["language_code"]) . '</span>
-                                            <span class="pwe-menu-auto-switch__lang-text notranslate">'. (get_locale() === 'pl_PL' ? 'Język' : (get_locale() === 'de_DE' ? 'Sprache' : 'Language')) .'</span>
+                                            <span class="pwe-menu-auto-switch__lang-text notranslate">'. esc_html($lang_label) .'</span>
                                         </p>
                                     </div>
                                     <svg class="pwe-menu-auto-switch__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -297,12 +452,57 @@ $output .= '
             </div>';
 
             $output .= '
-        </div>
+        </div>';
 
+        $lang = PWE_Functions::lang();
+
+        $register_map = [
+            "pl" => [
+                "url" => "/rejestracja/",
+                "label" => "WEŹ UDZIAŁ"
+            ],
+            "en" => [
+                "url" => "/en/registration/",
+                "label" => "JOIN US"
+            ],
+            "de" => [
+                "url" => "/de/anmeldung/",
+                "label" => "JETZT TEILNEHMEN"
+            ],
+            "uk" => [
+                "url" => "/uk/reyestraciya/",
+                "label" => "ПРИЄДНАТИСЯ"
+            ],
+            "lt" => [
+                "url" => "/lt/registracija/",
+                "label" => "DALYVAUK"
+            ],
+            "lv" => [
+                "url" => "/lv/registracija/",
+                "label" => "PIEDALĪTIES"
+            ],
+            "cs" => [
+                "url" => "/cs/registrace/",
+                "label" => "ZÚČASTNIT SE"
+            ],
+            "sk" => [
+                "url" => "/sk/registracia/",
+                "label" => "ZÚČASTNIŤ SA"
+            ],
+            "it" => [
+                "url" => "/it/registrazione/",
+                "label" => "UNISCITI A NOI"
+            ],
+        ];
+
+        // fallback
+        $current = $register_map[$lang] ?? $register_map["en"];                    
+
+        $output .= '
         <div class="pwe-menu-auto-switch__container-mobile">
             <li class="pwe-menu-auto-switch__register-btn pwe-menu-auto-switch__item button">
-                <a href="'. (get_locale() === 'pl_PL' ? '/rejestracja/' : (get_locale() === 'de_DE' ? '/de/registrieren/' : '/en/registration/')) .'">
-                    <span class="pwe-menu-auto-switch__item-title">'. (get_locale() === 'pl_PL' ? 'WEŹ UDZIAŁ' : (get_locale() === 'de_DE' ? 'JETZT TEILNEHMEN' : 'JOIN US')) .'</span>
+                <a href="'. esc_url($current['url']) .'">
+                    <span class="pwe-menu-auto-switch__item-title">'. esc_html($current['label']) .'</span>
                 </a>
             </li>
             
@@ -328,17 +528,20 @@ if (!empty(do_shortcode('[trade_fair_catalog_id]'))) {
             const secondChild = mainMenu.children[1];
             const dropMenu = pweMenuAutoSwitch ? secondChild.querySelector(".pwe-menu-auto-switch__submenu") : secondChild.querySelector("ul.drop-menu");
 
-            // Create new element li
-            const instructionMenuItem = document.createElement("li");
-            instructionMenuItem.className = pweMenuAutoSwitch ? "pwe-menu-auto-switch__submenu-item" : "menu-item menu-item-type-custom menu-item-object-custom menu-item-99999";
-            instructionMenuItem.innerHTML = `<a title="'. PWE_Functions::languageChecker('Instrukcja aplikacji', 'Application instructions') .'" target="_blank" href="https://warsawexpo.eu/docs/'. PWE_Functions::languageChecker('Instrukcja-do-aplikacji.pdf', 'Instrukcja-do-aplikacji-EN') .'">'. PWE_Functions::languageChecker('Instrukcja aplikacji', 'Application instructions') .'</a>`;
 
-            // Add new element as penultimate in the list
-            if (dropMenu && dropMenu.children.length > 0) {
-            const penultimateItem = dropMenu.children[dropMenu.children.length - 1];
-                dropMenu.insertBefore(instructionMenuItem, penultimateItem);
-            } else {
-                dropMenu.appendChild(instructionMenuItem);
+            if ("'. PWE_Functions::lang() .'" === "pl" || "'. PWE_Functions::lang() .'" === "en") {
+                // Create new element li
+                const instructionMenuItem = document.createElement("li");
+                instructionMenuItem.className = pweMenuAutoSwitch ? "pwe-menu-auto-switch__submenu-item" : "menu-item menu-item-type-custom menu-item-object-custom menu-item-99999";
+                instructionMenuItem.innerHTML = `<a title="'. PWE_Functions::languageChecker('Instrukcja aplikacji', 'Application instructions') .'" target="_blank" href="https://warsawexpo.eu/docs/'. PWE_Functions::languageChecker('Instrukcja-do-aplikacji.pdf', 'Instrukcja-do-aplikacji-EN.pdf') .'">'. PWE_Functions::languageChecker('Instrukcja aplikacji', 'Application instructions') .'</a>`;
+
+                // Add new element as penultimate in the list
+                if (dropMenu && dropMenu.children.length > 0) {
+                    const penultimateItem = dropMenu.children[dropMenu.children.length - 1];
+                    dropMenu.insertBefore(instructionMenuItem, penultimateItem);
+                } else {
+                    dropMenu.appendChild(instructionMenuItem);
+                }
             }
 
             // Create new element li

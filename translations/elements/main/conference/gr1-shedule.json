@@ -1,0 +1,74 @@
+{
+  "pl_PL": {
+    "conferences": "Konferencje",
+    "organizer": "Organizator",
+    "subject": "Temat",
+    "reg_url": "/rejestracja/",
+    "take_part": "Weź udział",
+    "find_more": "Dowiedz się więcej"
+  },
+  "en_US": {
+    "conferences": "Conferences",
+    "organizer": "Organizer",
+    "subject": "Subject",
+    "reg_url": "/en/registration/",
+    "take_part": "Take part",
+    "find_more": "Find out more"
+  },
+  "cs_CZ": {
+    "conferences": "Konference",
+    "organizer": "Organizátor",
+    "subject": "Téma",
+    "reg_url": "/cs/registrace/",
+    "take_part": "Zúčastněte se",
+    "find_more": "Zjistit více"
+  },
+  "de_DE": {
+    "conferences": "Konferenzen",
+    "organizer": "Veranstalter",
+    "subject": "Thema",
+    "reg_url": "/de/Anmeldung/",
+    "take_part": "Teilnehmen",
+    "find_more": "Mehr erfahren"
+  },
+  "it_IT": {
+    "conferences": "Conferenze",
+    "organizer": "Organizzatore",
+    "subject": "Tema",
+    "reg_url": "/it/registrazione/",
+    "take_part": "Partecipa",
+    "find_more": "Scopri di più"
+  },
+  "lt_LT": {
+    "conferences": "Konferencijos",
+    "organizer": "Organizatorius",
+    "subject": "Tema",
+    "reg_url": "/lt/registracija/",
+    "take_part": "Dalyvaukite",
+    "find_more": "Sužinokite daugiau"
+  },
+  "lv_LV": {
+    "conferences": "Konferences",
+    "organizer": "Organizators",
+    "subject": "Tēma",
+    "reg_url": "/lv/reģistrācija/",
+    "take_part": "Piedalieties",
+    "find_more": "Uzzināt vairāk"
+  },
+  "sk_SK": {
+    "conferences": "Konferencie",
+    "organizer": "Organizátor",
+    "subject": "Téma",
+    "reg_url": "/sk/registrácia/",
+    "take_part": "Zúčastnite sa",
+    "find_more": "Zistiť viac"
+  },
+  "uk": {
+    "conferences": "Конференції",
+    "organizer": "Організатор",
+    "subject": "Тема",
+    "reg_url": "/uk/реєстрація/",
+    "take_part": "Взяти участь",
+    "find_more": "Дізнатися більше"
+  }
+}

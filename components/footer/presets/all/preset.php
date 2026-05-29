@@ -1,127 +1,226 @@
 <?php
 
+$lang = strtolower(PWE_Functions::lang());
+
+$menus = wp_get_nav_menus();
+
+$grouped = [];
+
+foreach ($menus as $menu) {
+
+    $name = strtolower($menu->name);
+
+    // footer menu 1 en -> group=1 lang=en
+    if (preg_match('/(\d+)\s*([a-z]{2})$/', $name, $matches)) {
+        $group = $matches[1];
+        $lang  = $matches[2];
+
+        $grouped[$group][$lang] = $menu->name;
+    }
+}
+
+$base_url = ( (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http' ) . '' . $_SERVER['HTTP_HOST'];
+$page_url = 'https://' . $_SERVER['HTTP_HOST'] . PWE_Functions::lang_pl() ? '' : '/'. $lang .'/';
+
 $output = '
 <div id="pweFooter" class="pwe-footer pwe-component">
     <div class="pwe-footer__wrapper">';
 
-    function generateFooterNavEl($locale, $menus) {
-        $base_url = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
-        $base_url .= "://".$_SERVER['HTTP_HOST'];
-        $page_url = $locale == 'pl_PL' ? $base_url : $base_url . '/en';
-        $logo_file_path = $locale == 'pl_PL' ? '/doc/logo' : '/doc/logo-en';
-        $logo_url = file_exists($_SERVER['DOCUMENT_ROOT'] . $logo_file_path . '.webp') ? $logo_file_path . '.webp' : (file_exists($_SERVER['DOCUMENT_ROOT'] . $logo_file_path . '.png') ? $logo_file_path . '.png' : '');
-    
-        $menu_titles = $locale == 'pl_PL' ? [do_shortcode('[trade_fair_name]'), 'DLA ODWIEDZAJĄCYCH', 'DLA WYSTAWCÓW'] : [do_shortcode('[trade_fair_name_eng]'), 'FOR VISITORS', 'FOR EXHIBITORS'];
-    
-        $output = '
-        <div class="pwe-footer__nav">
-            <div class="pwe-footer__nav-wrapper">
-                <div class="pwe-footer__nav-left-column">
-                    <div class="pwe-footer__nav-logo-column">
-                        <div class="pwe-footer__nav-logo-top"><a href="' . $page_url . '"><img src="/wp-content/plugins/pwe-media/media/logo_pwe_ufi.webp" alt="logo pwe & ufi"></a></div>
-                        <div class="pwe-footer__nav-logo-bottom text-centered">
-                            <a href="' . $page_url . '">
-                                <span><img src="' . $logo_url . '" alt="logo-'. do_shortcode('[trade_fair_name]') .'"></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>   
-                <div class="pwe-footer__nav-right-column">';
-    
-                    foreach ($menus as $index => $menu) {
-                        if (isset($menu)) { 
-                            $output .= '
-                            <!-- nav-column-item -->
-                            <div class="pwe-footer__nav-column">
-                                <h4><span class="pwe-uppercase">' . $menu_titles[$index] . '</span></h4>
-                                <div class="pwe-footer__nav-links">' . wp_nav_menu(["menu" => $menu, "echo" => false]) . '</div>
-                            </div>';
-                        }
-                    }
-    
-                $output .= '
-                </div>
-            </div>
-        </div>';
+// Custom footer menu renderer
+function render_footer_menu($menu_name) {
 
-        $socials = array(
-            'facebook' => do_shortcode('[pwe_facebook]'),
-            'instagram' => do_shortcode('[pwe_instagram]'),
-            'linkedin' => do_shortcode('[pwe_linkedin]'),
-            'youtube' => do_shortcode('[pwe_youtube]')
-        );
+    $items = wp_get_nav_menu_items($menu_name);
+    if (empty($items)) return '';
 
-        $output .= ' 
-        <div class="pwe-footer__bottom pwe-footer__row">
-            <div class="pwe-footer__bottom-wrapper">';
-                    
-                    if (!empty($socials)) {
-                        $output .= '
-                        <div class="pwe-footer__bottom-icons">
-                            <ul class="pwe-footer__social">';
-                                if (!empty($socials['facebook'])) {
-                                    $output .= '
-                                    <li class="pwe-footer__social-item-link social-icon facebook">
-                                        <a href="'. esc_url($socials['facebook']) .'" class="social-menu-link" target="_blank" aria-label="Visit our Facebook profile">
-                                            <i class="fa fa-facebook-square"></i>
-                                        </a>
-                                    </li>';
-                                }
-                                if (!empty($socials['instagram'])) {
-                                    $output .= '
-                                    <li class="pwe-footer__social-item-link social-icon instagram">
-                                        <a href="'. esc_url($socials['instagram']) .'" class="social-menu-link" target="_blank" aria-label="Visit our Instagram profile">
-                                            <i class="fa fa-instagram"></i>
-                                        </a>
-                                    </li>';
-                                }
-                                if (!empty($socials['linkedin'])) {
-                                    $output .= '
-                                    <li class="pwe-footer__social-item-link social-icon linkedin">
-                                        <a href="'. esc_url($socials['linkedin']) .'" class="social-menu-link" target="_blank" aria-label="Visit our Linkedin profile">
-                                            <i class="fa fa-linkedin-square"></i>
-                                        </a>
-                                    </li>';
-                                }
-                                if (!empty($socials['youtube'])) {
-                                    $output .= '
-                                    <li class="pwe-footer__social-item-link social-icon youtube">
-                                        <a href="'. esc_url($socials['youtube']) .'" class="social-menu-link" target="_blank" aria-label="Visit our Youtube profile">
-                                            <i class="fa fa-youtube-play"></i>
-                                        </a>
-                                    </li>';
-                                }
-                        
-                                $output .= '
-                            </ul>
-                        </div>';
-                    }
-                
-                    $output .= '
-                <div class="pwe-footer__bottom-text">
-                    <p>© '. do_shortcode('[trade_fair_actualyear]') .' Ptak Warsaw Expo Sp. z o.o.</p> 
-                </div>
-            </div>
-        </div>';
-    
-        return $output;
+    $menu_items = [];
+    foreach ($items as $item) {
+        $menu_items[$item->ID] = $item;
     }
-    
-    if (get_locale() == 'pl_PL' && isset($menu_1_pl, $menu_2_pl, $menu_3_pl)) {
-        $output .= generateFooterNavEl('pl_PL', [$menu_1_pl, $menu_2_pl, $menu_3_pl]);
-    } elseif (isset($menu_1_en, $menu_2_en, $menu_3_en)) {
-        $output .= generateFooterNavEl('en_US', [$menu_1_en, $menu_2_en, $menu_3_en]);
-    } elseif (isset($menu_1_lt, $menu_2_lt, $menu_3_lt)) {
-        $output .= generateFooterNavEl('lt_LT', [$menu_1_lt, $menu_2_lt, $menu_3_lt]);
-    } elseif (isset($menu_1_de, $menu_2_de, $menu_3_de)) {
-        $output .= generateFooterNavEl('de_DE', [$menu_1_de, $menu_2_de, $menu_3_de]);
-    } elseif (isset($menu_1_it, $menu_2_it, $menu_3_it)) {
-        $output .= generateFooterNavEl('it_IT', [$menu_1_it, $menu_2_it, $menu_3_it]);
-    } 
 
-    $output .= '  
+    // anchor translations
+    foreach ($menu_items as $id => $item) {
+        apply_anchor_translation($item);
+        $menu_items[$id] = $item;
+    }
+
+    $output = '<ul class="pwe-footer__menu">';
+
+    foreach ($menu_items as $item) {
+
+        if ($item->menu_item_parent != 0) continue;
+
+        $children = array_filter($menu_items, function($child) use ($item) {
+            return $child->menu_item_parent == $item->ID;
+        });
+
+        $output .= '<li class="pwe-footer__menu-item'. (!empty($children) ? ' has-children' : '') .'">';
+
+        $output .= '<a href="' . esc_url($item->url) . '">';
+        $output .= esc_html($item->title);
+        $output .= '</a>';
+
+        // children
+        if (!empty($children)) {
+            $output .= '<ul class="pwe-footer__submenu">';
+
+            foreach ($children as $child) {
+                $output .= '<li class="pwe-footer__submenu-item">';
+                $output .= '<a href="' . esc_url($child->url) . '">';
+                $output .= esc_html($child->title);
+                $output .= '</a>';
+                $output .= '</li>';
+            }
+
+            $output .= '</ul>';
+        }
+
+        $output .= '</li>';
+    }
+
+    $output .= '</ul>';
+
+    return $output;
+}
+
+// Footer layout
+function generateFooterNavEl($menus) {
+
+    $lang = strtolower(PWE_Functions::lang());
+
+    $base_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://".$_SERVER['HTTP_HOST'];
+
+    $page_url = $base_url;
+
+    if ($lang !== 'pl') {
+        $page_url .= '/' . $lang;
+    }
+
+    $logo_file_path = $lang === 'pl' ? '/doc/logo' : '/doc/logo-en';
+
+    $logo_webp = $_SERVER['DOCUMENT_ROOT'] . $logo_file_path . '.webp';
+    $logo_png  = $_SERVER['DOCUMENT_ROOT'] . $logo_file_path . '.png';
+
+    if (file_exists($logo_webp)) {
+        $logo_url = $logo_file_path . '.webp';
+    } elseif (file_exists($logo_png)) {
+        $logo_url = $logo_file_path . '.png';
+    } else {
+        $logo_url = '/wp-content/plugins/pwe-media/media/logo_pwe.webp';
+    }
+
+
+    $menu_titles_map = [
+        'pl' => [ do_shortcode('[trade_fair_name]'), 'DLA ODWIEDZAJĄCYCH', 'DLA WYSTAWCÓW'],
+        'en' => [ do_shortcode('[trade_fair_name_eng]'), 'FOR VISITORS', 'FOR EXHIBITORS' ],
+        'de' => [ do_shortcode('[trade_fair_name_eng]'), 'FÜR BESUCHER', 'FÜR AUSSTELLER' ],
+        'it' => [ do_shortcode('[trade_fair_name_eng]'), 'PER VISITATORI', 'PER ESPOSITORI' ],
+        'lt' => [ do_shortcode('[trade_fair_name_eng]'), 'LANKYTOJAMS', 'PARODOS DALYVIAMS' ],
+        'lv' => [ do_shortcode('[trade_fair_name_eng]'), 'Apmeklētājiem', 'Izstādes dalībniekiem' ],
+        'cs' => [ do_shortcode('[trade_fair_name_eng]'), 'PRO NÁVŠTĚVNÍKY', 'PRO VYSTAVOVATELE' ],
+        'sk' => [ do_shortcode('[trade_fair_name_eng]'), 'PRE NÁVŠTEVNÍKOV', 'PRE VYSTAVOVATEĽOV' ],
+        'uk' => [ do_shortcode('[trade_fair_name_eng]'), 'ДЛЯ ВІДВІДУВАЧІВ', 'ДЛЯ ВИСТАВЦІВ' ],
+    ];
+
+    $menu_titles = $menu_titles_map[$lang] ?? $menu_titles_map['en'];
+
+    $output = '
+    <div class="pwe-footer__nav">
+        <div class="pwe-footer__nav-wrapper">
+            <div class="pwe-footer__nav-left-column">
+                <div class="pwe-footer__nav-logo-column">
+                    <div class="pwe-footer__nav-logo-top">
+                        <a href="' . $page_url . '">
+                            <img src="/wp-content/plugins/pwe-media/media/logo_pwe_ufi.webp" alt="logo pwe & ufi">
+                        </a>
+                    </div>
+                    <div class="pwe-footer__nav-logo-bottom text-centered">
+                        <a href="' . $page_url . '">
+                            <span><img src="' . $logo_url . '" alt="logo"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>   
+            <div class="pwe-footer__nav-right-column">';
+
+                foreach ($menus as $index => $menu) {
+
+                    if (empty($menu)) continue;
+
+                    $output .= '
+                    <div class="pwe-footer__nav-column">
+                        <h4><span class="pwe-uppercase">' . $menu_titles[$index] . '</span></h4>
+                        <div class="pwe-footer__nav-links">'
+                            . render_footer_menu($menu) .
+                        '</div>
+                    </div>';
+                }
+
+            $output .= '
+            </div>
+        </div>
+    </div>';
+
+    // socials
+    $socials = [
+        'facebook' => do_shortcode('[pwe_facebook]'),
+        'instagram' => do_shortcode('[pwe_instagram]'),
+        'linkedin' => do_shortcode('[pwe_linkedin]'),
+        'youtube' => do_shortcode('[pwe_youtube]')
+    ];
+
+    $output .= '
+    <div class="pwe-footer__bottom pwe-footer__row">
+        <div class="pwe-footer__bottom-wrapper">';
+
+            if (!empty($socials)) {
+                $output .= '
+                <div class="pwe-footer__bottom-icons">
+                    <ul class="pwe-footer__social">';
+
+                        foreach ($socials as $key => $url) {
+                            if (empty($url)) continue;
+
+                            $output .= '
+                            <li class="pwe-footer__social-item-link social-icon '. esc_attr($key) .'">
+                                <a href="'. esc_url($url) .'" target="_blank">
+                                    <i class="fa fa-'. esc_attr($key) .'"></i>
+                                </a>
+                            </li>';
+                        }
+
+                    $output .= '
+                    </ul>
+                </div>';
+            }
+
+        $output .= '
+        <div class="pwe-footer__bottom-text">
+            <p>© '. do_shortcode('[trade_fair_actualyear]') .' Ptak Warsaw Expo Sp. z o.o.</p> 
+        </div>
+        </div>
+    </div>';
+
+    return $output;
+}
+
+// Render footer if all 3 menus for the current language are available
+if (
+    !empty($grouped['1'][$lang]) &&
+    !empty($grouped['2'][$lang]) &&
+    !empty($grouped['3'][$lang])
+) {
+    $output .= generateFooterNavEl(
+        [
+            $grouped['1'][$lang],
+            $grouped['2'][$lang],
+            $grouped['3'][$lang]
+        ]
+    );
+}
+
+$output .= '  
     </div>
-</div>';    
+</div>';
 
 require_once plugin_dir_path(dirname(dirname(__FILE__))) . 'assets/script.php';
 
