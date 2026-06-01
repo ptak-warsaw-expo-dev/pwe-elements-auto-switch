@@ -97,5 +97,27 @@
         "link_to_registration_alt":"посилання на реєстрацію",
         "register":"Зареєструватися",
         "free_ticket": "Отримайте безкоштовний квиток"
+    },
+    "ro_RO": {
+        "premier_edition": "Ediție de premieră",
+        "edition":" ediție",
+        "warsaw":"Varșovia",
+        "poland":"Polonia",
+        "warsaw_poland":"Varșovia, Polonia",
+        "link_to_registration":"/ro/inregistrare/",
+        "link_to_registration_alt":"link către înregistrare",
+        "register":"Înregistrare",
+        "free_ticket": "Obține un bilet gratuit"
+    },
+    "et": {
+        "premier_edition": "Esimene väljaanne",
+        "edition":" väljaanne",
+        "warsaw":"Varssavi",
+        "poland":"Poola",
+        "warsaw_poland":"Varssavi, Poola",
+        "link_to_registration":"/et/registreerimine/",
+        "link_to_registration_alt":"link registreerimiseks",
+        "register":"Registreeru",
+        "free_ticket": "Hangi tasuta pilet"
     }
 }

@@ -106,5 +106,29 @@
     "industry_alt": "Галузевий",
     "more_btn": "Показати більше",
     "less_btn": "Менше"
+  },
+  "ro_RO": {
+    "profiles_title": "Profiluri",
+    "profiles_subtitle": "Profil",
+    "visitor": "Vizitator",
+    "visitor_alt": "Vizitatori",
+    "exhibitor": "Expozent",
+    "exhibitor_alt": "Expozanți",
+    "industry": "Industrial",
+    "industry_alt": "Industrial",
+    "more_btn": "Arată mai mult",
+    "less_btn": "Mai puțin"
+  },
+  "et": {
+    "profiles_title": "Profiilid",
+    "profiles_subtitle": "Profiil",
+    "visitor": "Külastaja",
+    "visitor_alt": "Külastajad",
+    "exhibitor": "Eksponent",
+    "exhibitor_alt": "Eksponendid",
+    "industry": "Tööstus",
+    "industry_alt": "Tööstus",
+    "more_btn": "Näita rohkem",
+    "less_btn": "Vähem"
   }
 }

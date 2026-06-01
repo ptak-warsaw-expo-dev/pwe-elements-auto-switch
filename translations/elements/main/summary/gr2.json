@@ -61,5 +61,19 @@
     "visitors_year": "Відвідувачів на рік",
     "fairs_year": "B2B виставок на рік",
     "exhibition_space" : "Площа m²"
+  },
+  "ro_RO": {
+    "summary_title": "Cel mai mare centru de târguri din Europa Centrală și de Est",
+    "exhibitors_year": "Expozanți pe an",
+    "visitors_year": "Vizitatori pe an",
+    "fairs_year": "Târguri B2B pe an",
+    "exhibition_space" : "Suprafață m²"
+  },
+  "et": {
+    "summary_title": "Suurim messikeskus Kesk- ja Ida-Euroopas",
+    "exhibitors_year": "Eksponente aastas",
+    "visitors_year": "Külastajaid aastas",
+    "fairs_year": "B2B-messe aastas",
+    "exhibition_space" : "Pindala m²"
   }
 }

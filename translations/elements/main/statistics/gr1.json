@@ -99,12 +99,36 @@
     "estimates": "Оцінки",
     "statistics": "Статистика",
     "edition": " випуск",
-    "reg_url": "/uk/реєстрація/",
+    "reg_url": "/uk/reyestraciya/",
     "buy_ticket": "Купити квиток",
     "registration": "Реєстрація",
     "visitors": "Відвідувачі",
     "visitors_abroad": "Зокрема з-за кордону",
     "exhibitors": "Експоненти",
     "area": "Виставкова площа"
+  },
+  "ro_RO": {
+    "estimates": "Estimări",
+    "statistics": "Statistici",
+    "edition": " ediție",
+    "reg_url": "/ro/inregistrare/",
+    "buy_ticket": "Cumpără un bilet",
+    "registration": "Înregistrare",
+    "visitors": "Vizitatori",
+    "visitors_abroad": "Inclusiv din străinătate",
+    "exhibitors": "Expozanți",
+    "area": "Spațiu de expoziție"
+  },
+  "et": {
+    "estimates": "Hinnangud",
+    "statistics": "Statistika",
+    "edition": " väljaanne",
+    "reg_url": "/et/registreerimine/",
+    "buy_ticket": "Osta pilet",
+    "registration": "Registreerimine",
+    "visitors": "Külastajad",
+    "visitors_abroad": "Ka välismaalt",
+    "exhibitors": "Eksponaendid",
+    "area": "Näitusepind"
   }
 }

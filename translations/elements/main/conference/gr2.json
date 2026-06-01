@@ -79,5 +79,23 @@
     "schedule_reg_url": "/uk/reyestraciya/",
     "schedule_reg_text": "Взяти участь",
     "schedule_find_more": "Дізнатися більше"
+  },
+  "ro_RO": {
+    "schedule_conferences": "Conferințe",
+    "schedule_organizer": "Organizator",
+    "schedule_subject": "Subiect",
+    "schedule_date": "Termen",
+    "schedule_reg_url": "/ro/registrare/",
+    "schedule_reg_text": "Participați",
+    "schedule_find_more": "Aflați mai multe"
+  },
+  "et": {
+    "schedule_conferences": "Konverentsid",
+    "schedule_organizer": "Korraldaja",
+    "schedule_subject": "Teema",
+    "schedule_date": "Tähtpäev",
+    "schedule_reg_url": "/et/registreerimine/",
+    "schedule_reg_text": "Osale",
+    "schedule_find_more": "Loe lisaks"
   }
 }

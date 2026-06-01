@@ -115,5 +115,31 @@
         "register":"Зареєструватися",
         "free_ticket": "Отримайте <span>безкоштовний</span> квиток",
         "become_exhibitor": "Стати<br>експонентом"
+    },
+    "ro_RO": {
+        "premier_edition": "Ediție de premieră",
+        "edition":" ediție",
+        "warsaw":"Varșovia",
+        "warsaw_poland":"Varșovia, Polonia",
+        "link_to_registration":"/ro/inregistrare/",
+        "link_to_registration_text":"link către înregistrare",
+        "link_to_registration_exh":"/ro/deveniti-exhibitor/",
+        "link_to_registration_text_exh":"link către înregistrarea expozentului",
+        "register":"Înregistrare",
+        "free_ticket": "Obține un <span>bilet gratuit</span>",
+        "become_exhibitor": "Devino<br>expozent"
+    },
+    "et": {
+        "premier_edition": "Esimene väljaanne",
+        "edition":" väljaanne",
+        "warsaw":"Varssavi",
+        "warsaw_poland":"Varssavi, Poola",
+        "link_to_registration":"/et/registreerimine/",
+        "link_to_registration_text":"link registreerimiseks",
+        "link_to_registration_exh":"/et/saage-eksponent/",
+        "link_to_registration_text_exh":"link eksponendiks registreerimiseks",
+        "register":"Registreeru",
+        "free_ticket": "Hangi <span>tasuta</span> pilet",
+        "become_exhibitor": "Saa<br>eksponeerijaks"
     }
 }

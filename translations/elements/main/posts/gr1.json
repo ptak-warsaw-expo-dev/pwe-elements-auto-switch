@@ -43,5 +43,15 @@
     "title": "Новини",
     "more": "Більше",
     "read_all": "Переглянути всі"
+  },
+  "ro_RO": {
+    "title": "Știri",
+    "more": "Mai mult",
+    "read_all": "Vezi toate"
+  },
+  "et": {
+    "title": "Uudised",
+    "more": "Rohkem",
+    "read_all": "Vaata kõiki"
   }
 }

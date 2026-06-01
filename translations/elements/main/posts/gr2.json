@@ -34,5 +34,13 @@
   "uk": {
     "title": "Новини Expo",
     "read_more": "Читати більше"
+  },
+  "ro_RO": {
+    "title": "Știri Expo",
+    "read_more": "Citește mai mult"
+  },
+  "et": {
+    "title": "Expo uudised",
+    "read_more": "Loe rohkem"
   }
 }

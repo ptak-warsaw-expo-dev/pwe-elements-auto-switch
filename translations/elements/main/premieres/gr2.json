@@ -34,5 +34,13 @@
   "uk": {
     "premieres_subtitle": "ПРОДУКТИ",
     "premieres_title": "Що ви побачите на виставці?"
+  },
+  "ro_RO": {
+    "premieres_subtitle": "PRODUSE",
+    "premieres_title": "Ce vei vedea la târg?"
+  },
+  "et": {
+    "premieres_subtitle": "TOOTED",
+    "premieres_title": "Mida näete messil?"
   }
 }

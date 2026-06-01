@@ -43,5 +43,15 @@
     "catalog_title": "Експоненти",
     "catalog_link": "/uk/katalog-eksponentiv/",
     "catalog_link_text": "Переглянути каталог"
+  },
+  "ro_RO": {
+    "catalog_title": "Expozanti",
+    "catalog_link": "/ro/catalog-expozanti/",
+    "catalog_link_text": "Vezi catalogul"
+  },
+  "et": {
+    "catalog_title": "Messe osalejad",
+    "catalog_link": "/et/eksponentide-kataloog/",
+    "catalog_link_text": "Terve kataloog"
   }
 }

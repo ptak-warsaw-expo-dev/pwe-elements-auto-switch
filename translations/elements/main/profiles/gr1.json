@@ -97,5 +97,27 @@
     "industry_alt": "Галузевий",
     "more_btn": "Більше",
     "less_btn": "Менше"
+  },
+  "ro_RO": {
+    "profiles_title": "Profil",
+    "visitor": "Vizitator",
+    "visitor_alt": "Vizitatori",
+    "exhibitor": "Expozent",
+    "exhibitor_alt": "Expozanți",
+    "industry": "Industrial",
+    "industry_alt": "Industrial",
+    "more_btn": "Mai mult",
+    "less_btn": "Mai puțin"
+  },
+  "et": {
+    "profiles_title": "Profiil",
+    "visitor": "Külastaja",
+    "visitor_alt": "Külastajad",
+    "exhibitor": "Eksponent",
+    "exhibitor_alt": "Eksponendid",
+    "industry": "Tööstus",
+    "industry_alt": "Tööstus",
+    "more_btn": "Rohkem",
+    "less_btn": "Vähem"
   }
 }

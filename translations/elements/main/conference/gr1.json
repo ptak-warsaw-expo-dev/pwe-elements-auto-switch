@@ -80,5 +80,21 @@
     "schedule_reg_url": "/uk/реєстрація/",
     "schedule_take_part": "Взяти участь",
     "schedule_find_more": "Дізнатися більше"
+  },
+  "ro_RO": {
+    "schedule_conferences": "Conferințe",
+    "schedule_organizer": "Organizator",
+    "schedule_subject": "Subiect",
+    "schedule_reg_url": "/ro/înregistrare/",
+    "schedule_take_part": "Participați",
+    "schedule_find_more": "Aflați mai multe"
+  },
+  "et": {
+    "schedule_conferences": "Konverentsid",
+    "schedule_organizer": "Korraldaja",
+    "schedule_subject": "Teema",
+    "schedule_reg_url": "/et/registreerimine/",
+    "schedule_take_part": "Osale",
+    "schedule_find_more": "Loe lisaks"
   }
 }

@@ -124,5 +124,33 @@
     "text": "Приєднуйтеся до найкращих на <strong>Ptak Warsaw Expo</strong> і покажіть свою компанію у світлі переможців! Нагороди присуджують <strong>Національна виставкова палата</strong> та <strong>Ptak Warsaw Expo</strong> - вирізняйтеся та здобувайте визнання!",
     "lider_text":"ПОКАЖІТЬ СЕБЕ СВІТОВІ ЯК ЛІДЕРА НА PTAK WARSAW EXPO!",
     "premier_fair": "/wp-content/plugins/pwe-media/media/medals/premier-fair-en.webp"
+  },
+  "ro_RO": {
+    "award": "Câștigă un premiu prestigios la Ptak Warsaw Expo!",
+    "text_premier": "Alătură-te celor mai buni la Ptak Warsaw Expo și prezintă-ți compania ca lider! Obține medalia prestigioasă acordată de Camera Națională a Expozițiilor și Ptak Warsaw Expo.",
+    "category_premier": "Onorăm parteneri excepționali în două categorii:",
+    "partner_premier": "Pentru camere și asociații:<br><strong>„Partener cheie al târgului”</strong>",
+    "cocreator_premier": "Pentru companii:<br><strong>„Co-creator al succesului târgului”</strong>",
+    "book_stand": "/ro/deveniti-exhibitor/",
+    "book_stand_button": "Deveniți exhibitor",
+    "medal_link": "/ro/medal-ceremony/",
+    "medal_button": "Cerere pentru ceremonia medaliilor",
+    "text": "Alătură-te celor mai buni la <strong>Ptak Warsaw Expo</strong> și prezintă-ți compania în lumina câștigătorilor! Premiile sunt acordate de <strong>Camera Națională a Expozițiilor</strong> și <strong>Ptak Warsaw Expo</strong> - evidențiază-te și câștigă recunoaștere!",
+    "lider_text":"ARATĂ-TE LUMII CA UN LIDER LA PTAK WARSAW EXPO!",
+    "premier_fair": "/wp-content/plugins/pwe-media/media/medals/premier-fair-en.webp"
+  },
+  "et_EE": {
+    "award": "Võida prestiižne auhind Ptak Warsaw Expo'l!",
+    "text_premier": "Liitu parimatega Ptak Warsaw Expo'l ja tutvusta oma ettevõtet liidrina! Saa prestiižne medal, mille annab Riiklik Näituste Koda ja Ptak Warsaw Expo.",
+    "category_premier": "Austame silmapaistvaid partnereid kahes kategoorias:",
+    "partner_premier": "Kamberitele ja assotsiatsioonidele:<br><strong>„Messi võti partner”</strong>",
+    "cocreator_premier": "Ettevõtetele:<br><strong>„Mõjuvõtja messi edus”</strong>",
+    "book_stand": "/et/saage-eksponent/",
+    "book_stand_button": "Saage eksponendiks",
+    "medal_link": "/et/medal-ceremony/",
+    "medal_button": "Medali tseremoonia avaldus",
+    "text": "Liitu parimatega <strong>Ptak Warsaw Expo</strong> ja näita oma ettevõtet võitjate valguses! Auhindu annab <strong>Riiklik Näituste Koda</strong> ja <strong>Ptak Warsaw Expo</strong> - eristu ja saa tunnustust!",
+    "lider_text":"NÄITA ENNAST MAAILMALE LIIDRINA PTAK WARSAW EXPO'L!",
+    "premier_fair": "/wp-content/plugins/pwe-media/media/medals/premier-fair-en.webp"
   }
 }

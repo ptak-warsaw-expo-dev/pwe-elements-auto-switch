@@ -61,5 +61,19 @@
     "visitors": "Відвідувачів",
     "exhibitors": "Експонентів",
     "exhibition_space": "Виставкова<br>площа"
+  },
+  "ro_RO": {
+    "title": "Alte evenimente",
+    "subtitle": "În timpul târgului",
+    "visitors": "Vizitatori",
+    "exhibitors": "Expozanți",
+    "exhibition_space": "Spațiu de<br>expoziție"
+  },
+  "et": {
+    "title": "Muud sündmused",
+    "subtitle": "Messi ajal",
+    "visitors": "Külastajad",
+    "exhibitors": "Eksponaendid",
+    "exhibition_space": "Näituse<br>pind"
   }
 }

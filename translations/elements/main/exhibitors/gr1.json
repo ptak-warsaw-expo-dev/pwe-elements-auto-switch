@@ -52,5 +52,17 @@
     "catalog_desc" : "Переглянути всіх експонентів ",
     "catalog_link": "/uk/каталог-експонентів/",
     "catalog_link_text": "Повний каталог"
+  },
+  "ro_RO": {
+    "catalog_title": "Expozanti la târg",
+    "catalog_desc" : "Vezi toți expozantii ",
+    "catalog_link": "/ro/catalog-expozanti/",
+    "catalog_link_text": "Catalog complet"
+  },
+  "et": {
+    "catalog_title": "Messe osalejad",
+    "catalog_desc" : "Vaata kõiki osalejaid ",
+    "catalog_link": "/et/eksponentide-kataloog/",
+    "catalog_link_text": "Terve kataloog"
   }
 }

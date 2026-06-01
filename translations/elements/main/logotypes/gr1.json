@@ -97,5 +97,27 @@
     "reg_url": "/uk/реєстрація/",
     "buy_ticket": "Купити квиток",
     "take_part": "Взяти участь"
+  },
+  "ro_RO": {
+    "patrons_int_gr2": "Patroni și parteneri străini",
+    "patrons_int": "Patroni internaționali",
+    "patrons": "Patroni și parteneri",
+    "pwe_partners": "Parteneri ai Ptak Warsaw Expo",
+    "conf_patrons": "Patroni ai târgului și conferinței",
+    "eu_events": "Evenimente cheie din industrie în Europa",
+    "reg_url": "/ro/inregistrare/",
+    "buy_ticket": "Cumpără un bilet",
+    "take_part": "Participează"
+  },
+  "et": {
+    "patrons_int_gr2": "Välispatroonid ja partnerid",
+    "patrons_int": "Rahvusvahelised patroonid",
+    "patrons": "Patroonid ja partnerid",
+    "pwe_partners": "Ptak Warsaw Expo partnerid",
+    "conf_patrons": "Messi ja konverentsi patroonid",
+    "eu_events": "Tööstuse peamised sündmused Euroopas",
+    "reg_url": "/et/registreerimine/",
+    "buy_ticket": "Osta pilet",
+    "take_part": "Osale"
   }
 }

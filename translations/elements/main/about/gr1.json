@@ -61,5 +61,19 @@
     "buy_ticket": "Купити квиток",
     "registration": "Реєстрація",
     "top_exhibitors": "Топ експоненти"
+  },
+  "ro_RO": {
+    "about_fair": "Despre târg",
+    "reg_url": "/ro/înregistrare/",
+    "buy_ticket": "Cumpără un bilet",
+    "registration": "Înregistrare",
+    "top_exhibitors": "Top expozanți"
+  },
+  "et": {
+    "about_fair": "Messist",
+    "reg_url": "/et/registreerimine/",
+    "buy_ticket": "Osta pilet",
+    "registration": "Registreerimine",
+    "top_exhibitors": "Parimad eksponendid"
   }
 }

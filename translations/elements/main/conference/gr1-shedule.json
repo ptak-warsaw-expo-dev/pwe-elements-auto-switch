@@ -70,5 +70,21 @@
     "reg_url": "/uk/реєстрація/",
     "take_part": "Взяти участь",
     "find_more": "Дізнатися більше"
+  },
+  "ro_RO": {
+    "conferences": "Conferințe",
+    "organizer": "Organizator",
+    "subject": "Subiect",
+    "reg_url": "/ro/registrare/",
+    "take_part": "Participă",
+    "find_more": "Află mai multe"
+  },
+  "et": {
+    "conferences": "Konverentsid",
+    "organizer": "Korraldaja",
+    "subject": "Teema",
+    "reg_url": "/et/registreerimine/",
+    "take_part": "Osale",
+    "find_more": "Loe lisaks"
   }
 }

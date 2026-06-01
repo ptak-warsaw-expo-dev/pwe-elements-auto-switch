@@ -70,5 +70,21 @@
     "single_hall": "Зал",
     "multiple_halls": "Зали",
     "parking": "БЕЗКОШТОВНА ПАРКОВКА"
+  },
+  "ro_RO": {
+    "halls_title": "Suprafață de expoziție",
+    "halls_desc": "Cea mai mare suprafață de expoziție din Polonia",
+    "halls_parking": "PARCARE GRATUITĂ",  
+    "single_hall": "Sală",
+    "multiple_halls": "Săli",
+    "parking": "PARCARE GRATUITĂ"
+   },
+  "et": {
+    "halls_title": "Näitusepind",
+    "halls_desc": "Suurim näitusepind Poolas",
+    "halls_parking": "TASUTA PARKIMINE",
+    "single_hall": "Saal",
+    "multiple_halls": "Saalid",
+    "parking": "TASUTA PARKIMINE"
   }
 }

@@ -61,5 +61,19 @@
     "reg_url": "/uk/reyestraciya/",
     "reg_url_text": "Взяти участь",
     "buy_ticket": "Купить<br>билет"
+  },
+  "ro_RO": {
+    "title": "Câștigă un premiu prestigios la Ptak Warsaw Expo!",
+    "description": "Alătură-te celor mai buni la Ptak Warsaw Expo și prezintă-ți compania în lumina câștigătorilor! Premiile sunt acordate de Camera Națională a Expozițiilor și Ptak Warsaw Expo - evidențiază-te și câștigă recunoaștere!",
+    "reg_url": "/ro/inregistrare/",
+    "reg_url_text": "Participă",
+    "buy_ticket": "Cumpără<br>un bilet"
+  },
+  "et": {
+    "title": "Võida prestiižne auhind Ptak Warsaw Expo'l!",
+    "description": "Liitu parimatega Ptak Warsaw Expo'l ja näita oma ettevõtet võitjate valguses! Auhindu annab Riiklik Näituste Koda ja Ptak Warsaw Expo - eristu ja saa tunnustust!",
+    "reg_url": "/et/registreerimine/",
+    "reg_url_text": "Osale",
+    "buy_ticket": "Osta<br>pilet"
   }
 }

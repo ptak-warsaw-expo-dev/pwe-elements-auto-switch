@@ -18,24 +18,84 @@
     "find_more": "Find out more"
   },
   "cs_CZ": {
-
+    "conferences": "Konference",
+    "organizer": "Organizátor",
+    "subject": "Téma",
+    "date": "Termín",
+    "reg_url": "/cs/registrace/",
+    "reg_text": "Zúčastněte se",
+    "find_more": "Zjistit více"
   },
   "de_DE": {
-
+    "conferences": "Konferenzen",
+    "organizer": "Veranstalter",
+    "subject": "Thema",
+    "date": "Termin",
+    "reg_url": "/de/anmeldung/",
+    "reg_text": "Teilnehmen",
+    "find_more": "Mehr erfahren"
   },
   "it_IT": {
-
+    "conferences": "Conferenze",
+    "organizer": "Organizzatore",
+    "subject": "Tema",
+    "date": "Data",
+    "reg_url": "/it/registrazione/",
+    "reg_text": "Partecipa",
+    "find_more": "Scopri di più"
   },
   "lt_LT": {
-
+    "conferences": "Konferencijos",
+    "organizer": "Organizatorius",
+    "subject": "Tema",
+    "date": "Terminas",
+    "reg_url": "/lt/registracija/",
+    "reg_text": "Dalyvaukite",
+    "find_more": "Sužinokite daugiau"
   },
   "lv_LV": {
-
+    "conferences": "Konferences",
+    "organizer": "Organizators",
+    "subject": "Tēma",
+    "date": "Termiņš",
+    "reg_url": "/lv/registracija/",
+    "reg_text": "Piedalieties",
+    "find_more": "Uzzināt vairāk"
   },
   "sk_SK": {
- 
+    "conferences": "Konferencie",
+    "organizer": "Organizátor",
+    "subject": "Téma",
+    "date": "Termín",
+    "reg_url": "/sk/registracia/",
+    "reg_text": "Zúčastnite sa",
+    "find_more": "Zistiť viac"
   },
   "uk": {
-
+    "conferences": "Конференції",
+    "organizer": "Організатор",
+    "subject": "Тема",
+    "date": "Термін",
+    "reg_url": "/uk/reyestraciya/",
+    "reg_text": "Взяти участь",
+    "find_more": "Дізнатися більше"
+  },
+  "ro_RO": {
+    "conferences": "Conferințe",
+    "organizer": "Organizator",
+    "subject": "Subiect",
+    "date": "Termen",
+    "reg_url": "/ro/inregistrare/",
+    "reg_text": "Participă",
+    "find_more": "Află mai multe"
+  },
+  "et": {
+    "conferences": "Konverentsid",
+    "organizer": "Korraldaja",
+    "subject": "Teema",
+    "date": "Tähtaeg",
+    "reg_url": "/et/registreerimine/",
+    "reg_text": "Osale",
+    "find_more": "Loe lisaks"
   }
 }

@@ -52,5 +52,17 @@
     "patrons": "Патрони та партнери",
     "pwe_partners": "Партнери Ptak Warsaw Expo",
     "all": "Всі"
+  },
+  "ro_RO": {
+    "patrons_int_gr2": "Patroni și parteneri străini",
+    "patrons": "Patroni și parteneri",
+    "pwe_partners": "Partenerii Ptak Warsaw Expo",
+    "all": "Toți"
+  },
+  "et": {
+    "patrons_int_gr2": "Välispatroonid ja partnerid",
+    "patrons": "Patroonid ja partnerid",
+    "pwe_partners": "Ptak Warsaw Expo partnerid",
+    "all": "Kõik"
   }
 }

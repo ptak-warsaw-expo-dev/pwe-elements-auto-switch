@@ -61,5 +61,19 @@
     "exhibitors": "експонентів",
     "exhibition_space": "виставкова<br>площа",
     "more": "Більше"
+  },
+  "ro_RO": {
+    "title": "Alte evenimente în timpul târgului",
+    "visitors": "vizitatori",
+    "exhibitors": "expozanți",
+    "exhibition_space": "spațiu de<br>expoziție",
+    "more": "Mai mult"
+  },
+  "et": {
+    "title": "Muud sündmused messi ajal",
+    "visitors": "külastajad",
+    "exhibitors": "eksponaendid",
+    "exhibition_space": "näituse<br>pind",
+    "more": "Rohkem"
   }
 }
