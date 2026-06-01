@@ -2,25 +2,6 @@
 
 $lang = PWE_Functions::lang();
 
-// Functions to handle menu item translations based on anchor classes
-if (!function_exists('get_anchor_from_classes')) {
-    function get_anchor_from_classes($classes) {
-        if (empty($classes) || !is_array($classes)) {
-            return null;
-        }
-
-        $classes = array_filter(array_map('trim', $classes));
-
-        foreach ($classes as $class) {
-            if (str_starts_with($class, 'anchor-')) {
-                return $class;
-            }
-        }
-
-        return null;
-    }
-}
-
 // Function to load menu translations from JSON file
 if (!function_exists('get_menu_translations')) {
     function get_menu_translations() {
@@ -30,7 +11,12 @@ if (!function_exists('get_menu_translations')) {
             $file = dirname(__FILE__, 5) . '/translations/components/menu/menu.json';
 
             if (file_exists($file)) {
-                $translations = json_decode(file_get_contents($file), true);
+                $json = file_get_contents($file);
+                $translations = json_decode($json, true);
+
+                if (!is_array($translations)) {
+                    $translations = [];
+                }
             } else {
                 $translations = [];
             }
@@ -43,30 +29,115 @@ if (!function_exists('get_menu_translations')) {
 // Function to apply translations to a menu item based on its anchor class
 if (!function_exists('apply_anchor_translation')) {
     function apply_anchor_translation(&$item) {
-    
-        $anchor_class = get_anchor_from_classes($item->classes);
-        if (!$anchor_class) return;
 
         $translations = get_menu_translations();
-        if (empty($translations[$anchor_class])) return;
+        if (empty($translations)) return;
 
         $lang = PWE_Functions::lang();
 
-        $data =
-            $translations[$anchor_class][$lang]
-            ?? $translations[$anchor_class]['en']
-            ?? null;
+        $current_title = trim(strip_tags(html_entity_decode($item->title)));
+        $current_url   = trim($item->url);
 
-        if (empty($data)) return;
+        // normalize URL
+        $normalize = function($url) {
 
-        // try to replace the label
-        if (!empty($data['label'])) {
-            $item->title = $data['label'];
-        }
+            $url = trim($url);
 
-        // URL only if exists
-        if (!empty($data['url'])) {
-            $item->url = $data['url'];
+            if ($url === '') return '';
+
+            // split hash first
+            $hash = '';
+            if (strpos($url, '#') !== false) {
+                [$url, $hash] = explode('#', $url, 2);
+                $hash = '#'.$hash;
+            }
+
+            // remove domain if present
+            $path = parse_url($url, PHP_URL_PATH);
+            if ($path !== null) {
+                $url = $path;
+            }
+
+            // ensure leading slash
+            $url = '/' . ltrim($url, '/');
+
+            // remove trailing slash
+            if ($url !== '/') {
+                $url = rtrim($url, '/');
+            }
+
+            return $url . $hash;
+        };
+
+        $current_norm = $normalize($current_url);
+
+        // $current_user = wp_get_current_user();
+
+        foreach ($translations as $key => $entry) {
+
+            if (!is_array($entry)) continue;
+
+            $data = $entry[$lang] ?? null;
+            if (empty($data)) continue;
+
+            // if ($current_user && $current_user->user_login === 'Anton') {
+            //     echo '<pre>';
+            //     var_dump('KEY: ' . $key);
+            //     var_dump('TITLE: ' . $current_title);
+            //     var_dump('LANG: ' . $lang);
+            //     var_dump('TARGET LABEL: ' . ($data['label'] ?? 'NULL'));
+            //     var_dump('TARGET URL: ' . ($data['url'] ?? 'NULL'));
+            //     echo '</pre>';
+            // }
+
+            $target_label = trim($data['label'] ?? '');
+            $target_url   = trim($data['url'] ?? '');
+
+            $match = false;
+
+            // Url matching
+            if (!empty($current_norm) && !empty($target_url)) {
+
+                $target_norm = $normalize($target_url);
+
+                // strict comparison first
+                if ($current_norm === $target_norm) {
+                    $match = true;
+                }
+
+                // fallback: anchor-only match (#faq etc.)
+                if (!$match && strpos($current_norm, '#') !== false && strpos($target_norm, '#') !== false) {
+
+                    $current_base = explode('#', $current_norm)[1] ?? '';
+                    $target_base  = explode('#', $target_norm)[1] ?? '';
+
+                    if ($current_base !== '' && $current_base === $target_base) {
+                        $match = true;
+                    }
+                }
+            }
+
+            // Label matching (fallback)
+            if (!$match && !empty($target_label)) {
+
+                if (mb_stripos($current_title, $target_label) !== false) {
+                    $match = true;
+                }
+            }
+
+            // Apply translation
+            if ($match) {
+
+                if (!empty($target_label)) {
+                    $item->title = $target_label;
+                }
+
+                if (!empty($target_url)) {
+                    $item->url = $target_url;
+                }
+
+                return;
+            }
         }
     }
 }
@@ -226,13 +297,29 @@ if (!isset($locations['primary'])) {
 }
 
 // Get menu ID for 'primary' location
-$menu_id = $locations['primary']; 
+$menu_id = $locations['primary'];
 
-// WPML - Get the translated menu ID for the current language
-if (function_exists('icl_object_id')) {
-    // force EN as base
-    $default_lang = 'en';
-    $menu_id = apply_filters('wpml_object_id', $menu_id, 'nav_menu', true, $default_lang);
+if ($lang === 'pl') {
+    // For Polish language, we use the default menu without translation
+} else {
+
+    // For other languages, we use EN menu as the base and apply translations from JSON
+    if (function_exists('icl_object_id')) {
+
+        $default_lang = 'en';
+
+        $translated_menu_id = apply_filters(
+            'wpml_object_id',
+            $menu_id,
+            'nav_menu',
+            true,
+            $default_lang
+        );
+
+        if (!empty($translated_menu_id)) {
+            $menu_id = $translated_menu_id;
+        }
+    }
 }
 
 // Get menu items
