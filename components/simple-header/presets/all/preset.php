@@ -11,9 +11,9 @@ $output = '
                 <div class="pwe-simple-header__btn">
                     <a
                         class="pwe-link pwe-btn"
-                        href="'. PWE_Functions::languageChecker('/rejestracja/', '/en/registration/') .'"
-                        alt="'. PWE_Functions::languageChecker('rejestracja', 'registration') .'">
-                        '. PWE_Functions::languageChecker('Weź udział', 'Take a part') .'
+                        href="' . PWE_Functions::multi_translation("register_link") . '"
+                        alt="' . PWE_Functions::multi_translation("register_alt") . '">
+                        ' . PWE_Functions::multi_translation("take_part") . '
                     </a>
                 </div>
             </div>
