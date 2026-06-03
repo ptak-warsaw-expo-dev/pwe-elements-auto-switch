@@ -5,71 +5,193 @@ $description = PWE_Functions::lang_pl() ? do_shortcode('[trade_fair_desc]')     
 $url         = 'https://' . do_shortcode('[trade_fair_domainadress]') . (PWE_Functions::lang_pl() ? '' : '/en/');
 $offerName   = PWE_Functions::lang_pl() ? 'Rejestracja' : 'Registration';
 $offerUrl    = $url . (PWE_Functions::lang_pl() ? '/rejestracja/' : 'registration/');
-
+        
 $output .= '
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const uncodeNavMenu = document.querySelector("#masthead");
-        const pweNavMenu = document.querySelector("#pweMenuAutoSwitch");
+document.addEventListener("DOMContentLoaded", function() {
 
-        // Top main menu "For exhibitors"
-        const mainMenu = pweNavMenu 
-            ? document.querySelector(".pwe-menu-auto-switch__nav") 
-            : document.querySelector("ul.menu-primary-inner");
+    // -----------------------------
+    // LANG CONFIG
+    // -----------------------------
+    const currentLang = "' . PWE_Functions::lang() . '";
+    const catalogID = "' . do_shortcode('[trade_fair_catalog_id]') . '";
 
-        if (!mainMenu || !mainMenu.children || mainMenu.children.length < 2) return;
+    const isAutoSwitchMenu = !!document.querySelector("#pweMenuAutoSwitch");
 
-        const secondChild = mainMenu.children[1];
+    // -----------------------------
+    // MAIN LABELS
+    // -----------------------------
+    const agentTranslations = {
+        pl: "Zostań agentem",
+        en: "Become an agent",
+        uk: "Стань агентом",
+        cs: "Staňte se agentem",
+        de: "Werden Sie Agent",
+        it: "Diventa un agente",
+        lt: "Tapk agentu",
+        lv: "Kļūsti par aģentu",
+        sk: "Staňte sa agentom",
+        ro: "Deveniți agent",
+        et: "Saage agendiks"
+    };
 
-        if (!secondChild) return;
+    const agentLabel = agentTranslations[currentLang] || agentTranslations.en;
 
-        const dropMenu = pweNavMenu 
-            ? secondChild.querySelector(".pwe-menu-auto-switch__submenu") 
-            : secondChild.querySelector("ul.drop-menu");
+    const agentUrl = "https://warsawexpo.eu" + (
+        currentLang === "pl"
+            ? "/formularz-dla-agentow/"
+            : "/en/forms-for-agents/"
+    );
 
-        if (!dropMenu) return;
+    // -----------------------------
+    // HELPERS
+    // -----------------------------
+    function createMenuItem(className, title, text, href) {
+        const li = document.createElement("li");
+        if (className) li.className = className;
 
-        // Create new element li
-        const newMenuItem = document.createElement("li");
-        newMenuItem.id = pweNavMenu ? "" : "menu-item-99999";
-        newMenuItem.className = pweNavMenu ? "pwe-menu-auto-switch__submenu-item" : "menu-item menu-item-type-custom menu-item-object-custom menu-item-99999";
-        newMenuItem.innerHTML = `<a title="'. (get_locale() == "pl_PL" ? 'Zostań agentem' : 'Become an agent') .'" target="_blank" href="https://warsawexpo.eu'. (get_locale() == "pl_PL" ? '/formularz-dla-agentow/' : '/en/forms-for-agents/') .'">'. (get_locale() == "pl_PL" ? 'Zostań agentem' : 'Become an agent') .'</a>`;
+        li.innerHTML =
+            "<a target=\"_blank\" title=\"" + title + "\" href=\"" + href + "\">" +
+            text +
+            "</a>";
 
-        // Add new element as second in the list
-        if (dropMenu.children && dropMenu.children.length > 1) {
-            dropMenu.insertBefore(newMenuItem, dropMenu.children[1]);
+        return li;
+    }
+
+    function insertAt(parent, element, index) {
+        if (!parent) return;
+
+        const ref = parent.children[index];
+        if (ref) {
+            parent.insertBefore(element, ref);
         } else {
-            dropMenu.appendChild(newMenuItem);
+            parent.appendChild(element);
         }
+    }
 
-        // --------------------------------------------
+    function insertPenultimate(parent, element) {
+        if (!parent) return;
 
-        // Bottom main menu "For exhibitors"
-        const footerMenu = document.querySelector(".pwe-footer__nav-right-column");
+        const index = parent.children.length - 1;
 
-        if (!footerMenu || !footerMenu.children || footerMenu.children.length < 3) return;
-
-        const footerThirdChild = footerMenu.children[2];
-
-        if (!footerThirdChild) return;
-
-        const footerMenuChild = footerThirdChild.querySelector(".pwe-footer__nav-column .menu");
-
-        if (!footerMenuChild) return;
-
-        // Create new element li
-        const newFooterMenuItem = document.createElement("li");
-        newFooterMenuItem.id = "menu-item-99999";
-        newFooterMenuItem.className = "menu-item menu-item-type-custom menu-item-object-custom menu-item-99999";
-        newFooterMenuItem.innerHTML = `<a title="'. (get_locale() == "pl_PL" ? 'Zostań agentem' : 'Become an agent') .'" target="_blank" href="https://warsawexpo.eu'. (get_locale() == "pl_PL" ? '/formularz-dla-agentow/' : '/en/forms-for-agents/') .'">'. (get_locale() == "pl_PL" ? 'Zostań agentem' : 'Become an agent') .'</a>`;
-
-        // Add new element as second in the footer list
-        if (footerMenuChild.children && footerMenuChild.children.length > 1) {
-            footerMenuChild.insertBefore(newFooterMenuItem, footerMenuChild.children[1]);
+        if (index > 0) {
+            parent.insertBefore(element, parent.children[index]);
         } else {
-            footerMenuChild.appendChild(newFooterMenuItem);
+            parent.appendChild(element);
         }
-    });
+    }
+
+    // -----------------------------
+    // TOP MENU
+    // -----------------------------
+    const mainMenu = isAutoSwitchMenu
+        ? document.querySelector(".pwe-menu-auto-switch__nav")
+        : document.querySelector("ul.menu-primary-inner");
+
+    if (mainMenu && mainMenu.children.length >= 2) {
+
+        const secondItem = mainMenu.children[1];
+
+        const dropMenu = secondItem
+            ? (
+                secondItem.querySelector(".pwe-menu-auto-switch__submenu") ||
+                secondItem.querySelector("ul.drop-menu")
+            )
+            : null;
+
+        if (dropMenu) {
+
+            // -----------------------------
+            // ITEM 1 - AGENT (always)
+            // -----------------------------
+            const agentItem = createMenuItem(
+                isAutoSwitchMenu
+                    ? "pwe-menu-auto-switch__submenu-item"
+                    : "menu-item menu-item-type-custom menu-item-object-custom menu-item-99999",
+                agentLabel,
+                agentLabel,
+                agentUrl
+            );
+
+            insertAt(dropMenu, agentItem, 1);
+
+            // -----------------------------
+            // ITEM 2 - STORE (only non PL/EN)
+            // -----------------------------
+            if (currentLang !== "pl" && currentLang !== "en") {
+
+                const storeItem = createMenuItem(
+                    isAutoSwitchMenu
+                        ? "pwe-menu-auto-switch__submenu-item"
+                        : "menu-item menu-item-type-custom menu-item-object-custom menu-item-99999",
+                    "PWE Sponsoring Store",
+                    "PWE Sponsoring Store",
+                    "https://warsawexpo.eu/" + (currentLang === "pl" ? "sklep/" : "en/store/")
+                );
+
+                insertAt(dropMenu, storeItem, 2);
+            }
+
+            console.log(currentLang);
+
+            if (catalogID) {
+                // -----------------------------
+                // EXTRA ITEMS (PL + EN only)
+                // -----------------------------
+                if (currentLang === "pl" || currentLang === "en") {
+
+                    const instructionItem = createMenuItem(
+                        isAutoSwitchMenu
+                            ? "pwe-menu-auto-switch__submenu-item"
+                            : "menu-item menu-item-type-custom menu-item-object-custom menu-item-99999",
+                        currentLang === "pl" ? "Instrukcja aplikacji" : "Application instructions",
+                        currentLang === "pl" ? "Instrukcja aplikacji" : "Application instructions",
+                        "https://warsawexpo.eu/docs/' . PWE_Functions::languageChecker('Instrukcja-do-aplikacji.pdf', 'Instrukcja-do-aplikacji-EN.pdf') . '"
+                    );
+
+                    const loginItem = createMenuItem(
+                        isAutoSwitchMenu
+                            ? "pwe-menu-auto-switch__submenu-item"
+                            : "menu-item menu-item-type-custom menu-item-object-custom menu-item-99999",
+                        currentLang === "pl" ? "Login" : "Log in to the application",
+                        currentLang === "pl" ? "Zaloguj się do aplikacji" : "Log in to the application",
+                        "https://wystawca.exhibitorlist.warsawexpo.eu/login"
+                    );
+
+                    insertPenultimate(dropMenu, instructionItem);
+                    insertPenultimate(dropMenu, loginItem);
+                }
+            }
+        }
+    }
+
+    // -----------------------------
+    // FOOTER MENU
+    // -----------------------------
+    const footerMenu = document.querySelector(".pwe-footer__nav-right-column");
+
+    if (footerMenu && footerMenu.children.length >= 3) {
+
+        const footerGroup = footerMenu.children[2];
+
+        const footerList = footerGroup
+            ? footerGroup.querySelector(".pwe-footer__nav-column .pwe-footer__menu")
+            : null;
+
+        if (footerList) {
+
+            const footerAgent = createMenuItem(
+                "menu-item menu-item-type-custom menu-item-object-custom menu-item-99999",
+                agentLabel,
+                agentLabel,
+                agentUrl
+            );
+
+            insertAt(footerList, footerAgent, 1);
+        }
+    }
+
+});
 </script>';
 
 $output .= '

@@ -13,9 +13,9 @@ foreach ($menus as $menu) {
     // footer menu 1 en -> group=1 lang=en
     if (preg_match('/(\d+)\s*([a-z]{2})$/', $name, $matches)) {
         $group = $matches[1];
-        $lang  = $matches[2];
+        $menu_lang = $matches[2];
 
-        $grouped[$group][$lang] = $menu->name;
+        $grouped[$group][$menu_lang] = $menu->name;
     }
 }
 
@@ -38,8 +38,16 @@ function render_footer_menu($menu_name) {
     }
 
     // anchor translations
+    $lang = PWE_Functions::lang();
+
+    // anchor + label translations
     foreach ($menu_items as $id => $item) {
         apply_anchor_translation($item);
+
+        if (!empty($item->title)) {
+            $item->title = translate_global_label($item->title, $lang);
+        }
+
         $menu_items[$id] = $item;
     }
 
@@ -110,15 +118,17 @@ function generateFooterNavEl($menus) {
 
 
     $menu_titles_map = [
-        'pl' => [ do_shortcode('[trade_fair_name]'), 'DLA ODWIEDZAJĄCYCH', 'DLA WYSTAWCÓW'],
-        'en' => [ do_shortcode('[trade_fair_name_eng]'), 'FOR VISITORS', 'FOR EXHIBITORS' ],
-        'de' => [ do_shortcode('[trade_fair_name_eng]'), 'FÜR BESUCHER', 'FÜR AUSSTELLER' ],
-        'it' => [ do_shortcode('[trade_fair_name_eng]'), 'PER VISITATORI', 'PER ESPOSITORI' ],
-        'lt' => [ do_shortcode('[trade_fair_name_eng]'), 'LANKYTOJAMS', 'PARODOS DALYVIAMS' ],
-        'lv' => [ do_shortcode('[trade_fair_name_eng]'), 'Apmeklētājiem', 'Izstādes dalībniekiem' ],
-        'cs' => [ do_shortcode('[trade_fair_name_eng]'), 'PRO NÁVŠTĚVNÍKY', 'PRO VYSTAVOVATELE' ],
-        'sk' => [ do_shortcode('[trade_fair_name_eng]'), 'PRE NÁVŠTEVNÍKOV', 'PRE VYSTAVOVATEĽOV' ],
-        'uk' => [ do_shortcode('[trade_fair_name_eng]'), 'ДЛЯ ВІДВІДУВАЧІВ', 'ДЛЯ ВИСТАВЦІВ' ],
+        'pl' => [ do_shortcode('[pwe_name_pl]'), 'DLA ODWIEDZAJĄCYCH', 'DLA WYSTAWCÓW'],
+        'en' => [ do_shortcode('[pwe_name_en]'), 'FOR VISITORS', 'FOR EXHIBITORS' ],
+        'de' => [ do_shortcode('[pwe_name_de]'), 'FÜR BESUCHER', 'FÜR AUSSTELLER' ],
+        'it' => [ do_shortcode('[pwe_name_it]'), 'PER VISITATORI', 'PER ESPOSITORI' ],
+        'lt' => [ do_shortcode('[pwe_name_lt]'), 'LANKYTOJAMS', 'PARODOS DALYVIAMS' ],
+        'lv' => [ do_shortcode('[pwe_name_lv]'), 'Apmeklētājiem', 'Izstādes dalībniekiem' ],
+        'cs' => [ do_shortcode('[pwe_name_cs]'), 'PRO NÁVŠTĚVNÍKY', 'PRO VYSTAVOVATELE' ],
+        'sk' => [ do_shortcode('[pwe_name_sk]'), 'PRE NÁVŠTEVNÍKOV', 'PRE VYSTAVOVATEĽOV' ],
+        'uk' => [ do_shortcode('[pwe_name_uk]'), 'ДЛЯ ВІДВІДУВАЧІВ', 'ДЛЯ ВИСТАВЦІВ' ],
+        'ro' => [ do_shortcode('[pwe_name_ro]'), 'PENTRU VIZITATORI', 'PENTRU EXPOZANȚI' ],
+        'et' => [ do_shortcode('[pwe_name_et]'), 'KÜLASTAJATELE', 'NÄITUSE OSAVÕTJATELE' ],
     ];
 
     $menu_titles = $menu_titles_map[$lang] ?? $menu_titles_map['en'];
@@ -203,17 +213,21 @@ function generateFooterNavEl($menus) {
     return $output;
 }
 
+
 // Render footer if all 3 menus for the current language are available
+$default_lang = ($lang === 'pl') ? 'pl' : 'en';
+
+// Render footer if menus exist
 if (
-    !empty($grouped['1'][$lang]) &&
-    !empty($grouped['2'][$lang]) &&
-    !empty($grouped['3'][$lang])
+    !empty($grouped['1'][$default_lang]) &&
+    !empty($grouped['2'][$default_lang]) &&
+    !empty($grouped['3'][$default_lang])
 ) {
     $output .= generateFooterNavEl(
         [
-            $grouped['1'][$lang],
-            $grouped['2'][$lang],
-            $grouped['3'][$lang]
+            $grouped['1'][$default_lang],
+            $grouped['2'][$default_lang],
+            $grouped['3'][$default_lang]
         ]
     );
 }

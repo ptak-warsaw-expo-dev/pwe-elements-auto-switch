@@ -35,7 +35,7 @@ if (!function_exists('apply_anchor_translation')) {
 
         $lang = PWE_Functions::lang();
 
-        $current_title = trim(strip_tags(html_entity_decode($item->title)));
+        $current_title = trim(wp_strip_all_tags($item->title));
         $current_url   = trim($item->url);
 
         // normalize URL
@@ -71,61 +71,56 @@ if (!function_exists('apply_anchor_translation')) {
 
         $current_norm = $normalize($current_url);
 
-        // $current_user = wp_get_current_user();
-
         foreach ($translations as $key => $entry) {
 
             if (!is_array($entry)) continue;
 
-            $data = $entry[$lang] ?? null;
-            if (empty($data)) continue;
+            // Source  → always EN
+            $source_data = $entry['en'] ?? null;
 
-            // if ($current_user && $current_user->user_login === 'Anton') {
-            //     echo '<pre>';
-            //     var_dump('KEY: ' . $key);
-            //     var_dump('TITLE: ' . $current_title);
-            //     var_dump('LANG: ' . $lang);
-            //     var_dump('TARGET LABEL: ' . ($data['label'] ?? 'NULL'));
-            //     var_dump('TARGET URL: ' . ($data['url'] ?? 'NULL'));
-            //     echo '</pre>';
-            // }
+            // Target → current language
+            $target_data = $entry[$lang] ?? null;
 
-            $target_label = trim($data['label'] ?? '');
-            $target_url   = trim($data['url'] ?? '');
+            if (empty($source_data) || empty($target_data)) continue;
+
+            $source_url   = trim($source_data['url'] ?? '');
+            $target_url   = trim($target_data['url'] ?? '');
+            $target_label = trim($target_data['label'] ?? '');
+
+            $source_norm  = $normalize($source_url);
+            $target_norm  = $normalize($target_url);
 
             $match = false;
 
-            // Url matching
-            if (!empty($current_norm) && !empty($target_url)) {
+            // Exact match: normalized URL
+            if (!empty($current_norm) && !empty($source_norm)) {
 
-                $target_norm = $normalize($target_url);
-
-                // strict comparison first
-                if ($current_norm === $target_norm) {
+                if ($current_norm === $source_norm) {
                     $match = true;
                 }
 
-                // fallback: anchor-only match (#faq etc.)
-                if (!$match && strpos($current_norm, '#') !== false && strpos($target_norm, '#') !== false) {
+                // Fallback: anchor (#faq etc.)
+                if (!$match && strpos($current_norm, '#') !== false && strpos($source_norm, '#') !== false) {
 
-                    $current_base = explode('#', $current_norm)[1] ?? '';
-                    $target_base  = explode('#', $target_norm)[1] ?? '';
+                    $current_anchor = explode('#', $current_norm)[1] ?? '';
+                    $source_anchor  = explode('#', $source_norm)[1] ?? '';
 
-                    if ($current_base !== '' && $current_base === $target_base) {
+                    if ($current_anchor !== '' && $current_anchor === $source_anchor) {
                         $match = true;
                     }
                 }
             }
 
-            // Label matching (fallback)
-            if (!$match && !empty($target_label)) {
+            // Fallback: label
+            $source_label = trim($source_data['label'] ?? '');
 
-                if (mb_stripos($current_title, $target_label) !== false) {
+            if (!$match && !empty($source_label)) {
+                if (mb_stripos($current_title, $source_label) !== false) {
                     $match = true;
                 }
             }
 
-            // Apply translation
+            // Apply translation if match found
             if ($match) {
 
                 if (!empty($target_label)) {
@@ -145,16 +140,35 @@ if (!function_exists('apply_anchor_translation')) {
 // Preprocess menu items to apply translations
 if (!function_exists('preprocess_menu_items')) {
     function preprocess_menu_items(&$menu_items) {
-        foreach ($menu_items as $id => $item) {
-            apply_anchor_translation($item);
-            $menu_items[$id] = $item;
 
-            $lang = PWE_Functions::lang();
+        $lang = PWE_Functions::lang();
+        $filtered = [];
+
+        foreach ($menu_items as $id => $item) {
+
+            $current_title = trim(strip_tags($item->title ?? ''));
+            $current_url   = trim($item->url ?? '');
+
+            $is_archive = (
+                mb_stripos($current_title, 'previous editions') !== false ||
+                mb_stripos($current_title, 'poprzednie edycje') !== false
+            );
+
+            // hide archive for non-PL/EN
+            if ($is_archive && !in_array($lang, ['pl', 'en'], true)) {
+                continue;
+            }
+
+            apply_anchor_translation($item);
 
             if (!empty($item->title)) {
                 $item->title = translate_global_label($item->title, $lang);
             }
+
+            $filtered[$id] = $item;
         }
+
+        $menu_items = $filtered;
     }
 }
 
@@ -308,7 +322,7 @@ if ($lang === 'pl') {
 
         $default_lang = 'en';
 
-        $translated_menu_id = apply_filters(
+        $menu_id_en = apply_filters(
             'wpml_object_id',
             $menu_id,
             'nav_menu',
@@ -316,14 +330,15 @@ if ($lang === 'pl') {
             $default_lang
         );
 
-        if (!empty($translated_menu_id)) {
-            $menu_id = $translated_menu_id;
+        if (!empty($menu_id_en)) {
+            $menu_id = $menu_id_en;
         }
     }
 }
 
 // Get menu items
 $menu = wp_get_nav_menu_items($menu_id);
+
 if (empty($menu) || !is_array($menu)) {
     return '<script>console.error("No menu items found or invalid menu structure for menu ID: '. $menu_id .'");</script>';
 }
@@ -603,48 +618,5 @@ $output .= '
     </div>
     <div class="pwe-menu-auto-switch__overlay"></div>
 </header>';
-
-if (!empty(do_shortcode('[trade_fair_catalog_id]'))) {
-    $output .= '
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const pweMenuAutoSwitch = document.querySelector("#pweMenuAutoSwitch");
-
-            // Top main menu "For exhibitors"
-            const mainMenu = pweMenuAutoSwitch ? document.querySelector(".pwe-menu-auto-switch__nav") : document.querySelector("ul.menu-primary-inner");
-            const secondChild = mainMenu.children[1];
-            const dropMenu = pweMenuAutoSwitch ? secondChild.querySelector(".pwe-menu-auto-switch__submenu") : secondChild.querySelector("ul.drop-menu");
-
-
-            if ("'. PWE_Functions::lang() .'" === "pl" || "'. PWE_Functions::lang() .'" === "en") {
-                // Create new element li
-                const instructionMenuItem = document.createElement("li");
-                instructionMenuItem.className = pweMenuAutoSwitch ? "pwe-menu-auto-switch__submenu-item" : "menu-item menu-item-type-custom menu-item-object-custom menu-item-99999";
-                instructionMenuItem.innerHTML = `<a title="'. PWE_Functions::languageChecker('Instrukcja aplikacji', 'Application instructions') .'" target="_blank" href="https://warsawexpo.eu/docs/'. PWE_Functions::languageChecker('Instrukcja-do-aplikacji.pdf', 'Instrukcja-do-aplikacji-EN.pdf') .'">'. PWE_Functions::languageChecker('Instrukcja aplikacji', 'Application instructions') .'</a>`;
-
-                // Add new element as penultimate in the list
-                if (dropMenu && dropMenu.children.length > 0) {
-                    const penultimateItem = dropMenu.children[dropMenu.children.length - 1];
-                    dropMenu.insertBefore(instructionMenuItem, penultimateItem);
-                } else {
-                    dropMenu.appendChild(instructionMenuItem);
-                }
-            }
-
-            // Create new element li
-            const loginMenuItem = document.createElement("li");
-            loginMenuItem.className = pweMenuAutoSwitch ? "pwe-menu-auto-switch__submenu-item" : "menu-item menu-item-type-custom menu-item-object-custom menu-item-99999";
-            loginMenuItem.innerHTML = `<a title="'. PWE_Functions::languageChecker('Zaloguj się do aplikacji', 'Log in to the application') .'" target="_blank" href="https://wystawca.exhibitorlist.warsawexpo.eu/login">'. PWE_Functions::languageChecker('Zaloguj się do aplikacji', 'Log in to the application') .'</a>`;
-
-            // Add new element as penultimate in the list
-            if (dropMenu && dropMenu.children.length > 0) {
-            const penultimateItem = dropMenu.children[dropMenu.children.length - 2];
-                dropMenu.insertBefore(loginMenuItem, penultimateItem);
-            } else {
-                dropMenu.appendChild(loginMenuItem);
-            }
-        });
-    </script>'; 
-}
 
 return $output;

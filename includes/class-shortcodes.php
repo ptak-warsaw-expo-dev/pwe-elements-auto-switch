@@ -42,7 +42,7 @@ class PWE_Shortcodes {
             'trade_fair_date_custom_format' => 'show_trade_fair_date_custom_format',
             'trade_fair_date' => 'show_trade_fair_date',
             'trade_fair_date_eng' => 'show_trade_fair_date_eng',
-            'trade_fair_date_multilang' => 'show_trade_fair_date_multilang',
+            'trade_fair_date_multilang' => 'show_trade_fair_date_multilang', // [trade_fair_date_multilang lang="et"]
             'trade_fair_first_day' => 'show_trade_fair_first_day',
             'trade_fair_second_day' => 'show_trade_fair_second_day',
             'trade_fair_third_day' => 'show_trade_fair_third_day',
@@ -848,7 +848,35 @@ class PWE_Shortcodes {
                 "10" => "октября",
                 "11" => "ноября",
                 "12" => "декабря",
-            ]
+            ],
+            "ro" => [
+                "01" => "ianuarie",
+                "02" => "februarie",
+                "03" => "martie",
+                "04" => "aprilie",
+                "05" => "mai",
+                "06" => "iunie",
+                "07" => "iulie",
+                "08" => "august",
+                "09" => "septembrie",
+                "10" => "octombrie",
+                "11" => "noiembrie",
+                "12" => "decembrie",
+            ],
+            "et" => [
+                "01" => "jaanuar",
+                "02" => "veebruar",
+                "03" => "märts",
+                "04" => "aprill",
+                "05" => "mai",
+                "06" => "juuni",
+                "07" => "juuli",
+                "08" => "august",
+                "09" => "september",
+                "10" => "oktoober",
+                "11" => "november",
+                "12" => "detsember",
+            ],
         ];
 
         $lang_key = strtoupper($lang);
@@ -2010,15 +2038,23 @@ class PWE_Shortcodes {
         return $date;
     }
     
-    public function show_trade_fair_date_multilang() {
+    public function show_trade_fair_date_multilang($atts = []) {
+
+        // shortcode attrs
+        $atts = shortcode_atts([
+            'lang' => '' // default empty = auto
+        ], $atts, 'trade_fair_date_multilang');
+
         list($start_date, $end_date, $pwe_date_start_available, $pwe_date_end_available, $pwe_shortcodes_available) = $this->get_trade_fair_dates();
 
-        // WPML language e.g. pl, en etc.
-        $lang = strtolower(PWE_LANG);
+        // determine language: priority -> shortcode attr -> global constant -> default 'en'
+        $lang = !empty($atts['lang']) 
+            ? strtolower($atts['lang']) 
+            : strtolower(PWE_LANG);
 
         $current_time = strtotime("now");
 
-        // translations "nowa data wkrótce"
+        // translations
         switch ($lang) {
             case "pl": $new_date_coming_soon = "Nowa data wkrótce"; break;
             case "en": $new_date_coming_soon = "New date coming soon"; break;
@@ -2030,12 +2066,14 @@ class PWE_Shortcodes {
             case "cs": $new_date_coming_soon = "Nový termín již brzy"; break;
             case "sk": $new_date_coming_soon = "Nový termín už čoskoro"; break;
             case "ru": $new_date_coming_soon = "Новая дата скоро"; break;
+            case "ro": $new_date_coming_soon = "Noua dată în curând"; break;
+            case "et": $new_date_coming_soon = "Uus kuupäev varsti"; break;
             default: $new_date_coming_soon = "New date coming soon"; break;
         }
 
         $date = (empty($start_date) || (!empty($end_date) && strtotime($end_date . " +20 hours") < $current_time))
-                ? ($pwe_shortcodes_available ? $new_date_coming_soon : get_option('trade_fair_date_'.$lang))
-                : $this->format_trade_fair_date($start_date, $end_date, $lang);
+            ? ($pwe_shortcodes_available ? $new_date_coming_soon : get_option('trade_fair_date_'.$lang))
+            : $this->format_trade_fair_date($start_date, $end_date, $lang);
 
         return $date;
     }

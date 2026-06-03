@@ -372,7 +372,7 @@ class PWE_Functions {
         $lang = get_locale(); // np. "en_US", "pl_PL", "de_DE"
         $lang = strtolower(str_replace('-', '_', $lang));
 
-        return substr($lang, 0, 2);
+        return strtolower(substr($lang, 0, 2));
     }
 
     /**
