@@ -125,8 +125,10 @@ $output .= '
             $output .= PWE_Swiper::swiperScripts('#pweLogotypes'. $slug_id .'', [0   => ['slidesPerView' => 3], 570 => ['slidesPerView' => 4],960 => ['slidesPerView' => 6],], true);
 
         } else if ($logotypes_slug === 'europe-event') {
-            function format_title($title) {
-                return preg_replace('/\((.*?)\)/', '<br><span style="color: #888;">($1)</span>', $title);
+            if (!function_exists('format_title')) {
+                function format_title($title) {
+                    return preg_replace('/\((.*?)\)/', '<br><span style="color: #888;">($1)</span>', $title);
+                }
             }
 
             $output .= '

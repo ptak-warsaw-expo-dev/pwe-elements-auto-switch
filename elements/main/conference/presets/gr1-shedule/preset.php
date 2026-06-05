@@ -3,76 +3,81 @@
 /**
  * Gets all days of the fair as an array of YYYY-mm-dd.
  */
-function getFairDays(): array {
-    $startRaw = do_shortcode('[trade_fair_datetotimer]');
-    $endRaw   = do_shortcode('[trade_fair_enddata]');
+if (!function_exists('getFairDays')) {
+    function getFairDays(): array { 
+        $startRaw = do_shortcode('[trade_fair_datetotimer]');
+        $endRaw   = do_shortcode('[trade_fair_enddata]');
 
-    $start = DateTime::createFromFormat('Y/m/d H:i', $startRaw);
-    $end   = DateTime::createFromFormat('Y/m/d H:i', $endRaw);
+        $start = DateTime::createFromFormat('Y/m/d H:i', $startRaw);
+        $end   = DateTime::createFromFormat('Y/m/d H:i', $endRaw);
 
-    if (!$start || !$end) return [];
+        if (!$start || !$end) return [];
 
-    if ($end < $start) {
-        [$start, $end] = [$end, $start];
+        if ($end < $start) {
+            [$start, $end] = [$end, $start];
+        }
+
+        $start = new DateTime($start->format('Y-m-d'));
+        $end   = new DateTime($end->format('Y-m-d'));
+
+        $days = [];
+        for ($d = clone $start; $d <= $end; $d->modify('+1 day')) {
+            $days[] = $d->format('Y-m-d');
+        }
+
+        return $days;
     }
-
-    $start = new DateTime($start->format('Y-m-d'));
-    $end   = new DateTime($end->format('Y-m-d'));
-
-    $days = [];
-    for ($d = clone $start; $d <= $end; $d->modify('+1 day')) {
-        $days[] = $d->format('Y-m-d');
-    }
-
-    return $days;
 }
-
 
 /**
  * Parses a date range in the format:
  * - "Y/m/d to Y/m/d"
  * - "Y/m/d" (single day)
  */
-function parseDateRange(?string $range): ?array {
-    if (!$range) return null;
+if (!function_exists('parseDateRange')) {
+    function parseDateRange(?string $range): ?array {
+        if (!$range) return null;
 
-    $range = trim($range);
+        $range = trim($range);
 
-    if (strpos($range, ' to ') !== false) {
+        if (strpos($range, ' to ') !== false) {
 
-        $parts = explode(' to ', $range, 2);
+            $parts = explode(' to ', $range, 2);
 
-        $start = DateTime::createFromFormat('Y/m/d', trim($parts[0]));
-        $end   = DateTime::createFromFormat('Y/m/d', trim($parts[1]));
+            $start = DateTime::createFromFormat('Y/m/d', trim($parts[0]));
+            $end   = DateTime::createFromFormat('Y/m/d', trim($parts[1]));
 
-        if (!$start || !$end) return null;
+            if (!$start || !$end) return null;
 
-        if ($end < $start) {
-            [$start, $end] = [$end, $start];
+            if ($end < $start) {
+                [$start, $end] = [$end, $start];
+            }
+
+        } else {
+            // single day
+            $start = DateTime::createFromFormat('Y/m/d', $range);
+            if (!$start) return null;
+
+            $end = clone $start;
         }
 
-    } else {
-        // single day
-        $start = DateTime::createFromFormat('Y/m/d', $range);
-        if (!$start) return null;
-
-        $end = clone $start;
+        return [
+            new DateTime($start->format('Y-m-d')),
+            new DateTime($end->format('Y-m-d')),
+        ];
     }
-
-    return [
-        new DateTime($start->format('Y-m-d')),
-        new DateTime($end->format('Y-m-d')),
-    ];
 }
 
 
 /**
  * Debug for administrator only.
  */
-function admin_log($msg) {
-    if (function_exists('current_user_can') && current_user_can('administrator')) {
-        $safe = json_encode($msg, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
-        echo "<script>console.log({$safe});</script>";
+if (!function_exists('admin_log')) {
+    function admin_log($msg) {
+        if (function_exists('current_user_can') && current_user_can('administrator')) {
+            $safe = json_encode($msg, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
+            echo "<script>console.log({$safe});</script>";
+        }
     }
 }
 
