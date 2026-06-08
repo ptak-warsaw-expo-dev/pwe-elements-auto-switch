@@ -12,20 +12,18 @@ $output = '
             <div class="swiper-wrapper">';
                 // Generating HTML
                 foreach ($other_events_items_json as $other_events_item) {
-                    $other_events_domain = $other_events_item["other_events_domain"];
-                    $other_events_short_desc = $other_events_item["other_events_short_desc"];
-                    $other_events_text = $other_events_item["other_events_text"];
+                    $event_domain = $other_events_item["event_domain"];
+                    $event_desc = $other_events_item["event_desc"];
 
-                    $other_events_text_content = !empty($other_events_text_content) ? $other_events_text_content : '<p>[pwe_desc_'. PWE_Functions::lang() .' domain="' . $other_events_domain . '"]</p>';
-                    if (strpos($other_events_domain, $current_domain) === false) {
+                    if (strpos($event_domain, $current_domain) === false) {
                         $output .= '
                         <div class="pwe-other-events__item swiper-slide">
-                            <a href="https://'. $other_events_domain .''. PWE_Functions::languageChecker('/', '/'. PWE_Functions::lang() .'/') .'" target="_blank">
+                            <a href="https://'. $event_domain .''. PWE_Functions::languageChecker('/', '/'. PWE_Functions::lang() .'/') .'" target="_blank">
                                 <div class="pwe-other-events__item-logo">
-                                    <img data-no-lazy="1" src="https://'. $other_events_domain .'/doc/logo-color.webp"/>
+                                    <img data-no-lazy="1" src="https://'. $event_domain .'/doc/logo-color.webp"/>
                                 </div>
                                 <div class="pwe-other-events__item-statistic">
-                                    <div class="pwe-other-events__item-text">'. (!empty($other_events_short_desc) ? $other_events_short_desc : $other_events_text) .'</div>
+                                    <div class="pwe-other-events__item-text">'. $event_desc .'</div>
                                     <div class="pwe-other-events__item-statistic-numbers-block">
                                         <div class="pwe-other-events__item-statistic-numbers">
                                             <div class="pwe-other-events__item-statistic-icon">
@@ -34,7 +32,7 @@ $output = '
                                                 </svg>
                                             </div>
                                             <div class="pwe-other-events__item-statistic-text">
-                                                <div class="pwe-other-events__item-statistic-number">' . do_shortcode('[pwe_visitors domain="'. $other_events_domain .'"]') . '</div>
+                                                <div class="pwe-other-events__item-statistic-number">' . do_shortcode('[pwe_visitors domain="'. $event_domain .'"]') . '</div>
                                                 <div class="pwe-other-events__item-statistic-name">'. PWE_Functions::multi_translation("visitors") .'</div>
                                             </div>
                                             
@@ -46,7 +44,7 @@ $output = '
                                                 </svg>
                                             </div>
                                             <div class="pwe-other-events__item-statistic-text">
-                                                <div class="pwe-other-events__item-statistic-number">' . do_shortcode('[pwe_exhibitors domain="'. $other_events_domain .'"]') . '</div>
+                                                <div class="pwe-other-events__item-statistic-number">' . do_shortcode('[pwe_exhibitors domain="'. $event_domain .'"]') . '</div>
                                                 <div class="pwe-other-events__item-statistic-name">'. PWE_Functions::multi_translation("exhibitors") .'</div>
                                             </div>
                                         </div>
@@ -57,7 +55,7 @@ $output = '
                                                 </svg>
                                             </div>
                                             <div class="pwe-other-events__item-statistic-text">
-                                                <div class="pwe-other-events__item-statistic-number">' . do_shortcode('[pwe_area domain="'. $other_events_domain .'"]') . ' m<sup>2</sup></div>
+                                                <div class="pwe-other-events__item-statistic-number">' . do_shortcode('[pwe_area domain="'. $event_domain .'"]') . ' m<sup>2</sup></div>
                                                 <div class="pwe-other-events__item-statistic-name">'. PWE_Functions::multi_translation("exhibition_space") .'</div>
                                             </div>
                                         </div>

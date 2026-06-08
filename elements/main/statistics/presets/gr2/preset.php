@@ -27,7 +27,7 @@ $output .= '
 
     <div class="pwe-statistics__title">
       <div class="pwe-statistics__title-wrapper">
-        <h4 class="pwe-main-title">'. do_shortcode(PWE_Functions::languageChecker('[trade_fair_name]', '[trade_fair_name_eng]')) .' '. PWE_Functions::languageChecker("w Liczbach", "in Numbers") .'</h4>
+        <h4 class="pwe-main-title">'. do_shortcode(PWE_Functions::languageChecker('[trade_fair_name]', '[trade_fair_name_eng]')) .' '. PWE_Functions::multi_translation("in_numbers") .'</h4> 
         <div class="pwe-statistics__main-text">
             <p>'. $adapting_word .'</p>
         </div>

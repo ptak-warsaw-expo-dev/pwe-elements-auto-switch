@@ -54,6 +54,9 @@ class Other_Events {
                     $date_start = isset($fair['date_start']) ? strtotime($fair['date_start']) : null;
                     $date_end = isset($fair['date_end']) ? strtotime($fair['date_end']) : null;
 
+                    $event_domain = $fair['domain'] ?? '';
+                    $event_desc = do_shortcode('[pwe_desc_'. PWE_Functions::lang() .' domain="'. $event_domain .'"]') ? do_shortcode('[pwe_desc_'. PWE_Functions::lang() .' domain="'. $event_domain .'"]') : do_shortcode('[pwe_desc_en domain="'. $event_domain .'"]');
+
                     // Checking if the date is in the range
                     if ($date_start && $date_end) {
                         if ((($date_start >= $trade_fair_start_timestamp && $date_start <= $trade_fair_end_timestamp) ||
@@ -61,6 +64,7 @@ class Other_Events {
                             strpos($fair['domain'], $current_domain) === false &&
                             (
                             strpos($fair['domain'], "mr.glasstec.pl") === false &&
+                            strpos($fair['domain'], "test.glasstec.pl") === false &&
                             strpos($fair['domain'], "patryk.targibiurowe.com") === false &&
                             strpos($fair['domain'], "fasttextile.com") === false &&
                             strpos($fair['domain'], "expotrends.eu") === false &&
@@ -69,9 +73,8 @@ class Other_Events {
                             )
                             {
                             $other_events_items_json[] = [
-                                "other_events_domain" => $fair["domain"],
-                                "other_events_short_desc" => PWE_Functions::languageChecker($fair["short_desc_pl"], $fair["short_desc_en"]),
-                                "other_events_text" => PWE_Functions::languageChecker($fair["desc_pl"], $fair["desc_en"])
+                                "event_domain" => $event_domain,
+                                "event_desc" => $event_desc,
                             ];
                         }
                     }
