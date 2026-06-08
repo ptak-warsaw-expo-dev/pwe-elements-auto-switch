@@ -13,8 +13,12 @@ $output .= '<div class="pwe-conference__wrapper">
             <h4 class="pwe-conference__name">' . $conf_name . '</h4>
             <div class="pwe-conference__desc">' . $conf_desc . '</div>
             <div class="pwe-conference__btn-container">
-                <a href="' . PWE_Functions::languageChecker('/wydarzenia/', '/en/conferences/') . '" class="pwe-conference__btn">' . PWE_Functions::multi_translation("details") . '</a>
-                <a href="' . PWE_Functions::multi_translation("reg_url") . '" class="pwe-conference__btn pwe-conference__btn_accent">' . ($b2c ? PWE_Functions::multi_translation("buy_ticket") : PWE_Functions::multi_translation("registration")) . '</a>
+                <a href="' . PWE_Functions::languageChecker('/wydarzenia/', '/en/conferences/') . '" class="pwe-conference__btn">
+                    ' . PWE_Functions::multi_translation("details") . '
+                </a>
+                <a href="' . PWE_Functions::multi_translation("reg_url") . '" class="pwe-conference__btn pwe-conference__btn_accent">
+                    ' . ($b2c ? PWE_Functions::multi_translation("buy_ticket") : PWE_Functions::multi_translation("registration")) . '
+                </a>
             </div>
         </div>
         <div class="pwe-conference__logo">

@@ -99,7 +99,7 @@
 }
 .pwe-element-auto-switch .pwe-conference__buttons .pwe-btn.btn-visitors {
     background: var(--main2-color);
-    max-width: 140px;
+    max-width: 180px;
     min-width: 140px;
 }
 .pwe-element-auto-switch .pwe-conference__buttons .pwe-btn.btn-more {

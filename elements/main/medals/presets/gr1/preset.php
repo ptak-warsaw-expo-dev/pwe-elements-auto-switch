@@ -7,7 +7,7 @@ if (trim($trade_fair_edition) === "Premierowa" || trim($trade_fair_edition) === 
     <div id="pweMedals" class="pwe-medals premiere-edition">
         <div class="pwe-medals__wrapper">
 
-            <h4 class="pwe-medals__heading pwe-main-title">'.PWE_Functions::languageChecker('Zdobądź prestizową nagrodę <span style="display:inline-block"> w PTAK WARSAW EXPO!</span>', 'Win a prestigious award <span style="display:inline-block">at PTAK WARSAW EXPO!</span>') .'</h4>
+            <h4 class="pwe-medals__heading pwe-main-title">'. PWE_Functions::multi_translation("award") .'</h4>
             <div class="pwe-medals__text">'. PWE_Functions::multi_translation("text_premier") .'</div>
             <div class="pwe-medals__text">'. PWE_Functions::multi_translation("category_premier") .'</div>
             <div class="pwe-medals__items-container">

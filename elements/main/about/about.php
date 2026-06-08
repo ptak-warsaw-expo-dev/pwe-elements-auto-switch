@@ -80,8 +80,8 @@ class About {
  
             $selected_lang = PWE_Functions::lang();
 
-            $title = do_shortcode('[pwe_conference_title_'. $selected_lang .']');
-            $desc  = do_shortcode('[pwe_conference_desc_'. $selected_lang .']');
+            $title = do_shortcode('[pwe_about_title_'. $selected_lang .']');
+            $desc  = do_shortcode('[pwe_about_desc_'. $selected_lang .']');
 
             if (empty($desc)) {
                 return;
