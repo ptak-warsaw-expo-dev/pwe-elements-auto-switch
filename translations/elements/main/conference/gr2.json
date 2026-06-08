@@ -1,5 +1,12 @@
 {
   "pl_PL": {
+    "conference": "Konferencja",
+    "reg_url": "/rejestracja/",
+    "reg_text": "Weź udział",
+    "buy_ticket": "Kup<br>bilet",
+    "conf_url": "/wydarzenia/",
+    "find_more": "Dowiedz się więcej",
+    "partners": "Partnerzy Konferencji",
     "schedule_conferences": "Konferencje",
     "schedule_organizer": "Organizator",
     "schedule_subject": "Temat",
@@ -9,6 +16,13 @@
     "schedule_find_more": "Dowiedz się więcej"
   },
   "en_US": {
+    "conference": "Conference",
+    "reg_url": "/en/registration/",
+    "reg_text": "Take a part",
+    "buy_ticket": "Buy<br>a ticket",
+    "conf_url": "/en/conferences/",
+    "find_more": "Find out more",
+    "partners": "Conference Partners",
     "schedule_conferences": "Conferences",
     "schedule_organizer": "Organizer",
     "schedule_subject": "Subject",
@@ -18,6 +32,13 @@
     "schedule_find_more": "Find out more"
   },
   "cs_CZ": {
+    "conference": "Konference",
+    "reg_url": "/cs/registrace/",
+    "reg_text": "Zúčastněte se",
+    "buy_ticket": "Koupit<br>lístek",
+    "conf_url": "/cs/konference/",
+    "find_more": "Zjistit více",
+    "partners": "Partneři konference",
     "schedule_conferences": "Konference",
     "schedule_organizer": "Organizátor",
     "schedule_subject": "Téma",
@@ -27,6 +48,13 @@
     "schedule_find_more": "Zjistit více"
   },
   "de_DE": {
+    "conference": "Konferenz",
+    "reg_url": "/de/anmeldung/",
+    "reg_text": "Teilnehmen",
+    "buy_ticket": "Kaufen<br>Eintrittskarte",
+    "conf_url": "/de/konferenzen/",
+    "find_more": "Mehr erfahren",
+    "partners": "Konferenzpartner",
     "schedule_conferences": "Konferenzen",
     "schedule_organizer": "Veranstalter",
     "schedule_subject": "Thema",
@@ -36,6 +64,13 @@
     "schedule_find_more": "Mehr erfahren"
   },
   "it_IT": {
+    "conference": "Conferenza",
+    "reg_url": "/it/registrazione/",
+    "reg_text": "Partecipa",
+    "buy_ticket": "Compra<br>biglietto",
+    "conf_url": "/it/conferenze/",
+    "find_more": "Scopri di più",
+    "partners": "Partner della conferenza",
     "schedule_conferences": "Conferenze",
     "schedule_organizer": "Organizzatore",
     "schedule_subject": "Tema",
@@ -45,6 +80,13 @@
     "schedule_find_more": "Scopri di più"
   },
   "lt_LT": {
+    "conference": "Konferencija",
+    "reg_url": "/lt/registracija/",
+    "reg_text": "Dalyvaukite",
+    "buy_ticket": "Pirkti<br>lankymo bilietą",
+    "conf_url": "/lt/konferencijos/",
+    "find_more": "Sužinokite daugiau",
+    "partners": "Konferencijos partneriai",
     "schedule_conferences": "Konferencijos",
     "schedule_organizer": "Organizatorius",
     "schedule_subject": "Tema",
@@ -54,6 +96,13 @@
     "schedule_find_more": "Sužinokite daugiau"
   },
   "lv_LV": {
+    "conference": "Konference",
+    "reg_url": "/lv/registracija/",
+    "reg_text": "Piedalieties",
+    "buy_ticket": "Pirkt<br>bilietu",
+    "conf_url": "/lv/konferences/",
+    "find_more": "Uzzināt vairāk",
+    "partners": "Konferences partneri",
     "schedule_conferences": "Konferences",
     "schedule_organizer": "Organizators",
     "schedule_subject": "Tēma",
@@ -63,6 +112,13 @@
     "schedule_find_more": "Uzzināt vairāk"
   },
   "sk_SK": {
+    "conference": "Konferencia",
+    "reg_url": "/sk/registracia/",
+    "reg_text": "Zúčastnite sa",
+    "buy_ticket": "Kúpiť<br>lístok",
+    "conf_url": "/sk/konference/",
+    "find_more": "Zistiť viac",
+    "partners": "Partneři konference",
     "schedule_conferences": "Konferencie",
     "schedule_organizer": "Organizátor",
     "schedule_subject": "Téma",
@@ -72,6 +128,13 @@
     "schedule_find_more": "Zistiť viac"
   },
   "uk": {
+    "conference": "Конференція",
+    "reg_url": "/uk/reyestraciya/",
+    "reg_text": "Взяти участь",
+    "buy_ticket": "Купити<br>квиток",
+    "conf_url": "/uk/konferencii/",
+    "find_more": "Дізнатися більше",
+    "partners": "Партнери конференції",
     "schedule_conferences": "Конференції",
     "schedule_organizer": "Організатор",
     "schedule_subject": "Тема",
@@ -81,6 +144,13 @@
     "schedule_find_more": "Дізнатися більше"
   },
   "ro_RO": {
+    "conference": "Conferință",
+    "reg_url": "/ro/registrare/",
+    "reg_text": "Participați",
+    "buy_ticket": "Cumpără<br>bilet",
+    "conf_url": "/ro/conferinte/",
+    "find_more": "Aflați mai multe",
+    "partners": "Partenerii conferinței",
     "schedule_conferences": "Conferințe",
     "schedule_organizer": "Organizator",
     "schedule_subject": "Subiect",
@@ -90,6 +160,13 @@
     "schedule_find_more": "Aflați mai multe"
   },
   "et": {
+    "conference": "Konverents",
+    "reg_url": "/et/registreerimine/",
+    "reg_text": "Osale",
+    "buy_ticket": "Osta<br>pilet",
+    "conf_url": "/et/konverentsid/",
+    "find_more": "Loe lisaks",
+    "partners": "Konverentsi partnerid",
     "schedule_conferences": "Konverentsid",
     "schedule_organizer": "Korraldaja",
     "schedule_subject": "Teema",

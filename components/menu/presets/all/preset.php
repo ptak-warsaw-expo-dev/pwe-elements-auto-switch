@@ -38,30 +38,25 @@ if (!function_exists('apply_anchor_translation')) {
         $current_title = trim(wp_strip_all_tags($item->title));
         $current_url   = trim($item->url);
 
-        // normalize URL
+        // Normalize URL for consistent comparison
         $normalize = function($url) {
 
             $url = trim($url);
-
             if ($url === '') return '';
 
-            // split hash first
             $hash = '';
             if (strpos($url, '#') !== false) {
                 [$url, $hash] = explode('#', $url, 2);
                 $hash = '#'.$hash;
             }
 
-            // remove domain if present
             $path = parse_url($url, PHP_URL_PATH);
             if ($path !== null) {
                 $url = $path;
             }
 
-            // ensure leading slash
             $url = '/' . ltrim($url, '/');
 
-            // remove trailing slash
             if ($url !== '/') {
                 $url = rtrim($url, '/');
             }
@@ -71,64 +66,65 @@ if (!function_exists('apply_anchor_translation')) {
 
         $current_norm = $normalize($current_url);
 
+        // STEP 1: BUILD URL INDEX
+        $index_by_url = [];
+
         foreach ($translations as $key => $entry) {
 
             if (!is_array($entry)) continue;
 
-            // Source  → always EN
-            $source_data = $entry['en'] ?? null;
+            $source = $entry['en'] ?? null;
+            if (empty($source['url'])) continue;
 
-            // Target → current language
-            $target_data = $entry[$lang] ?? null;
+            $source_norm = $normalize($source['url']);
 
-            if (empty($source_data) || empty($target_data)) continue;
+            // Map by normalized URL (this is the real identifier)
+            $index_by_url[$source_norm] = $entry;
+        }
 
-            $source_url   = trim($source_data['url'] ?? '');
-            $target_url   = trim($target_data['url'] ?? '');
-            $target_label = trim($target_data['label'] ?? '');
+        // STEP 2: MATCH CURRENT ITEM BY URL ONLY
+        $matched_entry = null;
 
-            $source_norm  = $normalize($source_url);
-            $target_norm  = $normalize($target_url);
+        if (isset($index_by_url[$current_norm])) {
+            $matched_entry = $index_by_url[$current_norm];
+        }
 
-            $match = false;
+        // STEP 3: APPLY TRANSLATION FROM MATCHED ENTRY
+        if ($matched_entry && isset($matched_entry[$lang])) {
 
-            // Exact match: normalized URL
-            if (!empty($current_norm) && !empty($source_norm)) {
+            $target = $matched_entry[$lang];
 
-                if ($current_norm === $source_norm) {
-                    $match = true;
-                }
-
-                // Fallback: anchor (#faq etc.)
-                if (!$match && strpos($current_norm, '#') !== false && strpos($source_norm, '#') !== false) {
-
-                    $current_anchor = explode('#', $current_norm)[1] ?? '';
-                    $source_anchor  = explode('#', $source_norm)[1] ?? '';
-
-                    if ($current_anchor !== '' && $current_anchor === $source_anchor) {
-                        $match = true;
-                    }
-                }
+            if (!empty($target['label'])) {
+                $item->title = $target['label'];
             }
 
-            // Fallback: label
-            $source_label = trim($source_data['label'] ?? '');
-
-            if (!$match && !empty($source_label)) {
-                if (mb_stripos($current_title, $source_label) !== false) {
-                    $match = true;
-                }
+            if (!empty($target['url'])) {
+                $item->url = $target['url'];
             }
 
-            // Apply translation if match found
-            if ($match) {
+            return;
+        }
 
-                if (!empty($target_label)) {
-                    $item->title = $target_label;
+        // STEP 4: LABEL FALLBACK (ONLY IF NO URL MATCH)
+        foreach ($translations as $key => $entry) {
+
+            if (!is_array($entry)) continue;
+
+            $source = $entry['en'] ?? null;
+            $target  = $entry[$lang] ?? null;
+
+            if (empty($source) || empty($target)) continue;
+
+            $source_label = trim($source['label'] ?? '');
+
+            if ($source_label && mb_stripos($current_title, $source_label) !== false) {
+
+                if (!empty($target['label'])) {
+                    $item->title = $target['label'];
                 }
 
-                if (!empty($target_url)) {
-                    $item->url = $target_url;
+                if (!empty($target['url'])) {
+                    $item->url = $target['url'];
                 }
 
                 return;
@@ -181,11 +177,13 @@ if (!function_exists('get_global_label_translations')) {
                 'en' => ['Post-trade fair report', 'Post Show Report'],
                 'de' => ['Post-Messe-Bericht'],
                 'it' => ['Rapporto post-fiera'],
-                'cs' => ['Raport po targach'],
+                'cs' => ['Zpráva po veletrhu'],
                 'sk' => ['Raport po veletrhu'],
                 'uk' => ['Звіт після виставки'],
                 'lt' => ['Po parodos ataskaita'],
                 'lv' => ['Pēc tirdzniecības izstādes ziņojums'],
+                'ro' => ['Raport după târg'],
+                'et' => ['Raport pärast messi']
             ],
 
             'edition' => [
@@ -198,6 +196,8 @@ if (!function_exists('get_global_label_translations')) {
                 'uk' => ['Видання'],
                 'lt' => ['Leidimas'],
                 'lv' => ['Izdevums'],
+                'ro' => ['Ediție'],
+                'et' => ['Versioon']
             ],
         ];
     }
@@ -380,7 +380,7 @@ $output .= '
     <a style="opacity: 0; width: 0; height: 0;"  href="#main-content" class="skip-link">Skip to main content</a>
     <div class="pwe-menu-auto-switch__wrapper">
         <div class="pwe-menu-auto-switch__logotypes">
-            <a class="pwe-logo ' . (file_exists($_SERVER['DOCUMENT_ROOT'] . PWE_Functions::lang_pl() ? '/doc/logo-x-pl.webp' : '/doc/logo-x-en.webp') ? "hidden-mobile" : "") . '" target="_blank" href="https://warsawexpo.eu'. (PWE_Functions::lang_pl() ? '/' : '/'. $lang .'/') .'">
+            <a class="pwe-logo ' . (file_exists($_SERVER['DOCUMENT_ROOT'] . PWE_Functions::lang_pl() ? '/doc/logo-x-pl.webp' : '/doc/logo-x-en.webp') ? "hidden-mobile" : "") . '" target="_blank" href="https://warsawexpo.eu'. (PWE_Functions::lang_pl() ? '/' : '/en/') .'">
                 <div class="pwe-menu-auto-switch__logo-container">
                     <img data-no-lazy="1" src="/wp-content/plugins/pwe-media/media/logo_pwe.webp" alt="logo ptak">
                 </div>
@@ -452,6 +452,8 @@ $output .= '
                         "cs" => "Jazyk",
                         "sk" => "Jazyk",
                         "it" => "Lingua",
+                        "ro" => "Limba",
+                        "et" => "Keel"
                     ];
 
                     $output .= '
@@ -595,6 +597,14 @@ $output .= '
                 "url" => "/it/registrazione/",
                 "label" => "UNISCITI A NOI"
             ],
+            "ro" => [
+                "url" => "/ro/inregistrare/",
+                "label" => "ALĂTURA-TE"
+            ],
+            "et" => [
+                "url" => "/et/registreerimine/",
+                "label" => "LIITU MEIEGA"
+            ]
         ];
 
         // fallback

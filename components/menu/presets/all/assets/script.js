@@ -267,7 +267,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 sk: ['zúčastniť sa', 'rezervovať stánok'],
                 uk: ['приєднатися', 'забронювати стенд'],
                 lt: ['dalyvauk', 'rezervuoti stendą'],
-                lv: ['piedalīties', 'rezervēt stendu']
+                lv: ['piedalīties', 'rezervēt stendu'],
+                ro: ['alătura-te nouă', 'rezervă un stand'],
+                et: ['liitu meiega', 'broneeri stend']
             };
 
             const cta = {
@@ -306,6 +308,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 lv: {
                     early: { text: 'PIEDALĪTIES', href: '/lv/registracija/' },
                     late: { text: 'REZERVĒT STENDU', href: '/lv/klusti-par-izstades-dalibnieku/' }
+                },
+                ro: {
+                    early: { text: 'ALĂTURA-TE NOUĂ', href: '/ro/inregistrare/' },
+                    late: { text: 'REZERVĂ UN STAND', href: '/ro/deveniti-exhibitor/' }
+                },
+                et: {
+                    early: { text: 'LIITU MEIEGA', href: '/et/registreerimine/' },
+                    late: { text: 'BRONEERI STEND', href: '/et/saage-eksponent/' }
                 }
             };
 
@@ -359,7 +369,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const shadow = aside.shadowRoot;
                 if (!shadow) return;
 
-                // Funkcja, która ustawia pozycję przycisku i odkrywa aside
+                // A function that sets the button position and reveals the aside
                 const adjustButton = () => {
                     const btn = shadow.querySelector('#uc-main-dialog.privacyButton');
                     if (!btn) return;
@@ -375,10 +385,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     aside.style.visibility = 'visible';
                 };
 
-                // Uruchamiamy na start
+                // Getting started
                 adjustButton();
 
-                // Obserwujemy shadowRoot, żeby reagować na ponowne renderowanie przycisku
+                // // Observe shadowRoot to react to button re-rendering
                 const observer = new MutationObserver(() => {
                     adjustButton();
                 });

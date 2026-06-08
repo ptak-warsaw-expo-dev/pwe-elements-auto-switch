@@ -51,7 +51,7 @@
     "conferences": "Konferences",
     "organizer": "Organizators",
     "subject": "Tēma",
-    "reg_url": "/lv/reģistrācija/",
+    "reg_url": "/lv/registracija/",
     "take_part": "Piedalieties",
     "find_more": "Uzzināt vairāk"
   },
@@ -79,7 +79,7 @@
     "take_part": "Participă",
     "find_more": "Află mai multe"
   },
-  "et": {
+  "et_EE": {
     "conferences": "Konverentsid",
     "organizer": "Korraldaja",
     "subject": "Teema",

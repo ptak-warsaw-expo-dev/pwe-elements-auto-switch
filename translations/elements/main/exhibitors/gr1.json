@@ -14,13 +14,13 @@
   "cs_CZ": {
     "catalog_title": "Vystavovatelé na veletrhu",
     "catalog_desc" : "Zobrazit všechny vystavovatele ",
-    "catalog_link": "/cs/katalog-vystavovatelů/",
+    "catalog_link": "/cs/katalog-vystavovatelu/",
     "catalog_link_text": "Úplný katalog"
   },
   "de_DE": {
     "catalog_title": "Aussteller auf der Messe",
     "catalog_desc" : "Alle Aussteller ansehen ",
-    "catalog_link": "/de/Ausstellerverzeichnis/",
+    "catalog_link": "/de/ausstellerverzeichnis/",
     "catalog_link_text": "Vollständiger Katalog"
   },
   "it_IT": {
@@ -32,31 +32,31 @@
   "lt_LT": {
     "catalog_title": "Mugės dalyviai",
     "catalog_desc" : "Peržiūrėkite visus dalyvius ",
-    "catalog_link": "/lt/dalyvių-katalogas/",
+    "catalog_link": "/lt/eksponentu-katalogas/",
     "catalog_link_text": "Visas katalogas"
   },
   "lv_LV": {
     "catalog_title": "Izstādes dalībnieki",
     "catalog_desc" : "Skatīt visus izstādes dalībniekus ",
-    "catalog_link": "/lv/izstādes dalībnieku katalogs/",
+    "catalog_link": "/lv/izstades-dalibnieku-katalogs/",
     "catalog_link_text": "Pilns katalogs"
   },
   "sk_SK": {
     "catalog_title": "Vystavovatelia na veľtrhu",
     "catalog_desc" : "Zobraziť všetkých vystavovateľov ",
-    "catalog_link": "/sk/katalóg-vystavovateľov/",
+    "catalog_link": "/sk/katalog-vystavovatelov/",
     "catalog_link_text": "Úplný katalóg"
   },
   "uk": {
     "catalog_title": "Експоненти на виставці",
     "catalog_desc" : "Переглянути всіх експонентів ",
-    "catalog_link": "/uk/каталог-експонентів/",
+    "catalog_link": "/uk/katalog-eksponentiv/",
     "catalog_link_text": "Повний каталог"
   },
   "ro_RO": {
     "catalog_title": "Expozanti la târg",
     "catalog_desc" : "Vezi toți expozantii ",
-    "catalog_link": "/ro/catalog-expozanti/",
+    "catalog_link": "/ro/catalogul-exhibitorilor/",
     "catalog_link_text": "Catalog complet"
   },
   "et": {
