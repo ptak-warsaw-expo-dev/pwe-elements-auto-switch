@@ -29,6 +29,9 @@ class Exhibitor_Catalog {
 
         echo '
         <style>
+            #page-header {
+                display: none;
+            }
             .catalog__loading {
                 position: fixed;
                 top: 50%;
@@ -446,17 +449,17 @@ class Exhibitor_Catalog {
 
             if (file_exists($year_file_path)) {
                 $data_url = $base_path . $year_file;
-            } 
-        }
+            } else {
+                $atts['archive_catalog_year'] = ''; // Reset to default if specific year file is missing
+            }
+        } 
 
         $full_path = ABSPATH . ltrim($data_url, '/');
 
-        if (file_exists($full_path)) {
-            if (current_user_can('administrator')) {
+        if (current_user_can('administrator')) {
+            if (file_exists($full_path)) {
                 echo '<script>console.log("Dane pobrane z pliku: https://' . $_SERVER['HTTP_HOST'] . $data_url . '")</script>';
-            }
-        } else {
-            if (current_user_can('administrator')) {
+            } else {
                 echo '
                 <script>
                     console.log(

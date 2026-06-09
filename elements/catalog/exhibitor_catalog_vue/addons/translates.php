@@ -1,6 +1,6 @@
 <?php
 if (!defined('ABSPATH')) exit;
-if (get_locale() !== 'en_US') return;
+if (get_locale() === 'pl_PL') return;
 
 echo '
 <style>
@@ -230,6 +230,12 @@ echo '
     $all(NO_TRANSLATE, r).forEach(hardNoTranslate);
   }
 
+  function rememberOriginal(el){
+    if (!el.getAttribute("data-orig")) {
+      el.setAttribute("data-orig", el.textContent || "");
+    }
+  }
+
   // =========================
   // 4) FIXES: Halls + Type (manual EN, no GT)
   // =========================
@@ -237,28 +243,29 @@ echo '
     var r = $(ROOT);
     if (!r) return;
 
-    // Halls Filter Header
     var h = $(".filter-section.filter-halls .filter-section__header", r);
     if (h){
+      h.textContent = "Halls";
       hardNoTranslate(h);
-      var txt = (h.textContent || "").replace(/\\u00A0/g," ").trim();
-      if (/^hala(e)?$/i.test(txt)) h.textContent = "Halls";
     }
 
-    // Halls Filter Labels
     var hallSection = $(".filter-section.filter-halls", r);
     if (!hallSection) return;
 
     $all(".filter-switch__label", hallSection).forEach(function(lbl){
-      // leaving counting part untouched and getting text only
+      rememberOriginal(lbl);
+
+      var orig = lbl.getAttribute("data-orig") || "";
+      var raw = orig.replace(/\u00A0/g," ").trim();
+
       hardNoTranslate(lbl);
-      var raw = (lbl.textContent || "").replace(/\\u00A0/g," ").trim();
-      var m = raw.match(/^(?:Hala|Hale|Hall)\\s*([A-Z])\\b/i);
+
+      var m = raw.match(/^(?:Hala|Hale)\\s*([A-Z])/i);
+
       if (m && m[1]) {
         setLabelTextPreserveCount(lbl, "Hall " + m[1].toUpperCase());
       } else {
-        // fallback for hall
-        var fixed = raw.replace(/^(Hala|Hale|Hall)\\s+/i, "Hall ");
+        var fixed = raw.replace(/^(Hala|Hale)\\s+/i, "Hall ");
         setLabelTextPreserveCount(lbl, fixed);
       }
     });
