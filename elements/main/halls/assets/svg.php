@@ -1109,6 +1109,9 @@ $output .= '
                 </g>
                 <path id="kolor_A3" class="pwe-halls__element-color" d="M392.4,743.3l174.4,150.3-3,56.9-87,21.1v-54.4,54.4l-173-152.4-1.9-52.6,82.5-23.9s2.5-.7,4.5-.5,2.2.4,3.4,1.1h.1Z"/>
                 <path id="belka_A3" class="st65" d="M302,766.6l82.6-24s5-1.4,7.9.7c-.2-3.6,0-12.1-13.4-7.9s-77,22.5-77,22.5c0,0-4,2.1,0,8.7h-.1Z"/>
+                <a target="_blank" class="pwe-halls__link pwe-halls__element-logo-link quarter">
+                    <image class="pwe-halls__element-logo" href="" width="175" height="100" x="1340" y="400"/>
+                </a>
             </g>
 
             <g id="A4" class="pwe-halls__element quarter">
@@ -1118,7 +1121,14 @@ $output .= '
                 </g>
                 <path id="kolor_A31" class="pwe-halls__element-color" d="M477,917.2s-92.7,21.4-97.8,22.6c-1.9.6-3.2,1.5-4.1,2.5,1.4-1.6,3-2.4,5.4-2.9,4.9-1,96-22.1,96-22.1h.4l-174.9-150.7-106.7,31.9s-8.3.9-6,12,5,30.7,5,30.7l179.4,154.9h0c0,0,103.3-24.5,103.3-24.5v-54.4h0Z"/>
                 <path id="Belka_A4" class="st65" d="M184.5,836.7l5.3,4.5h4.4s-5.4-31.9-5.3-32.5-1.3-8.1,6.3-10.3,106.8-31.8,106.8-31.8c0,0,3.3-3.3,0-8.7-7.2,2-110.3,31.3-110.3,31.3,0,0-12.1,2.6-10.8,14.9s3.6,32.6,3.6,32.6Z"/>
+                <a target="_blank" class="pwe-halls__link pwe-halls__element-logo-link quarter">
+                    <image class="pwe-halls__element-logo" href="" width="175" height="100" x="1320" y="510"/>
+                </a>
             </g>
+
+            <a target="_blank" class="pwe-halls__link pwe-halls__element-favicon-link half">
+                <image class="pwe-halls__element-favicon" href="" width="140" height="140" x="-470" y="1390"/>
+            </a>
         </g>
 
         <g id="A1_A2" class="pwe-halls__element half">
