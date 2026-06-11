@@ -7,7 +7,7 @@ if ((($trade_fair_start_date_timestamp != false && $trade_fair_end_date_timestam
     $output .= '
     <div id="openingHours" class="opening-hours">
         <div class="opening-hours__block">
-            <p class="opening-hours__title">test</p>
+            <p class="opening-hours__title">'. PWE_Functions::multi_translation("opening_hours") .'</p>
             <p class="opening-hours__date pwe-uppercase">'. $trade_fair_start_date_week .' - '. $trade_fair_end_date_week .'<span class="hours">'. $trade_fair_start_date_hour .' - '. $trade_fair_end_date_hour .'</span></p>
             <div class="opening-hours__hall">
                 <p>'. $halls_word .' <strong>'. $all_halls .'</strong></p>
