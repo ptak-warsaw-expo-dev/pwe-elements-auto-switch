@@ -166,6 +166,34 @@ class PWE_Elements {
                         ];
                     }
 
+                    if ($class === 'Header' || 
+                        $class === 'Countdown' || 
+                        $class === 'About' || 
+                        $class === 'Conference' || 
+                        $class === 'Speakers' || 
+                        $class === 'Premieres' || 
+                        $class === 'Opinions' || 
+                        $class === 'Exhibitors' || 
+                        $class === 'Logotypes' || 
+                        $class === 'Statistics' || 
+                        $class === 'Halls' || 
+                        $class === 'Other_Events' || 
+                        $class === 'Profiles' || 
+                        $class === 'Posts' || 
+                        $class === 'Medals' || 
+                        $class === 'Summary' || 
+                        $class === 'Footer') {
+                        $params[] = [
+                            'type' => 'checkbox',
+                            'heading' => __('B2C', 'pwe-elements-auto-switch-main'),
+                            'param_name' => 'b2c',
+                            'group' => 'Custom Settings',
+                            'value' => array(__('True', 'pwe_header') => 'true',),
+                            'save_always' => true,
+                            'admin_label' => true,
+                        ];
+                    }
+
                     vc_map([
                         'name'     => __('PWE Single AutoSwitch: ' . $class, 'pwe-elements-auto-switch'),
                         'base'     => $shortcode,
