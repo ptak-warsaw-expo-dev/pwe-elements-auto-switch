@@ -9,7 +9,6 @@ class Speakers {
             'presets' => [
                 'gr1' => plugin_dir_path(__FILE__) . 'presets/gr1/preset.php',
                 'gr2' => plugin_dir_path(__FILE__) . 'presets/gr2/preset.php',
-                'week' => plugin_dir_path(__FILE__) . 'presets/week/preset.php',
             ],
         ];
     }
@@ -34,39 +33,33 @@ class Speakers {
             // Get speakers from the database
             $data = PWE_Functions::get_database_fairs_data_speakers(); 
 
+            $pl = PWE_Functions::lang_pl();
+
             if (!empty($data)) {
 
                 foreach ($data as $row) {
-                    if (!empty($row->data)) {
-                        $decoded = json_decode($row->data, true);
 
-                        if (!empty($decoded)) {
+                    $speaker = [
+                        'slug'        => $row->slug ?? '',
+                        'name'        => $row->name ?? '',
+                        'img'         => $row->image ? 'https://cap.warsawexpo.eu/' . $row->image : '',
+                        'logo'        => $row->logo ? 'https://cap.warsawexpo.eu/' . $row->logo : '', 
+                        'company'     => $row->company ?? '',
+                        'position'    => $row->position ?? '',
+                        'bio'         => $pl ? ($row->bio_pl ?? '') : ($row->bio_en ?? ''),
+                        'order'       => $row->order ?? ''
+                    ];
 
-                            $lang = PWE_Functions::lang_pl() ? 'pl' : 'en';
-                            $langData = $decoded[$lang] ?? [];
+                    $order = (int)$speaker['order'];
 
-                            $speaker = [
-                                'speakers_slug'       => $row->slug ?? '',
-                                'speaker_img'         => $langData['url'] ?? '',
-                                'speaker_company_img' => '', 
-                                'speaker_company_name'=> '', 
-                                'speaker_name'        => $langData['name'] ?? '',
-                                'speaker_position'    => '',
-                                'speaker_text'        => $langData['desc'] ?? '',
-                                'speakers_order'      => $row->order ?? ''
-                            ];
-
-                            $order = (int)$speaker['speakers_order'];
-
-                            if ($order !== 0) {
-                                if ($order === 99) {
-                                    $speakers_indexed[99][] = $speaker;
-                                } else {
-                                    $speakers_indexed[$order][] = $speaker;
-                                }
-                            }
+                    if ($order !== 0) {
+                        if ($order === 99) {
+                            $speakers_indexed[99][] = $speaker;
+                        } else {
+                            $speakers_indexed[$order][] = $speaker;
                         }
                     }
+                    
                 }
             }
 
