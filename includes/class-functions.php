@@ -339,7 +339,7 @@ class PWE_Functions {
 
 
     // <============================================================================================>
-    // Synchronized functions from plugin PWElements 3.4.5 (10.06.2026) <========================================================>
+    // Synchronized functions from plugin PWElements 3.4.6 (10.06.2026) <========================================================>
     // <============================================================================================>
 
 
@@ -2303,7 +2303,7 @@ class PWE_Functions {
 
         // SQL query
         $sql = "
-            SELECT f.id, f.fair_domain, fp.slug, fp.name, fp.company, fp.position, fp.bio_pl, fp.bio_en, fp.image, fp.logo, fp.order
+            SELECT f.id, f.fair_domain, fp.slug, fp.name, fp.company, fp.position, fp.bio, fp.image, fp.logo, fp.order
             FROM fairs f
             LEFT JOIN fair_lectures fp ON fp.fair_id = f.id
         ";
