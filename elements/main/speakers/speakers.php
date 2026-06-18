@@ -33,24 +33,56 @@ class Speakers {
             // Get speakers from the database
             $data = PWE_Functions::get_database_fairs_data_speakers(); 
 
-            $pl = PWE_Functions::lang_pl();
+            $lang = PWE_Functions::lang();
+
+            $speakers_indexed = [];
 
             if (!empty($data)) {
 
                 foreach ($data as $row) {
 
+                    $positionData = $row->position ?? [];
+                    $bioData = $row->bio ?? [];
+
+                    if (is_string($positionData)) {
+                        $positionData = json_decode($positionData, true) ?: [];
+                    }
+
+                    if (is_string($bioData)) {
+                        $bioData = json_decode($bioData, true) ?: [];
+                    }
+
+                    if (!is_array($positionData)) {
+                        $positionData = [];
+                    }
+
+                    if (!is_array($bioData)) {
+                        $bioData = [];
+                    }
+
+                    $position = $positionData[$lang] ?? '';
+                    $bio = $bioData[$lang] ?? '';
+
+                    if (empty($position)) {
+                        $position = $positionData['en'] ?? '';
+                    }
+
+                    if (empty($bio)) {
+                        $bio = $bioData['en'] ?? '';
+                    }
+
                     $speaker = [
                         'slug'        => $row->slug ?? '',
                         'name'        => $row->name ?? '',
-                        'img'         => $row->image ? 'https://cap.warsawexpo.eu/' . $row->image : '',
-                        'logo'        => $row->logo ? 'https://cap.warsawexpo.eu/' . $row->logo : '', 
+                        'img'         => !empty($row->image) ? 'https://cap.warsawexpo.eu/' . $row->image : '',
+                        'logo'        => !empty($row->logo) ? 'https://cap.warsawexpo.eu/' . $row->logo : '',
                         'company'     => $row->company ?? '',
-                        'position'    => $row->position ?? '',
-                        'bio'         => $pl ? ($row->bio_pl ?? '') : ($row->bio_en ?? ''),
-                        'order'       => $row->order ?? ''
+                        'position'    => $position,
+                        'bio'         => $bio,
+                        'order'       => $row->order ?? '',
                     ];
 
-                    $order = (int)$speaker['order'];
+                    $order = (int) $speaker['order'];
 
                     if ($order !== 0) {
                         if ($order === 99) {
@@ -59,7 +91,6 @@ class Speakers {
                             $speakers_indexed[$order][] = $speaker;
                         }
                     }
-                    
                 }
             }
 
