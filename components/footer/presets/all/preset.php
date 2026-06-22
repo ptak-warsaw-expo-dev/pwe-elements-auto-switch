@@ -23,7 +23,7 @@ $base_url = ( (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https
 $page_url = 'https://' . $_SERVER['HTTP_HOST'] . PWE_Functions::lang_pl() ? '' : '/'. $lang .'/';
 
 $output = '
-<div id="pweFooter" class="pwe-footer pwe-component">
+<footer id="pweFooter" class="pwe-footer pwe-component">
     <div class="pwe-footer__wrapper">';
 
 // Custom footer menu renderer
@@ -134,7 +134,7 @@ function generateFooterNavEl($menus) {
     $menu_titles = $menu_titles_map[$lang] ?? $menu_titles_map['en'];
 
     $output = '
-    <div class="pwe-footer__nav">
+    <div class="pwe-footer__nav notranslate" translate="no">
         <div class="pwe-footer__nav-wrapper">
             <div class="pwe-footer__nav-left-column">
                 <div class="pwe-footer__nav-logo-column">
@@ -234,7 +234,7 @@ if (
 
 $output .= '  
     </div>
-</div>';
+</footer>';
 
 require_once plugin_dir_path(dirname(dirname(__FILE__))) . 'assets/script.php';
 

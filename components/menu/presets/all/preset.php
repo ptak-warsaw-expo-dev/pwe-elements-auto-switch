@@ -376,7 +376,7 @@ $socials_cap = array(
 );
 
 $output .= '
-<header id="pweMenuAutoSwitch" class="pwe-menu-auto-switch"> 
+<header id="pweMenuAutoSwitch" class="pwe-menu-auto-switch notranslate" translate="no"> 
     <a style="opacity: 0; width: 0; height: 0;"  href="#main-content" class="skip-link">Skip to main content</a>
     <div class="pwe-menu-auto-switch__wrapper">
         <div class="pwe-menu-auto-switch__logotypes">

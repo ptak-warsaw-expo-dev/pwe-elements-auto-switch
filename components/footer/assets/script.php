@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", function() {
     // -----------------------------
     // MAIN LABELS
     // -----------------------------
+
+    // Become an agent
     const agentTranslations = {
         pl: "Zostań agentem",
         en: "Become an agent",
@@ -42,6 +44,26 @@ document.addEventListener("DOMContentLoaded", function() {
             ? "/formularz-dla-agentow/"
             : "/en/forms-for-agents/"
     );
+
+    // Medal ceremony
+    const medalCeremonyTranslations = {
+        pl: "Ceremonia medalowa",
+        en: "Medal ceremony",
+        uk: "Церемонія нагородження",
+        cs: "Medailový ceremoniál",
+        de: "Medaillenzeremonie",
+        it: "Cerimonia di premiazione",
+        lt: "Medalių įteikimo ceremonija",
+        lv: "Medalju pasniegšanas ceremonija",
+        sk: "Medailový ceremoniál",
+        ro: "Ceremonia de premiere",
+        et: "Medalite üleandmise tseremoonia"
+    };
+
+    const medalCeremonyLabel = medalCeremonyTranslations[currentLang] || medalCeremonyTranslations.en;
+
+    const medalCeremonyUrl = 
+        currentLang === "pl" ? "/ceremonia-medalowa/" : "/en/medal-ceremony/";
 
     // -----------------------------
     // HELPERS
@@ -116,7 +138,21 @@ document.addEventListener("DOMContentLoaded", function() {
             insertAt(dropMenu, agentItem, 1);
 
             // -----------------------------
-            // ITEM 2 - STORE (only non PL/EN)
+            // ITEM 2 - MEDAL CEREMONY (only non PL/EN)
+            // -----------------------------
+            const medalCeremonyItem = createMenuItem(
+                isAutoSwitchMenu
+                    ? "pwe-menu-auto-switch__submenu-item"
+                    : "menu-item menu-item-type-custom menu-item-object-custom menu-item-99999",
+                medalCeremonyLabel,
+                medalCeremonyLabel,
+                medalCeremonyUrl
+            );
+
+            insertAt(dropMenu, medalCeremonyItem, 2);
+
+            // -----------------------------
+            // ITEM 3 - STORE (only non PL/EN)
             // -----------------------------
             if (currentLang !== "pl" && currentLang !== "en") {
 
@@ -129,10 +165,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     "https://warsawexpo.eu/" + (currentLang === "pl" ? "sklep/" : "en/store/")
                 );
 
-                insertAt(dropMenu, storeItem, 2);
+                insertAt(dropMenu, storeItem, 3);
             }
-
-            console.log(currentLang);
 
             if (catalogID) {
                 // -----------------------------

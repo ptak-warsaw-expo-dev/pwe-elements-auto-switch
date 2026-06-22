@@ -127,7 +127,7 @@ class PWE_Elements_Data {
             ['class' => 'Sectors',            'file' => 'elements/main/sectors/sectors.php',               'order' => ['gr1' => 3, 'gr2' => 3, 'b2c' => 3, 'week' => 1]],
             ['class' => 'Conference',       'file' => 'elements/main/conference/conference.php',           'order' => ['gr1' => 4, 'gr2' => 5, 'b2c' => 4, 'week' => 1]],
             ['class' => 'Speakers',         'file' => 'elements/main/speakers/speakers.php',               'order' => ['gr1' => 4, 'gr2' => 5, 'b2c' => 4, 'week' => 1]],
-            // ['class' => 'Guests',         'file' => 'elements/main/guests/guests.php',                     'order' => ['gr1' => 4, 'gr2' => 5, 'b2c' => 4, 'week' => 1]],
+            ['class' => 'Guests',         'file' => 'elements/main/guests/guests.php',                     'order' => ['gr1' => 4, 'gr2' => 5, 'b2c' => 4, 'week' => 1]],
             ['class' => 'Premieres',        'file' => 'elements/main/premieres/premieres.php',             'order' => ['gr1' => 0, 'gr2' => 5, 'b2c' => 0, 'week' => 1]],
             ['class' => 'Opinions',         'file' => 'elements/main/opinions/opinions.php',               'order' => ['gr1' => 13, 'gr2' => 12, 'b2c' => 5, 'week' => 1]],
             ['class' => 'Exhibitors',       'file' => 'elements/main/exhibitors/exhibitors.php',           'order' => ['gr1' => 7, 'gr2' => 4, 'b2c' => 6, 'week' => 1]],

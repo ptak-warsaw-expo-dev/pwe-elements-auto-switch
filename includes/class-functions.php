@@ -2341,6 +2341,80 @@ class PWE_Functions {
     }
 
     /**
+     * Get fairs guests data from CAP databases
+     */
+    private static $fairs_guests_cache = [];
+    public static function get_database_fairs_data_guests($fair_domain = null): array {
+
+        $fair_domain = $fair_domain ?? $_SERVER['HTTP_HOST'] ?? '';
+        $cache_key = $fair_domain;
+
+        // Check runtime cache first
+        if (isset(self::$fairs_guests_cache[$cache_key])) {
+            self::debug_log('get_database_fairs_data_guests: data from STATIC → key=' . $cache_key);
+            return self::$fairs_guests_cache[$cache_key];
+        }
+
+        // Transient key
+        $transient_key = 'pwe_fairs_guests_' . md5($cache_key);
+
+        // Try transient
+        $cached = get_transient($transient_key);
+        if ($cached !== false) {
+            $timeout = get_option('_transient_timeout_' . $transient_key);
+            $time_left_str = $timeout !== false ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
+
+            self::debug_log('get_database_fairs_data_guests: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            self::$fairs_guests_cache[$cache_key] = $cached;
+            return $cached;
+        }
+
+        // Connect to database
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::debug_log('get_database_fairs_data_guests: no database connection.', 'error');
+            self::$fairs_guests_cache[$cache_key] = [];
+            return [];
+        }
+
+        // SQL query
+        $sql = "
+            SELECT f.id, f.fair_domain, fp.type, fp.data
+            FROM fairs f
+            LEFT JOIN fair_guests fp ON fp.fair_id = f.id
+        ";
+
+        $params = [];
+
+        if ($fair_domain !== null) {
+            $sql .= " WHERE f.fair_domain = %s";
+            $params[] = $fair_domain;
+        }
+
+        $start_time = microtime(true);
+
+        // Execute query
+        $results = !empty($params) ? $cap_db->get_results($cap_db->prepare($sql, $params)) : $cap_db->get_results($sql);
+
+        $time = round((microtime(true) - $start_time) * 1000, 2);
+
+        // Handle SQL errors
+        if ($cap_db->last_error) {
+            self::debug_log('get_database_fairs_data_guests: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            $results = [];
+        }
+
+        // Save to transient for 10 minutes
+        set_transient($transient_key, $results, 600);
+
+        // Save to runtime cache
+        self::$fairs_guests_cache[$cache_key] = $results;
+        self::debug_log('get_database_fairs_data_guests: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+
+        return $results;
+    }
+
+    /**
      * Get elements data from CAP databases
      */
     private static $elements_cache = null;
