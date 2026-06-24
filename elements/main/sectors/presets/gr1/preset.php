@@ -11,8 +11,8 @@ $output .= '
         <div class="pwe-sectors__items">';
             
             foreach ($sectors as $sector) {
-                $sector_name = $sector['sector_name'];
-                $sector_image = $sector['sector_image'];
+                $sector_name = $sector['name'];
+                $sector_image = $sector['image'];
 
                 $output .= '
                 <div class="pwe-sectors__item">

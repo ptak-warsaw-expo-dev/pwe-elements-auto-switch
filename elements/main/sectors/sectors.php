@@ -46,19 +46,24 @@ class Sectors {
                             foreach ($decoded as $sector) {
 
                                 $sectors[] = [
-                                    'sector_name' => !empty($sector['name_' . $lang]) 
+                                    'name' => !empty($sector['name_' . $lang]) 
                                         ? $sector['name_' . $lang] 
                                         : ($sector['name_en'] ?? ''),
-                                    'sector_image' => 'https://cap.warsawexpo.eu/public/uploads/domains/' 
+                                    'image' => 'https://cap.warsawexpo.eu/public/uploads/domains/' 
                                         . str_replace('.', '-', $_SERVER['HTTP_HOST']) 
                                         . '/sectors/' 
                                         . ($sector['image'] ?? ''),
+                                    'order' => $sector['order']
                                 ];
                             }
                         }
                     }
                 }
             }
+
+            usort($sectors, function ($a, $b) {
+                return ($a['order'] ?? 0) <=> ($b['order'] ?? 0);
+            });
 
             if (empty($sectors)) {
                 echo '<style>.pwe-element-auto-switch.sectors {display:none;}</style>';

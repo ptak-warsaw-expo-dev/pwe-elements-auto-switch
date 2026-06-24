@@ -48,8 +48,8 @@ class Premieres {
             $item = $data[$premiere->slug];
 
             $slides[] = [
-                'name'      => $item['name_' . $lang] ?? '',
-                'desc'      => $item['desc_' . $lang] ?? '',
+                'name'      => !empty($item['name_' . $lang]) ? $item['name_' . $lang] : ($item['name_en'] ?? ''),
+                'desc'      => !empty($item['desc_' . $lang]) ? $item['desc_' . $lang] : ($item['desc_en'] ?? ''),
                 'exhibitor' => $item['exhibitor'] ?? '',
                 'stand'     => $item['stand'],
                 'img'       => $item['background'] ?? '',
