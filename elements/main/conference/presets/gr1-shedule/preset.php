@@ -69,15 +69,52 @@ if (!function_exists('parseDateRange')) {
 }
 
 
+global $admin_log;
+$admin_log = [];
+
 /**
- * Debug for administrator only.
+ * Collecting all logs
  */
 if (!function_exists('admin_log')) {
-    function admin_log($msg) {
-        if (function_exists('current_user_can') && current_user_can('administrator')) {
-            $safe = json_encode($msg, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
-            echo "<script>console.log({$safe});</script>";
+    function admin_log($message, $type = 'log') {
+        global $admin_log;
+
+        if (!function_exists('wp_get_current_user')) {
+            return;
         }
+
+        if (!current_user_can('administrator')) {
+            return;
+        }
+
+        $admin_log[] = [
+            'type' => $type,
+            'message' => $message
+        ];
+    }
+}
+
+/**
+ * Output console logs 
+ */
+if (!function_exists('output_conference_logs')) {
+    function output_conference_logs() {
+        global $admin_log;
+
+        if (empty($admin_log)) {
+            return;
+        }
+
+        echo '<script>';
+        echo 'console.groupCollapsed("CONFERENCE SCHEDULE");';
+
+        foreach ($admin_log as $log) {
+            $msg = addslashes($log['message']);
+            echo "console.{$log['type']}('{$msg}');";
+        }
+
+        echo 'console.groupEnd();';
+        echo '</script>';
     }
 }
 
@@ -190,7 +227,18 @@ foreach ($allConferences as $conf) {
         $conf->conf_name_en ?: ($conf->conf_name_pl ?: $conf->conf_slug)
     );
 
-    $order = is_numeric($conf->conf_order) ? (int)$conf->conf_order : PHP_INT_MAX;
+    $domain = $_SERVER['HTTP_HOST'];
+
+    $order = PHP_INT_MAX;
+
+    if (!empty($conf->conf_site_link)) {
+
+        $pattern = '/\b' . preg_quote($domain, '/') . '\b\s*\[(\d+)\]/';
+
+        if (preg_match($pattern, $conf->conf_site_link, $m)) {
+            $order = (int)$m[1];
+        }
+    }
 
     $processed[] = [
         'title'       => $title,
@@ -199,7 +247,7 @@ foreach ($allConferences as $conf) {
         'start_index' => $startIndex,
         'end_index'   => $endIndex,
         'slug'        => (string)$conf->conf_slug,
-        // 'order'       => $order,
+        'order'       => $order,
         'start_ts'       => $cStart->getTimestamp(),
     ];
 
@@ -218,17 +266,28 @@ if (empty($processed)) {
     return;
 }
 
-// // Sorting
-// usort($processed, function($a, $b) {
-//     return $a['order'] <=> $b['order']
-//         ?: strcasecmp($a['title'], $b['title']);
-// });
-
 // Sorting
 usort($processed, function($a, $b) {
-    return $a['start_ts'] <=> $b['start_ts']
-        ?: strcasecmp($a['title'], $b['title']);
+
+    // 1. order firstly
+    if ($a['order'] !== $b['order']) {
+        return $a['order'] <=> $b['order'];
+    }
+
+    // 2. If the order is the same → after the date
+    if ($a['start_ts'] !== $b['start_ts']) {
+        return $a['start_ts'] <=> $b['start_ts'];
+    }
+
+    // 3. fallback
+    return strcasecmp($a['title'], $b['title']);
 });
+
+// // Sorting
+// usort($processed, function($a, $b) {
+//     return $a['start_ts'] <=> $b['start_ts']
+//         ?: strcasecmp($a['title'], $b['title']);
+// });
 
 // Render view
 
@@ -427,5 +486,7 @@ $output  = '
 if ($useSwiper) {
     $output .= PWE_Swiper::swiperScripts('#pweConfSchedule', [0 => ['slidesPerView' => 1]], true);
 }
+
+output_conference_logs();
 
 return $output;

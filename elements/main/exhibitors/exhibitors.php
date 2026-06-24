@@ -34,10 +34,10 @@ class Exhibitors {
             $katalog_id = do_shortcode('[pwe_catalog]');
 
             if ($group === "gr1") {
-                $exhibitors = PWE_Functions::exhibitor_logos($katalog_id, 16);
+                $exhibitors = PWE_Functions::exhibitor_logos(16);
             } else {
-                $exhibitors = PWE_Functions::exhibitor_logos($katalog_id);
-            }
+                $exhibitors = PWE_Functions::exhibitor_logos(30);
+            } 
 
             if (!is_array($exhibitors)) {
                 $exhibitors = [];

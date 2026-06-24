@@ -54,7 +54,7 @@ class Conference {
 
         $results = $cap_db->get_results(
             $cap_db->prepare(
-                "SELECT id, conf_slug, conf_name_pl, conf_name_en, conf_order, conf_date_range FROM conferences WHERE conf_site_link LIKE %s AND deleted_at IS NULL",
+                "SELECT id, conf_slug, conf_name_pl, conf_name_en, conf_order, conf_date_range, conf_site_link FROM conferences WHERE conf_site_link LIKE %s AND deleted_at IS NULL",
                 '%' . $domain . '%'
             )
         );

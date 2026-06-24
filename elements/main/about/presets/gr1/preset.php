@@ -12,21 +12,22 @@ $output .= '
         <a class="pwe-about__btn pwe-main-btn--primary" href="' . PWE_Functions::multi_translation("reg_url") . '">' . ($b2c ? PWE_Functions::multi_translation("buy_ticket") : PWE_Functions::multi_translation("registration")) . '</a>
     </div>
     <div class="pwe-about__media">';
-        if ($hasMany && !empty($logos)) {
+        if (count($logotypes) == 9 && !empty($logotypes)) {
             $output .= '
-            <h4 class="pwe-about__media-title">' . PWE_Functions::multi_translation("top_exhibitors") . '</h4>
-            <div id="pweAboutLogos" class="pwe-about__logos pwe-container-logotypes" data-logos=\'' . $logos_json . '\'>';
+            <h4 class="pwe-about__media-title">' . PWE_Functions::multi_translation("exhibitors") . '</h4>
+            <div id="pweAboutLogos" class="pwe-about__logos pwe-container-logotypes">';
 
-            for ($i = 0; $i < 9; $i++) { 
-                $output .= '<img class="pwe-about__logo logo-placeholder"
-                    src="" alt="exhibitor" style="visibility:hidden;opacity:0">';
-            }
+                foreach($logotypes as $logo) {
+                    $output .= '<img class="pwe-about__logo logo-placeholder" src="'. $logo .'" alt="exhibitor">';
+                } 
 
-            $output .= '</div>';
+            $output .= '
+            </div>';
         } else {
             $output .= $img;
         }
-        $output .= '</div>
+        $output .= '
+    </div>
 </div>';
 
 return $output;

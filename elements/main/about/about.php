@@ -99,13 +99,13 @@ class About {
                 ) 
             . '">';
 
-            $exhibitorsData = self::getExhibitorsData();
+            $exhibitors_data = PWE_Functions::exhibitor_logos(9);
 
-            $hasMany = !empty($exhibitorsData['has_many']);
-            $logos   = is_array($exhibitorsData['logos'] ?? null) ? $exhibitorsData['logos'] : [];
-
-            $logos_urls = array_values(array_map(function($l){ return $l['url']; }, $logos));
-            $logos_json = esc_attr( wp_json_encode($logos_urls) ); 
+            $logotypes = [];
+            
+            foreach ($exhibitors_data as $exhibitor) {
+                $logotypes[] = $exhibitor['logo'];
+            }
 
             /* <-------------> General code end <-------------> */
 
