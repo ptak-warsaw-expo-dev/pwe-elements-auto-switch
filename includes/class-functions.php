@@ -131,215 +131,152 @@ class PWE_Functions {
     }
 
     /**
-     * Downloads exhibitor logos.
+     * Get exhibitor logos.
      *
-     * @param int|string $catalog_id  Catalog ID
      * @param int        $count       Maximum number of logos
      * @param bool       $shuffle     Should logos be randomized (default true)
      * @return array
      */
-    public static function exhibitor_logos($catalog_id, $count = null, $shuffle = true) {
-        $catalog_id = do_shortcode('[trade_fair_catalog]');
-        $catalog_ids = do_shortcode('[trade_fair_catalog_id]');
-        $fair_date = do_shortcode('[trade_fair_date]');
+    public static function exhibitor_logos($count = 16, $shuffle = true) {
 
-        if (!empty($catalog_ids) && stripos($fair_date, 'nowa data') === false) {
+        $catalog_ids_old  = do_shortcode('[trade_fair_catalog]');
+        $catalog_ids_new  = do_shortcode('[trade_fair_catalog_id]');
+        $fair_date        = do_shortcode('[trade_fair_date]');
 
-            try {
+        if (stripos($fair_date, 'nowa data') !== false) {
+            return [];
+        }
 
-                // String or array handling
-                if (is_string($catalog_ids)) {
-                    $catalog_array = array_map('intval', array_map('trim', explode(',', $catalog_ids)));
-                } elseif (is_array($catalog_ids)) {
-                    $catalog_array = array_map('intval', $catalog_ids);
-                } else {
-                    throw new Exception("Incorrect catalog_ids format");
+        try {
+
+            $mapped = [];
+            $usedNames = [];
+
+            /**
+             * =========================================================
+             * PRIORITY 1: NEW CATALOG (pwe-exhibitors.json)
+             * =========================================================
+             */
+            if (!empty($catalog_ids_new)) {
+
+                $local_file = $_SERVER['DOCUMENT_ROOT']
+                    . '/wp-content/uploads/exhibitor-catalogs/pwe-exhibitors.json';
+
+                if (!file_exists($local_file)) {
+                    throw new Exception("Brak pliku: {$local_file}");
                 }
 
-                $all_exhibitors = [];
+                $data = json_decode(file_get_contents($local_file), true);
 
-                foreach ($catalog_array as $catalog_id_single) {
-
-                    $exh_catalog_address = PWE_Functions::get_database_meta_data('exh_catalog_address_2');
-                    $catalog_url = "{$exh_catalog_address}{$catalog_id_single}/exhibitors.json";
-
-                    $res = wp_remote_get($catalog_url, [
-                        'timeout' => 10,
-                        'headers' => ['Accept' => 'application/json'],
-                    ]);
-
-                    if (is_wp_error($res)) {
-                        throw new Exception("Błąd połączenia: " . $res->get_error_message());
-                    }
-
-                    if (wp_remote_retrieve_response_code($res) !== 200) {
-                        throw new Exception("HTTP != 200 dla URL: {$catalog_url}");
-                    }
-
-                    $body = wp_remote_retrieve_body($res);
-                    if (empty($body)) {
-                        throw new Exception("Pusty JSON: {$catalog_url}");
-                    }
-
-                    $json = json_decode($body, true);
-                    if (!is_array($json) || empty($json['success']) || empty($json['exhibitors'])) {
-                        throw new Exception("Nieprawidłowy JSON w {$catalog_url}");
-                    }
-
-                    $all_exhibitors = array_merge($all_exhibitors, $json['exhibitors']);
+                if (!is_array($data)) {
+                    throw new Exception("Błędny JSON: pwe-exhibitors.json");
                 }
 
-                // Saving full data to a file
-                $file = $_SERVER['DOCUMENT_ROOT'] . '/doc/pwe-exhibitors-data.json';
-                file_put_contents($file, json_encode($all_exhibitors, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOCK_EX);
+                foreach ($data as $item) {
 
-                // Data mapping + filters + dupe removal
-                $mapped = [];
-                $usedNames = [];
+                    $name = trim(
+                        $item['companyInfo']['displayName']
+                        ?? $item['companyInfo']['name']
+                        ?? ''
+                    );
 
-                foreach ($all_exhibitors as $item) {
+                    if ($name === '') continue;
 
-                    $name    = trim(($item['companyInfo']['displayName'] ?? $item['companyInfo']['name'] ?? ''));
                     $nameKey = mb_strtolower($name);
-                    $stand   = $item['stand']['standNumber'] ?? '';
                     $logo    = $item['companyInfo']['logoUrl'] ?? '';
-                    $www     = $item['companyInfo']['website'] ?? '';
 
-                    // Skip without logo
                     if (empty($logo)) continue;
-
-                    // Skip duplicates by name
                     if (isset($usedNames[$nameKey])) continue;
+
                     $usedNames[$nameKey] = true;
 
                     $mapped[] = [
                         'name'  => $name,
-                        'stand' => $stand,
+                        'stand' => $item['stand']['standNumber'] ?? '',
                         'logo'  => $logo,
-                        'www'   => $www
+                        'www'   => $item['companyInfo']['website'] ?? ''
                     ];
                 }
-
-                // Shuffle
-                if ($shuffle) {
-                    shuffle($mapped);
-                }
-
-                // Limit
-                if (!empty($count)) {
-                    $mapped = array_slice($mapped, 0, $count);
-                }
-
-                return $mapped;
-            } catch (Throwable $e) {
-
-                error_log("[exhibitor_logos] " . $e->getMessage());
-
-                if (current_user_can('administrator')) {
-                    echo '<script>console.error("exhibitor_logos ERROR: ' . htmlentities($e->getMessage()) . '")</script>';
-                }
-
-                return [];
             }
-        } else if (!empty($catalog_id) && stripos($fair_date, 'nowa data') === false) {
 
-            $basic_exhibitors = [];
-            $data = [];
+            /**
+             * =========================================================
+             * PRIORITY 2: OLD CATALOG (old-pwe-exhibitors.json)
+             * =========================================================
+             */
+            elseif (!empty($catalog_ids_old)) {
 
-            $today = new DateTime();
-            $token = md5("#22targiexpo22@@@#" . $today->format('Y-m-d'));
-            $exh_catalog_address = PWE_Functions::get_database_meta_data('exh_catalog_address');
-            $can_url = $exh_catalog_address . $token . '&id_targow=' . intval($catalog_id);
+                $local_file = $_SERVER['DOCUMENT_ROOT']
+                    . '/wp-content/uploads/exhibitor-catalogs/old-pwe-exhibitors.json';
 
-            try {
-
-                // Attempting to read from a local file
-                $local_file = $_SERVER['DOCUMENT_ROOT'] . '/doc/pwe-exhibitors.json';
-
-                if (file_exists($local_file)) {
-
-                    $json = file_get_contents($local_file);
-                    $data = json_decode($json, true);
-
-                    if (!empty($data[$catalog_id]['Wystawcy'])) {
-                        $basic_exhibitors = $data[$catalog_id]['Wystawcy'];
-                    }
+                if (!file_exists($local_file)) {
+                    throw new Exception("Brak pliku: {$local_file}");
                 }
 
-                // No local data → we download from API
-                if (empty($basic_exhibitors)) {
+                $data = json_decode(file_get_contents($local_file), true);
 
-                    $context = stream_context_create([
-                        'http' => ['timeout' => 10]
-                    ]);
-
-                    $json = @file_get_contents($can_url, false, $context);
-                    if ($json === false) {
-                        throw new Exception("Nie można pobrać danych z API: {$can_url}");
-                    }
-
-                    $data = json_decode($json, true);
-                    if (!is_array($data)) {
-                        throw new Exception("Błąd dekodowania JSON z {$can_url}");
-                    }
-
-                    $first = reset($data);
-                    $basic_exhibitors = $first['Wystawcy'] ?? [];
+                if (!is_array($data)) {
+                    throw new Exception("Błędny JSON: old-pwe-exhibitors.json");
                 }
 
-                // Data mapping + filters + dupe removal
-                $mapped = [];
-                $usedNames = [];
+                if (empty($data[$catalog_ids_old]['Wystawcy'])) {
+                    return [];
+                }
 
-                foreach ($basic_exhibitors as $item) {
+                foreach ($data[$catalog_ids_old]['Wystawcy'] as $item) {
 
-                    $name    = trim($item['Nazwa_wystawcy'] ?? '');
+                    $name = trim($item['Nazwa_wystawcy'] ?? '');
+                    if ($name === '') continue;
+
                     $nameKey = mb_strtolower($name);
-                    $stand   = $item['Numer_stoiska'] ?? '';
                     $logo    = $item['URL_logo_wystawcy'] ?? '';
-                    $www     = $item['www'] ?? '';
 
                     if (empty($logo)) continue;
-
                     if (isset($usedNames[$nameKey])) continue;
+
                     $usedNames[$nameKey] = true;
 
                     $mapped[] = [
                         'name'  => $name,
-                        'stand' => $stand,
+                        'stand' => $item['Numer_stoiska'] ?? '',
                         'logo'  => $logo,
-                        'www'   => $www
+                        'www'   => $item['www'] ?? ''
                     ];
                 }
-
-                // Shuffle
-                if ($shuffle) {
-                    shuffle($mapped);
-                }
-
-                // Limit
-                if (!empty($count)) {
-                    $mapped = array_slice($mapped, 0, $count);
-                }
-
-                return $mapped;
-            } catch (Throwable $e) {
-
-                error_log("[exhibitor_logos] " . $e->getMessage());
-
-                if (current_user_can('administrator')) {
-                    echo '<script>console.error("exhibitor_logos ERROR: ' . htmlentities($e->getMessage()) . '")</script>';
-                }
-
-                return [];
             }
+
+            /**
+             * =========================================================
+             * FINAL PROCESSING
+             * =========================================================
+             */
+
+            if ($shuffle) {
+                shuffle($mapped);
+            }
+
+            if (!empty($count)) {
+                $mapped = array_slice($mapped, 0, $count);
+            }
+
+            return $mapped;
+
+        } catch (Throwable $e) {
+
+            error_log("[exhibitor_logos] " . $e->getMessage());
+
+            if (current_user_can('administrator')) {
+                echo '<script>console.error("exhibitor_logos ERROR: ' . htmlentities($e->getMessage()) . '")</script>';
+            }
+
+            return [];
         }
     }
 
 
 
     // <============================================================================================>
-    // Synchronized functions from plugin PWElements 3.4.6 (10.06.2026) <========================================================>
+    // Synchronized functions from plugin PWElements 3.4.6 (24.06.2026) <========================================================>
     // <============================================================================================>
 
 
