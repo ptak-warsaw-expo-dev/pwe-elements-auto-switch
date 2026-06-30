@@ -1,0 +1,248 @@
+body {
+    background-color: black;
+}
+
+.pwe-limit-width:has(.pwe-premieres-container) {
+    max-width: none !important;
+    padding: 0 !important;
+}
+
+.pwe-element-auto-switch.pwe-premieres-section {
+    background-color: #09090b;
+    padding: 6rem 0;
+    border-top: 1px solid #18181b;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.pwe-element-auto-switch .pwe-premieres-container {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.pwe-element-auto-switch .pwe-premieres__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 4rem;
+    gap: 1.5rem;
+}
+
+.pwe-element-auto-switch .pwe-premieres-container .swiper-pagination-bullet {
+    background-color: white !important;
+}
+
+.pwe-element-auto-switch .pwe-premieres__header .pwe-subtitle {
+    display: block;
+    color: color-mix(in srgb, var(--accent-color) 80%, #ffffff);
+    font-weight: 900;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    margin-bottom: 1rem;
+}
+
+.pwe-element-auto-switch .pwe-premieres__header .pwe-title {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+    margin: 0;
+    line-height: 1.1;
+}
+
+.pwe-element-auto-switch .pwe-premieres__header .swiper-buttons-arrows {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.25rem;
+}
+
+.pwe-element-auto-switch .pwe-premieres__header .swiper-button-prev,
+.pwe-element-auto-switch .pwe-premieres__header .swiper-button-next {
+    position: static !important;
+    margin-top: 0 !important;
+    width: 3rem !important;
+    height: 3rem !important;
+    background-color: #18181b !important;
+    border: 1px solid #27272a !important;
+    border-radius: 9999px !important;
+    color: #ffffff !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease !important;
+}
+
+.pwe-element-auto-switch .pwe-premieres__header .swiper-button-prev::after,
+.pwe-element-auto-switch .pwe-premieres__header .swiper-button-next::after {
+    display: none !important;
+}
+
+.pwe-element-auto-switch .pwe-premieres__header .swiper-button-prev:hover,
+.pwe-element-auto-switch .pwe-premieres__header .swiper-button-next:hover {
+    background-color: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+}
+
+.pwe-element-auto-switch .pwe-premieres__header .swiper-button-prev svg,
+.pwe-element-auto-switch .pwe-premieres__header .swiper-button-next svg {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.pwe-element-auto-switch .pwe-premieres__card.swiper-slide {
+    background-color: #18181b;
+    border: 1px solid #27272a;
+    border-radius: 2rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+}
+
+.pwe-element-auto-switch .pwe-premieres__image-wrapper {
+    width: 100%;
+    aspect-ratio: 16 / 11;
+    overflow: hidden;
+}
+
+.pwe-element-auto-switch .pwe-premieres__card {
+    min-height: 400px !important;
+}
+
+.pwe-element-auto-switch .pwe-premieres__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), filter 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pwe-element-auto-switch .pwe-premieres__card:hover .pwe-premieres__image {
+    filter: grayscale(0%);
+    transform: scale(1.1);
+}
+
+.pwe-element-auto-switch .pwe-premieres__card-body {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.pwe-element-auto-switch .pwe-premieres__meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.pwe-element-auto-switch .pwe-premieres__vendor-logo {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0.75rem;
+    padding: 0.35rem;
+    display: flex;
+}
+
+.pwe-element-auto-switch .pwe-premieres__vendor-logo img {
+    max-width: 80px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.pwe-element-auto-switch .pwe-premieres__vendor-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.pwe-element-auto-switch .pwe-premieres__company-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #e4e4e7;
+}
+
+.pwe-element-auto-switch .pwe-premieres__company-stand {
+    font-size: 0.75rem;
+    color: #a1a1aa;
+}
+
+.pwe-element-auto-switch .pwe-premieres__company-stand span {
+    color: color-mix(in srgb, var(--accent-color) 80%, #ffffff);
+    font-weight: 700;
+}
+
+.pwe-element-auto-switch .pwe-premieres__premiere-name {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+    margin: 0 0 0.5rem 0;
+}
+
+.pwe-element-auto-switch .pwe-premieres__premiere-desc {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #a1a1aa;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+    min-height: auto !important;
+}
+
+.pwe-element-auto-switch .pwe-premieres__action {
+    display: flex;
+    align-items: center;
+    color: var(--accent-color);
+    font-weight: 900;
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    margin-top: auto;
+}
+
+.pwe-element-auto-switch .pwe-premieres__arrow-icon {
+    width: 1rem;
+    height: 1rem;
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.pwe-element-auto-switch .pwe-premieres__card:hover .pwe-premieres__arrow-icon {
+    transform: translateX(6px);
+}
+
+.pwe-element-auto-switch .swiper-nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5rem;
+}
+
+.pwe-element-auto-switch .swiper-dots .swiper-pagination-bullet {
+    background: #27272a !important;
+    opacity: 1 !important;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px !important;
+    transition: all 0.3s ease;
+}
+
+.pwe-element-auto-switch .swiper-dots .swiper-pagination-bullet-active {
+    background: var(--accent-color) !important;
+    transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+    .pwe-element-auto-switch .pwe-premieres__header {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 2.5rem;
+        gap: 1rem;
+    }
+
+    .pwe-element-auto-switch .pwe-premieres__header .pwe-title {
+        font-size: 2.25rem;
+    }
+}

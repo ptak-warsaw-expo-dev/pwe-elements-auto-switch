@@ -13,7 +13,7 @@ $output = '
     <div class="swiper">
         <div class="swiper-wrapper">';
 
-            foreach ($slides as $slide) { 
+            foreach ($slides as $slide) {
                 $output .= '
                         <div class="swiper-slide">
                             <div class="pwe-premieres__slide">
@@ -40,7 +40,7 @@ $output = '
                                                 <div class="pwe-premieres__company-name">'.$slide['exhibitor'].'</div>
                                             </div>
                                         </div>
-                                    
+
                                         <h3 class="pwe-premieres__premiere-name">'.$slide['name'].'</h3>
                                         <div class="pwe-premieres__premiere-desc">'.$slide['desc'].'</div>
                                     </div>
@@ -56,7 +56,7 @@ $output = '
                                             <div class="swiper-button-next">⏵</div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>';
