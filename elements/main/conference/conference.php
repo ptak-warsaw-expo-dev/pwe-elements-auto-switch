@@ -16,25 +16,49 @@ class Conference {
             }
         }
 
-        $presets = $useSchedule
-            ? [
-                'gr1' => plugin_dir_path(__FILE__) . 'presets/gr1-shedule/preset.php',
-                'gr2' => plugin_dir_path(__FILE__) . 'presets/gr2-shedule/preset.php',
-            ]
-            : [
-                'gr1'  => plugin_dir_path(__FILE__) . 'presets/gr1/preset.php',
-                'gr2'  => plugin_dir_path(__FILE__) . 'presets/gr2/preset.php',
-                'week' => plugin_dir_path(__FILE__) . 'presets/week/preset.php',
-            ];
+        $home_fairs = [
+            'warsawhome.eu',
+            'warsawhomefurniture.com',
+            'warsawhometextile.com',
+            'warsawhomelight.com',
+            'warsawhomekitchen.com',
+            'warsawhomebathroom.com',
+            'warsawbuild.eu'
+        ];
 
-        // Nadpisanie presetu dla konkretnej domeny
-        if (strpos($domain, 'warsawsecuritydefenceexpo.com') !== false) {
-            $presets = [
-                'gr2'  => plugin_dir_path(__FILE__) . 'presets/gr2/preset.php',
-            ];
-            $useSchedule = true;
+        $is_home_fair = false;
+        foreach ($home_fairs as $fair) {
+            if (strpos($domain, $fair) !== false) {
+                $is_home_fair = true;
+                break;
+            }
         }
 
+        if (strpos($domain, 'warsawsecuritydefenceexpo.com') !== false) {
+            $presets = [
+                'gr2' => plugin_dir_path(__FILE__) . 'presets/gr2/preset.php',
+            ];
+            $useSchedule = true;
+
+        } elseif ($is_home_fair) {
+            $presets = [
+                'gr2' => plugin_dir_path(__FILE__) . 'presets/gr2-home/preset.php',
+            ];
+            $useSchedule = false;
+
+        } else {
+            // default logic
+            $presets = $useSchedule
+                ? [
+                    'gr1' => plugin_dir_path(__FILE__) . 'presets/gr1-shedule/preset.php',
+                    'gr2' => plugin_dir_path(__FILE__) . 'presets/gr2-shedule/preset.php',
+                ]
+                : [
+                    'gr1'  => plugin_dir_path(__FILE__) . 'presets/gr1/preset.php',
+                    'gr2'  => plugin_dir_path(__FILE__) . 'presets/gr2/preset.php',
+                    'week' => plugin_dir_path(__FILE__) . 'presets/week/preset.php',
+                ];
+        }
 
         return [
             'types'       => ['main'],
@@ -209,19 +233,38 @@ class Conference {
         $element_slug = strtolower(str_replace('_', '-', __CLASS__));
         $domain = parse_url(site_url(), PHP_URL_HOST);
 
-
         // Add context to translations function
         PWE_Functions::set_translation_context($element_slug, $group, $element_type);
         // Global assets
         PWE_Functions::assets_per_element($element_slug, $element_type);
 
-        // Assets per group (schedule vs normal)
+        $home_fairs = [
+            'warsawhome.eu',
+            'warsawhomefurniture.com',
+            'warsawhometextile.com',
+            'warsawhomelight.com',
+            'warsawhomekitchen.com',
+            'warsawhomebathroom.com',
+            'warsawbuild.eu'
+        ];
+
+        $is_home_fair = false;
+        foreach ($home_fairs as $fair) {
+            if (strpos($domain, $fair) !== false) {
+                $is_home_fair = true;
+                break;
+            }
+        }
+
+        // Assets per group
         if ($useSchedule) {
             if (strpos($domain, 'warsawsecuritydefenceexpo.com') !== false) {
                 PWE_Functions::assets_per_group($element_slug, $group, $element_type);
             } else {
                 PWE_Functions::assets_per_group($element_slug, $group .'-shedule', $element_type);
             }
+        } else if ($is_home_fair) {
+            PWE_Functions::assets_per_group($element_slug, $group .'-home', $element_type);
         } else {
             PWE_Functions::assets_per_group($element_slug, $group, $element_type);
         }

@@ -9,6 +9,7 @@ class Exhibitors {
             'presets' => [
                 'gr1' => plugin_dir_path(__FILE__) . 'presets/gr1/preset.php',
                 'gr2' => plugin_dir_path(__FILE__) . 'presets/gr2/preset.php',
+                'b2c-new' => plugin_dir_path(__FILE__) . 'presets/b2c-new/preset.php',
                 'week' => plugin_dir_path(__FILE__) . 'presets/week/preset.php',
             ],
         ];
@@ -28,16 +29,16 @@ class Exhibitors {
 
         $preset_file = self::get_data()['presets'][$group] ?? null;
         if ($preset_file && file_exists($preset_file)) {
-            
+
             /* <-------------> General code start <-------------> */
-           
+
             $katalog_id = do_shortcode('[pwe_catalog]');
 
             if ($group === "gr1") {
                 $exhibitors = PWE_Functions::exhibitor_logos(16);
             } else {
                 $exhibitors = PWE_Functions::exhibitor_logos(30);
-            } 
+            }
 
             if (!is_array($exhibitors)) {
                 $exhibitors = [];
@@ -52,18 +53,18 @@ class Exhibitors {
                 });
             }
             // Temporary <----------------------------------------------------------<
-            
+
             if (count($exhibitors) < 16) {
                 echo '<style>.exhibitors-'. $group .'{display:none;}</style>';
                 return;
             }
 
             /* <-------------> General code end <-------------> */
-            
+
             $output = include $preset_file;
-            
+
             if ($output) {
-                echo $output;         
+                echo $output;
             }
         }
     }

@@ -9,55 +9,56 @@ class About {
             'presets' => [
                 'gr1' => plugin_dir_path(__FILE__) . 'presets/gr1/preset.php',
                 'gr2' => plugin_dir_path(__FILE__) . 'presets/gr2/preset.php',
+                'b2c-new' => plugin_dir_path(__FILE__) . 'presets/b2c-new/preset.php',
                 'week' => plugin_dir_path(__FILE__) . 'presets/week/preset.php',
             ],
         ];
     }
 
-    private static function getExhibitorsData(): array {
-        $merge_exhibitors = [];
-        $logos = [];
+    // private static function getExhibitorsData(): array {
+    //     $merge_exhibitors = [];
+    //     $logos = [];
 
-        // Pobranie katalogu — dopasuj do swojej implementacji
-        $exhibitors = CatalogFunctions::logosChecker(
-            do_shortcode('[trade_fair_catalog]'),
-            'PWECatalog21',
-            false,
-            null,
-            false
-        );
+    //     // Pobranie katalogu — dopasuj do swojej implementacji
+    //     $exhibitors = CatalogFunctions::logosChecker(
+    //         do_shortcode('[trade_fair_catalog]'),
+    //         'PWECatalog21',
+    //         false,
+    //         null,
+    //         false
+    //     );
 
-        if (is_array($exhibitors)) {
-            foreach ($exhibitors as $exhibitor) {
-                $merge_exhibitors[] = $exhibitor;
+    //     if (is_array($exhibitors)) {
+    //         foreach ($exhibitors as $exhibitor) {
+    //             $merge_exhibitors[] = $exhibitor;
 
-                // Pola dopasuj do realnej struktury
-                $logoName = $exhibitor['Nazwa_wystawcy'] ?? '';
-                $logoUrl  = $exhibitor['URL_logo_wystawcy'] ?? '';
+    //             // Pola dopasuj do realnej struktury
+    //             $logoName = $exhibitor['Nazwa_wystawcy'] ?? '';
+    //             $logoUrl  = $exhibitor['URL_logo_wystawcy'] ?? '';
 
-                if ($logoUrl && filter_var($logoUrl, FILTER_VALIDATE_URL)) {
-                    $logos[] = [
-                        'url'  => $logoUrl,
-                        'name' => $logoName,
-                    ];
-                }
-            }
-        }
+    //             if ($logoUrl && filter_var($logoUrl, FILTER_VALIDATE_URL)) {
+    //                 $logos[] = [
+    //                     'url'  => $logoUrl,
+    //                     'name' => $logoName,
+    //                 ];
+    //             }
+    //         }
+    //     }
 
-        $count = count($merge_exhibitors);
+    //     $count = count($merge_exhibitors);
 
-        if (!empty($logos)) {
-            shuffle($logos);
-            $logos = array_slice($logos, 0, 21);
-        }
+    //     if (!empty($logos)) {
+    //         shuffle($logos);
+    //         $logos = array_slice($logos, 0, 21);
+    //     }
 
-        return [
-            'count'      => $count,
-            'has_many'   => $count > 9,
-            'logos'      => $logos,
-            'exhibitors' => $merge_exhibitors,
-        ];
-    }
+    //     return [
+    //         'count'      => $count,
+    //         'has_many'   => $count > 9,
+    //         'logos'      => $logos,
+    //         'exhibitors' => $merge_exhibitors,
+    //     ];
+    // }
 
     public static function render($group = '', $params = [], $atts = []) {
         $data = self::get_data();
@@ -77,7 +78,7 @@ class About {
             /* <-------------> General code start <-------------> */
 
             $b2c = isset($atts['b2c']) ? $atts['b2c'] : false;
- 
+
             $selected_lang = PWE_Functions::lang();
 
             $title = do_shortcode('[pwe_about_title_'. $selected_lang .']');
@@ -88,21 +89,21 @@ class About {
             }
 
             $img = '
-            <img class="pwe-about__img" src="' 
-                . (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/new_template/fair_img.webp') 
-                    ? 'https://'. $_SERVER['HTTP_HOST'] . '/doc/new_template/fair_img.webp' 
-                    : content_url('plugins/pwe-media/media/main-page/fair_img.webp')) 
-                . '" alt="' 
+            <img class="pwe-about__img" src="'
+                . (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/new_template/fair_img.webp')
+                    ? 'https://'. $_SERVER['HTTP_HOST'] . '/doc/new_template/fair_img.webp'
+                    : content_url('plugins/pwe-media/media/main-page/fair_img.webp'))
+                . '" alt="'
                 . PWE_Functions::languageChecker(
                     'Odwiedzający na targach ' . do_shortcode('[trade_fair_name]'),
                     'Visitors at the ' . do_shortcode('[trade_fair_name_eng]')
-                ) 
+                )
             . '">';
 
             $exhibitors_data = PWE_Functions::exhibitor_logos(9);
 
             $logotypes = [];
-            
+
             foreach ($exhibitors_data as $exhibitor) {
                 $logotypes[] = $exhibitor['logo'];
             }
@@ -110,9 +111,9 @@ class About {
             /* <-------------> General code end <-------------> */
 
             $output = include $preset_file;
-            
+
             if ($output) {
-                echo $output;         
+                echo $output;
             }
         }
     }
