@@ -11,6 +11,7 @@ class PWE_Groups {
             'gr2' => [],
             'gr3' => [],
             'b2c' => [],
+            'b2c-new' => [],
             'week' => [],
         ];
 
@@ -34,7 +35,7 @@ class PWE_Groups {
             if ( in_array( $host, $domains, true ) ) {
 
                 // Temporary <---------------------------------<
-                if ($group !== 'gr1') {
+                if ($group !== 'gr1' && $group !== 'b2c-new') {
                     return 'gr2';
                 }
                 // Temporary <---------------------------------<

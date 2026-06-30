@@ -86,6 +86,7 @@ class PWE_Shortcodes {
             'trade_fair_contact' => 'show_trade_fair_contact',
             'trade_fair_contact_tech' => 'show_trade_fair_contact_tech',
             'trade_fair_contact_media' => 'show_trade_fair_contact_media',
+            'trade_fair_contact_vip' => 'show_trade_fair_contact_vip',
             'trade_fair_lidy' => 'show_trade_fair_lidy',
             'trade_fair_group' => 'show_trade_fair_group',
 
@@ -157,6 +158,7 @@ class PWE_Shortcodes {
             'trade_fair_contact' => 'show_trade_fair_contact',
             'trade_fair_contact_tech' => 'show_trade_fair_contact_tech',
             'trade_fair_contact_media' => 'show_trade_fair_contact_media',
+            'trade_fair_contact_vip' => 'show_trade_fair_contact_vip',
             'trade_fair_lidy' => 'show_trade_fair_lidy',
             'trade_fair_registration_benefits_pl' => 'show_trade_fair_registration_benefits_pl',
             'trade_fair_registration_benefits_en' => 'show_trade_fair_registration_benefits_en',
@@ -561,6 +563,7 @@ class PWE_Shortcodes {
             'trade_fair_contact' => 'Adres email do formularza kontaktu<hr><p>[trade_fair_contact]</p>',
             'trade_fair_contact_tech' => 'Adres email do formularza kontaktu działu technicznego<hr><p>[trade_fair_contact_tech]</p>',
             'trade_fair_contact_media' => 'Adres email do formularza kontaktu działu marketingowego i media<hr><p>[trade_fair_contact_media]</p>',
+            'trade_fair_contact_vip' => 'Adres email do wysyłania do kontaktu obsługi vip<hr><p>[trade_fair_contact_vip]</p>',
             'trade_fair_lidy' => 'Adres email do wysyłania lidów<hr><p>[trade_fair_lidy]</p>',
             'trade_fair_registration_benefits_pl' => 'Benefity rejestracyjne PL<hr><p>[trade_fair_registration_benefits_pl]</p>',
             'trade_fair_registration_benefits_en' => 'Benefity rejestracyjne EN<hr><p>[trade_fair_registration_benefits_en]</p>',
@@ -1774,6 +1777,41 @@ class PWE_Shortcodes {
         <?php
     }
 
+    public function display_trade_fair_contact_vip() {
+        $pwe_groups_data = PWE_Functions::get_database_groups_data(); 
+        $pwe_groups_contacts_data = PWE_Functions::get_database_groups_contacts_data();  
+
+        // Get domain address
+        $current_domain = $_SERVER['HTTP_HOST'];
+
+        if (!empty($pwe_groups_data) && !empty($pwe_groups_contacts_data)) {
+            foreach ($pwe_groups_data as $group) {
+                if ($current_domain == $group->fair_domain) {
+                    foreach ($pwe_groups_contacts_data as $group_contact) {
+                        if ($group->fair_group == $group_contact->groups_name) {
+                            if ($group_contact->groups_slug == "obsluga-vip") {
+                                $vip_contact_data = json_decode($group_contact->groups_data);
+                                $vip_email = trim($vip_contact_data->email);
+                            }
+                        } 
+                    }
+                }
+            }
+        }
+
+        ?>
+            <div class="form-field full-tab-code-system">
+                <input 
+                    type="text" 
+                    name="trade_fair_contact_vip" 
+                    id="trade_fair_contact_vip" 
+                    value="<?php echo get_option('trade_fair_contact_vip'); ?>"
+                />
+                <p>"wartość domyślna -> <?php echo !empty($vip_email) ? $vip_email : ''; ?>"</p>
+            </div>
+        <?php
+    }
+
     public function days_difference() {
         $trade_fair_date = do_shortcode('[trade_fair_date_custom_format]');
         
@@ -2470,6 +2508,34 @@ class PWE_Shortcodes {
 
         return $result;
     }    
+
+    public function show_trade_fair_contact_vip() {
+        $pwe_groups_data = PWE_Functions::get_database_groups_data(); 
+        $pwe_groups_contacts_data = PWE_Functions::get_database_groups_contacts_data();  
+
+        // Get domain address
+        $current_domain = $_SERVER['HTTP_HOST'];
+        $result = '';
+
+        if (!empty($pwe_groups_data) && !empty($pwe_groups_contacts_data)) {
+            foreach ($pwe_groups_data as $group) {
+                if ($current_domain == $group->fair_domain) {
+                    foreach ($pwe_groups_contacts_data as $group_contact) {
+                        if ($group->fair_group == $group_contact->groups_name) {
+                            if ($group_contact->groups_slug == "obsluga-vip") {
+                                $vip_contact_data = json_decode($group_contact->groups_data);
+                                $vip_email = trim($vip_contact_data->email);
+                            }
+                        } 
+                    }
+                }
+            }
+        }
+
+        $result = !empty($vip_email) ? $vip_email : get_option('trade_fair_contact_vip');
+
+        return $result;
+    } 
 
     public function show_trade_fair_group() {
         $pwe_groups_data = PWE_Functions::get_database_groups_data(); 

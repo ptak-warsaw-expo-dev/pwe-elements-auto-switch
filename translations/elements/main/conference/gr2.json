@@ -13,8 +13,21 @@
     "schedule_date": "Termin",
     "schedule_reg_url": "/rejestracja/",
     "schedule_reg_text": "Weź udział",
-    "schedule_find_more": "Dowiedz się więcej"
+    "schedule_find_more": "Dowiedz się więcej",
+
+    "home_title": "Design Decade Summit to trzydniowe wydarzenie poświęcone przyszłości designu, architektury, wnętrz, lifestyle’u i biznesu.",
+    "home_desc": "Łączymy projektantów, architektów, producentów i inwestorów. Inspirujemy do działania, wyznaczamy kierunki i tworzymy przestrzeń dla ważnych rozmów o przyszłości designu.",
+    "home_btn": "DOWIEDZ SIĘ WIĘCEJ",
+    "home_icon_title_panel": "PANEL DYSKUSYJNY",
+    "home_icon_title_trends": "EKSPERCI I TRENDY",
+    "home_icon_title_networking": "NETWORKING",
+    "home_icon_title_anniversary": "JUBILEUSZ 10-LECIA",
+    "home_icon_desc_panel": "Rozmowy z liderami branży o designie i przyszłości.",
+    "home_icon_desc_trends": "Inspirujące prelekcje, które wyznaczają kierunki zmian.",
+    "home_icon_desc_networking": "Spotkania i relacje, które mają znaczenie.",
+    "home_icon_desc_anniversary": "Wyjątkowe wydarzenie świętujące dekadę inspiracji"
   },
+
   "en_US": {
     "conference": "Conference",
     "reg_url": "/en/registration/",
@@ -29,8 +42,21 @@
     "schedule_date": "Deadline",
     "schedule_reg_url": "/en/registration/",
     "schedule_reg_text": "Take a part",
-    "schedule_find_more": "Find out more"
+    "schedule_find_more": "Find out more",
+
+    "home_title": "Design Decade Summit is a three-day event dedicated to the future of design, architecture, interiors, lifestyle and business.",
+    "home_desc": "We connect designers, architects, manufacturers and investors. We inspire action, set directions and create a space for important conversations about the future of design.",
+    "home_btn": "LEARN MORE",
+    "home_icon_title_panel": "PANEL DISCUSSION",
+    "home_icon_title_trends": "EXPERTS AND TRENDS",
+    "home_icon_title_networking": "NETWORKING",
+    "home_icon_title_anniversary": "10TH ANNIVERSARY",
+    "home_icon_desc_panel": "Conversations with industry leaders about design and the future.",
+    "home_icon_desc_trends": "Inspiring talks that set directions for change.",
+    "home_icon_desc_networking": "Meetings and relationships that matter.",
+    "home_icon_desc_anniversary": "A special event celebrating a decade of inspiration"
   },
+
   "cs_CZ": {
     "conference": "Konference",
     "reg_url": "/cs/registrace/",
@@ -45,8 +71,21 @@
     "schedule_date": "Termín",
     "schedule_reg_url": "/cs/registrace/",
     "schedule_reg_text": "Zúčastněte se",
-    "schedule_find_more": "Zjistit více"
+    "schedule_find_more": "Zjistit více",
+
+    "home_title": "Design Decade Summit je třídenní událost věnovaná budoucnosti designu, architektury, interiérů, životního stylu a byznysu.",
+    "home_desc": "Spojujeme designéry, architekty, výrobce a investory. Inspirujeme k akci, určujeme směr a vytváříme prostor pro důležité diskuse o budoucnosti designu.",
+    "home_btn": "ZJISTIT VÍCE",
+    "home_icon_title_panel": "PANELOVÁ DISKUSE",
+    "home_icon_title_trends": "ODBORNÍCI A TRENDY",
+    "home_icon_title_networking": "NETWORKING",
+    "home_icon_title_anniversary": "10. VÝROČÍ",
+    "home_icon_desc_panel": "Diskuse s lídry oboru o designu a budoucnosti.",
+    "home_icon_desc_trends": "Inspirativní přednášky, které určují směr změn.",
+    "home_icon_desc_networking": "Setkání a vztahy, na kterých záleží.",
+    "home_icon_desc_anniversary": "Výjimečná událost oslavující dekádu inspirace"
   },
+
   "de_DE": {
     "conference": "Konferenz",
     "reg_url": "/de/anmeldung/",
@@ -61,8 +100,21 @@
     "schedule_date": "Termin",
     "schedule_reg_url": "/de/anmeldung/",
     "schedule_reg_text": "Teilnehmen",
-    "schedule_find_more": "Mehr erfahren"
+    "schedule_find_more": "Mehr erfahren",
+
+    "home_title": "Der Design Decade Summit ist eine dreitägige Veranstaltung, die der Zukunft von Design, Architektur, Innenräumen, Lifestyle und Business gewidmet ist.",
+    "home_desc": "Wir verbinden Designer, Architekten, Hersteller und Investoren. Wir inspirieren zum Handeln, setzen Richtungen und schaffen Raum für wichtige Gespräche über die Zukunft des Designs.",
+    "home_btn": "MEHR ERFAHREN",
+    "home_icon_title_panel": "PODIUMSDISKUSSION",
+    "home_icon_title_trends": "EXPERTEN UND TRENDS",
+    "home_icon_title_networking": "NETWORKING",
+    "home_icon_title_anniversary": "10-JÄHRIGES JUBILÄUM",
+    "home_icon_desc_panel": "Gespräche mit Branchenführern über Design und Zukunft.",
+    "home_icon_desc_trends": "Inspirierende Vorträge, die Veränderungen anstoßen.",
+    "home_icon_desc_networking": "Treffen und Beziehungen, die zählen.",
+    "home_icon_desc_anniversary": "Ein besonderes Event zur Feier eines Jahrzehnts Inspiration"
   },
+
   "it_IT": {
     "conference": "Conferenza",
     "reg_url": "/it/registrazione/",
@@ -77,8 +129,21 @@
     "schedule_date": "Data",
     "schedule_reg_url": "/it/registrazione/",
     "schedule_reg_text": "Partecipa",
-    "schedule_find_more": "Scopri di più"
+    "schedule_find_more": "Scopri di più",
+
+    "home_title": "Design Decade Summit è un evento di tre giorni dedicato al futuro del design, dell'architettura, degli interni, dello stile di vita e del business.",
+    "home_desc": "Colleghiamo designer, architetti, produttori e investitori. Ispiriamo all'azione, definiamo direzioni e creiamo uno spazio per conversazioni importanti sul futuro del design.",
+    "home_btn": "SCOPRI DI PIÙ",
+    "home_icon_title_panel": "PANEL DI DISCUSSIONE",
+    "home_icon_title_trends": "ESPERTI E TENDENZE",
+    "home_icon_title_networking": "NETWORKING",
+    "home_icon_title_anniversary": "10° ANNIVERSARIO",
+    "home_icon_desc_panel": "Conversazioni con leader del settore su design e futuro.",
+    "home_icon_desc_trends": "Interventi ispiranti che definiscono il cambiamento.",
+    "home_icon_desc_networking": "Incontri e relazioni che contano.",
+    "home_icon_desc_anniversary": "Un evento speciale che celebra un decennio di ispirazione"
   },
+
   "lt_LT": {
     "conference": "Konferencija",
     "reg_url": "/lt/registracija/",
@@ -93,8 +158,21 @@
     "schedule_date": "Data",
     "schedule_reg_url": "/lt/registracija/",
     "schedule_reg_text": "Dalyvaukite",
-    "schedule_find_more": "Sužinokite daugiau"
+    "schedule_find_more": "Sužinokite daugiau",
+
+    "home_title": "Design Decade Summit – tai trijų dienų renginys, skirtas dizaino, architektūros, interjerų, gyvenimo būdo ir verslo ateičiai.",
+    "home_desc": "Sujungiame dizainerius, architektus, gamintojus ir investuotojus. Įkvepiame veikti, nustatome kryptis ir kuriame erdvę svarbiems pokalbiams apie dizaino ateitį.",
+    "home_btn": "SUŽINOTI DAUGIAU",
+    "home_icon_title_panel": "DISKUSIJŲ PANELĖ",
+    "home_icon_title_trends": "EKSPERTAI IR TENDENCIJOS",
+    "home_icon_title_networking": "TINKLAVEIKA",
+    "home_icon_title_anniversary": "10 METŲ JUBILIEJUS",
+    "home_icon_desc_panel": "Pokalbiai su industrijos lyderiais apie dizainą ir ateitį.",
+    "home_icon_desc_trends": "Įkvepiantys pranešimai, kurie nustato pokyčių kryptį.",
+    "home_icon_desc_networking": "Susitikimai ir ryšiai, kurie svarbūs.",
+    "home_icon_desc_anniversary": "Išskirtinis renginys, švenčiantis dešimtmetį įkvėpimo"
   },
+
   "lv_LV": {
     "conference": "Konference",
     "reg_url": "/lv/registracija/",
@@ -109,8 +187,21 @@
     "schedule_date": "Datums",
     "schedule_reg_url": "/lv/registracija/",
     "schedule_reg_text": "Piedalieties",
-    "schedule_find_more": "Uzzināt vairāk"
+    "schedule_find_more": "Uzzināt vairāk",
+
+    "home_title": "Design Decade Summit ir trīs dienu pasākums, kas veltīts dizaina, arhitektūras, interjera, dzīvesstila un biznesa nākotnei.",
+    "home_desc": "Savienojam dizainerus, arhitektus, ražotājus un investorus. Iedvesmojam rīkoties, nosakām virzienus un veidojam telpu svarīgām sarunām par dizaina nākotni.",
+    "home_btn": "UZZINĀT VAIRĀK",
+    "home_icon_title_panel": "DISKUSIJU PANELIS",
+    "home_icon_title_trends": "EKSPERTI UN TENDENCES",
+    "home_icon_title_networking": "TĪKLOŠANĀS",
+    "home_icon_title_anniversary": "10 GADU JUBILEJA",
+    "home_icon_desc_panel": "Sarunas ar nozares līderiem par dizainu un nākotni.",
+    "home_icon_desc_trends": "Iedvesmojošas prezentācijas, kas nosaka pārmaiņu virzienu.",
+    "home_icon_desc_networking": "Tikšanās un attiecības, kas ir svarīgas.",
+    "home_icon_desc_anniversary": "Īpašs pasākums, kas svin desmit gadu iedvesmu"
   },
+
   "sk_SK": {
     "conference": "Konferencia",
     "reg_url": "/sk/registracia/",
@@ -125,8 +216,21 @@
     "schedule_date": "Termín",
     "schedule_reg_url": "/sk/registracia/",
     "schedule_reg_text": "Zúčastnite sa",
-    "schedule_find_more": "Zistiť viac"
+    "schedule_find_more": "Zistiť viac",
+
+    "home_title": "Design Decade Summit je trojdňové podujatie venované budúcnosti dizajnu, architektúry, interiérov, životného štýlu a biznisu.",
+    "home_desc": "Spojujeme dizajnérov, architektov, výrobcov a investorov. Inšpirujeme k činom, určujeme smery a vytvárame priestor pre dôležité diskusie o budúcnosti dizajnu.",
+    "home_btn": "ZISTIŤ VIAC",
+    "home_icon_title_panel": "PANELOVÁ DISKUSIA",
+    "home_icon_title_trends": "ODBORNÍCI A TRENDY",
+    "home_icon_title_networking": "NETWORKING",
+    "home_icon_title_anniversary": "10. VÝROČIE",
+    "home_icon_desc_panel": "Diskusie s lídrami odvetvia o dizajne a budúcnosti.",
+    "home_icon_desc_trends": "Inšpiratívne prednášky, ktoré určujú smer zmien.",
+    "home_icon_desc_networking": "Stretnutia a vzťahy, na ktorých záleží.",
+    "home_icon_desc_anniversary": "Výnimočné podujatie oslavujúce dekádu inšpirácie"
   },
+
   "uk": {
     "conference": "Конференція",
     "reg_url": "/uk/reyestraciya/",
@@ -141,8 +245,21 @@
     "schedule_date": "Дата",
     "schedule_reg_url": "/uk/reyestraciya/",
     "schedule_reg_text": "Взяти участь",
-    "schedule_find_more": "Дізнатися більше"
+    "schedule_find_more": "Дізнатися більше",
+
+    "home_title": "Design Decade Summit — це триденний захід, присвячений майбутньому дизайну, архітектури, інтер’єрів, стилю життя та бізнесу.",
+    "home_desc": "Ми об’єднуємо дизайнерів, архітекторів, виробників та інвесторів. Надихаємо на дії, задаємо напрямки та створюємо простір для важливих розмов про майбутнє дизайну.",
+    "home_btn": "ДІЗНАТИСЯ БІЛЬШЕ",
+    "home_icon_title_panel": "ПАНЕЛЬНА ДИСКУСІЯ",
+    "home_icon_title_trends": "ЕКСПЕРТИ ТА ТРЕНДИ",
+    "home_icon_title_networking": "НЕТВОРКІНГ",
+    "home_icon_title_anniversary": "10-РІЧЧЯ",
+    "home_icon_desc_panel": "Обговорення з лідерами галузі про дизайн і майбутнє.",
+    "home_icon_desc_trends": "Натхненні виступи, що задають напрям змін.",
+    "home_icon_desc_networking": "Зустрічі та зв’язки, що мають значення.",
+    "home_icon_desc_anniversary": "Особлива подія, що святкує десятиліття натхнення"
   },
+
   "ro_RO": {
     "conference": "Conferință",
     "reg_url": "/ro/registrare/",
@@ -157,8 +274,21 @@
     "schedule_date": "Termen",
     "schedule_reg_url": "/ro/registrare/",
     "schedule_reg_text": "Participați",
-    "schedule_find_more": "Aflați mai multe"
+    "schedule_find_more": "Aflați mai multe",
+
+    "home_title": "Design Decade Summit este un eveniment de trei zile dedicat viitorului designului, arhitecturii, interioarelor, stilului de viață și afacerilor.",
+    "home_desc": "Conectăm designeri, arhitecți, producători și investitori. Inspirăm acțiunea, stabilim direcții și creăm un spațiu pentru conversații importante despre viitorul designului.",
+    "home_btn": "AFLĂ MAI MULTE",
+    "home_icon_title_panel": "PANEL DE DISCUȚII",
+    "home_icon_title_trends": "EXPERȚI ȘI TENDINȚE",
+    "home_icon_title_networking": "NETWORKING",
+    "home_icon_title_anniversary": "10-A ANIVERSARE",
+    "home_icon_desc_panel": "Discuții cu lideri din industrie despre design și viitor.",
+    "home_icon_desc_trends": "Prezentări inspiraționale care stabilesc direcții de schimbare.",
+    "home_icon_desc_networking": "Întâlniri și relații care contează.",
+    "home_icon_desc_anniversary": "Un eveniment special care sărbătorește un deceniu de inspirație"
   },
+
   "et": {
     "conference": "Konverents",
     "reg_url": "/et/registreerimine/",
@@ -173,6 +303,18 @@
     "schedule_date": "Tähtpäev",
     "schedule_reg_url": "/et/registreerimine/",
     "schedule_reg_text": "Osale",
-    "schedule_find_more": "Loe lisaks"
+    "schedule_find_more": "Loe lisaks",
+
+    "home_title": "Design Decade Summit on kolmepäevane üritus, mis on pühendatud disaini, arhitektuuri, interjööride, elustiili ja äri tulevikule.",
+    "home_desc": "Me ühendame disainereid, arhitekte, tootjaid ja investoreid. Inspireerime tegutsema, määrame suundi ja loome ruumi olulisteks vestlusteks disaini tuleviku üle.",
+    "home_btn": "ROHKEM TEAVET",
+    "home_icon_title_panel": "PANEELDISKUSSIOON",
+    "home_icon_title_trends": "EKSPERDID JA TRENDID",
+    "home_icon_title_networking": "VÕRGUSTUMINE",
+    "home_icon_title_anniversary": "10. AASTAPÄEV",
+    "home_icon_desc_panel": "Arutelud valdkonna juhtidega disaini ja tuleviku üle.",
+    "home_icon_desc_trends": "Inspireerivad ettekanded, mis määravad muutuste suuna.",
+    "home_icon_desc_networking": "Kohtumised ja suhted, mis loevad.",
+    "home_icon_desc_anniversary": "Eriline sündmus, mis tähistab kümmet inspiratsiooni aastat"
   }
 }

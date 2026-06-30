@@ -21,7 +21,7 @@ class PWE_Elements_Data {
     public static function get_elements_order_from_db() {
         // $db_elements_data = PWE_Functions::get_database_elements_data();
         $db_elements_order_data = PWE_Functions::get_database_elements_order_data();
-        
+
         if (empty($db_elements_order_data)) {
             return [];
         }
@@ -120,30 +120,32 @@ class PWE_Elements_Data {
      */
     private static $elements_files = [
         'main' => [
-            ['class' => 'Header',           'file' => 'elements/main/header/header.php',                   'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1, 'week' => 1]],
-            ['class' => 'Countdown',        'file' => 'elements/main/countdown/countdown.php',             'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2, 'week' => 1]],
-            // ['class' => 'Combined_Events',  'file' => 'elements/main/combined-events/combined-events.php', 'order' => ['gr1' => 2, 'gr2' => 0, 'b2c' => 2, 'week' => 1]],
-            ['class' => 'About',            'file' => 'elements/main/about/about.php',                     'order' => ['gr1' => 3, 'gr2' => 3, 'b2c' => 3, 'week' => 1]],
-            ['class' => 'Sectors',            'file' => 'elements/main/sectors/sectors.php',               'order' => ['gr1' => 3, 'gr2' => 3, 'b2c' => 3, 'week' => 1]],
-            ['class' => 'Conference',       'file' => 'elements/main/conference/conference.php',           'order' => ['gr1' => 4, 'gr2' => 5, 'b2c' => 4, 'week' => 1]],
-            ['class' => 'Speakers',         'file' => 'elements/main/speakers/speakers.php',               'order' => ['gr1' => 4, 'gr2' => 5, 'b2c' => 4, 'week' => 1]],
-            ['class' => 'Guests',           'file' => 'elements/main/guests/guests.php',                    'order' => ['gr1' => 4, 'gr2' => 5, 'b2c' => 4, 'week' => 1]],
-            ['class' => 'Premieres',        'file' => 'elements/main/premieres/premieres.php',             'order' => ['gr1' => 0, 'gr2' => 5, 'b2c' => 0, 'week' => 1]],
-            ['class' => 'Opinions',         'file' => 'elements/main/opinions/opinions.php',               'order' => ['gr1' => 13, 'gr2' => 12, 'b2c' => 5, 'week' => 1]],
-            ['class' => 'Exhibitors',       'file' => 'elements/main/exhibitors/exhibitors.php',           'order' => ['gr1' => 7, 'gr2' => 4, 'b2c' => 6, 'week' => 1]],
-            ['class' => 'Logotypes',        'file' => 'elements/main/logotypes/logotypes.php',             'order' => ['gr1' => 8, 'gr2' => 7, 'b2c' => 0, 'week' => 1],        'params' => ['slug' => 'patrons-partners-international']],
-            ['class' => 'Logotypes',        'file' => 'elements/main/logotypes/logotypes.php',             'order' => ['gr1' => 9, 'gr2' => 8, 'b2c' => 8, 'week' => 1],        'params' => ['slug' => 'patrons-partners']],
-            ['class' => 'Statistics',       'file' => 'elements/main/statistics/statistics.php',           'order' => ['gr1' => 5, 'gr2' => 6, 'b2c' => 10, 'week' => 1]],
-            ['class' => 'Logotypes',        'file' => 'elements/main/logotypes/logotypes.php',             'order' => ['gr1' => 6, 'gr2' => 0, 'b2c' => 0, 'week' => 1],     'params' => ['slug' => 'patrons-partners-pwe']],
-            ['class' => 'Halls',            'file' => 'elements/main/halls/halls.php',                     'order' => ['gr1' => 11, 'gr2' => 10, 'b2c' => 11, 'week' => 1]],
-            ['class' => 'Other_Events',     'file' => 'elements/main/other-events/other-events.php',       'order' => ['gr1' => 12, 'gr2' => 11, 'b2c' => 12, 'week' => 1]],
-            ['class' => 'Profiles',         'file' => 'elements/main/profiles/profiles.php',               'order' => ['gr1' => 10, 'gr2' => 9, 'b2c' => 13, 'week' => 1]],
-            ['class' => 'Posts',            'file' => 'elements/main/posts/posts.php',                     'order' => ['gr1' => 14, 'gr2' => 13, 'b2c' => 14, 'week' => 1]],
-            ['class' => 'Logotypes',        'file' => 'elements/main/logotypes/logotypes.php',             'order' => ['gr1' => 13, 'gr2' => 0, 'b2c' => 0, 'week' => 1],     'params' => ['slug' => 'europe-event']],
-            ['class' => 'Medals',           'file' => 'elements/main/medals/medals.php',                   'order' => ['gr1' => 15, 'gr2' => 15, 'b2c' => 15, 'week' => 1]],
-            ['class' => 'Summary',          'file' => 'elements/main/summary/summary.php',                 'order' => ['gr1' => 16, 'gr2' => 16, 'b2c' => 16, 'week' => 1]],
-            ['class' => 'Countdown',        'file' => 'elements/main/countdown/countdown.php',             'order' => ['gr1' => 0, 'gr2' => 17, 'b2c' => 0, 'week' => 1]],
-            ['class' => 'Footer',           'file' => 'components/footer/footer.php',                      'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999, 'week' => 999]],
+            ['class' => 'Header',           'file' => 'elements/main/header/header.php',                   'order' => ['gr1' => 1,  'gr2' => 1,  'b2c' => 1,  'b2c-new' => 1, 'week' => 1]],
+            ['class' => 'Countdown',        'file' => 'elements/main/countdown/countdown.php',             'order' => ['gr1' => 2,  'gr2' => 2,  'b2c' => 2,  'b2c-new' => 2, 'week' => 1]],
+            // ['class' => 'Combined_Events',  'file' => 'elements/main/combined-events/combined-events.php', 'order' => ['gr1' => 2, 'gr2' => 0, 'b2c' => 2, 'b2c-new' => 0, 'week' => 1]],
+            ['class' => 'About',            'file' => 'elements/main/about/about.php',                     'order' => ['gr1' => 3,  'gr2' => 3,  'b2c' => 3,  'b2c-new' => 2, 'week' => 1]],
+            ['class' => 'Tickets',          'file' => 'elements/main/tickets/tickets.php',                 'order' => ['gr1' => 0,  'gr2' => 0,  'b2c' => 0,  'b2c-new' => 3, 'week' => 1]],
+            ['class' => 'Attractions',      'file' => 'elements/main/attractions/attractions.php',         'order' => ['gr1' => 0,  'gr2' => 0,  'b2c' => 0,  'b2c-new' => 4, 'week' => 1]],
+            ['class' => 'Sectors',          'file' => 'elements/main/sectors/sectors.php',                 'order' => ['gr1' => 3,  'gr2' => 3,  'b2c' => 3,  'b2c-new' => 8, 'week' => 1]],
+            ['class' => 'Conference',       'file' => 'elements/main/conference/conference.php',           'order' => ['gr1' => 4,  'gr2' => 5,  'b2c' => 4,  'b2c-new' => 0, 'week' => 1]],
+            ['class' => 'Speakers',         'file' => 'elements/main/speakers/speakers.php',               'order' => ['gr1' => 4,  'gr2' => 5,  'b2c' => 4,  'b2c-new' => 0, 'week' => 1]],
+            ['class' => 'Guests',           'file' => 'elements/main/guests/guests.php',                   'order' => ['gr1' => 4,  'gr2' => 5,  'b2c' => 4,  'b2c-new' => 6, 'week' => 1]],
+            ['class' => 'Premieres',        'file' => 'elements/main/premieres/premieres.php',             'order' => ['gr1' => 0,  'gr2' => 5,  'b2c' => 0,  'b2c-new' => 8, 'week' => 1]],
+            ['class' => 'Opinions',         'file' => 'elements/main/opinions/opinions.php',               'order' => ['gr1' => 13, 'gr2' => 12, 'b2c' => 5,  'b2c-new' => 0, 'week' => 1]],
+            ['class' => 'Exhibitors',       'file' => 'elements/main/exhibitors/exhibitors.php',           'order' => ['gr1' => 7,  'gr2' => 4,  'b2c' => 6,  'b2c-new' => 5, 'week' => 1]],
+            ['class' => 'Logotypes',        'file' => 'elements/main/logotypes/logotypes.php',             'order' => ['gr1' => 8,  'gr2' => 7,  'b2c' => 0,  'b2c-new' => 0, 'week' => 1],        'params' => ['slug' => 'patrons-partners-international']],
+            ['class' => 'Logotypes',        'file' => 'elements/main/logotypes/logotypes.php',             'order' => ['gr1' => 9,  'gr2' => 8,  'b2c' => 8,  'b2c-new' => 6, 'week' => 1],        'params' => ['slug' => 'patrons-partners']],
+            ['class' => 'Statistics',       'file' => 'elements/main/statistics/statistics.php',           'order' => ['gr1' => 5,  'gr2' => 6,  'b2c' => 10, 'b2c-new' => 7, 'week' => 1]],
+            ['class' => 'Logotypes',        'file' => 'elements/main/logotypes/logotypes.php',             'order' => ['gr1' => 6,  'gr2' => 0,  'b2c' => 0,  'b2c-new' => 0, 'week' => 1],     'params' => ['slug' => 'patrons-partners-pwe']],
+            ['class' => 'Halls',            'file' => 'elements/main/halls/halls.php',                     'order' => ['gr1' => 11, 'gr2' => 10, 'b2c' => 11, 'b2c-new' => 0, 'week' => 1]],
+            ['class' => 'Other_Events',     'file' => 'elements/main/other-events/other-events.php',       'order' => ['gr1' => 12, 'gr2' => 11, 'b2c' => 12, 'b2c-new' => 0, 'week' => 1]],
+            ['class' => 'Profiles',         'file' => 'elements/main/profiles/profiles.php',               'order' => ['gr1' => 10, 'gr2' => 9,  'b2c' => 13, 'b2c-new' => 0, 'week' => 1]],
+            ['class' => 'Posts',            'file' => 'elements/main/posts/posts.php',                     'order' => ['gr1' => 14, 'gr2' => 13, 'b2c' => 14, 'b2c-new' => 9, 'week' => 1]],
+            ['class' => 'Logotypes',        'file' => 'elements/main/logotypes/logotypes.php',             'order' => ['gr1' => 13, 'gr2' => 0,  'b2c' => 0,  'b2c-new' => 0, 'week' => 1],     'params' => ['slug' => 'europe-event']],
+            ['class' => 'Medals',           'file' => 'elements/main/medals/medals.php',                   'order' => ['gr1' => 15, 'gr2' => 15, 'b2c' => 15, 'b2c-new' => 0, 'week' => 1]],
+            ['class' => 'Summary',          'file' => 'elements/main/summary/summary.php',                 'order' => ['gr1' => 16, 'gr2' => 16, 'b2c' => 16, 'b2c-new' => 0, 'week' => 1]],
+            ['class' => 'Countdown',        'file' => 'elements/main/countdown/countdown.php',             'order' => ['gr1' => 0,  'gr2' => 17, 'b2c' => 0,  'b2c-new' => 0, 'week' => 1]],
+            ['class' => 'Footer',           'file' => 'components/footer/footer.php',                      'order' => ['gr1' => 999,'gr2' => 999,'b2c' => 999,'b2c-new' => 999, 'week' => 999]],
             // ['class' => 'Logotypes',     'file' => 'elements/main/logotypes/logotypes.php',             'order' => ['gr1' => 9, 'gr2' => 9, 'b2c' => 9, 'week' => 1],        'params' => ['slug' => 'patrons-partners-conference']],
         ],
         'catalog' => [
@@ -159,7 +161,7 @@ class PWE_Elements_Data {
             ['class' => 'Speakers_Page',   'file' => 'elements/speakers/speakers/speakers.php',     'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2]],
             ['class' => 'Footer',          'file' => 'components/footer/footer.php',                'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
         ],
-    ]; 
+    ];
 
     /**
      * Components files

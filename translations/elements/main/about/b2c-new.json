@@ -1,0 +1,79 @@
+{
+  "pl_PL": {
+    "lider_title": "Lider Regionu",
+    "business_title": "Relacje Biznesowe",
+    "business_desc": "Networking na najwyższym poziomie branżowym.",
+    "innovation_title": "Innowacje",
+    "innovation_desc": "Prezentacja najnowszych technologii i trendów."
+  },
+  "en_US": {
+    "lider_title": "Regional Leader",
+    "business_title": "Business Relations",
+    "business_desc": "Networking at the highest industry level.",
+    "innovation_title": "Innovations",
+    "innovation_desc": "Presentation of the latest technologies and trends."
+  },
+  "cs_CZ": {
+    "lider_title": "Lídr regionu",
+    "business_title": "Obchodní vztahy",
+    "business_desc": "Networking na nejvyšší oborové úrovni.",
+    "innovation_title": "Inovace",
+    "innovation_desc": "Prezentace nejnovějších technologií a trendů."
+  },
+  "de_DE": {
+    "lider_title": "Regionaler Marktführer",
+    "business_title": "Geschäftsbeziehungen",
+    "business_desc": "Networking auf höchstem Branchenniveau.",
+    "innovation_title": "Innovationen",
+    "innovation_desc": "Präsentation der neuesten Technologien und Trends."
+  },
+  "it_IT": {
+    "lider_title": "Leader Regionale",
+    "business_title": "Relazioni Commerciali",
+    "business_desc": "Networking ai massimi livelli del settore.",
+    "innovation_title": "Innovazioni",
+    "innovation_desc": "Presentazione delle ultime tecnologie e tendenze."
+  },
+  "lt_LT": {
+    "lider_title": "Regiono lyderis",
+    "business_title": "Verslo santykiai",
+    "business_desc": "Aukščiausio lygio profesionalų tinklaveika.",
+    "innovation_title": "Inovacijos",
+    "innovation_desc": "Naujausių technologijų ir tendencijų pristatymas."
+  },
+  "lv_LV": {
+    "lider_title": "Reģiona līderis",
+    "business_title": "Biznesa attiecības",
+    "business_desc": "Tīklošanās augstākajā nozares līmenī.",
+    "innovation_title": "Inovācijas",
+    "innovation_desc": "Jaunāko tehnoloģiju un tendenču prezentācija."
+  },
+  "sk_SK": {
+    "lider_title": "Líder regiónu",
+    "business_title": "Obchodné vzťahy",
+    "business_desc": "Networking na najvyššej úrovni v odvetví.",
+    "innovation_title": "Inovácie",
+    "innovation_desc": "Prezentácia najnovších technológií a trendov."
+  },
+  "uk": {
+    "lider_title": "Лідер регіону",
+    "business_title": "Бізнес-відносини",
+    "business_desc": "Нетворкінг на найвищому галузевому рівні.",
+    "innovation_title": "Інновації",
+    "innovation_desc": "Презентація найновіших технологій та трендів."
+  },
+  "ro_RO": {
+    "lider_title": "Lider Regional",
+    "business_title": "Relații de Afaceri",
+    "business_desc": "Networking la cel mai înalt nivel industrial.",
+    "innovation_title": "Inovații",
+    "innovation_desc": "Prezentarea celor mai recente tehnologii și tendințe."
+  },
+  "et": {
+    "lider_title": "Piirkonna liider",
+    "business_title": "Ärisuhted",
+    "business_desc": "Võrgustike loomine kõrgeimal haridustasemel.",
+    "innovation_title": "Innovatsioonid",
+    "innovation_desc": "Uusimate tehnoloogiate ja suundumuste esitlus."
+  }
+}
