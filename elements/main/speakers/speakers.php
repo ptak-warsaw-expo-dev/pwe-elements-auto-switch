@@ -14,6 +14,11 @@ class Speakers {
     }
 
     public static function render($group = '', $params = [], $atts = []) {
+
+        if ($_SERVER['HTTP_HOST'] === 'warsawtechweek.com') {
+            $group = 'gr2';
+        }
+
         $data = self::get_data();
         $element_type = $data['types'][0];
         $element_slug = strtolower(str_replace('_', '-', __CLASS__));

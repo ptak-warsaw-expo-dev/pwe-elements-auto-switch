@@ -9,6 +9,7 @@ class Sectors {
             'presets' => [
                 'gr1' => plugin_dir_path(__FILE__) . 'presets/gr1/preset.php',
                 'gr2' => plugin_dir_path(__FILE__) . 'presets/gr2/preset.php',
+                'b2c-new' => plugin_dir_path(__FILE__) . 'presets/b2c-new/preset.php',
             ],
         ];
     }

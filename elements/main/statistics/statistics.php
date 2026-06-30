@@ -6,13 +6,10 @@ class Statistics {
     public static function get_data() {
         return [
             'types' => ['main'],
-            'order' => [
-                'gr1' => 999,
-                'gr2' => 999,
-            ],
             'presets' => [
                 'gr1' => plugin_dir_path(__FILE__) . 'presets/gr1/preset.php',
                 'gr2' => plugin_dir_path(__FILE__) . 'presets/gr2/preset.php',
+                'b2c-new' => plugin_dir_path(__FILE__) . 'presets/b2c-new/preset.php',
                 'week' => plugin_dir_path(__FILE__) . 'presets/week/preset.php',
             ],
         ];

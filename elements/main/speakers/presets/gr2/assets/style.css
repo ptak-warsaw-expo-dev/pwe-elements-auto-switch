@@ -45,6 +45,10 @@
 .pwe-element-auto-switch .pwe-speakers__item-company {
     font-size: 14px;
 }
+.pwe-element-auto-switch .pwe-speakers__speaker-img img {
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
 .pwe-element-auto-switch .pwe-speakers__company-img {
     display: flex;
     align-items: center;
