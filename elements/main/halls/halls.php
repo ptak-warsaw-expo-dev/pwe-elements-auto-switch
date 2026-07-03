@@ -9,6 +9,7 @@ class Halls {
             'presets' => [
                 'gr1' => plugin_dir_path(__FILE__) . 'presets/gr1/preset.php',
                 'gr2' => plugin_dir_path(__FILE__) . 'presets/gr2/preset.php',
+                'b2c-new' => plugin_dir_path(__FILE__) . 'presets/b2c-new/preset.php',
                 'week' => plugin_dir_path(__FILE__) . 'presets/week/preset.php',
             ],
         ];
@@ -68,7 +69,6 @@ class Halls {
             $all_halls = '';
 
             $json_data_all = [];
-            $json_data_active = [];
 
             foreach ($fair_items_json as $item) {
                 $halls = array_map('trim', explode(',', $item['halls']));

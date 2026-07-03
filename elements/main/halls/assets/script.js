@@ -1,167 +1,105 @@
 const halls = document.getElementById("pweHalls");
 
 if (halls) {
+    const allItems = JSON.parse(halls.dataset.allItems || "[]")
+        .filter(item => item.id && item.domain);
 
-    const allItems = JSON.parse(halls.dataset.allItems);
     const currentDomain = window.location.hostname;
-
     const allActiveItemsObject = [];
 
-    // =========================
-    // GROUP (letter + domain)
-    // =========================
-    const grouped = {};
+    const setElementState = (el, item, variant) => {
+        if (!el || !item) return;
 
-    allItems.forEach(item => {
-        const letter = item.id[0];
-        const key = `${letter}_${item.domain}`;
+        el.classList.add("active");
 
-        if (!grouped[key]) grouped[key] = [];
-        grouped[key].push(item);
-    });
+        if (item.domain === currentDomain) {
+            el.classList.add("current-fair");
+        }
 
-    // =========================
-    // FULL
-    // =========================
-    const activateFull = () => {
-        const letters = [...new Set(allItems.map(item => item.id[0]))];
+        const colors = el.querySelectorAll(".pwe-halls__element-color");
+        colors.forEach(c => c.style.fill = item.color);
 
-        letters.forEach(letter => {
-            const itemsForLetter = allItems.filter(item => item.id[0] === letter);
-
-            // Extracting all unique domains
-            const domains = [...new Set(itemsForLetter.map(i => i.domain))];
-            if (domains.length !== 1) return;
-
-            // If exist full element (e.g. F)
-            const fullLetterItem = itemsForLetter.find(i => i.id.length === 1);
-            if (fullLetterItem) {
-                const el = document.getElementById(letter);
-                if (!el) return;
-
-                el.classList.add("active");
-
-                if (itemsForLetter[0].domain === currentDomain) {
-                    el.classList.add("current-fair");
-                }
-
-                const colors = el.querySelectorAll(".pwe-halls__element-color");
-                colors.forEach(c => c.style.fill = fullLetterItem.color);
-
-                const logoLinksFull = el.querySelectorAll(".pwe-halls__element-logo-link.full");
-                logoLinksFull.forEach(link => {
-                    const logo = link.querySelector(".pwe-halls__element-logo");
-                    if (!logo) return;
-
-                    link.setAttribute("href", `https://${fullLetterItem.domain}`);
-                    logo.setAttribute("href", `https://${fullLetterItem.domain}/doc/logo.webp`);
-                });
-
-                allActiveItemsObject.push({ id: letter });
-                return;
-            }
-
-            // If all sub-elements (F1..F4) exist and are of the same domain, activate full element
-            const subItems = itemsForLetter.filter(i => i.id.length > 1);
-            if (subItems.length === 4) {
-                const el = document.getElementById(letter);
-                if (!el) return;
-
-                el.classList.add("active");
-
-                if (itemsForLetter[0].domain === currentDomain) {
-                    el.classList.add("current-fair");
-                }
-
-                const colors = el.querySelectorAll(".pwe-halls__element-color");
-                colors.forEach(c => c.style.fill = subItems[0].color);
-
-                const logoLinksFull = el.querySelectorAll(".pwe-halls__element-logo-link.full");
-                logoLinksFull.forEach(link => {
-                    const logo = link.querySelector(".pwe-halls__element-logo");
-                    if (!logo) return;
-
-                    link.setAttribute("href", `https://${subItems[0].domain}`);
-                    logo.setAttribute("href", `https://${subItems[0].domain}/doc/logo.webp`);
-                });
-
-                allActiveItemsObject.push({ id: letter });
-            }
-        });
-    };
-
-    // =========================
-    // HALF
-    // =========================
-    const activateHalf = () => {
-        Object.entries(grouped).forEach(([key, items]) => {
-            if (items.length !== 2) return;
-
-            const id = `${items[0].id}_${items[1].id}`;
-            const reverseId = `${items[1].id}_${items[0].id}`;
-
-            let el = document.getElementById(id);
-            if (!el) el = document.getElementById(reverseId);
-            if (!el) return;
-
-            el.classList.add("active");
-
-            if (items[0].domain === currentDomain) {
-                el.classList.add("current-fair");
-            }
-
-            const colors = el.querySelectorAll(".pwe-halls__element-color");
-            colors.forEach(c => c.style.fill = items[0].color);
-
-            const logoLinksHalf = el.querySelectorAll(".pwe-halls__element-favicon-link.half");
-            logoLinksHalf.forEach(link => {
+        if (variant === "half") {
+            const links = el.querySelectorAll(".pwe-halls__element-favicon-link.half");
+            links.forEach(link => {
                 const logo = link.querySelector(".pwe-halls__element-favicon");
                 if (!logo) return;
 
-                link.setAttribute("href", `https://${items[0].domain}`);
-                logo.setAttribute("href", `https://${items[0].domain}/doc/favicon.webp`);
+                link.setAttribute("href", `https://${item.domain}`);
+                logo.setAttribute("href", `https://${item.domain}/doc/favicon.webp`);
             });
-
-            allActiveItemsObject.push({ id: el.id });
-        });
-    };
-
-    // =========================
-    // QUARTER
-    // =========================
-    const activateQuarter = () => {
-        Object.entries(grouped).forEach(([key, items]) => {
-            if (items.length !== 1) return;
-
-            const item = items[0];
-            const el = document.getElementById(item.id);
-            if (!el) return;
-
-            el.classList.add("active");
-
-            const colors = el.querySelectorAll(".pwe-halls__element-color");
-            colors.forEach(c => c.style.fill = item.color);
-
-            const logoLinks = el.querySelectorAll(".pwe-halls__element-logo-link.quarter");
-            logoLinks.forEach(link => {
+        } else {
+            const links = el.querySelectorAll(`.pwe-halls__element-logo-link.${variant}`);
+            links.forEach(link => {
                 const logo = link.querySelector(".pwe-halls__element-logo");
                 if (!logo) return;
 
                 link.setAttribute("href", `https://${item.domain}`);
                 logo.setAttribute("href", `https://${item.domain}/doc/logo.webp`);
             });
+        }
 
-            allActiveItemsObject.push({ id: item.id });
+        allActiveItemsObject.push({ id: el.id });
+    };
+
+    const getHalfElement = (idA, idB) => {
+        return document.getElementById(`${idA}_${idB}`) || document.getElementById(`${idB}_${idA}`);
+    };
+
+    const grouped = {};
+
+    allItems.forEach(item => {
+        const letter = item.id.charAt(0);
+        const key = `${letter}_${item.domain}`;
+
+        if (!grouped[key]) grouped[key] = [];
+        grouped[key].push(item);
+    });
+
+    const activateItems = () => {
+        Object.values(grouped).forEach(items => {
+            const letter = items[0].id.charAt(0);
+            const fullItem = items.find(item => item.id === letter);
+            const subItems = items
+                .filter(item => item.id !== letter)
+                .sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true }));
+
+            // Full hall: type "F" or all parts F1-F4.
+            if (fullItem || subItems.length === 4) {
+                const el = document.getElementById(letter);
+                const sourceItem = fullItem || subItems[0];
+                setElementState(el, sourceItem, "full");
+                return;
+            }
+
+            const usedIds = new Set();
+
+            // First, we try to join existing halves, e.g., F1+F2 or F3+F4.
+            for (let i = 0; i < subItems.length; i++) {
+                for (let j = i + 1; j < subItems.length; j++) {
+                    const first = subItems[i];
+                    const second = subItems[j];
+
+                    if (usedIds.has(first.id) || usedIds.has(second.id)) continue;
+
+                    const halfEl = getHalfElement(first.id, second.id);
+                    if (!halfEl) continue;
+
+                    setElementState(halfEl, first, "half");
+                    usedIds.add(first.id);
+                    usedIds.add(second.id);
+                }
+            }
+
+            // Rest as individual quarters, e.g., F1,F3 or the third hall from F1,F2,F3.
+            subItems.forEach(item => {
+                if (usedIds.has(item.id)) return;
+
+                const el = document.getElementById(item.id);
+                setElementState(el, item, "quarter");
+            });
         });
     };
 
-    // =========================
-    // INIT
-    // =========================
-    window.addEventListener("load", () => {
-        activateFull();
-        activateHalf();
-        activateQuarter();
-    });
-
+    window.addEventListener("load", activateItems);
 }
