@@ -1,0 +1,46 @@
+{
+  "pl_PL": {
+    "attractions_subtitle": "Co Cię czeka?",
+    "attractions_title": "Arena <span class='pwe-text-red'>Atrakcji</span>"
+  },
+  "en_US": {
+    "attractions_subtitle": "What awaits you?",
+    "attractions_title": "Arena of <span class='pwe-text-red'>Attractions</span>"
+  },
+  "cs_CZ": {
+    "attractions_subtitle": "Co vás čeká?",
+    "attractions_title": "Aréna <span class='pwe-text-red'>atrakcí</span>"
+  },
+  "de_DE": {
+    "attractions_subtitle": "Was erwartet Sie?",
+    "attractions_title": "Arena der <span class='pwe-text-red'>Attraktionen</span>"
+  },
+  "it_IT": {
+    "attractions_subtitle": "Cosa ti aspetta?",
+    "attractions_title": "Arena delle <span class='pwe-text-red'>Attrazioni</span>"
+  },
+  "lt_LT": {
+    "attractions_subtitle": "Kas jūsų laukia?",
+    "attractions_title": "<span class='pwe-text-red'>Pramogų</span> arena"
+  },
+  "lv_LV": {
+    "attractions_subtitle": "Kas tevi sagaida?",
+    "attractions_title": "<span class='pwe-text-red'>Atrakciju</span> arēna"
+  },
+  "sk_SK": {
+    "attractions_subtitle": "Čo vás čaká?",
+    "attractions_title": "Aréna <span class='pwe-text-red'>atrakcií</span>"
+  },
+  "uk": {
+    "attractions_subtitle": "Що на вас чекає?",
+    "attractions_title": "Арена <span class='pwe-text-red'>розваг</span>"
+  },
+  "ro_RO": {
+    "attractions_subtitle": "Ce te așteaptă?",
+    "attractions_title": "Arena <span class='pwe-text-red'>Atracțiilor</span>"
+  },
+  "et": {
+    "attractions_subtitle": "Mis sind ees ootab?",
+    "attractions_title": "<span class='pwe-text-red'>Atraktsioonide</span> areen"
+  }
+}

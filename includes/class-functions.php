@@ -836,14 +836,15 @@ class PWE_Functions {
                 MAX(CASE WHEN fa.slug = 'about_title_pl' THEN fa.data END)  AS about_title_pl,
                 MAX(CASE WHEN fa.slug = 'about_title_en' THEN fa.data END)  AS about_title_en,
                 MAX(CASE WHEN fa.slug = 'about_desc_pl' THEN fa.data END)   AS about_desc_pl,
-                MAX(CASE WHEN fa.slug = 'about_desc_en' THEN fa.data END)   AS about_desc_en
+                MAX(CASE WHEN fa.slug = 'about_desc_en' THEN fa.data END)   AS about_desc_en,
+                MAX(CASE WHEN fa.slug = 'videos' THEN fa.data END)   AS videos
             FROM fairs f
             LEFT JOIN fair_adds fa
                 ON fa.fair_id = f.id
                 AND fa.slug IN (
                     'konf_name','konf_title_pl','konf_title_en',
                     'konf_desc_pl','konf_desc_en','about_title_pl',
-                    'about_title_en','about_desc_pl','about_desc_en'
+                    'about_title_en','about_desc_pl','about_desc_en', 'videos'
                 )
             WHERE f.fair_domain = %s
             GROUP BY f.id
