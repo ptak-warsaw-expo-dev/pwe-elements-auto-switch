@@ -6,10 +6,11 @@ $output = '
 
         <div class="pwe-guests__header">
             <div class="pwe-guests__header-title">
-                <span class="pwe-subtitle">' . (!empty($subtitle) ? $subtitle : ''. PWE_Functions::multi_translation('guests_title') .'') . ' </span>
-                <h2 class="pwe-title">' . (!empty($title) ? $title : 'Gwiazdy <span class="text-red">Warsaw Motorcycle Show</span>') . '  <span class="text-red">' . do_shortcode('[trade_fair_name]') . '</span></h2>
+                <span class="pwe-subtitle">' . (!empty($subtitle) ? $subtitle : PWE_Functions::multi_translation('guests_title')) . ' </span>
+                <h2 class="pwe-title">' . (!empty($title) ? $title : '') . '  <span class="text-red">' . do_shortcode('[trade_fair_name]') . '</span></h2>
             </div>
 
+            <!-- Strzałki zostają dokładnie w swoim pierwotnym miejscu w nagłówku -->
             <div class="swiper-buttons-arrows">
                 <div class="swiper-button-prev">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -30,8 +31,8 @@ $output = '
 
                     $output .= '
                     <button class="pwe-guests__tab-btn '.$active.'" data-tab="'.$tab['slug'].'">
-                        '.$name.'
-                    </button>';
+                        '.$name
+                    .'</button>';
                 }
                 $output .= '
                 </div>
@@ -47,7 +48,7 @@ $output = '
                 $output .= '
                 <div class="pwe-guests__tab-content '.$active.'" data-tab="'.$slug.'">
 
-                    <div class="pwe-guests__slider swiper" role="group" aria-roledescription="carousel" aria-live="polite">
+                    <div class="pwe-guests__slider swiper" data-slug="'.$slug.'" role="group" aria-roledescription="carousel" aria-live="polite">
                         <div class="swiper-wrapper">';
 
                             foreach ($list as $guest) {
@@ -64,7 +65,7 @@ $output = '
                                     </div>
 
                                     <div class="pwe-guests__card-body">
-                                        ' . (!empty($guest_role) ? '<p class="pwe-guests__guest-role">' . $guest_role . '</p>' : '') . '
+                                        ' . (!empty($guest_role) ? '<p class="pwe-guests__guest-role">' . $guest_role . '</p>' : '<p class="pwe-guests__guest-role"></p>') . '
                                         <h3 class="pwe-guests__guest-name">' . $guest['name'] . '</h3>
                                         ' . (!empty($guest_bio) ? '<div class="pwe-guests__guest-desc">' . $guest_bio . '</div>' : '') . '
                                     </div>
@@ -89,19 +90,110 @@ $output = '
     </div>
 </section>';
 
-// Konfiguracja skryptu Swiper dla 4 slajdów na dużym ekranie i ukrywania nawigacji (watchOverflow)
-$output .= PWE_Swiper::swiperScripts(
-    '#pweGuests',
-    [
-        0 => ['slidesPerView' => 1],
-        640 => ['slidesPerView' => 2],
-        1024 => ['slidesPerView' => 3],
-        1280 => ['slidesPerView' => 4]
-    ],
-    true, // navigation (strzałki)
-    true, // pagination (kropki)
-    1,
-    false
-);
+$output .= '
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const section = document.getElementById("pweGuests");
+    if (!section) return;
+
+    const swiperInstances = {};
+    let activeSlug = "";
+
+    // 1. Inicjalizacja karuzeli dla każdej zakładki bez wbudowanej nawigacji strzałek
+    section.querySelectorAll(".pwe-guests__tab-content").forEach(content => {
+        const sliderEl = content.querySelector(".pwe-guests__slider");
+        const dotsEl = content.querySelector(".swiper-dots");
+        if (!sliderEl) return;
+
+        const slug = sliderEl.getAttribute("data-slug");
+
+        // Zapisujemy, który slug jest domyślnie aktywny na starcie
+        if (content.classList.contains("is-active")) {
+            activeSlug = slug;
+        }
+
+        swiperInstances[slug] = new Swiper(sliderEl, {
+            slidesPerView: 1,
+            spaceBetween: 24,
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true
+            },
+            observer: true,
+            observeParents: true,
+            watchOverflow: true,
+            pagination: {
+                el: dotsEl,
+                clickable: true,
+                dynamicBullets: true,
+                dynamicMainBullets: 1,
+                bulletClass: "swiper-pagination-bullet",
+                bulletActiveClass: "swiper-pagination-bullet-active"
+            },
+            breakpoints: {
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+                1280: { slidesPerView: 4 }
+            }
+        });
+    });
+
+    // 2. Obsługa kliknięć w strzałki z poziomu nagłówka
+    const globalPrevBtn = section.querySelector(".swiper-button-prev");
+    const globalNextBtn = section.querySelector(".swiper-button-next");
+
+    if (globalPrevBtn) {
+        globalPrevBtn.addEventListener("click", function() {
+            if (activeSlug && swiperInstances[activeSlug]) {
+                swiperInstances[activeSlug].slidePrev();
+            }
+        });
+    }
+
+    if (globalNextBtn) {
+        globalNextBtn.addEventListener("click", function() {
+            if (activeSlug && swiperInstances[activeSlug]) {
+                swiperInstances[activeSlug].slideNext();
+            }
+        });
+    }
+
+    // 3. Obsługa przełączania tabów
+    const tabButtons = section.querySelectorAll(".pwe-guests__tab-btn");
+    tabButtons.forEach(btn => {
+        btn.addEventListener("click", function() {
+            const targetTab = this.getAttribute("data-tab");
+
+            tabButtons.forEach(b => b.classList.remove("is-active"));
+            this.classList.add("is-active");
+
+            section.querySelectorAll(".pwe-guests__tab-content").forEach(content => {
+                const currentSlug = content.getAttribute("data-tab");
+
+                if (currentSlug === targetTab) {
+                    content.classList.add("is-active");
+                    activeSlug = targetTab; // Aktualizujemy zmienną wskazującą na aktywny slider
+
+                    if (swiperInstances[targetTab]) {
+                        const activeSwiper = swiperInstances[targetTab];
+                        activeSwiper.update();
+                        if (activeSwiper.autoplay) {
+                            activeSwiper.autoplay.start();
+                        }
+                    }
+                } else {
+                    content.classList.remove("is-active");
+
+                    if (swiperInstances[currentSlug] && swiperInstances[currentSlug].autoplay) {
+                        swiperInstances[currentSlug].autoplay.stop();
+                    }
+                }
+            });
+        });
+    });
+});
+</script>';
 
 return $output;

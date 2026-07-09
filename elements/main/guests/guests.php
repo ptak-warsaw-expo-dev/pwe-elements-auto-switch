@@ -5,7 +5,7 @@ class Guests {
 
     public static function get_data() {
         return [
-            'types' => ['main'], 
+            'types' => ['main'],
             'presets' => [
                 'gr1' => plugin_dir_path(__FILE__) . 'presets/gr1/preset.php',
                 'gr2' => plugin_dir_path(__FILE__) . 'presets/gr2/preset.php',
@@ -108,7 +108,7 @@ class Guests {
 
                 usort($list, fn($a, $b) => $a['order'] <=> $b['order']);
             }
-            
+
             unset($list);
 
             // fallback: no tabs at all

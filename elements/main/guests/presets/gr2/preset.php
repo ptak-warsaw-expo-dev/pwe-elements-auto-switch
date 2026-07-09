@@ -89,7 +89,7 @@ $output = '
 
             $output .= '
         </div>
-        
+
     </div>
 </div>';
 

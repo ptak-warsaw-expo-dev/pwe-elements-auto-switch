@@ -1,0 +1,101 @@
+{
+  "pl_PL": {
+    "patrons_int_gr2": "Patroni i Partnerzy Zagraniczni",
+    "patrons_int": "Patroni Międzynarodowi",
+    "patrons": "Patroni i Partnerzy",
+    "pwe_partners": "Partnerzy Ptak Warsaw Expo",
+    "conf_patrons": "Patroni Targów i Konferencji",
+    "eu_events": "Najważniejsze wydarzenia branżowe w europie",
+    "all": "Wszyscy"
+  },
+  "en_US": {
+    "patrons_int_gr2": "Foreign Patrons and Partners",
+    "patrons_int": "International Patrons",
+    "patrons": "Patrons and Partners",
+    "pwe_partners": "Partners of Ptak Warsaw Expo",
+    "conf_patrons": "Patrons Of The Trade Fair And Conference",
+    "eu_events": "Key industry events in europe",
+    "all": "All"
+  },
+  "cs_CZ": {
+    "patrons_int_gr2": "Zahraniční patroni a partneři",
+    "patrons_int": "Mezinárodní patroni",
+    "patrons": "Patroni a partneři",
+    "pwe_partners": "Partneři Ptak Warsaw Expo",
+    "conf_patrons": "Patroni veletrhu a konference",
+    "eu_events": "Klíčové oborové události v Evropě",
+    "all": "Všichni"
+  },
+  "de_DE": {
+    "patrons_int_gr2": "Ausländische Schirmherren und Partner",
+    "patrons_int": "Internationale Schirmherren",
+    "patrons": "Schirmherren und Partner",
+    "pwe_partners": "Partner der Ptak Warsaw Expo",
+    "conf_patrons": "Schirmherren der Messe und Konferenz",
+    "eu_events": "Wichtigste Branchenveranstaltungen in Europa",
+    "all": "Alle"
+  },
+  "it_IT": {
+    "patrons_int_gr2": "Patrocini e partner esteri",
+    "patrons_int": "Patrocini internazionali",
+    "patrons": "Patrocini e partner",
+    "pwe_partners": "Partner di Ptak Warsaw Expo",
+    "conf_patrons": "Patrocini della fiera e della conferenza",
+    "eu_events": "Principali eventi di settore in Europa",
+    "all": "Tutti"
+  },
+  "lt_LT": {
+    "patrons_int_gr2": "Užsienio globėjai ir partneriai",
+    "patrons_int": "Tarptautiniai globėjai",
+    "patrons": "Globėjai ir partneriai",
+    "pwe_partners": "Ptak Warsaw Expo partneriai",
+    "conf_patrons": "Mugės ir konferencijos globėjai",
+    "eu_events": "Svarbiausi sektoriaus renginiai Europoje",
+    "all": "Visi"
+  },
+  "lv_LV": {
+    "patrons_int_gr2": "Ārvalstu patroni un partneri",
+    "patrons_int": "Starptautiskie patroni",
+    "patrons": "Patroni un partneri",
+    "pwe_partners": "Ptak Warsaw Expo partneri",
+    "conf_patrons": "Izstādes un konferences patroni",
+    "eu_events": "Svarīgākie nozares pasākumi Eiropā",
+    "all": "Visi"
+  },
+  "sk_SK": {
+    "patrons_int_gr2": "Zahraniční patróni a partneri",
+    "patrons_int": "Medzinárodní patróni",
+    "patrons": "Patróni a partneri",
+    "pwe_partners": "Partneri Ptak Warsaw Expo",
+    "conf_patrons": "Patróni veľtrhu a konferencie",
+    "eu_events": "Kľúčové odvetvové podujatia v Európe",
+    "all": "Všichni"
+  },
+  "uk": {
+    "patrons_int_gr2": "Іноземні патрони та партнери",
+    "patrons_int": "Міжнародні патрони",
+    "patrons": "Патрони та партнери",
+    "pwe_partners": "Партнери Ptak Warsaw Expo",
+    "conf_patrons": "Патрони виставки та конференції",
+    "eu_events": "Ключові галузеві події в Європі",
+    "all": "Всі"
+  },
+  "ro_RO": {
+    "patrons_int_gr2": "Patroni și parteneri străini",
+    "patrons_int": "Patroni internaționali",
+    "patrons": "Patroni și parteneri",
+    "pwe_partners": "Parteneri ai Ptak Warsaw Expo",
+    "conf_patrons": "Patroni ai târgului și conferinței",
+    "eu_events": "Evenimente cheie din industrie în Europa",
+    "all": "Toți"
+  },
+  "et": {
+    "patrons_int_gr2": "Välispatroonid ja partnerid",
+    "patrons_int": "Rahvusvahelised patroonid",
+    "patrons": "Patroonid ja partnerid",
+    "pwe_partners": "Ptak Warsaw Expo partnerid",
+    "conf_patrons": "Messi ja konverentsi patroonid",
+    "eu_events": "Tööstuse peamised sündmused Euroopas",
+    "all": "Kõik"
+  }
+}

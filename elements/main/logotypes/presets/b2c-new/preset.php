@@ -221,18 +221,21 @@ if ($logotypes_slug === 'patrons-partners') {
       justify-content: center;
       margin-top: 2.5rem;
     }
-    #pweLogotypes'. $slug_id .' .swiper-dots .swiper-pagination-bullet {
-      background: #27272a !important;
-      opacity: 1 !important;
-      width: 10px;
-      height: 10px;
-      margin: 0 5px !important;
-      transition: all 0.3s ease;
-    }
-    #pweLogotypes'. $slug_id .' .swiper-dots .swiper-pagination-bullet-active {
-      background: var(--accent-color) !important;
-      transform: scale(1.2);
-    }
+    // #pweLogotypes'. $slug_id .' .swiper-dots .swiper-pagination-bullet {
+    //   background: #27272a !important;
+    //   opacity: 1 !important;
+    //   width: 10px;
+    //   height: 10px;
+    //   margin: 0 5px !important;
+    //   transition: all 0.3s ease;
+    // }
+    // #pweLogotypesPatronsPartners .swiper-pagination-bullet {
+    //   background:white !important;
+    // }
+    // #pweLogotypesPatronsPartners .swiper-pagination-bullet-active {
+    //   background: var(--accent-color) !important;
+    //   transform: scale(1.2);
+    // }
     @media(max-width:960px) {
       #pweLogotypes'. $slug_id .' .pwe-logotypes__filter-all {
         width: 100%;
@@ -558,18 +561,18 @@ if ($logotypes_slug === 'patrons-partners') {
           justify-content: center;
           margin-top: 2.5rem;
         }
-        #pweLogotypes'. $slug_id .' .swiper-dots .swiper-pagination-bullet {
-          background: #27272a !important;
-          opacity: 1 !important;
-          width: 10px;
-          height: 10px;
-          margin: 0 5px !important;
-          transition: all 0.3s ease;
-        }
-        #pweLogotypes'. $slug_id .' .swiper-dots .swiper-pagination-bullet-active {
-          background: var(--accent-color) !important;
-          transform: scale(1.2);
-        }
+        // #pweLogotypes'. $slug_id .' .swiper-dots .swiper-pagination-bullet {
+        //   background: #27272a !important;
+        //   opacity: 1 !important;
+        //   width: 10px;
+        //   height: 10px;
+        //   margin: 0 5px !important;
+        //   transition: all 0.3s ease;
+        // }
+        // #pweLogotypes'. $slug_id .' .swiper-dots .swiper-pagination-bullet-active {
+        //   background: var(--accent-color) !important;
+        //   transform: scale(1.2);
+        // }
         @media(max-width:960px) {
           #pweLogotypes'. $slug_id .' .pwe-logotypes__items {
             padding: 0;

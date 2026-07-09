@@ -33,7 +33,7 @@ if ($desc_length < 30) {
 }
 
 $output .= '
-<header id="pweHeader" class="pwe-header">
+<div id="pweHeader" class="pwe-header">
 
     <div class="video-background">
         <div class="video-overlay-left"></div>
@@ -68,7 +68,6 @@ $output .= '
                             '. ($b2c ? PWE_Functions::languageChecker('Kup bilet teraz', 'Buy ticket now') : PWE_Functions::multi_translation('register') . ' ' . PWE_Functions::multi_translation('free_ticket')).'
                         </a>
                     </div>
-
                     <div class="pwe-btn-container hidden-mobile">
                         <a class="pwe-btn btn-exhibitors"
                            href="'. PWE_Functions::multi_translation('link_to_registration_exh') .'"
@@ -78,9 +77,14 @@ $output .= '
                     </div>
 
                 </div>
-            </div>
+            </div>';
+
+            // Partners widget --------------------------------------------------------------------------------------<
+            require_once plugin_dir_path(dirname(dirname(__FILE__))) . 'widgets/partners/partners.php';
+
+            $output .= '
         </div>
     </div>
-</header>';
+</div>';
 
 return $output;

@@ -1,0 +1,46 @@
+{
+  "pl_PL": {
+    "guests_title": "Goście Specjalni",
+    "guests_desc": "Gwiazdy"
+  },
+  "en_US": {
+    "guests_title": "Special Guests",
+    "guests_desc": "Stars"
+  },
+  "cs_CZ": {
+    "guests_title": "Speciální hosté",
+    "guests_desc": "Hvězdy"
+  },
+  "de_DE": {
+    "guests_title": "Besondere Gäste",
+    "guests_desc": "Stars"
+  },
+  "it_IT": {
+    "guests_title": "Ospiti Speciali",
+    "guests_desc": "Stelle"
+  },
+  "lt_LT": {
+    "guests_title": "Ypatingi Svečiai",
+    "guests_desc": "Žvaigždės"
+  },
+  "lv_LV": {
+    "guests_title": "Īpašie Viesi",
+    "guests_desc": "Zvaigznes"
+  },
+  "sk_SK": {
+    "guests_title": "Špeciálni hostia",
+    "guests_desc": "Hviezdy"
+  },
+  "uk": {
+    "guests_title": "Спеціальні Гості",
+    "guests_desc": "Зірки"
+  },
+  "ro_RO": {
+    "guests_title": "Invitați Speciali",
+    "guests_desc": "Vedete"
+  },
+  "et": {
+    "guests_title": "Erilised Külalised",
+    "guests_desc": "Tähed"
+  }
+}

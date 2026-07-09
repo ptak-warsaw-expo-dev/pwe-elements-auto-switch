@@ -177,6 +177,7 @@
     text-transform: uppercase;
     letter-spacing: 0.15em;
     margin: 0 0 0.5rem 0;
+    min-height: 20px;
 }
 
 .pwe-element-auto-switch .pwe-guests__guest-name {
@@ -190,9 +191,9 @@
     min-height: 56px;
 }
 
-.pwe-element-auto-switch .pwe-guests__tab-contents .swiper-pagination-bullet {
+/* .pwe-element-auto-switch .pwe-guests__tab-contents .swiper-pagination-bullet {
     background-color: white !important;
-}
+} */
 
 .pwe-element-auto-switch .pwe-guests__guest-desc {
     font-size: 0.95rem;
@@ -203,7 +204,9 @@
     overflow-y: auto;
     padding-right: 0.5rem;
 }
-
+.pwe-element-auto-switch .pwe-guests__guest-desc p {
+    font-size: 14px !important;
+}
 .pwe-element-auto-switch .pwe-guests__guest-desc::-webkit-scrollbar {
     width: 5px;
 }
@@ -243,20 +246,46 @@
     justify-content: center;
     margin-top: 2.5rem;
 }
-
-.pwe-element-auto-switch .swiper-dots .swiper-pagination-bullet {
-    background: #27272a !important;
-    opacity: 1 !important;
-    width: 10px;
-    height: 10px;
-    margin: 0 5px !important;
-    transition: all 0.3s ease;
+#pweElementsAutoSwitch  .swiper-dots {
+    display: flex;
+    justify-content: center;
 }
 
-.pwe-element-auto-switch .swiper-dots .swiper-pagination-bullet-active {
+/* DOTS */
+#pweElementsAutoSwitch .pwe-element-auto-switch  .swiper-dots {
+    display: block;
+    position: sticky;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    max-width: 120px;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    left: 50% !important;
+    transform: translateX(-50%);
+    margin: 18px auto 0;
+    padding: 0;
+}
+#pweElementsAutoSwitch .swiper-nav  .swiper-pagination-bullet {
+    width: 20px !important;
+    height: 12px !important;
+    border-radius: 8px !important;
+    transition: .3s ease !important;
+    background: rgb(71, 68, 68) !important;
+    opacity: 1;
+}
+#pweElementsAutoSwitch .swiper-nav .swiper-pagination-bullet-active {
     background: var(--accent-color) !important;
-    transform: scale(1.2);
+    width: 55px !important;
 }
+
+#pweElementsAutoSwitch #pweGuests .swiper-nav {
+    display:none !important;
+}
+/* #pweElementsAutoSwitch .pwe-guests-section .swiper-dots .swiper-pagination-bullet-active {
+
+} */
 
 @media (max-width: 768px) {
     .pwe-element-auto-switch .pwe-guests__header {
@@ -269,4 +298,23 @@
     .pwe-element-auto-switch .pwe-guests__header .pwe-title {
         font-size: 2.25rem;
     }
+}
+.pwe-element-auto-switch .pwe-guests__tab-content {
+    display: none !important;
+    width: 100%;
+}
+
+.pwe-element-auto-switch .pwe-guests__tab-content.is-active {
+    display: block !important;
+}
+
+/* Fix dla równej wysokości kart w Swiperze */
+.pwe-element-auto-switch .pwe-guests__slider .swiper-wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+.pwe-element-auto-switch .pwe-guests__card.swiper-slide {
+    height: auto !important;
+    /* Pozwala flex-grow w card-body rozciągnąć kartę */
 }

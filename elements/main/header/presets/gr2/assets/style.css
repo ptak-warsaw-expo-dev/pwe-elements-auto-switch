@@ -15,10 +15,10 @@
 .pwe-element-auto-switch .pwe-header__container {
     padding: 36px;
     position: relative;
-    overflow: hidden; 
+    overflow: hidden;
 }
-.pwe-element-auto-switch .pwe-header__wrapper { 
-    z-index: 1; 
+.pwe-element-auto-switch .pwe-header__wrapper {
+    z-index: 1;
     display: flex;
     justify-content: space-between;
     margin: 64px auto 0;
@@ -41,7 +41,7 @@
 .pwe-element-auto-switch .pwe-header__edition p {
     font-size: 24px;
     font-weight: 600;
-    text-transform: uppercase; 
+    text-transform: uppercase;
 }
 .pwe-element-auto-switch .pwe-header__title h1 {
     font-size: 64px;
@@ -109,7 +109,7 @@
 .pwe-element-auto-switch .pwe-header .video-background {
     position: absolute;
     top: 0;
-    left: 0; 
+    left: 0;
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -145,14 +145,14 @@
 }
 @media(max-width: 1200px) {
     .pwe-element-auto-switch .pwe-header__edition p {
-       font-size: 20px; 
+       font-size: 20px;
     }
     .pwe-element-auto-switch .pwe-header__title h1 {
         font-size: 46px;
         max-width: 600px;
     }
     .pwe-element-auto-switch .pwe-header__date h2 {
-       font-size: 26px; 
+       font-size: 26px;
     }
     .pwe-element-auto-switch .pwe-header__date p {
         font-size: 20px;
@@ -184,16 +184,16 @@
 }
 @media(max-width:570px) {
     .pwe-element-auto-switch .pwe-header__wrapper {
-        margin: 90px auto 0;    
+        margin: 90px auto 0;
     }
     .pwe-element-auto-switch .pwe-header__edition p {
-       font-size: 20px; 
+       font-size: 20px;
     }
     .pwe-element-auto-switch .pwe-header__title h1 {
         font-size: 32px;
     }
     .pwe-element-auto-switch .pwe-header__date h2 {
-       font-size: 20px; 
+       font-size: 20px;
     }
     .pwe-element-auto-switch .pwe-header__date p {
         font-size: 16px;

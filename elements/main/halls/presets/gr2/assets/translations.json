@@ -1,0 +1,90 @@
+{
+  "pl_PL": {
+    "halls_title": "Powierzchnia wystawiennicza",
+    "halls_desc": "Największa powierzchnia wystawiennicza w Polsce",
+    "halls_parking": "DARMOWY PARKING",
+    "single_hall": "Hala",
+    "multiple_halls": "Hale",
+    "parking": "DARMOWY PARKING"
+  },
+  "en_US": {
+    "halls_title": "Exhibition space",
+    "halls_desc": "The largest exhibition space in Poland",
+    "halls_parking": "FREE PARKING",
+    "single_hall": "Hall",
+    "multiple_halls": "Halls",
+    "parking": "FREE PARKING"
+  },
+  "cs_CZ": {
+    "halls_title": "Výstavní plocha",
+    "halls_desc": "Největší výstavní plocha v Polsku",
+    "halls_parking": "PARKOVÁNÍ ZDARMA",
+    "single_hall": "Hala",
+    "multiple_halls": "Haly",
+    "parking": "PARKOVÁNÍ ZDARMA"
+  },
+  "de_DE": {
+    "halls_title": "Ausstellungsfläche",
+    "halls_desc": "Die größte Ausstellungsfläche in Polen",
+    "halls_parking": "KOSTENLOSES PARKEN",
+    "single_hall": "Halle",
+    "multiple_halls": "Hallen",
+    "parking": "KOSTENLOSES PARKEN"
+  },
+  "it_IT": {
+    "halls_title": "Spazio espositivo",
+    "halls_desc": "Il più grande spazio espositivo in Polonia",
+    "halls_parking": "PARCHEGGIO GRATUITO",
+    "single_hall": "Padiglione",
+    "multiple_halls": "Padiglioni",
+    "parking": "PARCHEGGIO GRATUITO"
+  },
+  "lt_LT": {
+    "halls_title": "Parodų erdvė",
+    "halls_desc": "Didžiausia parodų erdvė Lenkijoje",
+    "halls_parking": "NEMOKAMA AUTOMOBILIŲ STOVĖJIMO AIKŠTELĖ",
+    "single_hall": "Salė",
+    "multiple_halls": "Salės",
+    "parking": "NEMOKAMA AUTOMOBILIŲ STOVĖJIMO AIKŠTELĖ"
+  },
+  "lv_LV": {
+    "halls_title": "Izstāžu platība",
+    "halls_desc": "Lielākā izstāžu platība Polijā",
+    "halls_parking": "BEZMAKSAS AUTOSTĀVVIETA",
+    "single_hall": "Halle",
+    "multiple_halls": "Halles",
+    "parking": "BEZMAKSAS AUTOSTĀVVIETA"
+  },
+  "sk_SK": {
+    "halls_title": "Výstavná plocha",
+    "halls_desc": "Najväčšia výstavná plocha v Poľsku",
+    "halls_parking": "BEZPLATNÉ PARKOVANIE",
+    "single_hall": "Hala",
+    "multiple_halls": "Haly",
+    "parking": "BEZPLATNÉ PARKOVANIE"
+  },
+  "uk": {
+    "halls_title": "Виставкова площа",
+    "halls_desc": "Найбільша виставкова площа в Польщі",
+    "halls_parking": "БЕЗКОШТОВНА ПАРКОВКА",
+    "single_hall": "Зал",
+    "multiple_halls": "Зали",
+    "parking": "БЕЗКОШТОВНА ПАРКОВКА"
+  },
+  "ro_RO": {
+    "halls_title": "Suprafață de expoziție",
+    "halls_desc": "Cea mai mare suprafață de expoziție din Polonia",
+    "halls_parking": "PARCARE GRATUITĂ",  
+    "single_hall": "Sală",
+    "multiple_halls": "Săli",
+    "parking": "PARCARE GRATUITĂ"
+   },
+  "et": {
+    "halls_title": "Näitusepind",
+    "halls_desc": "Suurim näitusepind Poolas",
+    "halls_parking": "TASUTA PARKIMINE",
+    "single_hall": "Saal",
+    "multiple_halls": "Saalid",
+    "parking": "TASUTA PARKIMINE"
+  }
+}

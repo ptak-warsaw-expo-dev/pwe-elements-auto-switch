@@ -1,0 +1,79 @@
+{
+  "pl_PL": {
+    "title": "Zdobądź prestiżową nagrodę w Ptak Warsaw Expo!",
+    "description": "Dołącz do grona najlepszych na Targach Ptak Warsaw Expo i pokaż swoją firmę w świetle zwycięzców! Nagrody są przyznawane przez Krajową Izbę Targową oraz Ptak Warsaw Expo - wyróżnij się i zdobądź uznanie!",
+    "reg_url": "/rejestracja/",
+    "reg_url_text": "Weź udział",
+    "buy_ticket": "Kup<br>bilet"
+  },
+  "en_US": {
+    "title": "Win a prestigious award at Ptak Warsaw Expo!",
+    "description": "Join the ranks of the best at Ptak Warsaw Expo and showcase your company in the spotlight! Awards are presented by the National Chamber of Trade and Ptak Warsaw Expo - stand out and gain recognition!",
+    "reg_url": "/en/registration/",
+    "reg_url_text": "Take part",
+    "buy_ticket": "Buy<br>a ticket"
+  },
+  "de_DE": {
+    "title": "Gewinnen Sie eine prestigeträchtige Auszeichnung auf der Ptak Warsaw Expo!",
+    "description": "Schließen Sie sich den Besten auf der Ptak Warsaw Expo an und präsentieren Sie Ihr Unternehmen im Rampenlicht der Gewinner! Die Auszeichnungen werden von der Nationalen Messekammer und Ptak Warsaw Expo verliehen - heben Sie sich ab und gewinnen Sie Anerkennung!",
+    "reg_url": "/de/anmeldung/",
+    "reg_url_text": "Teilnehmen",
+    "buy_ticket": "Kaufen<br>Sie ein Ticket"
+  },
+  "cs_CZ": {
+    "title": "Získejte prestižní ocenění na Ptak Warsaw Expo!",
+    "description": "Připojte se k nejlepším na Ptak Warsaw Expo a představte svou firmu ve světle vítězů! Ocenění uděluje Národní veletržní komora a Ptak Warsaw Expo - odlište se a získejte uznání!",
+    "reg_url": "/cs/registrace/",
+    "reg_url_text": "Zúčastněte se",
+    "buy_ticket": "Koupit<br>vstupenku"
+  },
+  "it_IT": {
+    "title": "Vinci un prestigioso premio a Ptak Warsaw Expo!",
+    "description": "Unisciti ai migliori a Ptak Warsaw Expo e presenta la tua azienda sotto i riflettori dei vincitori! I premi sono assegnati dalla Camera Nazionale delle Fiere e da Ptak Warsaw Expo - distinguiti e ottieni riconoscimento!",
+    "reg_url": "/it/registrazione/",
+    "reg_url_text": "Partecipa",
+    "buy_ticket": "Acquista<br>un biglietto"
+  },
+  "lt_LT": {
+    "title": "Laimėkite prestižinį apdovanojimą Ptak Warsaw Expo!",
+    "description": "Prisijunkite prie geriausiųjų Ptak Warsaw Expo ir parodykite savo įmonę nugalėtojų šviesoje! Apdovanojimus skiria Nacionaliniai parodų rūmai ir Ptak Warsaw Expo - išsiskirkite ir pelnykite pripažinimą!",
+    "reg_url": "/lt/registracija/",
+    "reg_url_text": "Dalyvaukite",
+    "buy_ticket": "Pirkti<br>bilietą"
+  },
+  "lv_LV": {
+    "title": "Iegūstiet prestižu balvu Ptak Warsaw Expo!",
+    "description": "Pievienojieties labākajiem Ptak Warsaw Expo un parādiet savu uzņēmumu uzvarētāju gaismā! Balvas piešķir Nacionālā izstāžu kamera un Ptak Warsaw Expo - izcelieties un iegūstiet atzinību!",
+    "reg_url": "/lv/registracija/",
+    "reg_url_text": "Piedalieties",
+    "buy_ticket": "Pirkt<br>biļeti"
+  },
+  "sk_SK": {
+    "title": "Získajte prestížne ocenenie na Ptak Warsaw Expo!",
+    "description": "Pridajte sa k najlepším na Ptak Warsaw Expo a ukážte svoju firmu vo svetle víťazov! Ocenenia udeľuje Národná komora veľtrhov a Ptak Warsaw Expo - odlíšte sa a získajte uznanie!",
+    "reg_url": "/sk/registracia/",
+    "reg_url_text": "Zúčastnite sa",
+    "buy_ticket": "Koupit<br>vstupenku"
+  },
+  "uk": {
+    "title": "Здобудьте престижну нагороду на Ptak Warsaw Expo!",
+    "description": "Приєднуйтеся до найкращих на Ptak Warsaw Expo і покажіть свою компанію у світлі переможців! Нагороди присуджують Національна виставкова палата та Ptak Warsaw Expo - вирізняйтеся та здобувайте визнання!",
+    "reg_url": "/uk/reyestraciya/",
+    "reg_url_text": "Взяти участь",
+    "buy_ticket": "Купить<br>билет"
+  },
+  "ro_RO": {
+    "title": "Câștigă un premiu prestigios la Ptak Warsaw Expo!",
+    "description": "Alătură-te celor mai buni la Ptak Warsaw Expo și prezintă-ți compania în lumina câștigătorilor! Premiile sunt acordate de Camera Națională a Expozițiilor și Ptak Warsaw Expo - evidențiază-te și câștigă recunoaștere!",
+    "reg_url": "/ro/inregistrare/",
+    "reg_url_text": "Participă",
+    "buy_ticket": "Cumpără<br>un bilet"
+  },
+  "et": {
+    "title": "Võida prestiižne auhind Ptak Warsaw Expo'l!",
+    "description": "Liitu parimatega Ptak Warsaw Expo'l ja näita oma ettevõtet võitjate valguses! Auhindu annab Riiklik Näituste Koda ja Ptak Warsaw Expo - eristu ja saa tunnustust!",
+    "reg_url": "/et/registreerimine/",
+    "reg_url_text": "Osale",
+    "buy_ticket": "Osta<br>pilet"
+  }
+}
