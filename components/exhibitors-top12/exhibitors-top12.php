@@ -1,33 +1,37 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
-class Simple_Header {
-
-    private static $rendered = false;
+class Exhibitors_Top12 {
 
     public static function get_data() {
         return [
-            'types' => ['speakers', "contact"],
+            'types' => ['exhibitors-top12'],
             'presets' => [
-                'all' => plugin_dir_path(__FILE__) . 'presets/all/preset.php',
+                'premium' => plugin_dir_path(__FILE__) . 'presets/premium/preset.php',
+                'standard' => plugin_dir_path(__FILE__) . 'presets/standard/preset.php',
             ],
         ];
     }
 
     public static function render($group = '', $params = [], $atts = []) {
 
-        // Locking the element if the footer has been rendered
-        if (self::$rendered) {
-            return;
-        }
-
-        self::$rendered = true;
-
         $data = self::get_data();
         $element_type = $data['types'][0];
         $element_slug = strtolower(str_replace('_', '-', __CLASS__));
 
-        $group = 'all';
+        if (isset($_SERVER['argv'][0])) {
+            $source_utm = $_SERVER['argv'][0];
+        } else {
+            $source_utm = '';
+        }
+
+        if (strpos($source_utm, 'utm_source=premium') !== false  ) {
+            $group = 'premium';
+        } else if(strpos($source_utm, 'utm_source=byli') !== false || strpos($source_utm, 'utm_source=platyna') !== false ) {
+            $group = 'platyna';
+        } else {
+            $group = 'standard';
+        }
 
         // Add context to translations function
         PWE_Functions::set_translation_context($element_slug, $group, 'components');
@@ -35,14 +39,13 @@ class Simple_Header {
         PWE_Functions::assets_per_element($element_slug, '', 'components');
         // Assets per group
         PWE_Functions::assets_per_group($element_slug, $group, '', 'components');
-        
+
         $preset_file = self::get_data()['presets'][$group] ?? null;
         if ($preset_file && file_exists($preset_file)) {
-
+            
             /* <-------------> General code start <-------------> */
 
-            $trade_fair_name = (PWE_Functions::lang_pl()) ? do_shortcode('[trade_fair_name]') : do_shortcode('[trade_fair_name_eng]');
-            $trade_fair_date = do_shortcode('[trade_fair_date_multilang]');
+            $exhibitors = PWE_Functions::exhibitor_logos(12);
 
             /* <-------------> General code end <-------------> */
             

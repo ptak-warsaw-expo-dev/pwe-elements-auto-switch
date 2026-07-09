@@ -8,7 +8,7 @@ if (!function_exists('get_menu_translations')) {
         static $translations = null;
 
         if ($translations === null) {
-            $file = dirname(__FILE__, 5) . '/translations/components/menu/menu.json';
+            $file = dirname(__FILE__) . '/assets/translations.json';
 
             if (file_exists($file)) {
                 $json = file_get_contents($file);

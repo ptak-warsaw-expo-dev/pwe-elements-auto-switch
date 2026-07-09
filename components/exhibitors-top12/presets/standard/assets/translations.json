@@ -1,0 +1,35 @@
+{
+  "pl_PL": {
+    "title": "Wystawcy"
+  },
+  "en_US": {
+    "title": "Exhibitors"
+  },
+  "cs_CZ": {
+    "title": "Vystavovatelé"
+  },
+  "de_DE": {
+    "title": "Aussteller"
+  },
+  "it_IT": {
+    "title": "Espositori"
+  },
+  "lt_LT": {
+    "title": "Eksponentai"
+  },
+  "lv_LV": {
+    "title": "Izstādes dalībnieki"
+  },
+  "sk_SK": {
+    "title": "Vystavovatelia"
+  },
+  "uk": {
+    "title": "Виставковці"
+  },
+  "ro_RO": {
+    "title": "Expozanți"
+  },
+  "et": {
+    "title": "Eksponendid"
+  }
+}

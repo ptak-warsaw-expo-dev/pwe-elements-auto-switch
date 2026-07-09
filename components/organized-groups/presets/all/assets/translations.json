@@ -1,0 +1,68 @@
+{
+  "pl_PL": {
+    "title": "Kontakt dla grup zorganizowanych",
+    "description": "W celu zapewnienia państwu komfortowego udziału w naszych wydarzeniach, wstęp dla grupnzorganizowanych możliwy jest tylko ostatniego dnia targowego. Przed wcześniejszym przybyciem zachęcamy do kontaktu przez formularz dostępny na stronie: <a id=\"pweGroupsLink\" href=\"https://warsawexpo.eu/grupy\" alt=\"link do rejestracji grup zorganizowanych\" target=\"_blank\">warsawexpo.eu/grupy</a>. Pozostawienie plecaków oraz walizek w szatni jest obligatoryjne. Na targach obowiązuje business dress code.",
+    "button_url": "https://warsawexpo.eu/grupy/",
+    "button_text": "Formularz kontaktowy"
+  },
+  "en_US": {
+    "title": "Contact for organized groups",
+    "description": "To ensure your comfortable participation in our events, admission for organized groups is only possible on the last day of the fair. Before your arrival, we encourage you to contact us through the form available on the website:  <a id=\"pweGroupsLink\" href=\"https://warsawexpo.eu/en/groups\" alt=\"link to group registration\" target=\"_blank\">warsawexpo.eu/en/groups</a>. Leaving backpacks and suitcases in the cloakroom is mandatory. A business dress code is required at the fair.",
+    "button_url": "https://warsawexpo.eu/en/groups/",
+    "button_text": "Contact Form"
+  },
+  "de_DE": {
+    "title": "Kontakt für organisierte Gruppen",
+    "description": "Um Ihre komfortable Teilnahme an unseren Veranstaltungen zu gewährleisten, ist der Eintritt für organisierte Gruppen nur am letzten Messetag möglich. Vor Ihrer Ankunft empfehlen wir Ihnen, uns über das auf der Website verfügbare Formular zu kontaktieren: <a id=\"pweGroupsLink\" href=\"https://warsawexpo.eu/en/groups/\" alt=\"Link zur Gruppenregistrierung\" target=\"_blank\">warsawexpo.eu/de/gruppen</a>. Das Abstellen von Rucksäcken und Koffern in der Garderobe ist obligatorisch. Auf der Messe gilt ein Business-Dresscode.",
+    "button_url": "https://warsawexpo.eu/en/groups/",
+    "button_text": "Kontaktformular"
+  },
+  "cs_CZ": {
+    "title": "Kontakt pro organizované skupiny",
+    "description": "Abychom zajistili pohodlnou účast na našich akcích, vstup pro organizované skupiny je možný pouze v poslední den veletrhu. Před příjezdem doporučujeme kontaktovat nás prostřednictvím formuláře dostupného na webových stránkách: <a id=\"pweGroupsLink\" href=\"https://warsawexpo.eu/en/groups/\" alt=\"odkaz na registraci skupin\" target=\"_blank\">warsawexpo.eu/en/groups</a>. Odložení batohů a kufrů v šatně je povinné. Na veletrhu platí business dress code.",
+    "button_url": "https://warsawexpo.eu/en/groups/",
+    "button_text": "Kontaktní formulář"
+  },
+  "it_IT": {
+    "title": "Contatto per gruppi organizzati",
+    "description": "Per garantire la vostra partecipazione confortevole ai nostri eventi, l'ingresso per i gruppi organizzati è possibile solo l'ultimo giorno della fiera. Prima del vostro arrivo, vi invitiamo a contattarci tramite il modulo disponibile sul sito web: <a id=\"pweGroupsLink\" href=\"https://warsawexpo.eu/en/groups/\" alt=\"link alla registrazione dei gruppi\" target=\"_blank\">warsawexpo.eu/en/groups</a>. È obbligatorio lasciare zaini e valigie nel guardaroba. Alla fiera è richiesto un dress code business.",
+    "button_url": "https://warsawexpo.eu/en/groups/",
+    "button_text": "Modulo di contatto"
+  },
+  "lt_LT": {
+    "title": "Kontaktas organizuotoms grupėms",
+    "description": "Siekiant užtikrinti jūsų patogų dalyvavimą mūsų renginiuose, įėjimas organizuotoms grupėms galimas tik paskutinę parodos dieną. Prieš atvykdami, raginame susisiekti su mumis per svetainėje pateiktą formą: <a id=\"pweGroupsLink\" href=\"https://warsawexpo.eu/en/groups/\" alt=\"nuoroda į grupių registraciją\" target=\"_blank\">warsawexpo.eu/en/groups</a>. Privaloma palikti kuprines ir lagaminus rūbinėje. Parodoje galioja verslo aprangos kodas.",
+    "button_url": "https://warsawexpo.eu/en/groups/",
+    "button_text": "Kontaktinė forma"
+  },
+  "lv_LV": {
+    "title": "Kontakts organizētām grupām",
+    "description": "Lai nodrošinātu jūsu ērtu dalību mūsu pasākumos, ieeja organizētām grupām ir iespējama tikai izstādes pēdējā dienā. Pirms ierašanās aicinām sazināties ar mums, izmantojot vietnē pieejamo veidlapu: <a id=\"pweGroupsLink\" href=\"https://warsawexpo.eu/en/groups/\" alt=\"saite uz grupu reģistrāciju\" target=\"_blank\">warsawexpo.eu/en/groups</a>. Obligāti jāatstāj mugursomas un koferi garderobē. Izstādē ir jāievēro biznesa apģērba kods.",
+    "button_url": "https://warsawexpo.eu/en/groups/",
+    "button_text": "Kontakta forma"
+  },
+  "sk_SK": {
+    "title": "Kontakt pre organizované skupiny",
+    "description": "Aby sme zabezpečili pohodlnú účasť na našich podujatiach, vstup pre organizované skupiny je možný iba v posledný deň veľtrhu. Pred príchodom vás vyzývame, aby ste nás kontaktovali prostredníctvom formulára dostupného na webovej stránke: <a id=\"pweGroupsLink\" href=\"https://warsawexpo.eu/en/groups/\" alt=\"odkaz na registráciu skupín\" target=\"_blank\">warsawexpo.eu/en/groups</a>. Odloženie batohov a kufrov v šatni je povinné. Na veľtrhu platí business dress code.",
+    "button_url": "https://warsawexpo.eu/en/groups/",
+    "button_text": "Kontaktný formulár"
+  },
+  "uk": {
+    "title": "Контакт для організованих груп",
+    "description": "Щоб забезпечити вам комфортну участь у наших заходах, вхід для організованих груп можливий лише в останній день ярмарку. Перед приїздом ми рекомендуємо зв'язатися з нами через форму, доступну на веб-сайті: <a id=\"pweGroupsLink\" href=\"https://warsawexpo.eu/en/groups/\" alt=\"посилання на реєстрацію груп\" target=\"_blank\">warsawexpo.eu/en/groups</a>. Обов'язково залишайте рюкзаки та валізи у гардеробі. На ярмарку діє дрес-код бізнес-стилю.",
+    "button_url": "https://warsawexpo.eu/en/groups/",
+    "button_text": "Контактна форма"
+  },
+  "ro_RO": {
+    "title": "Contact pentru grupuri organizate",
+    "description": "Pentru a vă asigura o participare confortabilă la evenimentele noastre, accesul pentru grupurile organizate este posibil doar în ultima zi a târgului. Înainte de sosirea dumneavoastră, vă încurajăm să ne contactați prin intermediul formularului disponibil pe site-ul web: <a id=\"pweGroupsLink\" href=\"https://warsawexpo.eu/en/groups/\" alt=\"link către înregistrarea grupurilor\" target=\"_blank\">warsawexpo.eu/en/groups</a>. Lăsarea rucsacurilor și a valizelor la garderobă este obligatorie. La târg se aplică un cod vestimentar de afaceri.",
+    "button_url": "https://warsawexpo.eu/en/groups/",
+    "button_text": "Formular de contact"
+  },
+  "et": {
+    "title": "Kontakt korraldatud gruppidele",
+    "description": "Et tagada teie mugav osalemine meie üritustel, on korraldatud gruppide sisenemine võimalik ainult messi viimasel päeval. Enne saabumist soovitame teil meiega ühendust võtta veebisaidil oleva vormi kaudu: <a id=\"pweGroupsLink\" href=\"https://warsawexpo.eu/en/groups/\" alt=\"link grupi registreerimiseks\" target=\"_blank\">warsawexpo.eu/en/groups</a>. Seljakottide ja kohvrite jätmine garderoobi on kohustuslik. Messil kehtib äririietuse kood.",
+    "button_url": "https://warsawexpo.eu/en/groups/",
+    "button_text": "Kontaktvorm"
+  }
+}

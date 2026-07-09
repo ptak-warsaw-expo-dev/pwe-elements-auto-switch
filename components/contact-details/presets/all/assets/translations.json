@@ -1,0 +1,79 @@
+{
+  "pl_PL": {
+    "customer_service": "Obsługa klienta",
+    "customer_service_office": "Biuro obsługi",
+    "technical_support": "Obsługa techniczna wystawców<br>",
+    "media_marketing": "Media i marketing",
+    "media_marketing_service": "Obsługa marketingowa i media"
+  },
+  "en_US": {
+    "customer_service": "Customer service",
+    "customer_service_office": "Customer Service Office",
+    "technical_support": "Technical support for exhibitors<br>",
+    "media_marketing": "Media and marketing",
+    "media_marketing_service": "Marketing and media services"
+  },
+  "cs_CZ": {
+    "customer_service": "Zákaznická podpora",
+    "customer_service_office": "Zákaznické centrum",
+    "technical_support": "Technická podpora vystavovatelů<br>",
+    "media_marketing": "Média a marketing",
+    "media_marketing_service": "Marketingové a mediální služby"
+  },
+  "de_DE": {
+    "customer_service": "Kundendienst",
+    "customer_service_office": "Kundendienstbüro",
+    "technical_support": "Technischer Support für Aussteller<br>",
+    "media_marketing": "Medien und Marketing",
+    "media_marketing_service": "Marketing- und Mediendienstleistungen"
+  },
+  "it_IT": {
+    "customer_service": "Servizio clienti",
+    "customer_service_office": "Ufficio assistenza clienti",
+    "technical_support": "Supporto tecnico per espositori<br>",
+    "media_marketing": "Media e marketing",
+    "media_marketing_service": "Servizi di marketing e media"
+  },
+  "lt_LT": {
+    "customer_service": "Klientų aptarnavimas",
+    "customer_service_office": "Klientų aptarnavimo biuras",
+    "technical_support": "Techninė parodos dalyvių pagalba<br>",
+    "media_marketing": "Media ir marketingas",
+    "media_marketing_service": "Marketingo ir žiniasklaidos paslaugos"
+  },
+  "lv_LV": {
+    "customer_service": "Klientu apkalpošana",
+    "customer_service_office": "Klientu apkalpošanas birojs",
+    "technical_support": "Tehniskais atbalsts izstādes dalībniekiem<br>",
+    "media_marketing": "Mediji un mārketings",
+    "media_marketing_service": "Mārketinga un mediju pakalpojumi"
+  },
+  "sk_SK": {
+    "customer_service": "Zákaznícka podpora",
+    "customer_service_office": "Kancelária zákazníckej podpory",
+    "technical_support": "Technická podpora pre vystavovateľov<br>",
+    "media_marketing": "Médiá a marketing",
+    "media_marketing_service": "Marketingové a mediálne služby"
+  },
+  "uk": {
+    "customer_service": "Сервіс для клієнтів",
+    "customer_service_office": "Офіс обслуговування клієнтів",
+    "technical_support": "Технічна підтримка для експонентів<br>",
+    "media_marketing": "Медіа та маркетинг",
+    "media_marketing_service": "Маркетингові та медіа послуги"
+  },
+  "ro_RO": {
+    "customer_service": "Serviciul pentru clienți",
+    "customer_service_office": "Biroul serviciului pentru clienți",
+    "technical_support": "Suport tehnic pentru expozanți<br>",
+    "media_marketing": "Media și marketing",
+    "media_marketing_service": "Servicii de marketing și media"
+  },
+  "et": {
+    "customer_service": "Klienditeenindus",
+    "customer_service_office": "Klienditeeninduse büroo",
+    "technical_support": "Tehniline tugi näituse osalejatele<br>",
+    "media_marketing": "Meedia ja turundus",
+    "media_marketing_service": "Turundus- ja meediapaketid"
+  }
+}

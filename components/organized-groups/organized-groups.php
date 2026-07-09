@@ -1,13 +1,11 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
-class Simple_Header {
-
-    private static $rendered = false;
+class Organized_Groups {
 
     public static function get_data() {
         return [
-            'types' => ['speakers', "contact"],
+            'types' => ['organized-groups'],
             'presets' => [
                 'all' => plugin_dir_path(__FILE__) . 'presets/all/preset.php',
             ],
@@ -15,13 +13,6 @@ class Simple_Header {
     }
 
     public static function render($group = '', $params = [], $atts = []) {
-
-        // Locking the element if the footer has been rendered
-        if (self::$rendered) {
-            return;
-        }
-
-        self::$rendered = true;
 
         $data = self::get_data();
         $element_type = $data['types'][0];
@@ -35,14 +26,13 @@ class Simple_Header {
         PWE_Functions::assets_per_element($element_slug, '', 'components');
         // Assets per group
         PWE_Functions::assets_per_group($element_slug, $group, '', 'components');
-        
+
         $preset_file = self::get_data()['presets'][$group] ?? null;
         if ($preset_file && file_exists($preset_file)) {
-
+            
             /* <-------------> General code start <-------------> */
 
-            $trade_fair_name = (PWE_Functions::lang_pl()) ? do_shortcode('[trade_fair_name]') : do_shortcode('[trade_fair_name_eng]');
-            $trade_fair_date = do_shortcode('[trade_fair_date_multilang]');
+            
 
             /* <-------------> General code end <-------------> */
             

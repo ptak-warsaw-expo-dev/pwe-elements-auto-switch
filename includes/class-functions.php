@@ -34,8 +34,11 @@ class PWE_Functions {
         // If not loaded yet, load it
         if (!isset(self::$translation_cache[$cache_key])) {
 
-            $translations_file = plugin_dir_path(__DIR__) .
-                'translations/elements/' . $cache_key;
+            if ($ctx['element_type'] === 'components') {
+                $translations_file = plugin_dir_path(__DIR__) . $ctx['element_type'] . '/' . $ctx['element_slug'] . '/presets/' . $ctx['group'] . '/assets/' . 'translations' . '.json';
+            } else {
+                $translations_file = plugin_dir_path(__DIR__) .'elements/'. $ctx['element_type'] . '/' . $ctx['element_slug'] . '/presets/' . $ctx['group'] . '/assets/' . 'translations' . '.json';
+            }
 
             if (file_exists($translations_file)) {
                 $json = file_get_contents($translations_file);
@@ -46,6 +49,7 @@ class PWE_Functions {
                 self::$translation_cache[$cache_key] = [];
             }
         }
+
 
         // Download from the cache
         $translations_data = self::$translation_cache[$cache_key];
@@ -3272,6 +3276,121 @@ class PWE_Functions {
             . '/>'
             . '<span id="value_' . esc_attr($id) . '">' . esc_attr($value) . '</span>'
             . '</div>';
+    }
+
+    /**
+     * Get the latest Gravity Forms form ID by base title.
+     *
+     * @param string $base_title The base title of the form.
+     * @return int|null The latest form ID or null if not found.
+     */
+    private static array $gf_form_resolver_cache = [];
+
+    public static function get_gf_form_id(string $base_title): ?int {
+        global $wpdb;
+
+        $base_title = trim($base_title);
+
+        if ($base_title === '') {
+            return null;
+        }
+
+        $cache_key = mb_strtolower($base_title);
+
+        if (array_key_exists($cache_key, self::$gf_form_resolver_cache)) {
+            return self::$gf_form_resolver_cache[$cache_key];
+        }
+
+        $transient_key = 'pwe_gf_form_resolver_' . md5($cache_key);
+        $cached = get_transient($transient_key);
+
+        if ($cached !== false) {
+            self::$gf_form_resolver_cache[$cache_key] = $cached ? (int) $cached : null;
+            return self::$gf_form_resolver_cache[$cache_key];
+        }
+
+        $table = $wpdb->prefix . 'gf_form';
+
+        $rows = $wpdb->get_results(
+            $wpdb->prepare(
+                "
+                SELECT id, title
+                FROM {$table}
+                WHERE is_active = 1
+                AND is_trash = 0
+                AND title LIKE %s
+                ",
+                '%' . $wpdb->esc_like($base_title) . '%'
+            ),
+            ARRAY_A
+        );
+
+        if ($wpdb->last_error || empty($rows)) {
+            set_transient($transient_key, 0, 10 * MINUTE_IN_SECONDS);
+            self::$gf_form_resolver_cache[$cache_key] = null;
+            return null;
+        }
+
+        $latest_id = null;
+        $latest_year = 0;
+        $plain_id = null;
+
+        foreach ($rows as $row) {
+            $title = trim($row['title']);
+
+            if ($title === $base_title) {
+                $plain_id = (int) $row['id'];
+                continue;
+            }
+
+            $pattern = '/^\((\d{4})(?:\s+[^)]*)?\)\s+' . preg_quote($base_title, '/') . '$/u';
+
+            if (!preg_match($pattern, $title, $matches)) {
+                continue;
+            }
+
+            $year = (int) $matches[1];
+
+            if ($year > $latest_year) {
+                $latest_year = $year;
+                $latest_id = (int) $row['id'];
+            }
+        }
+
+        $resolved_id = $latest_id ?? $plain_id;
+
+        set_transient($transient_key, $resolved_id ?: 0, 10 * MINUTE_IN_SECONDS);
+        self::$gf_form_resolver_cache[$cache_key] = $resolved_id;
+
+        return $resolved_id;
+    }
+
+    public static function render_component($slug, $group = 'all', $params = []) {
+        $components = PWE_Elements_Data::get_all_components();
+
+        if (!isset($components[$slug])) {
+            return '';
+        }
+
+        $component = $components[$slug];
+        $class     = $component['class'];
+        $file      = plugin_dir_path(__DIR__) . $component['file'];
+
+        if (!class_exists($class)) {
+            if (!file_exists($file)) {
+                return '';
+            }
+
+            require_once $file;
+        }
+
+        if (!class_exists($class) || !method_exists($class, 'render')) {
+            return '';
+        }
+
+        ob_start();
+        $class::render($group, $params);
+        return ob_get_clean();
     }
 }
 

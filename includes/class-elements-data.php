@@ -161,6 +161,27 @@ class PWE_Elements_Data {
             ['class' => 'Speakers_Page',   'file' => 'elements/speakers/speakers/speakers.php',     'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2]],
             ['class' => 'Footer',          'file' => 'components/footer/footer.php',                'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
         ],
+        'registration-visitors' => [
+            ['class' => 'Registration_Visitors',   'file' => 'elements/registration-visitors/registration-visitors/registration-visitors.php',     'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2]],
+            ['class' => 'Footer',          'file' => 'components/footer/footer.php',                'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
+        ],
+        // 'registration-exhibitors' => [
+        //     ['class' => 'Registration_Exhibitors',   'file' => 'elements/registration-exhibitors/registration-exhibitors/registration-exhibitors.php',     'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2]],
+        //     ['class' => 'Footer',          'file' => 'components/footer/footer.php',                'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
+        // ],
+        'contact' => [
+            ['class' => 'Simple_Header',   'file' => 'components/simple-header/simple-header.php',  'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
+            ['class' => 'Contact',   'file' => 'elements/contact/contact/contact.php',     'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2]],
+            ['class' => 'Footer',          'file' => 'components/footer/footer.php',                'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
+        ],
+        // 'step2' => [
+        //     ['class' => 'Step2',   'file' => 'elements/step2/step2.php',     'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2]],
+        //     ['class' => 'Footer',          'file' => 'components/footer/footer.php',                'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
+        // ],
+        'potential-exhibitors' => [
+            ['class' => 'Potential_Exhibitors',   'file' => 'elements/potential-exhibitors/potential-exhibitors/potential-exhibitors.php',     'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2]],
+            ['class' => 'Footer',          'file' => 'components/footer/footer.php',                'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
+        ],
     ];
 
     /**
@@ -169,6 +190,11 @@ class PWE_Elements_Data {
     private static $components_files = [
         'simple-header' => ['class' => 'Simple_Header',   'file' => 'components/simple-header/simple-header.php',     'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
         'footer'        => ['class' => 'Footer',          'file' => 'components/footer/footer.php',                   'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
+        'exhibitors-top12' => ['class' => 'Exhibitors_Top12', 'file'  => 'components/exhibitors-top12/exhibitors-top12.php', 'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
+        'contact-details' => ['class' => 'Contact_Details', 'file'  => 'components/contact-details/contact-details.php', 'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
+        'organized-groups' => ['class' => 'Organized_Groups', 'file'  => 'components/organized-groups/organized-groups.php', 'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
+        'location-map' => ['class' => 'Location_Map', 'file'  => 'components/location-map/location-map.php', 'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
+        'pwe-address' => ['class' => 'PWE_Address', 'file'  => 'components/pwe-address/pwe-address.php', 'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
     ];
 
     /**

@@ -1,0 +1,41 @@
+.pwe-contact-details {
+    padding: 36px;
+    border: 1px solid black;
+    border-radius: 18px;
+}
+
+.pwe-contact-details__title h4,
+.pwe-contact-details__item p {
+    margin: 0;
+    color: black !important;
+}
+
+.pwe-contact-details__title h4 {
+    text-transform: uppercase;
+}
+
+.pwe-contact-details__items {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 18px;
+}
+
+.pwe-contact-details__item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.pwe-contact-details__item img {
+    max-width: 110px !important;
+    border-radius: 18px;
+}
+
+.pwe-contact-details__item-text {
+    overflow-wrap: anywhere;
+    line-height: normal !important;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}

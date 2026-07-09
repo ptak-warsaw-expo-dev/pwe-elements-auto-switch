@@ -1,0 +1,57 @@
+{
+  "pl_PL": {
+    "register_link": "/rejestracja/",
+    "register_alt": "rejestracja",
+    "take_part": "Weź udział"
+  },
+  "en_US": {
+    "register_link": "/en/registration/",
+    "register_alt": "registration",
+    "take_part": "Take a part"
+  },
+  "cs_CZ": {
+    "register_link": "/cs/registrace/",
+    "register_alt": "registrace",
+    "take_part": "Zúčastnit se"
+  },
+  "de_DE": {
+    "register_link": "/de/anmeldung/",
+    "register_alt": "anmeldung",
+    "take_part": "Teilnehmen"
+  },
+  "it_IT": {
+    "register_link": "/it/registrazione/",
+    "register_alt": "registrazione",
+    "take_part": "Partecipa"
+  },
+  "lt_LT": {
+   "register_link": "/lt/registracija/",
+    "register_alt": "registracija",
+    "take_part": "Dalyvauti"
+  },
+  "lv_LV": {
+    "register_link": "/lv/registracija/",
+    "register_alt": "registracija",
+    "take_part": "Dalīties"
+  },
+  "sk_SK": {
+    "register_link": "/sk/registracia/",
+    "register_alt": "registracia",
+    "take_part": "Zúčastniť sa"
+  },
+  "uk": {
+    "register_link": "/uk/reyestraciya/",
+    "register_alt": "реєстрація",
+    "take_part": "Взяти участь"
+  },
+  "ro_RO": {
+    "register_link": "/ro/inregistrare/",
+    "register_alt": "înregistrare",
+    "take_part": "Participați"
+  },
+  "et": {
+    "register_link": "/et/registreerimine/",
+    "register_alt": "registreerimine",
+    "take_part": "Osale"
+  }
+}

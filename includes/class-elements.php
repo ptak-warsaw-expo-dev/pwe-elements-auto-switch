@@ -13,6 +13,9 @@ class PWE_Elements {
             'catalog'   => ['shortcode' => 'pwe-elements-auto-switch-page-catalog',   'title' => 'Catalog'],
             'flip-book' => ['shortcode' => 'pwe-elements-auto-switch-page-flip-book', 'title' => 'Flip Book'],
             'speakers'  => ['shortcode' => 'pwe-elements-auto-switch-page-speakers',  'title' => 'Speakers'],
+            'contact'   => ['shortcode' => 'pwe-elements-auto-switch-page-contact',   'title' => 'Contact'],
+            'registration-visitors'  => ['shortcode' => 'pwe-elements-auto-switch-page-registration-visitors',  'title' => 'Registration Visitors'],
+            'potential-exhibitors'  => ['shortcode' => 'pwe-elements-auto-switch-page-potential-exhibitors',  'title' => 'Potential Exhibitors'],
         ];
 
         add_action('wp_enqueue_scripts', [__CLASS__, 'adding_styles']);

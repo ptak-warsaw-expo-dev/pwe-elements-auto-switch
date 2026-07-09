@@ -1,0 +1,38 @@
+.pwe-organized-groups {
+    border-radius: 18px;
+    padding: 36px;
+    background-color: var(--accent-color);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.pwe-organized-groups :is(h4, p , a) {
+    color: white !important;
+    margin: 0;
+}
+
+.pwe-organized-groups h4 {
+    text-transform: uppercase;
+}
+
+a#pweGroupsLink {
+    text-decoration: underline;
+}
+
+a.pwe-organized-groups__btn {
+    background-color: white;
+    border-width: 1px;
+    border-radius: 10px;
+    border: 2px solid white;
+    color: black !important;
+    align-self: center;
+    transform: scale(1) !important;
+    padding: 6px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transform-origin: center !important;
+    min-width: 250px;
+    margin: 3px;
+}

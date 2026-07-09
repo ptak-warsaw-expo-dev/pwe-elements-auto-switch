@@ -84,8 +84,16 @@ class PWE_Shortcodes {
             'trade_fair_actualyear' => 'show_trade_fair_actualyear',
             'trade_fair_rejestracja' => 'show_trade_fair_rejestracja',
             'trade_fair_contact' => 'show_trade_fair_contact',
+            'trade_fair_contact_service_name' => 'show_trade_fair_contact_service_name',
+            'trade_fair_contact_service_phone' => 'show_trade_fair_contact_service_phone',
+            'trade_fair_contact_service_email' => 'show_trade_fair_contact_service_email',
             'trade_fair_contact_tech' => 'show_trade_fair_contact_tech',
             'trade_fair_contact_media' => 'show_trade_fair_contact_media',
+            'trade_fair_contact_media_phone' => 'show_trade_fair_contact_media_phone',
+            'trade_fair_contact_media_name' => 'show_trade_fair_contact_media_name',
+            'trade_fair_contact_media_person_name' => 'show_trade_fair_contact_media_person_name',
+            'trade_fair_contact_media_person_phone' => 'show_trade_fair_contact_media_person_phone',
+            'trade_fair_contact_media_person_email' => 'show_trade_fair_contact_media_person_email',
             'trade_fair_contact_email_vip' => 'show_trade_fair_contact_email_vip',
             'trade_fair_contact_phone_vip' => 'show_trade_fair_contact_phone_vip',
             'trade_fair_lidy' => 'show_trade_fair_lidy',
@@ -157,8 +165,16 @@ class PWE_Shortcodes {
             'trade_fair_actualyear' => 'show_trade_fair_actualyear',
             'trade_fair_rejestracja' => 'show_trade_fair_rejestracja',
             'trade_fair_contact' => 'show_trade_fair_contact',
+            'trade_fair_contact_service_name' => 'show_trade_fair_contact_service_name',
+            'trade_fair_contact_service_phone' => 'show_trade_fair_contact_service_phone',
+            'trade_fair_contact_service_email' => 'show_trade_fair_contact_service_email',
             'trade_fair_contact_tech' => 'show_trade_fair_contact_tech',
             'trade_fair_contact_media' => 'show_trade_fair_contact_media',
+            'trade_fair_contact_media_phone' => 'show_trade_fair_contact_media_phone',
+            'trade_fair_contact_media_name' => 'show_trade_fair_contact_media_name',
+            'trade_fair_contact_media_person_name' => 'show_trade_fair_contact_media_person_name',
+            'trade_fair_contact_media_person_phone' => 'show_trade_fair_contact_media_person_phone',
+            'trade_fair_contact_media_person_email' => 'show_trade_fair_contact_media_person_email',
             'trade_fair_contact_email_vip' => 'show_trade_fair_contact_email_vip',
             'trade_fair_contact_phone_vip' => 'show_trade_fair_contact_phone_vip',
             'trade_fair_lidy' => 'show_trade_fair_lidy',
@@ -304,7 +320,26 @@ class PWE_Shortcodes {
 
     public function theme_options_page() {
 
-        $shortcodes = array_keys($this->get_shortcodes_map());
+        $allowed_tabs = ['main', 'dates', 'contact', 'social', 'catalog', 'other'];
+
+        $active_tab = isset($_GET['tab'])
+            ? sanitize_key(wp_unslash($_GET['tab']))
+            : 'main';
+
+        if (!in_array($active_tab, $allowed_tabs, true)) {
+            $active_tab = 'main';
+        }
+
+        $settings_pages = [
+            'main'    => 'pwe-code-checker',
+            'dates'   => 'pwe-code-checker-dates',
+            'contact' => 'pwe-code-checker-contact',
+            'social'  => 'pwe-code-checker-social',
+            'catalog' => 'pwe-code-checker-catalog',
+            'other'   => 'pwe-code-checker-other',
+        ];
+
+        $current_settings_page = $settings_pages[$active_tab];
 
         ?>
         <style>
@@ -355,137 +390,185 @@ class PWE_Shortcodes {
             #pweShortcodes .form-wrap p.submit {
                 margin: 20px 0 !important;
             }
+            #pweShortcodes .nav-tab-wrapper {
+                margin-bottom: 20px;
+            }
         </style>
 
         <div id="pweShortcodes" class="pwe-shortcodes wrap" style="margin-top:40px">
             <?php settings_errors(); ?>
-            <div class="postbox-container">
-                <div class="col-wrap">
-                    <div class="postbox">
-                        <div class="inside">
-                            <div class="main">
-                                <p style="text-align:center;"><strong>O PWE Shortcodes</strong></p>
-                                <hr>
-                                <p>
-                                    Wtyczka pobiera dane z bazy danych CAP (PWE Centralized Administration Panel) i na ich podstawie generuje shortcody,
-                                    które można wykorzystać w dowolnym miejscu na stronie WordPress oraz w formularzach Gravity Forms.
-                                </p>
-                                <p><strong>Przykład użycia na stronie:</strong> <code>[trade_fair_name]</code></p>
 
-                                <details class="shortcodes-box">
-                                    <summary>Dostępne shortkody (WordPress)</summary>
-                                    <ul>
-                                        <?php
-                                        foreach ($this->get_shortcodes_map() as $tag => $callback) {
+            <h1>PWE Shortcodes</h1>
 
-                                            $value = '';
-                                            if (is_callable([$this, $callback])) {
-                                                $value = call_user_func([$this, $callback]);
-                                            }
+            <h2 class="nav-tab-wrapper">
+                <a 
+                    href="<?php echo esc_url(admin_url('admin.php?page=pwe-shortcodes&tab=main')); ?>" 
+                    class="nav-tab <?php echo $active_tab === 'main' ? 'nav-tab-active' : ''; ?>"
+                >
+                    Główne
+                </a>
+                <a 
+                    href="<?php echo esc_url(admin_url('admin.php?page=pwe-shortcodes&tab=dates')); ?>" 
+                    class="nav-tab <?php echo $active_tab === 'dates' ? 'nav-tab-active' : ''; ?>"
+                >
+                    Daty
+                </a>
+                <a 
+                    href="<?php echo esc_url(admin_url('admin.php?page=pwe-shortcodes&tab=catalog')); ?>" 
+                    class="nav-tab <?php echo $active_tab === 'catalog' ? 'nav-tab-active' : ''; ?>"
+                >
+                    Katalog
+                </a>
+                <a 
+                    href="<?php echo esc_url(admin_url('admin.php?page=pwe-shortcodes&tab=social')); ?>" 
+                    class="nav-tab <?php echo $active_tab === 'social' ? 'nav-tab-active' : ''; ?>"
+                >
+                    Social Media
+                </a>
+                <a 
+                    href="<?php echo esc_url(admin_url('admin.php?page=pwe-shortcodes&tab=contact')); ?>" 
+                    class="nav-tab <?php echo $active_tab === 'contact' ? 'nav-tab-active' : ''; ?>"
+                >
+                    Kontakt
+                </a>
+                <a 
+                    href="<?php echo esc_url(admin_url('admin.php?page=pwe-shortcodes&tab=other')); ?>" 
+                    class="nav-tab <?php echo $active_tab === 'other' ? 'nav-tab-active' : ''; ?>"
+                >
+                    Inne
+                </a>
+            </h2>
 
-                                            echo '
-                                            <li>
-                                                <code>[' . esc_html($tag) . ']</code>
-                                                <small style="margin-left:10px;color:#666;">'
-                                                . esc_html($this->shorten_value($value)) .
-                                                '</small>
-                                            </li>';
-                                        }
-                                        ?>
-                                    </ul>
-                                </details>
+            <?php if ($active_tab === 'main') : ?>
+                <div class="postbox-container">
+                    <div class="col-wrap">
+                        <div class="postbox">
+                            <div class="inside">
+                                <div class="main">
+                                    <p style="text-align:center;"><strong>O PWE Shortcodes</strong></p>
+                                    <hr>
+                                    <p>
+                                        Wtyczka pobiera dane z bazy danych CAP (PWE Centralized Administration Panel) i na ich podstawie generuje shortcody,
+                                        które można wykorzystać w dowolnym miejscu na stronie WordPress oraz w formularzach Gravity Forms.
+                                    </p>
+                                    <p><strong>Przykład użycia na stronie:</strong> <code>[trade_fair_name]</code></p>
 
-                                <p><strong>Przykład użycia w formularzu Gravity Forms:</strong> <code>{trade_fair_name}</code></p>
+                                    <details class="shortcodes-box">
+                                        <summary>Dostępne shortkody (WordPress)</summary>
+                                        <ul>
+                                            <?php
+                                            foreach ($this->get_shortcodes_map() as $tag => $callback) {
 
-                                <details class="shortcodes-box">
-                                    <summary>Dostępne shortkody Gravity Forms</summary>
-                                    <ul>
-                                        <?php
-                                        foreach ($this->get_gf_shortcodes_map() as $tag => $callback) {
+                                                $value = '';
+                                                if (is_callable([$this, $callback])) {
+                                                    $value = call_user_func([$this, $callback]);
+                                                }
 
-                                            $value = '';
-                                            if (is_callable([$this, $callback])) {
-                                                $value = call_user_func([$this, $callback]);
-                                            }
-
-                                            echo '
-                                            <li>
-                                                <code>{' . esc_html($tag) . '}</code>
-                                                <small style="margin-left:10px;color:#666;">'
-                                                . esc_html($this->shorten_value($value)) .
-                                                '</small>
-                                            </li>';
-                                        }
-                                        ?>
-                                    </ul>
-                                </details>
-
-                                <p><strong>Przykład użycia w polach Yoast SEO:</strong> <code>%%sc_pwe_trade_fair_desc%%</code></p>
-
-                                <details class="shortcodes-box">
-                                    <summary>Dostępne shortkody Yoast SEO</summary>
-                                    <ul>
-                                        <?php
-                                        foreach ($this->get_yoast_shortcodes_map() as $key => $callback) {
-
-                                            $value = '';
-
-                                            if (is_callable([$this, $callback])) {
-                                                $value = call_user_func([$this, $callback]);
-                                            }
-
-                                            echo '
-                                            <li>
-                                                <code>%%' . esc_html($key) . '%%</code>
-                                                <small style="margin-left:10px;color:#666;">'
+                                                echo '
+                                                <li>
+                                                    <code>[' . esc_html($tag) . ']</code>
+                                                    <small style="margin-left:10px;color:#666;">'
                                                     . esc_html($this->shorten_value($value)) .
-                                                '</small>
-                                            </li>';
-                                        }
-                                        ?>
-                                    </ul>
-                                </details>
+                                                    '</small>
+                                                </li>';
+                                            }
+                                            ?>
+                                        </ul>
+                                    </details>
 
-                                <p><strong>Dodatkowe shortkody:</strong> <code>[shortcode]</code></p>
+                                    <p><strong>Przykład użycia w formularzu Gravity Forms:</strong> <code>{trade_fair_name}</code></p>
 
-                                <details class="shortcodes-box">
-                                    <summary>Dodatkowe shortkody</summary>
-                                    <ul>
-                                        <?php
-                                        foreach ($this->other_shortcodes_map() as $shortcode) {
+                                    <details class="shortcodes-box">
+                                        <summary>Dostępne shortkody Gravity Forms</summary>
+                                        <ul>
+                                            <?php
+                                            foreach ($this->get_gf_shortcodes_map() as $tag => $callback) {
 
-                                            echo '
-                                            <li>
-                                                <code>[' . esc_html($shortcode) . ']</code>
-                                                <small style="margin-left:10px;color:#666;">'
-                                                . $this->shorten_value(do_shortcode('[' . $shortcode . ']')) .
-                                                '</small>
-                                            </li>';
-                                        }
-                                        ?>
-                                    </ul>
-                                    <summary>Przetłumaczalne shortkody [pwe_name_{lang}]</summary>
-                                    <ul>
-                                        <?php
-                                        foreach ($this->translates_shortcodes_map() as $shortcode) {
+                                                $value = '';
+                                                if (is_callable([$this, $callback])) {
+                                                    $value = call_user_func([$this, $callback]);
+                                                }
 
-                                            echo '
-                                            <li>
-                                                <code>[' . esc_html($shortcode) . ']</code>
-                                                <small style="margin-left:10px;color:#666;">'
-                                                . $this->shorten_value(do_shortcode('[' . $shortcode . ']')) .
-                                                '</small>
-                                            </li>';
-                                        }
-                                        ?>
-                                    </ul>
-                                </details>
+                                                echo '
+                                                <li>
+                                                    <code>{' . esc_html($tag) . '}</code>
+                                                    <small style="margin-left:10px;color:#666;">'
+                                                    . esc_html($this->shorten_value($value)) .
+                                                    '</small>
+                                                </li>';
+                                            }
+                                            ?>
+                                        </ul>
+                                    </details>
 
+                                    <p><strong>Przykład użycia w polach Yoast SEO:</strong> <code>%%sc_pwe_trade_fair_desc%%</code></p>
+
+                                    <details class="shortcodes-box">
+                                        <summary>Dostępne shortkody Yoast SEO</summary>
+                                        <ul>
+                                            <?php
+                                            foreach ($this->get_yoast_shortcodes_map() as $key => $callback) {
+
+                                                $value = '';
+
+                                                if (is_callable([$this, $callback])) {
+                                                    $value = call_user_func([$this, $callback]);
+                                                }
+
+                                                echo '
+                                                <li>
+                                                    <code>%%' . esc_html($key) . '%%</code>
+                                                    <small style="margin-left:10px;color:#666;">'
+                                                        . esc_html($this->shorten_value($value)) .
+                                                    '</small>
+                                                </li>';
+                                            }
+                                            ?>
+                                        </ul>
+                                    </details>
+
+                                    <p><strong>Dodatkowe shortkody:</strong> <code>[shortcode]</code></p>
+
+                                    <details class="shortcodes-box">
+                                        <summary>Dodatkowe shortkody</summary>
+                                        <ul>
+                                            <?php
+                                            foreach ($this->other_shortcodes_map() as $shortcode) {
+
+                                                echo '
+                                                <li>
+                                                    <code>[' . esc_html($shortcode) . ']</code>
+                                                    <small style="margin-left:10px;color:#666;">'
+                                                    . esc_html($this->shorten_value(do_shortcode('[' . $shortcode . ']'))) .
+                                                    '</small>
+                                                </li>';
+                                            }
+                                            ?>
+                                        </ul>
+                                        <summary>Przetłumaczalne shortkody [pwe_name_{lang}]</summary>
+                                        <ul>
+                                            <?php
+                                            foreach ($this->translates_shortcodes_map() as $shortcode) {
+
+                                                echo '
+                                                <li>
+                                                    <code>[' . esc_html($shortcode) . ']</code>
+                                                    <small style="margin-left:10px;color:#666;">'
+                                                    . esc_html($this->shorten_value(do_shortcode('[' . $shortcode . ']'))) .
+                                                    '</small>
+                                                </li>';
+                                            }
+                                            ?>
+                                        </ul>
+                                    </details>
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            <?php endif; ?>
+
             <div class="postbox-container">
                 <div class="col-wrap">
                     <div class="form-wrap">
@@ -495,7 +578,7 @@ class PWE_Shortcodes {
                                     <div class="main">
                                         <?php
                                         settings_fields("pwe_code_checker");
-                                        do_settings_sections("pwe-code-checker");
+                                        do_settings_sections($current_settings_page);
                                         submit_button();
                                         ?>
                                     </div>
@@ -509,12 +592,18 @@ class PWE_Shortcodes {
         <?php
     }
 
+
     public function register_settings() {
 
         // Main section
         add_settings_section("pwe_code_checker", "PWE Shortcodes", [$this, 'header_section'], "pwe-code-checker");
+        add_settings_section("pwe_code_checker_dates", "Daty", [$this, 'header_section'], "pwe-code-checker-dates");
+        add_settings_section("pwe_code_checker_contact", "Kontakt", [$this, 'header_section'], "pwe-code-checker-contact");
+        add_settings_section("pwe_code_checker_social", "Social", [$this, 'header_section'], "pwe-code-checker-social");
+        add_settings_section("pwe_code_checker_catalog", "Katalog", [$this, 'header_section'], "pwe-code-checker-catalog");
+        add_settings_section("pwe_code_checker_other", "Inne", [$this, 'header_section'], "pwe-code-checker-other");
 
-        // List of fields for registration
+        // List of fields for registration - zakładka Główne
         $fields = [
             'trade_fair_name' => 'Nazwa targów PL<hr><p>[trade_fair_name]</p>',
             'trade_fair_name_eng' => 'Nazwa targów EN<hr><p>[trade_fair_name_eng]</p>',
@@ -522,22 +611,6 @@ class PWE_Shortcodes {
             'trade_fair_desc_eng' => 'Opis targów EN<hr><p>[trade_fair_desc_eng]</p>',
             'trade_fair_desc_short' => 'Skrócony Opis targów PL<hr><p>[trade_fair_desc_short]</p>',
             'trade_fair_desc_short_eng' => 'Skrócony Opis targów EN<hr><p>[trade_fair_desc_short_eng]</p>',
-
-            'trade_fair_catalog' => 'ID/IDs katalogu/ów wystawców (OLD)<hr><p>[trade_fair_catalog]</p>',
-            'trade_fair_catalog_archive' => 'Rok-ID archiwalnych katalogów wystawców (OLD)<hr><p>[trade_fair_catalog_archive]</p>',
-            'trade_fair_catalog_id' => 'ID/IDs katalogu/ów wystawców (NEW)<hr><p>[trade_fair_catalog_id]</p>',
-            'trade_fair_catalog_id_archive' => 'Rok-ID archiwalnych katalogów wystawców (NEW)<hr><p>[trade_fair_catalog_id_archive]</p>',
-            'trade_fair_catalog_year' => 'Rok aktualnego katalogu wystawców<hr><p>[trade_fair_catalog_year]</p>',
-
-            'trade_fair_datetotimer' => 'Data targów do licznika<hr><p>[trade_fair_datetotimer]</p>',
-            'trade_fair_enddata' => 'Data zakończenia targów do licznika<hr><p>[trade_fair_enddata]</p>',
-            'trade_fair_date_custom_format' => 'Data targów [D-D|M|Y]<hr><p>[trade_fair_date_custom_format]</p>',
-            'trade_fair_date' => 'Data Targów PL<hr><p>[trade_fair_date]</p>',
-            'trade_fair_date_eng' => 'Data Targów EN<hr><p>[trade_fair_date_eng]</p>',
-            'trade_fair_date_multilang' => 'Data targów (język automatyczny)<hr><p>[trade_fair_date_multilang]</p>',
-            'trade_fair_first_day' => 'Pierwszy dzień targów<hr><p>[trade_fair_first_day]</p>',
-            'trade_fair_second_day' => 'Drugi dzień targów<hr><p>[trade_fair_second_day]</p>',
-            'trade_fair_third_day' => 'Trzeci dzień targów<hr><p>[trade_fair_third_day]</p>',
 
             'trade_fair_hall' => 'Hala targów<hr><p>[trade_fair_hall]</p>',
             'trade_fair_hall_entrance' => 'Wejścia na targi <hr><p>[trade_fair_hall_entrance]</p>',
@@ -548,33 +621,80 @@ class PWE_Shortcodes {
             'trade_fair_conference' => 'Główna nazwa konferencji <hr><p>[trade_fair_conference]</p>',
             'trade_fair_conference_title' => 'Tytuł konferencji (PL) <hr><p>[trade_fair_conference_title]</p>',
             'trade_fair_conference_title_eng' => 'Tytuł konferencji (EN) <hr><p>[trade_fair_conference_title_eng]</p>',
+            'trade_fair_badge' => 'Początek nazwy badge -> ..._gosc_a6 <hr><p>[trade_fair_badge]</p>',
+            
+            'trade_fair_group' => 'Grupa targów<hr><p>[trade_fair_group]</p>',
+            'trade_fair_domainadress' => 'Adres strony<hr><p>[trade_fair_domainadress]</p>',
+            'trade_fair_actualyear' => 'Aktualny rok<hr><p>[trade_fair_actualyear]</p>',
+        ];
+
+        // Zakładka Daty
+        $date_fields = [
+            'trade_fair_datetotimer' => 'Data targów do licznika<hr><p>[trade_fair_datetotimer]</p>',
+            'trade_fair_enddata' => 'Data zakończenia targów do licznika<hr><p>[trade_fair_enddata]</p>',
+            'trade_fair_date_custom_format' => 'Data targów [D-D|M|Y]<hr><p>[trade_fair_date_custom_format]</p>',
+            'trade_fair_date' => 'Data Targów PL<hr><p>[trade_fair_date]</p>',
+            'trade_fair_date_eng' => 'Data Targów EN<hr><p>[trade_fair_date_eng]</p>',
+            'trade_fair_date_multilang' => 'Data targów (język automatyczny)<hr><p>[trade_fair_date_multilang]</p>',
+            'trade_fair_first_day' => 'Pierwszy dzień targów<hr><p>[trade_fair_first_day]</p>',
+            'trade_fair_second_day' => 'Drugi dzień targów<hr><p>[trade_fair_second_day]</p>',
+            'trade_fair_third_day' => 'Trzeci dzień targów<hr><p>[trade_fair_third_day]</p>',
             'trade_fair_1stbuildday' => 'Data pierwszego dnia zabudowy<hr><p>[trade_fair_1stbuildday]</p>',
             'trade_fair_2ndbuildday' => 'Data drugiego dnia zabudowy<hr><p>[trade_fair_2ndbuildday]</p>',
             'trade_fair_1stdismantlday' => 'Data pierwszego dnia rozbiórki<hr><p>[trade_fair_1stdismantlday]</p>',
             'trade_fair_2nddismantlday' => 'Data drugiego dnia rozbiórki<hr><p>[trade_fair_2nddismantlday]</p>',
             'trade_fair_branzowy' => 'Data dni branżowych targów<hr><p>[trade_fair_branzowy]</p>',
             'trade_fair_branzowy_eng' => 'Data dni branżowych targów (ENG)<hr><p>[trade_fair_branzowy_eng]</p>',
-            'trade_fair_badge' => 'Początek nazwy badge -> ..._gosc_a6 <hr><p>[trade_fair_badge]</p>',
-            
-            'trade_fair_facebook' => 'Adres wydarzenia na facebook<hr><p>[trade_fair_facebook]</p>',
-            'trade_fair_instagram' => 'Adres wydarzenia na instagram<hr><p>[trade_fair_instagram]</p>',
-            'trade_fair_linkedin' => 'Adres wydarzenia na linkedin<hr><p>[trade_fair_linkedin]</p>',
-            'trade_fair_youtube' => 'Adres wydarzenia na youtube<hr><p>[trade_fair_youtube]</p>',
-            
+        ];
+                
+        // Zakładka Social
+        $social_fields = [
+            'trade_fair_facebook' => 'Adres wydarzenia na Facebook<hr><p>[trade_fair_facebook]</p>',
+            'trade_fair_instagram' => 'Adres wydarzenia na Instagram<hr><p>[trade_fair_instagram]</p>',
+            'trade_fair_linkedin' => 'Adres wydarzenia na LinkedIn<hr><p>[trade_fair_linkedin]</p>',
+            'trade_fair_youtube' => 'Adres wydarzenia na YouTube<hr><p>[trade_fair_youtube]</p>',
+        ];
+
+        // Zakładka Katalog
+        $catalog_fields = [
+            'trade_fair_catalog' => 'ID/IDs katalogu/ów wystawców (OLD)<hr><p>[trade_fair_catalog]</p>',
+            'trade_fair_catalog_archive' => 'Rok-ID archiwalnych katalogów wystawców (OLD)<hr><p>[trade_fair_catalog_archive]</p>',
+            'trade_fair_catalog_id' => 'ID/IDs katalogu/ów wystawców (NEW)<hr><p>[trade_fair_catalog_id]</p>',
+            'trade_fair_catalog_id_archive' => 'Rok-ID archiwalnych katalogów wystawców (NEW)<hr><p>[trade_fair_catalog_id_archive]</p>',
+            'trade_fair_catalog_year' => 'Rok aktualnego katalogu wystawców<hr><p>[trade_fair_catalog_year]</p>',
+        ];
+
+        // Zakładka Kontakt
+        $contact_fields = [
             'trade_fair_rejestracja' => 'Adres email do automatycznej odpowiedzi<hr><p>[trade_fair_rejestracja]</p>',
             'trade_fair_contact' => 'Adres email do formularza kontaktu<hr><p>[trade_fair_contact]</p>',
+
+            'trade_fair_contact_service_name' => 'Imię i nazwisko osoby kontaktowej biura obsługi<hr><p>[trade_fair_contact_service_name]</p>',
+            'trade_fair_contact_service_phone' => 'Numer telefonu osoby kontaktowej biura obsługi<hr><p>[trade_fair_contact_service_phone]</p>',
+            'trade_fair_contact_service_email' => 'Adres email osoby kontaktowej biura obsługi<hr><p>[trade_fair_contact_service_email]</p>',
+
             'trade_fair_contact_tech' => 'Adres email do formularza kontaktu działu technicznego<hr><p>[trade_fair_contact_tech]</p>',
+
             'trade_fair_contact_media' => 'Adres email do formularza kontaktu działu marketingowego i media<hr><p>[trade_fair_contact_media]</p>',
+            'trade_fair_contact_media_phone' => 'Numer telefonu do formularza kontaktu działu marketingowego i media<hr><p>[trade_fair_contact_media_phone]</p>',
+            'trade_fair_contact_media_name' => 'Imię i nazwisko osoby kontaktowej działu marketingowego i media<hr><p>[trade_fair_contact_media_name]</p>',
+
+            'trade_fair_contact_media_person_name' => 'Imię i nazwisko osoby kontaktowej działu marketingowego i media<hr><p>[trade_fair_contact_media_person_name]</p>',
+            'trade_fair_contact_media_person_phone' => 'Numer telefonu osoby kontaktowej działu marketingowego i media<hr><p>[trade_fair_contact_media_person_phone]</p>',
+            'trade_fair_contact_media_person_email' => 'Adres email osoby kontaktowej działu marketingowego i media<hr><p>[trade_fair_contact_media_person_email]</p>',
+
             'trade_fair_contact_email_vip' => 'Adres email obsługi vip<hr><p>[trade_fair_contact_email_vip]</p>',
             'trade_fair_contact_phone_vip' => 'Numer telefonu obsługi vip<hr><p>[trade_fair_contact_phone_vip]</p>',
+
             'trade_fair_lidy' => 'Adres email do wysyłania lidów<hr><p>[trade_fair_lidy]</p>',
+        ];
+
+        // Zakładka Inne
+        $other_fields = [
             'trade_fair_registration_benefits_pl' => 'Benefity rejestracyjne PL<hr><p>[trade_fair_registration_benefits_pl]</p>',
             'trade_fair_registration_benefits_en' => 'Benefity rejestracyjne EN<hr><p>[trade_fair_registration_benefits_en]</p>',
             'trade_fair_ticket_benefits_pl' => 'Benefity biletowe PL<hr><p>[trade_fair_ticket_benefits_pl]</p>',
             'trade_fair_ticket_benefits_en' => 'Benefity biletowe EN<hr><p>[trade_fair_ticket_benefits_en]</p>',
-            'trade_fair_group' => 'Grupa targów<hr><p>[trade_fair_group]</p>',
-            'trade_fair_domainadress' => 'Adres strony<hr><p>[trade_fair_domainadress]</p>',
-            'trade_fair_actualyear' => 'Aktualny rok<hr><p>[trade_fair_actualyear]</p>',
         ];
 
         // Rejestrujemy pola
@@ -582,7 +702,33 @@ class PWE_Shortcodes {
             add_settings_field($key, $label, [$this, "display_{$key}"], "pwe-code-checker", "pwe_code_checker");
             register_setting("pwe_code_checker", $key);
         }
+
+        foreach ($date_fields as $key => $label) {
+            add_settings_field($key, $label, [$this, "display_{$key}"], "pwe-code-checker-dates", "pwe_code_checker_dates");
+            register_setting("pwe_code_checker", $key);
+        }
+
+        foreach ($contact_fields as $key => $label) {
+            add_settings_field($key, $label, [$this, "display_{$key}"], "pwe-code-checker-contact", "pwe_code_checker_contact");
+            register_setting("pwe_code_checker", $key);
+        }
+
+        foreach ($social_fields as $key => $label) {
+            add_settings_field($key, $label, [$this, "display_{$key}"], "pwe-code-checker-social", "pwe_code_checker_social");
+            register_setting("pwe_code_checker", $key);
+        }
+
+        foreach ($catalog_fields as $key => $label) {
+            add_settings_field($key, $label, [$this, "display_{$key}"], "pwe-code-checker-catalog", "pwe_code_checker_catalog");
+            register_setting("pwe_code_checker", $key);
+        }
+
+        foreach ($other_fields as $key => $label) {
+            add_settings_field($key, $label, [$this, "display_{$key}"], "pwe-code-checker-other", "pwe_code_checker_other");
+            register_setting("pwe_code_checker", $key);
+        }
     }
+
 
     public function header_section() { echo ""; }
 
@@ -1631,6 +1777,78 @@ class PWE_Shortcodes {
         <?php
     }
 
+
+    private function get_group_contact_default_value($groups_slug, $field = 'email') {
+        $pwe_groups_data = PWE_Functions::get_database_groups_data();
+        $pwe_groups_contacts_data = PWE_Functions::get_database_groups_contacts_data();
+
+        $current_domain = $_SERVER['HTTP_HOST'] ?? '';
+
+        if (empty($pwe_groups_data) || empty($pwe_groups_contacts_data) || empty($current_domain)) {
+            return '';
+        }
+
+        foreach ($pwe_groups_data as $group) {
+            if ($current_domain != $group->fair_domain) {
+                continue;
+            }
+
+            foreach ($pwe_groups_contacts_data as $group_contact) {
+                if ($group->fair_group != $group_contact->groups_name || $group_contact->groups_slug != $groups_slug) {
+                    continue;
+                }
+
+                $contact_data = json_decode($group_contact->groups_data);
+
+                if (empty($contact_data) || !is_object($contact_data)) {
+                    return '';
+                }
+
+                $field_aliases = [
+                    'name' => ['name'],
+                    'phone' => ['tel'],
+                    'email' => ['email'],
+                ];
+
+                $aliases = $field_aliases[$field] ?? [$field];
+
+                foreach ($aliases as $alias) {
+                    if (isset($contact_data->{$alias}) && trim((string) $contact_data->{$alias}) !== '') {
+                        return trim((string) $contact_data->{$alias});
+                    }
+                }
+
+                return '';
+            }
+        }
+
+        return '';
+    }
+
+    private function show_contact_field_with_default($option_name, $groups_slug, $field = 'email') {
+        $option_value = trim((string) get_option($option_name, ''));
+
+        if ($option_value !== '') {
+            return $option_value;
+        }
+
+        return trim((string) $this->get_group_contact_default_value($groups_slug, $field));
+    }
+
+    private function display_contact_field_with_default($option_name, $default_value = '') {
+        ?>
+            <div class="form-field full-tab-code-system">
+                <input
+                    type="text"
+                    name="<?php echo esc_attr($option_name); ?>"
+                    id="<?php echo esc_attr($option_name); ?>"
+                    value="<?php echo esc_attr(get_option($option_name)); ?>"
+                />
+                <p>"wartość domyślna -> <?php echo esc_html($default_value); ?>"</p>
+            </div>
+        <?php
+    }
+
     public function display_trade_fair_rejestracja() {
         ?>
             <div class="form-field full-tab-code-system">
@@ -1641,213 +1859,60 @@ class PWE_Shortcodes {
     }
 
     public function display_trade_fair_contact() {
-        $pwe_groups_data = PWE_Functions::get_database_groups_data(); 
-        $pwe_groups_contacts_data = PWE_Functions::get_database_groups_contacts_data();  
+        $this->display_contact_field_with_default('trade_fair_contact', $this->get_group_contact_default_value('biuro-ob', 'email'));
+    }
 
-        // Get domain address
-        $current_domain = $_SERVER['HTTP_HOST'];
 
-        if (!empty($pwe_groups_data) && !empty($pwe_groups_contacts_data)) {
-            foreach ($pwe_groups_data as $group) {
-                if ($current_domain == $group->fair_domain) {
-                    foreach ($pwe_groups_contacts_data as $group_contact) {
-                        if ($group->fair_group == $group_contact->groups_name) {
-                            if ($group_contact->groups_slug == "biuro-ob") {
-                                $service_contact_data = json_decode($group_contact->groups_data);
-                                $service_email = trim($service_contact_data->email);
-                            }
-                        } 
-                    }
-                }
-            } 
-        }
+    public function display_trade_fair_contact_service_name() {
+        $this->display_contact_field_with_default('trade_fair_contact_service_name', $this->get_group_contact_default_value('biuro-ob', 'name'));
+    }
 
-        ?>
-            <div class="form-field full-tab-code-system">
-                <input 
-                    type="text" 
-                    name="trade_fair_contact" 
-                    id="trade_fair_contact" 
-                    value="<?php echo get_option('trade_fair_contact'); ?>"
-                />
-                <p>"wartość domyślna -> <?php echo !empty($service_email) ? $service_email : ''; ?>"</p>
-            </div>
-        <?php
+    public function display_trade_fair_contact_service_phone() {
+        $this->display_contact_field_with_default('trade_fair_contact_service_phone', $this->get_group_contact_default_value('biuro-ob', 'phone'));
+    }
+
+    public function display_trade_fair_contact_service_email() {
+        $this->display_contact_field_with_default('trade_fair_contact_service_email', $this->get_group_contact_default_value('biuro-ob', 'email'));
+    }
+
+    public function display_trade_fair_contact_media_phone() {
+        $this->display_contact_field_with_default('trade_fair_contact_media_phone', $this->get_group_contact_default_value('ob-marketing-media', 'phone'));
+    }
+
+    public function display_trade_fair_contact_media_name() {
+        $this->display_contact_field_with_default('trade_fair_contact_media_name', $this->get_group_contact_default_value('ob-marketing-media', 'name'));
+    }
+
+    public function display_trade_fair_contact_media_person_name() {
+        $this->display_contact_field_with_default('trade_fair_contact_media_person_name', $this->get_group_contact_default_value('osoba-kontakt', 'name'));
+    }
+
+    public function display_trade_fair_contact_media_person_phone() {
+        $this->display_contact_field_with_default('trade_fair_contact_media_person_phone', $this->get_group_contact_default_value('osoba-kontakt', 'phone'));
+    }
+
+    public function display_trade_fair_contact_media_person_email() {
+        $this->display_contact_field_with_default('trade_fair_contact_media_person_email', $this->get_group_contact_default_value('osoba-kontakt', 'email'));
     }
 
     public function display_trade_fair_contact_tech() {
-        $pwe_groups_data = PWE_Functions::get_database_groups_data(); 
-        $pwe_groups_contacts_data = PWE_Functions::get_database_groups_contacts_data();  
-
-        // Get domain address
-        $current_domain = $_SERVER['HTTP_HOST'];
-
-        if (!empty($pwe_groups_data) && !empty($pwe_groups_contacts_data)) {
-            foreach ($pwe_groups_data as $group) {
-                if ($current_domain == $group->fair_domain) {
-                    foreach ($pwe_groups_contacts_data as $group_contact) {
-                        if ($group->fair_group == $group_contact->groups_name) {
-                            if ($group_contact->groups_slug == "ob-tech-wyst") {
-                                $tech_contact_data = json_decode($group_contact->groups_data);
-                                $tech_email = trim($tech_contact_data->email);
-                            }
-                        } 
-                    }
-                }
-            } 
-        }
-
-        ?>
-            <div class="form-field full-tab-code-system">
-                <input 
-                    type="text" 
-                    name="trade_fair_contact_tech" 
-                    id="trade_fair_contact_tech" 
-                    value="<?php echo get_option('trade_fair_contact_tech'); ?>"
-                />
-                <p>"wartość domyślna -> <?php echo !empty($tech_email) ? $tech_email : ''; ?>"</p>
-            </div>
-        <?php
+        $this->display_contact_field_with_default('trade_fair_contact_tech', $this->get_group_contact_default_value('ob-tech-wyst', 'email'));
     }
 
     public function display_trade_fair_contact_media() {
-        $pwe_groups_data = PWE_Functions::get_database_groups_data(); 
-        $pwe_groups_contacts_data = PWE_Functions::get_database_groups_contacts_data();  
-
-        // Get domain address
-        $current_domain = $_SERVER['HTTP_HOST'];
-
-        if (!empty($pwe_groups_data) && !empty($pwe_groups_contacts_data)) {
-            foreach ($pwe_groups_data as $group) {
-                if ($current_domain == $group->fair_domain) {
-                    foreach ($pwe_groups_contacts_data as $group_contact) {
-                        if ($group->fair_group == $group_contact->groups_name) {
-                            if ($group_contact->groups_slug == "ob-marketing-media") {
-                                $media_contact_data = json_decode($group_contact->groups_data);
-                                $media_email = trim($media_contact_data->email);
-                            }
-                        } 
-                    }
-                }
-            } 
-        }
-
-        ?>
-            <div class="form-field full-tab-code-system">
-                <input 
-                    type="text" 
-                    name="trade_fair_contact_media" 
-                    id="trade_fair_contact_media" 
-                    value="<?php echo get_option('trade_fair_contact_media'); ?>"
-                />
-                <p>"wartość domyślna -> <?php echo !empty($media_email) ? $media_email : ''; ?>"</p>
-            </div>
-        <?php
+        $this->display_contact_field_with_default('trade_fair_contact_media', $this->get_group_contact_default_value('ob-marketing-media', 'email'));
     }
 
     public function display_trade_fair_lidy() {
-        $pwe_groups_data = PWE_Functions::get_database_groups_data(); 
-        $pwe_groups_contacts_data = PWE_Functions::get_database_groups_contacts_data();  
-
-        // Get domain address
-        $current_domain = $_SERVER['HTTP_HOST'];
-
-        if (!empty($pwe_groups_data) && !empty($pwe_groups_contacts_data)) {
-            foreach ($pwe_groups_data as $group) {
-                if ($current_domain == $group->fair_domain) {
-                    foreach ($pwe_groups_contacts_data as $group_contact) {
-                        if ($group->fair_group == $group_contact->groups_name) {
-                            if ($group_contact->groups_slug == "lidy") {
-                                $lidy_contact_data = json_decode($group_contact->groups_data);
-                                $lidy_email = trim($lidy_contact_data->email);
-                            }
-                        } 
-                    }
-                }
-            }
-        }
-
-        ?>
-            <div class="form-field full-tab-code-system">
-                <input 
-                    type="text" 
-                    name="trade_fair_lidy" 
-                    id="trade_fair_lidy" 
-                    value="<?php echo get_option('trade_fair_lidy'); ?>"
-                />
-                <p>"wartość domyślna -> <?php echo !empty($lidy_email) ? $lidy_email : ''; ?>"</p>
-            </div>
-        <?php
+        $this->display_contact_field_with_default('trade_fair_lidy', $this->get_group_contact_default_value('lidy', 'email'));
     }
 
     public function display_trade_fair_contact_email_vip() {
-        $pwe_groups_data = PWE_Functions::get_database_groups_data(); 
-        $pwe_groups_contacts_data = PWE_Functions::get_database_groups_contacts_data();  
-
-        // Get domain address
-        $current_domain = $_SERVER['HTTP_HOST'];
-
-        if (!empty($pwe_groups_data) && !empty($pwe_groups_contacts_data)) {
-            foreach ($pwe_groups_data as $group) {
-                if ($current_domain == $group->fair_domain) {
-                    foreach ($pwe_groups_contacts_data as $group_contact) {
-                        if ($group->fair_group == $group_contact->groups_name) {
-                            if ($group_contact->groups_slug == "obsluga-vip") {
-                                $vip_contact_data = json_decode($group_contact->groups_data);
-                                $vip_email = trim($vip_contact_data->email);
-                            }
-                        } 
-                    }
-                }
-            }
-        }
-
-        ?>
-            <div class="form-field full-tab-code-system">
-                <input 
-                    type="text" 
-                    name="trade_fair_contact_email_vip" 
-                    id="trade_fair_contact_email_vip" 
-                    value="<?php echo get_option('trade_fair_contact_email_vip'); ?>"
-                />
-                <p>"wartość domyślna -> <?php echo !empty($vip_email) ? $vip_email : ''; ?>"</p>
-            </div>
-        <?php
+        $this->display_contact_field_with_default('trade_fair_contact_email_vip', $this->get_group_contact_default_value('obsluga-vip', 'email'));
     }
 
     public function display_trade_fair_contact_phone_vip() {
-        $pwe_groups_data = PWE_Functions::get_database_groups_data(); 
-        $pwe_groups_contacts_data = PWE_Functions::get_database_groups_contacts_data();  
-
-        // Get domain address
-        $current_domain = $_SERVER['HTTP_HOST'];
-
-        if (!empty($pwe_groups_data) && !empty($pwe_groups_contacts_data)) {
-            foreach ($pwe_groups_data as $group) {
-                if ($current_domain == $group->fair_domain) {
-                    foreach ($pwe_groups_contacts_data as $group_contact) {
-                        if ($group->fair_group == $group_contact->groups_name) {
-                            if ($group_contact->groups_slug == "obsluga-vip") {
-                                $vip_contact_data = json_decode($group_contact->groups_data);
-                                $vip_phone = trim($vip_contact_data->tel);
-                            }
-                        } 
-                    }
-                }
-            }
-        }
-
-        ?>
-            <div class="form-field full-tab-code-system">
-                <input 
-                    type="text" 
-                    name="trade_fair_contact_phone_vip" 
-                    id="trade_fair_contact_phone_vip" 
-                    value="<?php echo get_option('trade_fair_contact_phone_vip'); ?>"
-                />
-                <p>"wartość domyślna -> <?php echo !empty($vip_phone) ? $vip_phone : ''; ?>"</p>
-            </div>
-        <?php
+        $this->display_contact_field_with_default('trade_fair_contact_phone_vip', $this->get_group_contact_default_value('obsluga-vip', 'phone'));
     }
 
     public function days_difference() {
@@ -2429,178 +2494,69 @@ class PWE_Shortcodes {
     }
     
     public function show_trade_fair_rejestracja() {
+        $result = get_option('trade_fair_rejestracja');
+
         if (empty($result)) {
-            return 'rejestracja@' . $_SERVER['HTTP_HOST'];
+            return 'rejestracja@' . ($_SERVER['HTTP_HOST'] ?? str_replace('https://', '', home_url()));
         }
+
         return $result;
     }
     
     public function show_trade_fair_contact() {
-        $pwe_groups_data = PWE_Functions::get_database_groups_data(); 
-        $pwe_groups_contacts_data = PWE_Functions::get_database_groups_contacts_data();  
-
-        // Get domain address
-        $current_domain = $_SERVER['HTTP_HOST'];
-        $result = '';
-
-        if (!empty($pwe_groups_data) && !empty($pwe_groups_contacts_data)) {
-            foreach ($pwe_groups_data as $group) {
-                if ($current_domain == $group->fair_domain) {
-                    foreach ($pwe_groups_contacts_data as $group_contact) {
-                        if ($group->fair_group == $group_contact->groups_name) {
-                            if ($group_contact->groups_slug == "biuro-ob") {
-                                $service_contact_data = json_decode($group_contact->groups_data);
-                                $service_email = trim($service_contact_data->email);
-                            }
-                        } 
-                    }
-                }
-            }
-        }
-
-        $result = !empty($service_email) ? $service_email : get_option('trade_fair_contact');
-
-        return $result;
+        return $this->show_contact_field_with_default('trade_fair_contact', 'biuro-ob', 'email');
     }
     
+    public function show_trade_fair_contact_service_name() {
+        return $this->show_contact_field_with_default('trade_fair_contact_service_name', 'biuro-ob', 'name');
+    }
+
+    public function show_trade_fair_contact_service_phone() {
+        return $this->show_contact_field_with_default('trade_fair_contact_service_phone', 'biuro-ob', 'phone');
+    }
+
+    public function show_trade_fair_contact_service_email() {
+        return $this->show_contact_field_with_default('trade_fair_contact_service_email', 'biuro-ob', 'email');
+    }
+
+    public function show_trade_fair_contact_media_phone() {
+        return $this->show_contact_field_with_default('trade_fair_contact_media_phone', 'ob-marketing-media', 'phone');
+    }
+
+    public function show_trade_fair_contact_media_name() {
+        return $this->show_contact_field_with_default('trade_fair_contact_media_name', 'ob-marketing-media', 'name');
+    }
+
+    public function show_trade_fair_contact_media_person_name() {
+        return $this->show_contact_field_with_default('trade_fair_contact_media_person_name', 'osoba-kontakt', 'name');
+    }
+
+    public function show_trade_fair_contact_media_person_phone() {
+        return $this->show_contact_field_with_default('trade_fair_contact_media_person_phone', 'osoba-kontakt', 'phone');
+    }
+
+    public function show_trade_fair_contact_media_person_email() {
+        return $this->show_contact_field_with_default('trade_fair_contact_media_person_email', 'osoba-kontakt', 'email');
+    }
+
     public function show_trade_fair_contact_tech() {
-        $pwe_groups_data = PWE_Functions::get_database_groups_data(); 
-        $pwe_groups_contacts_data = PWE_Functions::get_database_groups_contacts_data();  
-
-        // Get domain address
-        $current_domain = $_SERVER['HTTP_HOST'];
-        $result = '';
-
-        if (!empty($pwe_groups_data) && !empty($pwe_groups_contacts_data)) {
-            foreach ($pwe_groups_data as $group) {
-                if ($current_domain == $group->fair_domain) {
-                    foreach ($pwe_groups_contacts_data as $group_contact) {
-                        if ($group->fair_group == $group_contact->groups_name) {
-                            if ($group_contact->groups_slug == "ob-tech-wyst") {
-                                $tech_contact_data = json_decode($group_contact->groups_data);
-                                $tech_email = trim($tech_contact_data->email);
-                            }
-                        } 
-                    }
-                }
-            }
-        }
-
-        $result = !empty($tech_email) ? $tech_email : get_option('trade_fair_contact_tech');
-
-        return $result;
+        return $this->show_contact_field_with_default('trade_fair_contact_tech', 'ob-tech-wyst', 'email');
     }
     
     public function show_trade_fair_contact_media() {
-        $pwe_groups_data = PWE_Functions::get_database_groups_data(); 
-        $pwe_groups_contacts_data = PWE_Functions::get_database_groups_contacts_data();  
-
-        // Get domain address
-        $current_domain = $_SERVER['HTTP_HOST'];
-        $result = '';
-
-        if (!empty($pwe_groups_data) && !empty($pwe_groups_contacts_data)) {
-            foreach ($pwe_groups_data as $group) {
-                if ($current_domain == $group->fair_domain) {
-                    foreach ($pwe_groups_contacts_data as $group_contact) {
-                        if ($group->fair_group == $group_contact->groups_name) {
-                            if ($group_contact->groups_slug == "ob-marketing-media") {
-                                $media_contact_data = json_decode($group_contact->groups_data);
-                                $media_email = trim($media_contact_data->email);
-                            }
-                        } 
-                    }
-                }
-            }
-        }
-
-        $result = !empty($media_email) ? $media_email : get_option('trade_fair_contact_media');
-
-        return $result;
-    }    
+        return $this->show_contact_field_with_default('trade_fair_contact_media', 'ob-marketing-media', 'email');
+    }
 
     public function show_trade_fair_lidy() {
-        $pwe_groups_data = PWE_Functions::get_database_groups_data(); 
-        $pwe_groups_contacts_data = PWE_Functions::get_database_groups_contacts_data();  
-
-        // Get domain address
-        $current_domain = $_SERVER['HTTP_HOST'];
-        $result = '';
-
-        if (!empty($pwe_groups_data) && !empty($pwe_groups_contacts_data)) {
-            foreach ($pwe_groups_data as $group) {
-                if ($current_domain == $group->fair_domain) {
-                    foreach ($pwe_groups_contacts_data as $group_contact) {
-                        if ($group->fair_group == $group_contact->groups_name) {
-                            if ($group_contact->groups_slug == "lidy") {
-                                $lidy_contact_data = json_decode($group_contact->groups_data);
-                                $lidy_email = trim($lidy_contact_data->email);
-                            }
-                        } 
-                    }
-                }
-            }
-        }
-
-        $result = !empty($lidy_email) ? $lidy_email : get_option('trade_fair_lidy');
-
-        return $result;
+        return $this->show_contact_field_with_default('trade_fair_lidy', 'lidy', 'email');
     }    
 
     public function show_trade_fair_contact_email_vip() {
-        $pwe_groups_data = PWE_Functions::get_database_groups_data(); 
-        $pwe_groups_contacts_data = PWE_Functions::get_database_groups_contacts_data();  
-
-        // Get domain address
-        $current_domain = $_SERVER['HTTP_HOST'];
-        $result = '';
-
-        if (!empty($pwe_groups_data) && !empty($pwe_groups_contacts_data)) {
-            foreach ($pwe_groups_data as $group) {
-                if ($current_domain == $group->fair_domain) {
-                    foreach ($pwe_groups_contacts_data as $group_contact) {
-                        if ($group->fair_group == $group_contact->groups_name) {
-                            if ($group_contact->groups_slug == "obsluga-vip") {
-                                $vip_contact_data = json_decode($group_contact->groups_data);
-                                $vip_email = trim($vip_contact_data->email);
-                            }
-                        } 
-                    }
-                }
-            }
-        }
-
-        $result = !empty($vip_email) ? $vip_email : get_option('trade_fair_contact_email_vip');
-
-        return $result;
+        return $this->show_contact_field_with_default('trade_fair_contact_email_vip', 'obsluga-vip', 'email');
     } 
 
     public function show_trade_fair_contact_phone_vip() {
-        $pwe_groups_data = PWE_Functions::get_database_groups_data(); 
-        $pwe_groups_contacts_data = PWE_Functions::get_database_groups_contacts_data();  
-
-        // Get domain address
-        $current_domain = $_SERVER['HTTP_HOST'];
-        $result = '';
-
-        if (!empty($pwe_groups_data) && !empty($pwe_groups_contacts_data)) {
-            foreach ($pwe_groups_data as $group) {
-                if ($current_domain == $group->fair_domain) {
-                    foreach ($pwe_groups_contacts_data as $group_contact) {
-                        if ($group->fair_group == $group_contact->groups_name) {
-                            if ($group_contact->groups_slug == "obsluga-vip") {
-                                $vip_contact_data = json_decode($group_contact->groups_data);
-                                $vip_phone = trim($vip_contact_data->tel);
-                            }
-                        } 
-                    }
-                }
-            }
-        }
-
-        $result = !empty($vip_phone) ? $vip_phone : get_option('trade_fair_contact_phone_vip');
-
-        return $result;
+        return $this->show_contact_field_with_default('trade_fair_contact_phone_vip', 'obsluga-vip', 'phone');
     } 
 
     public function show_trade_fair_group() {
