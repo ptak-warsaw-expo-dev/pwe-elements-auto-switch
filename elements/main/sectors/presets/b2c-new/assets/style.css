@@ -126,10 +126,11 @@
 }
 
 .pwe-element-auto-switch .pwe-sectors-section .pwe-sectors__icon-wrapper img {
-    width: 2rem;
-    height: 2rem;
+    width: 4rem;
+    height: 4rem;
     object-fit: contain;
-    filter: brightness(0) invert(1);
+    /* filter: brightness(0) invert(1); */
+    border-radius: 1rem;
 }
 
 .pwe-element-auto-switch .pwe-sectors-section .pwe-sectors__card:hover .pwe-sectors__icon-wrapper {

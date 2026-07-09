@@ -29,7 +29,7 @@ class Statistics {
 
         $preset_file = self::get_data()['presets'][$group] ?? null;
         if ($preset_file && file_exists($preset_file)) {
-            
+
             /* <-------------> General code start <-------------> */
 
                 $b2c = isset($atts['b2c']) ? $atts['b2c'] : false;
@@ -145,7 +145,7 @@ class Statistics {
                 $pwe_exhibitors_prev  = sc_int('pwe_exhibitors_prev');
                 $pwe_countries_prev        = sc_int('pwe_countries_prev');
                 $pwe_area_prev        = sc_int('pwe_area_prev');
-                $pwe_statistics_year_prev = sc_int('pwe_statistics_year_prev');
+                $pwe_statistics_year_prev = sc_int('pwe_statistics_year_prev'); 
 
                 // Visitor calculations
                 $polish_visitors = max(0, $pwe_visitors - $pwe_visitors_foreign);
@@ -181,11 +181,11 @@ class Statistics {
                 $adapting_word = adapting_word($pwe_edition);
 
             /* <-------------> General code end <-------------> */
-            
+
             $output = include $preset_file;
-            
+
             if ($output) {
-                echo $output;         
+                echo $output;
             }
         }
     }

@@ -1,0 +1,46 @@
+{
+  "pl_PL": {
+    "premieres_subtitle": "PREMIERY",
+    "premieres_title": "Co zobaczysz na targach"
+  },
+  "en_US": {
+    "premieres_subtitle": "PREMIERES",
+    "premieres_title": "What you will see at the trade fair"
+  },
+  "cs_CZ": {
+    "premieres_subtitle": "PREMIÉRY",
+    "premieres_title": "Co na veletrhu uvidíte"
+  },
+  "de_DE": {
+    "premieres_subtitle": "PREMIEREN",
+    "premieres_title": "Was Sie auf der Messe sehen werden"
+  },
+  "it_IT": {
+    "premieres_subtitle": "ANTEPRIME",
+    "premieres_title": "Cosa vedrai in fiera"
+  },
+  "lt_LT": {
+    "premieres_subtitle": "PREMJEROS",
+    "premieres_title": "Ką pamatysite parodoje"
+  },
+  "lv_LV": {
+    "premieres_subtitle": "PREMJERAS",
+    "premieres_title": "Ko jūs redzēsiet izstādē"
+  },
+  "sk_SK": {
+    "premieres_subtitle": "PREMIÉRY",
+    "premieres_title": "Čo na veľtrhu uvidíte"
+  },
+  "uk": {
+    "premieres_subtitle": "ПРЕМ'ЄРИ",
+    "premieres_title": "Що ви побачите na виставці"
+  },
+  "ro_RO": {
+    "premieres_subtitle": "PREMIERE",
+    "premieres_title": "Ce veți vedea la expoziție"
+  },
+  "et": {
+    "premieres_subtitle": "ESIETENDUSED",
+    "premieres_title": "Mida messil näha saab"
+  }
+}

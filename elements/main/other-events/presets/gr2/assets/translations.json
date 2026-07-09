@@ -1,0 +1,79 @@
+{
+  "pl_PL": {
+    "title": "Inne wydarzenia",
+    "subtitle": "Podczas targów",
+    "visitors": "Odwiedzających",
+    "exhibitors": "Wystawców",
+    "exhibition_space": "Powierzchni<br>wystawienniczej"
+  },
+  "en_US": {
+    "title": "Other events",
+    "subtitle": "During the fair",
+    "visitors": "Visitors",
+    "exhibitors": "Exhibitors",
+    "exhibition_space": "Exhibition space"
+  },
+  "cs_CZ": {
+    "title": "Další akce",
+    "subtitle": "Během veletrhu",
+    "visitors": "Návštěvníků",
+    "exhibitors": "Vystavovatelů",
+    "exhibition_space": "Výstavní<br>plocha"
+  },
+  "de_DE": {
+    "title": "Weitere Veranstaltungen",
+    "subtitle": "Während der Messe",
+    "visitors": "Besucher",
+    "exhibitors": "Aussteller",
+    "exhibition_space": "Ausstellungsfläche"
+  },
+  "it_IT": {
+    "title": "Altri eventi",
+    "subtitle": "Durante la fiera",
+    "visitors": "Visitatori",
+    "exhibitors": "Espositori",
+    "exhibition_space": "Superficie espositiva"
+  },
+  "lt_LT": {
+    "title": "Kiti renginiai",
+    "subtitle": "Parodos metu",
+    "visitors": "Lankytojų",
+    "exhibitors": "Parodos dalyvių",
+    "exhibition_space": "Parodos<br>plotas"
+  },
+  "lv_LV": {
+    "title": "Citi pasākumi",
+    "subtitle": "Izstādes laikā",
+    "visitors": "Apmeklētāju",
+    "exhibitors": "Izstādes dalībnieku",
+    "exhibition_space": "Izstādes<br>platība"
+  },
+  "sk_SK": {
+    "title": "Ďalšie podujatia",
+    "subtitle": "Počas veľtrhu",
+    "visitors": "Návštevníkov",
+    "exhibitors": "Vystavovateľov",
+    "exhibition_space": "Výstavná<br>plocha"
+  },
+  "uk": {
+    "title": "Інші події",
+    "subtitle": "Під час виставки",
+    "visitors": "Відвідувачів",
+    "exhibitors": "Експонентів",
+    "exhibition_space": "Виставкова<br>площа"
+  },
+  "ro_RO": {
+    "title": "Alte evenimente",
+    "subtitle": "În timpul târgului",
+    "visitors": "Vizitatori",
+    "exhibitors": "Expozanți",
+    "exhibition_space": "Spațiu de<br>expoziție"
+  },
+  "et": {
+    "title": "Muud sündmused",
+    "subtitle": "Messi ajal",
+    "visitors": "Külastajad",
+    "exhibitors": "Eksponaendid",
+    "exhibition_space": "Näituse<br>pind"
+  }
+}

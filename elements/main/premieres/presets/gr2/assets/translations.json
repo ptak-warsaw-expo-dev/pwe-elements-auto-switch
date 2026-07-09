@@ -1,0 +1,46 @@
+{
+  "pl_PL": {
+    "premieres_subtitle": "PRODUKTY",
+    "premieres_title": "Co zobaczysz na targach"
+  },
+  "en_US": {
+    "premieres_subtitle": "PRODUCTS",
+    "premieres_title": "What will you see at the fair?"
+  },
+  "cs_CZ": {
+    "premieres_subtitle": "PRODUKTY",
+    "premieres_title": "Co uvidíte na veletrhu?"
+  },
+  "de_DE": {
+    "premieres_subtitle": "PRODUKTE",
+    "premieres_title": "Was werden Sie auf der Messe sehen?"
+  },
+  "it_IT": {
+    "premieres_subtitle": "PRODOTTI",
+    "premieres_title": "Cosa vedrai in fiera?"
+  },
+  "lt_LT": {
+    "premieres_subtitle": "PRODUKTAI",
+    "premieres_title": "Ką pamatysite mugėje?"
+  },
+  "lv_LV": {
+    "premieres_subtitle": "PRODUKTI",
+    "premieres_title": "Ko jūs redzēsiet izstādē?"
+  },
+  "sk_SK": {
+    "premieres_subtitle": "PRODUKTY",
+    "premieres_title": "Čo uvidíte na veľtrhu?"
+  },
+  "uk": {
+    "premieres_subtitle": "ПРОДУКТИ",
+    "premieres_title": "Що ви побачите на виставці?"
+  },
+  "ro_RO": {
+    "premieres_subtitle": "PRODUSE",
+    "premieres_title": "Ce vei vedea la târg?"
+  },
+  "et": {
+    "premieres_subtitle": "TOOTED",
+    "premieres_title": "Mida näete messil?"
+  }
+}

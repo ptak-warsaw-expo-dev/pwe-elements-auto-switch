@@ -1,0 +1,57 @@
+{
+  "pl_PL": {
+    "title": "Sektory targów",
+    "catalog_btn": "Poznaj wystawców i rozwiązania",
+    "catalog_btn_url": "/katalog-wystawcow/"
+  },
+  "en_US": {
+    "title": "Exhibition Sectors",
+    "catalog_btn": "Discover exhibitors and solutions",
+    "catalog_btn_url": "/en/exhibitors-catalog/"
+  },
+  "cs_CZ": {
+    "title": "Sektory výstav",
+    "catalog_btn": "Objevte vystavovatele a řešení",
+    "catalog_btn_url": "/cs/katalog-vystavovatelu/"
+  },
+  "de_DE": {
+    "title": "Ausstellungsbereiche",
+    "catalog_btn": "Entdecken Sie Aussteller und Lösungen",
+    "catalog_btn_url": "/de/ausstellerverzeichnis/"
+  },
+  "it_IT": {
+    "title": "Settori espositivi",
+    "catalog_btn": "Scopri espositori e soluzioni",
+    "catalog_btn_url": "/it/catalogo-espositori/"
+  },
+  "lt_LT": {
+    "title": "Parodų sektoriai",
+    "catalog_btn": "Atraskite parodos dalyvius ir sprendimus",
+    "catalog_btn_url": "/lt/eksponentu-katalogas/"
+  },
+  "lv_LV": {
+    "title": "Izstāžu sektori",
+    "catalog_btn": "Atklājiet izstādes dalībniekus un risinājumus",
+    "catalog_btn_url": "/lv/izstades-dalibnieku-katalogs//"
+  },
+  "sk_SK": {
+    "title": "Sektory výstav",
+    "catalog_btn": "Objevte vystavovatele a řešení",
+    "catalog_btn_url": "/sk/katalog-vystavovatelov/"
+  },
+  "uk": {
+    "title": "Сектори виставки",
+    "catalog_btn": "Відкрийте для себе учасників виставки та рішення",
+    "catalog_btn_url": "/uk/katalog-eksponentiv/"
+  },
+  "ro_RO": {
+    "title": "Sectoare de expoziție",
+    "catalog_btn": "Descoperiți expozanții și soluțiile",
+    "catalog_btn_url": "/ro/catalogul-exhibitorilor/"
+  },
+  "et": {
+    "title": "Näitlejate ja külastajate arvamused",
+    "catalog_btn": "Avastage näitlejad ja lahendused",
+    "catalog_btn_url": "/et/eksponentide-kataloog/"
+  }
+}

@@ -16,10 +16,35 @@
     max-width: 80rem;
     margin: 0 auto;
     padding: 0 1.5rem;
+    position: relative;
+    overflow: hidden !important;
 }
 
-.news-section .swiper-pagination-bullet {
-    background-color: white !important;
+.pwe-posts__slider.swiper {
+    overflow: visible !important;
+    clip-path: inset(-100vw -100vw -100vw -100vw);
+}
+
+.swiper-wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+.news-card {
+    text-decoration: none !important;
+    display: flex !important;
+    flex-direction: column;
+    background-color: rgba(24, 24, 27, 0.2) !important;
+    border: 1px solid rgba(39, 39, 42, 0.5) !important;
+    border-radius: 2.5rem !important;
+    padding: 1rem !important;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) !important;
+    height: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.news-card:hover {
+    border-color: #3f3f46 !important;
 }
 
 .news-header {
@@ -116,26 +141,6 @@
 
 .swiper-button-next:active .news-arrow-icon {
     transform: translateX(4px);
-}
-
-.pwe-posts__slider {
-    overflow: visible !important;
-}
-
-.news-card {
-    text-decoration: none !important;
-    display: flex !important;
-    flex-direction: column;
-    background-color: rgba(24, 24, 27, 0.2) !important;
-    border: 1px solid rgba(39, 39, 42, 0.5) !important;
-    border-radius: 2.5rem !important;
-    padding: 1rem !important;
-    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) !important;
-    height: auto !important;
-}
-
-.news-card:hover {
-    border-color: #3f3f46 !important;
 }
 
 .news-thumb-wrapper {
@@ -258,7 +263,7 @@
     justify-content: center;
 }
 
-.news-dots {
+/* .news-dots {
     display: flex !important;
     gap: 0.5rem;
     justify-content: center;
@@ -275,12 +280,18 @@
     width: 8px !important;
     cursor: pointer;
 }
+.pwe-element-auto-switch .news-nav {
+    max-width: max-content !important;
+}
+.pwe-element-auto-switch .news-section .swiper-pagination-bullet {
+    background-color: white !important;
+}
 
-.news-dots .swiper-pagination-bullet:hover {
+.news-section .swiper-pagination-bullet:hover {
     background-color: #3f3f46 !important;
 }
 
-.news-dots .swiper-pagination-bullet-active {
+.pwe-element-auto-switch .news-section  .swiper-pagination-bullet-active {
     width: 48px !important;
     background-color: var(--accent-color) !important;
-}
+} */

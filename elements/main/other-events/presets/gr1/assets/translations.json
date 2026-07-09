@@ -1,0 +1,79 @@
+{
+  "pl_PL": {
+    "title": "Inne wydarzenia podczas targów",
+    "visitors": "odwiedzających",
+    "exhibitors": "wystawców",
+    "exhibition_space": "powierzchni<br>wystawienniczej",
+    "more": "Więcej"
+  },
+  "en_US": {
+    "title": "Other events during the fair",
+    "visitors": "visitors",
+    "exhibitors": "exhibitors",
+    "exhibition_space": "exhibition space",
+    "more": "More"
+  },
+  "cs_CZ": {
+    "title": "Další akce během veletrhu",
+    "visitors": "návštěvníků",
+    "exhibitors": "vystavovatelů",
+    "exhibition_space": "výstavní<br>plocha",
+    "more": "Více"
+  },
+  "de_DE": {
+    "title": "Weitere Veranstaltungen während der Messe",
+    "visitors": "Besucher",
+    "exhibitors": "Aussteller",
+    "exhibition_space": "Ausstellungsfläche",
+    "more": "Mehr"
+  },
+  "it_IT": {
+    "title": "Altri eventi durante la fiera",
+    "visitors": "visitatori",
+    "exhibitors": "espositori",
+    "exhibition_space": "superficie espositiva",
+    "more": "Di più"
+  },
+  "lt_LT": {
+    "title": "Kiti renginiai parodos metu",
+    "visitors": "lankytojų",
+    "exhibitors": "parodos dalyvių",
+    "exhibition_space": "parodos<br>plotas",
+    "more": "Daugiau"
+  },
+  "lv_LV": {
+    "title": "Citi pasākumi izstādes laikā",
+    "visitors": "apmeklētāju",
+    "exhibitors": "izstādes dalībnieku",
+    "exhibition_space": "izstādes<br>platība",
+    "more": "Vairāk"
+  },
+  "sk_SK": {
+    "title": "Ďalšie podujatia počas veľtrhu",
+    "visitors": "návštevníkov",
+    "exhibitors": "vystavovateľov",
+    "exhibition_space": "výstavná<br>plocha",
+    "more": "Viac"
+  },
+  "uk": {
+    "title": "Інші події під час виставки",
+    "visitors": "відвідувачів",
+    "exhibitors": "експонентів",
+    "exhibition_space": "виставкова<br>площа",
+    "more": "Більше"
+  },
+  "ro_RO": {
+    "title": "Alte evenimente în timpul târgului",
+    "visitors": "vizitatori",
+    "exhibitors": "expozanți",
+    "exhibition_space": "spațiu de<br>expoziție",
+    "more": "Mai mult"
+  },
+  "et": {
+    "title": "Muud sündmused messi ajal",
+    "visitors": "külastajad",
+    "exhibitors": "eksponaendid",
+    "exhibition_space": "näituse<br>pind",
+    "more": "Rohkem"
+  }
+}

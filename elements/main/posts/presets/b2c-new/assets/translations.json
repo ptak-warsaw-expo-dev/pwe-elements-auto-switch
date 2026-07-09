@@ -1,0 +1,57 @@
+{
+  "pl_PL": {
+    "title": "Aktualności",
+    "subtitle": "Bądź na bieżąco",
+    "read_more": "Czytaj więcej"
+  },
+  "en_US": {
+    "title": "Expo News",
+    "subtitle": "Stay up to date",
+    "read_more": "Read more"
+  },
+  "cs_CZ": {
+    "title": "Expo novinky",
+    "subtitle": "Zůstaňte v obraze",
+    "read_more": "Číst více"
+  },
+  "de_DE": {
+    "title": "Expo Nachrichten",
+    "subtitle": "Bleiben Sie auf dem Laufenden",
+    "read_more": "Mehr lesen"
+  },
+  "it_IT": {
+    "title": "Notizie Expo",
+    "subtitle": "Rimani aggiornato",
+    "read_more": "Leggi di più"
+  },
+  "lt_LT": {
+    "title": "Expo naujienos",
+    "subtitle": "Sekite naujienas",
+    "read_more": "Skaityti daugiau"
+  },
+  "lv_LV": {
+    "title": "Expo jaunumi",
+    "subtitle": "Esiet informēti",
+    "read_more": "Lasīt vairāk"
+  },
+  "sk_SK": {
+    "title": "Expo novinky",
+    "subtitle": "Zostaňte v obraze",
+    "read_more": "Čítať viac"
+  },
+  "uk": {
+    "title": "Новини Expo",
+    "subtitle": "Будьте в курсі подій",
+    "read_more": "Читати більше"
+  },
+  "ro_RO": {
+    "title": "Știri Expo",
+    "subtitle": "Fii la curent",
+    "read_more": "Citește mai mult"
+  },
+  "et": {
+    "title": "Expo uudised",
+    "subtitle": "Ole kursis",
+    "read_more": "Loe rohkem"
+  }
+}

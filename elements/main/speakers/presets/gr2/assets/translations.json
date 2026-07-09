@@ -1,0 +1,46 @@
+{
+  "pl_PL": {
+    "title": "Prelegenci",
+    "all_speakers_btn": "Zobacz wszystkich prelegentów"
+  },
+  "en_US": {
+    "title": "Speakers",
+    "all_speakers_btn": "See all speakers"
+  },
+  "cs_CZ": {
+    "title": "Přednášející",
+    "all_speakers_btn": "Zobrazit všechny přednášející"
+  },
+  "de_DE": {
+    "title": "Referenten",
+    "all_speakers_btn": "Alle Referenten anzeigen"
+  },
+  "it_IT": {
+    "title": "Relatori",
+    "all_speakers_btn": "Vedi tutti i relatori"
+  },
+  "lt_LT": {
+    "title": "Pranešėjai",
+    "all_speakers_btn": "Peržiūrėti visus pranešėjus"
+  },
+  "lv_LV": {
+    "title": "Runātāji",
+    "all_speakers_btn": "Skatīt visus runātājus"
+  },
+  "sk_SK": {
+    "title": "Prednášajúci",
+    "all_speakers_btn": "Zobrazit všechny přednášející"
+  },
+  "uk": {
+    "title": "Доповідачі",
+    "all_speakers_btn": "Переглянути всіх доповідачів"
+  },
+  "ro_RO": {
+    "title": "Vorbitori",
+    "all_speakers_btn": "Vezi toți vorbitorii"
+  },
+  "et": {
+    "title": "Esinejad",
+    "all_speakers_btn": "Vaata kõiki esinejaid"
+  }
+}

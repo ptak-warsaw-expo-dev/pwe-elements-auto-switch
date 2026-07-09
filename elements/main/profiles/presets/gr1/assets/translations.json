@@ -1,0 +1,123 @@
+{
+  "pl_PL": {
+    "profiles_title": "Profil",
+    "visitor": "Odwiedzającego",
+    "visitor_alt": "Odwiedzający",
+    "exhibitor": "Wystawcy",
+    "exhibitor_alt": "Wystawcy",
+    "industry": "Branżowy",
+    "industry_alt": "Branżowy",
+    "more_btn": "Więcej",
+    "less_btn": "Zwiń"
+  },
+  "en_US": {
+    "profiles_title": "Profile",
+    "visitor": "Visitor",
+    "visitor_alt": "Visitors",
+    "exhibitor": "Exhibitor",
+    "exhibitor_alt": "Exhibitors",
+    "industry": "Industry",
+    "industry_alt": "Industry",
+    "more_btn": "More",
+    "less_btn": "Less"
+  },
+  "cs_CZ": {
+    "profiles_title": "Profil",
+    "visitor": "Návštěvníka",
+    "visitor_alt": "Návštěvníci",
+    "exhibitor": "Vystavovatele",
+    "exhibitor_alt": "Vystavovatelé",
+    "industry": "Oborový",
+    "industry_alt": "Oborový",
+    "more_btn": "Více",
+    "less_btn": "Méně"
+  },
+  "de_DE": {
+    "profiles_title": "Profil",
+    "visitor": "Besucher",
+    "visitor_alt": "Besucher",
+    "exhibitor": "Aussteller",
+    "exhibitor_alt": "Aussteller",
+    "industry": "Branche",
+    "industry_alt": "Branche",
+    "more_btn": "Mehr",
+    "less_btn": "Weniger"
+  },
+  "it_IT": {
+    "profiles_title": "Profilo",
+    "visitor": "Visitatore",
+    "visitor_alt": "Visitatori",
+    "exhibitor": "Espositore",
+    "exhibitor_alt": "Espositori",
+    "industry": "Settore",
+    "industry_alt": "Settore",
+    "more_btn": "Altro",
+    "less_btn": "Meno"
+  },
+  "lt_LT": {
+    "profiles_title": "Profilis",
+    "visitor": "Lankytojo",
+    "visitor_alt": "Lankytojai",
+    "exhibitor": "Eksponento",
+    "exhibitor_alt": "Eksponentai",
+    "industry": "Pramonės",
+    "industry_alt": "Pramonės",
+    "more_btn": "Daugiau",
+    "less_btn": "Mažiau"
+  },
+  "lv_LV": {
+    "profiles_title": "Profils",
+    "visitor": "Apmeklētāja",
+    "visitor_alt": "Apmeklētāji",
+    "exhibitor": "Izstādes dalībnieka",
+    "exhibitor_alt": "Izstādes dalībnieki",
+    "industry": "Nozares",
+    "industry_alt": "Nozares",
+    "more_btn": "Vairāk",
+    "less_btn": "Mazāk"
+  },
+  "sk_SK": {
+    "profiles_title": "Profil",
+    "visitor": "Návštevníka",
+    "visitor_alt": "Návštevníci",
+    "exhibitor": "Vystavovateľa",
+    "exhibitor_alt": "Vystavovatelia",
+    "industry": "Odborný",
+    "industry_alt": "Odborný",
+    "more_btn": "Viac",
+    "less_btn": "Menej"
+  },
+  "uk": {
+    "profiles_title": "Профіль",
+    "visitor": "Відвідувача",
+    "visitor_alt": "Відвідувачі",
+    "exhibitor": "Експонента",
+    "exhibitor_alt": "Експоненти",
+    "industry": "Галузевий",
+    "industry_alt": "Галузевий",
+    "more_btn": "Більше",
+    "less_btn": "Менше"
+  },
+  "ro_RO": {
+    "profiles_title": "Profil",
+    "visitor": "Vizitator",
+    "visitor_alt": "Vizitatori",
+    "exhibitor": "Expozent",
+    "exhibitor_alt": "Expozanți",
+    "industry": "Industrial",
+    "industry_alt": "Industrial",
+    "more_btn": "Mai mult",
+    "less_btn": "Mai puțin"
+  },
+  "et": {
+    "profiles_title": "Profiil",
+    "visitor": "Külastaja",
+    "visitor_alt": "Külastajad",
+    "exhibitor": "Eksponent",
+    "exhibitor_alt": "Eksponendid",
+    "industry": "Tööstus",
+    "industry_alt": "Tööstus",
+    "more_btn": "Rohkem",
+    "less_btn": "Vähem"
+  }
+}

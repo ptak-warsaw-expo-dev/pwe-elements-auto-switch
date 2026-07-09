@@ -29,9 +29,9 @@ body {
     gap: 1.5rem;
 }
 
-.pwe-element-auto-switch .pwe-premieres-container .swiper-pagination-bullet {
+/* .pwe-element-auto-switch .pwe-premieres-container .swiper-pagination-bullet {
     background-color: white !important;
-}
+} */
 
 .pwe-element-auto-switch .pwe-premieres__header .pwe-subtitle {
     display: block;
@@ -189,10 +189,39 @@ body {
     margin-bottom: 1.5rem;
     flex-grow: 1;
     min-height: auto !important;
+    max-height: 120px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+.pwe-premieres__premiere-desc p {
+    line-height: 1.4;
+    font-size: 13px !important;
+}
+.pwe-element-auto-switch .pwe-premieres__premiere-desc::-webkit-scrollbar {
+    width: 4px;
+}
+
+.pwe-element-auto-switch .pwe-premieres__premiere-desc::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 2px;
+}
+
+.pwe-element-auto-switch .pwe-premieres__premiere-desc::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--accent-color) 50%, #27272a);
+    border-radius: 2px;
+}
+
+.pwe-element-auto-switch .pwe-premieres__premiere-desc::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
+}
+
+.pwe-element-auto-switch .pwe-premieres__premiere-desc {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--accent-color) 50%, #27272a) rgba(255, 255, 255, 0.05);
 }
 
 .pwe-element-auto-switch .pwe-premieres__action {
-    display: flex;
+    display: none;
     align-items: center;
     color: var(--accent-color);
     font-weight: 900;
@@ -220,7 +249,7 @@ body {
     margin-top: 2.5rem;
 }
 
-.pwe-element-auto-switch .swiper-dots .swiper-pagination-bullet {
+/* .pwe-element-auto-switch .swiper-dots .swiper-pagination-bullet {
     background: #27272a !important;
     opacity: 1 !important;
     width: 10px;
@@ -232,7 +261,7 @@ body {
 .pwe-element-auto-switch .swiper-dots .swiper-pagination-bullet-active {
     background: var(--accent-color) !important;
     transform: scale(1.2);
-}
+} */
 
 @media (max-width: 768px) {
     .pwe-element-auto-switch .pwe-premieres__header {

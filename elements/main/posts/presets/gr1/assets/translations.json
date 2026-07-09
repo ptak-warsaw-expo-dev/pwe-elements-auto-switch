@@ -1,0 +1,57 @@
+{
+  "pl_PL": {
+    "title": "Aktualności",
+    "more": "Więcej",
+    "read_all": "Zobacz wszystkie"
+  },
+  "en_US": {
+    "title": "News",
+    "more": "More",
+    "read_all": "See all"
+  },
+  "cs_CZ": {
+    "title": "Novinky",
+    "more": "Více",
+    "read_all": "Zobrazit vše"
+  },
+  "de_DE": {
+    "title": "Nachrichten",
+    "more": "Mehr",
+    "read_all": "Alle ansehen"
+  },
+  "it_IT": {
+    "title": "Notizie",
+    "more": "Altro",
+    "read_all": "Vedi tutto"
+  },
+  "lt_LT": {
+    "title": "Naujienos",
+    "more": "Daugiau",
+    "read_all": "Peržiūrėti visas"
+  },
+  "lv_LV": {
+    "title": "Jaunumi",
+    "more": "Vairāk",
+    "read_all": "Skatīt visas"
+  },
+  "sk_SK": {
+    "title": "Novinky",
+    "more": "Viac",
+    "read_all": "Zobraziť všetky"
+  },
+  "uk": {
+    "title": "Новини",
+    "more": "Більше",
+    "read_all": "Переглянути всі"
+  },
+  "ro_RO": {
+    "title": "Știri",
+    "more": "Mai mult",
+    "read_all": "Vezi toate"
+  },
+  "et": {
+    "title": "Uudised",
+    "more": "Rohkem",
+    "read_all": "Vaata kõiki"
+  }
+}

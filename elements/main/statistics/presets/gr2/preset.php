@@ -75,7 +75,7 @@ $output .= '
                 </svg>
               </div>
               <div class="pwe-statistics__card-numbers">  
-                <div class="pwe-statistics__card-num"><span class="countup" data-count="'. floor($pwe_visitors / 100 * $percent_polish) .'">0</span></div>
+                <div class="pwe-statistics__card-num"><span class="countup" data-count="'. $polish_visitors .'">0</span></div>
                 <div class="pwe-statistics__card-label">'. PWE_Functions::multi_translation("poland") .' <span class="countup" data-count="'. $percent_polish .'">0</span> %</div>
               </div>
             </div>
@@ -88,7 +88,7 @@ $output .= '
                 </svg>
               </div>
               <div class="pwe-statistics__card-numbers">  
-                <div class="pwe-statistics__card-num"><span class="countup" data-count="'. ($pwe_visitors - floor($pwe_visitors / 100 * $percent_polish)) .'">0</span></div>
+                <div class="pwe-statistics__card-num"><span class="countup" data-count="'. $pwe_visitors_foreign .'">0</span></div>
                 <div class="pwe-statistics__card-label">'. PWE_Functions::multi_translation("abroad") .' <span class="countup" data-count="'. (100 - $percent_polish) .'">0</span> %</div>
               </div>
             </div>

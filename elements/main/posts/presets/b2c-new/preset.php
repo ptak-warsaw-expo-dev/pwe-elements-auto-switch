@@ -71,7 +71,10 @@ $output = '
     </div>
 </div>';
 
-// Zaktualizowałem widoki na 3 kolumny dla desktopu (odwzorowanie 3.1 z React)
-$output .= PWE_Swiper::swiperScripts('#pwePosts', [0 => ['slidesPerView' => 1], 650 => ['slidesPerView' => 2], 1024 => ['slidesPerView' => 3]], true, true, 1, false);
+$output .= PWE_Swiper::swiperScripts('#pwePosts', [
+    0 => ['slidesPerView' => 1.2, 'centeredSlides' => true, 'spaceBetween' => 20],
+    650 => ['slidesPerView' => 2, 'centeredSlides' => true, 'spaceBetween' => 30],
+    1024 => ['slidesPerView' => 3, 'centeredSlides' => false, 'spaceBetween' => 40]
+], true, true, 1, false);
 
 return $output;
