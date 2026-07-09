@@ -1,0 +1,98 @@
+.pwe-element-auto-switch.registration-visitors {
+    max-width: 100%;
+    padding: 0;
+}
+.pwe-registration-visitors__wrapper {
+    display: flex;
+    min-height: 85vh;
+    height: 100%;
+}
+.pwe-registration-visitors .pwe-mockup-column {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-image: url(/wp-content/plugins/pwe-media/media/generator-wystawcow/gen-bg.jpg);
+}
+.pwe-registration-visitors .pwe-mockup-column img {
+    height: 100%;
+    float: right;
+    object-fit: cover;
+}
+.pwe-registration-visitors .pwe-registration-column {
+    position: relative;
+    background-color: #E8E8E8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 36px 18px;
+    gap: 18px;
+}
+.pwe-registration-visitors__column {
+    flex: 1 1;
+}
+.pwe-registration-visitors .pwe-registration-visitors__title {
+    min-width: 350px;
+}
+.pwe-registration-visitors .gform_wrapper {
+    max-width: 350px;
+}
+.pwe-registration-visitors  .gform_footer {
+    text-align: center;
+}
+.pwe-registration-visitors .gform_wrapper :is(label, .gfield_description, .show-consent) {
+    color: black;
+}
+.pwe-registration-visitors :is(input[type="text"], input[type="number"], input[type="email"], input[type="tel"]) {
+    border: 2px solid #d6d6d6 !important;
+    border-radius: 10px;
+    box-shadow: none !important;
+    margin: 0;
+    font-size: 14px !important;
+}
+.pwe-registration-visitors input[type="checkbox"] {
+    border: 2px solid #d6d6d6 !important;
+    border-radius: 50%;
+}
+.pwe-registration-visitors .gfield_consent_label  {
+    font-size: 10px;
+    line-height: 1.2 !important;
+}
+.pwe-registration-visitors .gfield_label {
+    font-size: 14px !important;
+}
+.pwe-registration-visitors .gfield_required_asterisk {
+    display: none !important;
+}
+.pwe-registration-visitors__step-text {
+    width: 100%;
+    position: absolute;
+    top: 18px;
+    left: 18px;
+}
+.pwe-registration-visitors__step-text p {
+    margin: 0;
+}
+.pwe-registration-visitors .gform_fields {
+    padding: 0 !important;
+}
+.pwe-registration-visitors .gform_legacy_markup_wrapper ul.gform_fields li.gfield {
+    padding-right: 0;
+}
+@media (max-width: 1150px) {
+    .pwe-registration-visitors .pwe-mockup-column,
+    .pwe-registration-visitors .pwe-registration-column {
+        width: 100%;
+    }
+    .pwe-registration-visitors .pwe-registration-column {
+        padding: 72px 18px;
+    }
+}
+@media (max-width: 960px) {
+    .pwe-registration-visitors {
+        flex-direction: column;
+    }
+    .pwe-registration-visitors .pwe-registration-column {
+        padding: 36px 18px 18px;
+    }
+}

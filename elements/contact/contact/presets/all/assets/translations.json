@@ -1,0 +1,46 @@
+{
+    "pl_PL": {
+        "write_to_us": "Napisz do nas",
+        "contact_description": "odpiszemy lub oddzwonimy,<br>jeżeli zostawisz nam numer telefonu."
+    },
+    "en_US": {
+        "write_to_us": "Write to us",
+        "contact_description": "we will reply or call you back<br>if you leave us your telephone number."
+    },
+    "de_DE": {
+        "write_to_us": "Schreiben Sie uns",
+        "contact_description": "Wir werden Ihnen antworten oder Sie zurückrufen,<br>wenn Sie uns Ihre Telefonnummer hinterlassen."
+    },
+    "cs_CZ": {
+        "write_to_us": "Napište nám",
+        "contact_description": "Odpovíme vám nebo vám zavoláme zpět,<br>pokud nám zanecháte své telefonní číslo."
+    },
+    "it_IT": {
+        "write_to_us": "Scrivici",
+        "contact_description": "Ti risponderemo o ti richiameremo<br>se ci lasci il tuo numero di telefono."
+    },
+    "lt_LT": {
+        "write_to_us": "Parašykite mums",
+        "contact_description": "Mes atsakysime arba paskambinsime jums atgal,<br>jei paliksite mums savo telefono numerį."
+    },
+    "lv_LV": {
+        "write_to_us": "Rakstiet mums",
+        "contact_description": "Mēs atbildēsim vai piezvanīsim jums atpakaļ,<br>ja atstājat mums savu tālruņa numuru."
+    },
+    "sk_SK": {
+        "write_to_us": "Napíšte nám",
+        "contact_description": "Odpovieme vám alebo vám zavoláme späť,<br>ak nám zanecháte svoje telefónne číslo."
+    },
+    "uk": {
+        "write_to_us": "Напишіть нам",
+        "contact_description": "Ми відповімо вам або передзвонимо,<br>якщо ви залишите нам свій номер телефону."
+    },
+    "ro_RO": {
+        "write_to_us": "Scrie-ne",
+        "contact_description": "Îți vom răspunde sau te vom suna înapoi,<br>dacă ne lași numărul tău de telefon."
+    },
+    "et": {
+        "write_to_us": "Kirjuta meile",
+        "contact_description": "Vastame teile või helistame teile tagasi,<br>kui jätate meile oma telefoninumbri."
+    }
+}

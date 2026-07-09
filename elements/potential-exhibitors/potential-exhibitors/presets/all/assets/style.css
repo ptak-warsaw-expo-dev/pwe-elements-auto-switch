@@ -1,0 +1,156 @@
+.row-parent:has(#pwePotentialExhibitors), 
+.pwe-limit-width:has(#pwePotentialExhibitors) {
+    padding: 0 !important;
+    max-width: 100%;
+}
+.wpb_column:has(#pwePotentialExhibitors) {
+    max-width: 100%;
+}
+.pwe-potential-exhibitors__columns {
+    display: flex;
+    min-height: 80vh;
+}
+.pwe-potential-exhibitors__column {
+    width: 50%;
+    display: flex;
+}
+.pwe-potential-exhibitors__column.bg {
+    background-image: url(/doc/background.webp);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.pwe-potential-exhibitors__column-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 340px;
+    margin: 0 auto;
+    padding: 18px;
+}
+.pwe-potential-exhibitors__column-content h2 {
+    margin: 0;
+}
+.pwe-potential-exhibitors__column-content p {
+    line-height: 1.2;
+    font-weight: 600;
+}
+.pwe-potential-exhibitors__column-content-logo {
+    max-width: 360px;
+}
+.pwe-potential-exhibitors__column-content-date {
+    font-size: 36px !important;
+    width: 100% !important;
+    color: white !important;
+    text-align: center;
+    margin: 0;
+}
+.pwe-potential-exhibitors__column-content-btn-container {
+    margin-top: 36px;
+}
+.pwe-potential-exhibitors__column-content-btn-container a {
+    background-color: black;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 10px;
+}
+.pwe-potential-exhibitors__column-content-btn-container a:hover {
+    color: #999 !important;
+}
+.pwe-potential-exhibitors__column-content-edition {
+    max-width: 360px;
+    width: 100%;
+    border-radius: 0;
+    background-color: white;
+    font-size: 36px;
+    margin: 0;
+    margin-top: 9px;
+    padding: 6px;
+    line-height: 1;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+}
+.pwe-potential-exhibitors__column-content-edition span {
+    background: url(/doc/header_mobile.webp) no-repeat center;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    font-size: 22px;
+}
+.pwe-potential-exhibitors__footer {
+    background-color: #f2f2f2;
+}
+.pwe-potential-exhibitors__footer-wrapper {
+    max-width: 1200px;
+    display: flex;
+    padding: 18px 36px;
+    margin: 0 auto;
+}
+.pwe-potential-exhibitors__footer-column {
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+}
+.pwe-potential-exhibitors__footer-column p {
+    margin: 0;
+    font-weight: 600;
+    text-align: center;
+    display: flex;
+    align-items: flex-end;
+    margin: 0 auto;
+}
+.pwe-potential-exhibitors__footer-column a {
+    display: flex;
+}
+.pwe-potential-exhibitors__footer-column svg {
+    width: 30px;
+    margin-left: 10px;
+    transition: 0.3s ease;
+}
+.pwe-potential-exhibitors__footer-column a:hover svg {
+    transform: scale(1.2);
+}
+.pwe-potential-exhibitors__form {
+    visibility: hidden;
+    height: 0px;
+    width: 0;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    left: -1000px;
+}
+
+@media (max-width: 1200px) {
+    .pwe-potential-exhibitors__footer-column {
+        flex-direction: column;
+    }
+}
+@media (max-width: 650px) {
+    .wpb_column:has(#pwePotentialExhibitors) {
+        padding: 0 !important;
+    }
+    .pwe-potential-exhibitors__columns {
+        flex-direction: column-reverse;
+        min-height: auto;
+    }
+    .pwe-potential-exhibitors__column {
+        width: 100%;
+    }
+    .pwe-potential-exhibitors__column-content {
+        max-width: 300px;
+    }
+    .pwe-potential-exhibitors__column-content-edition span {
+        font-size: 20px;
+    }
+}
+@media (max-width: 550px) {
+    .pwe-potential-exhibitors__footer-wrapper {
+        flex-direction: column;
+    }
+    .pwe-potential-exhibitors__footer-column {
+        width: 100%;
+    }
+}

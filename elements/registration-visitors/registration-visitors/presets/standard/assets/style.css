@@ -1,0 +1,280 @@
+.pwe-element-auto-switch:has(.pwe-registration-visitors) {
+    padding-top: 0;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    padding: 0;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form {
+    max-width: 555px;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form .gform_footer {
+    padding-top: 18px !important;
+}
+@media (max-width: 960px) {
+    .wpb_column:has(.pwe-exhibitors-top12) {
+        padding-top: 18px !important;
+    }
+}
+.row-container:has(.pwe-registration-visitors) {
+    background-image: url(/doc/background.webp);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0 0 36px;
+    background: #e8e8e8;
+    overflow: hidden;
+    border-radius: 0 0 24px 24px;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form-badge-header {
+    background-color: var(--main2-color);
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 36px;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form-header-title {
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0;
+    color: white;
+    display: none;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form-header-image-qr {
+    width: 60px;
+    height: 60px;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+    border-radius: 10px;
+    display: none;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form-badge-top {
+    position: relative;
+    width: 100%;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form-badge-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 25px;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form-badge-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    height: 25px;
+    width: 100%;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form-badge-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 25px;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form-image-qr {
+    position: absolute;
+    right: 36px;
+    top: 36px;
+    width: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    z-index: 1;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form-content {
+    width: 90%;
+    height: 100%;
+    padding: 36px 36px 18px;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form-content .pwe-registration-visitors__form-title {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form-content form {
+    display: flex;
+    flex-direction: column;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form input {
+    border: 2px solid rgb(0, 0, 0) !important;
+    border-radius: 10px;
+    box-shadow: none !important;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form .gform_fields {
+    padding: 0 !important;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form .iti--allow-dropdown {
+    margin-top: 18px;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form .iti__country-list {
+    list-style: none;
+    padding: 0;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form input:not([type="checkbox"]) {
+    margin: 0 auto 0;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form .gfield_consent_description {
+    overflow: unset;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form .gfield--type-consent {
+    overflow: hidden !important;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form .gfield--type-consent span {
+    display: inline !important;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form .gform_wrapper :is(label, .gfield_description),
+.pwe-element-auto-switch .pwe-registration-visitors__form .gform_legacy_markup_wrapper .gfield_required {
+    font-size: 12px;
+    line-height: 15px;
+    color: black !important;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form .gform_legacy_markup_wrapper .gform_footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto !important;
+    padding: 0;
+    text-align: center;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form input[type="submit"] {
+    background-color: var(--main2-color) !important;
+    border: 2px solid var(--main2-color) !important;
+    border-radius: 10px !important;
+    font-size: 14px;
+    color: white;
+    align-self: center;
+    transform: scale(1) !important;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form input[type="submit"]:hover {
+    background-color: ". $darker_btn_color ." !important;
+    border: 2px solid ". $darker_btn_color ." !important;
+    color: white;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form .mail-error,
+.pwe-element-auto-switch .pwe-registration-visitors__form .tel-error,
+.pwe-element-auto-switch .pwe-registration-visitors__form .cons-error {
+    margin: 0 11px;
+    width: 85%;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form .show-consent {
+    color: black !important;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form form :is(.email-error, .phone-error, .cons-error) {
+    font-size: 12px;
+    color: red;
+    width: 90%;
+    margin-top: 0px;
+    text-transform: uppercase;
+    background-color: rgba(255, 223, 224);
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form .gform_validation_errors {
+    border: none;
+    margin: 0;
+    padding: 18px 0 0;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form .validation_message {
+    padding: 0;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form .gfield {
+    padding: 0;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form .gfield_error {
+    border: none;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form .gfield_label {
+    font-size: 14px !important;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form input[type="checkbox"] {
+    min-width: 16px !important;
+    height: 16px !important;
+    border-radius: 0px !important;
+    margin: 0;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form .form-required::after {
+    content: "" !important;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form .gfield_required_asterisk {
+    display: none !important;
+}
+.pwe-element-auto-switch .pwe-registration-visitors__form .iti--allow-dropdown {
+    margin-top: 0;
+}
+@media (max-width: 960px) {
+    .wpb_column:has(.pwe-exhibitors-top12) {
+        padding-top: 0 !important;
+    }
+    .pwe-element-auto-switch .pwe-registration-visitors .pwe-registration-visitors__wrapper {
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .pwe-element-auto-switch .pwe-registration-visitors .pwe-exhibitors-top12 {
+        margin-top: 0;
+    }
+    .pwe-element-auto-switch .pwe-registration-visitors__form {
+        padding-bottom: 0;
+    }
+    .pwe-element-auto-switch .pwe-registration-visitors__form-fields {
+        padding: 0 18px 0;
+    }
+    .pwe-element-auto-switch .pwe-registration-visitors__form form {
+        padding: 0;
+    }
+    .pwe-element-auto-switch .pwe-registration-visitors__form-image-qr,
+    .pwe-element-auto-switch .pwe-registration-visitors__form-title {
+        display: none;
+    }
+    .pwe-element-auto-switch .pwe-registration-visitors__form-header-title,
+    .pwe-element-auto-switch .pwe-registration-visitors__form-header-image-qr {
+        display: flex;
+        align-items: center;
+    }
+    .pwe-element-auto-switch .pwe-registration-visitors__form-content {
+        padding: 0;
+    }
+}
+@media (max-width: 450px) {
+    .pwe-element-auto-switch .pwe-registration-visitors__form form {
+        width: 100%;
+    }
+    .pwe-element-auto-switch .pwe-registration-visitors__form-title {
+        margin-top: 36px;
+        font-size: 24px;
+    }
+    .pwe-element-auto-switch .pwe-registration-visitors__form-image-qr {
+        top: 20px;
+        width: 80px;
+    }
+    .pwe-element-auto-switch .pwe-registration-visitors__form .consent-container {
+        margin-top: 18px;
+    }
+    .pwe-element-auto-switch .pwe-registration-visitors__form input[type="submit"] {
+        font-size: 12px;
+        padding: 0 !important;
+    }
+    .pwe-element-auto-switch .pwe-registration-visitors__form input:not([type="checkbox"]) {
+        width: 100%;
+    }
+}
