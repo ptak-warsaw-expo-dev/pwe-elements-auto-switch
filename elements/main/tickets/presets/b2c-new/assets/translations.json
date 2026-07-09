@@ -1,0 +1,68 @@
+{
+  "pl_PL": {
+    "summary_title": "Ptak Warsaw Expo - łączymy świat biznesu",
+    "join_us": "Dołącz do nas",
+    "tickets": "Wybierz swój <span class='text-red'>Bilet</span>",
+    "select_ticket": "Wybierz bilet"
+  },
+  "en_US": {
+    "summary_title": "Ptak Warsaw Expo - we connect the world of business",
+    "join_us": "Join us",
+    "tickets": "Choose your <span class='text-red'>Ticket</span>",
+    "select_ticket": "Select ticket"
+  },
+  "cs_CZ": {
+    "summary_title": "Ptak Warsaw Expo - propojujeme svět byznysu",
+    "join_us": "Připojte se k nám",
+    "tickets": "Vyberte si svou <span class='text-red'>Vstupenku</span>",
+    "select_ticket": "Vybrat vstupenku"
+  },
+  "de_DE": {
+    "summary_title": "Ptak Warsaw Expo - wir verbinden die Geschäftswelt",
+    "join_us": "Schließen Sie sich uns an",
+    "tickets": "Wählen Sie Ihr <span class='text-red'>Ticket</span>",
+    "select_ticket": "Ticket auswählen"
+  },
+  "it_IT": {
+    "summary_title": "Ptak Warsaw Expo - colleghiamo il mondo del business",
+    "join_us": "Unisciti a noi",
+    "tickets": "Scegli il tuo <span class='text-red'>Biglietto</span>",
+    "select_ticket": "Seleziona il biglietto"
+  },
+  "lt_LT": {
+    "summary_title": "Ptak Warsaw Expo - sujungiame verslo pasaulį",
+    "join_us": "Prisijunkite prie mūsų",
+    "tickets": "Pasirinkite savo <span class='text-red'>Bilietą</span>",
+    "select_ticket": "Pasirinkti bilietą"
+  },
+  "lv_LV": {
+    "summary_title": "Ptak Warsaw Expo - savienojam biznesa pasauli",
+    "join_us": "Pievienojies mums",
+    "tickets": "Izvēlies savu <span class='text-red'>Biļeti</span>",
+    "select_ticket": "Izvēlēties biļeti"
+  },
+  "sk_SK": {
+    "summary_title": "Ptak Warsaw Expo - spájame svet biznisu",
+    "join_us": "Pridajte sa k nám",
+    "tickets": "Vyberte si svoj <span class='text-red'>Lístok</span>",
+    "select_ticket": "Vybrať lístok"
+  },
+  "uk": {
+    "summary_title": "Ptak Warsaw Expo - ми об'єднуємо світ бізнесу",
+    "join_us": "Приєднуйтесь do нас",
+    "tickets": "Оберіть свій <span class='text-red'>Квиток</span>",
+    "select_ticket": "Обрати квиток"
+  },
+  "ro_RO": {
+    "summary_title": "Ptak Warsaw Expo - conectăm lumea afacerilor",
+    "join_us": "Alătură-te nouă",
+    "tickets": "Alege-ți <span class='text-red'>Biletul</span>",
+    "select_ticket": "Selectează biletul"
+  },
+  "et": {
+    "summary_title": "Ptak Warsaw Expo - ühendame ärimaailma",
+    "join_us": "Liitu meiega",
+    "tickets": "Vali oma <span class='text-red'>Pilet</span>",
+    "select_ticket": "Vali pilet"
+  }
+}

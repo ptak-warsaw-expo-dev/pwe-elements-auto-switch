@@ -23,14 +23,14 @@ $output = '
                 <div class="pwe-summary__stat mobile">
                     <img src="/wp-content/plugins/pwe-media/media/numbers-el/certifed.webp" alt="Certified UFI Member">
                 </div>
-                
+
                 <div class="pwe-summary__stat mobile">
                     <img src="/wp-content/plugins/pwe-media/media/numbers-el/ufi.webp" alt="Ufi">
                 </div>
 
                 <div class="pwe-summary__stat">
                     <img src="/wp-content/plugins/pwe-media/media/numbers-el/exhibitors.webp" alt="">
-                    <h3>2000+</h3>
+                    <h3>20000+</h3>
                     <p>'. PWE_Functions::multi_translation("exhibitors_year") .'</p>
                 </div>
 
@@ -55,6 +55,6 @@ $output = '
         </div>
     </div>
 
-</div>';  
+</div>';
 
 return $output;

@@ -23,7 +23,7 @@ $output = '
                 <div class="pwe-summary__stat mobile">
                     <img src="/wp-content/plugins/pwe-media/media/numbers-el/certifed.webp" alt="Certified UFI Member">
                 </div>
-                
+
                 <div class="pwe-summary__stat mobile">
                     <img src="/wp-content/plugins/pwe-media/media/numbers-el/ufi.webp" alt="Ufi">
                 </div>
@@ -55,6 +55,6 @@ $output = '
         </div>
     </div>
 
-</div>';  
+</div>';
 
 return $output;

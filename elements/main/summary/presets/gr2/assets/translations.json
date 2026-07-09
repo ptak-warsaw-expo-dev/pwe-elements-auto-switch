@@ -1,0 +1,79 @@
+{
+  "pl_PL": {
+    "summary_title": "Największe Centrum Targowe w Europie Środkowo-Wschodniej",
+    "exhibitors_year": "Wystawców rocznie",
+    "visitors_year": "Odwiedzających rocznie",
+    "fairs_year": "Targów B2B rocznie",
+    "exhibition_space" : "Powierzchni m²"
+  },
+  "en_US": {
+    "summary_title": "The largest trade fair center in Central and Eastern Europe",
+    "exhibitors_year": "Exhibitors per year",
+    "visitors_year": "Visitors per year",
+    "fairs_year": "B2B fairs per year",
+    "exhibition_space" : "Area m²"
+  },
+  "cs_CZ": {
+    "summary_title": "Největší veletržní centrum ve střední a východní Evropě",
+    "exhibitors_year": "Vystavovatelů ročně",
+    "visitors_year": "Návštěvníků ročně",
+    "fairs_year": "B2B veletrhů ročně",
+    "exhibition_space" : "Plocha m²"
+  },
+  "de_DE": {
+    "summary_title": "Das größte Messezentrum in Mittel- und Osteuropa",
+    "exhibitors_year": "Aussteller pro Jahr",
+    "visitors_year": "Besucher pro Jahr",
+    "fairs_year": "B2B-Messen pro Jahr",
+    "exhibition_space" : "Fläche m²"
+  },
+  "it_IT": {
+    "summary_title": "Il più grande centro fieristico dell'Europa centrale e orientale",
+    "exhibitors_year": "Espositori all'anno",
+    "visitors_year": "Visitatori all'anno",
+    "fairs_year": "Fiere B2B all'anno",
+    "exhibition_space" : "Superficie m²"
+  },
+  "lt_LT": {
+    "summary_title": "Didžiausias parodų centras Vidurio ir Rytų Europoje",
+    "exhibitors_year": "Eksponentų per metus",
+    "visitors_year": "Lankytojų per metus",
+    "fairs_year": "B2B parodų per metus",
+    "exhibition_space" : "Plotas m²"
+  },
+  "lv_LV": {
+    "summary_title": "Lielākais izstāžu centrs Centrālajā un Austrumeiropā",
+    "exhibitors_year": "Izstādes dalībnieku gadā",
+    "visitors_year": "Apmeklētāju gadā",
+    "fairs_year": "B2B izstāžu gadā",
+    "exhibition_space" : "Platība m²"
+  },
+  "sk_SK": {
+    "summary_title": "Najväčšie veľtržné centrum v strednej a východnej Európe",
+    "exhibitors_year": "Vystavovateľov ročne",
+    "visitors_year": "Návštevníkov ročne",
+    "fairs_year": "B2B veľtrhov ročne",
+    "exhibition_space" : "Plocha m²"
+  },
+  "uk": {
+    "summary_title": "Найбільший виставковий центр у Центральній та Східній Європі",
+    "exhibitors_year": "Експонентів на рік",
+    "visitors_year": "Відвідувачів на рік",
+    "fairs_year": "B2B виставок на рік",
+    "exhibition_space" : "Площа m²"
+  },
+  "ro_RO": {
+    "summary_title": "Cel mai mare centru de târguri din Europa Centrală și de Est",
+    "exhibitors_year": "Expozanți pe an",
+    "visitors_year": "Vizitatori pe an",
+    "fairs_year": "Târguri B2B pe an",
+    "exhibition_space" : "Suprafață m²"
+  },
+  "et": {
+    "summary_title": "Suurim messikeskus Kesk- ja Ida-Euroopas",
+    "exhibitors_year": "Eksponente aastas",
+    "visitors_year": "Külastajaid aastas",
+    "fairs_year": "B2B-messe aastas",
+    "exhibition_space" : "Pindala m²"
+  }
+}
