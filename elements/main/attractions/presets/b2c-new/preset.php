@@ -6,8 +6,8 @@ $output = '
 
         <div class="pwe-attractions__header">
             <div class="pwe-attractions__header-title">
-                <span class="pwe-subtitle">' . PWE_Functions::multi_translation("premieres_subtitle") . ' ' . do_shortcode('[trade_fair_name]') . '</span>
-                <h2 class="pwe-title">Arena <span class="pwe-text-red">' . PWE_Functions::multi_translation("premieres_title") . '</span></h2>
+                <span class="pwe-subtitle">' . PWE_Functions::multi_translation("attractions_subtitle") . ' </span>
+                <h2 class="pwe-title">' . PWE_Functions::multi_translation("attractions_title") . '</h2>
             </div>
 
             <div class="swiper-buttons-arrows">
@@ -53,7 +53,6 @@ $output = '
     </div>
 </section>';
 
-// Wywołanie Swipera z obsługą widoku kafelków na desktopie (3), tabletach (2) i mobile (1) oraz włączonym nieskończonym pętleniem (loop)
 $output .= PWE_Swiper::swiperScripts('#pweAttractions', [0 => ['slidesPerView' => 1, 'spaceBetween' => 16], 650 => ['slidesPerView' => 2, 'spaceBetween' => 24], 1024 => ['slidesPerView' => 3, 'spaceBetween' => 24]], true, true, 1, false);
 
 return $output;

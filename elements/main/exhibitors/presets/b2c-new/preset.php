@@ -1,6 +1,5 @@
 <?php
 
-// Przygotowanie tablicy danych dla skryptu JS
 $js_exhibitors = array_map(function($ex) {
     return [
         'name' => esc_html($ex['name'] ?? ''),
@@ -36,20 +35,18 @@ $output .= '<script>
     window.PWE_EXHIBITORS_LIST = ' . wp_json_encode($js_exhibitors, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . ';
 </script>';
 
-// Logika generowania i potrajania elementów (dokładnie jak w React [...items, ...items, ...items])
+
 $output .= '
 <script>
 jQuery(function($){
     const items = window.PWE_EXHIBITORS_LIST || [];
     if (!items.length) return;
 
-    // Klonowanie struktur danych dla różnych wierszy
     const row1Data = [...items].reverse();
     const row2Data = [...items];
     const row3Data = [...items].sort(() => 0.5 - Math.random());
 
     function buildRowHtml(dataArray) {
-        // Potrajamy elementy dla zapewnienia płynności animacji bez białych plam
         const tripled = [...dataArray, ...dataArray, ...dataArray];
         let html = \'<div class="pwe-marquee-track">\';
 

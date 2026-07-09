@@ -1,0 +1,68 @@
+{
+  "pl_PL": {
+    "catalog_title": "Kto z nami będzie?",
+    "catalog_subtitle": "Nasi <span class='pwe-text-red'>Wystawcy</span>",
+    "catalog_link": "/katalog-wystawcow/",
+    "catalog_link_text": "Zobacz katalog"
+  },
+  "en_US": {
+    "catalog_title": "Exhibitors",
+    "catalog_subtitle": "Our <span class='pwe-text-red'>Exhibitors</span>",
+    "catalog_link": "/en/exhibitors-catalog/",
+    "catalog_link_text": "View Catalog"
+  },
+  "cs_CZ": {
+    "catalog_title": "Vystavovatelé",
+    "catalog_subtitle": "Naši <span class='pwe-text-red'>Vystavovatelé</span>",
+    "catalog_link": "/cs/katalog-vystavovatelu/",
+    "catalog_link_text": "Zobrazit katalog"
+  },
+  "de_DE": {
+    "catalog_title": "Aussteller",
+    "catalog_subtitle": "Unsere <span class='pwe-text-red'>Aussteller</span>",
+    "catalog_link": "/de/ausstellerverzeichnis/",
+    "catalog_link_text": "Katalog ansehen"
+  },
+  "it_IT": {
+    "catalog_title": "Espositori",
+    "catalog_subtitle": "I nostri <span class='pwe-text-red'>Espositori</span>",
+    "catalog_link": "/it/catalogo-espositori/",
+    "catalog_link_text": "Vedi catalogo"
+  },
+  "lt_LT": {
+    "catalog_title": "Eksponentai",
+    "catalog_subtitle": "Mūsų <span class='pwe-text-red'>Eksponentai</span>",
+    "catalog_link": "/lt/eksponentu-katalogas/",
+    "catalog_link_text": "Peržiūrėti katalogą"
+  },
+  "lv_LV": {
+    "catalog_title": "Izstādes dalībnieki",
+    "catalog_subtitle": "Mūsu <span class='pwe-text-red'>Izstādes dalībnieki</span>",
+    "catalog_link": "/lv/izstades-dalibnieku-katalogs/",
+    "catalog_link_text": "Skatīt katalogu"
+  },
+  "sk_SK": {
+    "catalog_title": "Vystavovatelia",
+    "catalog_subtitle": "Naši <span class='pwe-text-red'>Vystavovatelia</span>",
+    "catalog_link": "/sk/katalog-vystavovatelov/",
+    "catalog_link_text": "Zobraziť katalóg"
+  },
+  "uk": {
+    "catalog_title": "Експоненти",
+    "catalog_subtitle": "Наші <span class='pwe-text-red'>Експоненти</span>",
+    "catalog_link": "/uk/katalog-eksponentiv/",
+    "catalog_link_text": "Переглянути каталог"
+  },
+  "ro_RO": {
+    "catalog_title": "Expozanti",
+    "catalog_subtitle": "Ios <span class='pwe-text-red'>Expozanti</span> noștri",
+    "catalog_link": "/ro/catalog-expozanti/",
+    "catalog_link_text": "Vezi catalogul"
+  },
+  "et": {
+    "catalog_title": "Messe osalejad",
+    "catalog_subtitle": "Meie <span class='pwe-text-red'>Messe osalejad</span>",
+    "catalog_link": "/et/eksponentide-kataloog/",
+    "catalog_link_text": "Terve kataloog"
+  }
+}

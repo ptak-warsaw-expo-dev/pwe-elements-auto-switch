@@ -1,0 +1,57 @@
+{
+  "pl_PL": {
+    "catalog_title": "Wystawcy",
+    "catalog_link": "/katalog-wystawcow/",
+    "catalog_link_text": "Zobacz katalog"
+  },
+  "en_US": {
+    "catalog_title": "Exhibitors",
+    "catalog_link": "/en/exhibitors-catalog/",
+    "catalog_link_text": "View Catalog"
+  },
+  "cs_CZ": {
+    "catalog_title": "Vystavovatelé",
+    "catalog_link": "/cs/katalog-vystavovatelu/",
+    "catalog_link_text": "Zobrazit katalog"
+  },
+  "de_DE": {
+    "catalog_title": "Aussteller",
+    "catalog_link": "/de/ausstellerverzeichnis/",
+    "catalog_link_text": "Katalog ansehen"
+  },
+  "it_IT": {
+    "catalog_title": "Espositori",
+    "catalog_link": "/it/catalogo-espositori/",
+    "catalog_link_text": "Vedi catalogo"
+  },
+  "lt_LT": {
+    "catalog_title": "Eksponentai",
+    "catalog_link": "/lt/eksponentu-katalogas/",
+    "catalog_link_text": "Peržiūrėti katalogą"
+  },
+  "lv_LV": {
+    "catalog_title": "Izstādes dalībnieki",
+    "catalog_link": "/lv/izstades-dalibnieku-katalogs/",
+    "catalog_link_text": "Skatīt katalogu"
+  },
+  "sk_SK": {
+    "catalog_title": "Vystavovatelia",
+    "catalog_link": "/sk/katalog-vystavovatelov/",
+    "catalog_link_text": "Zobraziť katalóg"
+  },
+  "uk": {
+    "catalog_title": "Експоненти",
+    "catalog_link": "/uk/katalog-eksponentiv/",
+    "catalog_link_text": "Переглянути каталог"
+  },
+  "ro_RO": {
+    "catalog_title": "Expozanti",
+    "catalog_link": "/ro/catalog-expozanti/",
+    "catalog_link_text": "Vezi catalogul"
+  },
+  "et": {
+    "catalog_title": "Messe osalejad",
+    "catalog_link": "/et/eksponentide-kataloog/",
+    "catalog_link_text": "Terve kataloog"
+  }
+}

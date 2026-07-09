@@ -45,16 +45,18 @@ class Attractions {
                 $name = !empty($data['name'][$lang]) ? $data['name'][$lang] : ($data['name']['en'] ?? '');
                 $desc = !empty($data['short_desc'][$lang]) ? $data['short_desc'][$lang] : ($data['short_desc']['en'] ?? '');
 
-                // Obsługa relatywnych ścieżek dla obrazka głównego
                 $image_url = $data['image'] ?? '';
                 if (!empty($image_url) && strpos($image_url, 'http') !== 0) {
                     $image_url = 'https://cap.warsawexpo.eu/' . ltrim($image_url, '/');
                 }
 
-                // Obsługa relatywnych ścieżek dla logo (na wypadek, gdyby tam też tak było)
                 $logo_url = $data['logo'] ?? '';
                 if (!empty($logo_url) && strpos($logo_url, 'http') !== 0) {
                     $logo_url = 'https://cap.warsawexpo.eu/' . ltrim($logo_url, '/');
+                }
+
+                if (empty($image_url) && empty($name)) {
+                    continue;
                 }
 
                 $slides[] = [
