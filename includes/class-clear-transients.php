@@ -21,6 +21,12 @@ class PWE_Clear_Transients {
 
             $deleted = self::clear_all_transients();
 
+            self::create_plans_news();
+
+            require_once plugin_dir_path(dirname(__FILE__)) . 'elements/fair-plan/fair-plan/fair-plan.php';;
+            $files = PWE_Functions::get_database_fairs_data_files();
+            Fair_Plan::create_missing_news_for_files($files);
+
             header('Content-Type: text/html; charset=utf-8');
             echo '<div style="display:flex;flex-direction:column;text-align:center;align-items:center;">';
             echo '<h1>Dane są zaktualizowane!</h1>';
@@ -65,6 +71,16 @@ class PWE_Clear_Transients {
         );
 
         return (int)$deleted;
+    }
+
+    /**
+     * Create news posts for all fair plans based on the data files
+     */
+    public static function create_plans_news(): void {
+
+        require_once plugin_dir_path(dirname(__FILE__)) . 'elements/fair-plan/fair-plan/fair-plan.php';;
+        $files = PWE_Functions::get_database_fairs_data_files();
+        Fair_Plan::create_missing_news_for_files($files);
     }
 
 }

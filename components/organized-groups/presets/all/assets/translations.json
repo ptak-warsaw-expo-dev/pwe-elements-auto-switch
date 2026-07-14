@@ -64,5 +64,11 @@
     "description": "Et tagada teie mugav osalemine meie üritustel, on korraldatud gruppide sisenemine võimalik ainult messi viimasel päeval. Enne saabumist soovitame teil meiega ühendust võtta veebisaidil oleva vormi kaudu: <a id=\"pweGroupsLink\" href=\"https://warsawexpo.eu/en/groups/\" alt=\"link grupi registreerimiseks\" target=\"_blank\">warsawexpo.eu/en/groups</a>. Seljakottide ja kohvrite jätmine garderoobi on kohustuslik. Messil kehtib äririietuse kood.",
     "button_url": "https://warsawexpo.eu/en/groups/",
     "button_text": "Kontaktvorm"
+  },
+  "hu_HU": {
+    "title": "Kapcsolat szervezett csoportok számára",
+    "description": "Annak érdekében, hogy kényelmesen részt vehessen rendezvényeinken, a szervezett csoportok számára a belépés csak a vásár utolsó napján lehetséges. Érkezése előtt javasoljuk, hogy vegye fel velünk a kapcsolatot az oldalon elérhető űrlapon keresztül: <a id=\"pweGroupsLink\" href=\"https://warsawexpo.eu/en/groups/\" alt=\"link a csoport regisztrációhoz\" target=\"_blank\">warsawexpo.eu/en/groups</a>. A hátizsákok és bőröndök ruhatárban történő elhelyezése kötelező. A vásáron üzleti öltözködési kódex érvényes.",
+    "button_url": "https://warsawexpo.eu/en/groups/",
+    "button_text": "Kapcsolati űrlap"
   }
 }

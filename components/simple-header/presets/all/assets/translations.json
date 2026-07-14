@@ -53,5 +53,10 @@
     "register_link": "/et/registreerimine/",
     "register_alt": "registreerimine",
     "take_part": "Osale"
+  },
+  "hu_HU": {
+    "register_link": "/hu/regisztracio/",
+    "register_alt": "regisztráció",
+    "take_part": "Vegyen részt"
   }
 }

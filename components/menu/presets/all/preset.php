@@ -2,7 +2,7 @@
 
 $lang = PWE_Functions::lang();
 
-// Function to load menu translations from JSON file
+/** Loads and caches menu translations from the JSON file. */
 if (!function_exists('get_menu_translations')) {
     function get_menu_translations() {
         static $translations = null;
@@ -26,7 +26,7 @@ if (!function_exists('get_menu_translations')) {
     }
 }
 
-// Function to apply translations to a menu item based on its anchor class
+/** Applies a menu item translation by URL or label. */
 if (!function_exists('apply_anchor_translation')) {
     function apply_anchor_translation(&$item) {
 
@@ -133,7 +133,7 @@ if (!function_exists('apply_anchor_translation')) {
     }
 }
 
-// Preprocess menu items to apply translations
+/** Filters menu items and applies the correct translations. */
 if (!function_exists('preprocess_menu_items')) {
     function preprocess_menu_items(&$menu_items) {
 
@@ -150,7 +150,7 @@ if (!function_exists('preprocess_menu_items')) {
                 mb_stripos($current_title, 'poprzednie edycje') !== false
             );
 
-            // hide archive for non-PL/EN
+            // Hide the archive for languages other than Polish and English.
             if ($is_archive && !in_array($lang, ['pl', 'en'], true)) {
                 continue;
             }
@@ -168,7 +168,7 @@ if (!function_exists('preprocess_menu_items')) {
     }
 }
 
-// Label maps to translate
+/** Returns shared labels used by dynamic menu items. */
 if (!function_exists('get_global_label_translations')) {
     function get_global_label_translations() {
         return [
@@ -183,9 +183,9 @@ if (!function_exists('get_global_label_translations')) {
                 'lt' => ['Po parodos ataskaita'],
                 'lv' => ['Pēc tirdzniecības izstādes ziņojums'],
                 'ro' => ['Raport după târg'],
-                'et' => ['Raport pärast messi']
+                'et' => ['Raport pärast messi'],
+                'hu' => ['Raport a mese után']
             ],
-
             'edition' => [
                 'pl' => ['Edycja'],
                 'en' => ['Edition'],
@@ -197,13 +197,14 @@ if (!function_exists('get_global_label_translations')) {
                 'lt' => ['Leidimas'],
                 'lv' => ['Izdevums'],
                 'ro' => ['Ediție'],
-                'et' => ['Versioon']
+                'et' => ['Versioon'],
+                'hu' => ['Kiadás']
             ],
         ];
     }
 }
 
-// Translation labels from maps
+/** Translates the label prefix while preserving the year and remaining text. */
 if (!function_exists('translate_global_label')) {
     function translate_global_label($text, $lang) {
 
@@ -225,7 +226,7 @@ if (!function_exists('translate_global_label')) {
 
                         $rest = trim(mb_substr($clean, mb_strlen($variant)));
 
-                        // selecting the target translation
+                        // Select the target translation.
                         $target_list = $translations[$lang] ?? $translations['en'];
 
                         $target = is_array($target_list) ? $target_list[0] : $target_list;
@@ -240,9 +241,74 @@ if (!function_exists('translate_global_label')) {
     }
 }
 
-// Function to display submenu
+
+
+/** Checks whether the current trade fair plan should still be visible. */
+if (!function_exists('is_current_trade_fair_plan_visible')) {
+    function is_current_trade_fair_plan_visible() {
+        $raw_end_date = trim(wp_strip_all_tags(do_shortcode('[trade_fair_enddata]')));
+
+        // Keep the item visible when the shortcode is empty or has an invalid value.
+        if ($raw_end_date === '') {
+            return true;
+        }
+
+        $timezone = function_exists('wp_timezone')
+            ? wp_timezone()
+            : new DateTimeZone('Europe/Warsaw');
+
+        $end_date = DateTimeImmutable::createFromFormat(
+            '!Y/m/d H:i',
+            $raw_end_date,
+            $timezone
+        );
+
+        $date_errors = DateTimeImmutable::getLastErrors();
+        $has_errors = is_array($date_errors)
+            && ($date_errors['warning_count'] > 0 || $date_errors['error_count'] > 0);
+
+        if (!$end_date || $has_errors) {
+            return true;
+        }
+
+        $current_date = new DateTimeImmutable('now', $timezone);
+
+        return $current_date <= $end_date;
+    }
+}
+
+/** Renders dynamic submenu items as list elements. */
+if (!function_exists('render_dynamic_children')) {
+    function render_dynamic_children($child) {
+
+        if (empty($child->dynamic_children)) {
+            return '';
+        }
+
+        $output = '';
+
+        foreach ($child->dynamic_children as $extra) {
+
+            $target = !empty($extra->target) ? 'target="_blank"' : '';
+
+            $output .= '
+            <li class="pwe-menu-auto-switch__submenu-item">
+                <a '.$target.' href="'.esc_url($extra->url).'">
+                    <span class="pwe-menu-auto-switch__item-title">
+                        '.esc_html($extra->title).'
+                    </span>
+                </a>
+            </li>';
+
+        }
+
+        return $output;
+    }
+}
+
+/** Recursively renders submenus and assigns dynamic items to editions. */
 if (!function_exists('render_submenu')) {
-    function render_submenu($parent_id, $menu_items, $depth = 1, $root_index = null) {
+    function render_submenu($parent_id, $menu_items, $depth = 1, $root_index = null, $dynamic_items = []){
         // Maximum nesting depth
         $max_depth = 10;
 
@@ -258,14 +324,216 @@ if (!function_exists('render_submenu')) {
 
         if (!empty($children)) {
             $output = '';
+
+            $children = array_values($children);
+
+            $lang = PWE_Functions::lang();
+
+            $labels = [
+                'fair_plan' => [
+                    'pl' => 'Plan Targów',
+                    'en' => 'Trade Fair Plan',
+                    'cs' => 'Plán veletrhu',
+                    'de' => 'Messeplan',
+                    'it' => 'Piano della Fiera',
+                    'lt' => 'Lankos plano',
+                    'lv' => 'Izstādes plāns',
+                    'sk' => 'Plán výstavy',
+                    'uk' => 'План ярмарку',
+                    'ro' => 'Planul Mesei',
+                    'et' => 'Näituse plaan',
+                    'hu' => 'Vásári terv'
+                ],
+
+                'post_show' => [
+                    'pl' => 'Raport potargowy',
+                    'en' => 'Post Show Report',
+                    'de' => 'Post-Messe-Bericht',
+                    'it' => 'Rapporto post-fiera',
+                    'cs' => 'Zpráva po veletrhu',
+                    'sk' => 'Raport po veletrhu',
+                    'uk' => 'Звіт після виставки',
+                    'lt' => 'Po parodos ataskaita',
+                    'lv' => 'Pēc tirdzniecības izstādes ziņojums',
+                    'ro' => 'Raport după târg',
+                    'et' => 'Raport pärast messi',
+                    'hu' => 'Raport a mese után'
+                ],
+
+                'fair_offer' => [
+                    'pl' => 'Oferta targowa',
+                    'en' => 'Trade Fair Offer',
+                    'de' => 'Messeangebot',
+                    'it' => 'Offerta fieristica',
+                    'cs' => 'Nabídka veletrhu',
+                    'sk' => 'Ponuka výstavy',
+                    'uk' => 'Пропозиція виставки',
+                    'lt' => 'Parodos pasiūlymas',
+                    'lv' => 'Izstādes piedāvājums',
+                    'ro' => 'Oferta târgului',
+                    'et' => 'Messipakkumine',
+                    'hu' => 'Vásári ajánlat'
+                ]
+            ];
+
+            // Add dynamic items inside Edition submenu
+            if ($depth === 2) {
+
+                foreach ($children as $child) {
+
+                    $child_title = trim(strip_tags($child->title));
+
+                    if (
+                        mb_stripos($child_title, 'edycja') !== false ||
+                        mb_stripos($child_title, 'edition') !== false
+                    ) {
+
+                        $edition_year = '';
+
+                        if (preg_match('/(19|20)\d{2}/', $child_title, $matches)) {
+                            $edition_year = $matches[0];
+                        }
+
+                        if (!$edition_year) {
+                            continue;
+                        }
+
+
+                        $edition_dynamic = [];
+
+
+                        // TRADE FAIR PLAN
+                        foreach ($dynamic_items['all_fair_plans'] ?? [] as $plan) {
+
+                            if ((int)$plan->year === (int)$edition_year) {
+
+                                $edition_dynamic[] = (object)[
+                                    'ID' => 'dynamic_fair_plan_'.$edition_year,
+                                    'title' => ($labels['fair_plan'][$lang] ?? $labels['fair_plan']['en']) . ' ' . $edition_year,
+                                    'url' => $lang === 'pl'
+                                        ? '/plan-targow-'.$edition_year.'/'
+                                        : '/en/fair-plan-'.$edition_year.'/'
+                                ];
+
+                                break;
+                            }
+                        }
+
+
+                        // POST SHOW
+                        foreach ($dynamic_items['all_post_shows'] ?? [] as $post_show) {
+
+                            if ((int)$post_show->year === (int)$edition_year) {
+
+                                $edition_dynamic[] = (object)[
+                                    'ID' => 'dynamic_post_show_'.$edition_year,
+                                    'title' => 'Raport potargowy '.$edition_year,
+                                    'url' => 'https://cap.warsawexpo.eu'.$post_show->file_path,
+                                    'target' => '_blank'
+                                ];
+
+                                break;
+                            }
+                        }
+
+
+                        // Attach dynamic items to the matching Edition submenu.
+                        if (!empty($edition_dynamic)) {
+                            $child->dynamic_children = array_merge(
+                                $child->dynamic_children ?? [],
+                                $edition_dynamic
+                            );
+                        }
+                    }
+                }
+            }
+
+            $is_first_menu = ($root_index === 1);
+            $is_second_menu = ($root_index === 2);
             
             $output .= '
             <ul class="pwe-menu-auto-switch__submenu">';
 
+                $dynamic_menu_items = [];
+
+                if ($is_first_menu && $depth === 1) {
+
+                    // TRADE FAIR PLAN
+                    if (
+                        !empty($dynamic_items['fair_plan'])
+                        && is_current_trade_fair_plan_visible()
+                    ) {
+                        $dynamic_menu_items[] = (object)[
+                            'ID' => 'dynamic_fair_plan',
+                            'title' => $labels['fair_plan'][$lang] ?? $labels['fair_plan']['en'],
+                            'url' => $lang === 'pl'
+                                ? '/plan-targow/'
+                                : '/en/fair-plan/'
+                        ];
+                    }
+
+
+                    // POST SHOW REPORT
+                    if (!empty($dynamic_items['post_show'])) {
+
+                        $year = '';
+
+                        if (!empty($dynamic_items['post_show']->year)) {
+                            $year = $dynamic_items['post_show']->year;
+                        } elseif (!empty($dynamic_items['post_show']->edition_year)) {
+                            $year = $dynamic_items['post_show']->edition_year;
+                        }
+
+                        $dynamic_menu_items[] = (object)[
+                            'ID' => 'dynamic_post_show',
+                            'title' => ($labels['post_show'][$lang] ?? $labels['post_show']['en']) . ($year ? ' ' . $year : ''),
+                            'url' => 'https://cap.warsawexpo.eu' . $dynamic_items['post_show']->file_path,
+                            'target' => '_blank'
+                        ];
+                    }
+
+                }
+
+                if ($is_second_menu && $depth === 1) {
+
+                    if (!empty($dynamic_items['fair_offer'])) {
+
+                        $year = '';
+
+                        if (!empty($dynamic_items['fair_offer']->year)) {
+                            $year = $dynamic_items['fair_offer']->year;
+                        } elseif (!empty($dynamic_items['fair_offer']->edition_year)) {
+                            $year = $dynamic_items['fair_offer']->edition_year;
+                        }
+
+                        $dynamic_menu_items[] = (object)[
+                            'ID' => 'dynamic_fair_offer',
+                            'title' => ($labels['fair_offer'][$lang] ?? $labels['fair_offer']['en']) . ($year ? ' ' . $year : ''),
+                            'url' => 'https://cap.warsawexpo.eu' . $dynamic_items['fair_offer']->file_path,
+                            'target' => '_blank'
+                        ];
+                    }
+
+                }
+
+                if (!empty($dynamic_menu_items)) {
+
+                    $insert_position = max(count($children) - 6, 0);
+
+                    array_splice(
+                        $children,
+                        $insert_position,
+                        0,
+                        $dynamic_menu_items
+                    );
+                }
+
                 foreach ($children as $child) {
-                    $has_submenu_children = !empty(array_filter($menu_items, function($grandchild) use ($child) {
-                        return $grandchild->menu_item_parent == $child->ID;
-                    }));
+                    $has_submenu_children = 
+                        !empty(array_filter($menu_items, function($grandchild) use ($child) {
+                            return $grandchild->menu_item_parent == $child->ID;
+                        }))
+                        || !empty($child->dynamic_children);
 
                     $target_blank = !empty($child->target) ? 'target="_blank"' : '';
 
@@ -278,6 +546,33 @@ if (!function_exists('render_submenu')) {
                         $aria_label = $aria_label_for_exhibitors;
                     } else $aria_label = '';
 
+                    // Render regular children, then append dynamic items to the same <ul>.
+                    $nested_submenu = render_submenu(
+                        $child->ID,
+                        $menu_items,
+                        $depth + 1,
+                        $root_index,
+                        $dynamic_items
+                    );
+
+                    $child_extra_items = render_dynamic_children($child);
+
+                    if ($child_extra_items !== '') {
+                        if ($nested_submenu !== '') {
+                            $nested_submenu = preg_replace(
+                                '/<\/ul>\s*$/',
+                                $child_extra_items . '</ul>',
+                                $nested_submenu,
+                                1
+                            );
+                        } else {
+                            $nested_submenu = '
+                            <ul class="pwe-menu-auto-switch__submenu">'
+                                . $child_extra_items .
+                            '</ul>';
+                        }
+                    }
+
                     $output .= '
                     <li class="pwe-menu-auto-switch__submenu-item' . ($has_submenu_children ? ' has-children' : '') . '">
                         <a '. $target_blank .' '. $aria_label .' href="' . esc_url($child->url) . '">
@@ -288,7 +583,7 @@ if (!function_exists('render_submenu')) {
                             </svg>' : '') . '
                             
                         </a>
-                        '. render_submenu($child->ID, $menu_items, $depth + 1, $root_index) .'
+                        '. $nested_submenu .'
                     </li>';
                 }
             
@@ -401,36 +696,56 @@ $output .= '
             <ul class="pwe-menu-auto-switch__nav">';
                 
                 $menu_index = 0;
+
                 foreach ($menu_items as $id => $item) {
-                    
-                    if (!isset($item->menu_item_parent) || !isset($item->ID)) {
-                        $output .= '<script>console.error("Invalid menu item structure detected.");</script>';
-                        continue;
-                    }
 
                     if ($item->menu_item_parent == 0) {
 
-                        $has_children = !empty(array_filter($menu_items, function($child) use ($item) {
-                            return $child->menu_item_parent == $item->ID;
-                        }));
+                        $current_menu_index = $menu_index;
 
-                        $target_blank = !empty($item->target) ? 'target="_blank"' : '';
+                        $menu_index++;
+                    
+                        if (!isset($item->menu_item_parent) || !isset($item->ID)) {
+                            $output .= '<script>console.error("Invalid menu item structure detected.");</script>';
+                            continue;
+                        }
 
-                        if ((strpos($item->ID, 'wpml') === false)) {
-                            $output .= '
-                            <li class="pwe-menu-auto-switch__item' . ($has_children ? ' has-children' : '') . ' ' . ($item->button ?? '') . '">
-                                <a '. $target_blank .' href="' . esc_url($item->url) . '">
-                                    <span class="pwe-menu-auto-switch__item-title">' . wp_kses_post($item->title) .'</span>
-                                    '. ($has_children ? '
-                                    <svg class="pwe-menu-auto-switch__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M9 20L16 12L9 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>' : '') .'
-                                </a>
-                                '. render_submenu($item->ID, $menu_items, 1, $menu_index) .'
-                            </li>';
+                        if ($item->menu_item_parent == 0) {
+
+                            $has_children = !empty(array_filter($menu_items, function($child) use ($item) {
+                                return $child->menu_item_parent == $item->ID;
+                            }));
+
+                            $target_blank = !empty($item->target) ? 'target="_blank"' : '';
+
+                            if ((strpos($item->ID, 'wpml') === false)) {
+                                $output .= '
+                                <li class="pwe-menu-auto-switch__item' . ($has_children ? ' has-children' : '') . ' ' . ($item->button ?? '') . '">
+                                    <a '. $target_blank .' href="' . esc_url($item->url) . '">
+                                        <span class="pwe-menu-auto-switch__item-title">' . wp_kses_post($item->title) .'</span>
+                                        '. ($has_children ? '
+                                        <svg class="pwe-menu-auto-switch__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M9 20L16 12L9 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>' : '') .'
+                                    </a>
+                                    '.  render_submenu(
+                                            $item->ID,
+                                            $menu_items,
+                                            1,
+                                            $menu_index,
+                                            [
+                                                'fair_plan' => $active_current_fair_plan,
+                                                'post_show' => $active_current_post_show,
+                                                'fair_offer' => $active_current_fair_offer,
+
+                                                'all_fair_plans' => $all_fair_plans,
+                                                'all_post_shows' => $all_post_shows,
+                                            ]
+                                        ) .'
+                                </li>';
+                            }
                         }
                     }
-                    
                 }
 
                 $output .= '
@@ -453,7 +768,8 @@ $output .= '
                         "sk" => "Jazyk",
                         "it" => "Lingua",
                         "ro" => "Limba",
-                        "et" => "Keel"
+                        "et" => "Keel",
+                        "hu" => "Nyelv"
                     ];
 
                     $output .= '
@@ -604,10 +920,14 @@ $output .= '
             "et" => [
                 "url" => "/et/registreerimine/",
                 "label" => "LIITU MEIEGA"
+            ],
+            "hu" => [
+                "url" => "/hu/regisztracio/",
+                "label" => "CSATLAKOZZ HOZZÁNK"
             ]
         ];
 
-        // fallback
+        // Use English as the fallback language.
         $current = $register_map[$lang] ?? $register_map["en"];                    
 
         $output .= '

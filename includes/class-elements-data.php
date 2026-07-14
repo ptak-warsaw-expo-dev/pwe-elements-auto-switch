@@ -15,104 +15,104 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 class PWE_Elements_Data {
 
-    /**
-     * Retrieves elements order data from the database.
-     */
-    public static function get_elements_order_from_db() {
-        // $db_elements_data = PWE_Functions::get_database_elements_data();
-        $db_elements_order_data = PWE_Functions::get_database_elements_order_data();
+    // /**
+    //  * Retrieves elements order data from the database.
+    //  */
+    // public static function get_elements_order_from_db() {
+    //     // $db_elements_data = PWE_Functions::get_database_elements_data();
+    //     $db_elements_order_data = PWE_Functions::get_database_elements_order_data();
 
-        if (empty($db_elements_order_data)) {
-            return [];
-        }
+    //     if (empty($db_elements_order_data)) {
+    //         return [];
+    //     }
 
-        // Mapping of slug -> class and file path
-        $slug_map = [
-            'header'          => ['class' => 'Header',            'file' => 'elements/main/header/header.php'],
-            'footer'          => ['class' => 'Footer',            'file' => 'components/footer/footer.php'],
-            'simple-header'   => ['class' => 'Simple_Header',     'file' => 'components/simple-header/simple-header.php'],
+    //     // Mapping of slug -> class and file path
+    //     $slug_map = [
+    //         'header'          => ['class' => 'Header',            'file' => 'elements/main/header/header.php'],
+    //         'footer'          => ['class' => 'Footer',            'file' => 'components/footer/footer.php'],
+    //         'simple-header'   => ['class' => 'Simple_Header',     'file' => 'components/simple-header/simple-header.php'],
 
-            'countdown'       => ['class' => 'Countdown',         'file' => 'elements/main/countdown/countdown.php'],
-            'about'           => ['class' => 'About',             'file' => 'elements/main/about/about.php'],
-            'conference'      => ['class' => 'Conference',        'file' => 'elements/main/conference/conference.php'],
-            // 'speakers'        => ['class' => 'Speakers',          'file' => 'elements/main/speakers/speakers.php'],
-            'premieres'       => ['class' => 'Premieres',         'file' => 'elements/main/premieres/premieres.php'],
-            'opinions'        => ['class' => 'Opinions',          'file' => 'elements/main/opinions/opinions.php'],
-            'exhibitors'      => ['class' => 'Exhibitors',        'file' => 'elements/main/exhibitors/exhibitors.php'],
-            'statistics'      => ['class' => 'Statistics',        'file' => 'elements/main/statistics/statistics.php'],
-            'halls'           => ['class' => 'Halls',             'file' => 'elements/main/halls/halls.php'],
-            'other-events'    => ['class' => 'Other_Events',      'file' => 'elements/main/other-events/other-events.php'],
-            'profiles'        => ['class' => 'Profiles',          'file' => 'elements/main/profiles/profiles.php'],
-            'posts'           => ['class' => 'Posts',             'file' => 'elements/main/posts/posts.php'],
-            'medals'          => ['class' => 'Medals',            'file' => 'elements/main/medals/medals.php'],
-            'summary'         => ['class' => 'Summary',           'file' => 'elements/main/summary/summary.php'],
+    //         'countdown'       => ['class' => 'Countdown',         'file' => 'elements/main/countdown/countdown.php'],
+    //         'about'           => ['class' => 'About',             'file' => 'elements/main/about/about.php'],
+    //         'conference'      => ['class' => 'Conference',        'file' => 'elements/main/conference/conference.php'],
+    //         // 'speakers'        => ['class' => 'Speakers',          'file' => 'elements/main/speakers/speakers.php'],
+    //         'premieres'       => ['class' => 'Premieres',         'file' => 'elements/main/premieres/premieres.php'],
+    //         'opinions'        => ['class' => 'Opinions',          'file' => 'elements/main/opinions/opinions.php'],
+    //         'exhibitors'      => ['class' => 'Exhibitors',        'file' => 'elements/main/exhibitors/exhibitors.php'],
+    //         'statistics'      => ['class' => 'Statistics',        'file' => 'elements/main/statistics/statistics.php'],
+    //         'halls'           => ['class' => 'Halls',             'file' => 'elements/main/halls/halls.php'],
+    //         'other-events'    => ['class' => 'Other_Events',      'file' => 'elements/main/other-events/other-events.php'],
+    //         'profiles'        => ['class' => 'Profiles',          'file' => 'elements/main/profiles/profiles.php'],
+    //         'posts'           => ['class' => 'Posts',             'file' => 'elements/main/posts/posts.php'],
+    //         'medals'          => ['class' => 'Medals',            'file' => 'elements/main/medals/medals.php'],
+    //         'summary'         => ['class' => 'Summary',           'file' => 'elements/main/summary/summary.php'],
 
-            'exhibitor-catalog'    => ['class' => 'Exhibitor_Catalog', 'file' => 'elements/catalog/exhibitor_catalog_vue/exhibitor_catalog_vue.php'],
+    //         'exhibitor-catalog'    => ['class' => 'Exhibitor_Catalog', 'file' => 'elements/catalog/exhibitor_catalog_vue/exhibitor_catalog_vue.php'],
 
-            'flip-book'            => ['class' => 'Flip_Book',         'file' => 'elements/flip-book/flip-book.php'],
+    //         'flip-book'            => ['class' => 'Flip_Book',         'file' => 'elements/flip-book/flip-book.php'],
 
-            // 'speakers'             => ['class' => 'Speakers',          'file' => 'elements/speakers/speakers/speakers.php'],
-        ];
+    //         // 'speakers'             => ['class' => 'Speakers',          'file' => 'elements/speakers/speakers/speakers.php'],
+    //     ];
 
-        $result = [];
+    //     $result = [];
 
-        $grouped = [];
+    //     $grouped = [];
 
-        // Iterate over DB rows to build grouped positions
-        foreach ($db_elements_order_data as $row) {
-            $page  = $row->page;
-            $group = $row->fair_id;
+    //     // Iterate over DB rows to build grouped positions
+    //     foreach ($db_elements_order_data as $row) {
+    //         $page  = $row->page;
+    //         $group = $row->fair_id;
 
-            $order_data = json_decode($row->page_order_data, true);
-            if (!is_array($order_data)) continue;
+    //         $order_data = json_decode($row->page_order_data, true);
+    //         if (!is_array($order_data)) continue;
 
-            $position = 1;
+    //         $position = 1;
 
-            foreach ($order_data as $item) {
-                $slug = $item['slug'] ?? null;
-                if (!$slug || !isset($slug_map[$slug])) {
-                    $position++;
-                    continue;
-                }
+    //         foreach ($order_data as $item) {
+    //             $slug = $item['slug'] ?? null;
+    //             if (!$slug || !isset($slug_map[$slug])) {
+    //                 $position++;
+    //                 continue;
+    //             }
 
-                $grouped[$page][$slug][$group][] = $position;
-                $position++;
-            }
-        }
+    //             $grouped[$page][$slug][$group][] = $position;
+    //             $position++;
+    //         }
+    //     }
 
-        // Build final result array with positions for each element
-        foreach ($grouped as $page => $slugs) {
+    //     // Build final result array with positions for each element
+    //     foreach ($grouped as $page => $slugs) {
 
-            foreach ($slugs as $slug => $groups) {
+    //         foreach ($slugs as $slug => $groups) {
 
-                $element = $slug_map[$slug];
+    //             $element = $slug_map[$slug];
 
-                // Find max occurrences of this element across groups
-                $max = 0;
-                foreach ($groups as $positions) {
-                    $max = max($max, count($positions));
-                }
+    //             // Find max occurrences of this element across groups
+    //             $max = 0;
+    //             foreach ($groups as $positions) {
+    //                 $max = max($max, count($positions));
+    //             }
 
-                // Merge elements across groups into final result
-                for ($i = 0; $i < $max; $i++) {
+    //             // Merge elements across groups into final result
+    //             for ($i = 0; $i < $max; $i++) {
 
-                    $order = [];
+    //                 $order = [];
 
-                    foreach ($groups as $group => $positions) {
-                        $order[$group] = $positions[$i] ?? 0;
-                    }
+    //                 foreach ($groups as $group => $positions) {
+    //                     $order[$group] = $positions[$i] ?? 0;
+    //                 }
 
-                    $result[$page][] = [
-                        'class' => $element['class'],
-                        'file'  => $element['file'],
-                        'order' => $order,
-                    ];
-                }
-            }
-        }
+    //                 $result[$page][] = [
+    //                     'class' => $element['class'],
+    //                     'file'  => $element['file'],
+    //                     'order' => $order,
+    //                 ];
+    //             }
+    //         }
+    //     }
 
-        return $result;
-    }
+    //     return $result;
+    // }
 
     /**
      * Default elements files with order per group
@@ -172,6 +172,7 @@ class PWE_Elements_Data {
         'contact' => [
             ['class' => 'Simple_Header',   'file' => 'components/simple-header/simple-header.php',  'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
             ['class' => 'Contact',   'file' => 'elements/contact/contact/contact.php',     'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2]],
+            ['class' => 'Logotypes',        'file' => 'elements/main/logotypes/logotypes.php',             'order' => ['gr1' => 6,  'gr2' => 0,  'b2c' => 0,  'b2c-new' => 0, 'week' => 1],     'params' => ['slug' => 'patrons-partners-pwe']],
             ['class' => 'Footer',          'file' => 'components/footer/footer.php',                'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
         ],
         // 'step2' => [
@@ -180,6 +181,22 @@ class PWE_Elements_Data {
         // ],
         'potential-exhibitors' => [
             ['class' => 'Potential_Exhibitors',   'file' => 'elements/potential-exhibitors/potential-exhibitors/potential-exhibitors.php',     'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2]],
+            ['class' => 'Footer',          'file' => 'components/footer/footer.php',                'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
+        ],
+        'medal-ceremony' => [
+            ['class' => 'Medal_Ceremony',   'file' => 'elements/medal-ceremony/medal-ceremony/medal-ceremony.php',     'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2]],
+            ['class' => 'Footer',          'file' => 'components/footer/footer.php',                'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
+        ],
+        'fair-plan' => [
+            ['class' => 'Fair_Plan',   'file' => 'elements/fair-plan/fair-plan/fair-plan.php',     'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2]],
+            ['class' => 'Footer',          'file' => 'components/footer/footer.php',                'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
+        ],
+        'exhibitor-visitor-generator' => [
+            ['class' => 'Exhibitor_Visitor_Generator',   'file' => 'elements/exhibitor-visitor-generator/exhibitor-visitor-generator/exhibitor-visitor-generator.php',     'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2]],
+            ['class' => 'Footer',          'file' => 'components/footer/footer.php',                'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
+        ],
+        'exhibitor-worker-generator' => [
+            ['class' => 'Exhibitor_Worker_Generator',   'file' => 'elements/exhibitor-worker-generator/exhibitor-worker-generator/exhibitor-worker-generator.php',     'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2]],
             ['class' => 'Footer',          'file' => 'components/footer/footer.php',                'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
         ],
     ];

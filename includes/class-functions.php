@@ -19,6 +19,7 @@ class PWE_Functions {
 
     // Get translations from JSONs
     private static $translation_cache = [];
+    private static $pages_cache = null;
     public static function multi_translation($key) {
         $ctx = self::$translation_context;
 
@@ -27,6 +28,7 @@ class PWE_Functions {
         }
 
         $locale = get_locale();
+        $language = strtolower(substr($locale, 0, 2));
 
         // Cache key for this file
         $cache_key = $ctx['element_type'] . '/' . $ctx['element_slug'] . '/' . $ctx['group'] . '.json';
@@ -59,7 +61,62 @@ class PWE_Functions {
             ?? $translations_data['en_US']
             ?? [];
 
-        return $map[$key] ?? $key;
+        $value = $map[$key] ?? $key;
+
+        // If the value is a page reference, resolve it to a URL
+        if (!is_string($value) || strpos($value, 'page:') !== 0) {
+            return $value;
+        }
+
+        $page_key = substr($value, strlen('page:'));
+
+        if ($page_key === '') {
+            return $value;
+        }
+
+        // Load the main pages JSON if not already loaded
+        if (self::$pages_cache === null) {
+            $pages_file = WP_PLUGIN_DIR . '/pwe-multilang/website-translation.json';
+
+            if (file_exists($pages_file)) {
+                $pages_json = file_get_contents($pages_file);
+                $pages_data = json_decode($pages_json, true);
+
+                self::$pages_cache = is_array($pages_data)
+                    ? $pages_data
+                    : [];
+            } else {
+                self::$pages_cache = [];
+            }
+        }
+
+        // Check if the page key exists in the pages cache
+        if (
+            !isset(self::$pages_cache[$page_key])
+            || !is_array(self::$pages_cache[$page_key])
+        ) {
+            return $value;
+        }
+
+        $page = self::$pages_cache[$page_key];
+
+        // Get the URL for the current language.
+        $url = $page[$language]['url']
+            ?? $page['en']['url']
+            ?? $page['pl']['url']
+            ?? $value;
+
+        // Add language prefix for all languages except Polish.
+        if (
+            is_string($url)
+            && $language !== 'pl'
+            && strpos($url, '/') === 0
+            && strpos($url, '//') !== 0
+        ) {
+            $url = '/' . $language . '/' . ltrim($url, '/');
+        }
+
+        return $url;
     }
 
     // Assets per element
@@ -2497,6 +2554,80 @@ class PWE_Functions {
         // Save to runtime cache
         self::$fairs_attractions_cache[$cache_key] = $results;
         self::debug_log('get_database_fairs_data_attractions: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+
+        return $results;
+    }
+
+        /**
+     * Get fairs files data from CAP databases
+     */
+    private static $fairs_files_cache = [];
+    public static function get_database_fairs_data_files($fair_domain = null): array {
+
+        $fair_domain = $fair_domain ?? $_SERVER['HTTP_HOST'] ?? '';
+        $cache_key = $fair_domain;
+
+        // Check runtime cache first
+        if (isset(self::$fairs_files_cache[$cache_key])) {
+            self::debug_log('get_database_fairs_data_files: data from STATIC → key=' . $cache_key);
+            return self::$fairs_files_cache[$cache_key];
+        }
+
+        // Transient key
+        $transient_key = 'pwe_fairs_files_' . md5($cache_key);
+
+        // Try transient
+        $cached = get_transient($transient_key);
+        if ($cached !== false) {
+            $timeout = get_option('_transient_timeout_' . $transient_key);
+            $time_left_str = $timeout !== false ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
+
+            self::debug_log('get_database_fairs_data_files: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            self::$fairs_files_cache[$cache_key] = $cached;
+            return $cached;
+        }
+
+        // Connect to database
+        $cap_db = self::connect_database();
+        if (!$cap_db) {
+            self::debug_log('get_database_fairs_data_files: no database connection.', 'error');
+            self::$fairs_files_cache[$cache_key] = [];
+            return [];
+        }
+
+        // SQL query
+        $sql = "
+            SELECT f.id, f.fair_domain, ff.fair_id, ff.category_slug, ff.category_name, ff.year, ff.language, ff.file_name, ff.file_path, ff.file_type, ff.gallery_files, ff.redirect_slug, ff.is_active
+            FROM fairs f
+            LEFT JOIN fair_files ff ON ff.fair_id = f.id
+        ";
+
+        $params = [];
+
+        if ($fair_domain !== null) {
+            $sql .= " WHERE f.fair_domain = %s";
+            $params[] = $fair_domain;
+        }
+
+        $start_time = microtime(true);
+
+        // Execute query
+        $results = !empty($params) ? $cap_db->get_results($cap_db->prepare($sql, $params)) : $cap_db->get_results($sql);
+
+        $time = round((microtime(true) - $start_time) * 1000, 2);
+
+        // Handle SQL errors
+        if ($cap_db->last_error) {
+            self::debug_log('get_database_fairs_data_files: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            $results = [];
+        }
+
+        // Save to transient for 10 minutes
+        set_transient($transient_key, $results, 600);
+
+        // Save to runtime cache
+        self::$fairs_files_cache[$cache_key] = $results;
+        self::debug_log('get_database_fairs_data_files: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }

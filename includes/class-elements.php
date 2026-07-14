@@ -16,6 +16,10 @@ class PWE_Elements {
             'contact'   => ['shortcode' => 'pwe-elements-auto-switch-page-contact',   'title' => 'Contact'],
             'registration-visitors'  => ['shortcode' => 'pwe-elements-auto-switch-page-registration-visitors',  'title' => 'Registration Visitors'],
             'potential-exhibitors'  => ['shortcode' => 'pwe-elements-auto-switch-page-potential-exhibitors',  'title' => 'Potential Exhibitors'],
+            'medal-ceremony'  => ['shortcode' => 'pwe-elements-auto-switch-page-medal-ceremony',  'title' => 'Medal Ceremony'],
+            'fair-plan'  => ['shortcode' => 'pwe-elements-auto-switch-page-fair-plan',  'title' => 'Fair Plan'],
+            'exhibitor-visitor-generator'  => ['shortcode' => 'pwe-elements-auto-switch-page-exhibitor-visitor-generator',  'title' => 'Exhibitor Visitor Generator'],
+            'exhibitor-worker-generator'  => ['shortcode' => 'pwe-elements-auto-switch-page-exhibitor-worker-generator',  'title' => 'Exhibitor Worker Generator'],
         ];
 
         add_action('wp_enqueue_scripts', [__CLASS__, 'adding_styles']);
@@ -97,9 +101,9 @@ class PWE_Elements {
                 }
 
                 vc_map([
-                    'name'     => __('PWE Elements AutoSwitch: ' . $data['title'], 'pwe-elements-auto-switch'),
+                    'name'     => __('PWE Page AutoSwitch: ' . $data['title'], 'pwe-elements-auto-switch'),
                     'base'     => $data['shortcode'],
-                    'category' => __('PWE Elements Auto Switch', 'pwe-elements-auto-switch'),
+                    'category' => __('PWE Page Auto Switch', 'pwe-elements-auto-switch'),
                     'icon'     => 'icon-wpb-layer-shape',
                     'params'   => $params,
                 ]);
@@ -200,7 +204,7 @@ class PWE_Elements {
                     vc_map([
                         'name'     => __('PWE Single AutoSwitch: ' . $class, 'pwe-elements-auto-switch'),
                         'base'     => $shortcode,
-                        'category' => __('PWE Elements Auto Switch', 'pwe-elements-auto-switch'),
+                        'category' => __('PWE Single Auto Switch', 'pwe-elements-auto-switch'),
                         'icon'     => 'icon-wpb-layer-shape',
                         'params'   => $params,
                     ]);
@@ -239,7 +243,7 @@ class PWE_Elements {
                 vc_map([
                     'name'     => __('PWE Component AutoSwitch: ' . $class, 'pwe-elements-auto-switch'),
                     'base'     => $shortcode,
-                    'category' => __('PWE Elements Auto Switch', 'pwe-elements-auto-switch'),
+                    'category' => __('PWE Component Auto Switch', 'pwe-elements-auto-switch'),
                     'icon'     => 'icon-wpb-layer-shape',
                     'params'   => $params,
                 ]);

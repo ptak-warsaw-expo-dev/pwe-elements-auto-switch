@@ -75,5 +75,12 @@
     "technical_support": "Tehniline tugi näituse osalejatele<br>",
     "media_marketing": "Meedia ja turundus",
     "media_marketing_service": "Turundus- ja meediapaketid"
+  },
+  "hu_HU": {
+    "customer_service": "Ügyfélszolgálat",
+    "customer_service_office": "Ügyfélszolgálati iroda",
+    "technical_support": "Műszaki támogatás a kiállítók számára<br>",
+    "media_marketing": "Média és marketing",
+    "media_marketing_service": "Marketing és média szolgáltatások"
   }
 }
