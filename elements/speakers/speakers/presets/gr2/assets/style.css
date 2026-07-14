@@ -54,6 +54,10 @@
 .pwe-element-auto-switch .pwe-speakers__speaker-img {
     position: relative;
 }
+.pwe-element-auto-switch .pwe-speakers__speaker-img img {
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
 .pwe-element-auto-switch .pwe-speakers__company-img img {
     width: 100%;
     min-width: 105px;

@@ -1,0 +1,28 @@
+.pwe-fair-plan {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+}
+.pwe-fair-plan__download {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pwe-fair-plan__btn {
+    color: #ffffff !important;
+    background-color: #303133 !important;
+    border-color: #303133 !important;
+    font-size: 12px;
+    padding: 13px 31px !important;
+    border-radius: 10px !important;
+    text-transform: uppercase;
+    font-weight: 600 !important;
+    font-family: Montserrat, Montserrat !important;
+    letter-spacing: .1em;
+    transition: .3s ease !important;
+}
+.pwe-fair-plan__btn:hover {
+    color: #ffffff !important;
+    background-color: #232426 !important;
+    border-color: #232426 !important;
+}

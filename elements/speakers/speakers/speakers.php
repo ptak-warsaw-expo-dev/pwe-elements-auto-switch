@@ -1,7 +1,7 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
-class Speakers {
+class Speakers_Page {
 
     public static function get_data() {
         return [
@@ -14,9 +14,14 @@ class Speakers {
     }
 
     public static function render($group = '', $params = [], $atts = []) {
+
+        if ($_SERVER['HTTP_HOST'] === 'warsawtechweek.com') {
+            $group = 'gr2';
+        }
+
         $data = self::get_data();
         $element_type = $data['types'][0];
-        $element_slug = strtolower(str_replace('_', '-', __CLASS__));
+        $element_slug = 'speakers';
 
         // Add context to translations function
         PWE_Functions::set_translation_context($element_slug, $group, $element_type);
@@ -32,38 +37,63 @@ class Speakers {
 
             // Get speakers from the database
             $data = PWE_Functions::get_database_fairs_data_speakers(); 
+
+            $lang = PWE_Functions::lang();
+
+            $speakers_indexed = [];
+
             if (!empty($data)) {
 
                 foreach ($data as $row) {
-                    if (!empty($row->data)) {
-                        $decoded = json_decode($row->data, true);
 
-                        if ($decoded) {
-                            $speaker = [
-                                'speakers_slug'         => $row->slug ?? '',
-                                'speaker_img'           => !empty($decoded['prelegent_person_img'])
-                                    ? 'https://cap.warsawexpo.eu/public/uploads/domains/' . str_replace('.', '-', $_SERVER['HTTP_HOST']) . '/prelegents/' . $row->slug . '/' . $decoded['prelegent_person_img']
-                                    : '',
-                                'speaker_company_img'   => !empty($decoded['prelegent_company_img'])
-                                    ? 'https://cap.warsawexpo.eu/public/uploads/domains/' . str_replace('.', '-', $_SERVER['HTTP_HOST']) . '/prelegents/' . $row->slug . '/' . $decoded['prelegent_company_img']
-                                    : '',
-                                'speaker_company_name'  => PWE_Functions::lang_pl() ? ($decoded['prelegent_company_name_pl'] ?? '') : ($decoded['prelegent_company_name_en'] ?? ''),
-                                'speaker_name'          => $decoded['prelegent_person_name'] ?? '',
-                                'speaker_position'      => PWE_Functions::lang_pl() ? ($decoded['prelegent_person_position_pl'] ?? '') : ($decoded['prelegent_person_position_en'] ?? ''),
-                                'speaker_text'          => PWE_Functions::lang_pl() ? ($decoded['prelegent_text_pl'] ?? '') : ($decoded['prelegent_text_en'] ?? ''),
-                                'speakers_order'        => $row->order ?? ''
-                            ];
+                    $positionData = $row->position ?? [];
+                    $bioData = $row->bio ?? [];
 
-                            $order = $speaker['speakers_order'];
-                            if (!empty($order)) {
-                                if ($order == 99) {
-                                    // add to the end of the array
-                                    $speakers_indexed[99][] = $speaker;
-                                } else {
-                                    // normal index by order
-                                    $speakers_indexed[$order][] = $speaker;
-                                }
-                            }
+                    if (is_string($positionData)) {
+                        $positionData = json_decode($positionData, true) ?: [];
+                    }
+
+                    if (is_string($bioData)) {
+                        $bioData = json_decode($bioData, true) ?: [];
+                    }
+
+                    if (!is_array($positionData)) {
+                        $positionData = [];
+                    }
+
+                    if (!is_array($bioData)) {
+                        $bioData = [];
+                    }
+
+                    $position = $positionData[$lang] ?? '';
+                    $bio = $bioData[$lang] ?? '';
+
+                    if (empty($position)) {
+                        $position = $positionData['en'] ?? '';
+                    }
+
+                    if (empty($bio)) {
+                        $bio = $bioData['en'] ?? '';
+                    }
+
+                    $speaker = [
+                        'slug'        => $row->slug ?? '',
+                        'name'        => $row->name ?? '',
+                        'img'         => !empty($row->image) ? 'https://cap.warsawexpo.eu/' . $row->image : '',
+                        'logo'        => !empty($row->logo) ? 'https://cap.warsawexpo.eu/' . $row->logo : '',
+                        'company'     => $row->company ?? '',
+                        'position'    => $position,
+                        'bio'         => $bio,
+                        'order'       => $row->order ?? '',
+                    ];
+
+                    $order = (int) $speaker['order'];
+
+                    if ($order !== 0) {
+                        if ($order === 99) {
+                            $speakers_indexed[99][] = $speaker;
+                        } else {
+                            $speakers_indexed[$order][] = $speaker;
                         }
                     }
                 }

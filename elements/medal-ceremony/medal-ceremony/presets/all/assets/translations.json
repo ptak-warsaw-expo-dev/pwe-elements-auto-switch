@@ -1,0 +1,18 @@
+{
+    "pl_PL": {
+        "ceremony_img": "/wp-content/plugins/pwe-media/media/medals/ptak-medale.webp",
+        "ceremony_title": "Tworzysz coś wyjątkowego? Pochwal się tym na Ptak Warsaw Expo!",
+        "ceremony_description": "Weź udział w Konkursie Medalowym i zawalcz o prestiżowe wyróżnienie dla najbardziej innowacyjnych i premierowych produktów oraz usług prezentowanych podczas targów. To nie tylko nagroda – to szansa na promocję marki, większe zainteresowanie odwiedzających oraz budowanie pozycji lidera w branży. Dla najlepszego wystawcy czeka specjalne wyróżnienie. Voucher na usługi marketingowe, dzięki którym skuteczniej będzie można promować markę podczas kolejnych targów. Nie czekaj – zgłoś swój produkt do konkursu i pokaż, że wyznaczasz trendy!",
+        "ceremony_rules": "Regulamin",
+        "ceremony_rules_button": "Kliknij tutaj, aby przeczytać regulamin",
+        "ceremony_footer_img": "/wp-content/plugins/pwe-media/media/medals/medal.webp"
+    },
+    "en_US": {
+        "ceremony_img": "/wp-content/plugins/pwe-media/media/medals/ptak-medale-en.webp",
+        "ceremony_title": "Are you creating something exceptional? Showcase it at Ptak Warsaw Expo!",
+        "ceremony_description": "Take part in the Medal Competition and compete for a prestigious award for the most innovative and premier products and services presented during the trade fair. It's not just an award – it's an opportunity to promote your brand, attract greater interest from visitors, and strengthen your position as an industry leader. A special distinction awaits the best exhibitor – a voucher for marketing services that will help promote the brand more effectively during future trade fairs. Don't wait – submit your product to the competition and show that you are setting industry trends!",
+        "ceremony_rules": "Terms and Conditions",
+        "ceremony_rules_button": "Click here to read the terms and conditions",
+        "ceremony_footer_img": "/wp-content/plugins/pwe-media/media/medals/medal-en.webp"
+    }
+}

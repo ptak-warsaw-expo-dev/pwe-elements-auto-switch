@@ -42,5 +42,9 @@
     "et": {
         "write_to_us": "Kirjuta meile",
         "contact_description": "Vastame teile või helistame teile tagasi,<br>kui jätate meile oma telefoninumbri."
+    },
+    "hu_HU": {
+        "write_to_us": "Írjon nekünk",
+        "contact_description": "Válaszolunk Önnek, vagy visszahívjuk Önt,<br>ha megadja nekünk a telefonszámát."
     }
 }

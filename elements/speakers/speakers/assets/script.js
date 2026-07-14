@@ -35,6 +35,16 @@ document.addEventListener("DOMContentLoaded", () => {
                         </div>
                     </div>
                 `;
+
+                const scrollContainer = modalDiv.querySelector(".pwe-speakers__modal-speaker-text-container");
+
+                scrollContainer.addEventListener("wheel", (e) => {
+                    e.stopPropagation();
+                }, { passive: false });
+
+                scrollContainer.addEventListener("touchmove", (e) => {
+                    e.stopPropagation();
+                }, { passive: false });
                 
                 document.body.appendChild(modalDiv);
                 requestAnimationFrame(() => {
@@ -64,14 +74,22 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Functions to turn scrolling off and on
+    let scrollY = 0;
+
     function disableScroll() {
-        document.body.style.overflow = "hidden";
-        document.documentElement.style.overflow = "hidden";
+        scrollY = window.scrollY;
+        document.body.style.position = "fixed";
+        document.body.style.top = `-${scrollY}px`;
+        document.body.style.left = "0";
+        document.body.style.right = "0";
     }
+
     function enableScroll() {
-        document.body.style.overflow = "";
-        document.documentElement.style.overflow = "";
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.left = "";
+        document.body.style.right = "";
+        window.scrollTo(0, scrollY);
     }
 
 });

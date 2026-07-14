@@ -15,24 +15,24 @@ $output = '
                     $output .= '
                     <div id="pwe-speakers__item-'. PWE_Functions::id_rnd() .'" class="pwe-speakers__item">
                         <div class="pwe-speakers__speaker-img">
-                            <img data-no-lazy="1" src="'. $speaker['speaker_img'] .'" onerror="this.onerror=null; this.style.display=\'none\';" alt="Speaker photo"/>';
-                            if (!empty($speaker['speaker_text'])) {
+                            <img data-no-lazy="1" src="'. $speaker['img'] .'" onerror="this.onerror=null; this.style.display=\'none\';" alt="Speaker photo"/>';
+                            if (!empty($speaker['bio'])) {
                                 $output .= '<button class="pwe-speakers__item-bio-button">' . PWE_Functions::languageChecker('Zobacz BIO', 'See BIO') . '</button>';
                             }
                             $output .= '
                         </div>
                         <div class="pwe-speakers__item-text">
                             <div class="pwe-speakers__item-top-wrapper">
-                                <h3 class="pwe-speakers__item-name">'. $speaker['speaker_name'] .'</h3>
-                                <p class="pwe-speakers__item-position">'. $speaker['speaker_position'] .'</p>
+                                <h3 class="pwe-speakers__item-name">'. $speaker['name'] .'</h3>
+                                <p class="pwe-speakers__item-position">'. $speaker['position'] .'</p>
                             </div>
                             <div class="pwe-speakers__item-bottom-wrapper">
-                                <p class="pwe-speakers__item-company">'. $speaker['speaker_company_name'] .'</p>
+                                <p class="pwe-speakers__item-company">'. $speaker['company'] .'</p>
                                 <div class="pwe-speakers__company-img">
-                                    <img data-no-lazy="1" src="'. $speaker['speaker_company_img'] .'" onerror="this.onerror=null; this.style.display=\'none\';" alt="Company logo"/>
+                                    <img data-no-lazy="1" src="'. $speaker['logo'] .'" onerror="this.onerror=null; this.style.display=\'none\';" alt="Company logo"/>
                                 </div>
                             </div>
-                            <div class="pwe-speakers__item-desc">'. $speaker['speaker_text'] .'</div>
+                            <div class="pwe-speakers__item-desc">'. $speaker['bio'] .'</div>
                         </div>
                         <span class="pwe-speakers__circle"></span>
                     </div>';
