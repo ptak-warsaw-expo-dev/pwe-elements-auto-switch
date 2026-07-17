@@ -1,306 +1,296 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-// shortcodes
-// main: [pwe-elements-auto-switch-page-main]
-    // [pwe-elements-auto-switch-header]
-    // [pwe-elements-auto-switch-counntdown]
-    // [pwe-elements-auto-switch-logotypes slug="patrons-partners"]
-    // ...
-// catalog: [pwe-elements-auto-switch-page-catalog]
-// flip-book: [pwe-elements-auto-switch-page-flip-book]
-
-// components shortcodes
-// footer: [pwe-elements-component-footer]
+/** 
+ * Class PWE_Elements_Data
+ * 
+ * Provides a registry of available elements and components, their file paths, and page composition.
+ * 
+ * Shortcodes:
+ * 
+ * Components: [pwe-elements-component-simple-header], [pwe-elements-component-footer] ...
+ * Elements: [pwe-elements-auto-switch-header] // [pwe-elements-auto-switch-header b2c="true"] ...
+ * Pages: [pwe-elements-auto-switch-page-main], [pwe-elements-auto-switch-page-catalog archive_catalog_id="999"] ...
+ * 
+ */
 
 class PWE_Elements_Data {
 
-    // /**
-    //  * Retrieves elements order data from the database.
-    //  */
-    // public static function get_elements_order_from_db() {
-    //     // $db_elements_data = PWE_Functions::get_database_elements_data();
-    //     $db_elements_order_data = PWE_Functions::get_database_elements_order_data();
+    /** Classes available in the elements directory. Paths are detected automatically. */
+    private static $elements = [
+        'Header',
+        'Countdown',
+        'Combined_Events',
+        'About',
+        'Tickets',
+        'Attractions',
+        'Sectors',
+        'Conference',
+        'Speakers',
+        'Guests',
+        'Premieres',
+        'Opinions',
+        'Exhibitors',
+        'Logotypes',
+        'Statistics',
+        'Halls',
+        'Other_Events',
+        'Profiles',
+        'Posts',
+        'Medals',
+        'Summary',
 
-    //     if (empty($db_elements_order_data)) {
-    //         return [];
-    //     }
+        'Exhibitor_Catalog',
+        'Flip_Book',
+        'Speakers_Page',
+        'Registration_Visitors',
+        'Registration_Exhibitors',
+        'Contact',
+        'Potential_Exhibitors',
+        'Medal_Ceremony',
+        'Fair_Plan',
+        'Exhibitor_Visitor_Generator',
+        'Exhibitor_Worker_Generator',
+        'Confirmation_Visitors_Registration',
+        'Confirmation_Exhibitors_Registration',
+    ];
 
-    //     // Mapping of slug -> class and file path
-    //     $slug_map = [
-    //         'header'          => ['class' => 'Header',            'file' => 'elements/main/header/header.php'],
-    //         'footer'          => ['class' => 'Footer',            'file' => 'components/footer/footer.php'],
-    //         'simple-header'   => ['class' => 'Simple_Header',     'file' => 'components/simple-header/simple-header.php'],
+    /** Classes available in the components directory. Paths are detected automatically. */
+    private static $components = [
+        'Footer',
+        'Simple_Header',
+        'Exhibitors_Top12',
+        'Contact_Details',
+        'Organized_Groups',
+        'Location_Map',
+        'PWE_Address',
+    ];
 
-    //         'countdown'       => ['class' => 'Countdown',         'file' => 'elements/main/countdown/countdown.php'],
-    //         'about'           => ['class' => 'About',             'file' => 'elements/main/about/about.php'],
-    //         'conference'      => ['class' => 'Conference',        'file' => 'elements/main/conference/conference.php'],
-    //         // 'speakers'        => ['class' => 'Speakers',          'file' => 'elements/main/speakers/speakers.php'],
-    //         'premieres'       => ['class' => 'Premieres',         'file' => 'elements/main/premieres/premieres.php'],
-    //         'opinions'        => ['class' => 'Opinions',          'file' => 'elements/main/opinions/opinions.php'],
-    //         'exhibitors'      => ['class' => 'Exhibitors',        'file' => 'elements/main/exhibitors/exhibitors.php'],
-    //         'statistics'      => ['class' => 'Statistics',        'file' => 'elements/main/statistics/statistics.php'],
-    //         'halls'           => ['class' => 'Halls',             'file' => 'elements/main/halls/halls.php'],
-    //         'other-events'    => ['class' => 'Other_Events',      'file' => 'elements/main/other-events/other-events.php'],
-    //         'profiles'        => ['class' => 'Profiles',          'file' => 'elements/main/profiles/profiles.php'],
-    //         'posts'           => ['class' => 'Posts',             'file' => 'elements/main/posts/posts.php'],
-    //         'medals'          => ['class' => 'Medals',            'file' => 'elements/main/medals/medals.php'],
-    //         'summary'         => ['class' => 'Summary',           'file' => 'elements/main/summary/summary.php'],
-
-    //         'exhibitor-catalog'    => ['class' => 'Exhibitor_Catalog', 'file' => 'elements/catalog/exhibitor_catalog_vue/exhibitor_catalog_vue.php'],
-
-    //         'flip-book'            => ['class' => 'Flip_Book',         'file' => 'elements/flip-book/flip-book.php'],
-
-    //         // 'speakers'             => ['class' => 'Speakers',          'file' => 'elements/speakers/speakers/speakers.php'],
-    //     ];
-
-    //     $result = [];
-
-    //     $grouped = [];
-
-    //     // Iterate over DB rows to build grouped positions
-    //     foreach ($db_elements_order_data as $row) {
-    //         $page  = $row->page;
-    //         $group = $row->fair_id;
-
-    //         $order_data = json_decode($row->page_order_data, true);
-    //         if (!is_array($order_data)) continue;
-
-    //         $position = 1;
-
-    //         foreach ($order_data as $item) {
-    //             $slug = $item['slug'] ?? null;
-    //             if (!$slug || !isset($slug_map[$slug])) {
-    //                 $position++;
-    //                 continue;
-    //             }
-
-    //             $grouped[$page][$slug][$group][] = $position;
-    //             $position++;
-    //         }
-    //     }
-
-    //     // Build final result array with positions for each element
-    //     foreach ($grouped as $page => $slugs) {
-
-    //         foreach ($slugs as $slug => $groups) {
-
-    //             $element = $slug_map[$slug];
-
-    //             // Find max occurrences of this element across groups
-    //             $max = 0;
-    //             foreach ($groups as $positions) {
-    //                 $max = max($max, count($positions));
-    //             }
-
-    //             // Merge elements across groups into final result
-    //             for ($i = 0; $i < $max; $i++) {
-
-    //                 $order = [];
-
-    //                 foreach ($groups as $group => $positions) {
-    //                     $order[$group] = $positions[$i] ?? 0;
-    //                 }
-
-    //                 $result[$page][] = [
-    //                     'class' => $element['class'],
-    //                     'file'  => $element['file'],
-    //                     'order' => $order,
-    //                 ];
-    //             }
-    //         }
-    //     }
-
-    //     return $result;
-    // }
-
-    /**
-     * Default elements files with order per group
-     * Order 0 means element is skipped for that group
-     */
-    private static $elements_files = [
+    /** Page composition: class, order and optional params only. */
+    private static $pages = [
         'main' => [
-            ['class' => 'Header',           'file' => 'elements/main/header/header.php',                   'order' => ['gr1' => 1,  'gr2' => 1,  'b2c' => 1,  'b2c-new' => 1, 'week' => 1]],
-            ['class' => 'Countdown',        'file' => 'elements/main/countdown/countdown.php',             'order' => ['gr1' => 2,  'gr2' => 2,  'b2c' => 2,  'b2c-new' => 2, 'week' => 1]],
-            // ['class' => 'Combined_Events',  'file' => 'elements/main/combined-events/combined-events.php', 'order' => ['gr1' => 2, 'gr2' => 0, 'b2c' => 2, 'b2c-new' => 0, 'week' => 1]],
-            ['class' => 'About',            'file' => 'elements/main/about/about.php',                     'order' => ['gr1' => 3,  'gr2' => 3,  'b2c' => 3,  'b2c-new' => 2, 'week' => 1]],
-            ['class' => 'Tickets',          'file' => 'elements/main/tickets/tickets.php',                 'order' => ['gr1' => 0,  'gr2' => 0,  'b2c' => 0,  'b2c-new' => 3, 'week' => 1]],
-            ['class' => 'Attractions',      'file' => 'elements/main/attractions/attractions.php',         'order' => ['gr1' => 0,  'gr2' => 0,  'b2c' => 0,  'b2c-new' => 4, 'week' => 1]],
-            ['class' => 'Sectors',          'file' => 'elements/main/sectors/sectors.php',                 'order' => ['gr1' => 3,  'gr2' => 3,  'b2c' => 3,  'b2c-new' => 8, 'week' => 1]],
-            ['class' => 'Conference',       'file' => 'elements/main/conference/conference.php',           'order' => ['gr1' => 4,  'gr2' => 5,  'b2c' => 4,  'b2c-new' => 0, 'week' => 1]],
-            ['class' => 'Speakers',         'file' => 'elements/main/speakers/speakers.php',               'order' => ['gr1' => 4,  'gr2' => 5,  'b2c' => 4,  'b2c-new' => 0, 'week' => 1]],
-            ['class' => 'Guests',           'file' => 'elements/main/guests/guests.php',                   'order' => ['gr1' => 4,  'gr2' => 5,  'b2c' => 4,  'b2c-new' => 6, 'week' => 1]],
-            ['class' => 'Premieres',        'file' => 'elements/main/premieres/premieres.php',             'order' => ['gr1' => 0,  'gr2' => 5,  'b2c' => 0,  'b2c-new' => 8, 'week' => 1]],
-            ['class' => 'Opinions',         'file' => 'elements/main/opinions/opinions.php',               'order' => ['gr1' => 13, 'gr2' => 12, 'b2c' => 5,  'b2c-new' => 0, 'week' => 1]],
-            ['class' => 'Exhibitors',       'file' => 'elements/main/exhibitors/exhibitors.php',           'order' => ['gr1' => 7,  'gr2' => 4,  'b2c' => 6,  'b2c-new' => 5, 'week' => 1]],
-            ['class' => 'Logotypes',        'file' => 'elements/main/logotypes/logotypes.php',             'order' => ['gr1' => 8,  'gr2' => 7,  'b2c' => 0,  'b2c-new' => 0, 'week' => 1],        'params' => ['slug' => 'patrons-partners-international']],
-            ['class' => 'Logotypes',        'file' => 'elements/main/logotypes/logotypes.php',             'order' => ['gr1' => 9,  'gr2' => 8,  'b2c' => 8,  'b2c-new' => 6, 'week' => 1],        'params' => ['slug' => 'patrons-partners']],
-            ['class' => 'Statistics',       'file' => 'elements/main/statistics/statistics.php',           'order' => ['gr1' => 5,  'gr2' => 6,  'b2c' => 10, 'b2c-new' => 7, 'week' => 1]],
-            ['class' => 'Logotypes',        'file' => 'elements/main/logotypes/logotypes.php',             'order' => ['gr1' => 6,  'gr2' => 0,  'b2c' => 0,  'b2c-new' => 0, 'week' => 1],     'params' => ['slug' => 'patrons-partners-pwe']],
-            ['class' => 'Halls',            'file' => 'elements/main/halls/halls.php',                     'order' => ['gr1' => 11, 'gr2' => 10, 'b2c' => 11, 'b2c-new' => 0, 'week' => 1]],
-            ['class' => 'Other_Events',     'file' => 'elements/main/other-events/other-events.php',       'order' => ['gr1' => 12, 'gr2' => 11, 'b2c' => 12, 'b2c-new' => 0, 'week' => 1]],
-            ['class' => 'Profiles',         'file' => 'elements/main/profiles/profiles.php',               'order' => ['gr1' => 10, 'gr2' => 9,  'b2c' => 13, 'b2c-new' => 0, 'week' => 1]],
-            ['class' => 'Posts',            'file' => 'elements/main/posts/posts.php',                     'order' => ['gr1' => 14, 'gr2' => 13, 'b2c' => 14, 'b2c-new' => 9, 'week' => 1]],
-            ['class' => 'Logotypes',        'file' => 'elements/main/logotypes/logotypes.php',             'order' => ['gr1' => 13, 'gr2' => 0,  'b2c' => 0,  'b2c-new' => 0, 'week' => 1],     'params' => ['slug' => 'europe-event']],
-            ['class' => 'Medals',           'file' => 'elements/main/medals/medals.php',                   'order' => ['gr1' => 15, 'gr2' => 15, 'b2c' => 15, 'b2c-new' => 0, 'week' => 1]],
-            ['class' => 'Summary',          'file' => 'elements/main/summary/summary.php',                 'order' => ['gr1' => 16, 'gr2' => 16, 'b2c' => 16, 'b2c-new' => 0, 'week' => 1]],
-            ['class' => 'Countdown',        'file' => 'elements/main/countdown/countdown.php',             'order' => ['gr1' => 0,  'gr2' => 17, 'b2c' => 0,  'b2c-new' => 0, 'week' => 1]],
-            ['class' => 'Footer',           'file' => 'components/footer/footer.php',                      'order' => ['gr1' => 999,'gr2' => 999,'b2c' => 999,'b2c-new' => 999, 'week' => 999]],
-            // ['class' => 'Logotypes',     'file' => 'elements/main/logotypes/logotypes.php',             'order' => ['gr1' => 9, 'gr2' => 9, 'b2c' => 9, 'week' => 1],        'params' => ['slug' => 'patrons-partners-conference']],
+            ['class' => 'Header',           'order' => ['gr1' => 1,   'gr2' => 1,   'b2c' => 1,   'b2c-new' => 1,   'week' => 1]],
+            ['class' => 'Countdown',        'order' => ['gr1' => 2,   'gr2' => 2,   'b2c' => 2,   'b2c-new' => 2,   'week' => 1]],
+            ['class' => 'Combined_Events',  'order' => ['gr1' => 0,   'gr2' => 0,   'b2c' => 0,   'b2c-new' => 0,   'week' => 2]],
+            ['class' => 'About',            'order' => ['gr1' => 3,   'gr2' => 3,   'b2c' => 3,   'b2c-new' => 2,   'week' => 5]],
+            ['class' => 'Tickets',          'order' => ['gr1' => 0,   'gr2' => 0,   'b2c' => 0,   'b2c-new' => 3,   'week' => 5]],
+            ['class' => 'Attractions',      'order' => ['gr1' => 0,   'gr2' => 0,   'b2c' => 0,   'b2c-new' => 4,   'week' => 5]],
+            ['class' => 'Sectors',          'order' => ['gr1' => 3,   'gr2' => 3,   'b2c' => 3,   'b2c-new' => 8,   'week' => 4]],
+            ['class' => 'Conference',       'order' => ['gr1' => 4,   'gr2' => 5,   'b2c' => 4,   'b2c-new' => 0,   'week' => 5]],
+            ['class' => 'Speakers',         'order' => ['gr1' => 4,   'gr2' => 5,   'b2c' => 4,   'b2c-new' => 0,   'week' => 5]],
+            ['class' => 'Guests',           'order' => ['gr1' => 4,   'gr2' => 5,   'b2c' => 4,   'b2c-new' => 6,   'week' => 0]],
+            ['class' => 'Premieres',        'order' => ['gr1' => 0,   'gr2' => 5,   'b2c' => 0,   'b2c-new' => 8,   'week' => 0]],
+            ['class' => 'Opinions',         'order' => ['gr1' => 13,  'gr2' => 12,  'b2c' => 5,   'b2c-new' => 0,   'week' => 0]],
+            ['class' => 'Exhibitors',       'order' => ['gr1' => 7,   'gr2' => 4,   'b2c' => 6,   'b2c-new' => 5,   'week' => 3]],
+            ['class' => 'Logotypes',        'order' => ['gr1' => 8,   'gr2' => 7,   'b2c' => 0,   'b2c-new' => 0,   'week' => 3],   'params' => ['slug' => 'patrons-partners-international']],
+            ['class' => 'Logotypes',        'order' => ['gr1' => 9,   'gr2' => 8,   'b2c' => 8,   'b2c-new' => 6,   'week' => 3],   'params' => ['slug' => 'patrons-partners']],
+            ['class' => 'Statistics',       'order' => ['gr1' => 5,   'gr2' => 6,   'b2c' => 10,  'b2c-new' => 7,   'week' => 2]],
+            ['class' => 'Logotypes',        'order' => ['gr1' => 6,   'gr2' => 0,   'b2c' => 0,   'b2c-new' => 0,   'week' => 0],   'params' => ['slug' => 'patrons-partners-pwe']],
+            ['class' => 'Halls',            'order' => ['gr1' => 11,  'gr2' => 10,  'b2c' => 11,  'b2c-new' => 0,   'week' => 5]],
+            ['class' => 'Other_Events',     'order' => ['gr1' => 12,  'gr2' => 11,  'b2c' => 12,  'b2c-new' => 0,   'week' => 0]],
+            ['class' => 'Profiles',         'order' => ['gr1' => 10,  'gr2' => 9,   'b2c' => 13,  'b2c-new' => 0,   'week' => 0]],
+            ['class' => 'Posts',            'order' => ['gr1' => 14,  'gr2' => 13,  'b2c' => 14,  'b2c-new' => 9,   'week' => 0]],
+            ['class' => 'Logotypes',        'order' => ['gr1' => 13,  'gr2' => 0,   'b2c' => 0,   'b2c-new' => 0,   'week' => 0],   'params' => ['slug' => 'europe-event']],
+            ['class' => 'Medals',           'order' => ['gr1' => 15,  'gr2' => 15,  'b2c' => 15,  'b2c-new' => 0,   'week' => 0]],
+            ['class' => 'Summary',          'order' => ['gr1' => 16,  'gr2' => 16,  'b2c' => 16,  'b2c-new' => 0,   'week' => 0]],
+            ['class' => 'Countdown',        'order' => ['gr1' => 0,   'gr2' => 17,  'b2c' => 0,   'b2c-new' => 0,   'week' => 0]],
+            ['class' => 'Footer',           'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999, 'b2c-new' => 999, 'week' => 999]],
         ],
         'catalog' => [
-            ['class' => 'Exhibitor_Catalog',    'file' => 'elements/catalog/exhibitor_catalog_vue/exhibitor_catalog_vue.php',   'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
-            ['class' => 'Footer',               'file' => 'components/footer/footer.php',                               'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
+            ['class' => 'Exhibitor_Catalog'],
+            ['class' => 'Footer'],
         ],
         'flip-book' => [
-            ['class' => 'Flip_Book',       'file' => 'elements/flip-book/flip-book.php',   'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
-            ['class' => 'Footer',          'file' => 'components/footer/footer.php',       'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
+            ['class' => 'Flip_Book'],
+            ['class' => 'Footer'],
         ],
         'speakers' => [
-            ['class' => 'Simple_Header',   'file' => 'components/simple-header/simple-header.php',  'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
-            ['class' => 'Speakers_Page',   'file' => 'elements/speakers/speakers/speakers.php',     'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2]],
-            ['class' => 'Footer',          'file' => 'components/footer/footer.php',                'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
+            ['class' => 'Simple_Header'],
+            ['class' => 'Speakers_Page'],
+            ['class' => 'Footer'],
         ],
         'registration-visitors' => [
-            ['class' => 'Registration_Visitors',   'file' => 'elements/registration-visitors/registration-visitors/registration-visitors.php',     'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2]],
-            ['class' => 'Footer',          'file' => 'components/footer/footer.php',                'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
+            ['class' => 'Registration_Visitors'],
+            ['class' => 'Footer'],
         ],
-        // 'registration-exhibitors' => [
-        //     ['class' => 'Registration_Exhibitors',   'file' => 'elements/registration-exhibitors/registration-exhibitors/registration-exhibitors.php',     'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2]],
-        //     ['class' => 'Footer',          'file' => 'components/footer/footer.php',                'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
-        // ],
+        'registration-exhibitors' => [
+            ['class' => 'Registration_Exhibitors'],
+            ['class' => 'Footer'],
+        ],
         'contact' => [
-            ['class' => 'Simple_Header',   'file' => 'components/simple-header/simple-header.php',  'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
-            ['class' => 'Contact',   'file' => 'elements/contact/contact/contact.php',     'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2]],
-            ['class' => 'Logotypes',        'file' => 'elements/main/logotypes/logotypes.php',             'order' => ['gr1' => 6,  'gr2' => 0,  'b2c' => 0,  'b2c-new' => 0, 'week' => 1],     'params' => ['slug' => 'patrons-partners-pwe']],
-            ['class' => 'Footer',          'file' => 'components/footer/footer.php',                'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
+            ['class' => 'Simple_Header'],
+            ['class' => 'Contact'],
+            ['class' => 'Footer'],
         ],
-        // 'step2' => [
-        //     ['class' => 'Step2',   'file' => 'elements/step2/step2.php',     'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2]],
-        //     ['class' => 'Footer',          'file' => 'components/footer/footer.php',                'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
-        // ],
         'potential-exhibitors' => [
-            ['class' => 'Potential_Exhibitors',   'file' => 'elements/potential-exhibitors/potential-exhibitors/potential-exhibitors.php',     'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2]],
-            ['class' => 'Footer',          'file' => 'components/footer/footer.php',                'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
+            ['class' => 'Potential_Exhibitors'],
+            ['class' => 'Footer'],
         ],
         'medal-ceremony' => [
-            ['class' => 'Medal_Ceremony',   'file' => 'elements/medal-ceremony/medal-ceremony/medal-ceremony.php',     'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2]],
-            ['class' => 'Footer',          'file' => 'components/footer/footer.php',                'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
+            ['class' => 'Medal_Ceremony'],
+            ['class' => 'Footer'],
         ],
         'fair-plan' => [
-            ['class' => 'Fair_Plan',   'file' => 'elements/fair-plan/fair-plan/fair-plan.php',     'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2]],
-            ['class' => 'Footer',          'file' => 'components/footer/footer.php',                'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
+            ['class' => 'Fair_Plan'],
+            ['class' => 'Footer'],
         ],
         'exhibitor-visitor-generator' => [
-            ['class' => 'Exhibitor_Visitor_Generator',   'file' => 'elements/exhibitor-visitor-generator/exhibitor-visitor-generator/exhibitor-visitor-generator.php',     'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2]],
-            ['class' => 'Footer',          'file' => 'components/footer/footer.php',                'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
+            ['class' => 'Exhibitor_Visitor_Generator'],
+            ['class' => 'Footer'],
         ],
         'exhibitor-worker-generator' => [
-            ['class' => 'Exhibitor_Worker_Generator',   'file' => 'elements/exhibitor-worker-generator/exhibitor-worker-generator/exhibitor-worker-generator.php',     'order' => ['gr1' => 2, 'gr2' => 2, 'b2c' => 2]],
-            ['class' => 'Footer',          'file' => 'components/footer/footer.php',                'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
+            ['class' => 'Exhibitor_Worker_Generator'],
+            ['class' => 'Footer'],
+        ],
+        'confirmation-visitors-registration' => [
+            ['class' => 'Confirmation_Visitors_Registration'],
+            ['class' => 'Footer'],
+        ],
+        'confirmation-exhibitors-registration' => [
+            ['class' => 'Confirmation_Exhibitors_Registration'],
+            ['class' => 'Footer'],
         ],
     ];
 
-    /**
-     * Components files
-     */
-    private static $components_files = [
-        'simple-header' => ['class' => 'Simple_Header',   'file' => 'components/simple-header/simple-header.php',     'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
-        'footer'        => ['class' => 'Footer',          'file' => 'components/footer/footer.php',                   'order' => ['gr1' => 999, 'gr2' => 999, 'b2c' => 999]],
-        'exhibitors-top12' => ['class' => 'Exhibitors_Top12', 'file'  => 'components/exhibitors-top12/exhibitors-top12.php', 'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
-        'contact-details' => ['class' => 'Contact_Details', 'file'  => 'components/contact-details/contact-details.php', 'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
-        'organized-groups' => ['class' => 'Organized_Groups', 'file'  => 'components/organized-groups/organized-groups.php', 'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
-        'location-map' => ['class' => 'Location_Map', 'file'  => 'components/location-map/location-map.php', 'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
-        'pwe-address' => ['class' => 'PWE_Address', 'file'  => 'components/pwe-address/pwe-address.php', 'order' => ['gr1' => 1, 'gr2' => 1, 'b2c' => 1]],
-    ];
+    /** Runtime cache: class name => relative file path. */
+    private static $class_files = null;
 
-    /**
-     * Returns all elements.
-     * If $current_group is provided, checks if group exists in DB; otherwise returns fallback
-     */
+    /** Returns all configured page definitions. */
     public static function get_all_elements($current_group = null) {
-
-        // $elements_from_db = self::get_elements_order_from_db();
-
-        // echo '<script>console.log('. json_encode($elements_from_db) .');</script>';
-
-        // // If DB empty - fallback
-        // if (empty($elements_from_db)) {
-        //     return self::$elements_files;
-        // }
-
-        // // If group - check if it exists in data
-        // if ($current_group) {
-
-        //     $group_found = false;
-
-        //     foreach ($elements_from_db as $page => $elements) {
-        //         foreach ($elements as $element) {
-        //             if (isset($element['order'][$current_group])) {
-        //                 $group_found = true;
-        //                 break 2;
-        //             }
-        //         }
-        //     }
-
-        //     // If the group does not exist in the DB - fallback
-        //     if (!$group_found) {
-        //         return self::$elements_files;
-        //     }
-        // }
-
-        // return $elements_from_db;
-
-        return self::$elements_files;
+        return self::$pages;
     }
 
-    /**
-     * Returns all components
-     */
+    /** Returns the element registry with detected file paths. */
+    public static function get_all_element_files() {
+        return self::get_registry(self::$elements);
+    }
+
+    /** Returns the component registry with detected file paths. */
     public static function get_all_components() {
-        return self::$components_files;
+        return self::get_registry(self::$components);
     }
 
-    /**
-     * Includes PHP files for given element type.
-     * Uses fallback if DB empty or type not found.
-     */
-    public static function require_elements($type) {
+    /** Returns the configuration for a selected page. */
+    public static function get_page($page) {
+        return self::$pages[$page] ?? [];
+    }
 
-        $group = PWE_Groups::get_current_group();
+    /** Returns compact definitions used by existing shortcode registration code. */
+    private static function get_registry($classes) {
+        $registry = [];
+        foreach ($classes as $class) {
+            $definition = self::get_file_for_class($class);
+            if ($definition) {
+                $registry[self::class_to_slug($class)] = $definition;
+            }
+        }
+        return $registry;
+    }
 
-        $all_elements = self::get_all_elements($group);
+    /** Finds the PHP file by reading class declarations in elements and components. */
+    public static function get_file_for_class($class) {
+        self::build_class_file_map();
+        if (empty(self::$class_files[$class])) return null;
+        return ['class' => $class, 'file' => self::$class_files[$class]];
+    }
 
-        $elements = $all_elements[$type] ?? [];
+    /** Scans plugin directories and maps classes to PHP files. */
+    private static function build_class_file_map() {
+        if (self::$class_files !== null) return;
 
-        foreach ($elements as $element) {
+        self::$class_files = [];
+        $plugin_root = dirname(__DIR__);
+        $allowed = array_fill_keys(array_merge(self::$elements, self::$components), true);
 
-            $path = plugin_dir_path(__DIR__) . $element['file'];
+        foreach (['elements', 'components'] as $directory) {
+            $base_path = $plugin_root . DIRECTORY_SEPARATOR . $directory;
+            if (!is_dir($base_path)) continue;
 
-            if (file_exists($path)) {
-                require_once $path;
+            $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($base_path, FilesystemIterator::SKIP_DOTS));
+            foreach ($iterator as $file) {
+                if (!$file->isFile() || strtolower($file->getExtension()) !== 'php') continue;
 
-                if (!class_exists($element['class'])) {
-                    error_log("Class {$element['class']} not found in file {$path}");
+                foreach (self::get_classes_from_file($file->getPathname()) as $found_class) {
+                    if (!isset($allowed[$found_class]) || isset(self::$class_files[$found_class])) continue;
+                    self::$class_files[$found_class] = str_replace('\\', '/', substr($file->getPathname(), strlen($plugin_root) + 1));
                 }
-            } else {
-                error_log("File not found: {$path}");
             }
         }
     }
 
-    /**
-     * Returns the order of an element for a given group and type
-     * Returns 999 if order is 0 or element not found
-     */
-    public static function get_order_for($class, $group, $type) {
-        foreach (self::$elements_files[$type] ?? [] as $el) {
-            if ($el['class'] === $class) {
-                $order = (int)($el['order'][$group] ?? 0);
-                return $order > 0 ? $order : 999;
+    /** Extracts declared class names without executing the scanned file. */
+    private static function get_classes_from_file($path) {
+        $code = @file_get_contents($path);
+        if ($code === false) return [];
+
+        $tokens = token_get_all($code);
+        $classes = [];
+        $count = count($tokens);
+
+        for ($i = 0; $i < $count; $i++) {
+            if (!is_array($tokens[$i]) || $tokens[$i][0] !== T_CLASS) continue;
+
+            $previous = self::previous_significant_token($tokens, $i);
+            if ($previous === T_NEW || $previous === T_DOUBLE_COLON) continue;
+
+            for ($j = $i + 1; $j < $count; $j++) {
+                if (is_array($tokens[$j]) && $tokens[$j][0] === T_STRING) {
+                    $classes[] = $tokens[$j][1];
+                    break;
+                }
+                if ($tokens[$j] === '{' || $tokens[$j] === '(') break;
             }
+        }
+
+        return $classes;
+    }
+
+    /** Returns the previous meaningful PHP token. */
+    private static function previous_significant_token($tokens, $index) {
+        for ($i = $index - 1; $i >= 0; $i--) {
+            if (!is_array($tokens[$i])) return null;
+            if (!in_array($tokens[$i][0], [T_WHITESPACE, T_COMMENT, T_DOC_COMMENT], true)) return $tokens[$i][0];
+        }
+        return null;
+    }
+
+    /** Converts a class name into a shortcode-friendly slug. */
+    private static function class_to_slug($class) {
+        return strtolower(str_replace('_', '-', $class));
+    }
+
+    /** Loads the PHP file containing the requested class. */
+    public static function require_class($class) {
+        if (class_exists($class, false)) return true;
+
+        $definition = self::get_file_for_class($class);
+        if (!$definition) {
+            error_log("No PHP file found for class {$class}");
+            return false;
+        }
+
+        $path = dirname(__DIR__) . DIRECTORY_SEPARATOR . $definition['file'];
+        require_once $path;
+
+        if (!class_exists($class)) {
+            error_log("Class {$class} not found after loading {$path}");
+            return false;
+        }
+        return true;
+    }
+
+    /** Loads all classes assigned to the selected page. */
+    public static function require_elements($type) {
+        foreach (self::get_page($type) as $element) self::require_class($element['class']);
+    }
+
+    /** Returns the display order for a class in a page group. */
+    public static function get_order_for($class, $group, $type) {
+        foreach (self::get_page($type) as $element) {
+            if ($element['class'] !== $class) continue;
+            $order = (int) ($element['order'][$group] ?? 1);
+            return $order > 0 ? $order : 999;
         }
         return 999;
     }
-
 }

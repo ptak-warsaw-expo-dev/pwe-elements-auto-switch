@@ -35,7 +35,7 @@ class PWE_Groups {
             if ( in_array( $host, $domains, true ) ) {
 
                 // Temporary <---------------------------------<
-                if ($group !== 'gr1' && $group !== 'b2c-new') {
+                if ($group !== 'gr1' && $group !== 'b2c-new' && $group !== 'week') {
                     return 'gr2';
                 }
                 // Temporary <---------------------------------<
@@ -43,11 +43,6 @@ class PWE_Groups {
                 return $group;
             }
 
-            // Temporary <---------------------------------<
-            if ($host === "new.warsawmetaltech.pl") {
-                return 'week';
-            }
-            // Temporary <---------------------------------<
         }
         return null;
     }

@@ -94,6 +94,12 @@ class PWE_Shortcodes {
             'trade_fair_contact_media_person_name' => 'show_trade_fair_contact_media_person_name',
             'trade_fair_contact_media_person_phone' => 'show_trade_fair_contact_media_person_phone',
             'trade_fair_contact_media_person_email' => 'show_trade_fair_contact_media_person_email',
+            'trade_fair_contact_media_person_name_2' => 'show_trade_fair_contact_media_person_name_2',
+            'trade_fair_contact_media_person_phone_2' => 'show_trade_fair_contact_media_person_phone_2',
+            'trade_fair_contact_media_person_email_2' => 'show_trade_fair_contact_media_person_email_2',
+            'trade_fair_contact_media_person_name_3' => 'show_trade_fair_contact_media_person_name_3',
+            'trade_fair_contact_media_person_phone_3' => 'show_trade_fair_contact_media_person_phone_3',
+            'trade_fair_contact_media_person_email_3' => 'show_trade_fair_contact_media_person_email_3',
             'trade_fair_contact_email_vip' => 'show_trade_fair_contact_email_vip',
             'trade_fair_contact_phone_vip' => 'show_trade_fair_contact_phone_vip',
             'trade_fair_lidy' => 'show_trade_fair_lidy',
@@ -175,6 +181,15 @@ class PWE_Shortcodes {
             'trade_fair_contact_media_person_name' => 'show_trade_fair_contact_media_person_name',
             'trade_fair_contact_media_person_phone' => 'show_trade_fair_contact_media_person_phone',
             'trade_fair_contact_media_person_email' => 'show_trade_fair_contact_media_person_email',
+            'trade_fair_contact_media_person_name_2' => 'show_trade_fair_contact_media_person_name_2',
+            'trade_fair_contact_media_person_phone_2' => 'show_trade_fair_contact_media_person_phone_2',
+            'trade_fair_contact_media_person_email_2' => 'show_trade_fair_contact_media_person_email_2',
+            'trade_fair_contact_media_person_name_2' => 'show_trade_fair_contact_media_person_name_2',
+            'trade_fair_contact_media_person_phone_2' => 'show_trade_fair_contact_media_person_phone_2',
+            'trade_fair_contact_media_person_email_2' => 'show_trade_fair_contact_media_person_email_2',
+            'trade_fair_contact_media_person_name_3' => 'show_trade_fair_contact_media_person_name_3',
+            'trade_fair_contact_media_person_phone_3' => 'show_trade_fair_contact_media_person_phone_3',
+            'trade_fair_contact_media_person_email_3' => 'show_trade_fair_contact_media_person_email_3',
             'trade_fair_contact_email_vip' => 'show_trade_fair_contact_email_vip',
             'trade_fair_contact_phone_vip' => 'show_trade_fair_contact_phone_vip',
             'trade_fair_lidy' => 'show_trade_fair_lidy',
@@ -682,6 +697,14 @@ class PWE_Shortcodes {
             'trade_fair_contact_media_person_name' => 'Imię i nazwisko osoby kontaktowej działu marketingowego i media<hr><p>[trade_fair_contact_media_person_name]</p>',
             'trade_fair_contact_media_person_phone' => 'Numer telefonu osoby kontaktowej działu marketingowego i media<hr><p>[trade_fair_contact_media_person_phone]</p>',
             'trade_fair_contact_media_person_email' => 'Adres email osoby kontaktowej działu marketingowego i media<hr><p>[trade_fair_contact_media_person_email]</p>',
+
+            'trade_fair_contact_media_person_name_2' => 'Imię i nazwisko osoby kontaktowej działu marketingowego i media 2<hr><p>[trade_fair_contact_media_person_name_2]</p>',
+            'trade_fair_contact_media_person_phone_2' => 'Numer telefonu osoby kontaktowej działu marketingowego i media 2<hr><p>[trade_fair_contact_media_person_phone_2]</p>',
+            'trade_fair_contact_media_person_email_2' => 'Adres email osoby kontaktowej działu marketingowego i media 2<hr><p>[trade_fair_contact_media_person_email_2]</p>',
+
+            'trade_fair_contact_media_person_name_3' => 'Imię i nazwisko osoby kontaktowej działu marketingowego i media 3<hr><p>[trade_fair_contact_media_person_name_3]</p>',
+            'trade_fair_contact_media_person_phone_3' => 'Numer telefonu osoby kontaktowej działu marketingowego i media 3<hr><p>[trade_fair_contact_media_person_phone_3]</p>',
+            'trade_fair_contact_media_person_email_3' => 'Adres email osoby kontaktowej działu marketingowego i media 3<hr><p>[trade_fair_contact_media_person_email_3]</p>',
 
             'trade_fair_contact_email_vip' => 'Adres email obsługi vip<hr><p>[trade_fair_contact_email_vip]</p>',
             'trade_fair_contact_phone_vip' => 'Numer telefonu obsługi vip<hr><p>[trade_fair_contact_phone_vip]</p>',
@@ -1893,6 +1916,30 @@ class PWE_Shortcodes {
 
     public function display_trade_fair_contact_media_person_email() {
         $this->display_contact_field_with_default('trade_fair_contact_media_person_email', $this->get_group_contact_default_value('osoba-kontakt', 'email'));
+    }
+
+    public function display_trade_fair_contact_media_person_name_2() {
+        $this->display_contact_field_with_default('trade_fair_contact_media_person_name_2', $this->get_group_contact_default_value('osoba-kontakt-2', 'name'));
+    }
+
+    public function display_trade_fair_contact_media_person_phone_2() {
+        $this->display_contact_field_with_default('trade_fair_contact_media_person_phone_2', $this->get_group_contact_default_value('osoba-kontakt-2', 'phone'));
+    }
+
+    public function display_trade_fair_contact_media_person_email_2() {
+        $this->display_contact_field_with_default('trade_fair_contact_media_person_email_2', $this->get_group_contact_default_value('osoba-kontakt-2', 'email'));
+    }
+
+    public function display_trade_fair_contact_media_person_name_3() {
+        $this->display_contact_field_with_default('trade_fair_contact_media_person_name_3', $this->get_group_contact_default_value('osoba-kontakt-3', 'name'));
+    }
+
+    public function display_trade_fair_contact_media_person_phone_3() {
+        $this->display_contact_field_with_default('trade_fair_contact_media_person_phone_3', $this->get_group_contact_default_value('osoba-kontakt-3', 'phone'));
+    }
+
+    public function display_trade_fair_contact_media_person_email_3() {
+        $this->display_contact_field_with_default('trade_fair_contact_media_person_email_3', $this->get_group_contact_default_value('osoba-kontakt-3', 'email'));
     }
 
     public function display_trade_fair_contact_tech() {

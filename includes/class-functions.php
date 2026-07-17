@@ -740,6 +740,7 @@ class PWE_Functions {
                 MAX(CASE WHEN fa.slug = 'fair_kw_new' THEN fa.data END) AS fair_kw_new,
                 MAX(CASE WHEN fa.slug = 'fair_kw_old_arch' THEN fa.data END) AS fair_kw_old_arch,
                 MAX(CASE WHEN fa.slug = 'fair_kw_new_arch' THEN fa.data END) AS fair_kw_new_arch,
+                MAX(CASE WHEN fa.slug = 'catalog_type' THEN fa.data END) AS catalog_type,
                 MAX(CASE WHEN fa.slug = 'fair_entrance' THEN fa.data END) AS fair_entrance
                 
             FROM fairs f
@@ -754,6 +755,7 @@ class PWE_Functions {
                     'fair_kw_new',
                     'fair_kw_old_arch',
                     'fair_kw_new_arch',
+                    'catalog_type',
                     'fair_entrance',
                     'about_title_pl',
                     'about_title_en',
@@ -1190,10 +1192,20 @@ class PWE_Functions {
         }
 
         // SQL query
-        $query = $cap_db->prepare("SELECT * FROM associates WHERE FIND_IN_SET(%s, fair_associates)", $fair_domain);
+        $sql = "
+            SELECT main_fair_domain, slug, fair_associates, desc_pl, desc_en
+            FROM associates
+        ";
+
+        $params = [];
+
+        if ($fair_domain !== null) {
+            $sql .= " WHERE main_fair_domain = %s";
+            $params[] = $fair_domain;
+        }
 
         $start_time = microtime(true);
-        $results = $cap_db->get_results($query);
+        $results = $cap_db->get_results($cap_db->prepare($sql, $params));
         $time = round((microtime(true) - $start_time) * 1000, 2);
 
         // SQL error

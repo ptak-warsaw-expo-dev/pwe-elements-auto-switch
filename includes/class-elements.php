@@ -7,20 +7,15 @@ class PWE_Elements {
     public static function init() {
         $group = PWE_Groups::get_current_group();
 
-        // Array of shortcodes and configuration of their "types"
-        $shortcodes = [
-            'main'      => ['shortcode' => 'pwe-elements-auto-switch-page-main',      'title' => 'Main'],
-            'catalog'   => ['shortcode' => 'pwe-elements-auto-switch-page-catalog',   'title' => 'Catalog'],
-            'flip-book' => ['shortcode' => 'pwe-elements-auto-switch-page-flip-book', 'title' => 'Flip Book'],
-            'speakers'  => ['shortcode' => 'pwe-elements-auto-switch-page-speakers',  'title' => 'Speakers'],
-            'contact'   => ['shortcode' => 'pwe-elements-auto-switch-page-contact',   'title' => 'Contact'],
-            'registration-visitors'  => ['shortcode' => 'pwe-elements-auto-switch-page-registration-visitors',  'title' => 'Registration Visitors'],
-            'potential-exhibitors'  => ['shortcode' => 'pwe-elements-auto-switch-page-potential-exhibitors',  'title' => 'Potential Exhibitors'],
-            'medal-ceremony'  => ['shortcode' => 'pwe-elements-auto-switch-page-medal-ceremony',  'title' => 'Medal Ceremony'],
-            'fair-plan'  => ['shortcode' => 'pwe-elements-auto-switch-page-fair-plan',  'title' => 'Fair Plan'],
-            'exhibitor-visitor-generator'  => ['shortcode' => 'pwe-elements-auto-switch-page-exhibitor-visitor-generator',  'title' => 'Exhibitor Visitor Generator'],
-            'exhibitor-worker-generator'  => ['shortcode' => 'pwe-elements-auto-switch-page-exhibitor-worker-generator',  'title' => 'Exhibitor Worker Generator'],
-        ];
+        // Build page shortcodes automatically from page keys defined in PWE_Elements_Data.
+        $shortcodes = [];
+
+        foreach (array_keys(PWE_Elements_Data::get_all_elements()) as $page_key) {
+            $shortcodes[$page_key] = [
+                'shortcode' => 'pwe-elements-auto-switch-page-' . $page_key,
+                'title'     => ucwords(str_replace('-', ' ', $page_key)),
+            ];
+        }
 
         add_action('wp_enqueue_scripts', [__CLASS__, 'adding_styles']);
         add_action('wp_enqueue_scripts', [__CLASS__, 'adding_scripts']);
@@ -295,7 +290,7 @@ class PWE_Elements {
                     continue;
                 }
 
-                $order = $el['order'][$group] ?? 0;
+                $order = $el['order'][$group] ?? 1;
                 if ($order <= 0) {
                     return '';
                 }
@@ -356,8 +351,8 @@ class PWE_Elements {
         PWE_Elements_Data::require_elements($type, $group);
 
         foreach ($elements_for_type as $el) {
-            $class  = $el['class'];
-            $order  = $el['order'][$group] ?? 999;
+            $class = $el['class'];
+            $order = $el['order'][$group] ?? 1;
 
             if ($order <= 0) continue;
 
