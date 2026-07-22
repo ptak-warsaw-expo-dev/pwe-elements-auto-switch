@@ -168,22 +168,22 @@ class PWE_Elements {
                         ];
                     }
 
-                    if ($class === 'Header' || 
-                        $class === 'Countdown' || 
-                        $class === 'About' || 
-                        $class === 'Conference' || 
-                        $class === 'Speakers' || 
-                        $class === 'Premieres' || 
-                        $class === 'Opinions' || 
-                        $class === 'Exhibitors' || 
-                        $class === 'Logotypes' || 
-                        $class === 'Statistics' || 
-                        $class === 'Halls' || 
-                        $class === 'Other_Events' || 
-                        $class === 'Profiles' || 
-                        $class === 'Posts' || 
-                        $class === 'Medals' || 
-                        $class === 'Summary' || 
+                    if ($class === 'Header' ||
+                        $class === 'Countdown' ||
+                        $class === 'About' ||
+                        $class === 'Conference' ||
+                        $class === 'Speakers' ||
+                        $class === 'Premieres' ||
+                        $class === 'Opinions' ||
+                        $class === 'Exhibitors' ||
+                        $class === 'Logotypes' ||
+                        $class === 'Statistics' ||
+                        $class === 'Halls' ||
+                        $class === 'Other_Events' ||
+                        $class === 'Profiles' ||
+                        $class === 'Posts' ||
+                        $class === 'Medals' ||
+                        $class === 'Summary' ||
                         $class === 'Footer') {
                         $params[] = [
                             'type' => 'checkbox',
@@ -260,7 +260,7 @@ class PWE_Elements {
         if ($group) {
             $group_css_file = plugin_dir_path(dirname(__FILE__)) . "assets/style-{$group}.css";
             if (file_exists($group_css_file)) {
-                wp_enqueue_style( 
+                wp_enqueue_style(
                     "pwe-style-{$group}-css",
                     plugins_url("assets/style-{$group}.css", dirname(__FILE__)),
                     [],
@@ -308,6 +308,10 @@ class PWE_Elements {
                     return '';
                 }
 
+                if (method_exists($class_name, 'init')) {
+                    $class_name::init();
+                }
+
                 // Params: defaults + shortcode
                 $default_params = is_array($el['params'] ?? null) ? $el['params'] : [];
                 $atts = is_array($atts) ? $atts : [];
@@ -320,8 +324,8 @@ class PWE_Elements {
                 $base_id    = lcfirst(str_replace('_', '', $class_name));
 
                 ob_start();
-                echo '<div 
-                        id="' . $base_id . $camel_id . ucfirst($group) . '" 
+                echo '<div
+                        id="' . $base_id . $camel_id . ucfirst($group) . '"
                         class="' . $base_class . '-' . $group . ' ' . $base_class . ' pwe-element-auto-switch pwe-limit-width">';
                         $class_name::render($group, $params, $atts);
                 echo '</div>';
@@ -359,6 +363,9 @@ class PWE_Elements {
             $params = $el['params'] ?? [];
 
             if (class_exists($class)) {
+                if (method_exists($class, 'init')) {
+                    $class::init();
+                }
                 $el_data = $class::get_data();
 
                 if (isset($el_data['types']) && in_array($type, $el_data['types'])) {
@@ -377,7 +384,7 @@ class PWE_Elements {
         usort($elements, function($a, $b) {
             return $a['order'] <=> $b['order'];
         });
-        
+
         // Render
         ob_start();
         echo '<div id="pweElementsAutoSwitch">';
@@ -385,8 +392,8 @@ class PWE_Elements {
             $el_slug = $el['params']['slug'] ?? '';
             $camel_id = ucfirst(str_replace(' ', '', ucwords(str_replace('-', ' ', $el_slug))));
 
-            echo '<div 
-                    id="'. lcfirst(str_replace('_', '', $el['class'])) . $camel_id . ucfirst($group) .'" 
+            echo '<div
+                    id="'. lcfirst(str_replace('_', '', $el['class'])) . $camel_id . ucfirst($group) .'"
                     class="pwe-element-auto-switch '. lcfirst(str_replace('_', '-', strtolower($el['class']))) . '-' . $group . ' ' . lcfirst(str_replace('_', '-', strtolower($el['class']))) .' pwe-limit-width">';
                     $el['class']::render($group, $el['params'], $atts);
             echo '</div>';

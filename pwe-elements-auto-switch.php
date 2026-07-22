@@ -3,7 +3,7 @@
  * Plugin Name: PWE Elements AutoSwitch
  * Plugin URI: https://github.com/ptak-warsaw-expo-dev/pwe-elements-auto-switch
  * Description: Elements that dynamically adapt to groups.
- * Version: 1.6.0
+ * Version: 1.6.1
  * Author: Anton Melnychuk
  * Co-author: Piotr Krupniewski, Marek Rumianek, Jakub Choła
  * Author URI: https://github.com/antonmelnychuk1
@@ -30,8 +30,9 @@ require_once PWE_PLUGIN_PATH . 'includes/class-hooks.php';
 require_once PWE_PLUGIN_PATH . 'includes/class-shortcodes.php';
 require_once PWE_PLUGIN_PATH . 'includes/class-clear-transients.php';
 require_once PWE_PLUGIN_PATH . 'includes/class-updater.php';
-
 require_once PWE_PLUGIN_PATH . 'components/menu/menu.php';
+require_once PWE_PLUGIN_PATH . 'elements/confirmation-visitors-registration/confirmation-visitors-registration/confirmation-visitors-registration.php';
+require_once PWE_PLUGIN_PATH . 'elements/confirmation-exhibitors-registration/confirmation-exhibitors-registration/confirmation-exhibitors-registration.php';
 
 if (!class_exists('Flip_Book')){
     require_once PWE_PLUGIN_PATH . 'elements/flip-book/flip-book.php';
@@ -68,7 +69,15 @@ if ( ! class_exists( 'PWE_Elements_AutoSwitch' ) ) {
             });
 
             // Initialize elements
-            PWE_Elements::init(); 
+            PWE_Elements::init();
+
+            // Initialize AJAX handlers
+            if (class_exists('Confirmation_Visitors_Registration')) {
+                Confirmation_Visitors_Registration::init();
+            }
+            if (class_exists('Confirmation_Exhibitors_Registration')) {
+                Confirmation_Exhibitors_Registration::init();
+            }
         }
     }
 

@@ -337,7 +337,7 @@ class PWE_Functions {
 
 
     // <============================================================================================>
-    // Synchronized functions from plugin PWElements 3.4.6 (24.06.2026) <========================================================>
+    // Synchronized functions from plugin PWElements 3.5.5 (21.07.2026) <========================================================>
     // <============================================================================================>
 
 
@@ -411,7 +411,7 @@ class PWE_Functions {
     }
 
     /**
-     * Output console logs 
+     * Output console logs
      */
     public static function output_db_connection_logs() {
 
@@ -742,7 +742,7 @@ class PWE_Functions {
                 MAX(CASE WHEN fa.slug = 'fair_kw_new_arch' THEN fa.data END) AS fair_kw_new_arch,
                 MAX(CASE WHEN fa.slug = 'catalog_type' THEN fa.data END) AS catalog_type,
                 MAX(CASE WHEN fa.slug = 'fair_entrance' THEN fa.data END) AS fair_entrance
-                
+
             FROM fairs f
             LEFT JOIN fair_adds fa
                 ON fa.fair_id = f.id
@@ -764,7 +764,7 @@ class PWE_Functions {
                     'konf_title_pl',
                     'konf_title_en',
                     'konf_desc_pl',
-                    'konf_desc_en' 
+                    'konf_desc_en'
                 )
         ";
 
@@ -900,6 +900,7 @@ class PWE_Functions {
                 MAX(CASE WHEN fa.slug = 'about_title_en' THEN fa.data END)  AS about_title_en,
                 MAX(CASE WHEN fa.slug = 'about_desc_pl' THEN fa.data END)   AS about_desc_pl,
                 MAX(CASE WHEN fa.slug = 'about_desc_en' THEN fa.data END)   AS about_desc_en,
+                MAX(CASE WHEN fa.slug = 'medal-ceremony' THEN fa.data END)  AS medal_ceremony,
                 MAX(CASE WHEN fa.slug = 'videos' THEN fa.data END)   AS videos
             FROM fairs f
             LEFT JOIN fair_adds fa
@@ -907,7 +908,7 @@ class PWE_Functions {
                 AND fa.slug IN (
                     'konf_name','konf_title_pl','konf_title_en',
                     'konf_desc_pl','konf_desc_en','about_title_pl',
-                    'about_title_en','about_desc_pl','about_desc_en', 'videos'
+                    'about_title_en','about_desc_pl','about_desc_en', 'medal-ceremony', 'videos'
                 )
             WHERE f.fair_domain = %s
             GROUP BY f.id
@@ -1056,7 +1057,7 @@ class PWE_Functions {
             if (!isset($results[$fair_id])) {
                 $results[$fair_id] = [
                     'fair_domain' => $row->fair_domain,
-                    
+
                     'fair_name_pl' => $row->fair_name_pl,
                     'fair_desc_pl' => $row->fair_desc_pl,
                     'fair_short_desc_pl' => $row->fair_short_desc_pl,
@@ -2940,10 +2941,10 @@ class PWE_Functions {
             $data["short_desc_{$code}"] = $fair["fair_short_desc_{$code}"] ?? "";
             $data["full_desc_{$code}"] = $fair["fair_full_desc_{$code}"] ?? "";
             $data["about_title_{$code}"] = $fair["about_title_{$code}"] ?? "";
-            $data["about_desc_{$code}"] = $fair["about_desc_{$code}"] ?? "";  
+            $data["about_desc_{$code}"] = $fair["about_desc_{$code}"] ?? "";
             $data["conference_title_{$code}"] = $fair["konf_title_{$code}"] ?? "";
-            $data["conference_desc_{$code}"] = $fair["konf_desc_{$code}"] ?? ""; 
-            $data["category_{$code}"] = $fair["category_{$code}"] ?? ""; 
+            $data["conference_desc_{$code}"] = $fair["konf_desc_{$code}"] ?? "";
+            $data["category_{$code}"] = $fair["category_{$code}"] ?? "";
         }
 
         return $data;
@@ -3422,10 +3423,18 @@ class PWE_Functions {
     }
 
     /**
-     * Get the latest Gravity Forms form ID by base title.
+     * Get the latest active Gravity Forms form ID by normalized title.
      *
-     * @param string $base_title The base title of the form.
-     * @return int|null The latest form ID or null if not found.
+     * Leading parenthetical prefixes are ignored, for example:
+     * - "(2027) Rejestracja"       => "Rejestracja"
+     * - "(2027) (PL) Rejestracja"  => "Rejestracja"
+     *
+     * Titles containing additional text are not matched:
+     * - "(2027) Rejestracja (FB)"
+     * - "(2027) Rejestracja gości wystawców"
+     *
+     * @param string $base_title Base form title without leading prefixes.
+     * @return int|null Latest matching form ID or null when not found.
      */
     private static array $gf_form_resolver_cache = [];
 
@@ -3438,7 +3447,8 @@ class PWE_Functions {
             return null;
         }
 
-        $cache_key = mb_strtolower($base_title);
+        $normalized_base_title = mb_strtolower($base_title, 'UTF-8');
+        $cache_key = $normalized_base_title;
 
         if (array_key_exists($cache_key, self::$gf_form_resolver_cache)) {
             return self::$gf_form_resolver_cache[$cache_key];
@@ -3449,6 +3459,7 @@ class PWE_Functions {
 
         if ($cached !== false) {
             self::$gf_form_resolver_cache[$cache_key] = $cached ? (int) $cached : null;
+
             return self::$gf_form_resolver_cache[$cache_key];
         }
 
@@ -3462,6 +3473,7 @@ class PWE_Functions {
                 WHERE is_active = 1
                 AND is_trash = 0
                 AND title LIKE %s
+                ORDER BY id DESC
                 ",
                 '%' . $wpdb->esc_like($base_title) . '%'
             ),
@@ -3471,38 +3483,72 @@ class PWE_Functions {
         if ($wpdb->last_error || empty($rows)) {
             set_transient($transient_key, 0, 10 * MINUTE_IN_SECONDS);
             self::$gf_form_resolver_cache[$cache_key] = null;
+
             return null;
         }
 
-        $latest_id = null;
-        $latest_year = 0;
-        $plain_id = null;
+        $resolved_id = null;
+        $resolved_year = 0;
 
         foreach ($rows as $row) {
-            $title = trim($row['title']);
+            $title = trim((string) $row['title']);
 
-            if ($title === $base_title) {
-                $plain_id = (int) $row['id'];
+            /*
+            * Pobiera wszystkie nawiasy znajdujące się na początku.
+            *
+            * Przykłady:
+            * "(2027) Rejestracja"      => prefixes: "(2027)"
+            * "(2027) (PL) Rejestracja" => prefixes: "(2027) (PL)"
+            */
+            preg_match('/^(?<prefixes>(?:\s*\([^)]*\))+)?\s*(?<title>.*)$/u', $title, $matches);
+
+            $title_without_prefixes = trim($matches['title'] ?? $title);
+
+            /*
+            * Po usunięciu początkowych nawiasów nazwa musi być identyczna.
+            * Dzięki temu "Rejestracja (FB)" oraz "Rejestracja gości..."
+            * nie zostaną dopasowane.
+            */
+            if (mb_strtolower($title_without_prefixes, 'UTF-8') !== $normalized_base_title) {
                 continue;
             }
 
-            $pattern = '/^\((\d{4})(?:\s+[^)]*)?\)\s+' . preg_quote($base_title, '/') . '$/u';
+            $year = 0;
+            $prefixes = $matches['prefixes'] ?? '';
 
-            if (!preg_match($pattern, $title, $matches)) {
-                continue;
+            /*
+            * Szukamy roku tylko w nawiasach znajdujących się na początku.
+            */
+            if (
+                $prefixes !== ''
+                && preg_match_all('/\((?:[^)]*?\b)?((?:19|20)\d{2})\b[^)]*\)/u', $prefixes, $year_matches)
+                && !empty($year_matches[1])
+            ) {
+                $year = max(array_map('intval', $year_matches[1]));
             }
 
-            $year = (int) $matches[1];
+            $row_id = (int) $row['id'];
 
-            if ($year > $latest_year) {
-                $latest_year = $year;
-                $latest_id = (int) $row['id'];
+            /*
+            * Pierwszeństwo ma najwyższy rok.
+            * Przy tym samym roku wybieramy formularz o wyższym ID.
+            */
+            if (
+                $resolved_id === null
+                || $year > $resolved_year
+                || ($year === $resolved_year && $row_id > $resolved_id)
+            ) {
+                $resolved_id = $row_id;
+                $resolved_year = $year;
             }
         }
 
-        $resolved_id = $latest_id ?? $plain_id;
+        set_transient(
+            $transient_key,
+            $resolved_id ?: 0,
+            10 * MINUTE_IN_SECONDS
+        );
 
-        set_transient($transient_key, $resolved_id ?: 0, 10 * MINUTE_IN_SECONDS);
         self::$gf_form_resolver_cache[$cache_key] = $resolved_id;
 
         return $resolved_id;

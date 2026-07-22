@@ -31,7 +31,9 @@
 }
 
 
-
+.no-lazyrender {
+    content-visibility: visible !important;
+}
 
 
 .page-wrapper {

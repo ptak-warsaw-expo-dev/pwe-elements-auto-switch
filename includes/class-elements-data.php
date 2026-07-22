@@ -1,17 +1,17 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-/** 
+/**
  * Class PWE_Elements_Data
- * 
+ *
  * Provides a registry of available elements and components, their file paths, and page composition.
- * 
+ *
  * Shortcodes:
- * 
+ *
  * Components: [pwe-elements-component-simple-header], [pwe-elements-component-footer] ...
  * Elements: [pwe-elements-auto-switch-header] // [pwe-elements-auto-switch-header b2c="true"] ...
  * Pages: [pwe-elements-auto-switch-page-main], [pwe-elements-auto-switch-page-catalog archive_catalog_id="999"] ...
- * 
+ *
  */
 
 class PWE_Elements_Data {
@@ -53,6 +53,7 @@ class PWE_Elements_Data {
         'Exhibitor_Worker_Generator',
         'Confirmation_Visitors_Registration',
         'Confirmation_Exhibitors_Registration',
+        'Badge_Local',
     ];
 
     /** Classes available in the components directory. Paths are detected automatically. */
@@ -70,23 +71,23 @@ class PWE_Elements_Data {
     private static $pages = [
         'main' => [
             ['class' => 'Header',           'order' => ['gr1' => 1,   'gr2' => 1,   'b2c' => 1,   'b2c-new' => 1,   'week' => 1]],
-            ['class' => 'Countdown',        'order' => ['gr1' => 2,   'gr2' => 2,   'b2c' => 2,   'b2c-new' => 2,   'week' => 1]],
+            ['class' => 'Countdown',        'order' => ['gr1' => 2,   'gr2' => 2,   'b2c' => 2,   'b2c-new' => 2,   'week' => 2]],
             ['class' => 'Combined_Events',  'order' => ['gr1' => 0,   'gr2' => 0,   'b2c' => 0,   'b2c-new' => 0,   'week' => 2]],
-            ['class' => 'About',            'order' => ['gr1' => 3,   'gr2' => 3,   'b2c' => 3,   'b2c-new' => 2,   'week' => 5]],
+            ['class' => 'About',            'order' => ['gr1' => 3,   'gr2' => 3,   'b2c' => 3,   'b2c-new' => 2,   'week' => 3.3]],
             ['class' => 'Tickets',          'order' => ['gr1' => 0,   'gr2' => 0,   'b2c' => 0,   'b2c-new' => 3,   'week' => 5]],
             ['class' => 'Attractions',      'order' => ['gr1' => 0,   'gr2' => 0,   'b2c' => 0,   'b2c-new' => 4,   'week' => 5]],
-            ['class' => 'Sectors',          'order' => ['gr1' => 3,   'gr2' => 3,   'b2c' => 3,   'b2c-new' => 8,   'week' => 4]],
-            ['class' => 'Conference',       'order' => ['gr1' => 4,   'gr2' => 5,   'b2c' => 4,   'b2c-new' => 0,   'week' => 5]],
-            ['class' => 'Speakers',         'order' => ['gr1' => 4,   'gr2' => 5,   'b2c' => 4,   'b2c-new' => 0,   'week' => 5]],
+            ['class' => 'Sectors',          'order' => ['gr1' => 3,   'gr2' => 3,   'b2c' => 3,   'b2c-new' => 8,   'week' => 3.1]],
+            ['class' => 'Conference',       'order' => ['gr1' => 4,   'gr2' => 5,   'b2c' => 4,   'b2c-new' => 0,   'week' => 2]],
+            ['class' => 'Speakers',         'order' => ['gr1' => 4,   'gr2' => 5,   'b2c' => 4,   'b2c-new' => 0,   'week' => 2]],
             ['class' => 'Guests',           'order' => ['gr1' => 4,   'gr2' => 5,   'b2c' => 4,   'b2c-new' => 6,   'week' => 0]],
             ['class' => 'Premieres',        'order' => ['gr1' => 0,   'gr2' => 5,   'b2c' => 0,   'b2c-new' => 8,   'week' => 0]],
             ['class' => 'Opinions',         'order' => ['gr1' => 13,  'gr2' => 12,  'b2c' => 5,   'b2c-new' => 0,   'week' => 0]],
             ['class' => 'Exhibitors',       'order' => ['gr1' => 7,   'gr2' => 4,   'b2c' => 6,   'b2c-new' => 5,   'week' => 3]],
-            ['class' => 'Logotypes',        'order' => ['gr1' => 8,   'gr2' => 7,   'b2c' => 0,   'b2c-new' => 0,   'week' => 3],   'params' => ['slug' => 'patrons-partners-international']],
-            ['class' => 'Logotypes',        'order' => ['gr1' => 9,   'gr2' => 8,   'b2c' => 8,   'b2c-new' => 6,   'week' => 3],   'params' => ['slug' => 'patrons-partners']],
-            ['class' => 'Statistics',       'order' => ['gr1' => 5,   'gr2' => 6,   'b2c' => 10,  'b2c-new' => 7,   'week' => 2]],
+            ['class' => 'Logotypes',        'order' => ['gr1' => 8,   'gr2' => 7,   'b2c' => 0,   'b2c-new' => 0,   'week' => 4],   'params' => ['slug' => 'patrons-partners-international']],
+            ['class' => 'Logotypes',        'order' => ['gr1' => 9,   'gr2' => 8,   'b2c' => 8,   'b2c-new' => 6,   'week' => 4],   'params' => ['slug' => 'patrons-partners']],
+            ['class' => 'Statistics',       'order' => ['gr1' => 5,   'gr2' => 6,   'b2c' => 10,  'b2c-new' => 7,   'week' => 1]],
             ['class' => 'Logotypes',        'order' => ['gr1' => 6,   'gr2' => 0,   'b2c' => 0,   'b2c-new' => 0,   'week' => 0],   'params' => ['slug' => 'patrons-partners-pwe']],
-            ['class' => 'Halls',            'order' => ['gr1' => 11,  'gr2' => 10,  'b2c' => 11,  'b2c-new' => 0,   'week' => 5]],
+            ['class' => 'Halls',            'order' => ['gr1' => 11,  'gr2' => 10,  'b2c' => 11,  'b2c-new' => 0,   'week' => 2.2]],
             ['class' => 'Other_Events',     'order' => ['gr1' => 12,  'gr2' => 11,  'b2c' => 12,  'b2c-new' => 0,   'week' => 0]],
             ['class' => 'Profiles',         'order' => ['gr1' => 10,  'gr2' => 9,   'b2c' => 13,  'b2c-new' => 0,   'week' => 0]],
             ['class' => 'Posts',            'order' => ['gr1' => 14,  'gr2' => 13,  'b2c' => 14,  'b2c-new' => 9,   'week' => 0]],
@@ -148,6 +149,10 @@ class PWE_Elements_Data {
         ],
         'confirmation-exhibitors-registration' => [
             ['class' => 'Confirmation_Exhibitors_Registration'],
+            ['class' => 'Footer'],
+        ],
+        'badge-local' => [
+            ['class' => 'Badge_Local'],
             ['class' => 'Footer'],
         ],
     ];
