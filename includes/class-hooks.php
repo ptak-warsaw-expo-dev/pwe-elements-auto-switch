@@ -1,7 +1,6 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-
 // Add filter to override menu output
 add_action('plugins_loaded', function() {
     add_filter('pwe_override_menu_output', function($html) {
@@ -77,6 +76,35 @@ add_action('template_redirect', function () {
     if (!empty($redirects[$path])) {
         wp_redirect($redirects[$path], 301);
         exit;
+    }
+});
+
+add_action('wp', function() {
+    if (wp_doing_ajax()) {
+        require_once PWE_PLUGIN_PATH . 'elements/confirmation-visitors-registration/confirmation-visitors-registration/confirmation-visitors-registration.php';
+        require_once PWE_PLUGIN_PATH . 'elements/confirmation-exhibitors-registration/confirmation-exhibitors-registration/confirmation-exhibitors-registration.php';
+
+        if (class_exists('Confirmation_Visitors_Registration')) {
+            Confirmation_Visitors_Registration::init();
+        }
+        if (class_exists('Confirmation_Exhibitors_Registration')) {
+            Confirmation_Exhibitors_Registration::init();
+        }
+        return;
+    }
+
+    $allowed_pages = ['potwierdzenie-rejestracji', 'potwierdzenie-rejestracji-wystawcy'];
+
+    if (is_page($allowed_pages)) {
+        require_once PWE_PLUGIN_PATH . 'elements/confirmation-visitors-registration/confirmation-visitors-registration/confirmation-visitors-registration.php';
+        require_once PWE_PLUGIN_PATH . 'elements/confirmation-exhibitors-registration/confirmation-exhibitors-registration/confirmation-exhibitors-registration.php';
+
+        if (class_exists('Confirmation_Visitors_Registration')) {
+            Confirmation_Visitors_Registration::init();
+        }
+        if (class_exists('Confirmation_Exhibitors_Registration')) {
+            Confirmation_Exhibitors_Registration::init();
+        }
     }
 });
 
