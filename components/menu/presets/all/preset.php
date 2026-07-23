@@ -427,7 +427,7 @@ if (!function_exists('render_submenu')) {
 
                                 $edition_dynamic[] = (object)[
                                     'ID' => 'dynamic_post_show_'.$edition_year,
-                                    'title' => 'Raport potargowy '.$edition_year,
+                                    'title' => ($labels['post_show'][$lang] ?? $labels['post_show']['en']) . ' ' . $edition_year,
                                     'url' => 'https://cap.warsawexpo.eu'.$post_show->file_path,
                                     'target' => '_blank'
                                 ];
