@@ -23,6 +23,8 @@ class PWE_Shortcodes {
         add_filter('wpseo_register_extra_replacements', [$this, 'wpseo_register_extra_replacements']);
         add_filter('wpseo_replacements', [$this, 'wpseo_replacements']);
         add_filter('gform_replace_merge_tags', [$this, 'replace_gf_merge_tags'], 10, 7);
+
+        add_filter('gform_notification', [$this, 'replace_multilang_date_in_notification'], 10, 3);
     }
 
     // ALL SHORTCODES START <------------------------------------------------------------------------------<
@@ -1055,6 +1057,20 @@ class PWE_Shortcodes {
                 "10" => "oktoober",
                 "11" => "november",
                 "12" => "detsember",
+            ],
+            "hu" => [
+                "01" => "január",
+                "02" => "február",
+                "03" => "március",
+                "04" => "április",
+                "05" => "május",
+                "06" => "június",
+                "07" => "július",
+                "08" => "augusztus",
+                "09" => "szeptember",
+                "10" => "október",
+                "11" => "november",
+                "12" => "december",
             ],
         ];
 
@@ -2264,6 +2280,7 @@ class PWE_Shortcodes {
             case "ru": $new_date_coming_soon = "Новая дата скоро"; break;
             case "ro": $new_date_coming_soon = "Noua dată în curând"; break;
             case "et": $new_date_coming_soon = "Uus kuupäev varsti"; break;
+            case "hu": $new_date_coming_soon = "Hamarosan új dátum érkezik"; break;
             default: $new_date_coming_soon = "New date coming soon"; break;
         }
 
@@ -2886,10 +2903,94 @@ class PWE_Shortcodes {
 
     // FOR YOAST SEO END <----------------------------------------------------------------------<
 
+    public function replace_multilang_date_in_notification($notification, $form, $entry) {
+        $notification_name = isset($notification['name'])
+            ? (string) $notification['name']
+            : '';
+
+        $lang = $this->get_language_from_notification_name(
+            $notification_name
+        );
+
+        $date = $this->show_trade_fair_date_multilang([
+            'lang' => $lang,
+        ]);
+
+        $fields = [
+            'subject',
+            'message',
+            'fromName',
+            'from',
+            'replyTo',
+            'to',
+            'cc',
+            'bcc',
+        ];
+
+        foreach ($fields as $field) {
+            if (
+                isset($notification[$field]) &&
+                is_string($notification[$field])
+            ) {
+                $notification[$field] = str_replace(
+                    [
+                        '{trade_fair_date_multilang}',
+                        '[trade_fair_date_multilang]',
+                    ],
+                    $date,
+                    $notification[$field]
+                );
+            }
+        }
+
+        return $notification;
+    }
+
+    private function get_language_from_notification_name($notification_name) {
+        $supported_languages = [
+            'pl',
+            'en',
+            'it',
+            'cs',
+            'de',
+            'lv',
+            'lt',
+            'sk',
+            'uk',
+            'et',
+            'ro',
+            'ru',
+            'hu',
+        ];
+
+        $notification_name = trim(
+            strtolower($notification_name)
+        );
+
+        if (
+            preg_match(
+                '/-\s*([a-z]{2})\s*$/i',
+                $notification_name,
+                $matches
+            )
+        ) {
+            $lang = strtolower($matches[1]);
+
+            if (in_array($lang, $supported_languages, true)) {
+                return $lang;
+            }
+        }
+
+        return strtolower(PWE_LANG ?: 'en');
+    }
+
     public function replace_gf_merge_tags($text, $form, $entry, $url_encode, $esc_html, $nl2br, $format) {
         $map = $this->get_gf_shortcodes_map();
 
         foreach ($map as $tag => $function_name) {
+            if ($tag === 'trade_fair_date_multilang') {
+                continue;
+            }
 
             if (!is_callable([$this, $function_name])) {
                 continue;
