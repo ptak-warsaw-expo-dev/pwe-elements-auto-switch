@@ -1,0 +1,11 @@
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--premium .pwe-confirmation-visitors-registration__content {
+    background-color: #141414;
+    color: white;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--premium .pwe-confirmation-visitors-registration__form-column {
+    background-color: #f1f1f1;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--premium .pwe-confirmation-visitors-registration__step,
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--premium .text-accent-color {
+    color: var(--accent-color);
+}

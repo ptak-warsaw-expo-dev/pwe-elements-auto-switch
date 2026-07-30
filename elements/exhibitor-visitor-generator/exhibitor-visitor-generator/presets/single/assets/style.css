@@ -1,0 +1,14 @@
+#pweExhibitorGenerator .gfield.company {
+    display: none;
+}
+.pwe-exhibitor-generator__company {
+    margin: 0;
+    font-weight: 700;
+    font-size: 20px !important;
+    background-color: #ffffff;
+    padding: 10px 24px;
+    border-radius: 36px;
+    min-width: 180px;
+    text-align: center;
+    box-shadow: inset 0 0 8px -4px #000000db;
+}

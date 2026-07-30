@@ -1,0 +1,188 @@
+.pwe-limit-width:has(#pweExhibitorGenerator) {
+    padding: 36px 18px;
+}
+.pwe-exhibitor-generator {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+}
+.pwe-exhibitor-generator__wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 1000px;
+    min-height: 500px;
+    border-radius: 20px;
+    box-shadow: 0 0 8px -4px #000000db;
+    overflow: hidden;
+}
+.pwe-exhibitor-generator__column--badge {
+    width: 40%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.pwe-exhibitor-generator__column--form{
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #EBEBEB;
+    padding: 36px 18px;
+}
+.pwe-exhibitor-generator__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    width: 90%;
+}
+.pwe-exhibitor-generator__title {
+    text-align: center;
+    color: #b79663 !important;
+    font-weight: 800;
+    font-size: 28px;
+    padding: 0 10px;
+    margin: 0;
+}
+.pwe-exhibitor-generator__icons {
+    margin-top: 18px;
+}
+.pwe-exhibitor-generator__icons-wrapper {
+    display: flex;
+    flex-wrap: balance;
+    justify-content: center;
+    gap: 8px;
+}
+.pwe-exhibitor-generator__icons-title {
+    margin: 0;
+    text-align: center;
+}
+.exhibitor-generator__icon {
+    flex: 1;
+    max-width: 110px;
+    min-width: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding-top: 18px;
+}
+.exhibitor-generator__icon img {
+    height: 50px;
+    object-fit: contain;
+}
+.exhibitor-generator__icon p {
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: inherit;
+    text-align: center;
+    color: #886843;
+}
+.pwe-exhibitor-generator__form {
+    width: 100%;
+}
+#pweExhibitorGenerator input[type="text"],
+#pweExhibitorGenerator input[type="email"] {
+    border-radius: 36px !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: #D2D2D2 !important;
+    font-weight: 700;
+    color: #555555;
+}
+/* Wspólne ustawienia pól z ikonami */
+#pweExhibitorGenerator .gfield.name .ginput_container,
+#pweExhibitorGenerator .gfield.company .ginput_container,
+#pweExhibitorGenerator .gfield.email .ginput_container {
+    position: relative;
+}
+
+/* Wspólne ustawienia ikon */
+#pweExhibitorGenerator .gfield.name .ginput_container::before,
+#pweExhibitorGenerator .gfield.company .ginput_container::before,
+#pweExhibitorGenerator .gfield.email .ginput_container::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    width: 26px;
+    height: 26px;
+    transform: translateY(-50%);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    pointer-events: none;
+    z-index: 2;
+}
+
+#pweExhibitorGenerator  input:-webkit-autofill,
+#pweExhibitorGenerator input:-webkit-autofill:hover,
+#pweExhibitorGenerator input:-webkit-autofill:focus{
+    -webkit-text-fill-color: black !important;
+    -webkit-box-shadow: 0 0 0px 40rem #D2D2D2 inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Ikona imienia */
+#pweExhibitorGenerator .gfield.name .ginput_container::before {
+    background-image: url("/wp-content/plugins/pwe-media/media/generator-gosci-wystawcow-auto-switch/icons/name.png");
+}
+
+/* Ikona firmy */
+#pweExhibitorGenerator .gfield.company .ginput_container::before {
+    background-image: url("/wp-content/plugins/pwe-media/media/generator-gosci-wystawcow-auto-switch/icons/company.png");
+}
+
+/* Ikona e-mail */
+#pweExhibitorGenerator .gfield.email .ginput_container::before {
+    background-image: url("/wp-content/plugins/pwe-media/media/generator-gosci-wystawcow-auto-switch/icons/email.png");
+}
+
+/* Miejsce na ikonę wewnątrz inputa */
+#pweExhibitorGenerator .gfield.name input,
+#pweExhibitorGenerator .gfield.company input,
+#pweExhibitorGenerator .gfield.email input {
+    padding-left: 50px !important;
+}
+.pwe-exhibitor-generator__form .gform-footer,
+.pwe-exhibitor-generator__form .gform_footer {
+    margin: 0 !important;
+}
+.pwe-exhibitor-generator__form .gform-footer input[type="submit"],
+.pwe-exhibitor-generator__form .gform_footer input[type="submit"] {
+    background: #b79663 !important;
+    color: white !important;
+    border-radius: 8px !important;
+    margin: 0 !important;
+    margin-top: 9px !important;
+    margin-bottom: 9px !important;
+    padding: 8px 20px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    min-width: 200px !important;
+    border-radius: 15px !important;
+}
+.pwe-exhibitor-generator__tech-support h3 {
+    text-align: center;
+    margin: 0;
+}
+@media (max-width: 960px) {
+    .pwe-exhibitor-generator__wrapper {
+        flex-direction: column;
+        min-height: 0;
+    }
+    .pwe-exhibitor-generator__column--badge {
+        display: none;
+    }
+    .pwe-exhibitor-generator__column--form {
+        width: 100%;
+        border-radius: 20px;
+    }
+}

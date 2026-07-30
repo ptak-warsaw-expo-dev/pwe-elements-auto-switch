@@ -1,6 +1,6 @@
 <?php
 
-$output .= '
+$output = '
 <div id="pweContact" class="pwe-contact">
     <div class="pwe-contact__wrapper">
         <div class="pwe-contact__column">

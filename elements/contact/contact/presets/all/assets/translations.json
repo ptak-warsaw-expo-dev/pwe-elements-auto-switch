@@ -46,5 +46,13 @@
     "hu_HU": {
         "write_to_us": "Írjon nekünk",
         "contact_description": "Válaszolunk Önnek, vagy visszahívjuk Önt,<br>ha megadja nekünk a telefonszámát."
+    },
+    "fr_FR": {
+        "write_to_us": "Écrivez-nous",
+        "contact_description": "Nous vous répondrons ou vous rappellerons,<br>si vous nous laissez votre numéro de téléphone."
+    },
+    "es_ES": {
+        "write_to_us": "Escríbenos",
+        "contact_description": "Le responderemos o le devolveremos la llamada,<br>si nos deja su número de teléfono."
     }
 }

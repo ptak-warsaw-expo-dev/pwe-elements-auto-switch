@@ -1,0 +1,26 @@
+{
+    "pl_PL": {
+        "title": "WYGENERUJ IDENTYFIKATOR<br>VIP GOLD DLA SWOICH GOŚCI!",
+        "title_icons": "Identyfikator upoważnia do:",
+        "fast_track": "Fast<br>Track",
+        "vip_room": "VIP<br>Room",
+        "concierge": "Opieki<br>concierge`a",
+        "pakiet": "Imienny<br>pakiet",
+        "konferencje": "Udział w konferencjach",
+        "parking": "Darmowy<br>Parking",
+        "help_text": "Potrzebujesz pomocy?",
+        "contact": "Skontaktuj się z nami - "
+    },
+    "en_US": {
+        "title": "GENERATE VIP GOLD BADGE FOR YOUR GUESTS!",
+        "title_icons": "The badge entitles you to:",
+        "fast_track": "Fast<br>Track",
+        "vip_room": "VIP<br>Room",
+        "concierge": "Concierge<br>service",
+        "pakiet": "Personalized<br>package",
+        "konferencje": "Participation in conferences",
+        "parking": "Free<br>Parking",
+        "help_text": "Need help?",
+        "contact": "Contact us - "
+    }
+}

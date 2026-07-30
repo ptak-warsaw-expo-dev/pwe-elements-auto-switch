@@ -1,11 +1,11 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
-class Contact {
+class Exhibitor_Worker_Generator {
 
     public static function get_data() {
         return [
-            'types' => ['contact'],
+            'types' => ['exhibitor-worker-generator'],
             'presets' => [
                 'all' => plugin_dir_path(__FILE__) . 'presets/all/preset.php',
             ],
@@ -16,7 +16,7 @@ class Contact {
 
         $data = self::get_data();
         $element_type = $data['types'][0];
-        $element_slug = 'contact';
+        $element_slug = 'exhibitor-worker-generator';
 
         $group = 'all';
 
@@ -32,13 +32,9 @@ class Contact {
 
             /* <-------------> General code start <-------------> */
 
-            $lang = PWE_Functions::lang();
+            $form_id = PWE_Functions::get_gf_form_id('Rejestracja wystawców (badge)');
 
-            $form_id = PWE_Functions::get_gf_form_id('Napisz do nas');
-
-            if (!$form_id) {
-                return;
-            }
+            $gravity_form = do_shortcode('[gravityform id="'. $form_id .'" title="false" description="false" ajax="false"]');
 
             /* <-------------> General code end <-------------> */
 

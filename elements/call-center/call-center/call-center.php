@@ -1,11 +1,11 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
-class Contact {
+class Call_Center {
 
     public static function get_data() {
         return [
-            'types' => ['contact'],
+            'types' => ['call-center'],
             'presets' => [
                 'all' => plugin_dir_path(__FILE__) . 'presets/all/preset.php',
             ],
@@ -16,7 +16,7 @@ class Contact {
 
         $data = self::get_data();
         $element_type = $data['types'][0];
-        $element_slug = 'contact';
+        $element_slug = 'call-center';
 
         $group = 'all';
 
@@ -32,9 +32,7 @@ class Contact {
 
             /* <-------------> General code start <-------------> */
 
-            $lang = PWE_Functions::lang();
-
-            $form_id = PWE_Functions::get_gf_form_id('Napisz do nas');
+            $form_id = PWE_Functions::get_gf_form_id('Rejestracja Zaproszeń - call centre PL/EN');
 
             if (!$form_id) {
                 return;
