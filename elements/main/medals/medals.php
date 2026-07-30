@@ -38,7 +38,7 @@ class Medals {
             $output = include $preset_file;
             
             if ($output) {
-                echo $output;         
+                echo do_shortcode($output);         
             }
         }
     }

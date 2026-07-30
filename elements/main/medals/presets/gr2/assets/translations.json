@@ -75,5 +75,26 @@
     "reg_url": "/et/registreerimine/",
     "reg_url_text": "Osale",
     "buy_ticket": "Osta<br>pilet"
+  },
+  "hu_HU": {
+    "title": "Nyerd el a rangos díjat a Ptak Warsaw Expo-n!",
+    "description": "Csatlakozz a legjobbakhoz a Ptak Warsaw Expo-n, és mutasd be cégedet a győztesek fényében! A díjakat a Nemzeti Vásárkamara és a Ptak Warsaw Expo ítéli oda - emelkedj ki, és szerezz elismerést!",
+    "reg_url": "/hu/regisztracio/",
+    "reg_url_text": "Vegyen részt",
+    "buy_ticket": "Vásároljon<br>jegyet"
+  },
+  "fr_FR": {
+    "title": "Gagnez un prix prestigieux au Ptak Warsaw Expo !",
+    "description": "Rejoignez les meilleurs au Ptak Warsaw Expo et mettez en valeur votre entreprise sous les projecteurs des gagnants ! Les prix sont décernés par la Chambre nationale des foires et le Ptak Warsaw Expo - démarquez-vous et obtenez de la reconnaissance !",
+    "reg_url": "/fr/inscription/",
+    "reg_url_text": "Participez",
+    "buy_ticket": "Acheter<br>un billet"
+  },
+  "es_ES": {
+    "title": "¡Gana un premio prestigioso en Ptak Warsaw Expo!",
+    "description": "¡Únete a los mejores en Ptak Warsaw Expo y muestra tu empresa bajo los reflectores de los ganadores! Los premios son otorgados por la Cámara Nacional de Ferias y Ptak Warsaw Expo: ¡destácate y obtén reconocimiento!",
+    "reg_url": "/es/registro/",
+    "reg_url_text": "Participa",
+    "buy_ticket": "Comprar<br>un boleto"
   }
 }

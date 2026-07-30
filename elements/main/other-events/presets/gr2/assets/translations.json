@@ -75,5 +75,26 @@
     "visitors": "Külastajad",
     "exhibitors": "Eksponaendid",
     "exhibition_space": "Näituse<br>pind"
+  },
+  "hu_HU": {
+    "title": "Egyéb események",
+    "subtitle": "A vásár ideje alatt",
+    "visitors": "Látogatók",
+    "exhibitors": "Kiállítók",
+    "exhibition_space": "Kiállítási<br>terület"
+  },
+  "fr_FR": {
+    "title": "Autres événements",
+    "subtitle": "Pendant le salon",
+    "visitors": "Visiteurs",
+    "exhibitors": "Exposants",
+    "exhibition_space": "Espace d'exposition"
+  },
+  "es_ES": {
+    "title": "Otros eventos",
+    "subtitle": "Durante la feria",
+    "visitors": "Visitantes",
+    "exhibitors": "Expositores",
+    "exhibition_space": "Espacio de<br>exposición"
   }
 }

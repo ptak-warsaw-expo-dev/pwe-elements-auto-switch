@@ -31,5 +31,14 @@
   },
   "et": {
     "title": "Soovitused"
+  },
+  "hu_HU": {
+    "title": "Ajánlások"
+  },
+  "fr_FR": {
+    "title": "Recommandations"
+  },
+  "es_ES": {
+    "title": "Recomendaciones"
   }
 }

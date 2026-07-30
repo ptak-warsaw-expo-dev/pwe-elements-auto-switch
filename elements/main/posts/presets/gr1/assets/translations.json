@@ -53,5 +53,20 @@
     "title": "Uudised",
     "more": "Rohkem",
     "read_all": "Vaata kõiki"
-  }
+  },
+  "hu_HU": {
+    "title": "Hírek",
+    "more": "Több",
+    "read_all": "Összes megtekintése"
+  },
+  "fr_FR": {
+    "title": "Actualités",
+    "more": "Plus",
+    "read_all": "Voir tout"
+  },
+    "es_ES": {
+        "title": "Noticias",
+        "more": "Más",
+        "read_all": "Ver todo"
+    }
 }

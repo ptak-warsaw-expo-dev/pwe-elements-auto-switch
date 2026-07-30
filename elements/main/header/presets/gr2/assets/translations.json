@@ -141,5 +141,44 @@
         "register":"Registreeru",
         "free_ticket": "Hangi <span>tasuta</span> pilet",
         "become_exhibitor": "Saa<br>eksponeerijaks"
+    },
+    "hu_HU": {
+        "premier_edition": "Premier kiadás",
+        "edition":" kiadás",
+        "warsaw":"Varsó",
+        "warsaw_poland":"Varsó, Lengyelország",
+        "link_to_registration":"/hu/regisztracio/",
+        "link_to_registration_text":"regisztrációs link",
+        "link_to_registration_exh":"/hu/legyen-kiallito/",
+        "link_to_registration_text_exh":"kiállítói regisztrációs link",
+        "register":"Regisztráció",
+        "free_ticket": "Szerezzen <span>ingyenes</span> jegyet",
+        "become_exhibitor": "Legyen<br>Kiállító"
+    },
+    "fr_FR": {
+        "premier_edition": "Édition Premier",
+        "edition":" édition",
+        "warsaw":"Varsovie",
+        "warsaw_poland":"Varsovie, Pologne",
+        "link_to_registration":"/fr/inscription/",
+        "link_to_registration_text":"lien vers l'inscription",
+        "link_to_registration_exh":"/fr/devenez-exposant/",
+        "link_to_registration_text_exh":"lien vers l'inscription des exposants",
+        "register":"S'inscrire",
+        "free_ticket": "Obtenez un <span>billet gratuit</span>",
+        "become_exhibitor": "Devenez<br>exposant"
+    },
+    "es_ES": {
+        "premier_edition": "Edición Premier",
+        "edition":" edición",
+        "warsaw":"Varsovia",
+        "warsaw_poland":"Varsovia, Polonia",
+        "link_to_registration":"/es/registro/",
+        "link_to_registration_text":"enlace de registro",
+        "link_to_registration_exh":"/es/conviertete-en-expositor/",
+        "link_to_registration_text_exh":"enlace de registro del expositor",
+        "register":"Registrarse",
+        "free_ticket": "Obtén un <span>boleto gratis</span>",
+        "become_exhibitor": "Conviértete en<br>expositor"
     }
 }

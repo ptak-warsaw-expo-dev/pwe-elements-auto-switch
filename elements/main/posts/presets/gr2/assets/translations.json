@@ -42,5 +42,17 @@
   "et": {
     "title": "Expo uudised",
     "read_more": "Loe rohkem"
+  },
+  "hu_HU": {
+    "title": "Expo hírek",
+    "read_more": "Olvass tovább"
+  },
+  "fr_FR": {
+    "title": "Actualités Expo",
+    "read_more": "Lire la suite"
+  },
+  "es_ES": {
+    "title": "Noticias de la Expo",
+    "read_more": "Leer más"
   }
 }

@@ -75,5 +75,26 @@
     "exhibitors": "eksponaendid",
     "exhibition_space": "näituse<br>pind",
     "more": "Rohkem"
+  },
+  "hu_HU": {
+    "title": "Egyéb események a vásár ideje alatt",
+    "visitors": "látogatók",
+    "exhibitors": "kiállítók",
+    "exhibition_space": "kiállítási<br>terület",
+    "more": "Több"
+  },
+  "fr_FR": {
+    "title": "Autres événements pendant le salon",
+    "visitors": "visiteurs",
+    "exhibitors": "exposants",
+    "exhibition_space": "espace d'exposition",
+    "more": "Plus"
+  },
+  "es_ES": {
+    "title": "Otros eventos durante la feria",
+    "visitors": "visitantes",
+    "exhibitors": "expositores",
+    "exhibition_space": "espacio de exposición",
+    "more": "Más"
   }
 }

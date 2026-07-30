@@ -1,0 +1,128 @@
+{
+  "pl_PL": {
+    "patrons_desc": "Nadają wydarzeniom firmowy, ogólnopolski charakter",
+    "patrons_int": "Patroni i partnerzi międzynarodowi",
+    "patrons": "Patroni i Partnerzy",
+    "patrons_int_desc": "Globalni liderzy i instytucje wspierające",
+    "btn_show_more": "Pokaż wszystkich",
+    "btn_show_less": "Pokaż mniej",
+    "all": "Wszyscy"
+  },
+  "en_US": {
+    "patrons_desc": "They give the events a corporate, nationwide character",
+    "patrons_int": "International patrons and partners",
+    "patrons": "Patrons and Partners",
+    "patrons_int_desc": "Global leaders and supporting institutions",
+    "btn_show_more": "Show all",
+    "btn_show_less": "Show less",
+    "all": "All"
+  },
+  "cs_CZ": {
+    "patrons_desc": "Dodávají událostem firemní, celostátní charakter",
+    "patrons_int": "Mezinárodní patroni a partneři",
+    "patrons": "Patroni a partneři",
+    "patrons_int_desc": "Globální lídři a podpůrné instituce",
+    "btn_show_more": "Zobrazit všechny",
+    "btn_show_less": "Zobrazit méně",
+    "all": "Všichni"
+  },
+  "de_DE": {
+    "patrons_desc": "Sie verleihen den Veranstaltungen einen korporativen, landesweiten Charakter",
+    "patrons_int": "Internationale Schirmherren und Partner",
+    "patrons": "Schirmherren und Partner",
+    "patrons_int_desc": "Globale Marktführer und unterstützende Institutionen",
+    "btn_show_more": "Alle anzeigen",
+    "btn_show_less": "Weniger anzeigen",
+    "all": "Alle"
+  },
+  "it_IT": {
+    "patrons_desc": "Conferiscono agli eventi un carattere aziendale e nazionale",
+    "patrons_int": "Patroni e partner internazionali",
+    "patrons": "Patroni e Partner",
+    "patrons_int_desc": "Leader globali e istituzioni di supporto",
+    "btn_show_more": "Mostra tutti",
+    "btn_show_less": "Mostra meno",
+    "all": "Tutti"
+  },
+  "lt_LT": {
+    "patrons_desc": "Suteikia renginiams korporatyvinį, šalies masto charakterį",
+    "patrons_int": "Tarptautiniai globėjai ir partneriai",
+    "patrons": "Globėjai ir partneriai",
+    "patrons_int_desc": "Pasauliniai lyderiai ir remiančios institucijos",
+    "btn_show_more": "Rodyti visus",
+    "btn_show_less": "Rodyti mažiau",
+    "all": "Visi"
+  },
+  "lv_LV": {
+    "patrons_desc": "Piešķir pasākumiem korporatīvu, valsts mēroga raksturu",
+    "patrons_int": "Starptautiskie patroni un partneri",
+    "patrons": "Patroni un partneri",
+    "patrons_int_desc": "Globālie līderi un atbalstošās institūcijas",
+    "btn_show_more": "Rādīt visu",
+    "btn_show_less": "Rādīt mazāk",
+    "all": "Visi"
+  },
+  "sk_SK": {
+    "patrons_desc": "Dodávajú podujatiam firemný, celoštátny charakter",
+    "patrons_int": "Medzinárodní patróni a partneri",
+    "patrons": "Patróni a partneri",
+    "patrons_int_desc": "Globálni lídri a podporné inštitúcie",
+    "btn_show_more": "Zobraziť všetkých",
+    "btn_show_less": "Zobraziť menej",
+    "all": "Všetci"
+  },
+  "uk": {
+    "patrons_desc": "Вони надають подіям корпоративного, загальнонаціонального характеру",
+    "patrons_int": "Міжнародні патрони та партнери",
+    "patrons": "Патрони та партнери",
+    "patrons_int_desc": "Глобальні лідери та підтримуючі інституції",
+    "btn_show_more": "Показати всіх",
+    "btn_show_less": "Показати менше",
+    "all": "Усі"
+  },
+  "ro_RO": {
+    "patrons_desc": "Oferă evenimentelor un caracter corporativ, la nivel național",
+    "patrons_int": "Patroni și parteneri internaționali",
+    "patrons": "Patroni și Parteneri",
+    "patrons_int_desc": "Lideri globali și instituții de sprijin",
+    "btn_show_more": "Arată tot",
+    "btn_show_less": "Arată mai puțin",
+    "all": "Toți"
+  },
+  "et": {
+    "patrons_desc": "Annavad sündmustele korporatiivse, üleriigilise iseloomu",
+    "patrons_int": "Rahvusvahelised patroonid ja partnerid",
+    "patrons": "Patroonid ja partnerid",
+    "patrons_int_desc": "Globaalsed liidrid ja toetavad institutsioonid",
+    "btn_show_more": "Näita kõiki",
+    "btn_show_less": "Näita vähem",
+    "all": "Kõik"
+  },
+  "hu_HU": {
+    "patrons_desc": "Vállalati, országos jelleget kölcsönöznek a rendezvényeknek",
+    "patrons_int": "Nemzetközi védnökök és partnerek",
+    "patrons": "Védnökök és Partnerek",
+    "patrons_int_desc": "Globális vezetők és támogató intézmények",
+    "btn_show_more": "Összes mutatása",
+    "btn_show_less": "Kevesebb mutatása",
+    "all": "Összes"
+  },
+  "fr_FR": {
+    "patrons_desc": "Ils donnent aux événements un caractère corporatif et national",
+    "patrons_int": "Mécènes et partenaires internationaux",
+    "patrons": "Mécènes et partenaires",
+    "patrons_int_desc": "Leaders mondiaux et institutions de soutien",
+    "btn_show_more": "Afficher tout",
+    "btn_show_less": "Afficher moins",
+    "all": "Tous"
+  },
+  "es_ES": {
+    "patrons_desc": "Dan a los eventos un carácter corporativo y nacional",
+    "patrons_int": "Mecenas y socios internacionales",
+    "patrons": "Mecenas y socios",
+    "patrons_int_desc": "Líderes globales e instituciones de apoyo",
+    "btn_show_more": "Mostrar todo",
+    "btn_show_less": "Mostrar menos",
+    "all": "Todos"
+  }
+}

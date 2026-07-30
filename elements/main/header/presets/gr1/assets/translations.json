@@ -119,5 +119,38 @@
         "link_to_registration_alt":"link registreerimiseks",
         "register":"Registreeru",
         "free_ticket": "Hangi tasuta pilet"
+    },
+    "hu_HU": {
+        "premier_edition": "Premier kiadás",
+        "edition":" kiadás",
+        "warsaw":"Varsó",
+        "poland":"Lengyelország",
+        "warsaw_poland":"Varsó, Lengyelország",
+        "link_to_registration":"/hu/regisztracio/",
+        "link_to_registration_alt":"regisztrációs link",
+        "register":"Regisztráció",
+        "free_ticket": "Szerezzen ingyenes jegyet"
+    },
+    "fr_FR": {
+        "premier_edition": "Édition Premier",
+        "edition":" édition",
+        "warsaw":"Varsovie",
+        "poland":"Pologne",
+        "warsaw_poland":"Varsovie, Pologne",
+        "link_to_registration":"/fr/inscription/",
+        "link_to_registration_alt":"lien vers l'inscription",
+        "register":"S'inscrire",
+        "free_ticket": "Obtenez un billet gratuit"
+    },
+    "es_ES": {
+        "premier_edition": "Edición Premier",
+        "edition":" edición",
+        "warsaw":"Varsovia",
+        "poland":"Polonia",
+        "warsaw_poland":"Varsovia, Polonia",
+        "link_to_registration":"/es/registro/",
+        "link_to_registration_alt":"enlace de registro",
+        "register":"Registrarse",
+        "free_ticket": "Obtén un boleto gratis"
     }
 }

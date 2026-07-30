@@ -86,7 +86,7 @@ class Other_Events {
             $output = include $preset_file;
 
             if ($output && count($other_events_items_json) > 0) {
-                echo $output;
+                echo do_shortcode($output);
             }
         }
     }

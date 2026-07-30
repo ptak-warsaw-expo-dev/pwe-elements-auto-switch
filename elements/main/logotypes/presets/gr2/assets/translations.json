@@ -97,5 +97,32 @@
     "conf_patrons": "Messi ja konverentsi patroonid",
     "eu_events": "Tööstuse peamised sündmused Euroopas",
     "all": "Kõik"
+  },
+  "hu_HU": {
+    "patrons_int_gr2": "Külföldi patrónusok és partnerek",
+    "patrons_int": "Nemzetközi patrónusok",
+    "patrons": "Patrónusok és partnerek",
+    "pwe_partners": "A Ptak Warsaw Expo partnerei",
+    "conf_patrons": "A vásár és a konferencia patrónusai",
+    "eu_events": "Kulcsfontosságú iparági események Európában",
+    "all": "Minden"
+  },
+  "fr_FR": {
+    "patrons_int_gr2": "Mécènes et partenaires étrangers",
+    "patrons_int": "Mécènes internationaux",
+    "patrons": "Mécènes et partenaires",
+    "pwe_partners": "Partenaires de Ptak Warsaw Expo",
+    "conf_patrons": "Mécènes du salon et de la conférence",
+    "eu_events": "Événements clés de l'industrie en Europe",
+    "all": "Tous"
+  },
+  "es_ES": {
+    "patrons_int_gr2": "Patrocinadores y socios extranjeros",
+    "patrons_int": "Patrocinadores internacionales",
+    "patrons": "Patrocinadores y socios",
+    "pwe_partners": "Socios de Ptak Warsaw Expo",
+    "conf_patrons": "Patrocinadores de la feria y la conferencia",
+    "eu_events": "Eventos clave de la industria en Europa",
+    "all": "Todos"
   }
 }

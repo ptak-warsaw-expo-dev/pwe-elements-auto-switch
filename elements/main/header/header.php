@@ -26,7 +26,7 @@ class Header {
         PWE_Functions::assets_per_element($element_slug);
         // Assets per group
         PWE_Functions::assets_per_group($element_slug, $group);
-        
+
         $preset_file = self::get_data()['presets'][$group] ?? null;
         if ($preset_file && file_exists($preset_file)) {
 
@@ -45,7 +45,7 @@ class Header {
             // !!!!!!!!!!
 
             $b2c = isset($atts['b2c']) ? $atts['b2c'] : false;
-            
+
             $el_id = PWE_Functions::id_rnd();
 
             $lang = PWE_Functions::lang();
@@ -63,11 +63,11 @@ class Header {
             $trade_fair_edition = (!is_numeric($trade_fair_edition_shortcode) || $trade_fair_edition_shortcode == 1) ? $trade_fair_edition_first : $trade_fair_edition_shortcode . $trade_fair_edition_text;
 
             /* <-------------> General code end <-------------> */
-            
+
             $output = include $preset_file;
-            
+
             if ($output) {
-                echo $output;         
+                echo do_shortcode($output);
             }
         }
     }

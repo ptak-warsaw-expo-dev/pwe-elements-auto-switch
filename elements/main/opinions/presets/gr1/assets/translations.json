@@ -31,5 +31,14 @@
   },
   "et": {
     "title": "Näitlejate ja külastajate arvamused"
+  },
+  "hu_HU": {
+    "title": "Kiállítók és látogatók véleménye"
+  },
+  "fr_FR": {
+    "title": "Avis des exposants et des visiteurs"
+  },
+  "es_ES": {
+    "title": "Opiniones de expositores y visitantes"
   }
 }

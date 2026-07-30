@@ -53,5 +53,20 @@
     "title": "Expo uudised",
     "subtitle": "Ole kursis",
     "read_more": "Loe rohkem"
+  },
+  "hu_HU": {
+    "title": "Expo hírek",
+    "subtitle": "Maradjon naprakész",
+    "read_more": "Olvass tovább"
+  },
+  "fr_FR": {
+    "title": "Actualités Expo",
+    "subtitle": "Restez informé",
+    "read_more": "Lire la suite"
+  },
+  "es_ES": {
+    "title": "Noticias de la Expo",
+    "subtitle": "Mantente al día",
+    "read_more": "Leer más"
   }
 }

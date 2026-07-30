@@ -39,7 +39,7 @@ $output .= '
         <div class="video-overlay-left"></div>
         <div class="video-overlay-bottom"></div>
         <video autoplay muted loop playsinline class="bg-video">
-            <source src="https://motorcycleshow.pl/doc/header.mp4" type="video/mp4">
+            <source src="/doc/header.mp4" type="video/mp4">
         </video>
     </div>
 

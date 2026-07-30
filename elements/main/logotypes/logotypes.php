@@ -37,16 +37,17 @@ class Logotypes {
             $b2c = isset($atts['b2c']) ? $atts['b2c'] : false;
 
             $cap_logotypes_data = PWE_Functions::get_database_logotypes_data();
+
             $cap_logotypes_order = PWE_Functions::get_database_meta_data('logos_meta_order', $_SERVER['HTTP_HOST']);
-            if (!empty($cap_logotypes_order)) { 
-                $cap_logotypes_order = $cap_logotypes_order[0]->meta_data; 
+            if (!empty($cap_logotypes_order)) {
+                $cap_logotypes_order = $cap_logotypes_order[0]->meta_data;
             }
 
             $logotypes = [];
 
             if (!empty($cap_logotypes_data)) {
 
-                // Logo saving function
+
                 $saving_paths = function (&$logotypes, $logo_data) {
 
                     $meta = json_decode($logo_data->meta_data, true);
@@ -86,15 +87,23 @@ class Logotypes {
                     $desc_pl = $meta["desc_pl"] ?? '';
                     $desc_en = $meta["desc_en"] ?? '';
 
-                    $linkKey = PWE_Functions::languageChecker('logos_link', 'logos_link_en');
-                    $altKey  = PWE_Functions::languageChecker('logos_alt', 'logos_alt_en');
-                    $orderKey  = 'logos_order';
+                    $linkKey  = PWE_Functions::languageChecker('logos_link', 'logos_link_en');
+                    $altKey   = PWE_Functions::languageChecker('logos_alt', 'logos_alt_en');
+                    $orderKey = 'logos_order';
 
-                    $logo_url = preg_replace('#^/uploads/domains/[^/]+/#', '/', $logo_data->logos_url);
-                    $domain_server = str_replace('.', '-', strtolower($_SERVER['HTTP_HOST']));
+                    // POPRAWKA BUDOWANIA ADRESU URL:
+                    // Jeślilogos_url zawiera już pełną ścieżkę (/uploads/domains/nazwa-domeny/...), używamy jej bezpośrednio.
+                    if (strpos($logo_data->logos_url, '/uploads/domains/') === 0) {
+                        $final_url = 'https://cap.warsawexpo.eu/public' . $logo_data->logos_url;
+                    } else {
+                        // Fallback dla starych wpisów / innych ścieżek
+                        $logo_url = preg_replace('#^/uploads/domains/[^/]+/#', '/', $logo_data->logos_url);
+                        $domain_server = str_replace('.', '-', strtolower($_SERVER['HTTP_HOST']));
+                        $final_url = 'https://cap.warsawexpo.eu/public/uploads/domains/' . $domain_server . $logo_url;
+                    }
 
                     $element = [
-                        'url'      => 'https://cap.warsawexpo.eu/public/uploads/domains/' . $domain_server . $logo_url,
+                        'url'      => $final_url,
                         'name'     => $data['logos_exh_name'] ?? '',
                         'desc_pl'  => $desc_pl,
                         'desc_en'  => $desc_en,
@@ -144,7 +153,7 @@ class Logotypes {
                 //  BLOCK 1: patrons-partners
                 if ($logotypes_slug === 'patrons-partners') {
 
-                    $logotypes = [];          
+                    $logotypes = [];
                     $exclude = ["international-partner", "miedzynarodowy-patron-medialny", "europe-event"];
                     $grouped = [];
 
@@ -333,7 +342,7 @@ class Logotypes {
             $output = include $preset_file;
 
             if ($output) {
-                echo $output;
+                echo do_shortcode($output);
             }
         }
     }
