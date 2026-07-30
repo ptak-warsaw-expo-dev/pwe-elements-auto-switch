@@ -5,6 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class PWE_Shortcodes {
 
     private static $instance;
+    private $urls_data = null;
 
     public static function init() {
         if ( null === self::$instance ) {
@@ -113,6 +114,8 @@ class PWE_Shortcodes {
             'trade_fair_ticket_benefits_pl' => 'show_trade_fair_ticket_benefits_pl',
             'trade_fair_ticket_benefits_en' => 'show_trade_fair_ticket_benefits_en',
 
+            'trade_fair_exhibitor_generator_icons'          => 'show_trade_fair_exhibitor_generator_icons',
+
             // shortcodes for Yoast SEO
             'trade_fair_full_desc' => 'sc_pwe_trade_fair_full_desc',
             'sc_pwe_trade_fair_conference_title' => $lang === 'pl' ? 'show_trade_fair_conference_title' : 'show_trade_fair_conference_title_eng',
@@ -142,6 +145,7 @@ class PWE_Shortcodes {
             'trade_fair_desc_eng' => 'show_trade_fair_desc_eng',
             'trade_fair_desc_short' => 'show_trade_fair_desc_short',
             'trade_fair_desc_short_eng' => 'show_trade_fair_desc_short_eng',
+
             'trade_fair_datetotimer' => 'show_trade_fair_datetotimer',
             'trade_fair_enddata' => 'show_trade_fair_enddata',
             'trade_fair_date' => 'show_trade_fair_date',
@@ -149,15 +153,18 @@ class PWE_Shortcodes {
             'trade_fair_first_day' => 'show_trade_fair_first_day',
             'trade_fair_second_day' => 'show_trade_fair_second_day',
             'trade_fair_third_day' => 'show_trade_fair_third_day',
+
             'trade_fair_catalog' => 'show_trade_fair_catalog',
             'trade_fair_catalog_year' => 'show_trade_fair_catalog_year',
             'trade_fair_conference' => 'show_trade_fair_conference',
             'trade_fair_conference_title' => 'show_trade_fair_conference_title',
             'trade_fair_conference_title_eng' => 'show_trade_fair_conference_title_eng',
+
             'trade_fair_1stbuildday' => 'show_trade_fair_1stbuildday',
             'trade_fair_2ndbuildday' => 'show_trade_fair_2ndbuildday',
             'trade_fair_1stdismantlday' => 'show_trade_fair_1stdismantlday',
             'trade_fair_2nddismantlday' => 'show_trade_fair_2nddismantlday',
+
             'trade_fair_hall' => 'show_trade_fair_hall',
             'trade_fair_hall_entrance' => 'show_trade_fair_hall_entrance',
             'trade_fair_accent' => 'show_trade_fair_accent',
@@ -166,12 +173,15 @@ class PWE_Shortcodes {
             'trade_fair_branzowy' => 'show_trade_fair_branzowy',
             'trade_fair_branzowy_eng' => 'show_trade_fair_branzowy_eng',
             'trade_fair_badge' => 'show_trade_fair_badge',
+
             'trade_fair_facebook' => 'show_trade_fair_facebook',
             'trade_fair_instagram' => 'show_trade_fair_instagram',
             'trade_fair_linkedin' => 'show_trade_fair_linkedin',
             'trade_fair_youtube' => 'show_trade_fair_youtube',
+
             'trade_fair_domainadress' => 'show_trade_fair_domainadress',
             'trade_fair_actualyear' => 'show_trade_fair_actualyear',
+
             'trade_fair_rejestracja' => 'show_trade_fair_rejestracja',
             'trade_fair_contact' => 'show_trade_fair_contact',
             'trade_fair_contact_service_name' => 'show_trade_fair_contact_service_name',
@@ -197,10 +207,13 @@ class PWE_Shortcodes {
             'trade_fair_contact_phone_vip' => 'show_trade_fair_contact_phone_vip',
             'trade_fair_lidy' => 'show_trade_fair_lidy',
             'trade_fair_contact_medal_ceremony_email' => 'show_trade_fair_contact_medal_ceremony_email',
+
             'trade_fair_registration_benefits_pl' => 'show_trade_fair_registration_benefits_pl',
             'trade_fair_registration_benefits_en' => 'show_trade_fair_registration_benefits_en',
             'trade_fair_ticket_benefits_pl' => 'show_trade_fair_ticket_benefits_pl',
             'trade_fair_ticket_benefits_en' => 'show_trade_fair_ticket_benefits_en',
+
+            'trade_fair_exhibitor_generator_icons'          => 'show_trade_fair_exhibitor_generator_icons',
         ];
     }
 
@@ -312,6 +325,9 @@ class PWE_Shortcodes {
             }
             add_shortcode($tag, [$this, $callback]);
         }
+
+        // Dynamic URL shortcodes
+        $this->register_url_shortcodes();
     }
 
     private function shorten_value($value, $length = 30) {
@@ -564,6 +580,7 @@ class PWE_Shortcodes {
                                             }
                                             ?>
                                         </ul>
+
                                         <summary>Przetłumaczalne shortkody [pwe_name_{lang}]</summary>
                                         <ul>
                                             <?php
@@ -576,6 +593,46 @@ class PWE_Shortcodes {
                                                     . esc_html($this->shorten_value(do_shortcode('[' . $shortcode . ']'))) .
                                                     '</small>
                                                 </li>';
+                                            }
+                                            ?>
+                                        </ul>
+
+                                        <summary>
+                                            Shortkody URL <code>[url_{key}]</code>
+                                            <br><small>[url_{key} lang="de"] - wymusza język</small>
+                                            <br><small>[url_{key} absolute="1"] - zwraca https://domena/url_{key}/</small>
+                                        </summary>
+
+                                        <ul>
+                                            <?php
+                                            $urls_data = $this->get_urls_data();
+
+                                            foreach (array_keys($urls_data) as $url_key) {
+                                                $url_key = sanitize_key($url_key);
+
+                                                if ($url_key === '') {
+                                                    continue;
+                                                }
+
+                                                $shortcode = 'url_' . $url_key;
+
+                                                $relative_url = do_shortcode(
+                                                    '[' . $shortcode . ']'
+                                                );
+
+                                                $absolute_url = do_shortcode(
+                                                    '[' . $shortcode . ' absolute="1"]'
+                                                );
+
+                                                echo '
+                                                    <li>
+                                                        <code>[' . esc_html($shortcode) . ']</code>
+
+                                                        <small style="margin-left:10px;color:#666;">
+                                                            ' . esc_html($relative_url) . '
+                                                        </small>
+                                                    </li>
+                                                ';
                                             }
                                             ?>
                                         </ul>
@@ -1072,6 +1129,35 @@ class PWE_Shortcodes {
                 "11" => "november",
                 "12" => "december",
             ],
+            "es" => [
+                "01" => "enero",
+                "02" => "febrero",
+                "03" => "marzo",
+                "04" => "abril",
+                "05" => "mayo",
+                "06" => "junio",
+                "07" => "julio",
+                "08" => "agosto",
+                "09" => "septiembre",
+                "10" => "octubre",
+                "11" => "noviembre",
+                "12" => "diciembre",
+            ],
+
+            "fr" => [
+                "01" => "janvier",
+                "02" => "février",
+                "03" => "mars",
+                "04" => "avril",
+                "05" => "mai",
+                "06" => "juin",
+                "07" => "juillet",
+                "08" => "août",
+                "09" => "septembre",
+                "10" => "octobre",
+                "11" => "novembre",
+                "12" => "décembre",
+            ],
         ];
 
         $lang_key = strtoupper($lang);
@@ -1142,6 +1228,18 @@ class PWE_Shortcodes {
                     return "$year m. $start_month_name $start_day-$end_day d.";
                 }
                 return "$year m. $start_month_name $start_day d. - $end_month_name $end_day d.";
+
+            case "ES":
+                if ($start_month === $end_month) {
+                    return "$start_day-$end_day de $start_month_name de $year";
+                }
+                return "$start_day de $start_month_name - $end_day de $end_month_name de $year";
+
+            case "FR":
+                if ($start_month === $end_month) {
+                    return "$start_day-$end_day $start_month_name $year";
+                }
+                return "$start_day $start_month_name - $end_day $end_month_name $year";
 
             default:
                 // fallback EN
@@ -2709,6 +2807,143 @@ class PWE_Shortcodes {
         return $result;
     }
 
+    public function show_trade_fair_exhibitor_generator_icons() {
+        $fair_group = trim((string) do_shortcode('[trade_fair_group]'));
+
+        $locale = determine_locale();
+
+        $language = str_starts_with($locale, 'en')
+            ? 'en'
+            : 'pl';
+
+        $labels = [
+            'pl' => [
+                'fast_track'  => 'Fast<br>Track',
+                'vip_room'    => 'VIP<br>Room',
+                'concierge'   => 'Opieka<br>concierge',
+                'konferencje' => 'Udział<br>w konferencjach',
+                'parking'     => 'Darmowy<br>parking',
+            ],
+            'en' => [
+                'fast_track'  => 'Fast<br>Track',
+                'vip_room'    => 'VIP<br>Room',
+                'concierge'   => 'Concierge<br>service',
+                'konferencje' => 'Conference<br>attendance',
+                'parking'     => 'Free<br>parking',
+            ],
+        ];
+
+        $icons_url = plugins_url(
+            'pwe-media/media/generator-gosci-wystawcow-auto-switch/icons/'
+        );
+
+        $icons = [
+            'fast_track' => [
+                'image' => 'fast-track-icon.png',
+            ],
+            'vip_room' => [
+                'image' => 'vip-room-icon.png',
+            ],
+            'concierge' => [
+                'image' => 'concierge-icon.png',
+            ],
+            'konferencje' => [
+                'image' => 'conferences-icon.png',
+            ],
+            'parking' => [
+                'image' => 'parking-icon.png',
+            ],
+        ];
+
+        $group_icons = [
+            'gr1' => [
+                'concierge',
+                'konferencje',
+                'parking',
+            ],
+            'gr2' => [
+                'fast_track',
+                'vip_room',
+                'concierge',
+                'konferencje',
+                'parking',
+            ],
+            'gr3' => [
+                'vip_room',
+                'concierge',
+                'konferencje',
+                'parking',
+            ],
+        ];
+
+        $selected_icons = $group_icons[$fair_group] ?? $group_icons['gr1'];
+
+        $output = '
+            <style>
+                .exhibitor-generator__icons {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    gap: 8px;
+                }
+
+                .exhibitor-generator__icon {
+                    flex: 1;
+                    max-width: 110px;
+                    min-width: 80px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 8px;
+                    padding-top: 18px;
+                }
+
+                .exhibitor-generator__icon img {
+                    height: 50px;
+                    object-fit: contain;
+                }
+
+                .exhibitor-generator__icon p {
+                    padding: 0;
+                    margin: 0;
+                    font-size: 12px;
+                    font-weight: 500;
+                    line-height: 1.2;
+                    text-align: center;
+                    color: #886843;
+                }
+            </style>
+        ';
+
+        $output .= '<div class="exhibitor-generator__icons">';
+
+        foreach ($selected_icons as $icon_key) {
+            if (
+                !isset($icons[$icon_key]) ||
+                !isset($labels[$language][$icon_key])
+            ) {
+                continue;
+            }
+
+            $image_url = trailingslashit($icons_url) . $icons[$icon_key]['image'];
+            $label = $labels[$language][$icon_key];
+
+            $output .= sprintf(
+                '<div class="exhibitor-generator__icon">
+                    <img src="%1$s" alt="" loading="lazy">
+                    <p>%2$s</p>
+                </div>',
+                esc_url($image_url),
+                wp_kses($label, [
+                    'br' => [],
+                ])
+            );
+        }
+
+        $output .= '</div>';
+
+        return $output;
+    }
 
     // FOR YOAST SEO START <----------------------------------------------------------------------<
 
@@ -2961,6 +3196,8 @@ class PWE_Shortcodes {
             'ro',
             'ru',
             'hu',
+            'es',
+            'fr',
         ];
 
         $notification_name = trim(
@@ -3005,8 +3242,429 @@ class PWE_Shortcodes {
             );
         }
 
+        foreach ($this->get_gf_url_shortcodes_map() as $shortcode_tag) {
+
+            $value = $this->show_multilang_url(
+                [],
+                null,
+                $shortcode_tag
+            );
+
+            $text = str_replace(
+                '{' . $shortcode_tag . '}',
+                $value,
+                $text
+            );
+        }
+
         return $text;
     }
+
+
+    /**
+     * Reads and decodes a single JSON file.
+     *
+     * @param string $json_file Full path to the file.
+     *
+     * @return array|null Parsed data array or null on failure.
+     */
+    private function read_urls_json_file($json_file) {
+
+        if (
+            empty($json_file) ||
+            !is_string($json_file) ||
+            !is_file($json_file) ||
+            !is_readable($json_file)
+        ) {
+            return null;
+        }
+
+        $json = file_get_contents($json_file);
+
+        if ($json === false || trim($json) === '') {
+            return null;
+        }
+
+        $data = json_decode($json, true);
+
+        if (
+            json_last_error() !== JSON_ERROR_NONE ||
+            !is_array($data)
+        ) {
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                error_log(
+                    'PWE Shortcodes: invalid JSON file: '
+                    . $json_file
+                    . ' | '
+                    . json_last_error_msg()
+                );
+            }
+
+            return null;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Retrieves URL data.
+     *
+     * The backup file from the current plugin is loaded first.
+     * Then the data from pwe-multilang overrides the backup data.
+     *
+     * Thanks to array_replace_recursive(), missing entries or languages
+     * in the primary file are filled with values from the backup file.
+     *
+     * @return array
+     */
+    private function get_urls_data() {
+
+        if ($this->urls_data !== null) {
+            return $this->urls_data;
+        }
+
+        /*
+        * Primary file:
+        * /wp-content/plugins/pwe-multilang/website-translation.json
+        */
+        $primary_file = trailingslashit(WP_PLUGIN_DIR)
+            . 'pwe-multilang/website-translation.json';
+
+        /*
+        * Backup file:
+        * /wp-content/plugins/your-plugin/assets/website-translation.json
+        *
+        * This code assumes that pwe-shortcodes.php is located
+        * in the root directory of the current plugin.
+        */
+        $backup_file = plugin_dir_path(__FILE__)
+            . 'assets/website-translation.json';
+
+        $backup_data = $this->read_urls_json_file($backup_file);
+        $primary_data = $this->read_urls_json_file($primary_file);
+
+        /*
+        * Load the backup first, then override it with the primary file.
+        * Values from the primary file take precedence.
+        */
+        if (is_array($backup_data) && is_array($primary_data)) {
+            $this->urls_data = array_replace_recursive(
+                $backup_data,
+                $primary_data
+            );
+
+            return $this->urls_data;
+        }
+
+        /*
+        * Use the primary file if only the primary file is available.
+        */
+        if (is_array($primary_data)) {
+            $this->urls_data = $primary_data;
+
+            return $this->urls_data;
+        }
+
+        /*
+        * Use the backup file if the primary file is missing or invalid.
+        */
+        if (is_array($backup_data)) {
+            $this->urls_data = $backup_data;
+
+            return $this->urls_data;
+        }
+
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            error_log(
+                'PWE Shortcodes: unable to load any '
+                . 'website-translation.json file.'
+            );
+        }
+
+        $this->urls_data = [];
+
+        return $this->urls_data;
+    }
+
+    /**
+     * Returns the current language for URL shortcodes.
+     *
+     * Priority:
+     * 1. The lang attribute passed to the shortcode.
+     * 2. PWE_Functions::lang().
+     * 3. The PWE_LANG constant.
+     * 4. The current WordPress locale.
+     * 5. English.
+     *
+     * @param string $requested_lang Language passed to the shortcode.
+     *
+     * @return string
+     */
+    private function get_url_shortcode_language($requested_lang = '') {
+
+        if (!empty($requested_lang)) {
+            $lang = $requested_lang;
+        } elseif (
+            class_exists('PWE_Functions') &&
+            is_callable(['PWE_Functions', 'lang'])
+        ) {
+            $lang = PWE_Functions::lang();
+        } elseif (defined('PWE_LANG') && PWE_LANG) {
+            $lang = PWE_LANG;
+        } else {
+            $lang = determine_locale();
+        }
+
+        $lang = strtolower(trim((string) $lang));
+
+        /*
+        * Convert locale codes such as cs_CZ or en-US
+        * to simple language codes such as cs or en.
+        */
+        $lang = str_replace('_', '-', $lang);
+        $lang = explode('-', $lang)[0];
+
+        $lang = sanitize_key($lang);
+
+        return $lang !== '' ? $lang : 'en';
+    }
+
+    /**
+     * Retrieves language-specific data for a given URL entry.
+     *
+     * Fallback order:
+     * 1. Current language.
+     * 2. English.
+     * 3. Polish.
+     * 4. First available language.
+     *
+     * @param array  $url_entry Data for a single URL entry.
+     * @param string $lang      Language code.
+     *
+     * @return array|null
+     */
+    private function get_url_language_data(array $url_entry, $lang) {
+
+        if (
+            isset($url_entry[$lang]) &&
+            is_array($url_entry[$lang])
+        ) {
+            return $url_entry[$lang];
+        }
+
+        if (
+            isset($url_entry['en']) &&
+            is_array($url_entry['en'])
+        ) {
+            return $url_entry['en'];
+        }
+
+        if (
+            isset($url_entry['pl']) &&
+            is_array($url_entry['pl'])
+        ) {
+            return $url_entry['pl'];
+        }
+
+        foreach ($url_entry as $language_data) {
+            if (is_array($language_data)) {
+                return $language_data;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Handles all dynamic URL shortcodes.
+     *
+     * Examples:
+     *
+     * [url_home]
+     * [url_dla_odwiedzajacych]
+     * [url_dla_odwiedzajacych lang="de"]
+     * [url_dla_odwiedzajacych absolute="1"]
+     *
+     * @param array       $atts          Shortcode attributes.
+     * @param string|null $content       Shortcode content.
+     * @param string      $shortcode_tag Name of the executed shortcode.
+     *
+     * @return string
+     */
+    public function show_multilang_url(
+        $atts = [],
+        $content = null,
+        $shortcode_tag = ''
+    ) {
+
+        $atts = shortcode_atts(
+            [
+                'lang'     => '',
+                'absolute' => '0',
+            ],
+            $atts,
+            $shortcode_tag
+        );
+
+        /*
+        * Extract the URL key from the shortcode name.
+        *
+        * Example:
+        * url_dla_odwiedzajacych becomes dla_odwiedzajacych.
+        */
+        $url_key = preg_replace(
+            '/^url_/',
+            '',
+            (string) $shortcode_tag
+        );
+
+        $url_key = sanitize_key($url_key);
+
+        if ($url_key === '') {
+            return '';
+        }
+
+        $urls_data = $this->get_urls_data();
+
+        if (
+            !isset($urls_data[$url_key]) ||
+            !is_array($urls_data[$url_key])
+        ) {
+            return '';
+        }
+
+        $lang = $this->get_url_shortcode_language(
+            $atts['lang']
+        );
+
+        $language_data = $this->get_url_language_data(
+            $urls_data[$url_key],
+            $lang
+        );
+
+        if (
+            !is_array($language_data) ||
+            !isset($language_data['url'])
+        ) {
+            return '';
+        }
+
+        $url = trim((string) $language_data['url']);
+
+        if ($url === '') {
+            return '';
+        }
+
+        /*
+        * Add the language prefix to relative URLs.
+        *
+        * Examples:
+        * /                     becomes /uk/
+        * /dlya-vidviduvachiv/  becomes /uk/dlya-vidviduvachiv/
+        * /fur-besucher/         becomes /de/fur-besucher/
+        *
+        * Polish URLs do not receive the /pl/ prefix.
+        */
+        if (!preg_match('#^https?://#i', $url)) {
+
+            $url_path = '/' . ltrim($url, '/');
+
+            /*
+            * Do not add a language prefix for Polish.
+            */
+            if ($lang !== 'pl') {
+
+                $language_prefix = '/' . $lang . '/';
+
+                /*
+                * Prevent duplicate language prefixes.
+                */
+                if (
+                    $url_path !== '/' . $lang &&
+                    strpos($url_path, $language_prefix) !== 0
+                ) {
+                    if ($url_path === '/') {
+                        $url_path = $language_prefix;
+                    } else {
+                        $url_path = $language_prefix . ltrim(
+                            $url_path,
+                            '/'
+                        );
+                    }
+                }
+            }
+
+            $url = $url_path;
+        }
+
+        /*
+        * Optionally convert the relative path into an absolute URL.
+        */
+        $absolute = filter_var(
+            $atts['absolute'],
+            FILTER_VALIDATE_BOOLEAN
+        );
+
+        if (
+            $absolute &&
+            !preg_match('#^https?://#i', $url)
+        ) {
+            $url = home_url($url);
+        }
+
+        return esc_url($url);
+    }
+
+    /**
+     * Registers dynamic URL shortcodes based on JSON keys.
+     */
+    private function register_url_shortcodes() {
+
+        $urls_data = $this->get_urls_data();
+
+        if (empty($urls_data)) {
+            return;
+        }
+
+        foreach (array_keys($urls_data) as $url_key) {
+
+            $url_key = sanitize_key($url_key);
+
+            if ($url_key === '') {
+                continue;
+            }
+
+            $shortcode_tag = 'url_' . $url_key;
+
+            if (shortcode_exists($shortcode_tag)) {
+                remove_shortcode($shortcode_tag);
+            }
+
+            add_shortcode(
+                $shortcode_tag,
+                [$this, 'show_multilang_url']
+            );
+        }
+    }
+
+    private function get_gf_url_shortcodes_map() {
+
+        $urls_data = $this->get_urls_data();
+        $shortcodes = [];
+
+        foreach (array_keys($urls_data) as $url_key) {
+            $url_key = sanitize_key($url_key);
+
+            if ($url_key === '') {
+                continue;
+            }
+
+            $shortcodes[] = 'url_' . $url_key;
+        }
+
+        return $shortcodes;
+    }
+
 }
 
 PWE_Shortcodes::init();

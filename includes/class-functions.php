@@ -17,9 +17,8 @@ class PWE_Functions {
         self::$translation_context['element_type'] = $element_type;
     }
 
-    // Get translations from JSONs
+    // Cache for loaded translations
     private static $translation_cache = [];
-    private static $pages_cache = null;
     public static function multi_translation($key) {
         $ctx = self::$translation_context;
 
@@ -28,96 +27,102 @@ class PWE_Functions {
         }
 
         $locale = get_locale();
-        $language = strtolower(substr($locale, 0, 2));
 
-        // Cache key for this file
-        $cache_key = $ctx['element_type'] . '/' . $ctx['element_slug'] . '/' . $ctx['group'] . '.json';
+        /*
+        * Cache depends on the element and preset because preset translations
+        * can override translations from the main assets directory.
+        */
+        $cache_key = implode('/', [
+            $ctx['element_type'],
+            $ctx['element_slug'],
+            $ctx['group'],
+        ]);
 
-        // If not loaded yet, load it
         if (!isset(self::$translation_cache[$cache_key])) {
-
+            /*
+            * Determine the main element directory.
+            *
+            * Components:
+            * components/{element-slug}/
+            *
+            * Other elements:
+            * elements/{element-type}/{element-slug}/
+            */
             if ($ctx['element_type'] === 'components') {
-                $translations_file = plugin_dir_path(__DIR__) . $ctx['element_type'] . '/' . $ctx['element_slug'] . '/presets/' . $ctx['group'] . '/assets/' . 'translations' . '.json';
+                $element_path = plugin_dir_path(__DIR__)
+                    . 'components/'
+                    . $ctx['element_slug']
+                    . '/';
             } else {
-                $translations_file = plugin_dir_path(__DIR__) .'elements/'. $ctx['element_type'] . '/' . $ctx['element_slug'] . '/presets/' . $ctx['group'] . '/assets/' . 'translations' . '.json';
+                $element_path = plugin_dir_path(__DIR__)
+                    . 'elements/'
+                    . $ctx['element_type']
+                    . '/'
+                    . $ctx['element_slug']
+                    . '/';
             }
 
-            if (file_exists($translations_file)) {
-                $json = file_get_contents($translations_file);
-                $data = json_decode($json, true);
-                self::$translation_cache[$cache_key] = is_array($data) ? $data : [];
-            } else {
-                // If the file is missing, the cache is empty
-                self::$translation_cache[$cache_key] = [];
-            }
+            // Shared translations for all presets.
+            $global_translations_file = $element_path
+                . 'assets/translations.json';
+
+            // Translations assigned only to the current preset.
+            $preset_translations_file = $element_path
+                . 'presets/'
+                . $ctx['group']
+                . '/assets/translations.json';
+
+            $global_translations = self::load_translation_file(
+                $global_translations_file
+            );
+
+            $preset_translations = self::load_translation_file(
+                $preset_translations_file
+            );
+
+            /*
+            * Merge recursively by locale.
+            *
+            * Values from the preset file override values from the global file.
+            */
+            self::$translation_cache[$cache_key] = array_replace_recursive(
+                $global_translations,
+                $preset_translations
+            );
         }
 
-
-        // Download from the cache
         $translations_data = self::$translation_cache[$cache_key];
 
-        // Choosing the right map
+        /*
+        * First use the current locale.
+        * If it does not exist, fall back to en_US.
+        */
         $map = $translations_data[$locale]
             ?? $translations_data['en_US']
             ?? [];
 
-        $value = $map[$key] ?? $key;
-
-        // If the value is a page reference, resolve it to a URL
-        if (!is_string($value) || strpos($value, 'page:') !== 0) {
-            return $value;
-        }
-
-        $page_key = substr($value, strlen('page:'));
-
-        if ($page_key === '') {
-            return $value;
-        }
-
-        // Load the main pages JSON if not already loaded
-        if (self::$pages_cache === null) {
-            $pages_file = WP_PLUGIN_DIR . '/pwe-multilang/website-translation.json';
-
-            if (file_exists($pages_file)) {
-                $pages_json = file_get_contents($pages_file);
-                $pages_data = json_decode($pages_json, true);
-
-                self::$pages_cache = is_array($pages_data)
-                    ? $pages_data
-                    : [];
-            } else {
-                self::$pages_cache = [];
-            }
-        }
-
-        // Check if the page key exists in the pages cache
-        if (
-            !isset(self::$pages_cache[$page_key])
-            || !is_array(self::$pages_cache[$page_key])
-        ) {
-            return $value;
-        }
-
-        $page = self::$pages_cache[$page_key];
-
-        // Get the URL for the current language.
-        $url = $page[$language]['url']
-            ?? $page['en']['url']
-            ?? $page['pl']['url']
-            ?? $value;
-
-        // Add language prefix for all languages except Polish.
-        if (
-            is_string($url)
-            && $language !== 'pl'
-            && strpos($url, '/') === 0
-            && strpos($url, '//') !== 0
-        ) {
-            $url = '/' . $language . '/' . ltrim($url, '/');
-        }
-
-        return $url;
+        return $map[$key] ?? $key;
     }
+
+    /**
+     * Load and decode one translations JSON file.
+     */
+    private static function load_translation_file($file_path) {
+        if (!is_string($file_path) || !file_exists($file_path)) {
+            return [];
+        }
+
+        $json = file_get_contents($file_path);
+
+        if ($json === false) {
+            return [];
+        }
+
+        $data = json_decode($json, true);
+
+        return is_array($data) ? $data : [];
+    }
+
 
     // Assets per element
     public static function assets_per_element($element_slug, $element_type = 'main', $folder = 'elements') {
@@ -1144,27 +1149,37 @@ class PWE_Functions {
     }
 
     /**
-     * Get associates data from CAP databases
+     * Get associates data from CAP database.
      */
     private static $associates_cache = [];
-    public static function get_database_associates_data($fair_domain = null): array {
+    public static function get_database_associates_data(
+        $fair_domain = null,
+        bool $fair_block = false
+    ): array {
 
         // Resolve domain
         $fair_domain = $fair_domain ?? $_SERVER['HTTP_HOST'];
-        $cache_key = $fair_domain;
+        $fair_domain = strtolower(trim($fair_domain));
 
-        // STATIC cache
+        // Include mode in cache key
+        $cache_key = $fair_domain . '|fair_block:' . (int) $fair_block;
+
+        // Static cache
         if (isset(self::$associates_cache[$cache_key])) {
-            self::debug_log('get_database_associates_data: data from STATIC → key=' . $cache_key);
+            self::debug_log(
+                'get_database_associates_data: data from STATIC → key=' . $cache_key
+            );
+
             return self::$associates_cache[$cache_key];
         }
 
-        // Transient
+        // Transient cache
         $transient_key = 'pwe_associates_' . md5($cache_key);
         $cached = get_transient($transient_key);
 
-        // Log transient timeout
+        // Cache timeout
         $timeout = get_option('_transient_timeout_' . $transient_key);
+
         if ($timeout !== false) {
             $time_left = $timeout - time();
             $time_left_str = gmdate('H:i:s', max($time_left, 0));
@@ -1173,58 +1188,83 @@ class PWE_Functions {
         }
 
         if ($cached !== false) {
-            self::debug_log('get_database_associates_data: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            self::debug_log(
+                'get_database_associates_data: data from TRANSIENT → key=' .
+                $cache_key .
+                ', expires in ' .
+                $time_left_str
+            );
+
             self::$associates_cache[$cache_key] = $cached;
+
             return $cached;
         }
 
-        // Connect DB
+        // Connect database
         $cap_db = self::connect_database();
+
         if (!$cap_db) {
-            if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
-                self::debug_log('get_database_associates_data: NO DB connection → using last TRANSIENT and extending 10min → key=' . $cache_key, 'error');
-                self::$associates_cache[$cache_key] = $cached;
-                return $cached;
-            }
-            self::debug_log('get_database_associates_data: NO DB connection and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
+            self::debug_log(
+                'get_database_associates_data: NO DB connection → returning empty → key=' .
+                $cache_key,
+                'error'
+            );
+
             self::$associates_cache[$cache_key] = [];
+
             return [];
         }
 
-        // SQL query
-        $sql = "
-            SELECT main_fair_domain, slug, fair_associates, desc_pl, desc_en
-            FROM associates
-        ";
-
-        $params = [];
-
-        if ($fair_domain !== null) {
-            $sql .= " WHERE main_fair_domain = %s";
-            $params[] = $fair_domain;
+        // Build query
+        if ($fair_block) {
+            $sql = "
+                SELECT slug, fair_associates
+                FROM associates
+                WHERE FIND_IN_SET(
+                    %s,
+                    REPLACE(LOWER(fair_associates), ' ', '')
+                ) > 0
+            ";
+        } else {
+            $sql = "
+                SELECT main_fair_domain, slug, fair_associates, desc_pl, desc_en
+                FROM associates
+                WHERE LOWER(main_fair_domain) = %s
+            ";
         }
 
+        // Run query
         $start_time = microtime(true);
-        $results = $cap_db->get_results($cap_db->prepare($sql, $params));
+
+        $prepared_sql = $cap_db->prepare($sql, $fair_domain);
+        $results = $cap_db->get_results($prepared_sql);
+
         $time = round((microtime(true) - $start_time) * 1000, 2);
 
-        // SQL error
+        // Handle SQL error
         if ($cap_db->last_error) {
-            self::debug_log('get_database_associates_data: SQL error: ' . addslashes($cap_db->last_error), 'error');
-            if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
-                self::$associates_cache[$cache_key] = $cached;
-                return $cached;
-            }
+            self::debug_log(
+                'get_database_associates_data: SQL error: ' .
+                addslashes($cap_db->last_error),
+                'error'
+            );
+
             self::$associates_cache[$cache_key] = [];
+
             return [];
         }
 
-        // Save transient + STATIC cache
+        // Save cache
         set_transient($transient_key, $results, 600);
         self::$associates_cache[$cache_key] = $results;
-        self::debug_log('get_database_associates_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+
+        self::debug_log(
+            'get_database_associates_data: data from database DIRECTLY ' .
+            '(SQL time ' . $time . 'ms) → key=' . $cache_key .
+            ', fair_block=' . (int) $fair_block .
+            ', host=' . $cap_db->dbhost .
+            ' [' . gethostname() . '] and saved to TRANSIENT.'
+        );
 
         return $results;
     }

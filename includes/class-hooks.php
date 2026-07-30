@@ -11,32 +11,27 @@ add_action('plugins_loaded', function() {
 });
 
 // Loading registration classes (for AJAX and specific pages)
-add_action('wp', function() {
-    if (wp_doing_ajax()) {
-        require_once PWE_PLUGIN_PATH . 'elements/confirmation-visitors-registration/confirmation-visitors-registration/confirmation-visitors-registration.php';
-        require_once PWE_PLUGIN_PATH . 'elements/confirmation-exhibitors-registration/confirmation-exhibitors-registration/confirmation-exhibitors-registration.php';
+add_action('init', function() {
 
-        if (class_exists('Confirmation_Visitors_Registration')) {
-            Confirmation_Visitors_Registration::init();
+    // 1. Jeśli to AJAX – zawsze ładujemy pliki i inicjalizujemy klasy
+    if (wp_doing_ajax()) {
+        $file_visitors  = PWE_PLUGIN_PATH . 'elements/confirmation-visitors-registration/confirmation-visitors-registration/confirmation-visitors-registration.php';
+        $file_exhibitors = PWE_PLUGIN_PATH . 'elements/confirmation-exhibitors-registration/confirmation-exhibitors-registration/confirmation-exhibitors-registration.php';
+
+        if (file_exists($file_visitors)) {
+            require_once $file_visitors;
+            if (class_exists('Confirmation_Visitors_Registration')) {
+                Confirmation_Visitors_Registration::init();
+            }
         }
-        if (class_exists('Confirmation_Exhibitors_Registration')) {
-            Confirmation_Exhibitors_Registration::init();
+
+        if (file_exists($file_exhibitors)) {
+            require_once $file_exhibitors;
+            if (class_exists('Confirmation_Exhibitors_Registration')) {
+                Confirmation_Exhibitors_Registration::init();
+            }
         }
         return;
-    }
-
-    $allowed_pages = ['potwierdzenie-rejestracji', 'potwierdzenie-rejestracji-wystawcy'];
-
-    if (is_page($allowed_pages)) {
-        require_once PWE_PLUGIN_PATH . 'elements/confirmation-visitors-registration/confirmation-visitors-registration/confirmation-visitors-registration.php';
-        require_once PWE_PLUGIN_PATH . 'elements/confirmation-exhibitors-registration/confirmation-exhibitors-registration/confirmation-exhibitors-registration.php';
-
-        if (class_exists('Confirmation_Visitors_Registration')) {
-            Confirmation_Visitors_Registration::init();
-        }
-        if (class_exists('Confirmation_Exhibitors_Registration')) {
-            Confirmation_Exhibitors_Registration::init();
-        }
     }
 });
 
@@ -108,3 +103,14 @@ add_action('template_redirect', function () {
         exit;
     }
 });
+
+// Remove white space in phone input Gravity Forms
+add_filter( 'gform_save_field_value', function ( $value, $entry, $field, $form, $input_id ) {
+
+    if ( $field && $field->get_input_type() === 'phone' && is_string( $value ) ) {
+        $value = preg_replace( '/\s+/u', '', $value );
+    }
+
+    return $value;
+
+}, 10, 5 );

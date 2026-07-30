@@ -54,6 +54,8 @@ class PWE_Elements_Data {
         'Confirmation_Visitors_Registration',
         'Confirmation_Exhibitors_Registration',
         'Badge_Local',
+        'Call_Center',
+        'Step2',
     ];
 
     /** Classes available in the components directory. Paths are detected automatically. */
@@ -153,6 +155,14 @@ class PWE_Elements_Data {
         ],
         'badge-local' => [
             ['class' => 'Badge_Local'],
+            ['class' => 'Footer'],
+        ],
+        'call-center' => [
+            ['class' => 'Call_Center'],
+            ['class' => 'Footer'],
+        ],
+        'step2' => [
+            ['class' => 'Step2'],
             ['class' => 'Footer'],
         ],
     ];
