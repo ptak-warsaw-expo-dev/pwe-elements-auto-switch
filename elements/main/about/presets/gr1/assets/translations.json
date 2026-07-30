@@ -86,5 +86,29 @@
     "registration": "Registreerimine",
     "top_exhibitors": "Parimad eksponendid",
     "exhibitors": "Eksponendid"
-  }
+  },
+  "hu_HU": {
+    "about_fair": "A vásárról",
+    "reg_url": "/hu/regisztracio//",
+    "buy_ticket": "Jegy vásárlása",
+    "registration": "Regisztráció",
+    "top_exhibitors": "Top kiállítók",
+    "exhibitors": "Kiállítók"
+  },
+    "fr_FR": {
+        "about_fair": "À propos du salon",
+        "reg_url": "/fr/inscription/",
+        "buy_ticket": "Acheter un billet",
+        "registration": "Inscription",
+        "top_exhibitors": "Meilleurs exposants",
+        "exhibitors": "Exposants"
+    },
+    "es_ES": {
+        "about_fair": "Acerca de la feria",
+        "reg_url": "/es/registro/",
+        "buy_ticket": "Comprar un boleto",
+        "registration": "Registro",
+        "top_exhibitors": "Principales expositores",
+        "exhibitors": "Expositores"
+    }
 }

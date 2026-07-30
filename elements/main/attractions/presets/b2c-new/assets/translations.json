@@ -42,5 +42,17 @@
   "et": {
     "attractions_subtitle": "Mis sind ees ootab?",
     "attractions_title": "<span class='pwe-text-red'>Atraktsioonide</span> areen"
-  }
+  },
+  "hu_HU": {
+    "attractions_subtitle": "Mi vár rád?",
+    "attractions_title": "<span class='pwe-text-red'>Látványosságok</span> Arénája"
+  },
+    "fr_FR": {
+        "attractions_subtitle": "Ce qui vous attend ?",
+        "attractions_title": "L'arène des <span class='pwe-text-red'>attractions</span>"
+    },
+    "es_ES": {
+        "attractions_subtitle": "Lo que te espera",
+        "attractions_title": "Arena de <span class='pwe-text-red'>Atracciones</span>"
+    }
 }

@@ -75,5 +75,26 @@
     "business_desc": "Võrgustike loomine kõrgeimal haridustasemel.",
     "innovation_title": "Innovatsioonid",
     "innovation_desc": "Uusimate tehnoloogiate ja suundumuste esitlus."
-  }
+  },
+  "hu_HU": {
+    "lider_title": "Regionális vezető",
+    "business_title": "Üzleti kapcsolatok",
+    "business_desc": "Hálózatépítés a legmagasabb iparági szinten.",
+    "innovation_title": "Innovációk",
+    "innovation_desc": "A legújabb technológiák és trendek bemutatása."
+  },
+    "fr_FR": {
+        "lider_title": "Leader régional",
+        "business_title": "Relations d'affaires",
+        "business_desc": "Réseautage au plus haut niveau de l'industrie.",
+        "innovation_title": "Innovations",
+        "innovation_desc": "Présentation des dernières technologies et tendances."
+    },
+    "es_ES": {
+        "lider_title": "Líder regional",
+        "business_title": "Relaciones comerciales",
+        "business_desc": "Networking al más alto nivel de la industria.",
+        "innovation_title": "Innovaciones",
+        "innovation_desc": "Presentación de las últimas tecnologías y tendencias."
+    }
 }
