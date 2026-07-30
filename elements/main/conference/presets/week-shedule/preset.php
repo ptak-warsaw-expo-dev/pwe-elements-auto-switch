@@ -4,7 +4,7 @@
  * Gets all days of the fair as an array of YYYY-mm-dd.
  */
 if (!function_exists('getFairDays')) {
-    function getFairDays(): array { 
+    function getFairDays(): array {
         $startRaw = do_shortcode('[trade_fair_datetotimer]');
         $endRaw   = do_shortcode('[trade_fair_enddata]');
 
@@ -95,7 +95,7 @@ if (!function_exists('admin_log')) {
 }
 
 /**
- * Output console logs 
+ * Output console logs
  */
 if (!function_exists('output_conference_logs')) {
     function output_conference_logs() {
@@ -299,7 +299,7 @@ $output  = '
     <div class="pwe-conference-schedule__wrapper">
 
         <div class="pwe-conference-schedule__top">
-            <img src="/doc/kongres-color.webp" alt="Congress logo">
+            <img src="/doc/kongres.webp" alt="Congress logo">
             <div class="pwe-conference-schedule__title-container">
                 <h2 class="pwe-conference-schedule__conf-name">'. PWE_Functions::multi_translation("schedule_conferences") .'</h2>
                 <h3>'. $conf_title .'</h3>

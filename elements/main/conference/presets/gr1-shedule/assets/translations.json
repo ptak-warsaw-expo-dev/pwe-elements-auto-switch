@@ -145,7 +145,7 @@
   "hu_HU": {
     "conference": "Konferencia",
     "details": "Részletek",
-    "reg_url": "/hu/regisztracio//",
+    "reg_url": "/hu/regisztracio/",
     "buy_ticket": "Jegy vásárlása",
     "registration": "Regisztráció",
     "schedule_conferences": "Konferenciák",
@@ -155,30 +155,30 @@
     "schedule_take_part": "Vegyen részt",
     "schedule_find_more": "Tudjon meg többet"
   },
-    "fr_FR": {
-        "conference": "Conférence",
-        "details": "Détails",
-        "reg_url": "/fr/inscription/",
-        "buy_ticket": "Acheter un billet",
-        "registration": "Inscription",
-        "schedule_conferences": "Conférences",
-        "schedule_organizer": "Organisateur",
-        "schedule_subject": "Sujet",
-        "schedule_reg_url": "/fr/inscription/",
-        "schedule_take_part": "Participez",
-        "schedule_find_more": "En savoir plus"
-    },
-    "es_ES": {
-        "conference": "Conferencia",
-        "details": "Detalles",
-        "reg_url": "/es/registro/",
-        "buy_ticket": "Comprar un boleto",
-        "registration": "Registro",
-        "schedule_conferences": "Conferencias",
-        "schedule_organizer": "Organizador",
-        "schedule_subject": "Tema",
-        "schedule_reg_url": "/es/registro/",
-        "schedule_take_part": "Participa",
-        "schedule_find_more": "Más información"
-    }
+  "fr_FR": {
+    "conference": "Conférence",
+    "details": "Détails",
+    "reg_url": "/fr/inscription/",
+    "buy_ticket": "Acheter un billet",
+    "registration": "Inscription",
+    "schedule_conferences": "Conférences",
+    "schedule_organizer": "Organisateur",
+    "schedule_subject": "Sujet",
+    "schedule_reg_url": "/fr/inscription/",
+    "schedule_take_part": "Participer",
+    "schedule_find_more": "En savoir plus"
+  },
+  "es_ES": {
+    "conference": "Conferencia",
+    "details": "Detalles",
+    "reg_url": "/es/registro/",
+    "buy_ticket": "Comprar un boleto",
+    "registration": "Registro",
+    "schedule_conferences": "Conferencias",
+    "schedule_organizer": "Organizador",
+    "schedule_subject": "Tema",
+    "schedule_reg_url": "/es/registro/",
+    "schedule_take_part": "Participar",
+    "schedule_find_more": "Más información"
+  }
 }

@@ -28,20 +28,20 @@ class Combined_Events {
 
         $preset_file = self::get_data()['presets'][$group] ?? null;
         if ($preset_file && file_exists($preset_file)) {
-            
+
             /* <-------------> General code start <-------------> */
-           
+
             $combined_events = PWE_Functions::get_database_associates_data();
 
             $main_event = !empty($combined_events) ? $combined_events[0]->main_fair_domain : '';
             $current_event = do_shortcode('[trade_fair_domainadress]');
 
             /* <-------------> General code end <-------------> */
-            
+
             $output = include $preset_file;
-            
+
             if ($output) {
-                echo $output;         
+                echo do_shortcode($output);
             }
         }
     }

@@ -25,7 +25,7 @@ if ((($trade_fair_start_date_timestamp != false && $trade_fair_end_date_timestam
     $output .= '
     <div id="pweCountdown" class="pwe-countdown">
         <div class="pwe-countdown__wrapper"
-            data-start="'. $trade_fair_start_date .'" 
+            data-start="'. $trade_fair_start_date .'"
             data-end="'. $trade_fair_end_date .'"
             data-lang="'. $lang .'"
             data-seconds="'. ($show_seconds ? '1' : '0') .'">
@@ -33,7 +33,7 @@ if ((($trade_fair_start_date_timestamp != false && $trade_fair_end_date_timestam
             <div class="pwe-countdown__timer"></div>
         </div>
     </div>';
-    
+
 }
 
 return $output;

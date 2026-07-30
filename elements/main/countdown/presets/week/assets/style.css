@@ -1,3 +1,12 @@
+#countdownWeek.pwe-limit-width {
+    max-width: 100%;
+    padding: 0px !important;
+}
+.pwe-element-auto-switch .pwe-countdown {
+    background: radial-gradient(circle at 20% 3%, rgba(136, 65, 255, .18), transparent 30%), radial-gradient(circle at 70% 5%, rgba(0, 210, 255, .16), transparent 28%), linear-gradient(180deg, #020817 0%, #061126 43%, #020817 100%);
+    border-top: 1px solid rgba(79, 129, 200, .18);
+    border-bottom: 1px solid rgba(79, 129, 200, .18);
+}
 .pwe-element-auto-switch .pwe-countdown__wrapper {
     justify-content: center;
     gap: 18px;
@@ -58,7 +67,7 @@
         flex-direction: row;
         gap: 12px;
     }
-    .pwe-element-auto-switch .pwe-countdown__label, 
+    .pwe-element-auto-switch .pwe-countdown__label,
     .pwe-element-auto-switch .pwe-countdown__timer {
         width: auto;
         padding: 0;

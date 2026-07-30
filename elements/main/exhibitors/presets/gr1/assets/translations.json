@@ -64,5 +64,23 @@
     "catalog_desc" : "Vaata kõiki osalejaid ",
     "catalog_link": "/et/eksponentide-kataloog/",
     "catalog_link_text": "Terve kataloog"
+  },
+  "hu_HU": {
+    "catalog_title": "Kiállítók a vásáron",
+    "catalog_desc" : "Tekintse meg az összes kiállítót ",
+    "catalog_link": "/hu/katalogus-az-exhibitorokrol/",
+    "catalog_link_text": "Teljes katalógus"
+  },
+  "fr_FR": {
+    "catalog_title": "Exposants à la foire",
+    "catalog_desc" : "Voir tous les exposants ",
+    "catalog_link": "/fr/annuaire-des-exposants/",
+    "catalog_link_text": "Catalogue complet"
+  },
+  "es_ES": {
+    "catalog_title": "Expositores en la feria",
+    "catalog_desc" : "Ver todos los expositores ",
+    "catalog_link": "/es/directorio-de-expositores/",
+    "catalog_link_text": "Catálogo completo"
   }
 }

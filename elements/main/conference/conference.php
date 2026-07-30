@@ -46,17 +46,17 @@ class Conference {
             ];
             $useSchedule = false;
 
-        } else {
+        }  else {
             // default logic
             $presets = $useSchedule
                 ? [
                     'gr1' => plugin_dir_path(__FILE__) . 'presets/gr1-shedule/preset.php',
                     'gr2' => plugin_dir_path(__FILE__) . 'presets/gr2-shedule/preset.php',
+                    'week' => plugin_dir_path(__FILE__) . 'presets/week-shedule/preset.php',
                 ]
                 : [
                     'gr1'  => plugin_dir_path(__FILE__) . 'presets/gr1/preset.php',
                     'gr2'  => plugin_dir_path(__FILE__) . 'presets/gr2/preset.php',
-                    'week' => plugin_dir_path(__FILE__) . 'presets/week/preset.php',
                 ];
         }
 
@@ -65,6 +65,7 @@ class Conference {
             'presets'     => $presets,
             'useSchedule' => $useSchedule,
         ];
+
     }
 
     public static function get_conferences_brief($domain) {
@@ -235,6 +236,7 @@ class Conference {
 
         // Add context to translations function
         PWE_Functions::set_translation_context($element_slug, $group, $element_type);
+
         // Global assets
         PWE_Functions::assets_per_element($element_slug, $element_type);
 
@@ -330,7 +332,7 @@ class Conference {
             /* <-------------> General code end <-------------> */
             $output = include $preset_file;
             if ($output) {
-                echo $output;
+                echo do_shortcode($output);
             }
         }
     }

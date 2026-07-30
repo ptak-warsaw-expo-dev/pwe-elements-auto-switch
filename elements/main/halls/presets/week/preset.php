@@ -1,6 +1,6 @@
 <?php
 
-if (!empty($all_halls)) { 
+if (!empty($all_halls)) {
     $output = '
     <div id="pweHalls" class="pwe-halls"
         data-all-items='. json_encode($json_data_all) .'
@@ -8,12 +8,12 @@ if (!empty($all_halls)) {
         <div class="pwe-halls__wrapper">
 
             <div class="pwe-halls__title">
-                <h4 class="pwe-main-title">'. PWE_Functions::languageChecker('Powierzchnia wystawiennicza', 'Exhibition space') .'</h4>
-                <p>'. PWE_Functions::languageChecker('Największa powierzchnia wystawiennicza w Polsce', 'The largest exhibition space in Poland') .'</p>
-            </div> 
+                <h4 class="pwe-main-title">'. PWE_Functions::multi_translation("halls_title") .'</h4>
+                <p>'. PWE_Functions::multi_translation("halls_desc") .'</p>
+            </div>
 
             <div class="pwe-halls__container">
-            
+
                 <div class="pwe-halls__info">
                     <div class="pwe-halls__info-wrapper">
                         <img src="'. PWE_Functions::languageChecker('/doc/logo-color.webp', '/doc/logo-color-en.webp') .'"/>
@@ -30,7 +30,7 @@ if (!empty($all_halls)) {
                             </svg>
                         </span>
                         <p class="pwe-halls__halls">'. $halls_word .' '. $all_halls .'</p>
-                        <p class="pwe-halls__parking mobile">'. PWE_Functions::languageChecker('Darmowy parking', 'Free parking') .'</p>
+                        <p class="pwe-halls__parking mobile">'. PWE_Functions::multi_translation("parking") .'</p>
                         <p class="pwe-halls__location">
                             <span class="pwe-halls__location-icon mobile">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -44,9 +44,9 @@ if (!empty($all_halls)) {
                                 <path d="M6.0001 3.6001C4.67635 3.6001 3.6001 4.67635 3.6001 6.0001V18.0001C3.6001 19.3238 4.67635 20.4001 6.0001 20.4001H18.0001C19.3238 20.4001 20.4001 19.3238 20.4001 18.0001V6.0001C20.4001 4.67635 19.3238 3.6001 18.0001 3.6001H6.0001ZM10.8001 12.0001H12.6001C13.2638 12.0001 13.8001 11.4638 13.8001 10.8001C13.8001 10.1363 13.2638 9.6001 12.6001 9.6001H10.8001V12.0001ZM12.6001 14.4001H10.8001V15.6001C10.8001 16.2638 10.2638 16.8001 9.6001 16.8001C8.93635 16.8001 8.4001 16.2638 8.4001 15.6001V8.7001C8.4001 7.87135 9.07135 7.2001 9.9001 7.2001H12.6001C14.5876 7.2001 16.2001 8.8126 16.2001 10.8001C16.2001 12.7876 14.5876 14.4001 12.6001 14.4001Z" fill="var(--accent-color)"/>
                             </svg>
                         </span>
-                        <p class="pwe-halls__parking">'. PWE_Functions::languageChecker('Darmowy parking', 'Free parking') .'</p>
+                        <p class="pwe-halls__parking">'. PWE_Functions::multi_translation("parking") .'</p>
                     </div>
-                </div> 
+                </div>
 
                 <div class="pwe-halls__model">';
                     require_once plugin_dir_path(dirname(dirname(__FILE__))) . 'assets/svg.php';
@@ -55,11 +55,9 @@ if (!empty($all_halls)) {
 
             </div>
 
-            
-
         </div>
     </div>';
-    
+
 } else { $output = '<style>.row-container:has(#pweHalls) {display: none !important;}</style>'; }
 
 return $output;

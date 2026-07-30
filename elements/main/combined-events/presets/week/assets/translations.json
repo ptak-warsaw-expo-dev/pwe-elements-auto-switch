@@ -1,0 +1,58 @@
+{
+    "pl_PL": {
+        "fairs_title": "Targi w ramach",
+        "see_more": "ZOBACZ WIĘCEJ →"
+    },
+    "en_US": {
+        "fairs_title": "Fairs within",
+        "see_more": "SEE MORE →"
+    },
+    "de_DE": {
+        "fairs_title": "Messen im Rahmen von",
+        "see_more": "MEHR ANZEIGEN →"
+    },
+    "cs_CZ": {
+        "fairs_title": "Veletrhy v rámci",
+        "see_more": "ZOBRAZIT VÍCE →"
+    },
+    "it_IT": {
+        "fairs_title": "Fiere nell'ambito di",
+        "see_more": "VEDI DI PIÙ →"
+    },
+    "lt_LT": {
+        "fairs_title": "Parodos, vykstančios",
+        "see_more": "ŽIŪRĖTI DAUGIAU →"
+    },
+    "lv_LV": {
+        "fairs_title": "Izstādes ietvaros",
+        "see_more": "SKATĪT VAIRĀK →"
+    },
+    "sk_SK": {
+        "fairs_title": "Veľtrhy v rámci",
+        "see_more": "ZOBRAZIŤ VIAC →"
+    },
+    "uk": {
+        "fairs_title": "Виставки в рамках",
+        "see_more": "ПОКАЗАТИ БІЛЬШЕ →"
+    },
+    "ro_RO": {
+        "fairs_title": "Târguri în cadrul",
+        "see_more": "VEZI MAI MULT →"
+    },
+    "et": {
+        "fairs_title": "Messid raames",
+        "see_more": "VAATA ROHKEM →"
+    },
+    "hu_HU": {
+        "fairs_title": "Kiállítások a következő keretében:",
+        "see_more": "MUTASS TÖBBET →"
+    },
+    "fr_FR": {
+        "fairs_title": "Salons dans le cadre de",
+        "see_more": "VOIR PLUS →"
+    },
+    "es_ES": {
+        "fairs_title": "Ferias dentro de",
+        "see_more": "VER MÁS →"
+    }
+}

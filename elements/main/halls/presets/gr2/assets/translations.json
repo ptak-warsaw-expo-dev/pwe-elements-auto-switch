@@ -86,5 +86,29 @@
     "single_hall": "Saal",
     "multiple_halls": "Saalid",
     "parking": "TASUTA PARKIMINE"
+  },
+  "hu_HU": {
+    "halls_title": "Kiállítási terület",
+    "halls_desc": "A legnagyobb kiállítási terület Lengyelországban",
+    "halls_parking": "INGYENES PARKOLÁS",
+    "single_hall": "Csarnok",
+    "multiple_halls": "Csarnokok",
+    "parking": "INGYENES PARKOLÁS"
+  },
+  "fr_FR": {
+    "halls_title": "Espace d'exposition",
+    "halls_desc": "Le plus grand espace d'exposition en Pologne",
+    "halls_parking": "STATIONNEMENT GRATUIT",
+    "single_hall": "Salle",
+    "multiple_halls": "Salles",
+    "parking": "STATIONNEMENT GRATUIT"
+  },
+  "es_ES": {
+    "halls_title": "Espacio de exposición",
+    "halls_desc": "El mayor espacio de exposición en Polonia",
+    "halls_parking": "APARCAMIENTO GRATUITO",
+    "single_hall": "Sala",
+    "multiple_halls": "Salas",
+    "parking": "APARCAMIENTO GRATUITO"
   }
 }

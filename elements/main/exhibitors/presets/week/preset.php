@@ -4,18 +4,18 @@ $output = '
 <div id="pweExhibitors" class="pwe-exhibitors">
     <div class="pwe-exhibitors__wrapper">
         <div class="pwe-exhibitors__top">
-            <h4 class="pwe-main-title">Wystawcy</h4>
+            <h4 class="pwe-main-title">'. PWE_Functions::multi_translation("catalog_title") .'</h4>
 
             <div class="pwe-exhibitors__buttons">
                 <div class="pwe-exhibitors__button desktop">
-                    <a href="/katalog-wystawcow/">Zobacz Katalog</a>
+                    <a href="'. PWE_Functions::multi_translation("catalog_link") .'">'. PWE_Functions::multi_translation("catalog_link_text") .'</a>
                 </div>
                 <div class="swiper-buttons-arrows">
                     <div class="swiper-button-prev">⏴</div>
                     <div class="swiper-button-next">⏵</div>
                 </div>
             </div>
-            
+
         </div>
         <div class="pwe-exhibitors__items swiper">
             <div class="swiper-wrapper">';
@@ -29,7 +29,7 @@ $output = '
 
             $output .= '
             </div>
- 
+
         </div>
 
         <div class="swiper-nav">
@@ -37,7 +37,7 @@ $output = '
         </div>
 
     </div>
-</div>';    
+</div>';
 
 $output .= PWE_Swiper::swiperScripts('#pweExhibitors', [0   => ['slidesPerView' => 2],650   => ['slidesPerView' => 3],960   => ['slidesPerView' => 5]], true, true, 3);
 

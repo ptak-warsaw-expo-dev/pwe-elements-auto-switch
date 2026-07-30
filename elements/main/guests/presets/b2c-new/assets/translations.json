@@ -42,5 +42,17 @@
   "et": {
     "guests_title": "Erilised Külalised",
     "guests_desc": "Tähed"
-  }
+  },
+  "hu_HU": {
+    "guests_title": "Különleges Vendégek",
+    "guests_desc": "Csillagok"
+  },
+    "fr_FR": {
+        "guests_title": "Invités Spéciaux",
+        "guests_desc": "Stars"
+    },
+    "es_ES": {
+        "guests_title": "Invitados Especiales",
+        "guests_desc": "Estrellas"
+    }
 }

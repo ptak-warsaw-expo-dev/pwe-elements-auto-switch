@@ -261,7 +261,7 @@ if (empty($processed)) {
     PWE_Functions::assets_per_group($element_slug, 'gr2', $element_type);
 
     $output = include_once plugin_dir_path(__DIR__) . 'gr2/preset.php';
-    echo $output;
+    echo do_shortcode($output);
 
     return;
 }

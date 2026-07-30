@@ -64,5 +64,23 @@
     "catalog_subtitle": "Meie <span class='pwe-text-red'>Messe osalejad</span>",
     "catalog_link": "/et/eksponentide-kataloog/",
     "catalog_link_text": "Terve kataloog"
+  },
+  "hu_HU": {
+    "catalog_title": "Kiállítók",
+    "catalog_subtitle": "A mi <span class='pwe-text-red'>Kiállítóink</span>",
+    "catalog_link": "/hu/katalogus-az-exhibitorokrol/",
+    "catalog_link_text": "Katalógus megtekintése"
+  },
+  "fr_FR": {
+    "catalog_title": "Exposants",
+    "catalog_subtitle": "Nos <span class='pwe-text-red'>Exposants</span>",
+    "catalog_link": "/fr/annuaire-des-exposants/",
+    "catalog_link_text": "Voir le catalogue"
+  },
+  "es_ES": {
+    "catalog_title": "Expositores",
+    "catalog_subtitle": "Nuestros <span class='pwe-text-red'>Expositores</span>",
+    "catalog_link": "/es/directorio-de-expositores/",
+    "catalog_link_text": "Ver catálogo"
   }
 }
