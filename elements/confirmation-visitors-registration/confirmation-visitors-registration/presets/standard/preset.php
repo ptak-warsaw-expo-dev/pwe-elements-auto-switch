@@ -1,5 +1,5 @@
 <?php
-$output = '<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD10_XMpLZxzQT_65E58g0yTq7GQBXUks4&libraries=places"></script>';
+$output = '<script src="https://maps.googleapis.com/maps/api/js?key='. PWE_Functions::get_database_meta_data('api_key_google_places') .'&libraries=places"></script>';
 $output .= '
     <div
         id="pweConfirmationVisitorsRegistration"
