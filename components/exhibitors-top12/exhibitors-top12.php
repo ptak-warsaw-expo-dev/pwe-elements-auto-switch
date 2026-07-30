@@ -8,7 +8,8 @@ class Exhibitors_Top12 {
             'types' => ['exhibitors-top12'],
             'presets' => [
                 'premium' => plugin_dir_path(__FILE__) . 'presets/premium/preset.php',
-                'standard' => plugin_dir_path(__FILE__) . 'presets/standard/preset.php',
+                'standard-visitors' => plugin_dir_path(__FILE__) . 'presets/standard-visitors/preset.php',
+                'standard-exhibitors' => plugin_dir_path(__FILE__) . 'presets/standard-exhibitors/preset.php',
             ],
         ];
     }
@@ -25,13 +26,13 @@ class Exhibitors_Top12 {
             $source_utm = '';
         }
 
-        if (strpos($source_utm, 'utm_source=premium') !== false  ) {
-            $group = 'premium';
-        } else if(strpos($source_utm, 'utm_source=byli') !== false || strpos($source_utm, 'utm_source=platyna') !== false ) {
-            $group = 'platyna';
-        } else {
-            $group = 'standard';
-        }
+        // if (strpos($source_utm, 'utm_source=premium') !== false  ) {
+        //     $group = 'premium';
+        // } else if(strpos($source_utm, 'utm_source=byli') !== false || strpos($source_utm, 'utm_source=platyna') !== false ) {
+        //     $group = 'platyna';
+        // } else {
+        //     $group = 'standard';
+        // }
 
         // Add context to translations function
         PWE_Functions::set_translation_context($element_slug, $group, 'components');
@@ -52,7 +53,7 @@ class Exhibitors_Top12 {
             $output = include $preset_file;
             
             if ($output) {
-                echo $output;         
+                echo do_shortcode($output);         
             }
         }
     }

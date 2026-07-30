@@ -25,6 +25,24 @@
     line-height: 1.5;
     color: var(--accent-color);
 }
+.pwe-element-auto-switch .pwe-main-btn--primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 46px;
+    padding: 0 32px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid rgba(73, 160, 255, 0.42);
+    color: white !important;
+    background: linear-gradient(135deg, #2084ff, #9a4dff);
+    box-shadow: 0 0 14px rgba(32, 132, 255, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
 @media(max-width:650px) {
     .pwe-element-auto-switch .pwe-main-title {
         font-size: 24px;

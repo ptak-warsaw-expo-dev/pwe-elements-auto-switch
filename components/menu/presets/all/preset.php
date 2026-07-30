@@ -184,7 +184,9 @@ if (!function_exists('get_global_label_translations')) {
                 'lv' => ['Pēc tirdzniecības izstādes ziņojums'],
                 'ro' => ['Raport după târg'],
                 'et' => ['Raport pärast messi'],
-                'hu' => ['Raport a mese után']
+                'hu' => ['Raport a mese után'],
+                'es' => ['Informe posterior a la feria'],
+                'fr' => ['Rapport post-salon']
             ],
             'edition' => [
                 'pl' => ['Edycja'],
@@ -198,7 +200,9 @@ if (!function_exists('get_global_label_translations')) {
                 'lv' => ['Izdevums'],
                 'ro' => ['Ediție'],
                 'et' => ['Versioon'],
-                'hu' => ['Kiadás']
+                'hu' => ['Kiadás'],
+                'es' => ['Edición'],
+                'fr' => ['Édition']
             ],
         ];
     }
@@ -342,7 +346,9 @@ if (!function_exists('render_submenu')) {
                     'uk' => 'План ярмарку',
                     'ro' => 'Planul Mesei',
                     'et' => 'Näituse plaan',
-                    'hu' => 'Vásári terv'
+                    'hu' => 'Vásári terv',
+                    'es' => 'Plano de la feria',
+                    'fr' => 'Plan du salon'
                 ],
 
                 'post_show' => [
@@ -357,7 +363,9 @@ if (!function_exists('render_submenu')) {
                     'lv' => 'Pēc tirdzniecības izstādes ziņojums',
                     'ro' => 'Raport după târg',
                     'et' => 'Raport pärast messi',
-                    'hu' => 'Raport a mese után'
+                    'hu' => 'Raport a mese után',
+                    'es' => 'Informe posterior a la feria',
+                    'fr' => 'Rapport post-salon'
                 ],
 
                 'fair_offer' => [
@@ -372,7 +380,9 @@ if (!function_exists('render_submenu')) {
                     'lv' => 'Izstādes piedāvājums',
                     'ro' => 'Oferta târgului',
                     'et' => 'Messipakkumine',
-                    'hu' => 'Vásári ajánlat'
+                    'hu' => 'Vásári ajánlat',
+                    'es' => 'Oferta de la feria',
+                    'fr' => 'Offre du salon'
                 ]
             ];
 
@@ -769,7 +779,9 @@ $output .= '
                         "it" => "Lingua",
                         "ro" => "Limba",
                         "et" => "Keel",
-                        "hu" => "Nyelv"
+                        "hu" => "Nyelv",
+                        "es" => "Idioma",
+                        "fr" => "Langue"
                     ];
 
                     $output .= '
@@ -915,7 +927,7 @@ $output .= '
             ],
             "ro" => [
                 "url" => "/ro/inregistrare/",
-                "label" => "ALĂTURA-TE"
+                "label" => "ALĂTURĂ-TE"
             ],
             "et" => [
                 "url" => "/et/registreerimine/",
@@ -924,6 +936,14 @@ $output .= '
             "hu" => [
                 "url" => "/hu/regisztracio/",
                 "label" => "CSATLAKOZZ HOZZÁNK"
+            ],
+            "es" => [
+                "url" => "/es/registro/",
+                "label" => "PARTICIPA"
+            ],
+            "fr" => [
+                "url" => "/fr/inscription/",
+                "label" => "PARTICIPER"
             ]
         ];
 

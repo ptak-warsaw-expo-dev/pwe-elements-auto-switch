@@ -82,5 +82,19 @@
     "technical_support": "Műszaki támogatás a kiállítók számára<br>",
     "media_marketing": "Média és marketing",
     "media_marketing_service": "Marketing és média szolgáltatások"
+  },
+  "fr-FR": {
+    "customer_service": "Service client",
+    "customer_service_office": "Bureau du service client",
+    "technical_support": "Support technique pour les exposants<br>",
+    "media_marketing": "Médias et marketing",
+    "media_marketing_service": "Services de marketing et de médias"
+  },
+  "es-ES": {
+    "customer_service": "Servicio al cliente",
+    "customer_service_office": "Oficina de atención al cliente",
+    "technical_support": "Soporte técnico para expositores<br>",
+    "media_marketing": "Medios y marketing",
+    "media_marketing_service": "Servicios de marketing y medios"
   }
 }

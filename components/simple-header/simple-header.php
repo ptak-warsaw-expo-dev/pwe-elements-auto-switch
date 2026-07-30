@@ -49,7 +49,7 @@ class Simple_Header {
             $output = include $preset_file;
             
             if ($output) {
-                echo $output;         
+                echo do_shortcode($output);         
             }
         }
     }

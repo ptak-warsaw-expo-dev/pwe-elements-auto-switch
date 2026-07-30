@@ -3,6 +3,9 @@
     padding: 18px;
     max-width: 430px;
 }
+.pwe-exhibitors-top12-logo {
+    max-height: 85px;
+}
 .pwe-exhibitors-top12-logo img {
     height: 50px;
     width: 140px;

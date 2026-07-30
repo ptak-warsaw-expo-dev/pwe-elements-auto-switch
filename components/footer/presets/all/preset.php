@@ -184,7 +184,9 @@ if (!function_exists('get_global_label_translations')) {
                 'lv' => ['Pēc tirdzniecības izstādes ziņojums'],
                 'ro' => ['Raport după târg'],
                 'et' => ['Raport pärast messi'],
-                'hu' => ['Raport a mese után']
+                'hu' => ['Raport a mese után'],
+                'es' => ['Informe posterior a la feria'],
+                'fr' => ['Rapport post-salon'],
             ],
             'edition' => [
                 'pl' => ['Edycja'],
@@ -198,7 +200,9 @@ if (!function_exists('get_global_label_translations')) {
                 'lv' => ['Izdevums'],
                 'ro' => ['Ediție'],
                 'et' => ['Versioon'],
-                'hu' => ['Kiadás']
+                'hu' => ['Kiadás'],
+                'es' => ['Edición'],
+                'fr' => ['Édition'],
             ],
         ];
     }
@@ -310,6 +314,9 @@ if (!function_exists('generateFooterNavEl')) {
             'uk' => [ do_shortcode('[pwe_name_uk]'), 'ДЛЯ ВІДВІДУВАЧІВ', 'ДЛЯ ВИСТАВЦІВ' ],
             'ro' => [ do_shortcode('[pwe_name_ro]'), 'PENTRU VIZITATORI', 'PENTRU EXPOZANȚI' ],
             'et' => [ do_shortcode('[pwe_name_et]'), 'KÜLASTAJATELE', 'NÄITUSE OSAVÕTJATELE' ],
+            'hu' => [ do_shortcode('[pwe_name_hu]'), 'LÁTOGATÓKNAK', 'KIÁLLÍTÓKNAK' ],
+            'es' => [ do_shortcode('[pwe_name_es]'), 'PARA VISITANTES', 'PARA EXPOSITORES' ],
+            'fr' => [ do_shortcode('[pwe_name_fr]'), 'POUR LES VISITEURS', 'POUR LES EXPOSANTS' ],
         ];
 
         $menu_titles = $menu_titles_map[$lang] ?? $menu_titles_map['en'];

@@ -28,9 +28,6 @@
     gap: 10px;
     justify-items: center;
 }
-.pwe-exhibitors-top12-logo {
-    max-height: 85px;
-}
 .pwe-exhibitors-top12-logo a {
     display: flex;
     height: 100%;
