@@ -32,45 +32,25 @@ class Potential_Exhibitors {
 
             /* <-------------> General code start <-------------> */
 
-            $form_id_pl = PWE_Functions::get_gf_form_id('Potencjalny wystawca - aktywacja');
-            $form_id_en = PWE_Functions::get_gf_form_id('Potencjalny wystawca EN - aktywacja');
-
             $lang = PWE_Functions::lang();
 
-            if ($lang === 'pl') {
+            $form_id = PWE_Functions::get_gf_form_id('Potencjalny wystawca - aktywacja');
 
-                $form_id = $form_id_pl;
-
-            } else {
-
-                $form_id = $form_id_en;
-
+            if (!$form_id) {
+                return;
             }
 
             // Processing edition shortcode
-            $trade_fair_edition_shortcode = do_shortcode('[trade_fair_edition]');
-            if (strpos($trade_fair_edition_shortcode, '.') !== false) {
-                $trade_fair_edition_text = (get_locale() == 'pl_PL') ? " edycja" : " edition";
+            $trade_fair_edition = do_shortcode('[trade_fair_edition]');
+
+            if ($trade_fair_edition === 1) {
+                $trade_fair_edition = ($lang === 'pl') ? 'Premierowa Edycja' : 'Premier Edition';
             } else {
-                $trade_fair_edition_text = (get_locale() == 'pl_PL') ? ". edycja" : ". edition";
-            }
-            $trade_fair_edition_first = (get_locale() == 'pl_PL') ? "Premierowa Edycja" : "Premier Edition";
-            $trade_fair_edition = (!is_numeric($trade_fair_edition_shortcode) || $trade_fair_edition_shortcode == 1) ? $trade_fair_edition_first : $trade_fair_edition_shortcode . $trade_fair_edition_text;
-
-            // Shortcodes of dates
-            $start_date = do_shortcode('[trade_fair_datetotimer]');
-            $end_date = do_shortcode('[trade_fair_enddata]');
-
-            // Transform the dates to the desired format
-            $formatted_date = PWE_Functions::transform_dates($start_date, $end_date);
-
-            // Format of date
-            if (PWE_Functions::isTradeDateExist()) {
-                $actually_date = (get_locale() == 'pl_PL') ? '[trade_fair_date]' : '[trade_fair_date_eng]';
-            } else {
-                $actually_date = $formatted_date;
+                $trade_fair_edition = $trade_fair_edition . ($lang === 'pl' ? ' edycja' : ' edition');
             }
 
+            $trade_fair_date = do_shortcode('[trade_fair_date_custom_format]');
+           
             if (class_exists('GFAPI')) {
                 $all_forms = GFAPI::get_forms();
 
@@ -132,7 +112,7 @@ class Potential_Exhibitors {
             $output = include $preset_file;
 
             if ($output) {
-                echo $output;
+                echo do_shortcode($output);
             }
         }
     }

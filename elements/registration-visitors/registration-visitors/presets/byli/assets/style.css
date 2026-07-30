@@ -276,7 +276,8 @@
     .pwe-element-auto-switch .pwe-registration-visitors__form input:not([type="checkbox"]) {
         width: 100%;
     }
-}.pwe-element-auto-switch.registration-visitors {
+}
+.pwe-element-auto-switch.registration-visitors {
     max-width: 100%;
     padding: 0;
 }

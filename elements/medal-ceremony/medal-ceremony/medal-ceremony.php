@@ -32,29 +32,21 @@ class Medal_Ceremony {
 
             /* <-------------> General code start <-------------> */
 
-            $form_id_pl = PWE_Functions::get_gf_form_id('Ceremonia medalowa');
-            $form_id_en = PWE_Functions::get_gf_form_id('Ceremonia medalowa (EN)');
+            $form_id = PWE_Functions::get_gf_form_id('Ceremonia medalowa');
 
-            $lang = PWE_Functions::lang();
+            $ceremony_rules = PWE_Functions::lang_pl() ?
+            'https://warsawexpo.eu/docs/Regulamin-Konkursu-Medalowego-Ptak-Warsaw-Expo.pdf' :
+            'https://warsawexpo.eu/docs/Rules-of-the-Medal-Competition-Ptak-Warsaw-Expo.pdf';
 
-            if ($lang === 'pl') {
-
-                $form_id = $form_id_pl;
-
-            } else {
-
-                $form_id = $form_id_en;
-
-            }
-
-            $ceremony_rules = PWE_Functions::lang_pl() ? 'https://warsawexpo.eu/docs/Regulamin-Konkursu-Medalowego-Ptak-Warsaw-Expo.pdf' : 'https://warsawexpo.eu/docs/Rules-of-the-Medal-Competition-Ptak-Warsaw-Expo.pdf';
+            $fair_adds = PWE_Functions::get_database_fairs_data_adds();
+            $medal_ceremony_data = !empty($fair_adds) && isset($fair_adds[0]->medal_ceremony) ? $fair_adds[0]->medal_ceremony : '';
 
             /* <-------------> General code end <-------------> */
 
             $output = include $preset_file;
 
             if ($output) {
-                echo $output;
+                echo do_shortcode($output);
             }
         }
     }

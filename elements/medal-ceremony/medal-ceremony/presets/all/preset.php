@@ -3,7 +3,7 @@ $output .= '
 <div id="pweMedalCeremony" class="pwe-medal-ceremony">
 
     <div class="pwe-medal-ceremony__header">
-        <img src='. PWE_Functions::multi_translation('ceremony_img') .' alt="pwe-medal-ceremony__header" class="pwe-medal-ceremony___header-img" />
+        <img src="'. PWE_Functions::multi_translation('ceremony_img') .'" alt="pwe-medal-ceremony__header" class="pwe-medal-ceremony___header-img" />
     </div>
     <div class="pwe-medal-ceremony__content">
         <div class="pwe-medal-ceremony__content__color-box"></div>
@@ -30,6 +30,12 @@ $output .= '
         <img src="'. PWE_Functions::multi_translation('ceremony_footer_img') .'" alt="pwe-medal-ceremony__footer" class="pwe-medal-ceremony__footer-img" />
     </div>
 
-</div>';
+</div>
+
+<script>
+    window.medalCeremonyData = ' . (!empty($medal_ceremony_data) ? $medal_ceremony_data : 'null') . ';
+    window.currentLang = "'. (PWE_Functions::lang_pl() ? 'pl' : 'en') .'";
+    window.formID = "'. $form_id .'";
+</script>';
 
 return $output;

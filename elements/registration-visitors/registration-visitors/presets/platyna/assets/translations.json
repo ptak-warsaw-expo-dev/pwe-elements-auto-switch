@@ -1,0 +1,100 @@
+{
+  "pl_PL": {
+    "step_1_of_2": "Krok 1 z 2",
+    "ticket": "Twój bilet na<br>targi",
+    "vip_invitation": "Zaproszenie Vip obejmuje",
+    "concierge_service": "obsługa concierge",
+    "VIP_zone": "Strefę VIP ROOM"
+  },
+  "en_US": {
+    "step_1_of_2": "Step 1 of 2",
+    "ticket": "Your ticket to the<br>trade fair",
+    "vip_invitation": "The Vip invitation includes",
+    "concierge_service": "Concierge service",
+    "VIP_zone": "VIP ROOM Zone"
+  },
+  "de_DE": {
+    "step_1_of_2": "Schritt 1 von 2",
+    "ticket": "Ihr Ticket für die<br>Messe",
+    "vip_invitation": "Die VIP-Einladung umfasst",
+    "concierge_service": "Concierge-Service",
+    "VIP_zone": "VIP-ROOM-Zone"
+  },
+  "cs_CZ": {
+    "step_1_of_2": "Krok 1 ze 2",
+    "ticket": "Vstupenka na<br>veletrh",
+    "vip_invitation": "VIP pozvánka zahrnuje",
+    "concierge_service": "concierge služba",
+    "VIP_zone": "zónu VIP ROOM"
+  },
+  "it_IT": {
+    "step_1_of_2": "Fase 1 di 2",
+    "ticket": "Il tuo biglietto per la<br>fiera",
+    "vip_invitation": "L'invito Vip include",
+    "concierge_service": "servizio concierge",
+    "VIP_zone": "Zona VIP ROOM"
+  },
+  "lt_LT": {
+    "step_1_of_2": "1 žingsnis iš 2",
+    "ticket": "Jūsų bilietas į<br>parodą",
+    "vip_invitation": "VIP kvietimas apima",
+    "concierge_service": "konsjeržo paslauga",
+    "VIP_zone": "VIP ROOM zona"
+  },
+  "lv_LV": {
+    "step_1_of_2": "1. solis no 2",
+    "ticket": "Jūsu biļete uz<br>izstādi",
+    "vip_invitation": "VIP ielūgums ietver",
+    "concierge_service": "konsjerža pakalpojums",
+    "VIP_zone": "VIP ROOM zona"
+  },
+  "sk_SK": {
+    "step_1_of_2": "Krok 1 z 2",
+    "ticket": "Váš lístok na<br>veľtrh",
+    "vip_invitation": "VIP pozvánka zahŕňa",
+    "concierge_service": "concierge služby",
+    "VIP_zone": "zónu VIP ROOM"
+  },
+  "uk": {
+    "step_1_of_2": "Крок 1 з 2",
+    "ticket": "Ваш квиток на<br>виставку",
+    "vip_invitation": "VIP запрошення включає",
+    "concierge_service": "консьєрж-сервіс",
+    "VIP_zone": "зону VIP ROOM"
+  },
+  "ro_RO": {
+    "step_1_of_2": "Pasul 1 din 2",
+    "ticket": "Biletul tău pentru<br>expoziție",
+    "vip_invitation": "VIP invitație include",
+    "concierge_service": "conierge service",
+    "VIP_zone": "zonă VIP ROOM"
+  },
+  "et": {
+    "step_1_of_2": "1. samm 2-st",
+    "ticket": "Teie pilet<br>näitusele",
+    "vip_invitation": "VIP kutse sisaldab",
+    "concierge_service": "concierge teenus",
+    "VIP_zone": "VIP ROOM tsoon"
+  },
+  "hu_HU": {
+    "step_1_of_2": "1. lépés 2-ből",
+    "ticket": "Jegyed a<br>kiállításra",
+    "vip_invitation": "A VIP meghívó tartalmazza",
+    "concierge_service": "concierge szolgáltatás",
+    "VIP_zone": "VIP ROOM zóna"
+  },
+  "fr_FR": {
+    "step_1_of_2": "Étape 1 sur 2",
+    "ticket": "Votre billet pour le<br>salon",
+    "vip_invitation": "L'invitation VIP comprend",
+    "concierge_service": "service de conciergerie",
+    "VIP_zone": "Zone VIP ROOM"
+  },
+  "es_ES": {
+    "step_1_of_2": "Paso 1 de 2",
+    "ticket": "Tu entrada para la<br>feria",
+    "vip_invitation": "La invitación VIP incluye",
+    "concierge_service": "servicio de conserjería",
+    "VIP_zone": "Zona VIP ROOM"
+  }
+}

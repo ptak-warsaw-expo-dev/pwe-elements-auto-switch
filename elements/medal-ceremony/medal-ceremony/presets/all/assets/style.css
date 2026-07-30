@@ -7,7 +7,8 @@
 .pwe-medal-ceremony__content,
 .pwe-medal-ceremony__form .gfield,
 .pwe-medal-ceremony__rules,
-.gform_confirmation_message {
+.gform_confirmation_message,
+.pwe-medal-ceremony__form .pwe-medal-checkboxes {
     border: 1px solid #dadce0;
     border-radius: 15px;
     -webkit-box-shadow: 8px 8px 24px -5px rgba(218, 220, 224, 1);
@@ -31,15 +32,45 @@
     padding: 0 5% 5%;
 }
 .pwe-medal-ceremony__form .gfield,
-.pwe-medal-ceremony__form .gform_confirmation_message {
+.pwe-medal-ceremony__form .gform_confirmation_message,
+.pwe-medal-ceremony__form .pwe-medal-checkboxes {
+    margin-top: 16px;
     padding: 3% 5% !important;
 }
-.pwe-medal-ceremony__form .gfield label {
+.pwe-medal-ceremony__form .pwe-medal-checkboxes {
+    margin-top: 16px;
+}
+.pwe-medal-ceremony__form .pwe-medal-checkboxes__list {
+    margin: 16px 0 0;
+}
+.pwe-medal-ceremony__form .pwe-medal-checkbox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+    gap: 10px;
+}
+.pwe-medal-ceremony__form .pwe-medal-checkbox span {
+    line-height: 1.3;
+}
+.pwe-medal-ceremony__form .pwe-medal-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    aspect-ratio: 1;
+    border: 1px solid black;
+}
+.pwe-medal-ceremony__form .pwe-medal-checkbox input[type="checkbox"]::before {
+    font-size: 16px;
+}
+.pwe-medal-ceremony__form .gfield label,
+.pwe-medal-ceremony__form .pwe-medal-checkboxes label {
     font-weight: 700 !important;
     font-size: 17px !important;
 }
 .pwe-medal-ceremony__form .gfield .ginput_container {
     border: 0px;
+}
+.pwe-medal-ceremony__form .gform_fields {
+    padding: 0 !important;
 }
 .pwe-medal-ceremony__form .ginput_container_email input,
 .pwe-medal-ceremony__form .ginput_container_text input,

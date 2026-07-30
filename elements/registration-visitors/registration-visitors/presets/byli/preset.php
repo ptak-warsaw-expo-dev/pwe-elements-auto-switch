@@ -1,7 +1,7 @@
 <?php
 
 $output = '
-<div id="pweRegistrationVisitors" class="pwe-registration-visitors premium" data-fair-group="'. esc_attr($fair_group) .'">
+<div id="pweRegistrationVisitors" class="pwe-registration-visitors byli" data-fair-group="'. esc_attr($fair_group) .'">
     <div class="pwe-registration-visitors__wrapper">
         <div class="pwe-registration-visitors__column pwe-mockup-column">
             '. ($badgevipmockup

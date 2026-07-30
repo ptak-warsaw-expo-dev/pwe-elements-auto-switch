@@ -15,8 +15,10 @@ class Speakers_Page {
 
     public static function render($group = '', $params = [], $atts = []) {
 
-        if ($_SERVER['HTTP_HOST'] === 'warsawtechweek.com') {
+        if ($_SERVER['HTTP_HOST'] === 'warsawtechweek.com' || $group === 'gr2' || $group === 'week' || $group === 'b2c' || $group === 'gr2-new') {
             $group = 'gr2';
+        } else {
+            $group = 'gr1';
         }
 
         $data = self::get_data();
@@ -131,7 +133,7 @@ class Speakers_Page {
             $output = include $preset_file;
 
             if ($output) {
-                echo $output;
+                echo do_shortcode($output);
             }
         }
     }

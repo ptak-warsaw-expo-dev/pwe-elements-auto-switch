@@ -3,13 +3,17 @@ if (!defined('ABSPATH')) exit;
 
 class Registration_Visitors {
 
+    private static $filters_registered = false;
+    private static $session_registered = false;
+
     public static function get_data() {
         return [
             'types' => ['registration-visitors'],
             'presets' => [
                 'standard' => plugin_dir_path(__FILE__) . 'presets/standard/preset.php',
-                'premium' => plugin_dir_path(__FILE__) . 'presets/premium/preset.php',
-                // 'platyna' => plugin_dir_path(__FILE__) . 'presets/platyna/preset.php',
+                'premium'  => plugin_dir_path(__FILE__) . 'presets/premium/preset.php',
+                'byli'     => plugin_dir_path(__FILE__) . 'presets/byli/preset.php',
+                'platyna'  => plugin_dir_path(__FILE__) . 'presets/platyna/preset.php',
             ],
         ];
     }
@@ -20,27 +24,26 @@ class Registration_Visitors {
         $element_type = $data['types'][0];
         $element_slug = 'registration-visitors';
 
-        if (isset($_SERVER['argv'][0])) {
-            $source_utm = $_SERVER['argv'][0];
-        } else {
-            $source_utm = '';
-        }
+        $source_utm = isset($_GET['utm_source'])
+            ? sanitize_key(wp_unslash($_GET['utm_source']))
+            : '';
 
-        if (strpos($source_utm, 'utm_source=premium') !== false  ) {
+        if ($source_utm === 'premium') {
             $group = 'premium';
-            $badgevipmockup = (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/badge-mockup.webp') ? '/doc/badge-mockup.webp' : '');
-        } else if(strpos($source_utm, 'utm_source=byli') !== false || strpos($source_utm, 'utm_source=platyna') !== false ) {
+            $badgevipmockup = self::get_existing_document('/doc/badgevipmockup.webp');
+        } elseif ($source_utm === 'byli') {
+            $group = 'byli';
+            $badgevipmockup = self::get_vip_badge_mockup();
+        } elseif ($source_utm === 'platyna') {
             $group = 'platyna';
-            if (PWE_Functions::lang() === 'pl') {
-                $badgevipmockup = (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/badgevipmockup.webp') ? '/doc/badgevipmockup.webp' : '');
-            } else {
-                $badgevipmockup = (file_exists($_SERVER['DOCUMENT_ROOT'] . '/doc/badgevipmockup-en.webp') ? '/doc/badgevipmockup-en.webp' : '/doc/badgevipmockup.webp');
-            }
+            $badgevipmockup = '';
         } else {
             $group = 'standard';
+            $badgevipmockup = '';
         }
 
-        // var_dump($group);
+        self::register_gravity_forms_filters();
+        self::register_session_handler();
 
         // Add context to translations function
         PWE_Functions::set_translation_context($element_slug, $group, $element_type);
@@ -49,38 +52,113 @@ class Registration_Visitors {
         // Assets per group
         PWE_Functions::assets_per_group($element_slug, $group, $element_type);
 
-        $preset_file = self::get_data()['presets'][$group] ?? null;
+        $preset_file = $data['presets'][$group] ?? null;
+
         if ($preset_file && file_exists($preset_file)) {
 
             /* <-------------> General code start <-------------> */
 
-            $form_id_pl = PWE_Functions::get_gf_form_id('Rejestracja PL');
-            $form_id_en = PWE_Functions::get_gf_form_id('Rejestracja EN');
-            $form_id_multilang = PWE_Functions::get_gf_form_id('Rejestracja Multilang');
+            $form_id = PWE_Functions::get_gf_form_id('Rejestracja');
 
-            $lang = PWE_Functions::lang();
-
-            if ($lang === 'pl') {
-
-                $form_id = $form_id_pl;
-
-            } elseif ($lang === 'en') {
-
-                $form_id = $form_id_en;
-
-            } else {
-
-                $form_id = $form_id_multilang;
-
+            if (!$form_id) {
+                return;
             }
+
+            $fair_group = do_shortcode('[trade_fair_group]');
+
+            $gravity_form = do_shortcode('[gravityform id="'. $form_id .'" title="false" description="false" ajax="false"]');
 
             /* <-------------> General code end <-------------> */
 
             $output = include $preset_file;
 
             if ($output) {
-                echo $output;
+                echo do_shortcode($output);
             }
         }
+    }
+
+    private static function get_existing_document($path) {
+        if (empty($_SERVER['DOCUMENT_ROOT'])) {
+            return '';
+        }
+
+        return file_exists($_SERVER['DOCUMENT_ROOT'] . $path) ? $path : '';
+    }
+
+    private static function get_vip_badge_mockup() {
+        if (PWE_Functions::lang() === 'pl') {
+            return self::get_existing_document('/doc/badgevipmockup.webp');
+        }
+
+        $english_mockup = self::get_existing_document('/doc/badgevipmockup-en.webp');
+
+        if ($english_mockup) {
+            return $english_mockup;
+        }
+
+        return self::get_existing_document('/doc/badgevipmockup.webp');
+    }
+
+    private static function register_gravity_forms_filters() {
+        if (self::$filters_registered) {
+            return;
+        }
+
+        self::$filters_registered = true;
+
+        add_filter('gform_pre_render', [__CLASS__, 'hide_registration_fields']);
+    }
+
+    private static function register_session_handler() {
+
+        if (self::$session_registered) {
+            return;
+        }
+
+        self::$session_registered = true;
+
+        add_action('gform_after_submission', [__CLASS__, 'entry_to_session'], 10, 2);
+
+    }
+
+    public static function entry_to_session($entry, $form) {
+
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $_SESSION['pwe_reg_entry'] = [
+            'entry_id' => $entry['id'],
+        ];
+
+        if (empty($form['fields'])) {
+            return;
+        }
+
+        foreach ($form['fields'] as $field) {
+            if ($field->type === 'email') {
+                $_SESSION['pwe_reg_entry']['email'] = rgar($entry, $field->id);
+            }
+
+            if ($field->type === 'phone') {
+                $_SESSION['pwe_reg_entry']['phone'] = rgar($entry, $field->id);
+            }
+        }
+    }
+
+
+    public static function hide_registration_fields($form) {
+
+        foreach (($form['fields'] ?? []) as $field) {
+            if (
+                is_object($field)
+                && in_array((string) $field->adminLabel, ['name', 'street', 'house', 'post', 'city'], true)
+            ) {
+                $field->visibility = 'hidden';
+            }
+        }
+
+        return $form;
     }
 }

@@ -1,0 +1,44 @@
+{
+  "pl_PL": {
+    "ticket": "Twój bilet<br>na targi"
+  },
+  "en_US": {
+    "ticket": "Your ticket to the<br>trade fair"
+  },
+  "de_DE": {
+    "ticket": "Ihr Ticket für die<br>Messe"
+  },
+  "cs_CZ": {
+    "ticket": "Vstupenka na<br>veletrh"
+  },
+  "it_IT": {
+    "ticket": "Il tuo biglietto per la<br>fiera"
+  },
+  "lt_LT": {
+    "ticket": "Jūsų bilietas į<br>parodą"
+  },
+  "lv_LV": {
+    "ticket": "Jūsu biļete uz<br>izstādi"
+  },
+  "sk_SK": {
+    "ticket": "Váš lístok na<br>veľtrh"
+  },
+  "uk": {
+    "ticket": "Ваш квиток на<br>виставку"
+  },
+  "ro_RO": {
+    "ticket": "Biletul tău pentru<br>expoziție"
+  },
+  "et": {
+    "ticket": "Teie pilet<br>näitusele"
+  },
+  "hu_HU": {
+    "ticket": "Jegyed a<br>kiállításra"
+  },
+    "fr_FR": {
+        "ticket": "Votre billet pour le<br>salon"
+    },
+    "es_ES": {
+        "ticket": "Tu entrada para la<br>feria"
+    }
+}
