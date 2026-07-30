@@ -163,5 +163,50 @@
     "previous_editions": "Varasemad väljaanded",
     "pwe_video_description": "Te ei pea meid lihtsalt uskkuma. Vaadake, kuidas me eelnevatel aastatel lõbutsesime. Puhas adrenaliin, rehvisuits ja kõige ilusamad masinad läbi objektiivi.",
     "fair_summary": "Messi kokkuvõte "
+  },
+  "hu_HU": {
+    "estimates": "Becslések",
+    "statistics": "Statisztikák",
+    "edition": ". kiadás",
+    "reg_url": "/hu/regisztracio/",
+    "buy_ticket": "Jegy vásárlása",
+    "registration": "Regisztráció",
+    "visitors": "Látogatók",
+    "visitors_abroad": "Külföldről is",
+    "exhibitors": "Kiállítók",
+    "area": "Kiállítási terület",
+    "previous_editions": "Előző kiadások",
+    "pwe_video_description": "Nem kell csak a szavunkra hagyatkoznia. Nézze meg, mennyire jól éreztük magunkat az előző években. Tiszta adrenalin, gumi füst és a legszebb gépek a lencsén keresztül.",
+    "fair_summary": "Vásár összefoglaló "
+  },
+  "fr_FR": {
+    "estimates": "Estimations",
+    "statistics": "Statistiques",
+    "edition": " édition",
+    "reg_url": "/fr/inscription/",
+    "buy_ticket": "Acheter un billet",
+    "registration": "Inscription",
+    "visitors": "Visiteurs",
+    "visitors_abroad": "Y compris de l'étranger",
+    "exhibitors": "Exposants",
+    "area": "Espace d'exposition",
+    "previous_editions": "Éditions précédentes",
+    "pwe_video_description": "Ne vous fiez pas seulement à notre parole. Voyez comment nous nous sommes amusés les années précédentes. Pure adrénaline, fumée de pneus et les plus belles machines à travers l'objectif.",
+    "fair_summary": "Résumé du salon "
+  },
+  "es_ES": {
+    "estimates": "Estimaciones",
+    "statistics": "Estadísticas",
+    "edition": " edición",
+    "reg_url": "/es/registro/",
+    "buy_ticket": "Comprar un boleto",
+    "registration": "Registro",
+    "visitors": "Visitantes",
+    "visitors_abroad": "Incluyendo del extranjero",
+    "exhibitors": "Expositores",
+    "area": "Espacio de exposición",
+    "previous_editions": "Ediciones anteriores",
+    "pwe_video_description": "No tienes que creernos solo por nuestra palabra. Vea cómo nos divertimos en años anteriores. Pura adrenalina, humo de neumáticos y las máquinas más hermosas a través del objetivo.",
+    "fair_summary": "Resumen de la feria "
   }
 }

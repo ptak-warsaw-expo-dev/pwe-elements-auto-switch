@@ -42,5 +42,17 @@
   "et": {
     "premieres_subtitle": "TOOTED",
     "premieres_title": "Mida näete messil?"
+  },
+  "hu_HU": {
+    "premieres_subtitle": "TERMÉKEK",
+    "premieres_title": "Mit láthat a vásáron?"
+  },
+  "fr_FR": {
+    "premieres_subtitle": "PRODUITS",
+    "premieres_title": "Que verrez-vous au salon ?"
+  },
+  "es_ES": {
+    "premieres_subtitle": "PRODUCTOS",
+    "premieres_title": "¿Qué verás en la feria?"
   }
 }

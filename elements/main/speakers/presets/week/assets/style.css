@@ -1,112 +1,381 @@
-.pwe-element-auto-switch.other-events {
-    background: var(--background-color);
-    max-width: 100%;
-    padding: 0;
+/* ==========================================================================
+   Nagłówek i Nawigacja
+   ========================================================================== */
+.pwe-element-auto-switch .pwe-speakers__title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.pwe-element-auto-switch .pwe-other-events__wrapper {
-    max-width: 1200px;
-    padding: 36px 18px;
-    margin: 0 auto;
+
+.pwe-element-auto-switch .pwe-speakers__title p {
+  margin: 0;
+  max-width: 600px;
 }
-.pwe-element-auto-switch .pwe-other-events__title p {
-    margin: 6px 0 0;
+
+.pwe-element-auto-switch .pwe-speakers__items {
+  margin-top: 18px;
+  padding: 10px 0;
 }
-.pwe-element-auto-switch .pwe-other-events__items {
-    width: 100%;
-    margin: 14px 0 0;
+
+.pwe-element-auto-switch .swiper-pagination-bullet {
+  background-color: white;
 }
-.pwe-element-auto-switch .pwe-other-events__item {
-    background: white;
-    border-radius: 18px;
-    transition: .3s ease;
+
+/* ==========================================================================
+   Karta Prelegenta (Base Item)
+   ========================================================================== */
+.pwe-element-auto-switch .pwe-speakers__item {
+  position: relative;
+  /* Wymagane do pozycjonowania przycisku Bio w prawym dolnym rogu */
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 16px;
+  border: 1px solid rgba(91, 126, 179, 0.3);
+  border-radius: 14px;
+  overflow: visible;
+  background: rgba(7, 17, 36, 0.85);
+  box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.02), 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 16px;
+  padding-bottom: 50px;
+  /* Zapas miejsca na dole, aby przycisk nie nachodził na tekst */
+  box-sizing: border-box;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  align-items: start;
+  min-height: 220px;
 }
-.pwe-element-auto-switch .pwe-other-events__item:hover {
-    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12); 
+
+.pwe-element-auto-switch .pwe-speakers__item:hover {
+  transform: translateY(-4px);
 }
-.pwe-element-auto-switch .pwe-other-events__item a {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+
+/* ==========================================================================
+   Zdjęcie Prelegenta i Poświata (Glow)
+   ========================================================================== */
+.pwe-element-auto-switch .pwe-speakers__speaker-img {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  filter: drop-shadow(0 0 10px currentColor);
+  line-height: 1;
 }
-.pwe-element-auto-switch .pwe-other-events__item-logo {
-    height: 140px;
-    flex: 0 0 140px;
-    padding: 14px;
-    border-radius: 12px 12px 0 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+.pwe-element-auto-switch .pwe-speakers__speaker-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 18px;
+  border: 2px solid currentColor;
+  box-sizing: border-box;
 }
-.pwe-element-auto-switch .pwe-other-events__item-logo img {
-    object-fit: contain;
-    height: 100%;
-    max-width: 160px;
+
+/* Logo firmy pod zdjęciem prelegenta */
+.pwe-element-auto-switch .pwe-speakers__company-img {
+  margin-top: 8px;
+  aspect-ratio: 3/2;
 }
-.pwe-element-auto-switch .pwe-other-events__item-statistic {
-    flex: 1 1 auto;
-    padding: 0px 36px 24px; 
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: center;
-    justify-content: space-between;
-    gap: 10px;
+
+.pwe-element-auto-switch .pwe-speakers__company-img img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 4px;
+  box-sizing: border-box;
+  object-fit: contain;
 }
-.pwe-element-auto-switch .pwe-other-events__item-text, 
-.pwe-element-auto-switch .pwe-other-events__item-text p {
-    width: 100%;
-    font-weight: 600;
-    font-size: 16px;
-    text-align: center;
-    margin: 0;
+
+/* ==========================================================================
+   Treść i Teksty
+   ========================================================================== */
+.pwe-element-auto-switch .pwe-speakers__right-col,
+.pwe-element-auto-switch .pwe-speakers__item-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 6px;
+  height: 100%;
+  text-align: left;
 }
-.pwe-element-auto-switch .pwe-other-events__item-statistic-numbers-block {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 6px;
+
+.pwe-element-auto-switch .pwe-speakers__item-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.2;
 }
-.pwe-element-auto-switch .pwe-other-events__item-statistic-numbers {
-    min-width: 170px;
-    display: flex;
-    gap: 8px;
-    padding: 4px;
-    text-align: left;
+
+.pwe-element-auto-switch .pwe-speakers__item-position {
+  font-size: 13px;
+  color: #2084ff;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.3;
 }
-.pwe-element-auto-switch .pwe-other-events__item-statistic-number {
-    font-weight: 600;
-    font-size: 20px;
-    text-align: left;
+
+.pwe-element-auto-switch .pwe-speakers__item-company {
+  font-size: 13px;
+  color: #9fb1c9;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.3;
+  margin-top: 4px;
 }
-.pwe-element-auto-switch .pwe-other-events__item-statistic-name {
-    font-size: 12px;
-    font-weight: 500;
+
+/* ==========================================================================
+   Automatyczna sekwencja kolorów (z definiowaniem --card-color)
+   ========================================================================== */
+
+/* 1. Fioletowy (Purple / Violet) */
+.pwe-element-auto-switch .pwe-speakers__item:nth-child(5n+1) {
+  --card-color: var(--violet, #cf48ff);
+  border-color: var(--card-color);
 }
-.pwe-element-auto-switch .pwe-other-events__item-statistic-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+.pwe-element-auto-switch .pwe-speakers__item:nth-child(5n+1) .pwe-speakers__speaker-img {
+  color: var(--card-color);
 }
-.pwe-element-auto-switch .pwe-other-events__item-statistic-icon svg {
-    max-width: 24px;
+
+.pwe-element-auto-switch .pwe-speakers__item:nth-child(5n+1):hover {
+  box-shadow: 0 8px 25px rgba(207, 72, 255, 0.25);
 }
-.pwe-element-auto-switch .pwe-other-events__show-more-btn {
-    color: var(--accent-color);
-    font-weight: 600;
-    text-align: center;
-    background: #e7e7e7;
-    padding: 6px 18px;
-    border-radius: 36px;
-    max-width: 120px;
-    width: 120px;
-    text-transform: capitalize;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 6px;
-    transition: .3s;
+
+/* 2. Zielony (Green) */
+.pwe-element-auto-switch .pwe-speakers__item:nth-child(5n+2) {
+  --card-color: var(--green, #00e89d);
+  border-color: var(--card-color);
 }
-.pwe-element-auto-switch .pwe-other-events__show-more-btn:hover {
-    gap: 10px;
+
+.pwe-element-auto-switch .pwe-speakers__item:nth-child(5n+2) .pwe-speakers__speaker-img {
+  color: var(--card-color);
+}
+
+.pwe-element-auto-switch .pwe-speakers__item:nth-child(5n+2):hover {
+  box-shadow: 0 8px 25px rgba(0, 232, 157, 0.25);
+}
+
+/* 3. Limonka (Lime) */
+.pwe-element-auto-switch .pwe-speakers__item:nth-child(5n+3) {
+  --card-color: var(--lime, #84cc16);
+  border-color: var(--card-color);
+}
+
+.pwe-element-auto-switch .pwe-speakers__item:nth-child(5n+3) .pwe-speakers__speaker-img {
+  color: var(--card-color);
+}
+
+.pwe-element-auto-switch .pwe-speakers__item:nth-child(5n+3):hover {
+  box-shadow: 0 8px 25px rgba(132, 204, 22, 0.25);
+}
+
+/* 4. Niebieski (Blue) */
+.pwe-element-auto-switch .pwe-speakers__item:nth-child(5n+4) {
+  --card-color: var(--cyan, #00aaff);
+  border-color: var(--card-color);
+}
+
+.pwe-element-auto-switch .pwe-speakers__item:nth-child(5n+4) .pwe-speakers__speaker-img {
+  color: var(--card-color);
+}
+
+.pwe-element-auto-switch .pwe-speakers__item:nth-child(5n+4):hover {
+  box-shadow: 0 8px 25px rgba(0, 170, 255, 0.25);
+}
+
+/* 5. Pomarańczowy (Orange) */
+.pwe-element-auto-switch .pwe-speakers__item:nth-child(5n+0) {
+  --card-color: var(--orange, #f97316);
+  border-color: var(--card-color);
+}
+
+.pwe-element-auto-switch .pwe-speakers__item:nth-child(5n+0) .pwe-speakers__speaker-img {
+  color: var(--card-color);
+}
+
+.pwe-element-auto-switch .pwe-speakers__item:nth-child(5n+0):hover {
+  box-shadow: 0 8px 25px rgba(249, 115, 22, 0.25);
+}
+
+/* ==========================================================================
+   Przycisk Bio (Wypozycjonowany w prawym dolnym rogu)
+   ========================================================================== */
+.pwe-speakers__bio-btn {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--card-color, #ffffff);
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-color, #8841ff);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  z-index: 2;
+}
+
+.pwe-speakers__bio-btn:hover {
+  background-color: var(--card-color, #8841ff);
+  color: #071124;
+  /* Ciemny tekst po najechaniu dla zachowania świetnego kontrastu */
+  box-shadow: 0 0 12px var(--card-color);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   Przycisk na dole
+   ========================================================================== */
+.pwe-element-auto-switch .pwe-speakers__bottom {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  gap: 18px;
+}
+
+.pwe-element-auto-switch .pwe-speakers__btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.pwe-element-auto-switch .pwe-speakers__btn a {
+  display: flex;
+  align-items: center;
+  height: 42px;
+  padding: 0 24px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.15px;
+  cursor: pointer;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid rgba(73, 160, 255, 0.42);
+  color: white !important;
+  background: linear-gradient(135deg, #2084ff, #9a4dff);
+  box-shadow: 0 0 14px rgba(32, 132, 255, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+/* ==========================================================================
+   Stylizacja Popupa / Modala Bio
+   ========================================================================== */
+.pwe-speaker-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.pwe-speaker-modal.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.pwe-speaker-modal__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(2, 8, 23, 0.85);
+  backdrop-filter: blur(4px);
+}
+
+.pwe-speaker-modal__content {
+  position: relative;
+  width: 90%;
+  max-width: 550px;
+  max-height: 85vh;
+  background: #0d1930;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  overflow-y: auto;
+  z-index: 2;
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+
+.pwe-speaker-modal.is-active .pwe-speaker-modal__content {
+  transform: scale(1);
+}
+
+.pwe-speaker-modal__close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  background: transparent;
+  border: none;
+  color: #aaaaaa;
+  font-size: 28px;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.pwe-speaker-modal__close:hover {
+  color: #ffffff;
+}
+
+.pwe-speaker-modal__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 16px;
+}
+
+.pwe-speaker-modal__img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent-color, #8841ff);
+}
+
+.pwe-speaker-modal__name {
+  margin: 0 0 4px 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff !important;
+}
+
+.pwe-speaker-modal__position {
+  margin: 0;
+  font-size: 13px;
+  color: #00d2ff;
+}
+
+.pwe-speaker-modal__company {
+  margin: 2px 0 0 0;
+  font-size: 12px;
+  color: #a0aec0;
+}
+
+.pwe-speaker-modal__text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #e2e8f0;
+  white-space: pre-line;
 }

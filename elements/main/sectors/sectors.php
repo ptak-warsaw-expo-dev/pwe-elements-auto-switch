@@ -10,6 +10,7 @@ class Sectors {
                 'gr1' => plugin_dir_path(__FILE__) . 'presets/gr1/preset.php',
                 'gr2' => plugin_dir_path(__FILE__) . 'presets/gr2/preset.php',
                 'b2c-new' => plugin_dir_path(__FILE__) . 'presets/b2c-new/preset.php',
+                'week' => plugin_dir_path(__FILE__) . 'presets/week/preset.php',
             ],
         ];
     }
@@ -28,13 +29,13 @@ class Sectors {
 
         $preset_file = self::get_data()['presets'][$group] ?? null;
         if ($preset_file && file_exists($preset_file)) {
-            
+
             /* <-------------> General code start <-------------> */
 
             $lang = PWE_Functions::lang();
 
             // Get sectors from the database
-            $data = PWE_Functions::get_database_fairs_data_sectors(); 
+            $data = PWE_Functions::get_database_fairs_data_sectors();
 
             $sectors = [];
 
@@ -47,12 +48,12 @@ class Sectors {
                             foreach ($decoded as $sector) {
 
                                 $sectors[] = [
-                                    'name' => !empty($sector['name_' . $lang]) 
-                                        ? $sector['name_' . $lang] 
+                                    'name' => !empty($sector['name_' . $lang])
+                                        ? $sector['name_' . $lang]
                                         : ($sector['name_en'] ?? ''),
-                                    'image' => 'https://cap.warsawexpo.eu/public/uploads/domains/' 
-                                        . str_replace('.', '-', $_SERVER['HTTP_HOST']) 
-                                        . '/sectors/' 
+                                    'image' => 'https://cap.warsawexpo.eu/public/uploads/domains/'
+                                        . str_replace('.', '-', $_SERVER['HTTP_HOST'])
+                                        . '/sectors/'
                                         . ($sector['image'] ?? ''),
                                     'order' => $sector['order']
                                 ];
@@ -72,11 +73,11 @@ class Sectors {
             }
 
             /* <-------------> General code end <-------------> */
-            
+
             $output = include $preset_file;
-            
+
             if ($output) {
-                echo $output;         
+                echo do_shortcode($output);
             }
         }
     }

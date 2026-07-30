@@ -130,5 +130,41 @@
     "industry_alt": "Tööstus",
     "more_btn": "Näita rohkem",
     "less_btn": "Vähem"
+  },
+  "hu_HU": {
+    "profiles_title": "Profilok",
+    "profiles_subtitle": "Profil",
+    "visitor": "Látogató",
+    "visitor_alt": "Látogatók",
+    "exhibitor": "Kiállító",
+    "exhibitor_alt": "Kiállítók",
+    "industry": "Ipari",
+    "industry_alt": "Ipari",
+    "more_btn": "Több megjelenítése",
+    "less_btn": "Kevesebb"
+  },
+  "fr_FR": {
+    "profiles_title": "Profils",
+    "profiles_subtitle": "Profil",
+    "visitor": "Visiteur",
+    "visitor_alt": "Visiteurs",
+    "exhibitor": "Exposant",
+    "exhibitor_alt": "Exposants",
+    "industry": "Industriel",
+    "industry_alt": "Industriel",
+    "more_btn": "Voir plus",
+    "less_btn": "Moins"
+  },
+  "es_ES": {
+    "profiles_title": "Perfiles",
+    "profiles_subtitle": "Perfil",
+    "visitor": "Visitante",
+    "visitor_alt": "Visitantes",
+    "exhibitor": "Expositor",
+    "exhibitor_alt": "Expositores",
+    "industry": "Industrial",
+    "industry_alt": "Industrial",
+    "more_btn": "Ver más",
+    "less_btn": "Menos"
   }
 }

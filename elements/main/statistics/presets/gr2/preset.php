@@ -1,7 +1,7 @@
 <?php
 
 $output = '';
-
+if(!$combined_events){
 if (empty($pwe_visitors_prev) || empty($pwe_exhibitors_prev) || empty($pwe_area_prev)) {
   $output .= '
   <style>
@@ -27,7 +27,7 @@ $output .= '
 
     <div class="pwe-statistics__title">
       <div class="pwe-statistics__title-wrapper">
-        <h4 class="pwe-main-title">'. do_shortcode(PWE_Functions::languageChecker('[trade_fair_name]', '[trade_fair_name_eng]')) .' '. PWE_Functions::multi_translation("in_numbers") .'</h4> 
+        <h4 class="pwe-main-title">'. do_shortcode(PWE_Functions::languageChecker('[trade_fair_name]', '[trade_fair_name_eng]')) .' '. PWE_Functions::multi_translation("in_numbers") .'</h4>
         <div class="pwe-statistics__main-text">
             <p>'. $adapting_word .'</p>
         </div>
@@ -66,7 +66,7 @@ $output .= '
                 </div>
             </div>
           </div>
-            
+
           <div class="pwe-statistics__cards-bottom pwe-statistics__cards-row">
             <div class="pwe-statistics__card">
               <div class="pwe-statistics__card-icon">
@@ -74,7 +74,7 @@ $output .= '
                   <path d="M1 7.56531L16.9055 2.04248C17.6591 4.03227 18.8937 5.3759 21.5633 4.8083H34.8553L38.2624 15.2375L34.8553 17.7708L36.9236 18.6045L39 28.9944L33.5084 34.478L34.1017 37.9573L29.9089 35.1915H23.816L22.4371 36.5303L21.0422 33.7965C17.0658 32.8986 14.2278 30.9425 11.3899 28.7379L10.5882 31.0387L8.62405 28.2889L3.88127 26.0362C1.9957 19.3661 1.46257 13.4497 1 7.56531Z" fill="var(--main2-color)"/>
                 </svg>
               </div>
-              <div class="pwe-statistics__card-numbers">  
+              <div class="pwe-statistics__card-numbers">
                 <div class="pwe-statistics__card-num"><span class="countup" data-count="'. $polish_visitors .'">0</span></div>
                 <div class="pwe-statistics__card-label">'. PWE_Functions::multi_translation("poland") .' <span class="countup" data-count="'. $percent_polish .'">0</span> %</div>
               </div>
@@ -87,7 +87,7 @@ $output .= '
                   <path d="M23.7402 20C23.7402 15.1178 22.4471 10.328 20.0003 6.11513C17.5534 10.328 16.2604 15.1177 16.2604 20C16.2604 24.882 17.5537 29.6712 20.0003 33.8839C22.4468 29.6712 23.7402 24.8819 23.7402 20ZM26.8311 20C26.8311 25.7535 25.2155 31.3914 22.1696 36.2725C21.7177 36.9966 20.7646 37.2173 20.0405 36.7655C20.0266 36.7568 20.0138 36.7464 20.0003 36.7373C19.9867 36.7464 19.974 36.7568 19.96 36.7655C19.2359 37.2173 18.2819 36.9966 17.83 36.2725C14.7841 31.3914 13.1695 25.7534 13.1695 20C13.1695 14.2466 14.7841 8.60856 17.83 3.72754C18.2819 3.00344 19.2359 2.78266 19.96 3.23453C19.974 3.24323 19.9867 3.25363 20.0003 3.2627C20.0138 3.25363 20.0266 3.24322 20.0405 3.23453C20.7646 2.78267 21.7177 3.00344 22.1696 3.72754C25.2155 8.60862 26.8311 14.2465 26.8311 20Z" fill="var(--main2-color)"/>
                 </svg>
               </div>
-              <div class="pwe-statistics__card-numbers">  
+              <div class="pwe-statistics__card-numbers">
                 <div class="pwe-statistics__card-num"><span class="countup" data-count="'. $pwe_visitors_foreign .'">0</span></div>
                 <div class="pwe-statistics__card-label">'. PWE_Functions::multi_translation("abroad") .' <span class="countup" data-count="'. (100 - $percent_polish) .'">0</span> %</div>
               </div>
@@ -99,7 +99,7 @@ $output .= '
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M21.6666 5H5V35H35V18.3334H21.6666V5ZM18.3334 31.6666H8.33336V21.6666H18.3334V31.6666ZM18.3334 18.3334H8.33336V8.33336H18.3334V18.3334ZM31.6666 21.6666V31.6666H21.6666V21.6666H31.6666ZM35 5V15H25V5H35ZM31.6666 8.33336H28.3334V11.6666H31.6666V8.33336Z" fill="var(--main2-color)"/>
                 </svg>
               </div>
-              <div class="pwe-statistics__card-numbers">  
+              <div class="pwe-statistics__card-numbers">
                 <div class="pwe-statistics__card-num"><span class="countup" data-count="'. $pwe_area  .'">0</span> m<sup>2</sup></div>
                 <div class="pwe-statistics__card-label">'. PWE_Functions::multi_translation("surface") .'</div>
               </div>
@@ -135,7 +135,7 @@ $output .= '
                       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M20.4957 22.4873C21.7042 22.6113 22.8238 23.179 23.6379 24.0807C24.452 24.9824 24.9027 26.1541 24.9028 27.3689C24.9028 29.8915 23.3651 31.9789 21.2973 33.3564C19.2197 34.7436 16.4386 35.5485 13.4514 35.5485C10.4642 35.5485 7.68318 34.7436 5.60556 33.3564C3.53449 31.9822 2 29.8915 2 27.3689C2 26.0673 2.51707 24.819 3.43745 23.8986C4.35783 22.9782 5.60614 22.4612 6.90775 22.4612H19.9951L20.4957 22.4873ZM33.0922 22.4612C34.3939 22.4612 35.6422 22.9782 36.5626 23.8986C37.4829 24.819 38 26.0673 38 27.3689C38 29.6428 36.5866 31.3311 34.7838 32.3683C32.9908 33.3989 30.6449 33.9126 28.1845 33.9126C27.3556 33.9104 26.5475 33.8493 25.7601 33.7294C27.1768 32.0542 28.178 29.9144 28.178 27.3689C28.1742 25.5976 27.5955 23.8754 26.5289 22.4612H33.0922ZM13.458 4.45298C14.4389 4.43275 15.4139 4.60854 16.326 4.97003C17.2381 5.33152 18.0688 5.87144 18.7695 6.55815C19.4702 7.24485 20.0268 8.06453 20.4066 8.96912C20.7864 9.87372 20.9818 10.845 20.9814 11.8261C20.981 12.8072 20.7847 13.7784 20.4041 14.6826C20.0234 15.5869 19.4661 16.4061 18.7648 17.0922C18.0635 17.7782 17.2323 18.3174 16.3199 18.6781C15.4075 19.0388 14.4323 19.2137 13.4514 19.1926C11.5237 19.152 9.68866 18.3577 8.3397 16.98C6.99074 15.6023 6.23527 13.7509 6.23527 11.8228C6.23527 9.89466 6.99074 8.04327 8.3397 6.66559C9.68866 5.28791 11.5237 4.4936 13.4514 4.45298M28.9926 7.72809C29.7445 7.72809 30.4891 7.87619 31.1838 8.16393C31.8784 8.45168 32.5096 8.87343 33.0413 9.40511C33.573 9.93679 33.9948 10.568 34.2825 11.2627C34.5702 11.9573 34.7183 12.7019 34.7183 13.4538C34.7183 14.2057 34.5702 14.9503 34.2825 15.6449C33.9948 16.3396 33.573 16.9708 33.0413 17.5025C32.5096 18.0342 31.8784 18.4559 31.1838 18.7437C30.4891 19.0314 29.7445 19.1795 28.9926 19.1795C27.4741 19.1795 26.0177 18.5763 24.9439 17.5025C23.8702 16.4287 23.2669 14.9724 23.2669 13.4538C23.2669 11.9352 23.8702 10.4789 24.9439 9.40511C26.0177 8.33133 27.4741 7.72809 28.9926 7.72809Z" fill="var(--main2-color)"/>
                       </svg>
-                      <span>'. PWE_Functions::multi_translation("visitors") .'</span> 
+                      <span>'. PWE_Functions::multi_translation("visitors") .'</span>
                   </div>
                   <div class="pwe-statistics__map-bar-numbers">
                     <div class="pwe-statistics__map-bar-number-item" data-count="'. $number_visitors_previous_percentage .'">
@@ -148,11 +148,11 @@ $output .= '
                 </div>
 
                 <div class="pwe-statistics__map-bar">
-                  <div class="pwe-statistics__map-bar-label"> 
+                  <div class="pwe-statistics__map-bar-label">
                     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M26.8 6.4C26.8 4.53 28.33 3 30.2 3C32.07 3 33.6 4.53 33.6 6.4C33.6 8.27 32.07 9.8 30.2 9.8C28.33 9.8 26.8 8.27 26.8 6.4ZM34.926 12.486C33.4353 11.8356 31.8264 11.4999 30.2 11.5C29.061 11.5 27.973 11.67 26.936 11.976C27.922 12.911 28.5 14.22 28.5 15.631V16.6H37V15.631C37 14.254 36.184 13.03 34.926 12.486ZM9.8 9.8C11.67 9.8 13.2 8.27 13.2 6.4C13.2 4.53 11.67 3 9.8 3C7.93 3 6.4 4.53 6.4 6.4C6.4 8.27 7.93 9.8 9.8 9.8ZM13.064 11.976C12.027 11.67 10.939 11.5 9.8 11.5C8.117 11.5 6.519 11.857 5.074 12.486C4.45811 12.7493 3.93317 13.1877 3.56443 13.7469C3.19569 14.306 2.99942 14.9612 3 15.631V16.6H11.5V15.631C11.5 14.22 12.078 12.911 13.064 11.976ZM16.6 6.4C16.6 4.53 18.13 3 20 3C21.87 3 23.4 4.53 23.4 6.4C23.4 8.27 21.87 9.8 20 9.8C18.13 9.8 16.6 8.27 16.6 6.4ZM26.8 16.6H13.2V15.631C13.2 14.254 14.016 13.03 15.274 12.486C16.7647 11.8354 18.3736 11.4996 20 11.4996C21.6264 11.4996 23.2354 11.8354 24.726 12.486C25.3419 12.7493 25.8668 13.1877 26.2356 13.7469C26.6043 14.306 26.8006 14.9612 26.8 15.631V16.6ZM25.1 26.8C25.1 24.93 26.63 23.4 28.5 23.4C30.37 23.4 31.9 24.93 31.9 26.8C31.9 28.67 30.37 30.2 28.5 30.2C26.63 30.2 25.1 28.67 25.1 26.8ZM35.3 37H21.7V36.031C21.7 34.654 22.516 33.43 23.774 32.886C25.2647 32.2354 26.8736 31.8996 28.5 31.8996C30.1264 31.8996 31.7354 32.2354 33.226 32.886C33.8419 33.1492 34.3668 33.5877 34.7356 34.1469C35.1043 34.706 35.3006 35.3612 35.3 36.031V37ZM8.1 26.8C8.1 24.93 9.63 23.4 11.5 23.4C13.37 23.4 14.9 24.93 14.9 26.8C14.9 28.67 13.37 30.2 11.5 30.2C9.63 30.2 8.1 28.67 8.1 26.8ZM18.3 37H4.7V36.031C4.7 34.654 5.516 33.43 6.774 32.886C8.26465 32.2354 9.87357 31.8996 11.5 31.8996C13.1264 31.8996 14.7354 32.2354 16.226 32.886C16.8419 33.1492 17.3668 33.5877 17.7356 34.1469C18.1043 34.706 18.3006 35.3612 18.3 36.031V37ZM21.275 21.7V18.3H18.725V21.7H14.9L20 26.8L25.1 21.7H21.275Z" fill="var(--main2-color)"/>
                     </svg>
-                    <span>'. PWE_Functions::multi_translation("exhibitors") .'</span> 
+                    <span>'. PWE_Functions::multi_translation("exhibitors") .'</span>
                   </div>
                   <div class="pwe-statistics__map-bar-numbers">
                     <div class="pwe-statistics__map-bar-number-item" data-count="'. $number_exhibitors_previous_percentage .'">
@@ -165,11 +165,11 @@ $output .= '
                 </div>
 
                 <div class="pwe-statistics__map-bar">
-                  <div class="pwe-statistics__map-bar-label"> 
+                  <div class="pwe-statistics__map-bar-label">
                     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd" clip-rule="evenodd" d="M21.6666 5H5V35H35V18.3334H21.6666V5ZM18.3334 31.6666H8.33336V21.6666H18.3334V31.6666ZM18.3334 18.3334H8.33336V8.33336H18.3334V18.3334ZM31.6666 21.6666V31.6666H21.6666V21.6666H31.6666ZM35 5V15H25V5H35ZM31.6666 8.33336H28.3334V11.6666H31.6666V8.33336Z" fill="var(--main2-color)"/>
                     </svg>
-                    <span>'. PWE_Functions::multi_translation("surface") .'</span> 
+                    <span>'. PWE_Functions::multi_translation("surface") .'</span>
                   </div>
                   <div class="pwe-statistics__map-bar-numbers">
                     <div class="pwe-statistics__map-bar-number-item" data-count="'. $exhibition_space_previous_percentage .'">
@@ -188,9 +188,209 @@ $output .= '
           </div>';
         }
 
-      $output .= '  
+      $output .= '
     </div>
 
 </div>';
+}  else {
+
+    $fair_associates_raw = $combined_events[0]->fair_associates ?? '';
+    $associates_list = !empty($fair_associates_raw) ? array_filter(explode(',', $fair_associates_raw)) : [];
+
+    $output .= '
+    <div id="pweCombinedStatistics" class="pwe-combined-stats">
+
+        <!-- Nagłówek Sekcji -->
+        <div class="pwe-combined-stats__header">
+          <div class="pwe-combined-stats__container">
+              <div class="pwe-combined-stats__title-group">
+                  <h2 class="pwe-combined-stats__title">
+                      '. do_shortcode(PWE_Functions::languageChecker('[trade_fair_name]', '[trade_fair_name_eng]')) .' '. PWE_Functions::multi_translation("in_numbers") .'
+                  </h2>
+                  <span class="pwe-combined-stats__subtitle">
+                      '. PWE_Functions::multi_translation("combined_block_statistics_subtitle") .'
+                  </span>
+              </div>
+              <div class="pwe-combined-stats__logo">
+                  <img src="/doc/logo-color.webp" alt="Logo">
+              </div>
+            </div>
+        </div>
+
+        <!-- Główny Kontener Statystyk -->
+        <div class="pwe-combined-stats__body">
+
+            <!-- Górne dwa duże kafelki -->
+            <div class="pwe-combined-stats__top-row">
+
+                <!-- Lewy Kafelek: Statystyki Zbiorcze -->
+                <div class="pwe-combined-stats__card pwe-combined-stats__card--main">
+                    <div class="pwe-combined-stats__card-header">
+                        <div class="pwe-combined-stats__badge">
+                            '. PWE_Functions::multi_translation("trade_fair_block") .'
+                        </div>
+                        <span class="pwe-combined-stats__badge-label">
+                            '. PWE_Functions::multi_translation("combined_statistics") .'
+                        </span>
+                        <div class="pwe-combined-stats__card-icon-top">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M31.44 19.8203C29.96 19.8603 28.54 20.1803 27.24 20.7203L26.14 19.0603L19.98 29.0803C19.8154 29.3486 19.5898 29.5744 19.3215 29.7391C19.0532 29.9038 18.7498 30.0029 18.436 30.0282C18.1222 30.0535 17.8069 30.0044 17.5156 29.8849C17.2244 29.7654 16.9655 29.5788 16.76 29.3403L12.52 24.4003L6.39997 34.2003C5.77997 35.1803 4.45997 35.4403 3.51997 34.7603C2.67997 34.1403 2.43997 32.9803 2.99997 32.0803L10.56 19.9803C11.28 18.8403 12.9 18.7203 13.78 19.7403L18 24.6603L24.36 14.3203C24.5348 14.0345 24.779 13.7975 25.0697 13.6311C25.3605 13.4647 25.6885 13.3743 26.0235 13.3683C26.3585 13.3624 26.6895 13.441 26.9861 13.5969C27.2826 13.7528 27.535 13.9809 27.72 14.2603L31.44 19.8203ZM36.62 20.8203C35.34 20.2603 33.96 19.9203 32.52 19.8403L41.6 5.46026C42.22 4.48026 43.54 4.24027 44.46 4.92027C45.32 5.54027 45.54 6.72026 44.98 7.60027L36.62 20.8203Z" fill="white"/>
+                            <path d="M39.76 36.6003C40.72 35.0603 41.26 33.2603 41.14 31.2803C40.88 26.9803 37.46 23.3403 33.2 22.8803C31.9388 22.7335 30.6608 22.8553 29.4501 23.2376C28.2393 23.6199 27.1231 24.2541 26.1749 25.0985C25.2266 25.9428 24.4678 26.9783 23.9482 28.1368C23.4285 29.2952 23.1599 30.5506 23.16 31.8203C23.16 36.8003 27.18 40.8203 32.14 40.8203C33.9 40.8203 35.54 40.3003 36.92 39.4203L41.74 44.2403C42.52 45.0203 43.8 45.0203 44.58 44.2403C45.36 43.4603 45.36 42.1803 44.58 41.4003L39.76 36.6003ZM32.16 36.8203C30.8339 36.8203 29.5621 36.2935 28.6244 35.3558C27.6868 34.4181 27.16 33.1463 27.16 31.8203C27.16 30.4942 27.6868 29.2224 28.6244 28.2847C29.5621 27.3471 30.8339 26.8203 32.16 26.8203C33.4861 26.8203 34.7578 27.3471 35.6955 28.2847C36.6332 29.2224 37.16 30.4942 37.16 31.8203C37.16 33.1463 36.6332 34.4181 35.6955 35.3558C34.7578 36.2935 33.4861 36.8203 32.16 36.8203Z" fill="currentColor"/>
+                            </svg>
+
+                        </div>
+                    </div>
+
+                    <div class="pwe-combined-stats__metrics">
+                        <div class="pwe-combined-stats__metric">
+                            <div class="pwe-combined-stats__metric-icon">
+                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16.3855 17.9347C17.3255 18.0311 18.1963 18.4726 18.8295 19.174C19.4627 19.8753 19.8132 20.7866 19.8133 21.7315C19.8133 23.6935 18.6173 25.317 17.009 26.3884C15.3931 27.4674 13.23 28.0934 10.9067 28.0934C8.5833 28.0934 6.42025 27.4674 4.80433 26.3884C3.19349 25.3196 2 23.6935 2 21.7315C2 20.7191 2.40216 19.7482 3.11801 19.0323C3.83387 18.3165 4.80477 17.9143 5.81714 17.9143H15.9962L16.3855 17.9347ZM10.9118 3.90796C11.6747 3.89222 12.433 4.02894 13.1424 4.3101C13.8518 4.59126 14.498 5.0112 15.0429 5.54531C15.5879 6.07941 16.0208 6.71694 16.3162 7.42051C16.6117 8.12409 16.7636 8.87955 16.7633 9.64263C16.763 10.4057 16.6103 11.161 16.3143 11.8643C16.0182 12.5677 15.5848 13.2048 15.0393 13.7384C14.4938 14.272 13.8473 14.6914 13.1377 14.9719C12.4281 15.2525 11.6696 15.3885 10.9067 15.3721C9.40733 15.3405 7.98007 14.7227 6.93088 13.6512C5.88169 12.5797 5.2941 11.1397 5.2941 9.64003C5.2941 8.14037 5.88169 6.7004 6.93088 5.62887C7.98007 4.55734 9.40733 3.93955 10.9067 3.90796" fill="currentColor"/>
+                                <path d="M26.183 17.9143C27.1954 17.9143 28.1663 18.3165 28.8821 19.0323C29.598 19.7482 30.0001 20.7191 30.0001 21.7315C30.0001 23.5001 28.9008 24.8132 27.4986 25.6199C26.1041 26.4215 24.2795 26.821 22.3658 26.821C21.7212 26.8193 21.0926 26.7718 20.4802 26.6785C21.5821 25.3756 22.3608 23.7113 22.3608 21.7315C22.3578 20.3538 21.9077 19.0143 21.0782 17.9143H26.183Z" fill="white"/>
+                                <path d="M24.6986 6.79407C24.1583 6.57027 23.5792 6.45508 22.9943 6.45508C21.8132 6.45508 20.6805 6.92427 19.8454 7.75943C19.0102 8.59459 18.541 9.72731 18.541 10.9084C18.541 12.0895 19.0102 13.2222 19.8454 14.0574C20.6805 14.8926 21.8132 15.3617 22.9943 15.3617C23.5792 15.3617 24.1583 15.2466 24.6986 15.0228C25.2389 14.799 25.7298 14.4709 26.1433 14.0574C26.5569 13.6439 26.8849 13.1529 27.1087 12.6126C27.3325 12.0723 27.4477 11.4932 27.4477 10.9084C27.4477 10.3236 27.3325 9.7445 27.1087 9.20419C26.8849 8.66389 26.5569 8.17296 26.1433 7.75943C25.7298 7.3459 25.2389 7.01787 24.6986 6.79407Z" fill="white"/>
+                                </svg>
+                            </div>
+                            <div class="pwe-combined-stats__metric-value">
+                                <span class="countup" data-count="'. $pwe_visitors .'">0</span>
+                            </div>
+                            <div class="pwe-combined-stats__metric-label">
+                                '. PWE_Functions::multi_translation("visitors") .'
+                            </div>
+                        </div>
+
+                        <div class="pwe-combined-stats__metric">
+                            <div class="pwe-combined-stats__metric-icon">
+                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M21.2 5.6C21.2 4.17 22.37 3 23.8 3C25.23 3 26.4 4.17 26.4 5.6C26.4 7.03 25.23 8.2 23.8 8.2C22.37 8.2 21.2 7.03 21.2 5.6ZM27.414 10.254C26.2741 9.7566 25.0437 9.49991 23.8 9.5C22.929 9.5 22.097 9.63 21.304 9.864C22.058 10.579 22.5 11.58 22.5 12.659V13.4H29V12.659C29 11.606 28.376 10.67 27.414 10.254ZM8.2 8.2C9.63 8.2 10.8 7.03 10.8 5.6C10.8 4.17 9.63 3 8.2 3C6.77 3 5.6 4.17 5.6 5.6C5.6 7.03 6.77 8.2 8.2 8.2ZM10.696 9.864C9.903 9.63 9.071 9.5 8.2 9.5C6.913 9.5 5.691 9.773 4.586 10.254C4.11503 10.4553 3.7136 10.7906 3.43162 11.2182C3.14965 11.6458 2.99955 12.1468 3 12.659V13.4H9.5V12.659C9.5 11.58 9.942 10.579 10.696 9.864ZM13.4 5.6C13.4 4.17 14.57 3 16 3C17.43 3 18.6 4.17 18.6 5.6C18.6 7.03 17.43 8.2 16 8.2C14.57 8.2 13.4 7.03 13.4 5.6ZM21.2 13.4H10.8V12.659C10.8 11.606 11.424 10.67 12.386 10.254C13.5259 9.7565 14.7563 9.49971 16 9.49971C17.2437 9.49971 18.4741 9.7565 19.614 10.254C20.085 10.4553 20.4864 10.7906 20.7684 11.2182C21.0504 11.6458 21.2005 12.1468 21.2 12.659V13.4ZM19.9 21.2C19.9 19.77 21.07 18.6 22.5 18.6C23.93 18.6 25.1 19.77 25.1 21.2C25.1 22.63 23.93 23.8 22.5 23.8C21.07 23.8 19.9 22.63 19.9 21.2ZM27.7 29H17.3V28.259C17.3 27.206 17.924 26.27 18.886 25.854C20.0259 25.3565 21.2563 25.0997 22.5 25.0997C23.7437 25.0997 24.9741 25.3565 26.114 25.854C26.585 26.0553 26.9864 26.3906 27.2684 26.8182C27.5504 27.2458 27.7004 27.7468 27.7 28.259V29ZM6.9 21.2C6.9 19.77 8.07 18.6 9.5 18.6C10.93 18.6 12.1 19.77 12.1 21.2C12.1 22.63 10.93 23.8 9.5 23.8C8.07 23.8 6.9 22.63 6.9 21.2ZM14.7 29H4.3V28.259C4.3 27.206 4.924 26.27 5.886 25.854C7.02591 25.3565 8.25626 25.0997 9.5 25.0997C10.7437 25.0997 11.9741 25.3565 13.114 25.854C13.585 26.0553 13.9864 26.3906 14.2684 26.8182C14.5504 27.2458 14.7004 27.7468 14.7 28.259V29Z" fill="currentColor"/>
+                                  <path d="M16.9751 17.3V14.7H15.0251V17.3H12.1001L16.0001 21.2L19.9001 17.3H16.9751Z" fill="white"/>
+                                  </svg>
+
+                            </div>
+                            <div class="pwe-combined-stats__metric-value">
+                                <span class="countup" data-count="'. $pwe_exhibitors .'">0</span>
+                            </div>
+                            <div class="pwe-combined-stats__metric-label">
+                                '. PWE_Functions::multi_translation("exhibitors") .'
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prawy Kafelek: Skład bloku -->
+                <div class="pwe-combined-stats__card pwe-combined-stats__card--associates">
+                    <h3 class="pwe-combined-stats__card-title">
+                        '. PWE_Functions::multi_translation("block_composition") .'
+                    </h3>
+                    <div class="pwe-combined-stats__associates-list">';
+
+                        if(!empty($associates_list)) {
+                            foreach($associates_list as $associate_domain) {
+                                $associate_domain = trim($associate_domain);
+
+                                $output .= '
+                                <div class="pwe-combined-stats__associate-item">
+                                    <span class="pwe-combined-stats__associate-logo"><img src="https://'. htmlspecialchars($associate_domain) .'/doc/logo-x-pl.webp" /></span>
+                                </div>';
+                            }
+                        }
+
+                    $output .= '
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Dolne 4 mniejsze kafelki -->
+            <div class="pwe-combined-stats__bottom-row">
+
+                <!-- Polska -->
+                <div class="pwe-combined-stats__card pwe-combined-stats__card--small">
+                    <div class="pwe-combined-stats__small-icon">
+
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 6.18337L13.557 1.82324C14.1519 3.39413 15.1266 4.45489 17.2342 4.00679H27.7278L30.4177 12.2403L27.7278 14.2403L29.3608 14.8986L31 23.1011L26.6646 27.4302L27.1329 30.177L23.8228 27.9935H19.0127L17.9241 29.0505L16.8228 26.8922C13.6835 26.1834 11.443 24.6391 9.20253 22.8986L8.56962 24.715L7.01899 22.5441L3.27468 20.7656C1.78608 15.4998 1.36519 10.8289 1 6.18337Z" fill="currentColor"/>
+                        </svg>
+
+                    </div>
+                    <div class="pwe-combined-stats__small-value">
+                        <span class="countup" data-count="'. $polish_visitors .'">0</span>
+                    </div>
+                    <div class="pwe-combined-stats__small-label">
+                        '. PWE_Functions::multi_translation("poland") .' <span class="countup" data-count="'. $percent_polish .'">0</span>%
+                    </div>
+                </div>
+
+                <!-- Zagranica -->
+                <div class="pwe-combined-stats__card pwe-combined-stats__card--small">
+                    <div class="pwe-combined-stats__small-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M27.1272 15.9998C27.1272 15.0171 26.9969 14.0479 26.7464 13.115H5.25336C5.0029 14.0479 4.87263 15.0171 4.87263 15.9998C4.87263 16.9761 5.00134 17.9458 5.25336 18.8847H26.7464C26.9985 17.9458 27.1272 16.9761 27.1272 15.9998ZM6.24824 21.3574C6.75357 22.2771 7.38681 23.123 8.13177 23.8679C9.16503 24.9012 10.3918 25.7211 11.7419 26.2803C13.0918 26.8394 14.5387 27.127 15.9999 27.127C17.4611 27.127 18.908 26.8394 20.258 26.2803C21.608 25.7211 22.8348 24.9012 23.868 23.8679C24.613 23.123 25.2462 22.2771 25.7516 21.3574H6.24824ZM15.9999 4.87262C13.0488 4.87262 10.2185 6.04498 8.13177 8.13174C7.3815 8.882 6.75012 9.72874 6.24824 10.6423H25.7516C25.2497 9.72874 24.6183 8.882 23.868 8.13174C21.7813 6.04498 18.951 4.87262 15.9999 4.87262ZM29.5999 15.9998C29.5999 17.7858 29.2482 19.5544 28.5648 21.2044C27.8813 22.8544 26.8792 24.3534 25.6163 25.6162C24.3535 26.8791 22.8545 27.8812 21.2045 28.5646C19.5545 29.2481 17.7859 29.5998 15.9999 29.5998C14.2139 29.5998 12.4453 29.2481 10.7953 28.5646C9.14527 27.8812 7.64633 26.8791 6.38347 25.6162C5.12062 24.3534 4.1185 22.8544 3.43503 21.2044C2.75157 19.5544 2.3999 17.7858 2.3999 15.9998C2.3999 12.3929 3.83298 8.93393 6.38347 6.38345C8.93397 3.83297 12.393 2.3999 15.9999 2.3999C19.6068 2.3999 23.0658 3.83297 25.6163 6.38345C28.1668 8.93393 29.5999 12.3929 29.5999 15.9998Z" fill="currentColor"/>
+                        <path d="M18.992 15.9999C18.992 12.0941 17.9576 8.26226 16.0001 4.89201C14.0426 8.2623 13.0082 12.0941 13.0082 15.9999C13.0082 19.9055 14.0428 23.7368 16.0001 27.107C17.9574 23.7369 18.992 19.9054 18.992 15.9999ZM21.4648 15.9999C21.4648 20.6027 20.1723 25.113 17.7355 29.0179C17.3741 29.5971 16.6116 29.7738 16.0323 29.4123C16.0212 29.4053 16.011 29.397 16.0001 29.3897C15.9893 29.397 15.9791 29.4053 15.9679 29.4123C15.3886 29.7738 14.6254 29.5972 14.2639 29.0179C11.8272 25.113 10.5355 20.6026 10.5355 15.9999C10.5355 11.3972 11.8272 6.88675 14.2639 2.98193C14.6254 2.40265 15.3886 2.22603 15.9679 2.58752C15.9791 2.59449 15.9893 2.60281 16.0001 2.61006C16.011 2.60281 16.0212 2.59448 16.0323 2.58752C16.6116 2.22604 17.3741 2.40266 17.7355 2.98193C20.1723 6.8868 21.4648 11.3971 21.4648 15.9999Z" fill="currentColor"/>
+                        </svg>
+
+                    </div>
+                    <div class="pwe-combined-stats__small-value">
+                        <span class="countup" data-count="'. $pwe_visitors_foreign .'">0</span>
+                    </div>
+                    <div class="pwe-combined-stats__small-label">
+                        '. PWE_Functions::multi_translation("abroad") .' <span class="countup" data-count="'. (100 - $percent_polish) .'">0</span>%
+                    </div>
+                </div>
+
+                <!-- Kraje -->
+                <div class="pwe-combined-stats__card pwe-combined-stats__card--small">
+                    <div class="pwe-combined-stats__small-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M16 3.1665C8.28017 3.1665 2 9.44667 2 17.1665C2 24.8863 8.28017 31.1665 16 31.1665C23.7198 31.1665 30 24.8863 30 17.1665C30 14.8215 29.419 12.6212 28.3958 10.6763C28.2407 10.9843 28.0843 11.2772 27.9222 11.5887C27.6153 12.1813 27.2922 12.7798 27.0098 13.3748C27.3015 14.209 27.5022 15.091 27.5932 15.9998H26.0625C25.9785 16.3907 25.9167 16.7582 25.9167 17.1303V18.3332H27.5943C27.4353 19.9778 26.9253 21.5692 26.0987 22.9998H22.6733C22.93 21.9055 23.0782 20.6957 23.1832 19.4637H20.8848C20.7747 20.6572 20.5679 21.8398 20.2665 22.9998H11.7335C11.3389 21.473 11.1066 19.9088 11.0405 18.3332H20.0822V17.1303C20.073 16.7495 20.0241 16.3706 19.9363 15.9998H11.0417C11.1078 14.4242 11.34 12.86 11.7347 11.3332H17.9693C17.5643 10.5692 17.1869 9.79089 16.8377 8.99984H12.5362C13.501 6.79834 14.7762 5.49984 16 5.49984C16 4.689 16.1458 3.92717 16.4013 3.20267C16.2672 3.198 16.1353 3.1665 16 3.1665ZM11.1875 6.55684C10.7231 7.33291 10.3325 8.15083 10.0208 8.99984H7.6875C8.69401 7.9772 9.88053 7.14901 11.1875 6.55684ZM5.90133 11.3332H9.32667C8.97365 12.8657 8.76622 14.4282 8.70717 15.9998H4.40567C4.56468 14.3552 5.07472 12.7638 5.90133 11.3332ZM4.40567 18.3332H8.70833C8.77717 19.9957 8.99183 21.5648 9.32783 22.9998H5.90133C5.07472 21.5692 4.56468 19.9778 4.40567 18.3332ZM7.6875 25.3332H10.0208C10.3568 26.2385 10.75 27.0517 11.1875 27.7762C9.88053 27.184 8.69401 26.3558 7.6875 25.3332ZM12.5362 25.3332H19.4638C18.499 27.5347 17.2238 28.8332 16 28.8332C14.7762 28.8332 13.4998 27.5347 12.5362 25.3332ZM21.9792 25.3332H24.3125C23.306 26.3558 22.1195 27.184 20.8125 27.7762C21.25 27.0528 21.6432 26.2397 21.9792 25.3332Z" fill="currentColor"/>
+                          <path d="M22.9999 0.833496C20.4228 0.833496 18.3333 2.92533 18.3333 5.50016C18.3333 8.60933 22.4166 12.8572 22.4166 17.1307H23.5833C23.5844 12.8572 27.6666 8.73183 27.6666 5.50016C27.6666 2.92533 25.5771 0.833496 22.9999 0.833496ZM22.9999 3.0945C23.316 3.09465 23.6289 3.15706 23.9209 3.27815C24.2128 3.39925 24.4781 3.57666 24.7015 3.80027C24.9249 4.02387 25.102 4.28928 25.2228 4.58135C25.3436 4.87342 25.4057 5.18643 25.4056 5.5025C25.4054 5.81857 25.343 6.13151 25.2219 6.42346C25.1008 6.71541 24.9234 6.98066 24.6998 7.20404C24.4762 7.42743 24.2108 7.60459 23.9187 7.7254C23.6267 7.84621 23.3137 7.90832 22.9976 7.90816C22.3591 7.90785 21.7469 7.65392 21.2956 7.20222C20.8444 6.75052 20.591 6.13807 20.5913 5.49958C20.5916 4.86109 20.8456 4.24888 21.2973 3.79762C21.749 3.34636 22.3614 3.09419 22.9999 3.0945Z" fill="white"/>
+                          </svg>
+
+                    </div>
+                    <div class="pwe-combined-stats__small-value">
+                        <span class="countup" data-count="'. $pwe_countries .'">0</span>
+                    </div>
+                    <div class="pwe-combined-stats__small-label">
+                        '. PWE_Functions::multi_translation("countries") .'
+                    </div>
+                </div>
+
+                <!-- Powierzchnia -->
+                <div class="pwe-combined-stats__card pwe-combined-stats__card--small">
+                    <div class="pwe-combined-stats__small-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2222 5H5V27H27V14.7778H17.2222V5ZM14.7778 24.5555H7.44446V17.2222H14.7778V24.5555ZM14.7778 14.7778H7.44446V7.44446H14.7778V14.7778ZM24.5555 17.2222V24.5555H17.2222V17.2222H24.5555Z" fill="currentColor" />
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M27.0001 5V12.3333H19.6667V5H27.0001ZM24.5556 7.44446H22.1112V9.88887H24.5556V7.44446Z" fill="white"/>
+                        </svg>
+
+                    </div>
+                    <div class="pwe-combined-stats__small-value">
+                        <span class="countup" data-count="'. $pwe_area .'">0</span> m<sup>2</sup>
+                    </div>
+                    <div class="pwe-combined-stats__small-label">
+                        '. PWE_Functions::multi_translation("surface") .'
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Pasek informacyjny na dole -->
+            <div class="pwe-combined-stats__disclaimer">
+                <div class="pwe-combined-stats__disclaimer-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22Z" stroke="white" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 8H12.008M12 16V11" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+
+                </div>
+                <div class="pwe-combined-stats__disclaimer-text">
+                    '. PWE_Functions::multi_translation("combined_stats_disclaimer_text") .'
+                </div>
+            </div>
+
+        </div>
+
+    </div>';
+}
+
 
 return $output;

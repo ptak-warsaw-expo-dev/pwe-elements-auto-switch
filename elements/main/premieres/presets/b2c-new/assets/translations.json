@@ -42,5 +42,17 @@
   "et": {
     "premieres_subtitle": "ESIETENDUSED",
     "premieres_title": "Mida messil näha saab"
+  },
+  "hu_HU": {
+    "premieres_subtitle": "BEMUTATÓK",
+    "premieres_title": "Mit láthat a vásáron"
+  },
+  "fr_FR": {
+    "premieres_subtitle": "PREMIÈRES",
+    "premieres_title": "Ce que vous verrez au salon"
+  },
+  "es_ES": {
+    "premieres_subtitle": "ESTRENOS",
+    "premieres_title": "Lo que verás en la feria"
   }
 }

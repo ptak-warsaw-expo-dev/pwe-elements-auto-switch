@@ -119,5 +119,38 @@
     "industry_alt": "Tööstus",
     "more_btn": "Rohkem",
     "less_btn": "Vähem"
+  },
+  "hu_HU": {
+    "profiles_title": "Profil",
+    "visitor": "Látogató",
+    "visitor_alt": "Látogatók",
+    "exhibitor": "Kiállító",
+    "exhibitor_alt": "Kiállítók",
+    "industry": "Iparági",
+    "industry_alt": "Iparági",
+    "more_btn": "Több",
+    "less_btn": "Kevesebb"
+  },
+  "fr_FR": {
+    "profiles_title": "Profils",
+    "visitor": "Visiteur",
+    "visitor_alt": "Visiteurs",
+    "exhibitor": "Exposant",
+    "exhibitor_alt": "Exposants",
+    "industry": "Industrie",
+    "industry_alt": "Industrie",
+    "more_btn": "Plus",
+    "less_btn": "Moins"
+  },
+  "es_ES": {
+    "profiles_title": "Perfil",
+    "visitor": "Visitante",
+    "visitor_alt": "Visitantes",
+    "exhibitor": "Expositor",
+    "exhibitor_alt": "Expositores",
+    "industry": "Industrial",
+    "industry_alt": "Industrial",
+    "more_btn": "Más",
+    "less_btn": "Menos"
   }
 }

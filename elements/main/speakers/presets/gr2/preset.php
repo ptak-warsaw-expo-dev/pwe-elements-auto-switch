@@ -1,10 +1,12 @@
 <?php
 
-$speakers_limited = array_slice($speakers, 0, 12);
+
 
 $output = '';
 
 if ($_SERVER['HTTP_HOST'] === 'warsawtechweek.com') {
+
+    $speakers_limited = array_slice($speakers, 0, 12);
 
     $output .= '
     <style>
@@ -85,7 +87,7 @@ if ($_SERVER['HTTP_HOST'] === 'warsawtechweek.com') {
             
             <div class="swiper pwe-speakers__items">
                 <div class="swiper-wrapper">';
-                    foreach ($speakers_limited as $speaker) {
+                    foreach ($speakers as $speaker) {
                         $output .= '
                         <div class="pwe-speakers__item swiper-slide">
                             <div class="pwe-speakers__speaker-img">

@@ -22,10 +22,32 @@ class Statistics {
 
         // Add context to translations function
         PWE_Functions::set_translation_context($element_slug, $group, $element_type);
-        // Global assets
+
+        // Ładowanie standardowych zasobów (w tym standardowego style.css dla pojedynczego wydarzenia)
         PWE_Functions::assets_per_element($element_slug, $element_type);
-        // Assets per group
         PWE_Functions::assets_per_group($element_slug, $group, $element_type);
+
+        $host = $_SERVER['HTTP_HOST'] ?? '';
+
+        $combined_events = PWE_Functions::get_database_associates_data($host, true);
+
+        if (empty($combined_events)) {
+            $combined_events = PWE_Functions::get_database_associates_data($host, false);
+        }
+
+        if (!empty($combined_events)) {
+            $combined_css_url  = plugin_dir_url(__FILE__) . 'presets/gr2/assets/style-combined.css';
+            $combined_css_path = plugin_dir_path(__FILE__) . 'presets/gr2/assets/style-combined.css';
+
+            $version = file_exists($combined_css_path) ? filemtime($combined_css_path) : '1.0.0';
+
+            wp_enqueue_style(
+                'pwe-statistics-combined',
+                $combined_css_url,
+                ['pwe-statistics-style'],
+                $version
+            );
+        }
 
         $preset_file = self::get_data()['presets'][$group] ?? null;
         if ($preset_file && file_exists($preset_file)) {
@@ -145,7 +167,7 @@ class Statistics {
                 $pwe_exhibitors_prev  = sc_int('pwe_exhibitors_prev');
                 $pwe_countries_prev        = sc_int('pwe_countries_prev');
                 $pwe_area_prev        = sc_int('pwe_area_prev');
-                $pwe_statistics_year_prev = sc_int('pwe_statistics_year_prev'); 
+                $pwe_statistics_year_prev = sc_int('pwe_statistics_year_prev');
 
                 // Visitor calculations
                 $polish_visitors = max(0, $pwe_visitors - $pwe_visitors_foreign);
@@ -185,7 +207,7 @@ class Statistics {
             $output = include $preset_file;
 
             if ($output) {
-                echo $output;
+                echo do_shortcode($output);
             }
         }
     }

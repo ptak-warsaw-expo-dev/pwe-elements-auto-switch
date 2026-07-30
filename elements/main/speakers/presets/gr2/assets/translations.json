@@ -42,5 +42,17 @@
   "et": {
     "title": "Esinejad",
     "all_speakers_btn": "Vaata kõiki esinejaid"
+  },
+  "hu_HU": {
+    "title": "Előadók",
+    "all_speakers_btn": "Az összes előadó megtekintése"
+  },
+  "fr_FR": {
+    "title": "Intervenants",
+    "all_speakers_btn": "Voir tous les intervenants"
+  },
+  "es_ES": {
+    "title": "Ponentes",
+    "all_speakers_btn": "Ver todos los ponentes"
   }
 }

@@ -61,7 +61,7 @@ class Profiles {
             $output = include $preset_file;
             
             if ($output && !empty($decoded_data)) {
-                echo $output;         
+                echo do_shortcode($output);         
             }
         }
     }

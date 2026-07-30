@@ -130,5 +130,41 @@
     "visitors_abroad": "Ka välismaalt",
     "exhibitors": "Eksponaendid",
     "area": "Näitusepind"
+  },
+  "hu_HU": {
+    "estimates": "Becslések",
+    "statistics": "Statisztikák",
+    "edition": " kiadás",
+    "reg_url": "/hu/regisztracio/",
+    "buy_ticket": "Jegy vásárlása",
+    "registration": "Regisztráció",
+    "visitors": "Látogatók",
+    "visitors_abroad": "Külföldről is",
+    "exhibitors": "Kiállítók",
+    "area": "Kiállítási terület"
+  },
+  "fr_FR": {
+    "estimates": "Estimations",
+    "statistics": "Statistiques",
+    "edition": " édition",
+    "reg_url": "/fr/inscription/",
+    "buy_ticket": "Acheter un billet",
+    "registration": "Inscription",
+    "visitors": "Visiteurs",
+    "visitors_abroad": "Y compris de l'étranger",
+    "exhibitors": "Exposants",
+    "area": "Espace d'exposition"
+  },
+  "es_ES": {
+    "estimates": "Estimaciones",
+    "statistics": "Estadísticas",
+    "edition": " edición",
+    "reg_url": "/es/registro/",
+    "buy_ticket": "Comprar un boleto",
+    "registration": "Registro",
+    "visitors": "Visitantes",
+    "visitors_abroad": "Incluyendo del extranjero",
+    "exhibitors": "Expositores",
+    "area": "Espacio de exposición"
   }
 }

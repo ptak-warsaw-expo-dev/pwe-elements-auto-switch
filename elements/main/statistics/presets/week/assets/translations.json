@@ -1,0 +1,86 @@
+{
+  "pl_PL": {
+    "events": "wydarzenia w jednym miejscu",
+    "days": "dni networkingu i inspiracji",
+    "visitors": "odwiedzających decydentów i liderów",
+    "meetings": "spotkania z kluczowymi firmami"
+  },
+  "en_US": {
+    "events": "events in one place",
+    "days": "days of networking and inspiration",
+    "visitors": "visiting decision-makers and leaders",
+    "meetings": "meetings with key companies"
+  },
+  "cs_CZ": {
+    "events": "akce na jednom místě",
+    "days": "dny networkingu a inspirace",
+    "visitors": "navštěvujících rozhodovacích pravomocí a lídrů",
+    "meetings": "setkání s klíčovými firmami"
+  },
+  "de_DE": {
+    "events": "Events an einem Ort",
+    "days": "Tage voller Networking und Inspiration",
+    "visitors": "besuchende Entscheidungsträger und Führungskräfte",
+    "meetings": "Treffen mit Schlüsselunternehmen"
+  },
+  "it_IT": {
+    "events": "eventi in un unico luogo",
+    "days": "giorni di networking e ispirazione",
+    "visitors": "decisori e leader in visita",
+    "meetings": "incontri con aziende chiave"
+  },
+  "lt_LT": {
+    "events": "renginiai vienoje vietoje",
+    "days": "tinklaveikos ir įkvėpimo dienos",
+    "visitors": "apsilankantys sprendimų priėmėjai ir lyderiai",
+    "meetings": "susitikimai su pagrindinėmis įmonėmis"
+  },
+  "lv_LV": {
+    "events": "pasākumi vienuviet",
+    "days": "tīklošanās un iedvesmas dienas",
+    "visitors": "lēmumu pieņēmēji un līderi, kas apmeklē",
+    "meetings": "tiekšanās ar galvenajiem uzņēmumiem"
+  },
+  "sk_SK": {
+    "events": "podujatia na jednom mieste",
+    "days": "dni networkingu a inšpirácie",
+    "visitors": "navštevujúcich tvorcov rozhodnutí a lídrov",
+    "meetings": "stretnutia s kľúčovými firmami"
+  },
+  "uk": {
+    "events": "події в одному місці",
+    "days": "дні нетворкінгу та натхнення",
+    "visitors": "відвідувачів, що приймають рішення, та лідерів",
+    "meetings": "зустрічі з ключовими компаніями"
+  },
+  "ro_RO": {
+    "events": "evenimente într-un singur loc",
+    "days": "zile de networking și inspirație",
+    "visitors": "factori de decizie și lideri care vizitează",
+    "meetings": "întâlniri cu companii cheie"
+  },
+  "et": {
+    "events": "sündmused ühes kohas",
+    "days": "võrgustiku luua ja inspiratsiooni päevad",
+    "visitors": "külastavad otsustajad ja liidrid",
+    "meetings": "kohtumised võtmeettevõtetega"
+  },
+  "hu_HU": {
+    "events": "események egy helyen",
+    "days": "a kapcsolatépítés és inspiráció napjai",
+    "visitors": "idelátogató döntéshozók és vezetők",
+    "meetings": "találkozók a kulcsfontosságú vállalatokkal"
+  },
+  "fr_FR": {
+    "events": "événements en un seul endroit",
+    "days": "jours de réseautage et d'inspiration",
+    "visitors": "décideurs et leaders en visite",
+    "meetings": "rencontres avec des entreprises clés"
+  },
+  "es_ES": {
+    "events": "eventos en un solo lugar",
+    "days": "días de networking e inspiración",
+    "visitors": "visitantes tomadores de decisiones y líderes",
+    "meetings": "reuniones con empresas clave"
+  }
+}

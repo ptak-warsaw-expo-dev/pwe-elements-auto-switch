@@ -75,5 +75,26 @@
     "visitors_year": "Külastajaid aastas",
     "fairs_year": "B2B-messe aastas",
     "exhibition_space" : "Pindala m²"
+  },
+  "hu_HU": {
+    "summary_title": "A legnagyobb vásárközpont Közép- és Kelet-Európában",
+    "exhibitors_year": "Kiállítók évente",
+    "visitors_year": "Látogatók évente",
+    "fairs_year": "B2B vásárok évente",
+    "exhibition_space" : "Terület m²"
+  },
+  "fr_FR": {
+    "summary_title": "Le plus grand centre d'exposition d'Europe centrale et orientale",
+    "exhibitors_year": "Exposants par an",
+    "visitors_year": "Visiteurs par an",
+    "fairs_year": "Salons B2B par an",
+    "exhibition_space" : "Surface m²"
+  },
+  "es_ES": {
+    "summary_title": "El mayor centro de ferias de Europa Central y del Este",
+    "exhibitors_year": "Expositores por año",
+    "visitors_year": "Visitantes por año",
+    "fairs_year": "Ferias B2B por año",
+    "exhibition_space" : "Área m²"
   }
 }

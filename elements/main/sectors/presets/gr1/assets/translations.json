@@ -53,5 +53,20 @@
     "title": "Näitlejate ja külastajate arvamused",
     "catalog_btn": "Avastage näitlejad ja lahendused",
     "catalog_btn_url": "/et/eksponentide-kataloog/"
+  },
+  "hu_HU": {
+    "title": "Kiállítási szektorok",
+    "catalog_btn": "Fedezze fel a kiállítókat és a megoldásokat",
+    "catalog_btn_url": "/hu/katalogus-az-exhibitorokrol/"
+  },
+  "fr_FR": {
+    "title": "Secteurs d'exposition",
+    "catalog_btn": "Découvrez les exposants et les solutions",
+    "catalog_btn_url": "/fr/annuaire-des-exposants/"
+  },
+  "es_ES": {
+    "title": "Sectores de exposición",
+    "catalog_btn": "Descubra expositores y soluciones",
+    "catalog_btn_url": "/es/directorio-de-expositores/"
   }
 }

@@ -64,5 +64,23 @@
     "join_us": "Liitu meiega",
     "tickets": "Vali oma <span class='text-red'>Pilet</span>",
     "select_ticket": "Vali pilet"
+  },
+  "hu_HU": {
+    "summary_title": "Ptak Warsaw Expo - összekapcsoljuk az üzleti világot",
+    "join_us": "Csatlakozz hozzánk",
+    "tickets": "Válaszd ki a <span class='text-red'>Jegyed</span>",
+    "select_ticket": "Jegy kiválasztása"
+  },
+  "fr_FR": {
+    "summary_title": "Ptak Warsaw Expo - nous connectons le monde des affaires",
+    "join_us": "Rejoignez-nous",
+    "tickets": "Choisissez votre <span class='text-red'>Billet</span>",
+    "select_ticket": "Sélectionner un billet"
+  },
+  "es_ES": {
+    "summary_title": "Ptak Warsaw Expo - conectamos el mundo de los negocios",
+    "join_us": "Únete a nosotros",
+    "tickets": "Elige tu <span class='text-red'>Entrada</span>",
+    "select_ticket": "Seleccionar entrada"
   }
 }
