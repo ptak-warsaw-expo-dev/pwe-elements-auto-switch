@@ -48,13 +48,11 @@
     margin: 0;
 }
 .pwe-exhibitor-generator__icons {
+    width: 100%;
     margin-top: 18px;
 }
 .pwe-exhibitor-generator__icons-wrapper {
-    display: flex;
-    flex-wrap: balance;
-    justify-content: center;
-    gap: 8px;
+    width: 100%;
 }
 .pwe-exhibitor-generator__icons-title {
     margin: 0;
@@ -85,6 +83,9 @@
 }
 .pwe-exhibitor-generator__form {
     width: 100%;
+}
+.pwe-exhibitor-generator__form .gform_fields {
+    padding: 0 !important;
 }
 #pweExhibitorGenerator input[type="text"],
 #pweExhibitorGenerator input[type="email"] {
@@ -181,8 +182,19 @@
     .pwe-exhibitor-generator__column--badge {
         display: none;
     }
+    .pwe-exhibitor-generator__content {
+        width: 100%;
+    }
     .pwe-exhibitor-generator__column--form {
         width: 100%;
         border-radius: 20px;
+    }
+    #pweExhibitorGenerator input[type="text"], #pweExhibitorGenerator input[type="email"] {
+        font-size: 14px;
+    }
+    .pwe-exhibitor-generator__tech-support a {
+        margin-top: 8px;
+        font-size: 20px;
+        display: block;
     }
 }

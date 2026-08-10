@@ -34,9 +34,39 @@ class Medal_Ceremony {
 
             $form_id = PWE_Functions::get_gf_form_id('Ceremonia medalowa');
 
-            $ceremony_rules = PWE_Functions::lang_pl() ?
-            'https://warsawexpo.eu/docs/Regulamin-Konkursu-Medalowego-Ptak-Warsaw-Expo.pdf' :
-            'https://warsawexpo.eu/docs/Rules-of-the-Medal-Competition-Ptak-Warsaw-Expo.pdf';
+            $files = PWE_Functions::get_database_fairs_data_files();
+
+            $language = PWE_Functions::lang_pl() ? 'pl' : 'en';
+
+            // Domyślny link, używany gdy w bazie nie ma odpowiedniego pliku.
+            $ceremony_rules = $language === 'pl'
+                ? 'https://warsawexpo.eu/docs/Regulamin-Konkursu-Medalowego-Ptak-Warsaw-Expo.pdf'
+                : 'https://warsawexpo.eu/docs/Rules-of-the-Medal-Competition-Ptak-Warsaw-Expo.pdf';
+
+            $ceremony_rules_files = array_filter($files, static function ($file) use ($language) {
+                return isset(
+                    $file->category_slug,
+                    $file->language,
+                    $file->file_path,
+                    $file->is_active
+                )
+                    && $file->category_slug === 'medal-ceremony-rules'
+                    && $file->language === $language
+                    && $file->is_active === '1'
+                    && $file->file_path !== '';
+            });
+
+            // Najnowszy rok jako pierwszy.
+            usort($ceremony_rules_files, static function ($a, $b) {
+                return (int) $b->year <=> (int) $a->year;
+            });
+
+            $latest_ceremony_rules = reset($ceremony_rules_files);
+
+            if ($latest_ceremony_rules) {
+                $ceremony_rules = 'https://cap.warsawexpo.eu'
+                    . $latest_ceremony_rules->file_path;
+            }
 
             $fair_adds = PWE_Functions::get_database_fairs_data_adds();
             $medal_ceremony_data = !empty($fair_adds) && isset($fair_adds[0]->medal_ceremony) ? $fair_adds[0]->medal_ceremony : '';

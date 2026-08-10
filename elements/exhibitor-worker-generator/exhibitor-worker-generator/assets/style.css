@@ -1,153 +1,132 @@
-.gfield_visibility_hidden{
-    display: none;
+.pwe-limit-width:has(#pweExhibitorGenerator) {
+    padding: 36px 18px;
 }
-
-.exhibitor-generator {
+.pwe-exhibitor-generator {
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
 }
-
-.exhibitor-generator__wrapper {
+.pwe-exhibitor-generator__wrapper {
     display: flex;
     width: 100%;
-    max-width: 1200px;
-    height: 780px;
+    max-width: 1000px;
+    min-height: 500px;
+    border-radius: 20px;
+    box-shadow: 0 0 8px -4px #000000db;
+    overflow: hidden;
 }
-
-.exhibitor-generator__left {
+.pwe-exhibitor-generator__column--badge {
     width: 40%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    border-radius: 20px 0 0 20px;
 }
-
-.pwe-exhibitor-worker-generator .exhibitor-generator__left {
-    background-image: url(media/badgevipmockup-wys.webp);
-}
-
-.exhibitor-generator__left h3 {
-    display: none;
-}
-
-.exhibitor-generator__right {
+.pwe-exhibitor-generator__column--form{
     width: 60%;
     display: flex;
     justify-content: center;
     align-items: center;
     background: #EBEBEB;
-    border-radius: 0 20px 20px 0;
+    padding: 36px 18px;
 }
-
-.exhibitor-generator__right-title {
-    text-align: center;
-}
-
-.exhibitor-generator__right-wrapper {
+.pwe-exhibitor-generator__content {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* max-width: 400px; */
+    gap: 18px;
     width: 90%;
 }
-
-.exhibitor-generator__right h3 {
+.pwe-exhibitor-generator__title {
     text-align: center;
     color: #b79663 !important;
     font-weight: 800;
     font-size: 28px;
     padding: 0 10px;
-}
-
-.exhibitor-generator__right-form {
-    width: 100%;
-    margin-top: 18px;
-}
-
-.exhibitor-generator__right-form .gform-body {
-    padding: 18px 18px 0 18px;
-    max-width: 550px;
-    margin: 0 auto;
-}
-
-.exhibitor-generator__right-form li.gfield,
-.exhibitor-generator__right-form .gform_fields {
-    padding-right: 0 !important;
-    padding: 0 !important;
-    list-style: none;
-}
-
-.exhibitor-generator__right-form .gfield.name,
-.exhibitor-generator__right-form .gfield.company,
-.exhibitor-generator__right-form .gfield.email  {
-    position: relative;
-    height: 35px;
-    background-color: #D2D2D2 !important;
-    border-radius: 5px !important;
-    overflow: hidden;
-}
-
-.exhibitor-generator__right-form .gfield.name input,
-.exhibitor-generator__right-form .gfield.company input,
-.exhibitor-generator__right-form .gfield.email input {
-    position: absolute;
     margin: 0;
-    left: 0;
-    top: 0;
-    left: 45px;
-    border: 0;
+}
+.pwe-exhibitor-generator__form {
+    width: 100%;
+}
+.pwe-exhibitor-generator__form .gform_fields {
+    padding: 0 !important;
+}
+#pweExhibitorGenerator input[type="text"],
+#pweExhibitorGenerator input[type="email"] {
+    border-radius: 36px !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
     background-color: #D2D2D2 !important;
-    border-radius: 5px !important;
     font-weight: 700;
     color: #555555;
 }
-
-.exhibitor_stand label,
-.input_logo label{
-    font-weight: 700 !important;
+/* Wspólne ustawienia pól z ikonami */
+#pweExhibitorGenerator .gfield.name .ginput_container,
+#pweExhibitorGenerator .gfield.company .ginput_container,
+#pweExhibitorGenerator .gfield.email .ginput_container {
+    position: relative;
 }
 
-.exhibitor_stand input,
-.input_logo input{
-    border-radius: 15px !important;
-    border: 1px solid black;
-}
-
-.exhibitor-generator__right-form .gfield.name{
-    --icon-url: url("media/name.png");
-}
-
-.exhibitor-generator__right-form .gfield.company {
-    --icon-url: url("media/box.png");
-}
-
-.exhibitor-generator__right-form .gfield.email {
-    --icon-url: url("media/email.png");
-}
-
-.exhibitor-generator__right-form .gfield .ginput_container:before {
+/* Wspólne ustawienia ikon */
+#pweExhibitorGenerator .gfield.name .ginput_container::before,
+#pweExhibitorGenerator .gfield.company .ginput_container::before,
+#pweExhibitorGenerator .gfield.email .ginput_container::before {
     content: "";
-    left: 8px;
-    top: 5px;
-    width: 30px;
-    height: 25px;
     position: absolute;
-    background-image: var(--icon-url);
-    background-position: center;
+    top: 50%;
+    left: 14px;
+    width: 26px;
+    height: 26px;
+    transform: translateY(-50%);
     background-repeat: no-repeat;
+    background-position: center;
     background-size: contain;
+    pointer-events: none;
+    z-index: 2;
 }
 
-.exhibitor-generator__right-form input:-webkit-autofill,
-.exhibitor-generator__right-form input:-webkit-autofill:hover,
-.exhibitor-generator__right-form input:-webkit-autofill:focus{
+#pweExhibitorGenerator  input:-webkit-autofill,
+#pweExhibitorGenerator input:-webkit-autofill:hover,
+#pweExhibitorGenerator input:-webkit-autofill:focus{
     -webkit-text-fill-color: black !important;
     -webkit-box-shadow: 0 0 0px 40rem #D2D2D2 inset !important;
     transition: background-color 5000s ease-in-out 0s;
 }
 
-.exhibitor-generator__right-form .gform_footer input[type="submit"] {
+/* Ikona imienia */
+#pweExhibitorGenerator .gfield.name .ginput_container::before {
+    background-image: url("/wp-content/plugins/pwe-media/media/generator-gosci-wystawcow-auto-switch/icons/name.png");
+}
+
+/* Ikona firmy */
+#pweExhibitorGenerator .gfield.company .ginput_container::before {
+    background-image: url("/wp-content/plugins/pwe-media/media/generator-gosci-wystawcow-auto-switch/icons/company.png");
+}
+
+/* Ikona e-mail */
+#pweExhibitorGenerator .gfield.email .ginput_container::before {
+    background-image: url("/wp-content/plugins/pwe-media/media/generator-gosci-wystawcow-auto-switch/icons/email.png");
+}
+
+/* Miejsce na ikonę wewnątrz inputa */
+#pweExhibitorGenerator .gfield.name input,
+#pweExhibitorGenerator .gfield.company input,
+#pweExhibitorGenerator .gfield.email input {
+    padding-left: 50px !important;
+}
+.pwe-exhibitor-generator__form .gform-footer,
+.pwe-exhibitor-generator__form .gform_footer {
+    margin: 0 !important;
+    padding: 4px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pwe-exhibitor-generator__form .gform-footer input[type="submit"],
+.pwe-exhibitor-generator__form .gform_footer input[type="submit"] {
     background: #b79663 !important;
     color: white !important;
     border-radius: 8px !important;
@@ -161,81 +140,34 @@
     min-width: 200px !important;
     border-radius: 15px !important;
 }
-
-.form_sublabel_below{
-    gap:20px !important;
+.pwe-exhibitor-generator__tech-support h3 {
+    text-align: center;
+    margin: 0;
 }
-
-.gform_footer.top_label{
-    display: flex;
-    justify-content: space-around;
-    margin-top: 0 !important;
-    margin-bottom: 18px !important;
-}
-.pwe-exhibitor-worker-generator {
-    width: 100%;
-}
-@media(max-width: 960px) {
-    .exhibitor-generator__wrapper {
+@media (max-width: 960px) {
+    .pwe-exhibitor-generator__wrapper {
         flex-direction: column;
+        min-height: 0;
     }
-
-    .exhibitor-generator__right {
-        display: flex;
-        width: 100%;
-        border-radius: 0 0 20px 20px;
-    }
-
-    .exhibitor-generator__right-wrapper {
-        padding: 18px;
-    }
-
-    .exhibitor-generator__right h3 {
+    .pwe-exhibitor-generator__column--badge {
         display: none;
     }
-
-    .pwe-exhibitor-worker-generator .exhibitor-generator__left {
+    .pwe-exhibitor-generator__content {
         width: 100%;
-        border-radius: 20px 20px 0 0;
-        background-image: url(media/gen-bg.jpg)
     }
-
-    .exhibitor-generator__left h3 {
+    .pwe-exhibitor-generator__column--form {
+        width: 100%;
+        border-radius: 20px;
+    }
+    .pwe-exhibitor-generator__title {
+        font-size: 22px !important;
+    }
+    #pweExhibitorGenerator input[type="text"], #pweExhibitorGenerator input[type="email"] {
+        font-size: 14px;
+    }
+    .pwe-exhibitor-generator__tech-support a {
+        margin-top: 8px;
+        font-size: 20px;
         display: block;
-        margin: 0;
-        text-align: center;
-        padding: 46px 18px;
-        font-weight: 800;
-        font-size: 28px;
     }
-}
-
-
-@media(max-width: 640px) {
-    .exhibitor-generator__right-form .gform_footer {
-        margin: 0 !important;
-    }
-
-    .exhibitor-generator__right-form input[type="submit"] {
-        width: auto !important;
-
-    }
-}
-
-@media(max-width: 450px) {
-    .exhibitor-generator__left h3 {
-        font-size: 18px !important;
-    }
-
-    .exhibitor-generator__right-form input[type="text"],
-    .exhibitor-generator__right-form input[type="email"] {
-        font-size: 14px !important;
-    }
-
-}
-
-.gform_required_legend,
-.gfield_required,
-.admin-hidden-markup {
-    display: none !important;
 }

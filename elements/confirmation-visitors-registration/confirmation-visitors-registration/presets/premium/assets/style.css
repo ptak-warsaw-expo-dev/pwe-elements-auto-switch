@@ -1,11 +1,311 @@
-.pwe-element-auto-switch .pwe-confirmation-visitors-registration--premium .pwe-confirmation-visitors-registration__content {
-    background-color: #141414;
-    color: white;
+/* ==========================================================================
+   PWE Confirmation Visitors Registration & Address Form
+   ========================================================================== */
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration.is-complete .pwe-confirmation-visitors-registration__before-submit {
+    display: none;
 }
-.pwe-element-auto-switch .pwe-confirmation-visitors-registration--premium .pwe-confirmation-visitors-registration__form-column {
-    background-color: #f1f1f1;
+
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration.is-complete .pwe-confirmation-visitors-registration__success {
+    display: block;
 }
-.pwe-element-auto-switch .pwe-confirmation-visitors-registration--premium .pwe-confirmation-visitors-registration__step,
-.pwe-element-auto-switch .pwe-confirmation-visitors-registration--premium .text-accent-color {
-    color: var(--accent-color);
+
+.pwe-element-auto-switch.pwe-limit-width {
+    max-width: 100%;
+    padding: 0 !important;
+}
+
+.pwe-element-auto-switch:has(.pwe-confirmation-visitors-registration) {
+    padding-top: 0;
+}
+
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration {
+    width: 100%;
+}
+
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__wrapper {
+    display: grid;
+    grid-template-columns: minmax(280px, 1fr) minmax(280px, 1fr) minmax(360px, 1fr);
+    width: 100%;
+    min-height: 620px;
+}
+
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 54px;
+}
+
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__content {
+    background-color: #ffffff;
+}
+
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__column h2,
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__column p {
+    color: black !important;
+}
+
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__form-column {
+    background-color: #e8e8e8;
+}
+
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__form-column .golden-text {
+    color: #c49a62 !important;
+}
+
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__badge-column {
+    background-color: #ffffff;
+    align-items: center;
+    padding: 0 !important;
+    justify-content: flex-start;
+}
+
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__badge-column img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Typography & Headings */
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__step {
+    margin: 0 0 18px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__title {
+    margin: 0 0 18px;
+    font-size: 42px;
+    line-height: 1.1;
+}
+
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__text {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   Custom Address Form (.pwe-address-form) & Inputs
+   -------------------------------------------------------------------------- */
+
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__address-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.pwe-element-auto-switch .pwe-field {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.pwe-element-auto-switch .pwe-field label {
+    color: black;
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.pwe-element-auto-switch .pwe-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+/* Base input styling */
+.pwe-element-auto-switch .pwe-field input[type="text"],
+.pwe-element-auto-switch .pwe-field input:not([type="checkbox"]):not([type="radio"]),
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__gravity-form input:not([type="checkbox"]):not([type="radio"]),
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__gravity-form select,
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__gravity-form textarea,
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__update-form input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #d6d6d6 !important;
+    border-radius: 11px !important;
+    box-shadow: none !important;
+    background-color: #ffffff;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+    margin-top: 0px !important;
+}
+
+.pwe-element-auto-switch .pwe-field input.is-invalid {
+    border-color: #c62828 !important;
+}
+
+/* Postal Code Group (.pwe-post) */
+.pwe-element-auto-switch .pwe-post {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pwe-element-auto-switch .pwe-post input {
+    text-align: center;
+}
+
+.pwe-element-auto-switch .pwe-post #post1 {
+    width: 36%;
+    flex-shrink: 0;
+}
+
+.pwe-element-auto-switch .pwe-post #post2 {
+    width: 55%;
+    flex-shrink: 0;
+}
+
+.pwe-element-auto-switch .pwe-post span {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+/* Buttons */
+.pwe-confirmation-visitors-registration__address-form-button {
+    display: flex;
+    justify-content: center;
+}
+
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__gravity-form input[type="submit"],
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__button {
+    display: inline-block;
+    width: 70%;
+    margin-top: 8px;
+    padding: 12px 12px;
+    border: 2px solid var(--accent-color, #000000) !important;
+    border-radius: 10px !important;
+    background-color: var(--accent-color, #000000) !important;
+    color: #ffffff !important;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    text-transform: uppercase;
+    font-size: 13px !important;
+}
+
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__gravity-form input[type="submit"]:hover,
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__button:hover {
+    background-color: #ffffff !important;
+    color: var(--accent-color, #000000) !important;
+}
+
+/* Status / Validation Messages */
+.pwe-element-auto-switch #statusMessage,
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__status {
+    /* min-height: 24px; */
+    margin: 4px 0 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.pwe-element-auto-switch #statusMessage.is-error,
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__status.is-error {
+    color: #c62828;
+}
+
+.pwe-element-auto-switch #statusMessage.is-success,
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__status.is-success {
+    color: #2e7d32;
+}
+
+/* Gravity Forms Support */
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__gravity-form {
+    width: 100%;
+}
+
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__gravity-form .gform_fields {
+    padding: 0 !important;
+}
+
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__gravity-form .gfield {
+    display: block;
+    padding: 0;
+}
+
+.very-strong {
+    font-weight: 800;
+}
+
+/* Completed State Toggle */
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__success {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    color: black;
+}
+
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration.is-complete .pwe-confirmation-visitors-registration__before-submit,
+.pwe-confirmation-visitors-registration__display-after-subbmit {
+    display: none;
+}
+
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration.is-complete .pwe-confirmation-visitors-registration__success {
+    display: block;
+}
+
+/* Metadata & Variant Backgrounds */
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration__fair-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 24px;
+    font-size: 18px;
+}
+
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--premium .pwe-confirmation-visitors-registration__content,
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__content {
+    background-image: linear-gradient(135deg, rgba(182, 150, 99, 0.12), transparent 55%);
+}
+
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--platyna .pwe-confirmation-visitors-registration__content {
+    background-image: linear-gradient(135deg, rgba(97, 97, 97, 0.14), transparent 55%);
+}
+
+.pwe-confirmation-visitors-registration__display-after-submit {
+    display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Layouts
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 960px) {
+    .pwe-element-auto-switch .pwe-confirmation-visitors-registration__badge-column {
+        display: none;
+    }
+
+    .pwe-element-auto-switch .pwe-confirmation-visitors-registration__wrapper {
+        grid-template-columns: minmax(280px, 1fr) minmax(280px, 1fr);
+    }
+    .pwe-element-auto-switch .pwe-confirmation-visitors-registration__column {
+        padding: 36px 18px;
+    }
+
+    .pwe-element-auto-switch .pwe-confirmation-visitors-registration__title {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 600px) {
+    .pwe-element-auto-switch .pwe-confirmation-visitors-registration__badge-column {
+        display: block;
+    }
+    .pwe-element-auto-switch .pwe-confirmation-visitors-registration__wrapper {
+        grid-template-columns: 1fr;
+        min-height: 0;
+    }
+    .pwe-element-auto-switch .pwe-row,
+    .pwe-element-auto-switch .pwe-confirmation-visitors-registration__field-row {
+        grid-template-columns: 1fr;
+    }
 }

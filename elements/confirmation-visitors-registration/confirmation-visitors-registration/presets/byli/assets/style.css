@@ -1,15 +1,312 @@
-.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__content {
-    background-color: #171717;
-    color: white;
+.pwe-element-auto-switch.pwe-limit-width {
+    max-width: 100%;
+    padding: 0 !important;
 }
-.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__form-column {
-    background-color: #f3ede4;
+.pwe-element-auto-switch:has(.pwe-confirmation-visitors-registration--byli) {
+    padding-top: 0;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli {
+    width: 100%;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__wrapper--byli {
+    display: grid;
+    grid-template-columns: minmax(280px, 1fr) minmax(340px, 1fr) minmax(340px, 1fr);
+    min-height: 643px;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    padding: 36px;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__badge-column--vip {
+    padding: 0;
+    background-image: url('/wp-content/plugins/pwe-media/media/background-vip.webp');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__badge-column--vip img {
+    height: 100%;
+    float: right;
+    object-fit: cover;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__form-column--vip {
+    position: relative;
+    background: #e8e8e8;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__step {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__form-title {
+    max-width: 450px;
+    margin: 20px auto 0;
+    color: #000 !important;
+    font-size: 24px;
+    line-height: 1.2;
+    text-align: center;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__accent {
+    color: #b69663 !important;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__address-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    margin-top: 18px;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-field {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-field label {
+    margin: 0 0 5px 5px;
+    color: #000;
+    font-size: 14px;
+    font-weight: 700;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-field input {
+    width: 100%;
+    margin: 0 !important;
+    padding: 10px 14px;
+    border: 1px solid #d6d6d6 !important;
+    border-radius: 11px !important;
+    background: #fff;
+    box-shadow: none !important;
+    box-sizing: border-box;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-post {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-post input {
+    min-width: 0;
+    text-align: center;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .error-border {
+    border: 2px solid #c62828 !important;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .status-message.error {
+    padding: 9px 10px;
+    border: 2px solid #c62828;
+    border-radius: 10px;
+    background: #fff;
+    color: #000;
+    font-weight: 600;
+    text-align: center;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__address-form-button {
+    text-align: center;
 }
 .pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__button {
-    border-color: #b69663 !important;
-    background-color: #b69663 !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 24px !important;
+    border: 2px solid #b69663 !important;
+    border-radius: 10px !important;
+    background: #b69663 !important;
+    color: #fff !important;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color .2s ease, color .2s ease;
 }
 .pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__button:hover {
-    background-color: white !important;
+    background: #fff !important;
     color: #b69663 !important;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__benefits {
+    padding: 18px 28px;
+    background: #fff;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__benefits-inner {
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__benefits h3 {
+    color: #000 !important;
+    text-align: center;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__benefits-list {
+    margin: 42px 0;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__benefit {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 12px 0;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__benefit img {
+    width: 50px;
+    flex: 0 0 50px;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__benefit span,
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__benefits-footer {
+    color: #000;
+    font-size: 14px;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__benefits-footer {
+    font-weight: 700;
+    text-align: center;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__success {
+    display: none;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli.is-complete .pwe-confirmation-visitors-registration__before-submit {
+    display: none !important;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli.is-complete .pwe-confirmation-visitors-registration__success--vip {
+    display: flex !important;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__success--vip {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 650px;
+    padding: 36px;
+    background-image: url('/wp-content/plugins/pwe-media/media/generator-wystawcow/gen-bg.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__success-card {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) 2px minmax(220px, 3fr);
+    gap: 32px;
+    align-items: center;
+    width: min(100%, 1200px);
+    padding: 36px;
+    border-radius: 36px;
+    background: rgba(255, 255, 255, .75);
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__success-content h3,
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__event h4 {
+    color: #000 !important;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__success-content h3 {
+    margin-top: 0;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__success-content p,
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__success-content li {
+    color: #000 !important;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__couriers {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    align-items: center;
+    width: 90%;
+    padding-top: 20px;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__couriers img {
+    width: 100%;
+    max-height: 38px;
+    object-fit: contain;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__success-divider {
+    width: 2px;
+    height: 100%;
+    min-height: 260px;
+    background: #000;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__event {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__event img {
+    width: 100%;
+    max-width: 220px;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__edition {
+    margin: 9px 0 0;
+    color: var(--accent-color, #b69663) !important;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__event h2 {
+    margin: 5px 0 0;
+    color: #000 !important;
+    font-size: 24px !important;
+}
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__home-button {
+    margin-top: 36px;
+    border-color: #fff !important;
+    background: #fff !important;
+    color: #000 !important;
+    text-transform: uppercase;
+}
+@media (max-width: 959px) {
+    .pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__wrapper--byli {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__badge-column--vip {
+        display: none;
+    }
+
+    .pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__success-card {
+        grid-template-columns: 1fr;
+    }
+
+    .pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__success-divider {
+        width: 70%;
+        height: 2px;
+        min-height: 0;
+        margin: 0 auto;
+    }
+}
+@media (max-width: 569px) {
+    .pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__wrapper--byli {
+        grid-template-columns: 1fr;
+    }
+
+    .pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__column {
+        padding: 36px 24px;
+    }
+
+    .pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__form-column--vip {
+        padding-top: 58px;
+    }
+
+    .pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-row {
+        grid-template-columns: 1fr;
+    }
+
+    .pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__benefits-list {
+        margin: 28px 0;
+    }
+
+    .pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__success--vip {
+        padding: 20px 12px;
+    }
+
+    .pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__success-card {
+        gap: 22px;
+        padding: 24px 18px;
+        border-radius: 24px;
+    }
+
+    .pwe-element-auto-switch .pwe-confirmation-visitors-registration--byli .pwe-confirmation-visitors-registration__couriers {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: 100%;
+    }
 }

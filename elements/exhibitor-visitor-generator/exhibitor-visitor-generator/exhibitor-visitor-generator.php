@@ -59,6 +59,17 @@ class Exhibitor_Visitor_Generator {
                     field_values="' . esc_attr($field_values) . '"]'
             );
 
+            if ($lang === 'en') {
+                $translations = [
+                    'Gość - Imię i Nazwisko'     => 'Guest - Full Name',
+                    'Firma Zapraszająca'         => 'Inviting Company',
+                    'E-mail osoby zapraszanej'   => 'Guest E-mail',
+                    'Wyślij'                      => 'Send',
+                ];
+
+                $form = strtr($form, $translations);
+            }
+
             $badge_path = '/doc/badgevip.webp';
 
             $badge_file = ABSPATH . ltrim($badge_path, '/');
@@ -67,7 +78,7 @@ class Exhibitor_Visitor_Generator {
                 $badge_path = '/wp-content/plugins/pwe-media/media/generator-gosci-wystawcow-auto-switch/badgevip.webp';
             }
 
-            $badge = 'url("' . esc_url($badge_path) . '")';
+            $badge = 'url("[trade_fair_exhibitor_generator_badge_url]")';
 
             $fair_group = do_shortcode('[trade_fair_group]');
 
@@ -120,9 +131,9 @@ class Exhibitor_Visitor_Generator {
             $selected_icons = $group_icons[$fair_group] ?? $group_icons['gr1'];
 
             if ($fair_group === 'gr3') {
-                $email = 'media3@warsawexpo.eu';
+                $email = 'media3@<wbr>warsawexpo.eu';
             } else {
-                $email = 'generator.wystawcow@warsawexpo.eu';
+                $email = 'generator.wystawcow@<wbr>warsawexpo.eu';
             }
 
             /* <-------------> General code end <-------------> */

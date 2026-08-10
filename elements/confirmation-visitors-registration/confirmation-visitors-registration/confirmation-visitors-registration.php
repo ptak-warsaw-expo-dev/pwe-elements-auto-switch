@@ -27,7 +27,17 @@ class Confirmation_Visitors_Registration {
         $element_type = $data['types'][0];
         $element_slug = 'confirmation-visitors-registration';
 
-        $source_utm = isset($_GET['utm_source']) ? sanitize_key(wp_unslash($_GET['utm_source'])) : '';
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $source_utm = isset($_GET['utm_source'])
+            ? sanitize_key(wp_unslash($_GET['utm_source']))
+            : sanitize_key(
+                $_SESSION['pwe_reg_entry']['utm_source']
+                ?? $_SESSION['pwe_registration_utm_source']
+                ?? ''
+            );
 
         if ($source_utm === 'premium') {
             $group = 'premium';
@@ -106,6 +116,7 @@ class Confirmation_Visitors_Registration {
             }
 
             $gravity_form = do_shortcode('[gravityform id="' . $form_id . '" title="false" description="false" ajax="false"]');
+
             /* <-------------> General code end <-------------> */
 
             $output = include $preset_file;
@@ -225,7 +236,41 @@ class Confirmation_Visitors_Registration {
             wp_send_json_error(['message' => 'Błąd podczas zapisu danych']);
         }
 
-        unset($_SESSION['pwe_reg_entry']);
+        if (!empty($entry_id)) {
+            include_once ABSPATH . 'wp-content/plugins/custom-element/gf_integration/gf_integration.php';
+
+            if (class_exists('GF_Integration')) {
+                $integration = new GF_Integration($entry_id, '');
+                $integration->init();
+            } else {
+                error_log('Brak klasy GF_Integration podczas aktualizacji adresu');
+            }
+
+            $fair_date = do_shortcode('[trade_fair_datetotimer]');
+            if (!empty($fair_date)) {
+                try {
+                    $custom_date = new DateTime($fair_date);
+                    $current_date = new DateTime(current_time('mysql'));
+                    $current_date->modify('+60 days');
+
+                    if ($current_date > $custom_date) {
+                        include_once ABSPATH . 'wp-content/plugins/custom-element/pwe-cdb/activation_db.php';
+
+                        if (class_exists('Activation_DB')) {
+                            $cdb_integration = new Activation_DB([$entry_id]);
+                            $cdb_integration();
+                        }
+                    }
+                } catch (Exception $e) {
+                    error_log('Błąd daty w update_registration_address: ' . $e->getMessage());
+                }
+            }
+        }
+
+        unset(
+            $_SESSION['pwe_reg_entry'],
+            $_SESSION['pwe_registration_utm_source']
+        );
 
         wp_send_json_success([
             'message' => 'Dane zaktualizowane'

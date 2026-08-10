@@ -6,18 +6,21 @@ $output .= '
         class="pwe-confirmation-visitors-registration pwe-confirmation-visitors-registration--' . $group . '"
     >
         <div class="pwe-confirmation-visitors-registration__wrapper">
+
             <div class="pwe-confirmation-visitors-registration__column pwe-confirmation-visitors-registration__content">
-                        <h2 class="pwe-confirmation-visitors-registration__display-befor-subbmit">Dziękujemy za rejestrację na <br><span class="very-strong">' . do_shortcode('[trade_fair_name]') . '</span></h2>
+                <h2 class="pwe-confirmation-visitors-registration__display-before-submit">Dziękujemy za rejestrację na targi <span class="very-strong">[trade_fair_name]!</span></h2>
+                <h2 class="pwe-confirmation-visitors-registration__display-after-submit">Dziękujemy za zamówienie pakietu na targi <span class="very-strong">[trade_fair_name]!</span></h2>
 
-                        <p class="pwe-confirmation-visitors-registration__display-befor-subbmit">Cieszymy się, że dołączasz do naszego wydarzenia, pełnego nowości rynkowych i inspiracji do zastosowania w Twojej firmie.</p><br>
+                <p class="pwe-confirmation-visitors-registration__display-before-submit">Cieszymy się, że dołączasz do naszego wydarzenia, pełnego nowości rynkowych i inspiracji do zastosowania w Twojej firmie.</p><br>
+                
+                <p class="pwe-confirmation-visitors-registration__display-before-submit"><span class="very-strong">Zachęcamy do wypełnienia</span> ostatniego formularza, dzięki temu będziemy mogli przygotować dla Państwa <span class="very-strong">spersonalizowany identyfikator</span> targowy, który usprawni pobyt na targach.</p>
+                <p class="pwe-confirmation-visitors-registration__display-after-submit">Twój <span class="very-strong"> spersonalizowany identyfikator</span> wraz z planem/harmonogramem targów otrzymasz przed wydarzeniem na podany w formularzu adres za pośrednictwem poczty polskiej.</p>
+            </div> 
 
-                        <p class="pwe-confirmation-visitors-registration__display-befor-subbmit"><span class="very-strong">Zachęcamy do wypełnienia</span> ostatniego formularza, dzięki temu będziemy mogli przygotować dla Państwa <span class="very-strong">spersonalizowany identyfikator</span> targowy, który usprawni pobyt na targach.</p>
-                        <p class="pwe-confirmation-visitors-registration__display-after-subbmit">Twój <span class="very-strong"> spersonalizowany identyfikator</span> wraz z planem/harmonogramem targów otrzymasz przed wydarzeniem na podany w formularzu adres za pośrednictwem poczty polskiej.</p>
-            </div>
             <div class="pwe-confirmation-visitors-registration__column pwe-confirmation-visitors-registration__form-column">
                 <div class="pwe-confirmation-visitors-registration__before-submit">
-                    <h3 class="pwe-confirmation-visitors-registration__display-befor-subbmit">Podaj adres, na który mamy wysłać <span class="golden-text">darmowy pakiet powitalny VIP</span></h3>
-                    <p class="pwe-confirmation-visitors-registration__display-befor-subbmit">Otrzymasz bezpłatny spersonalizowany identyfikator wraz z planem/harmonogramem targów.</p>
+                    <h3 class="pwe-confirmation-visitors-registration__display-before-submit">Podaj adres, na który mamy wysłać <span class="golden-text">darmowy pakiet powitalny</span></h3>
+                    <p class="pwe-confirmation-visitors-registration__display-before-submit">Otrzymasz bezpłatny spersonalizowany identyfikator wraz z planem/harmonogramem targów.</p>
                     <div class="pwe-confirmation-visitors-registration__address-form">
                         <div class="pwe-field">
                             <label>Imię i nazwisko</label>
@@ -77,9 +80,11 @@ $output .= '
                     </a>
                 </div>
             </div>
+
             <div class="pwe-confirmation-visitors-registration__column pwe-confirmation-visitors-registration__badge-column">
                 <img src="/doc/badge-mockup.webp">
             </div>
+            
         </div>
     </div>';
 

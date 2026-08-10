@@ -238,6 +238,9 @@
     width: 100%;
     min-height: unset;
   }
+  .pwe-confirmation-exhibitors .btn-stand {
+    transform: scale(1) !important;
+  }
 }
 
 

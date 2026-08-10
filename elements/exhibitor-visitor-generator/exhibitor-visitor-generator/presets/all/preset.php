@@ -9,25 +9,8 @@ $output = '
                 <h3 class="pwe-exhibitor-generator__title">' . PWE_Functions::multi_translation('title') . '</h3>
                 <div class="pwe-exhibitor-generator__icons">
                     <h5 class="pwe-exhibitor-generator__icons-title">' . PWE_Functions::multi_translation('title_icons') . '</h5>
-                    <div class="pwe-exhibitor-generator__icons-wrapper">';
-                        foreach ($selected_icons as $icon_key) {
-                            if (!isset($icons[$icon_key])) {
-                                continue;
-                            }
-
-                            $icon = $icons[$icon_key];
-
-                            $output .= '
-                                <div class="exhibitor-generator__icon">
-                                    <img
-                                        src="' . esc_url($icons_path . $icon['image']) . '"
-                                        alt=""
-                                        loading="lazy"
-                                    >
-                                    <p>' . PWE_Functions::multi_translation($icon['translation']) . '</p>
-                                </div>';
-                        }
-                    $output .= '
+                    <div class="pwe-exhibitor-generator__icons-wrapper">
+                        ' . do_shortcode('[trade_fair_exhibitor_generator_icons]') . '
                     </div>
                 </div>
                 <div class="pwe-exhibitor-generator__form">

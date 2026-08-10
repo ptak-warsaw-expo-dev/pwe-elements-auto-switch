@@ -1,26 +1,23 @@
 <?php
-if (!defined('ABSPATH')) exit;
 
 $output = '
-<div class="pwe-exhibitor-worker-generator exhibitor-generator '. $form_id .'">
-    <div class="exhibitor-generator__wrapper">
-        <div class="exhibitor-generator__left">
-            <div class="exhibitor-generator__left-wrapper">
-                <h3>' . PWECommonFunctions::languageChecker('WYGENERUJ<br>IDENTYFIKATOR DLA<br>SIEBIE I OBSLUGI STOISKA', 'GENERATE</br>A VIP INVITATION</br>FOR YOUR GUESTS!') . '</h3>
-            </div>
-        </div>
-        <div class="exhibitor-generator__right">
-            <div class="exhibitor-generator__right-wrapper">
-                <div class="exhibitor-generator__right-title">
-                    <h3>' . PWECommonFunctions::languageChecker('WYGENERUJ<br>IDENTYFIKATOR DLA<br>SIEBIE I OBSLUGI STOISKA', 'GENERATE</br>A VIP INVITATION</br>FOR YOUR GUESTS!') . '</h3>
+<div id="pweExhibitorGenerator" class="pwe-exhibitor-generator pwe-invite-generator--worker">   
+    <div class="pwe-exhibitor-generator__wrapper">
+        <div class="pwe-exhibitor-generator__column pwe-exhibitor-generator__column--badge" style="background-image: ' . esc_attr($badge) . ';"></div>
+        <div class="pwe-exhibitor-generator__column pwe-exhibitor-generator__column--form">
+            <div class="pwe-exhibitor-generator__content">
+                <h3 class="pwe-exhibitor-generator__title">' . PWE_Functions::multi_translation('title') . '</h3>
+                <div class="pwe-exhibitor-generator__form">
+                    ' . $form . '
                 </div>
-                <div class="exhibitor-generator__right-form">
-                    ' . $gravity_form . '
-                </div>';
-
-                $output .= '
             </div>
         </div>
+    </div>
+    <div class="pwe-exhibitor-generator__tech-support">
+        <h3>
+            ' . PWE_Functions::multi_translation('help_text') . '<br>
+            ' . PWE_Functions::multi_translation('contact') . ' <a href="mailto:' . $email . '">' . $email . '</a>
+        </h3>
     </div>
 </div>';
 

@@ -141,6 +141,8 @@
     }
     .pwe-potential-exhibitors__column-content {
         max-width: 300px;
+        padding: 36px 18px;
+        align-items: center;
     }
     .pwe-potential-exhibitors__column-content-edition span {
         font-size: 20px;
