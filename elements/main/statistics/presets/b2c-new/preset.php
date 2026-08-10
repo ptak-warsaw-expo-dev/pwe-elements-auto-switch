@@ -56,7 +56,7 @@ if (!empty($data) && isset($data[0]->videos)) {
 $stats = [
     [
         "label"  => PWE_Functions::multi_translation("visitors"),
-        "value"  => do_shortcode('[pwe_visitors_foreign]'),
+        "value"  => do_shortcode('[pwe_visitors]'),
         "suffix" => ""
     ],
     [

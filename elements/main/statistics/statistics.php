@@ -22,9 +22,9 @@ class Statistics {
 
         // Add context to translations function
         PWE_Functions::set_translation_context($element_slug, $group, $element_type);
-
-        // Ładowanie standardowych zasobów (w tym standardowego style.css dla pojedynczego wydarzenia)
+        // Global assets
         PWE_Functions::assets_per_element($element_slug, $element_type);
+        // Assets per group
         PWE_Functions::assets_per_group($element_slug, $group, $element_type);
 
         $host = $_SERVER['HTTP_HOST'] ?? '';

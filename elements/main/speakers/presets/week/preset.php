@@ -8,8 +8,17 @@ $output = '
         <div class="pwe-speakers__title">
             <h4 class="pwe-speakers__heading pwe-main-title">' . PWE_Functions::multi_translation('title') . '</h4>
             <div class="swiper-buttons-arrows">
-                <div class="swiper-button-prev">⏴</div>
-                <div class="swiper-button-next">⏵</div>
+                    <div class="swiper-button-prev">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                            <path d="M16 5l-11 7 11 7z"/>
+                        </svg>
+
+                    </div>
+                    <div class="swiper-button-next">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
             </div>
         </div>
 
