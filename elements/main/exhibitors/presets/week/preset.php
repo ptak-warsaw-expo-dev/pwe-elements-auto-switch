@@ -11,8 +11,17 @@ $output = '
                     <a href="'. PWE_Functions::multi_translation("catalog_link") .'">'. PWE_Functions::multi_translation("catalog_link_text") .'</a>
                 </div>
                 <div class="swiper-buttons-arrows">
-                    <div class="swiper-button-prev">⏴</div>
-                    <div class="swiper-button-next">⏵</div>
+                    <div class="swiper-button-prev">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white">
+                            <path d="M16 5l-11 7 11 7z"/>
+                        </svg>
+
+                    </div>
+                    <div class="swiper-button-next">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
                 </div>
             </div>
 

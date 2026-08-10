@@ -80,7 +80,11 @@
     cursor: pointer;
     transition: all 0.2s ease !important;
 }
-
+.pwe-element-auto-switch .pwe-exhibitors__buttons .swiper-button-prev svg,
+.pwe-element-auto-switch .pwe-exhibitors__buttons .swiper-button-next svg {
+ min-width: 24px !important;
+ min-height: 24px !important;
+}
 .pwe-element-auto-switch .pwe-exhibitors__buttons .swiper-button-prev:hover,
 .pwe-element-auto-switch .pwe-exhibitors__buttons .swiper-button-next:hover {
     background: rgba(32, 132, 255, 0.15) !important;

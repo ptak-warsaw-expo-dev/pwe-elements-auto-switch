@@ -1,5 +1,5 @@
 #combinedEventsWeek.pwe-limit-width {
-    max-width: 100%;
+    max-width: max-content;
     padding: 0px !important;
 }
 
