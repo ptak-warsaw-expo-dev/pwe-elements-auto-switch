@@ -1,7 +1,10 @@
 <?php
 
 $output = '
-<div id="pweExhibitorsTop12" class="pwe-exhibitors-top12 standard">
+<div id="pweExhibitorsTop12" class="pwe-exhibitors-top12">
+    <div>
+        <p class="pwe-exhibitors-top12__text">'. PWE_Functions::multi_translation("short_info") . '</p>
+    </div>
     <div class="pwe-exhibitors-top12__wrapper">
         <h2 class="pwe-exhibitors-top12__title">'. PWE_Functions::multi_translation("title") . ' ' . do_shortcode('[trade_fair_catalog_year]') . '</h2>
         <div class="pwe-exhibitors-top12__logos">';

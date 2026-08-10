@@ -7,7 +7,7 @@ class Exhibitors_Top12 {
         return [
             'types' => ['exhibitors-top12'],
             'presets' => [
-                'premium' => plugin_dir_path(__FILE__) . 'presets/premium/preset.php',
+                'byli-premium-visitors' => plugin_dir_path(__FILE__) . 'presets/byli-premium-visitors/preset.php',
                 'standard-visitors' => plugin_dir_path(__FILE__) . 'presets/standard-visitors/preset.php',
                 'standard-exhibitors' => plugin_dir_path(__FILE__) . 'presets/standard-exhibitors/preset.php',
             ],

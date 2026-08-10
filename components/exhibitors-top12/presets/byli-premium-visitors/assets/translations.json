@@ -1,0 +1,58 @@
+{
+  "pl_PL": {
+    "title": "Wystawcy",
+    "short_info": "Po wypełnieniu formularza zostaniesz przekierowany do kroku 2, gdzie otrzymasz dodatkowe informacje dotyczące uczestnictwa w targach."
+  },
+  "en_US": {
+    "title": "Exhibitors",
+    "short_info": "After filling out the form, you will be redirected to step 2, where you will receive additional information about participating in the trade show."
+  },
+  "cs_CZ": {
+    "title": "Vystavovatelé",
+    "short_info": "Po wypełnieniu formularza zostaniesz przekierowany do kroku 2, gdzie otrzymasz dodatkowe informacje dotyczące uczestnictwa w targach."
+  },
+  "de_DE": {
+    "title": "Aussteller",
+    "short_info": "Nach dem Ausfüllen des Formulars werden Sie zum zweiten Schritt weitergeleitet, wo Sie zusätzliche Informationen über die Teilnahme an der Messe erhalten."
+  },
+  "it_IT": {
+    "title": "Espositori",
+    "short_info": "Dopo aver compilato il formulario, verrai reindirizzato al passo 2, dove riceverai informazioni aggiuntive sulla partecipazione alla fiera."
+  },
+  "lt_LT": {
+    "title": "Eksponentai",
+    "short_info": "Užpildžius formą, būsite nukreipti į antrą žingsnį, kur gausite papildomą informaciją apie dalyvavimą rinkoje."
+  },
+  "lv_LV": {
+    "title": "Izstādes dalībnieki",
+    "short_info": "Pēc formas aizpildīšanas jūs tiksiet novirzīti uz otro soli, kur saņemsiet papildu informāciju par dalību pasākumā."
+  },
+  "sk_SK": {
+    "title": "Vystavovatelia",
+    "short_info": "Po vyplnení formulára budete presmerovaní na druhý krok, kde obdržíte ďalšie informácie o účasti na výstave."
+  },
+  "uk": {
+    "title": "Виставковці",
+    "short_info": "Після заповнення форми вас буде перенаправлено на другий крок, де ви отримаєте додаткову інформацію про участь у виставці."
+  },
+  "ro_RO": {
+    "title": "Expozanți",
+    "short_info": "După completarea formularului, veți fi redirecționați către pasul 2, unde veți primi informații suplimentare despre participarea la târg."
+  },
+  "et": {
+    "title": "Eksponendid",
+    "short_info": "Vormi täitmisel suunatakse teid järgmisele sammule, kus saate lisainformatsiooni eksponenditegevuse kohta."
+  },
+  "hu_HU": {
+    "title": "Kiállítók",
+    "short_info": "A űrlap kitöltése után átirányítjuk a második lépésre, ahol további információkat kapsz az kiállításra való részvételről."
+  },
+  "fr_FR": {
+    "title": "Exposants",
+    "short_info": "Après avoir rempli le formulaire, vous serez redirigé vers l'étape 2, où vous recevrez des informations supplémentaires sur votre participation à la foire."
+  },
+  "es_ES": {
+    "title": "Expositores",
+    "short_info": "Después de completar el formulario, serás redirigido a la etapa 2, donde recibirás información adicional sobre tu participación en la feria."
+  }
+}

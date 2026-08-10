@@ -3,14 +3,14 @@
     height: 100%;
     background-color: white;
 }
-.pwe-exhibitors-top12-wrapper {
+.pwe-exhibitors-top12__wrapper {
     height: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
 }
-.pwe-exhibitors-top12-title {
+.pwe-exhibitors-top12__title {
     font-size: 24px !important;
     font-weight: 600 !important;
     margin: 24px auto 18px;
@@ -19,7 +19,7 @@
     color: black;
     text-align: center;
 }
-.pwe-exhibitors-top12-logos {
+.pwe-exhibitors-top12__logos {
     flex: 1;
     width: 100%;
     padding: 18px;
@@ -28,12 +28,12 @@
     gap: 10px;
     justify-items: center;
 }
-.pwe-exhibitors-top12-logo a {
+.pwe-exhibitors-top12__logo a {
     display: flex;
     height: 100%;
     align-items: center;
     justify-content: center;
 }
-.pwe-exhibitors-top12-logo img {
+.pwe-exhibitors-top12__logo img {
     object-fit: contain;
 }

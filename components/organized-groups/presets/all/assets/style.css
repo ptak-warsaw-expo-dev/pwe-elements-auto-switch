@@ -15,8 +15,9 @@
     text-transform: uppercase;
 }
 
-a#pweGroupsLink {
+#pweGroupsLink {
     text-decoration: underline;
+    color: white !important;
 }
 
 a.pwe-organized-groups__btn {
