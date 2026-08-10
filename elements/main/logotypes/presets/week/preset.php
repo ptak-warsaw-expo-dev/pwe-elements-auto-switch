@@ -41,6 +41,33 @@ if ($logotypes_slug === 'patrons-partners') {
     #pweLogotypes'. $slug_id .' {
       padding: 18px 0;
     }
+    #pweLogotypes'. $slug_id .' .swiper-button-prev svg,
+    #pweLogotypes'. $slug_id .' .swiper-button-next svg {
+      min-width: 24px !important;
+      min-height: 24px !important;
+    }
+    #pweLogotypes'. $slug_id .'  .swiper-button-prev,
+    #pweLogotypes'. $slug_id .'  .swiper-button-next {
+      position: static !important;
+      margin: 0 !important;
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      width: 42px !important;
+      height: 42px !important;
+      border-radius: 8px !important;
+      background: rgba(7, 17, 36, 0.82) !important;
+      border: 1px solid rgba(91, 126, 179, 0.35) !important;
+      color: #ffffff !important;
+      cursor: pointer;
+      transition: all 0.2s ease !important;
+    }
+    #pweLogotypes'. $slug_id .' .swiper-button-prev:hover,
+    #pweLogotypes'. $slug_id .' .swiper-button-next:hover {
+      background: rgba(32, 132, 255, 0.15) !important;
+      border-color: rgba(32, 132, 255, 0.6) !important;
+      transform: scale(1.05);
+    }
     #pweLogotypes'. $slug_id .' .pwe-logotypes__title {
       display: flex;
       justify-content: space-between;
@@ -172,8 +199,17 @@ if ($logotypes_slug === 'patrons-partners') {
           <div class="pwe-logotypes__title">
             <h4 class="pwe-main-title">'. esc_html($title) .'</h4>
             <div class="swiper-buttons-arrows">
-                <div class="swiper-button-prev">⏴</div>
-                <div class="swiper-button-next">⏵</div>
+                    <div class="swiper-button-prev">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                            <path d="M16 5l-11 7 11 7z"/>
+                        </svg>
+
+                    </div>
+                    <div class="swiper-button-next">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
             </div>
           </div>
 
@@ -185,8 +221,17 @@ if ($logotypes_slug === 'patrons-partners') {
                       ' . PWE_Functions::multi_translation('all') . ' <span>'. intval($total) .'</span>
                     </button>
                     <div class="swiper-buttons-arrows">
-                      <div class="swiper-button-prev">⏴</div>
-                      <div class="swiper-button-next">⏵</div>
+                      <div class="swiper-button-prev">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                              <path d="M16 5l-11 7 11 7z"/>
+                          </svg>
+
+                      </div>
+                      <div class="swiper-button-next">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                              <path d="M8 5v14l11-7z"/>
+                          </svg>
+                      </div>
                   </div>
                   </div>
 
@@ -365,6 +410,33 @@ if ($logotypes_slug === 'patrons-partners') {
 } else if ($logotypes_slug === 'patrons-partners-international') {
   $output = '
   <style>
+    #pweLogotypes'. $slug_id .' .swiper-button-prev svg,
+    #pweLogotypes'. $slug_id .' .swiper-button-next svg {
+      min-width: 24px !important;
+      min-height: 24px !important;
+    }
+    #pweLogotypes'. $slug_id .'  .swiper-button-prev,
+    #pweLogotypes'. $slug_id .'  .swiper-button-next {
+      position: static !important;
+      margin: 0 !important;
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      width: 42px !important;
+      height: 42px !important;
+      border-radius: 8px !important;
+      background: rgba(7, 17, 36, 0.82) !important;
+      border: 1px solid rgba(91, 126, 179, 0.35) !important;
+      color: #ffffff !important;
+      cursor: pointer;
+      transition: all 0.2s ease !important;
+    }
+    #pweLogotypes'. $slug_id .' .swiper-button-prev:hover,
+    #pweLogotypes'. $slug_id .' .swiper-button-next:hover {
+      background: rgba(32, 132, 255, 0.15) !important;
+      border-color: rgba(32, 132, 255, 0.6) !important;
+      transform: scale(1.05);
+    }
     #pweLogotypes'. $slug_id .' .pwe-logotypes__title {
       display: flex;
       justify-content: space-between;
@@ -419,8 +491,17 @@ if ($logotypes_slug === 'patrons-partners') {
             <h4 class="pwe-main-title">'. esc_html($title) .'</h4>
 
             <div class="swiper-buttons-arrows">
-              <div class="swiper-button-prev">⏴</div>
-              <div class="swiper-button-next">⏵</div>
+                    <div class="swiper-button-prev">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                            <path d="M16 5l-11 7 11 7z"/>
+                        </svg>
+
+                    </div>
+                    <div class="swiper-button-next">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
             </div>
           </div>
 

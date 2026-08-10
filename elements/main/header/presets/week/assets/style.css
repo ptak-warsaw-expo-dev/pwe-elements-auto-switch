@@ -24,7 +24,7 @@
     color: #f6f7fb;
 
     background-color: var(--bg);
-    background-image: url("https://mr.glasstec.pl/wp-content/uploads/2026/07/header-week.webp");
+    background-image: url("/doc/header-week.webp");
     background-repeat: no-repeat;
     background-position: right center;
     background-size: auto 100%;
@@ -195,7 +195,7 @@
     }
 
     .pwe-element-auto-switch .pwe-hero__container {
-        padding-top: 44px;
+        padding-top: 70px;
         width: min(100% - 26px, var(--max));
     }
 

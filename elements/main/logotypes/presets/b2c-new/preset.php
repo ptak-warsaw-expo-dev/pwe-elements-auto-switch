@@ -237,6 +237,9 @@ if ($logotypes_slug === 'patrons-partners') {
     //   transform: scale(1.2);
     // }
     @media(max-width:960px) {
+    #pweLogotypes'. $slug_id .'  .pwe-logotypes__wrapper {
+      padding: 0 1rem !important;
+    }
       #pweLogotypes'. $slug_id .' .pwe-logotypes__filter-all {
         width: 100%;
       }
