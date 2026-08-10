@@ -114,7 +114,10 @@ class PWE_Shortcodes {
             'trade_fair_ticket_benefits_pl' => 'show_trade_fair_ticket_benefits_pl',
             'trade_fair_ticket_benefits_en' => 'show_trade_fair_ticket_benefits_en',
 
-            'trade_fair_exhibitor_generator_icons'          => 'show_trade_fair_exhibitor_generator_icons',
+            'trade_fair_exhibitor_generator_icons'         => 'show_trade_fair_exhibitor_generator_icons',
+            'trade_fair_exhibitor_generator_text'          => 'show_trade_fair_exhibitor_generator_text',
+            'trade_fair_exhibitor_generator_header_url'    => 'show_trade_fair_exhibitor_generator_header_url',
+            'trade_fair_exhibitor_generator_badge_url'     => 'show_trade_fair_exhibitor_generator_badge_url',
 
             // shortcodes for Yoast SEO
             'trade_fair_full_desc' => 'sc_pwe_trade_fair_full_desc',
@@ -133,6 +136,10 @@ class PWE_Shortcodes {
             'sc_pwe_text_promote_yourself' => 'sc_pwe_text_promote_yourself',
             'sc_pwe_text_become_an_exhibitor' => 'sc_pwe_text_become_an_exhibitor',
             'sc_pwe_text_store' => 'sc_pwe_text_store',
+
+            // other shortcodes
+            'pwe_mailing_header_url' => 'show_pwe_mailing_header_url',
+            'pwe_mailing_header_platyna_url' => 'show_pwe_mailing_header_platyna_url',
         ];
     }
 
@@ -214,6 +221,12 @@ class PWE_Shortcodes {
             'trade_fair_ticket_benefits_en' => 'show_trade_fair_ticket_benefits_en',
 
             'trade_fair_exhibitor_generator_icons'          => 'show_trade_fair_exhibitor_generator_icons',
+            'trade_fair_exhibitor_generator_text'          => 'show_trade_fair_exhibitor_generator_text',
+            'trade_fair_exhibitor_generator_header_url'          => 'show_trade_fair_exhibitor_generator_header_url',
+
+            // other shortcodes
+            'pwe_mailing_header_url' => 'show_pwe_mailing_header_url',
+            'pwe_mailing_header_platyna_url' => 'show_pwe_mailing_header_platyna_url',
         ];
     }
 
@@ -296,6 +309,7 @@ class PWE_Shortcodes {
             'pwe_about_title_en',
             'pwe_about_desc_pl',
             'pwe_about_desc_en',
+            'pwe_mailing_header_url'
         ];
     }
 
@@ -2350,43 +2364,110 @@ class PWE_Shortcodes {
 
     public function show_trade_fair_date_multilang($atts = []) {
 
-        // shortcode attrs
         $atts = shortcode_atts([
-            'lang' => '' // default empty = auto
+            'lang' => '',
         ], $atts, 'trade_fair_date_multilang');
 
-        list($start_date, $end_date, $pwe_date_start_available, $pwe_date_end_available, $pwe_shortcodes_available) = $this->get_trade_fair_dates();
+        list(
+            $start_date,
+            $end_date,
+            $pwe_date_start_available,
+            $pwe_date_end_available,
+            $pwe_shortcodes_available
+        ) = $this->get_trade_fair_dates();
 
-        // determine language: priority -> shortcode attr -> global constant -> default 'en'
-        $lang = !empty($atts['lang'])
-            ? strtolower($atts['lang'])
-            : strtolower(PWE_LANG);
+        $requested_lang = trim((string) $atts['lang']);
 
-        $current_time = strtotime("now");
-
-        // translations
-        switch ($lang) {
-            case "pl": $new_date_coming_soon = "Nowa data wkrótce"; break;
-            case "en": $new_date_coming_soon = "New date coming soon"; break;
-            case "de": $new_date_coming_soon = "Neuer Termin folgt in Kürze"; break;
-            case "it": $new_date_coming_soon = "Nuova data in arrivo"; break;
-            case "lt": $new_date_coming_soon = "Nauja data netrukus"; break;
-            case "lv": $new_date_coming_soon = "Jauns datums drīzumā"; break;
-            case "uk": $new_date_coming_soon = "Нова дата незабаром"; break;
-            case "cs": $new_date_coming_soon = "Nový termín již brzy"; break;
-            case "sk": $new_date_coming_soon = "Nový termín už čoskoro"; break;
-            case "ru": $new_date_coming_soon = "Новая дата скоро"; break;
-            case "ro": $new_date_coming_soon = "Noua dată în curând"; break;
-            case "et": $new_date_coming_soon = "Uus kuupäev varsti"; break;
-            case "hu": $new_date_coming_soon = "Hamarosan új dátum érkezik"; break;
-            default: $new_date_coming_soon = "New date coming soon"; break;
+        /*
+        * {{lang}} can only be resolved in the context of a Gravity Forms notification.
+        *
+        * Outside of Gravity Forms, we treat this as automatic.
+        */
+        if ($requested_lang === '{{lang}}') {
+            $requested_lang = '';
         }
 
-        $date = (empty($start_date) || (!empty($end_date) && strtotime($end_date . " +20 hours") < $current_time))
-            ? ($pwe_shortcodes_available ? $new_date_coming_soon : get_option('trade_fair_date_'.$lang))
-            : $this->format_trade_fair_date($start_date, $end_date, $lang);
+        if ($requested_lang !== '') {
+            // Hardcoded language, e.g. lang="cs"
+            $lang = $requested_lang;
+        } elseif (
+            class_exists('PWE_Functions') &&
+            is_callable(['PWE_Functions', 'lang'])
+        ) {
+            // Automatic language detection
+            $lang = PWE_Functions::lang();
+        } elseif (defined('PWE_LANG') && PWE_LANG) {
+            $lang = PWE_LANG;
+        } else {
+            $lang = determine_locale();
+        }
 
-        return $date;
+        // cs_CZ, cs-CZ, CS -> cs
+        $lang = strtolower(trim((string) $lang));
+        $lang = str_replace('_', '-', $lang);
+        $lang = explode('-', $lang)[0];
+        $lang = sanitize_key($lang);
+
+        $supported_languages = [
+            'pl',
+            'en',
+            'it',
+            'cs',
+            'de',
+            'lv',
+            'lt',
+            'sk',
+            'uk',
+            'et',
+            'ro',
+            'ru',
+            'hu',
+            'es',
+            'fr',
+        ];
+
+        if (!in_array($lang, $supported_languages, true)) {
+            $lang = 'en';
+        }
+
+        $coming_soon_translations = [
+            'pl' => 'Nowa data wkrótce',
+            'en' => 'New date coming soon',
+            'it' => 'Nuova data in arrivo',
+            'cs' => 'Nový termín již brzy',
+            'de' => 'Neuer Termin folgt in Kürze',
+            'lv' => 'Jauns datums drīzumā',
+            'lt' => 'Nauja data netrukus',
+            'sk' => 'Nový termín už čoskoro',
+            'uk' => 'Нова дата незабаром',
+            'et' => 'Uus kuupäev varsti',
+            'ro' => 'Noua dată în curând',
+            'ru' => 'Новая дата скоро',
+            'hu' => 'Hamarosan új dátum érkezik',
+            'es' => 'Nueva fecha próximamente',
+            'fr' => 'Nouvelle date prochainement',
+        ];
+
+        $current_time = current_time('timestamp');
+
+        $event_has_ended =
+            !empty($end_date) &&
+            strtotime($end_date . ' +20 hours') < $current_time;
+
+        if (empty($start_date) || $event_has_ended) {
+            return $pwe_shortcodes_available
+                ? $coming_soon_translations[$lang]
+                : (string) get_option(
+                    'trade_fair_date_' . $lang,
+                    $coming_soon_translations[$lang]
+                );
+        }
+
+        return $this->format_trade_fair_date(
+            $start_date,
+            $end_date,
+            $lang
+        );
     }
 
     public function show_trade_fair_first_day() {
@@ -2820,8 +2901,8 @@ class PWE_Shortcodes {
             'pl' => [
                 'fast_track'  => 'Fast<br>Track',
                 'vip_room'    => 'VIP<br>Room',
-                'concierge'   => 'Opieka<br>concierge',
-                'konferencje' => 'Udział<br>w konferencjach',
+                'concierge'   => 'Opieka<br>concierge`a',
+                'konferencje' => 'Udział w<br>konferencjach',
                 'parking'     => 'Darmowy<br>parking',
             ],
             'en' => [
@@ -2838,21 +2919,11 @@ class PWE_Shortcodes {
         );
 
         $icons = [
-            'fast_track' => [
-                'image' => 'fast-track-icon.png',
-            ],
-            'vip_room' => [
-                'image' => 'vip-room-icon.png',
-            ],
-            'concierge' => [
-                'image' => 'concierge-icon.png',
-            ],
-            'konferencje' => [
-                'image' => 'conferences-icon.png',
-            ],
-            'parking' => [
-                'image' => 'parking-icon.png',
-            ],
+            'fast_track'  => 'fast-track-icon.png',
+            'vip_room'    => 'vip-room-icon.png',
+            'concierge'   => 'concierge-icon.png',
+            'konferencje' => 'conferences-icon.png',
+            'parking'     => 'parking-icon.png',
         ];
 
         $group_icons = [
@@ -2878,61 +2949,125 @@ class PWE_Shortcodes {
 
         $selected_icons = $group_icons[$fair_group] ?? $group_icons['gr1'];
 
+        // Keep only icons that have both an image and a translated label
+        $selected_icons = array_values(array_filter(
+            $selected_icons,
+            static function ($icon_key) use ($icons, $labels, $language) {
+                return isset(
+                    $icons[$icon_key],
+                    $labels[$language][$icon_key]
+                );
+            }
+        ));
+
+        $icons_count = count($selected_icons);
+
+        if ($icons_count === 0) {
+            return '';
+        }
+
+        $cell_width = floor(100 / $icons_count);
+
         $output = '
             <style>
-                .exhibitor-generator__icons {
-                    display: flex;
-                    flex-wrap: wrap;
-                    justify-content: center;
-                    gap: 8px;
+                @media only screen and (max-width: 550px) {
+                    .pwe-generator-icons-row {
+                        display: block !important;
+                        width: 100% !important;
+                        text-align: center !important;
+                    }
+
+                    .pwe-generator-icon-cell {
+                        display: inline-block !important;
+                        width: 30% !important;
+                        max-width: 30% !important;
+                        box-sizing: border-box !important;
+                        vertical-align: top !important;
+                    }
                 }
 
-                .exhibitor-generator__icon {
-                    flex: 1;
-                    max-width: 110px;
-                    min-width: 80px;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    gap: 8px;
-                    padding-top: 18px;
-                }
-
-                .exhibitor-generator__icon img {
-                    height: 50px;
-                    object-fit: contain;
-                }
-
-                .exhibitor-generator__icon p {
-                    padding: 0;
-                    margin: 0;
-                    font-size: 12px;
-                    font-weight: 500;
-                    line-height: 1.2;
-                    text-align: center;
-                    color: #886843;
+                @media only screen and (max-width: 360px) {
+                    .pwe-generator-icon-cell {
+                        width: 30% !important;
+                        max-width: 30% !important;
+                    }
                 }
             </style>
+
+            <table
+                class="pwe-generator-icons-table"
+                width="100%"
+                cellpadding="0"
+                cellspacing="0"
+                border="0"
+                role="presentation"
+                style="
+                    width:100%;
+                    border:0;
+                    border-color:transparent;
+                    border-collapse:collapse;
+                "
+            >
+                <tr
+                    class="pwe-generator-icons-row"
+                    align="center"
+                    style="
+                        border:0;
+                        border-color:transparent;
+                        text-align:center;
+                    "
+                >
         ';
 
-        $output .= '<div class="exhibitor-generator__icons">';
-
         foreach ($selected_icons as $icon_key) {
-            if (
-                !isset($icons[$icon_key]) ||
-                !isset($labels[$language][$icon_key])
-            ) {
-                continue;
-            }
-
-            $image_url = trailingslashit($icons_url) . $icons[$icon_key]['image'];
+            $image_url = trailingslashit($icons_url) . $icons[$icon_key];
             $label = $labels[$language][$icon_key];
 
             $output .= sprintf(
-                '<div class="exhibitor-generator__icon">
-                    <img src="%1$s" alt="" loading="lazy">
-                    <p>%2$s</p>
-                </div>',
+                '
+                <td
+                    class="pwe-generator-icon-cell"
+                    width="%1$d%%"
+                    valign="top"
+                    align="center"
+                    style="
+                        width:%1$d%%;
+                        padding:18px 4px 0;
+                        border:0;
+                        border-color:transparent;
+                        text-align:center;
+                        vertical-align:top;
+                    "
+                >
+                    <img
+                        src="%2$s"
+                        alt=""
+                        width="50"
+                        height="50"
+                        style="
+                            display:block;
+                            width:50px;
+                            height:50px;
+                            object-fit:contain;
+                            margin:0 auto 8px;
+                            border:0;
+                        "
+                    >
+
+                    <p style="
+                        padding:10px 0 0;
+                        margin:0;
+                        font-size:12px;
+                        line-height:1.2;
+                        font-weight:500;
+                        text-align:center;
+                        color:#886843;
+                    ">
+                        %3$s
+                    </p>
+                </td>
+                ',
+                $cell_width,
                 esc_url($image_url),
                 wp_kses($label, [
                     'br' => [],
@@ -2940,9 +3075,104 @@ class PWE_Shortcodes {
             );
         }
 
-        $output .= '</div>';
+        $output .= '
+                </tr>
+            </table>
+        ';
 
         return $output;
+    }
+
+    public function show_trade_fair_exhibitor_generator_text() {
+        $fair_group = trim((string) do_shortcode('[trade_fair_group]'));
+
+        $locale = determine_locale();
+
+        $language = str_starts_with($locale, 'en')
+            ? 'en'
+            : 'pl';
+
+        $texts = [
+            'pl' => [
+                'gr1' => 'Pobierz swój identyfikator VIP GOLD i skorzystaj z bezpłatnego wejścia na teren targów, szybkiego wejścia Fast Track, udziału we wszystkich konferencjach branżowych oraz opieki concierge’a.',
+
+                'gr2' => 'Pobierz swój identyfikator VIP GOLD i skorzystaj z bezpłatnego wejścia na teren targów, udziału we wszystkich konferencjach branżowych, wejścia do specjalnie przygotowanej strefy VIP ROOM oraz opieki concierge’a.',
+
+                'gr3' => 'Pobierz swój identyfikator VIP GOLD i skorzystaj z bezpłatnego wejścia na teren targów, welcome packu, udziału we wszystkich konferencjach branżowych, wejścia do specjalnie przygotowanej strefy VIP ROOM oraz opieki concierge’a.',
+            ],
+
+            'en' => [
+                'gr1' => 'Download your VIP GOLD badge and enjoy free access to the trade fair area, Fast Track entry, participation in all industry conferences and concierge service.',
+
+                'gr2' => 'Download your VIP GOLD badge and enjoy free access to the trade fair area, participation in all industry conferences, access to the specially prepared VIP ROOM zone and concierge service.',
+
+                'gr3' => 'Download your VIP GOLD badge and enjoy free access to the trade fair area, welcome pack, participation in all industry conferences, access to the specially prepared VIP ROOM zone and concierge service.',
+            ],
+        ];
+
+        return $texts[$language][$fair_group] ?? $texts[$language]['gr1'];
+    }
+
+    public function show_trade_fair_exhibitor_generator_header_url() {
+        $lang = PWE_Functions::lang();
+
+        $lang = ($lang === 'pl') ? 'pl' : 'en';
+
+        $cap_files = PWE_Functions::get_database_fairs_data_files();
+
+        $available = [];
+
+        foreach ($cap_files as $item) {
+            if (
+                $item->category_slug === 'exhibitor-generator-header' &&
+                $item->is_active == '1'
+            ) {
+                $available[$item->language] = $item;
+            }
+        }
+
+        $priority = ($lang === 'pl')
+            ? ['pl', 'all']
+            : ['en', 'pl', 'all'];
+
+        foreach ($priority as $language) {
+            if (isset($available[$language])) {
+                return 'https://cap.warsawexpo.eu' . $available[$language]->file_path;
+            }
+        }
+
+        // fallback 1
+        $exhibitor_generator_header_url = '/doc/vip.jpg';
+
+        // fallback 2
+        if (!file_exists(ABSPATH . ltrim($exhibitor_generator_header_url, '/'))) {
+            $exhibitor_generator_header_url = '/wp-content/plugins/pwe-media/media/vip-pwe.jpg';
+        }
+
+        return $exhibitor_generator_header_url;
+    }
+
+    public function show_trade_fair_exhibitor_generator_badge_url() {
+        $cap_files = PWE_Functions::get_database_fairs_data_files();
+
+        $available = null;
+
+        foreach ($cap_files as $item) {
+            if (
+                $item->category_slug === 'exhibitor-generator-badge' &&
+                $item->is_active == '1'
+            ) {
+                $available = $item;
+                break;
+            }
+        }
+
+        if ($available !== null && !empty($available->file_path)) {
+            return 'https://cap.warsawexpo.eu' . $available->file_path;
+        }
+
+        // fallback
+        return '/wp-content/plugins/pwe-media/media/generator-gosci-wystawcow-auto-switch/badgevip.webp';
     }
 
     // FOR YOAST SEO START <----------------------------------------------------------------------<
@@ -3138,18 +3368,19 @@ class PWE_Shortcodes {
 
     // FOR YOAST SEO END <----------------------------------------------------------------------<
 
-    public function replace_multilang_date_in_notification($notification, $form, $entry) {
+    public function replace_multilang_date_in_notification(
+        $notification,
+        $form,
+        $entry
+    ) {
         $notification_name = isset($notification['name'])
             ? (string) $notification['name']
             : '';
 
-        $lang = $this->get_language_from_notification_name(
-            $notification_name
-        );
-
-        $date = $this->show_trade_fair_date_multilang([
-            'lang' => $lang,
-        ]);
+        $notification_lang =
+            $this->get_language_from_notification_name(
+                $notification_name
+            );
 
         $fields = [
             'subject',
@@ -3164,24 +3395,50 @@ class PWE_Shortcodes {
 
         foreach ($fields as $field) {
             if (
-                isset($notification[$field]) &&
-                is_string($notification[$field])
+                !isset($notification[$field]) ||
+                !is_string($notification[$field])
             ) {
-                $notification[$field] = str_replace(
-                    [
-                        '{trade_fair_date_multilang}',
-                        '[trade_fair_date_multilang]',
-                    ],
-                    $date,
-                    $notification[$field]
-                );
+                continue;
             }
+
+            $notification[$field] = preg_replace_callback(
+                '/[\{\[]trade_fair_date_multilang(?:\s+lang=["\']([^"\']+)["\'])?[\}\]]/i',
+                function ($matches) use ($notification_lang) {
+
+                    $requested_lang = isset($matches[1])
+                        ? trim((string) $matches[1])
+                        : '';
+
+                    /*
+                    * Three modes:
+                    *
+                    * no lang:
+                    * automatic detection by shortcode
+                    *
+                    * lang="cs":
+                    * fixed language
+                    *
+                    * lang="{{lang}}":
+                    * language from notification name
+                    */
+                    if ($requested_lang === '{{lang}}') {
+                        $requested_lang = $notification_lang;
+                    }
+
+                    return $this->show_trade_fair_date_multilang([
+                        'lang' => $requested_lang,
+                    ]);
+                },
+                $notification[$field]
+            );
         }
 
         return $notification;
     }
 
-    private function get_language_from_notification_name($notification_name) {
+    private function get_language_from_notification_name(
+        $notification_name
+    ) {
         $supported_languages = [
             'pl',
             'en',
@@ -3201,9 +3458,16 @@ class PWE_Shortcodes {
         ];
 
         $notification_name = trim(
-            strtolower($notification_name)
+            strtolower((string) $notification_name)
         );
 
+        /*
+        * Examples:
+        *
+        * Registration - CS
+        * Admin Notification - UK
+        * Resend - LT
+        */
         if (
             preg_match(
                 '/-\s*([a-z]{2})\s*$/i',
@@ -3218,7 +3482,25 @@ class PWE_Shortcodes {
             }
         }
 
-        return strtolower(PWE_LANG ?: 'en');
+        if (
+            class_exists('PWE_Functions') &&
+            is_callable(['PWE_Functions', 'lang'])
+        ) {
+            $lang = PWE_Functions::lang();
+        } elseif (defined('PWE_LANG') && PWE_LANG) {
+            $lang = PWE_LANG;
+        } else {
+            $lang = determine_locale();
+        }
+
+        $lang = strtolower(trim((string) $lang));
+        $lang = str_replace('_', '-', $lang);
+        $lang = explode('-', $lang)[0];
+        $lang = sanitize_key($lang);
+
+        return in_array($lang, $supported_languages, true)
+            ? $lang
+            : 'en';
     }
 
     public function replace_gf_merge_tags($text, $form, $entry, $url_encode, $esc_html, $nl2br, $format) {
@@ -3663,6 +3945,148 @@ class PWE_Shortcodes {
         }
 
         return $shortcodes;
+    }
+
+    /**
+     * Returns the absolute mailing header URL.
+     *
+     * Polish pages use:
+     * /doc/header.jpg
+     *
+     * Other language versions use:
+     * /doc/header_en.jpg
+     *
+     * If the English header does not exist or an error occurs,
+     * the Polish header is returned as a fallback.
+     *
+     * @return string
+     */
+    public function show_pwe_mailing_header_url() {
+        $fallback_url = home_url('/doc/header.jpg');
+
+        try {
+            $lang = 'pl';
+
+            // Use the main project language helper when available
+            if (
+                class_exists('PWE_Functions') &&
+                is_callable(['PWE_Functions', 'lang'])
+            ) {
+                $lang = PWE_Functions::lang();
+            } elseif (defined('PWE_LANG') && PWE_LANG) {
+                $lang = PWE_LANG;
+            } elseif (function_exists('determine_locale')) {
+                $lang = determine_locale();
+            }
+
+            // Normalize values such as pl_PL, en_US or de-DE
+            $lang = strtolower(trim((string) $lang));
+            $lang = str_replace('_', '-', $lang);
+            $lang = explode('-', $lang)[0];
+
+            // Always use the Polish header on Polish pages
+            if ($lang === 'pl') {
+                return $fallback_url;
+            }
+
+            // Return the fallback URL if the WordPress path is unavailable
+            if (!defined('ABSPATH')) {
+                return $fallback_url;
+            }
+
+            $english_header_path = trailingslashit(ABSPATH) . 'doc/header_en.jpg';
+
+            // Use the English header only when the file exists
+            if (is_file($english_header_path)) {
+                return home_url('/doc/header_en.jpg');
+            }
+
+            return $fallback_url;
+        } catch (Throwable $e) {
+            return $fallback_url;
+        }
+    }
+
+    /**
+     * Returns the absolute platinum mailing header URL.
+     *
+     * Polish pages use:
+     * /doc/mailing-platyna.jpg
+     *
+     * Other language versions use:
+     * /doc/mailing-platyna-en.jpg
+     *
+     * Fallback for Polish pages:
+     * /doc/header.jpg
+     *
+     * Fallback for non-Polish pages:
+     * /doc/header_en.jpg
+     *
+     * If the English fallback does not exist,
+     * /doc/header.jpg is returned.
+     *
+     * @return string
+     */
+    public function show_pwe_mailing_header_platyna_url() {
+        $default_header_url = home_url('/doc/header.jpg');
+
+        try {
+            if (!defined('ABSPATH')) {
+                return $default_header_url;
+            }
+
+            $lang = 'pl';
+
+            // Use the main project language helper when available
+            if (
+                class_exists('PWE_Functions') &&
+                is_callable(['PWE_Functions', 'lang'])
+            ) {
+                $lang = PWE_Functions::lang();
+            } elseif (defined('PWE_LANG') && PWE_LANG) {
+                $lang = PWE_LANG;
+            } elseif (function_exists('determine_locale')) {
+                $lang = determine_locale();
+            }
+
+            // Normalize values such as pl_PL, en_US or de-DE
+            $lang = strtolower(trim((string) $lang));
+            $lang = str_replace('_', '-', $lang);
+            $lang = explode('-', $lang)[0];
+
+            $document_directory = trailingslashit(ABSPATH) . 'doc/';
+
+            // Polish language version
+            if ($lang === 'pl') {
+                $platinum_header_path = $document_directory . 'mailing-platyna.jpg';
+
+                if (is_file($platinum_header_path)) {
+                    return home_url('/doc/mailing-platyna.jpg');
+                }
+
+                return $default_header_url;
+            }
+
+            // Non-Polish language version
+            $platinum_english_header_path =
+                $document_directory . 'mailing-platyna-en.jpg';
+
+            if (is_file($platinum_english_header_path)) {
+                return home_url('/doc/mailing-platyna-en.jpg');
+            }
+
+            // Use the English standard header as the first fallback
+            $english_header_path = $document_directory . 'header_en.jpg';
+
+            if (is_file($english_header_path)) {
+                return home_url('/doc/header_en.jpg');
+            }
+
+            // Use the Polish standard header as the final fallback
+            return $default_header_url;
+        } catch (Throwable $e) {
+            return $default_header_url;
+        }
     }
 
 }

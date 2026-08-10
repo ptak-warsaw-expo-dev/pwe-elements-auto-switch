@@ -1918,28 +1918,32 @@ class PWE_Functions {
 
         $start_time = microtime(true);
         $results = [];
+
         $week = $cap_db->get_row($cap_db->prepare(
             "SELECT fairs_domains FROM fair_weeks WHERE week_domain = %s LIMIT 1",
             $current_domain
         ));
 
-        if ($week && !empty($week->fairs_domains)) {
-            $domains = json_decode($week->fairs_domains, true);
-            if (!is_array($domains)) $domains = [];
-            $domains = array_values(array_filter(array_map('trim', $domains)));
-
-            if (!empty($domains)) {
-                $placeholders = implode(',', array_fill(0, count($domains), '%s'));
-                $query = "
-                    SELECT DISTINCT logos.*, meta_data.meta_data AS meta_data
-                    FROM logos
-                    INNER JOIN fairs ON logos.fair_id = fairs.id
-                    LEFT JOIN meta_data ON meta_data.slug = 'patrons'
-                        AND JSON_UNQUOTE(JSON_EXTRACT(meta_data.meta_data, '$.slug')) = logos.logos_type
-                    WHERE fairs.fair_domain IN ($placeholders)
-                ";
-                $results = $cap_db->get_results($cap_db->prepare($query, $domains));
+        if ($week) {
+            $domains = !empty($week->fairs_domains) ? json_decode($week->fairs_domains, true) : [];
+            if (!is_array($domains)) {
+                $domains = [];
             }
+
+            $domains[] = $current_domain;
+
+            $domains = array_values(array_unique(array_filter(array_map('trim', $domains))));
+
+            $placeholders = implode(',', array_fill(0, count($domains), '%s'));
+            $query = "
+                SELECT DISTINCT logos.*, meta_data.meta_data AS meta_data
+                FROM logos
+                INNER JOIN fairs ON logos.fair_id = fairs.id
+                LEFT JOIN meta_data ON meta_data.slug = 'patrons'
+                    AND JSON_UNQUOTE(JSON_EXTRACT(meta_data.meta_data, '$.slug')) = logos.logos_type
+                WHERE fairs.fair_domain IN ($placeholders)
+            ";
+            $results = $cap_db->get_results($cap_db->prepare($query, $domains));
         } else {
             $query = "
                 SELECT logos.*, meta_data.meta_data AS meta_data

@@ -1,0 +1,22 @@
+.pwe-email-suggestion {
+    margin-top: 6px;
+    font-size: 0.875em;
+    line-height: 1.4;
+    color: #b32d2e;
+}
+
+.pwe-email-suggestion__button {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.pwe-email-suggestion__button:hover,
+.pwe-email-suggestion__button:focus {
+    text-decoration: none;
+}
