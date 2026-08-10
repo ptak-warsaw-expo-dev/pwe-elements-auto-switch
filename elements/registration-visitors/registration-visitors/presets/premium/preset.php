@@ -4,25 +4,30 @@ $output = '
 <div id="pweRegistrationVisitors" class="pwe-registration-visitors premium" data-fair-group="'. esc_attr($fair_group) .'">
     <div class="pwe-registration-visitors__wrapper">
         <div class="pwe-registration-visitors__column pwe-mockup-column">
-            '. ($badgevipmockup
-                ? '<img src="'. esc_url($badgevipmockup) .'" alt="">'
-                : '') .'
+            '. ($badgevipmockup ? '<img src="'. esc_url($badgevipmockup) .'" alt="">' : '') .'
         </div>
 
         <div class="pwe-registration-visitors__column pwe-registration-column">
             <div class="pwe-registration-visitors__step-text">
-                <p>'. esc_html(PWE_Functions::multi_translation('step_1_of_2')) .'</p>
+                <p>'. PWE_Functions::multi_translation('step_1_of_2') .'</p>
             </div>
 
             <div class="pwe-registration-visitors__title">
-                <h4>'. esc_html(PWE_Functions::multi_translation('your_ticket')) .'</h4>
+                <h4>'. PWE_Functions::multi_translation('your_ticket') .'</h4>
             </div>
 
             <div class="pwe-registration-visitors__form">
                 '. $gravity_form .'
             </div>
-        </div>
+        </div>';
+
+        if (count($exhibitors) >= 12) {
+            $output .= PWE_Functions::render_component('exhibitors-top12', 'byli-premium-visitors', []);
+        }
+
+    $output .= '
     </div>
 </div>';
 
 return $output;
+ 

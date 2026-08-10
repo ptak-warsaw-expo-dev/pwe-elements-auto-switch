@@ -1,0 +1,8 @@
+@media (max-width: 960px) {
+    .pwe-element-auto-switch .pwe-registration-visitors__wrapper {
+        max-height: 100% !important;
+    }
+    .wpb_column:has(.pwe-registration-visitors__column) {
+        max-width: 100% !important;
+    }
+}

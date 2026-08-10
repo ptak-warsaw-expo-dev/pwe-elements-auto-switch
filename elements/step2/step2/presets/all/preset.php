@@ -26,7 +26,7 @@ $output = '
     <div class="pwe-step2__footer">
         <div class="pwe-step2__logos">
             <div class="pwe-step2__pwe-logo">
-                <a href="https://warsawexpo.eu/" target="_blanc"><img src="/wp-content/plugins/pwe-media/media/logo_pwe_black.webp"></a>
+                <a href="'. PWE_Functions::multi_translation("pwe_link") .'" target="_blanc"><img src="/wp-content/plugins/pwe-media/media/logo_pwe_black.webp"></a>
             </div>
             <div class="pwe-step2__fair-logo">
                 <a href="'. home_url('/') .'"><img src="' . $logo_src . '"></a>

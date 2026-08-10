@@ -7,11 +7,11 @@ $output = '
             <div class="pwe-registration-visitors__platinum-container">
                 <div class="pwe-registration-visitors__platinum-fields">
                     <h3>
-                        '. esc_html(PWE_Functions::multi_translation('step_1_of_2')) .'
+                        '. PWE_Functions::multi_translation('step_1_of_2') .'
                     </h3>
 
                     <h2 class="pwe-registration-visitors__platinum-title">
-                        '. esc_html(PWE_Functions::multi_translation('ticket')) .'
+                        '. PWE_Functions::multi_translation('ticket') .'
                     </h2>
 
                     <div class="pwe-registration-visitors__form">
@@ -21,7 +21,7 @@ $output = '
 
                 <div class="pwe-registration-visitors__benefits">
                     <h2>
-                        '. esc_html(PWE_Functions::multi_translation('vip_invitation')) .'
+                        '. PWE_Functions::multi_translation('vip_invitation') .'
                     </h2>
 
                     <div class="pwe-registration-visitors__benefit">
@@ -30,7 +30,7 @@ $output = '
                             alt=""
                         >
                         <p>
-                            '. esc_html(PWE_Functions::multi_translation('concierge_service')) .'
+                            '. PWE_Functions::multi_translation('concierge_service') .'
                         </p>
                     </div>
 
@@ -40,7 +40,7 @@ $output = '
                             alt=""
                         >
                         <p>
-                            '. esc_html(PWE_Functions::multi_translation('VIP_zone')) .'
+                            '. PWE_Functions::multi_translation('VIP_zone') .'
                         </p>
                     </div>
                 </div>

@@ -17,9 +17,13 @@ $output = '
             <div class="pwe-registration-exhibitors__form-fields">
                 '. $gravity_form .'
             </div>
-        </div>
+        </div>';
 
-        '. PWE_Functions::render_component('exhibitors-top12', 'standard-exhibitors', []) .'
+        if (count($exhibitors) >= 12) {
+            $output .= PWE_Functions::render_component('exhibitors-top12', 'standard-exhibitors', []);
+        }
+
+    $output .= '
     </div>
 </div>';
 

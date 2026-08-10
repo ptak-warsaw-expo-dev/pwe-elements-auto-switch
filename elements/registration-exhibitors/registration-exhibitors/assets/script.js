@@ -20,7 +20,7 @@
         }
 
         const countryInput = root.querySelector('.country input');
-        const selectedFlag = root.querySelector('.iti__selected-flag');
+        const selectedFlag = root.querySelector('.iti__selected-country');
         if (countryInput && selectedFlag) {
             countryInput.value = selectedFlag.getAttribute('title') || '';
         }

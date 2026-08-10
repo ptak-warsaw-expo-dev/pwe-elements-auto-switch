@@ -229,6 +229,7 @@
         justify-content: center;
         margin: 0 auto;
         text-align: center;
+        width: min-content;
     }
     .pwe-element-auto-switch .pwe-registration-visitors .pwe-exhibitors-top12 {
         margin-top: 0;
@@ -250,9 +251,15 @@
     .pwe-element-auto-switch .pwe-registration-visitors__form-header-image-qr {
         display: flex;
         align-items: center;
+        text-align: left;
     }
     .pwe-element-auto-switch .pwe-registration-visitors__form-content {
         padding: 0;
+    }
+}
+@media (max-width: 500px) {
+    .pwe-element-auto-switch .pwe-registration-visitors .pwe-registration-visitors__wrapper {
+        width: auto;
     }
 }
 @media (max-width: 450px) {

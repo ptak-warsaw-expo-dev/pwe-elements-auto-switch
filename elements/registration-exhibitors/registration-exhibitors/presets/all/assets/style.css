@@ -6,6 +6,7 @@
 }
 .pwe-element-auto-switch .pwe-registration-exhibitors__wrapper {
     display: flex;
+    justify-content: center;
     gap: 18px;
 }
 .pwe-element-auto-switch .pwe-registration-exhibitors__form {
@@ -15,23 +16,23 @@
     max-width: 555px;
     height: 100%;
     padding: 36px 36px 18px;
-    border: 2px solid #564949;
     border-radius: 18px;
-    background-color: #e8e8e8;
+    background-color: var(--accent-color);
 }
 .pwe-element-auto-switch .pwe-registration-exhibitors__title {
     margin: 0 0 18px;
     font-size: 26px;
+    color: white;
 }
 .pwe-element-auto-switch .pwe-registration-exhibitors__text,
 .pwe-element-auto-switch .pwe-registration-exhibitors__text p {
     margin: 0;
+    color: white;
 }
 .pwe-element-auto-switch .pwe-registration-exhibitors__form-fields .gform_validation_errors {
     border: none !important;
 }
 .pwe-element-auto-switch .pwe-registration-exhibitors__form-fields input {
-    border: 2px solid #564949 !important;
     box-shadow: none !important;
     line-height: 1 !important;
 }
@@ -44,24 +45,20 @@
     .ginput_container_consent
 ) {
     font-size: 12px;
-    color: black !important;
+    color: white !important;
     line-height: 1.2 !important;
 }
 .pwe-element-auto-switch .pwe-registration-exhibitors__form-fields input:not([type="checkbox"]) {
-    border-radius: 11px !important;
+    border-radius: 8px !important;
 }
 .pwe-element-auto-switch .pwe-registration-exhibitors__form-fields input[type="checkbox"] {
     border-radius: 2px !important;
 }
 .pwe-element-auto-switch .pwe-registration-exhibitors__form-fields input[type="submit"] {
-    border: 2px solid var(--main2-color) !important;
-    background-color: var(--main2-color) !important;
-    color: white;
-}
-.pwe-element-auto-switch .pwe-registration-exhibitors[data-fair-group="gr3"]
-.pwe-registration-exhibitors__form-fields input[type="submit"] {
-    border-color: var(--accent-color) !important;
-    background-color: var(--accent-color) !important;
+    border: 2px solid white !important;
+    background-color: white !important;
+    color: rgb(0, 0, 0);
+    transition: all 0.3s ease-in-out;
 }
 .pwe-element-auto-switch .pwe-registration-exhibitors__form-fields input[type="submit"]:hover {
     filter: brightness(0.8);

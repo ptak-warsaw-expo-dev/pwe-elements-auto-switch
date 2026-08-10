@@ -51,6 +51,8 @@ class Registration_Exhibitors {
 
             $gravity_form = do_shortcode('[gravityform id="'. $form_id .'" title="false" description="false" ajax="false"]');
 
+            $exhibitors = PWE_Functions::exhibitor_logos(12);
+
             /* <-------------> General code end <-------------> */
 
             $output = include $preset_file;

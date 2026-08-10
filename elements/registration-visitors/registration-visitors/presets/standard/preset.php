@@ -61,9 +61,13 @@ $output = '
                     </div>
                 </div>
             </div>
-        </div>
+        </div>';
 
-        '. PWE_Functions::render_component('exhibitors-top12', 'standard-visitors', []) .'
+        if (count($exhibitors) >= 12) {
+            $output .= PWE_Functions::render_component('exhibitors-top12', 'standard-visitors', []);
+        }
+        
+    $output .= ' 
     </div>
 </div>';
 

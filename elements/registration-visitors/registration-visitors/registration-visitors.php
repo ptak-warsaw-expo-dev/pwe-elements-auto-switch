@@ -28,6 +28,14 @@ class Registration_Visitors {
             ? sanitize_key(wp_unslash($_GET['utm_source']))
             : '';
 
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (in_array($source_utm, ['byli', 'premium', 'platyna'], true)) {
+            $_SESSION['pwe_registration_utm_source'] = $source_utm;
+        }
+
         if ($source_utm === 'premium') {
             $group = 'premium';
             $badgevipmockup = self::get_existing_document('/doc/badgevipmockup.webp');
@@ -67,6 +75,8 @@ class Registration_Visitors {
             $fair_group = do_shortcode('[trade_fair_group]');
 
             $gravity_form = do_shortcode('[gravityform id="'. $form_id .'" title="false" description="false" ajax="false"]');
+
+            $exhibitors = PWE_Functions::exhibitor_logos(12);
 
             /* <-------------> General code end <-------------> */
 
@@ -108,6 +118,13 @@ class Registration_Visitors {
         self::$filters_registered = true;
 
         add_filter('gform_pre_render', [__CLASS__, 'hide_registration_fields']);
+
+        add_filter(
+            'gform_confirmation',
+            [__CLASS__, 'add_utm_to_confirmation_redirect'],
+            10,
+            4
+        );
     }
 
     private static function register_session_handler() {
@@ -128,8 +145,13 @@ class Registration_Visitors {
             session_start();
         }
 
+        $utm_source = sanitize_key(
+            $_SESSION['pwe_registration_utm_source'] ?? ''
+        );
+
         $_SESSION['pwe_reg_entry'] = [
-            'entry_id' => $entry['id'],
+            'entry_id'   => absint($entry['id']),
+            'utm_source' => $utm_source,
         ];
 
         if (empty($form['fields'])) {
@@ -137,16 +159,69 @@ class Registration_Visitors {
         }
 
         foreach ($form['fields'] as $field) {
+            if (!is_object($field)) {
+                continue;
+            }
+
             if ($field->type === 'email') {
-                $_SESSION['pwe_reg_entry']['email'] = rgar($entry, $field->id);
+                $_SESSION['pwe_reg_entry']['email'] = sanitize_email(
+                    rgar($entry, $field->id)
+                );
             }
 
             if ($field->type === 'phone') {
-                $_SESSION['pwe_reg_entry']['phone'] = rgar($entry, $field->id);
+                $_SESSION['pwe_reg_entry']['phone'] = sanitize_text_field(
+                    rgar($entry, $field->id)
+                );
+            }
+
+            $admin_label = (string) ($field->adminLabel ?? '');
+
+            if ($admin_label === 'utm_source') {
+                $entry_utm_source = sanitize_key(
+                    rgar($entry, $field->id)
+                );
+
+                if (in_array($entry_utm_source, ['byli', 'premium', 'platyna'], true)) {
+                    $_SESSION['pwe_reg_entry']['utm_source'] = $entry_utm_source;
+                    $_SESSION['pwe_registration_utm_source'] = $entry_utm_source;
+                }
             }
         }
     }
 
+    public static function add_utm_to_confirmation_redirect(
+        $confirmation,
+        $form,
+        $entry,
+        $ajax
+    ) {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $utm_source = sanitize_key(
+            $_SESSION['pwe_reg_entry']['utm_source']
+            ?? $_SESSION['pwe_registration_utm_source']
+            ?? ''
+        );
+
+        if (!in_array($utm_source, ['byli', 'premium', 'platyna'], true)) {
+            return $confirmation;
+        }
+
+        if (!is_array($confirmation) || empty($confirmation['redirect'])) {
+            return $confirmation;
+        }
+
+        $confirmation['redirect'] = add_query_arg(
+            'utm_source',
+            $utm_source,
+            $confirmation['redirect']
+        );
+
+        return $confirmation;
+    }
 
     public static function hide_registration_fields($form) {
 

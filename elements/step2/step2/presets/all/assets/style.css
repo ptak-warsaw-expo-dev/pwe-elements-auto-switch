@@ -68,6 +68,16 @@
     padding: 36px;
     z-index: 0;
 }
+.pwe-step2__column--right::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255 255 255 / 20%);
+    z-index: -1;
+}   
 #pweStep2 .pwe-step2__logo {
     max-width: 350px;
     max-height: 200px;
@@ -108,6 +118,7 @@
 }
 .pwe-step2__footer img {
     max-height: 80px;
+    object-fit: contain;
 }
 .pwe-step2__for-exhibitors,
 .pwe-step2__for-visitors {
@@ -127,7 +138,7 @@
 }
 @media (max-width: 768px) {
     .pwe-step2__wrapper {
-        flex-direction: column;
+        flex-direction: column-reverse;
     }
     .pwe-step2__column {
         width: 100%;
@@ -141,8 +152,20 @@
         min-height: 300px;
         padding: 18px;
     }
+    #pweStep2 .pwe-step2__logo {
+        max-width: 240px;
+    }
     .pwe-step2__btn-container {
         flex-direction: column;
         align-items: center;
+    }
+    .pwe-step2__btn-container button {
+        transform: scale(1) !important;
+    }
+    .pwe-step2__logos > div {
+        min-width: 100px !important;
+    }
+    .pwe-step2__numbers > div {
+        justify-content: flex-start !important;
     }
 }

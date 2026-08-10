@@ -3,140 +3,154 @@
     "subtitle": "Krok <span style=\"color:var(--accent-color);\">2 z 2</span>",
     "title": "Twój bilet został<br>wygenerowany pomyślnie!",
     "description": "Otrzymasz go na wskazany adres e-mail.<br>Może to potrwać kilka minut.",
-    "exhibitor_title": "Czy chcesz zostać <span style=\"color:var(--accent-color);\">wystawcą</span> targów [trade_fair_name]?",
+    "exhibitor_title": "Czy chcesz zostać <span style=\"color:var(--accent-color);\">wystawcą</span> targów [pwe_name_pl]?",
     "exhibitor_yes_text": "Tak, jestem zainteresowany",
     "exhibitor_no_text": "Nie, dziękuję",
     "become_an_exhibitor": "Zostań wystawcą",
-    "visitors": "Odwiedzający"
+    "visitors": "Odwiedzający",
+    "pwe_link": "https://warsawexpo.eu/"
   },
   "en_US": {
     "subtitle": "Step <span style=\"color:var(--accent-color);\">2 of 2</span>",
     "title": "The ticket has been generated successfully!",
     "description": "You will receive it at the e-mail address indicated.<br>May take a few minutes.",
-    "exhibitor_title": "Do you want to become a <span style=\"color:var(--accent-color);\">exhibitor</span> of [trade_fair_name_multilang]?",
+    "exhibitor_title": "Do you want to become a <span style=\"color:var(--accent-color);\">exhibitor</span> of [pwe_name_en]?",
     "exhibitor_yes_text": "Yes, I am interested",
     "exhibitor_no_text": "No, thank you",
     "become_an_exhibitor": "Become an exhibitor",
-    "visitors": "Visitors"
+    "visitors": "Visitors",
+    "pwe_link": "https://warsawexpo.eu/en/"
   },
   "de_DE": {
     "subtitle": "Schritt <span style=\"color:var(--accent-color);\">2 von 2</span>",
     "title": "Das Ticket wurde erfolgreich erstellt!",
     "description": "Sie erhalten es an die angegebene E-Mail-Adresse.<br>Kann ein paar Minuten dauern.",
-    "exhibitor_title": "Möchten Sie ein <span style=\"color:var(--accent-color);\">Aussteller</span> der [trade_fair_name_multilang] werden?",
+    "exhibitor_title": "Möchten Sie ein <span style=\"color:var(--accent-color);\">Aussteller</span> der [pwe_name_de] werden?",
     "exhibitor_yes_text": "Ja, ich bin interessiert",
     "exhibitor_no_text": "Nein, danke",
     "become_an_exhibitor": "Aussteller werden",
-    "visitors": "Besucher"
+    "visitors": "Besucher",
+    "pwe_link": "https://warsawexpo.eu/en/"
   },
   "cs_CZ": {
     "subtitle": "Krok <span style=\"color:var(--accent-color);\">2 ze 2</span>",
     "title": "Váš lístek byl<br>úspěšně vygenerován!",
     "description": "Obdržíte jej na uvedenou e-mailovou adresu.<br>Může to trvat několik minut.",
-    "exhibitor_title": "Chcete se stát <span style=\"color:var(--accent-color);\">vystavovatelem</span> veletrhu [trade_fair_name_multilang]?",
+    "exhibitor_title": "Chcete se stát <span style=\"color:var(--accent-color);\">vystavovatelem</span> veletrhu [pwe_name_cs]?",
     "exhibitor_yes_text": "Ano, mám zájem",
     "exhibitor_no_text": "Ne, děkuji",
     "become_an_exhibitor": "Stát se vystavovatelem",
-    "visitors": "Návštěvníci"
+    "visitors": "Návštěvníci",
+    "pwe_link": "https://warsawexpo.eu/en/"
   },
   "it_IT": {
     "subtitle": "Passo <span style=\"color:var(--accent-color);\">2 di 2</span>",
     "title": "Il tuo biglietto è stato<br>generato con successo!",
     "description": "Lo riceverai all'indirizzo email indicato.<br>Potrebbe richiedere qualche minuto.",
-    "exhibitor_title": "Vuoi diventare un <span style=\"color:var(--accent-color);\">espositore</span> di [trade_fair_name_multilang]?",
+    "exhibitor_title": "Vuoi diventare un <span style=\"color:var(--accent-color);\">espositore</span> di [pwe_name_en]?",
     "exhibitor_yes_text": "Sì, sono interessato",
     "exhibitor_no_text": "No, grazie",
     "become_an_exhibitor": "Diventa un espositore",
-    "visitors": "Visitatori"
+    "visitors": "Visitatori",
+    "pwe_link": "https://warsawexpo.eu/en/"
   },
   "lt_LT": {
     "subtitle": "2 žingsnis iš 2",
     "title": "Jūsų bilietas buvo<br>sėkmingai sugeneruotas!",
     "description": "Jūs jį gausite nurodytu el. pašto adresu.<br>Gali užtrukti kelias minutes.",
-    "exhibitor_title": "Ar norite tapti <span style=\"color:var(--accent-color);\">parodos dalyviu</span> [trade_fair_name_multilang]?",
+    "exhibitor_title": "Ar norite tapti <span style=\"color:var(--accent-color);\">parodos dalyviu</span> [pwe_name_lt]?",
     "exhibitor_yes_text": "Taip, aš domiuosi",
     "exhibitor_no_text": "Ne, ačiū",
     "become_an_exhibitor": "Tapti parodos dalyviu",
-    "visitors": "Lankytojai"
+    "visitors": "Lankytojai",
+    "pwe_link": "https://warsawexpo.eu/en/"
   },
   "lv_LV": {
     "subtitle": "2. solis no 2",
     "title": "Jūsu biļete ir<br>veiksmīgi ģenerēta!",
     "description": "Jūs to saņemsiet norādītajā e-pasta adresē.<br>Var paiet dažas minūtes.",
-    "exhibitor_title": "Vai vēlaties kļūt par <span style=\"color:var(--accent-color);\">izstādes dalībnieku</span> [trade_fair_name_multilang]?",
+    "exhibitor_title": "Vai vēlaties kļūt par <span style=\"color:var(--accent-color);\">izstādes dalībnieku</span> [pwe_name_lv]?",
     "exhibitor_yes_text": "Jā, esmu ieinteresēts",
     "exhibitor_no_text": "Nē, paldies",
     "become_an_exhibitor": "Kļūt par izstādes dalībnieku",
-    "visitors": "Apmeklētāji"
+    "visitors": "Apmeklētāji",
+    "pwe_link": "https://warsawexpo.eu/en/"
   },
   "sk_SK": {
     "subtitle": "Krok <span style=\"color:var(--accent-color);\">2 z 2</span>",
     "title": "Váš lístok bol<br>úspešne vygenerovaný!",
     "description": "Dostanete ho na uvedenú e-mailovú adresu.<br>Môže to trvať niekoľko minút.",
-    "exhibitor_title": "Chcete sa stať <span style=\"color:var(--accent-color);\">výstavcom</span> veľtrhu [trade_fair_name_multilang]?",
+    "exhibitor_title": "Chcete sa stať <span style=\"color:var(--accent-color);\">výstavcom</span> veľtrhu [pwe_name_sk]?",
     "exhibitor_yes_text": "Áno, mám záujem",
     "exhibitor_no_text": "Nie, ďakujem",
     "become_an_exhibitor": "Stať sa výstavcom",
-    "visitors": "Návštevníci"
+    "visitors": "Návštevníci",
+    "pwe_link": "https://warsawexpo.eu/en/"
   },
   "uk": {
     "subtitle": "Крок <span style=\"color:var(--accent-color);\">2 з 2</span>",
     "title": "Ваш квиток був<br>успішно згенерований!",
     "description": "Ви отримаєте його на вказану електронну адресу.<br>Це може зайняти кілька хвилин.",
-    "exhibitor_title": "Ви хочете стати <span style=\"color:var(--accent-color);\">учасником виставки</span> [trade_fair_name_multilang]?",
+    "exhibitor_title": "Ви хочете стати <span style=\"color:var(--accent-color);\">учасником виставки</span> [pwe_name_uk]?",
     "exhibitor_yes_text": "Так, я зацікавлений",
     "exhibitor_no_text": "Ні, дякую",
     "become_an_exhibitor": "Стати учасником виставки",
-    "visitors": "Відвідувачі"
+    "visitors": "Відвідувачі",
+    "pwe_link": "https://warsawexpo.eu/en/"
   },
   "ro_RO": {
    "subtitle": "Pasul <span style=\"color:var(--accent-color);\">2 din 2</span>",
     "title": "Biletul a fost generat cu succes!",
     "description": "Îl veți primi la adresa de e-mail indicată.<br>Poate dura câteva minute.",
-    "exhibitor_title": "Doriți să deveniți un <span style=\"color:var(--accent-color);\">expozant</span> al [trade_fair_name_multilang]?",
+    "exhibitor_title": "Doriți să deveniți un <span style=\"color:var(--accent-color);\">expozant</span> al [pwe_name_ro]?",
     "exhibitor_yes_text": "Da, sunt interesat",
     "exhibitor_no_text": "Nu, mulțumesc",
     "become_an_exhibitor": "Deveniți un expozant",
-    "visitors": "Vizitatori"
+    "visitors": "Vizitatori",
+    "pwe_link": "https://warsawexpo.eu/en/"
   },
   "et": {
     "subtitle": "Samm <span style=\"color:var(--accent-color);\">2/2</span>",
     "title": "Pilet on edukalt<br>genereeritud!",
     "description": "Saate selle näidatud e-posti aadressile.<br>See võib võtta paar minutit.",
-    "exhibitor_title": "Kas soovite saada [trade_fair_name_multilang] <span style=\"color:var(--accent-color);\">näituse osalejaks</span>?",
+    "exhibitor_title": "Kas soovite saada [pwe_name_et] <span style=\"color:var(--accent-color);\">näituse osalejaks</span>?",
     "exhibitor_yes_text": "Jah, olen huvitatud",
     "exhibitor_no_text": "Ei, aitäh",
     "become_an_exhibitor": "Saada näituse osalejaks",
-    "visitors": "Külastajad"
+    "visitors": "Külastajad",
+    "pwe_link": "https://warsawexpo.eu/en/"
   },
   "hu_HU": {
     "subtitle": "2. lépés a 2-ből",
     "title": "A jegy sikeresen<br>generálva lett!",
     "description": "A megadott e-mail címre fogja megkapni.<br>Ez eltarthat néhány percig.",
-    "exhibitor_title": "Szeretne <span style=\"color:var(--accent-color);\">kiállító</span> lenni a [trade_fair_name_multilang] rendezvényen?",
+    "exhibitor_title": "Szeretne <span style=\"color:var(--accent-color);\">kiállító</span> lenni a [pwe_name_hu] rendezvényen?",
     "exhibitor_yes_text": "Igen, érdekel",
     "exhibitor_no_text": "Nem, köszönöm",
     "become_an_exhibitor": "Legyen kiállító",
-    "visitors": "Látogatók"
+    "visitors": "Látogatók",
+    "pwe_link": "https://warsawexpo.eu/en/"
   },
   "fr_FR": {
    "subtitle": "Étape <span style=\"color:var(--accent-color);\">2 sur 2</span>",
     "title": "Le billet a été généré avec succès!",
     "description": "Vous le recevrez à l'adresse e-mail indiquée.<br>Cela peut prendre quelques minutes.",
-    "exhibitor_title": "Voulez-vous devenir un <span style=\"color:var(--accent-color);\">exposant</span> de [trade_fair_name_multilang]?",
+    "exhibitor_title": "Voulez-vous devenir un <span style=\"color:var(--accent-color);\">exposant</span> de [pwe_name_fr]?",
     "exhibitor_yes_text": "Oui, je suis intéressé",
     "exhibitor_no_text": "Non, merci",
     "become_an_exhibitor": "Devenir exposant",
-    "visitors": "Visiteurs"
+    "visitors": "Visiteurs",
+    "pwe_link": "https://warsawexpo.eu/en/"
   },
   "es_ES": {
     "subtitle": "Paso <span style=\"color:var(--accent-color);\">2 de 2</span>",
     "title": "¡El boleto se ha generado con éxito!",
     "description": "Lo recibirá en la dirección de correo electrónico indicada.<br>Puede tardar unos minutos.",
-    "exhibitor_title": "¿Desea convertirse en un <span style=\"color:var(--accent-color);\">expositor</span> de [trade_fair_name_multilang]?",
+    "exhibitor_title": "¿Desea convertirse en un <span style=\"color:var(--accent-color);\">expositor</span> de [pwe_name_es]?",
     "exhibitor_yes_text": "Sí, estoy interesado",
     "exhibitor_no_text": "No, gracias",
     "become_an_exhibitor": "Conviértete en expositor",
-    "visitors": "Visitantes"
+    "visitors": "Visitantes",
+    "pwe_link": "https://warsawexpo.eu/en/"
   }
 }
