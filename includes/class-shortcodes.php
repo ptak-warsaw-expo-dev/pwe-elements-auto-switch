@@ -3141,15 +3141,15 @@ class PWE_Shortcodes {
             }
         }
 
-        // fallback 1
-        $exhibitor_generator_header_url = '/doc/vip.jpg';
+       // fallback 1 - local file
+        $file_path = ABSPATH . 'doc/vip.jpg';
 
-        // fallback 2
-        if (!file_exists(ABSPATH . ltrim($exhibitor_generator_header_url, '/'))) {
-            $exhibitor_generator_header_url = '/wp-content/plugins/pwe-media/media/vip-pwe.jpg';
+        if (file_exists($file_path)) {
+            return 'https://' . $_SERVER['HTTP_HOST'] . '/doc/vip.jpg';
         }
 
-        return $exhibitor_generator_header_url;
+        // fallback 2 - plugin
+        return content_url('plugins/pwe-media/media/vip-pwe.jpg');
     }
 
     public function show_trade_fair_exhibitor_generator_badge_url() {
