@@ -1196,6 +1196,46 @@ class PWE_Shortcodes {
         $start_month_name = $months[$lang][$start_month] ?? "";
         $end_month_name = $months[$lang][$end_month] ?? "";
 
+        /*
+        * Single day event formatting
+        */
+        if (
+            $start_day === $end_day &&
+            $start_month === $end_month &&
+            $start_year === $end_year
+        ) {
+            switch ($lang_key) {
+                case "EN":
+                    return "$start_month_name $start_day";
+
+                case "DE":
+                case "CS":
+                case "SK":
+                case "LV":
+                    return "$start_day. $start_month_name";
+
+                case "LT":
+                    return "$start_month_name $start_day d.";
+
+                case "ES":
+                    return "$start_day de $start_month_name";
+
+                case "PL":
+                case "UK":
+                case "RU":
+                case "IT":
+                case "FR":
+                case "RO":
+                case "ET":
+                case "HU":
+                default:
+                    return "$start_day $start_month_name";
+            }
+        }
+
+        /*
+        * Multiple day event formatting
+        */
         switch ($lang_key) {
 
             case "PL":
@@ -1433,53 +1473,66 @@ class PWE_Shortcodes {
     }
 
     public function display_trade_fair_first_day() {
-        $days = $this->get_trade_fair_days();
-        $value = isset($days[0]) ? $days[0] : '';
+        $day = $this->get_trade_fair_day(0);
+
+        $value = !empty($day)
+            ? $day
+            : get_option('trade_fair_first_day');
+
         ?>
-            <div class="form-field">
-                <input
-                    style="pointer-events: none; opacity: 0.5;"
-                    type="text"
-                    name="trade_fair_first_day"
-                    id="trade_fair_first_day"
-                    value="<?php echo esc_attr($value); ?>"
-                />
-                <p>Automatycznie pobierany pierwszy dzień</p>
-            </div>
+        <div class="form-field">
+            <input
+                style="pointer-events: none; opacity: 0.5;"
+                type="text"
+                name="trade_fair_first_day"
+                id="trade_fair_first_day"
+                value="<?php echo esc_attr($value); ?>"
+            />
+            <p>Automatycznie pobierany pierwszy dzień</p>
+        </div>
         <?php
     }
 
     public function display_trade_fair_second_day() {
-        $days = $this->get_trade_fair_days();
-        $value = isset($days[1]) ? $days[1] : '';
+        $day = $this->get_trade_fair_day(1);
+
+        $value = !empty($day)
+            ? $day
+            : get_option('trade_fair_second_day');
+
         ?>
-            <div class="form-field">
-                <input
-                    style="pointer-events: none; opacity: 0.5;"
-                    type="text"
-                    name="trade_fair_second_day"
-                    id="trade_fair_second_day"
-                    value="<?php echo esc_attr($value); ?>"
-                />
-                <p>Automatycznie pobierany drugi dzień</p>
-            </div>
+        <div class="form-field">
+            <input
+                style="pointer-events: none; opacity: 0.5;"
+                type="text"
+                name="trade_fair_second_day"
+                id="trade_fair_second_day"
+                value="<?php echo esc_attr($value); ?>"
+            />
+            <p>Automatycznie pobierany drugi dzień</p>
+        </div>
         <?php
     }
 
     public function display_trade_fair_third_day() {
-        $days = $this->get_trade_fair_days();
-        $value = isset($days[2]) ? $days[2] : '';
+        
+        $day = $this->get_trade_fair_day(2);
+
+        $value = !empty($day)
+            ? $day
+            : get_option('trade_fair_third_day');
+
         ?>
-            <div class="form-field">
-                <input
-                    style="pointer-events: none; opacity: 0.5;"
-                    type="text"
-                    name="trade_fair_third_day"
-                    id="trade_fair_third_day"
-                    value="<?php echo esc_attr($value); ?>"
-                />
-                <p>Automatycznie pobierany trzeci dzień</p>
-            </div>
+        <div class="form-field">
+            <input
+                style="pointer-events: none; opacity: 0.5;"
+                type="text"
+                name="trade_fair_third_day"
+                id="trade_fair_third_day"
+                value="<?php echo esc_attr($value); ?>"
+            />
+            <p>Automatycznie pobierany trzeci dzień</p>
+        </div>
         <?php
     }
 
@@ -2470,22 +2523,82 @@ class PWE_Shortcodes {
         );
     }
 
+    private function get_trade_fair_day(int $offset = 0): string {
+        list(
+            $start_date,
+            $end_date,
+            $pwe_date_start_available,
+            $pwe_date_end_available,
+            $pwe_shortcodes_available
+        ) = $this->get_trade_fair_dates();
+
+        if (empty($start_date)) {
+            return '';
+        }
+
+        try {
+            $date = DateTime::createFromFormat('Y/m/d', $start_date);
+
+            if (!$date) {
+                return '';
+            }
+
+            if ($offset > 0) {
+                $date->modify('+' . $offset . ' day');
+            }
+        } catch (Exception $e) {
+            return '';
+        }
+
+        // Aktualny język strony
+        if (
+            class_exists('PWE_Functions') &&
+            is_callable(['PWE_Functions', 'lang'])
+        ) {
+            $lang = PWE_Functions::lang();
+        } elseif (defined('PWE_LANG') && PWE_LANG) {
+            $lang = PWE_LANG;
+        } else {
+            $lang = determine_locale();
+        }
+
+        // np. en_US -> en
+        $lang = strtolower(trim((string) $lang));
+        $lang = str_replace('_', '-', $lang);
+        $lang = explode('-', $lang)[0];
+        $lang = sanitize_key($lang);
+
+        $single_date = $date->format('Y/m/d');
+
+        return $this->format_trade_fair_date(
+            $single_date,
+            $single_date,
+            $lang
+        );
+    }
+
     public function show_trade_fair_first_day() {
-        $days = $this->get_trade_fair_days();
-        $result = isset($days[0]) ? $days[0] : get_option('trade_fair_first_day');
-        return $result;
+        $day = $this->get_trade_fair_day(0);
+
+        return !empty($day)
+            ? $day
+            : get_option('trade_fair_first_day');
     }
 
     public function show_trade_fair_second_day() {
-        $days = $this->get_trade_fair_days();
-        $result = isset($days[1]) ? $days[1] : get_option('trade_fair_second_day');
-        return $result;
+        $day = $this->get_trade_fair_day(1);
+
+        return !empty($day)
+            ? $day
+            : get_option('trade_fair_second_day');
     }
 
     public function show_trade_fair_third_day() {
-        $days = $this->get_trade_fair_days();
-        $result = isset($days[2]) ? $days[2] : get_option('trade_fair_third_day');
-        return $result;
+        $day = $this->get_trade_fair_day(2);
+
+        return !empty($day)
+            ? $day
+            : get_option('trade_fair_third_day');
     }
 
     public function show_trade_fair_catalog() {
@@ -2904,6 +3017,7 @@ class PWE_Shortcodes {
                 'concierge'   => 'Opieka<br>concierge`a',
                 'konferencje' => 'Udział w<br>konferencjach',
                 'parking'     => 'Darmowy<br>parking',
+                'attractions' => 'Udział w<br>atrakcjach',
             ],
             'en' => [
                 'fast_track'  => 'Fast<br>Track',
@@ -2911,6 +3025,7 @@ class PWE_Shortcodes {
                 'concierge'   => 'Concierge<br>service',
                 'konferencje' => 'Conference<br>attendance',
                 'parking'     => 'Free<br>parking',
+                'attractions' => 'Participation<br>in attractions',
             ],
         ];
 
@@ -2924,6 +3039,7 @@ class PWE_Shortcodes {
             'concierge'   => 'concierge-icon.png',
             'konferencje' => 'conferences-icon.png',
             'parking'     => 'parking-icon.png',
+            'attractions' => 'attractions-icon.png',
         ];
 
         $group_icons = [
@@ -2941,6 +3057,21 @@ class PWE_Shortcodes {
             ],
             'gr3' => [
                 'vip_room',
+                'concierge',
+                'konferencje',
+                'parking',
+            ],
+            'b2c' => [
+                'vip_room',
+                'attractions',
+                'concierge',
+                'konferencje',
+                'parking',
+            ],
+
+            'b2c-new' => [
+                'vip_room',
+                'attractions',
                 'concierge',
                 'konferencje',
                 'parking',
@@ -3099,6 +3230,10 @@ class PWE_Shortcodes {
                 'gr2' => 'Pobierz swój identyfikator VIP GOLD i skorzystaj z bezpłatnego wejścia na teren targów, udziału we wszystkich konferencjach branżowych, wejścia do specjalnie przygotowanej strefy VIP ROOM oraz opieki concierge’a.',
 
                 'gr3' => 'Pobierz swój identyfikator VIP GOLD i skorzystaj z bezpłatnego wejścia na teren targów, welcome packu, udziału we wszystkich konferencjach branżowych, wejścia do specjalnie przygotowanej strefy VIP ROOM oraz opieki concierge’a.',
+
+                'b2c' => 'Pobierz swój identyfikator VIP GOLD i skorzystaj z bezpłatnego wejścia na teren targów, udziału we wszystkich konferencjach branżowych oraz atrakcjach, wejścia do specjalnie przygotowanej strefy VIP ROOM oraz opieki concierge’a. Zaproszenie umożliwia bezpłatny udział pierwszego dnia targów <strong>([trade_fair_first_day])</strong>.',
+
+                'b2c-new' => 'Pobierz swój identyfikator VIP GOLD i skorzystaj z bezpłatnego wejścia na teren targów, udziału we wszystkich konferencjach branżowych oraz atrakcjach, wejścia do specjalnie przygotowanej strefy VIP ROOM oraz opieki concierge’a. Zaproszenie umożliwia bezpłatny udział pierwszego dnia targów <strong>([trade_fair_first_day])</strong>.',
             ],
 
             'en' => [
@@ -3107,6 +3242,12 @@ class PWE_Shortcodes {
                 'gr2' => 'Download your VIP GOLD badge and enjoy free access to the trade fair area, participation in all industry conferences, access to the specially prepared VIP ROOM zone and concierge service.',
 
                 'gr3' => 'Download your VIP GOLD badge and enjoy free access to the trade fair area, welcome pack, participation in all industry conferences, access to the specially prepared VIP ROOM zone and concierge service.',
+
+                'b2c' => 'Download your VIP GOLD ID and benefit from free entry to the trade fair, participation in all industry conferences and attractions, entry to the specially prepared VIP ROOM zone, and concierge care. The invitation allows free participation on the first day of the trade fair <strong>([trade_fair_first_day])</strong>.',
+
+                'b2c-new' => 'Download your VIP GOLD ID and benefit from free entry to the trade fair, participation in all industry conferences and attractions, entry to the specially prepared VIP ROOM zone, and concierge care. The invitation allows free participation on the first day of the trade fair <strong>([trade_fair_first_day])</strong>.',
+
+
             ],
         ];
 

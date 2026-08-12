@@ -1,26 +1,66 @@
 <?php
 /**
  * PWE Phone Validator add-on.
- *
- * In the main plugin file add:
- * require_once plugin_dir_path(__FILE__) . 'addons/phone-validator/phone-validator.php';
  */
 
 defined('ABSPATH') || exit;
 
 final class PWE_Phone_Validator_Addon
 {
-    private const VERSION = '1.2.0';
+    private const VERSION = '1.3.0';
     private const INTL_TEL_INPUT_VERSION = '29.1.2';
+
+    private static bool $initialized = false;
+    private static bool $assets_loaded = false;
 
     public static function init(): void
     {
-        add_action('wp_enqueue_scripts', [self::class, 'enqueue_assets'], 20);
+        if (self::$initialized) {
+            return;
+        }
+
+        self::$initialized = true;
+
+        add_filter('gform_pre_render', [self::class, 'maybe_enqueue_assets_for_form'], 5);
         add_filter('gform_field_validation', [self::class, 'validate_phone_field'], 10, 4);
+    }
+
+    /**
+     * Load the frontend phone library only when the Gravity Form being rendered
+     * actually contains a field marked with the pwe-phone-validate CSS class.
+     * This keeps the newer intl-tel-input isolated from legacy PWElements forms.
+     */
+    public static function maybe_enqueue_assets_for_form($form)
+    {
+        if (is_admin() || !is_array($form) || empty($form['fields'])) {
+            return $form;
+        }
+
+        foreach ($form['fields'] as $field) {
+            if (!$field) {
+                continue;
+            }
+
+            $css_class = isset($field->cssClass) ? (string) $field->cssClass : '';
+            $css_classes = preg_split('/\s+/', trim($css_class)) ?: [];
+
+            if (in_array('pwe-phone-validate', $css_classes, true)) {
+                self::enqueue_assets();
+                break;
+            }
+        }
+
+        return $form;
     }
 
     public static function enqueue_assets(): void
     {
+        if (self::$assets_loaded || is_admin()) {
+            return;
+        }
+
+        self::$assets_loaded = true;
+
         $base_url = plugin_dir_url(__FILE__);
 
         wp_enqueue_style(
@@ -54,19 +94,41 @@ final class PWE_Phone_Validator_Addon
         );
 
         wp_localize_script('pwe-phone-validator', 'pwePhoneValidatorConfig', [
-            'invalidMessage' => __('Wpisz prawidłowy numer telefonu.', 'pwe-elements-auto-switch'),
-            'requiredMessage' => __('Numer telefonu jest wymagany.', 'pwe-elements-auto-switch'),
+            'invalidMessage'      => __('Wpisz prawidłowy numer telefonu.', 'pwe-elements-auto-switch'),
+            'requiredMessage'     => __('Numer telefonu jest wymagany.', 'pwe-elements-auto-switch'),
             'libraryErrorMessage' => __('Nie udało się załadować walidatora telefonu.', 'pwe-elements-auto-switch'),
+        ]);
+
+        self::print_late_styles([
+            'pwe-intl-tel-input',
+            'pwe-phone-validator',
         ]);
     }
 
     /**
-     * Server-side safety net for Gravity Forms.
+     * If render_elements() runs after wp_head, styles enqueued at that moment
+     * would normally miss the head output. Print only these newly queued styles
+     * immediately. Footer scripts remain handled by WordPress normally.
      *
-     * The browser validator writes a per-field validity marker immediately
-     * before submission. Gravity Forms then verifies that marker and the E.164
-     * value. This prevents AJAX submission paths from accepting a number that
-     * intl-tel-input has already marked as invalid.
+     * @param string[] $handles
+     */
+    private static function print_late_styles(array $handles): void
+    {
+        if (!did_action('wp_head') || !function_exists('wp_print_styles')) {
+            return;
+        }
+
+        $pending = array_values(array_filter($handles, static function ($handle) {
+            return !wp_style_is($handle, 'done');
+        }));
+
+        if ($pending) {
+            wp_print_styles($pending);
+        }
+    }
+
+    /**
+     * Server-side safety net for Gravity Forms.
      */
     public static function validate_phone_field($result, $value, $form, $field)
     {
@@ -81,7 +143,6 @@ final class PWE_Phone_Validator_Addon
 
         $phone = is_string($value) ? trim($value) : '';
         if ($phone === '') {
-            // Required-field handling remains Gravity Forms' responsibility.
             return $result;
         }
 
@@ -91,7 +152,6 @@ final class PWE_Phone_Validator_Addon
             ? sanitize_text_field(wp_unslash($_POST[$marker_key]))
             : '';
 
-        // JS normalizes valid values to E.164 before submission.
         $e164_ok = (bool) preg_match('/^\\+[1-9][0-9]{7,14}$/', $phone);
 
         if ($client_valid !== '1' || !$e164_ok) {
@@ -101,7 +161,6 @@ final class PWE_Phone_Validator_Addon
 
         return $result;
     }
-
 }
 
 PWE_Phone_Validator_Addon::init();

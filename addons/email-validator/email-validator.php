@@ -11,17 +11,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 final class PWE_Email_Validator_Addon {
-	private const VERSION = '1.4.0';
+	private const VERSION = '1.5.0';
 
-	public function __construct() {
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ] );
-		add_filter( 'gform_field_validation', [ $this, 'validate_email_domain' ], 10, 4 );
-	}
+	private static bool $initialized = false;
+	private static bool $assets_loaded = false;
 
-	public function enqueue_assets(): void {
-		if ( is_admin() ) {
+	public static function init(): void {
+		if ( self::$initialized ) {
 			return;
 		}
+
+		self::$initialized = true;
+
+		add_filter( 'gform_field_validation', [ self::class, 'validate_email_domain' ], 10, 4 );
+		self::enqueue_assets();
+	}
+
+	public static function enqueue_assets(): void {
+		if ( self::$assets_loaded || is_admin() ) {
+			return;
+		}
+
+		self::$assets_loaded = true;
 
 		$base_path = plugin_dir_path( __FILE__ );
 		$base_url  = plugin_dir_url( __FILE__ );
@@ -49,11 +60,28 @@ final class PWE_Email_Validator_Addon {
 			'pwe-email-validator',
 			'PWEEmailValidatorSettings',
 			[
-				'corrections' => $this->get_domain_corrections(),
-				'providers'   => $this->get_provider_domains(),
-				'messages'    => $this->get_messages(),
+				'corrections' => self::get_domain_corrections(),
+				'providers'   => self::get_provider_domains(),
+				'messages'    => self::get_messages(),
 			]
 		);
+
+		self::print_late_styles( [ 'pwe-email-validator' ] );
+	}
+
+	/** @param string[] $handles */
+	private static function print_late_styles( array $handles ): void {
+		if ( ! did_action( 'wp_head' ) || ! function_exists( 'wp_print_styles' ) ) {
+			return;
+		}
+
+		$pending = array_values( array_filter( $handles, static function ( $handle ) {
+			return ! wp_style_is( $handle, 'done' );
+		} ) );
+
+		if ( $pending ) {
+			wp_print_styles( $pending );
+		}
 	}
 
 	/**
@@ -62,7 +90,7 @@ final class PWE_Email_Validator_Addon {
 	 *
 	 * @return array<string,string>
 	 */
-	private function get_domain_corrections(): array {
+	private static function get_domain_corrections(): array {
 		$corrections = [
 			// Gmail.
 			'gmail.'       => 'gmail.com',
@@ -145,7 +173,7 @@ final class PWE_Email_Validator_Addon {
 	}
 
 	/** @return string[] */
-	private function get_provider_domains(): array {
+	private static function get_provider_domains(): array {
 		return apply_filters(
 			'pwe_email_validator_provider_domains',
 			[
@@ -162,7 +190,7 @@ final class PWE_Email_Validator_Addon {
 	}
 
 	/** @return array<string,array<string,string>> */
-	private function get_messages(): array {
+	private static function get_messages(): array {
 		return [
 			'pl' => [
 				'suggestion' => 'Czy chodziło Ci o %s?',
@@ -227,7 +255,7 @@ final class PWE_Email_Validator_Addon {
 		];
 	}
 
-	private function get_language(): string {
+	private static function get_language(): string {
 		$allowed = [ 'pl', 'en', 'cs', 'de', 'it', 'lt', 'lv', 'sk', 'uk', 'ro', 'et', 'hu', 'fr', 'es' ];
 		$locale  = function_exists( 'determine_locale' ) ? determine_locale() : get_locale();
 		$language = strtolower( substr( str_replace( '_', '-', (string) $locale ), 0, 2 ) );
@@ -235,7 +263,7 @@ final class PWE_Email_Validator_Addon {
 		return in_array( $language, $allowed, true ) ? $language : 'en';
 	}
 
-	public function validate_email_domain( $result, $value, $form, $field ) {
+	public static function validate_email_domain( $result, $value, $form, $field ) {
 		if ( ! $field || 'email' !== $field->get_input_type() || ! $result['is_valid'] ) {
 			return $result;
 		}
@@ -251,8 +279,8 @@ final class PWE_Email_Validator_Addon {
 			return $result;
 		}
 
-		$messages = $this->get_messages();
-		$language = $this->get_language();
+		$messages = self::get_messages();
+		$language = self::get_language();
 		$current_messages = $messages[ $language ] ?? $messages['en'];
 
 		// 1. Check the syntax of the full email address.
@@ -272,7 +300,7 @@ final class PWE_Email_Validator_Addon {
 		}
 
 		$domain      = substr( $email, $at_position + 1 );
-		$corrections = $this->get_domain_corrections();
+		$corrections = self::get_domain_corrections();
 
 		// 2. First, we keep the current, more helpful typo suggestion.
 		if ( isset( $corrections[ $domain ] ) ) {
@@ -306,4 +334,5 @@ final class PWE_Email_Validator_Addon {
 	}
 }
 
-new PWE_Email_Validator_Addon();
+
+PWE_Email_Validator_Addon::init();
