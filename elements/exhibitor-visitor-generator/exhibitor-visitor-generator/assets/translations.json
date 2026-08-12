@@ -1,5 +1,6 @@
 {
     "pl_PL": {
+        "first_day": "Zaproszenie umożliwia bezpłatny udział pierwszego dnia targów ([trade_fair_first_day])!",
         "title": "WYGENERUJ IDENTYFIKATOR<br>VIP GOLD DLA SWOICH GOŚCI!",
         "title_icons": "Identyfikator upoważnia do:",
         "fast_track": "Fast<br>Track",
@@ -12,6 +13,7 @@
         "contact": "Skontaktuj się z nami - "
     },
     "en_US": {
+        "first_day": "The invitation entitles you to free participation on the first day of the fair ([trade_fair_first_day])!",
         "title": "GENERATE VIP GOLD BADGE FOR YOUR GUESTS!",
         "title_icons": "The badge entitles you to:",
         "fast_track": "Fast<br>Track",

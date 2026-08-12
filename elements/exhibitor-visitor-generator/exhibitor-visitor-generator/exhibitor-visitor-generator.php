@@ -78,62 +78,19 @@ class Exhibitor_Visitor_Generator {
                 $badge_path = '/wp-content/plugins/pwe-media/media/generator-gosci-wystawcow-auto-switch/badgevip.webp';
             }
 
-            $badge = 'url("[trade_fair_exhibitor_generator_badge_url]")';
+            $badge = 'url("' . do_shortcode('[trade_fair_exhibitor_generator_badge_url]') . '")';
 
             $fair_group = do_shortcode('[trade_fair_group]');
 
-            $icons_path = '/wp-content/plugins/pwe-media/media/generator-gosci-wystawcow-auto-switch/icons/';
+            $domain = $_SERVER['HTTP_HOST'];
 
-            $icons = [
-                'fast_track' => [
-                    'image'       => 'fast-track-icon.png',
-                    'translation' => 'fast_track',
-                ],
-                'vip_room' => [
-                    'image'       => 'vip-room-icon.png',
-                    'translation' => 'vip_room',
-                ],
-                'concierge' => [
-                    'image'       => 'concierge-icon.png',
-                    'translation' => 'concierge',
-                ],
-                'conferences' => [
-                    'image'       => 'conferences-icon.png',
-                    'translation' => 'konferencje',
-                ],
-                'parking' => [
-                    'image'       => 'parking-icon.png',
-                    'translation' => 'parking',
-                ],
-            ];
-
-            $group_icons = [
-                'gr1' => [
-                    'concierge',
-                    'conferences',
-                    'parking',
-                ],
-                'gr2' => [
-                    'fast_track',
-                    'vip_room',
-                    'concierge',
-                    'conferences',
-                    'parking',
-                ],
-                'gr3' => [
-                    'vip_room',
-                    'concierge',
-                    'conferences',
-                    'parking',
-                ],
-            ];
-
-            $selected_icons = $group_icons[$fair_group] ?? $group_icons['gr1'];
-
-            if ($fair_group === 'gr3') {
-                $email = 'media3@<wbr>warsawexpo.eu';
+            if ($domain === 'campercaravanshow.com') {
+                $email = 'biuro.podawcze3@warsawexpo.eu';
+            }
+            else if ($fair_group === 'b2c' || $fair_group === 'b2c-new') {
+                $email = 'biuro.podawcze2@warsawexpo.eu';
             } else {
-                $email = 'generator.wystawcow@<wbr>warsawexpo.eu';
+                $email = do_shortcode('[trade_fair_contact]');
             }
 
             /* <-------------> General code end <-------------> */
