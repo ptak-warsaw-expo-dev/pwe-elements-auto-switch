@@ -19,6 +19,15 @@ class PWE_Clear_Transients {
                 rocket_clean_domain();
             }
 
+            // Refresh database json files cache
+            if (class_exists('PWE_Functions')) {
+                PWE_Functions::refresh_database_json_cache();
+            }
+
+            if (class_exists('PWECommonFunctions')) {
+                PWECommonFunctions::refresh_database_json_cache();
+            }
+
             $deleted = self::clear_all_transients();
 
             self::create_plans_news();

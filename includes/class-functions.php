@@ -342,7 +342,7 @@ class PWE_Functions {
 
 
     // <============================================================================================>
-    // Synchronized functions from plugin PWElements 3.5.5 (21.07.2026) <========================================================>
+    // Synchronized functions from plugin PWElements 3.5.8 (13.08.2026) <========================================================>
     // <============================================================================================>
 
 
@@ -614,6 +614,418 @@ class PWE_Functions {
     // DATABASE CONNECTIONS START <==================================================================================>
 
     /**
+     * Persistent JSON cache for CAP database data.
+     *
+     * Normal read priority:
+     * STATIC -> TRANSIENT -> JSON FILE -> DATABASE
+     *
+     * JSON FILE is the persistent fallback when TRANSIENT data is unavailable.
+     *
+     * Cron refresh priority:
+     * DATABASE -> JSON FILE -> TRANSIENT -> STATIC
+     *
+     * If the database is unavailable during forced refresh:
+     * JSON FILE -> TRANSIENT -> empty result
+     */
+    private static $database_cache_force_refresh = false;
+    private static function get_database_json_cache_dir() {
+        $uploads = wp_upload_dir(null, false);
+
+        if (!empty($uploads['error']) || empty($uploads['basedir'])) {
+            self::debug_log('PWE JSON cache: cannot resolve uploads directory.', 'error');
+            return false;
+        }
+
+        $dir = trailingslashit($uploads['basedir']) . 'pwe_cache/' . self::class;
+
+        if (!is_dir($dir) && !wp_mkdir_p($dir)) {
+            self::debug_log('PWE JSON cache: cannot create directory: ' . $dir, 'error');
+            return false;
+        }
+
+        // Apache protection. The cache may contain internal data.
+        $htaccess = trailingslashit($dir) . '.htaccess';
+        if (!file_exists($htaccess)) {
+            @file_put_contents(
+                $htaccess,
+                "Require all denied\n<IfModule !mod_authz_core.c>\nDeny from all\n</IfModule>\n"
+            );
+        }
+
+        $index = trailingslashit($dir) . 'index.php';
+        if (!file_exists($index)) {
+            @file_put_contents($index, "<?php\n// Silence is golden.\n");
+        }
+
+        return $dir;
+    }
+
+    private static function get_database_json_cache_path($source, $cache_key) {
+        $dir = self::get_database_json_cache_dir();
+
+        if (!$dir) {
+            return false;
+        }
+
+        $safe_source = sanitize_file_name($source);
+        return trailingslashit($dir) . $safe_source . '--' . md5((string) $cache_key) . '.json';
+    }
+
+    /**
+     * Preserve the difference between arrays and wpdb/stdClass objects.
+     */
+    private static function pack_database_json_value($value) {
+        if (is_object($value)) {
+            $packed = [];
+            foreach (get_object_vars($value) as $key => $item) {
+                $packed[$key] = self::pack_database_json_value($item);
+            }
+
+            return [
+                '__pwe_cache_type' => 'object',
+                '__pwe_cache_value' => $packed,
+            ];
+        }
+
+        if (is_array($value)) {
+            $packed = [];
+            foreach ($value as $key => $item) {
+                $packed[$key] = self::pack_database_json_value($item);
+            }
+            return $packed;
+        }
+
+        return $value;
+    }
+
+    private static function unpack_database_json_value($value) {
+        if (!is_array($value)) {
+            return $value;
+        }
+
+        if (
+            isset($value['__pwe_cache_type'], $value['__pwe_cache_value']) &&
+            $value['__pwe_cache_type'] === 'object' &&
+            is_array($value['__pwe_cache_value'])
+        ) {
+            $object = new \stdClass();
+
+            foreach ($value['__pwe_cache_value'] as $key => $item) {
+                $object->{$key} = self::unpack_database_json_value($item);
+            }
+
+            return $object;
+        }
+
+        $unpacked = [];
+        foreach ($value as $key => $item) {
+            $unpacked[$key] = self::unpack_database_json_value($item);
+        }
+
+        return $unpacked;
+    }
+
+    private static function read_database_json_cache($source, $cache_key): array {
+        $path = self::get_database_json_cache_path($source, $cache_key);
+
+        if (!$path || !is_file($path) || !is_readable($path)) {
+            return ['hit' => false, 'data' => null];
+        }
+
+        $json = @file_get_contents($path);
+        if ($json === false || $json === '') {
+            return ['hit' => false, 'data' => null];
+        }
+
+        $document = json_decode($json, true);
+
+        if (
+            !is_array($document) ||
+            ($document['version'] ?? null) !== 1 ||
+            ($document['source'] ?? null) !== $source ||
+            ($document['cache_key'] ?? null) !== (string) $cache_key ||
+            !array_key_exists('data', $document)
+        ) {
+            self::debug_log('PWE JSON cache: invalid file → ' . $path, 'error');
+            return ['hit' => false, 'data' => null];
+        }
+
+        return [
+            'hit' => true,
+            'data' => self::unpack_database_json_value($document['data']),
+        ];
+    }
+
+    private static function write_database_json_cache($source, $cache_key, $data, array $args = []): bool {
+        $path = self::get_database_json_cache_path($source, $cache_key);
+
+        if (!$path) {
+            return false;
+        }
+
+        $document = [
+            'version' => 1,
+            'source' => $source,
+            'cache_key' => (string) $cache_key,
+            'generated_at_utc' => gmdate('c'),
+            'args' => $args,
+            'data' => self::pack_database_json_value($data),
+        ];
+
+        $json = wp_json_encode(
+            $document,
+            JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_SUBSTITUTE
+        );
+
+        if ($json === false) {
+            self::debug_log('PWE JSON cache: json_encode failed → source=' . $source . ', key=' . $cache_key, 'error');
+            return false;
+        }
+
+        // Atomic write: readers never see a half-written JSON file.
+        $tmp = $path . '.tmp-' . getmypid() . '-' . random_int(1000, 999999);
+
+        if (@file_put_contents($tmp, $json, LOCK_EX) === false) {
+            self::debug_log('PWE JSON cache: cannot write temp file → ' . $tmp, 'error');
+            return false;
+        }
+
+        if (!@rename($tmp, $path)) {
+            @unlink($tmp);
+            self::debug_log('PWE JSON cache: cannot replace file → ' . $path, 'error');
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Force refresh JSON + transient cache from CAP database.
+     *
+     * Intended to be called by the existing hourly cron.
+     * During refresh all data getters skip STATIC / TRANSIENT / JSON
+     * and query the CAP database directly. The returned data is then
+     * written back to JSON, transient and runtime cache by each getter.
+     *
+     * @param string|null $domain Domain to refresh. When null, HTTP_HOST is used.
+     * @return array Refresh report.
+     */
+    public static function refresh_database_json_cache($domain = null): array {
+
+        if (empty($domain)) {
+            $domain = $_SERVER['HTTP_HOST'] ?? '';
+        }
+
+        $domain = strtolower(trim((string) $domain));
+        $domain = preg_replace('/:\\d+$/', '', $domain);
+
+        if ($domain === '') {
+            self::debug_log(__FUNCTION__ . ': DOMAIN IS EMPTY', 'error');
+
+            return [
+                'success' => false,
+                'error' => 'domain_empty',
+                'jobs' => [],
+            ];
+        }
+
+        self::debug_log(__FUNCTION__ . ': START → domain=' . $domain);
+
+        $old_http_host = $_SERVER['HTTP_HOST'] ?? null;
+        $_SERVER['HTTP_HOST'] = $domain;
+
+        // Explicit jobs guarantee that the first cron run creates all required
+        // JSON files even when the pwe-data directory is initially empty.
+        $jobs = [
+            // Fairs: rolling month, current domain and all fairs.
+            ['get_database_fairs_data', [], 'fairs_month'],
+            ['get_database_fairs_data', [$domain], 'fairs_domain'],
+            ['get_database_fairs_data', ['all'], 'fairs_all'],
+
+            ['get_database_fairs_data_adds', [$domain], 'fairs_adds'],
+
+            // Translations used both per-domain and globally.
+            ['get_database_translations_data', [$domain], 'translations_domain'],
+            ['get_database_translations_data', [], 'translations_all'],
+
+            // Associates has two genuinely different datasets.
+            ['get_database_associates_data', [$domain, true], 'associates_fair_block'],
+            ['get_database_associates_data', [$domain, false], 'associates_normal'],
+
+            ['get_database_groups_data', [], 'groups'],
+            ['get_database_groups_contacts_data', [], 'groups_contacts'],
+            ['get_database_groups_callcenter_data', [], 'groups_callcenter'],
+
+            ['get_database_logotypes_data', [$domain], 'logotypes'],
+            ['get_database_meta_data', ['logos_meta_order'], 'logos_meta_order'],
+
+            ['get_database_fairs_data_profiles', [$domain], 'profiles'],
+            ['get_database_premieres_data', [$domain], 'premieres'],
+            ['get_database_fairs_data_opinions', [$domain], 'opinions'],
+            ['get_database_fairs_data_sectors', [$domain], 'sectors'],
+            ['get_database_fairs_data_tickets', [$domain], 'tickets'],
+            ['get_database_fairs_data_speakers', [$domain], 'speakers'],
+            ['get_database_fairs_data_guests', [$domain], 'guests'],
+            ['get_database_fairs_data_attractions', [$domain], 'attractions'],
+            ['get_database_fairs_data_files', [$domain], 'files'],
+
+            ['get_database_conferences_data', [$domain], 'conferences'],
+            ['get_database_week_data', [$domain], 'week_data'],
+            ['get_database_week_all', [$domain], 'week_all'],
+            ['get_all_week_domains', [], 'all_week_domains'],
+
+            ['get_database_store_data', [], 'store'],
+            ['get_database_store_packages_data', [], 'store_packages'],
+            ['get_database_elements_data', [], 'elements'],
+            ['get_database_elements_order_data', [], 'elements_order'],
+        ];
+
+        // Also preserve and refresh any additional variants that were created
+        // previously, for example another domain or another argument combination.
+        $allowed_methods = [];
+        foreach ($jobs as $job) {
+            $allowed_methods[$job[0]] = true;
+        }
+
+        $dir = self::get_database_json_cache_dir();
+
+        if ($dir) {
+            foreach ((array) glob(trailingslashit($dir) . '*.json') as $path) {
+                $json = @file_get_contents($path);
+                $document = $json ? json_decode($json, true) : null;
+
+                if (
+                    !is_array($document) ||
+                    empty($document['source']) ||
+                    !isset($allowed_methods[$document['source']]) ||
+                    !isset($document['args']) ||
+                    !is_array($document['args'])
+                ) {
+                    continue;
+                }
+
+                $jobs[] = [
+                    $document['source'],
+                    $document['args'],
+                    'existing_' . $document['source'] . '_' . substr(md5(serialize($document['args'])), 0, 8),
+                ];
+            }
+        }
+
+        // Deduplicate by method + arguments.
+        $unique = [];
+        foreach ($jobs as $job) {
+            $method = $job[0];
+            $args = $job[1];
+            $label = $job[2] ?? $method;
+            $signature = $method . '|' . md5(serialize($args));
+
+            if (!isset($unique[$signature])) {
+                $unique[$signature] = [$method, $args, $label];
+            }
+        }
+
+        $report = [
+            'success' => true,
+            'domain' => $domain,
+            'started_at' => date('Y-m-d H:i:s'),
+            'jobs' => [],
+        ];
+
+        self::$database_cache_force_refresh = true;
+
+        try {
+            foreach ($unique as $job) {
+                [$method, $args, $label] = $job;
+
+                if (!method_exists(self::class, $method)) {
+                    $report['success'] = false;
+                    $report['jobs'][$label] = [
+                        'status' => 'method_not_found',
+                        'method' => $method,
+                        'args' => $args,
+                    ];
+
+                    self::debug_log(
+                        'refresh_database_json_cache: METHOD NOT FOUND → ' . $method,
+                        'error'
+                    );
+
+                    continue;
+                }
+
+                try {
+                    $start_time = microtime(true);
+                    $result = call_user_func_array([self::class, $method], $args);
+                    $time = round((microtime(true) - $start_time) * 1000, 2);
+
+                    if (is_array($result)) {
+                        $records = count($result);
+                    } elseif ($result === null) {
+                        $records = 0;
+                    } else {
+                        $records = 1;
+                    }
+
+                    $report['jobs'][$label] = [
+                        'status' => 'ok',
+                        'method' => $method,
+                        'args' => $args,
+                        'records' => $records,
+                        'time_ms' => $time,
+                    ];
+
+                    self::debug_log(
+                        'refresh_database_json_cache: OK → ' .
+                        $method .
+                        ' → label=' . $label .
+                        ' → records=' . $records .
+                        ' → time=' . $time . 'ms'
+                    );
+
+                } catch (\Throwable $e) {
+                    $report['success'] = false;
+                    $report['jobs'][$label] = [
+                        'status' => 'error',
+                        'method' => $method,
+                        'args' => $args,
+                        'message' => $e->getMessage(),
+                        'file' => $e->getFile(),
+                        'line' => $e->getLine(),
+                    ];
+
+                    self::debug_log(
+                        'refresh_database_json_cache: ERROR → ' .
+                        $method . ' → ' .
+                        $e->getMessage() . ' → ' .
+                        $e->getFile() . ':' . $e->getLine(),
+                        'error'
+                    );
+                }
+            }
+        } finally {
+            self::$database_cache_force_refresh = false;
+
+            if ($old_http_host !== null) {
+                $_SERVER['HTTP_HOST'] = $old_http_host;
+            } else {
+                unset($_SERVER['HTTP_HOST']);
+            }
+        }
+
+        $report['finished_at'] = date('Y-m-d H:i:s');
+
+        self::debug_log(
+            'refresh_database_json_cache: FINISHED → domain=' .
+            $domain .
+            ' → success=' .
+            ($report['success'] ? 'YES' : 'NO')
+        );
+
+        return $report;
+    }
+
+    /**
      * Get fairs data from CAP databases
      *
      * Modes:
@@ -637,14 +1049,37 @@ class PWE_Functions {
         }
 
         // Static cache
-        if (isset(self::$fairs_cache[$cache_key])) {
-            self::debug_log('get_database_fairs_data: data from STATIC → key=' . $cache_key);
+        if (!self::$database_cache_force_refresh && isset(self::$fairs_cache[$cache_key])) {
+            self::debug_log(__FUNCTION__ . ': data from STATIC → key=' . $cache_key);
             return self::$fairs_cache[$cache_key];
         }
 
         // Transient cache
         $transient_key = 'pwe_fairs_' . md5($cache_key);
-        $cached = get_transient($transient_key);
+
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
+
+        if ($cached !== false) {
+            $timeout = get_option('_transient_timeout_' . $transient_key);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
+            self::$fairs_cache[$cache_key] = $cached;
+            self::debug_log(__FUNCTION__ . ': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            return $cached;
+        }
+
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$fairs_cache[$cache_key] = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
+        }
+        
 
         // Log timeout if transient exists
         $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -655,11 +1090,7 @@ class PWE_Functions {
             $time_left_str = 'unknown';
         }
 
-        if ($cached !== false) {
-            self::debug_log('get_database_fairs_data: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
-            self::$fairs_cache[$cache_key] = $cached;
-            return $cached;
-        }
+        
 
         // Connect database
         $cap_db = self::connect_database();
@@ -668,17 +1099,17 @@ class PWE_Functions {
             // DB not available → use last transient if exists, else empty
             if ($cached !== false) {
 
-                // Extend transient by 10 minutes in emergency mode
-                set_transient($transient_key, $cached, 600);
+                // Extend transient by 65 minutes in emergency mode
+                set_transient($transient_key, $cached, 3600);
 
-                self::debug_log('get_database_fairs_data: NO DB connection → using last TRANSIENT and extending 10min → key=' . $cache_key, 'error');
+                self::debug_log(__FUNCTION__ . ': NO DB connection → using last TRANSIENT and extending 65min → key=' . $cache_key, 'error');
 
                 self::$fairs_cache[$cache_key] = $cached;
                 return $cached;
             }
 
             // No transient available → return empty
-            self::debug_log('get_database_fairs_data: NO DB connection and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
+            self::debug_log(__FUNCTION__ . ': NO DB connection and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
             error_log('get_database_fairs_data: NO DB connection and no TRANSIENT → returning empty → key=' . $cache_key);
 
             // CRON-safe: no wp_die()
@@ -822,10 +1253,10 @@ class PWE_Functions {
 
         // SQL error
         if ($cap_db->last_error) {
-            self::debug_log('get_database_fairs_data: SQL error → ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ . ': SQL error → ' . addslashes($cap_db->last_error), 'error');
             // Use last transient if available
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
+                set_transient($transient_key, $cached, 3600);
                 self::$fairs_cache[$cache_key] = $cached;
                 return $cached;
             }
@@ -833,11 +1264,12 @@ class PWE_Functions {
             return [];
         }
 
-        // Cache results for 10 minutes
-        set_transient($transient_key, $results, 600);
+        // Cache results for 65 minutes
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, [$fair_domain]);
+        set_transient($transient_key, $results, 3600);
 
         self::$fairs_cache[$cache_key] = $results;
-        self::debug_log('get_database_fairs_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ . ': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -853,14 +1285,37 @@ class PWE_Functions {
         $cache_key = $fair_domain;
 
         // STATIC cache
-        if (isset(self::$fairs_adds_cache[$cache_key])) {
-            self::debug_log('get_database_fairs_data_adds: data from STATIC → key=' . $cache_key);
+        if (!self::$database_cache_force_refresh && isset(self::$fairs_adds_cache[$cache_key])) {
+            self::debug_log(__FUNCTION__ . ': data from STATIC → key=' . $cache_key);
             return self::$fairs_adds_cache[$cache_key];
         }
 
         // Transient
         $transient_key = 'pwe_fairs_adds_' . md5($cache_key);
-        $cached = get_transient($transient_key);
+
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
+
+        if ($cached !== false) {
+            $timeout = get_option('_transient_timeout_' . $transient_key);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
+            self::$fairs_adds_cache[$cache_key] = $cached;
+            self::debug_log(__FUNCTION__ . ': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            return $cached;
+        }
+
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$fairs_adds_cache[$cache_key] = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
+        }
+        
 
         // Log transient timeout
         $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -871,22 +1326,18 @@ class PWE_Functions {
             $time_left_str = 'unknown';
         }
 
-        if ($cached !== false) {
-            self::debug_log('get_database_fairs_data_adds: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
-            self::$fairs_adds_cache[$cache_key] = $cached;
-            return $cached;
-        }
+        
 
         // Connect DB
         $cap_db = self::connect_database();
         if (!$cap_db) {
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
-                self::debug_log('get_database_fairs_data_adds: NO DB connection → using last TRANSIENT and extending 10min → key=' . $cache_key, 'error');
+                set_transient($transient_key, $cached, 3600);
+                self::debug_log(__FUNCTION__ . ': NO DB connection → using last TRANSIENT and extending 65min → key=' . $cache_key, 'error');
                 self::$fairs_adds_cache[$cache_key] = $cached;
                 return $cached;
             }
-            self::debug_log('get_database_fairs_data_adds: NO DB connection and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
+            self::debug_log(__FUNCTION__ . ': NO DB connection and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
             self::$fairs_adds_cache[$cache_key] = [];
             return [];
         }
@@ -927,9 +1378,9 @@ class PWE_Functions {
 
         // SQL error
         if ($cap_db->last_error) {
-            self::debug_log('get_database_fairs_data_adds: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ . ': SQL error: ' . addslashes($cap_db->last_error), 'error');
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
+                set_transient($transient_key, $cached, 3600);
                 self::$fairs_adds_cache[$cache_key] = $cached;
                 return $cached;
             }
@@ -938,9 +1389,10 @@ class PWE_Functions {
         }
 
         // Save transient + STATIC cache
-        set_transient($transient_key, $results, 600);
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, [$fair_domain]);
+        set_transient($transient_key, $results, 3600);
         self::$fairs_adds_cache[$cache_key] = $results;
-        self::debug_log('get_database_fairs_data_adds: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ . ': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -955,14 +1407,37 @@ class PWE_Functions {
         $cache_key = $fair_domain ?? 'all';
 
         // STATIC cache
-        if (isset(self::$translations_cache[$cache_key])) {
-            self::debug_log('get_database_translations_data: STATIC → key=' . $cache_key);
+        if (!self::$database_cache_force_refresh && isset(self::$translations_cache[$cache_key])) {
+            self::debug_log(__FUNCTION__ . ': STATIC → key=' . $cache_key);
             return self::$translations_cache[$cache_key];
         }
 
         // Transient
         $transient_key = 'pwe_translations_' . md5($cache_key);
-        $cached = get_transient($transient_key);
+
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
+
+        if ($cached !== false) {
+            $timeout = get_option('_transient_timeout_' . $transient_key);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
+            self::$translations_cache[$cache_key] = $cached;
+            self::debug_log(__FUNCTION__ . ': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            return $cached;
+        }
+
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$translations_cache[$cache_key] = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
+        }
+        
 
         // Log transient timeout
         $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -973,22 +1448,18 @@ class PWE_Functions {
             $time_left_str = 'unknown';
         }
 
-        if ($cached !== false) {
-            self::debug_log('get_database_translations_data: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
-            self::$translations_cache[$cache_key] = $cached;
-            return $cached;
-        }
+        
 
         // Connect DB
         $cap_db = self::connect_database();
         if (!$cap_db) {
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
-                self::debug_log('get_database_translations_data: NO DB connection → using last TRANSIENT and extending 10min → key=' . $cache_key, 'error');
+                set_transient($transient_key, $cached, 3600);
+                self::debug_log(__FUNCTION__ . ': NO DB connection → using last TRANSIENT and extending 65min → key=' . $cache_key, 'error');
                 self::$translations_cache[$cache_key] = $cached;
                 return $cached;
             }
-            self::debug_log('get_database_translations_data: NO DB connection and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
+            self::debug_log(__FUNCTION__ . ': NO DB connection and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
             self::$translations_cache[$cache_key] = [];
             return [];
         }
@@ -1045,9 +1516,9 @@ class PWE_Functions {
 
         // SQL error
         if ($cap_db->last_error) {
-            self::debug_log('get_database_translations_data: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ . ': SQL error: ' . addslashes($cap_db->last_error), 'error');
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
+                set_transient($transient_key, $cached, 3600);
                 self::$translations_cache[$cache_key] = $cached;
                 return $cached;
             }
@@ -1141,9 +1612,10 @@ class PWE_Functions {
         }
 
         // Save transient + STATIC cache
-        set_transient($transient_key, $results, 600);
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, [$fair_domain]);
+        set_transient($transient_key, $results, 3600);
         self::$translations_cache[$cache_key] = $results;
-        self::debug_log('get_database_translations_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ . ': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -1152,7 +1624,7 @@ class PWE_Functions {
      * Get associates data from CAP database.
      */
     private static $associates_cache = [];
-    public static function get_database_associates_data(
+    public static function get_database_associates_data (
         $fair_domain = null,
         bool $fair_block = false
     ): array {
@@ -1165,7 +1637,7 @@ class PWE_Functions {
         $cache_key = $fair_domain . '|fair_block:' . (int) $fair_block;
 
         // Static cache
-        if (isset(self::$associates_cache[$cache_key])) {
+        if (!self::$database_cache_force_refresh && isset(self::$associates_cache[$cache_key])) {
             self::debug_log(
                 'get_database_associates_data: data from STATIC → key=' . $cache_key
             );
@@ -1175,7 +1647,30 @@ class PWE_Functions {
 
         // Transient cache
         $transient_key = 'pwe_associates_' . md5($cache_key);
-        $cached = get_transient($transient_key);
+
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
+
+        if ($cached !== false) {
+            $timeout = get_option('_transient_timeout_' . $transient_key);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
+            self::$associates_cache[$cache_key] = $cached;
+            self::debug_log(__FUNCTION__ . ': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            return $cached;
+        }
+
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$associates_cache[$cache_key] = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
+        }
+        
 
         // Cache timeout
         $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -1187,18 +1682,7 @@ class PWE_Functions {
             $time_left_str = 'unknown';
         }
 
-        if ($cached !== false) {
-            self::debug_log(
-                'get_database_associates_data: data from TRANSIENT → key=' .
-                $cache_key .
-                ', expires in ' .
-                $time_left_str
-            );
-
-            self::$associates_cache[$cache_key] = $cached;
-
-            return $cached;
-        }
+        
 
         // Connect database
         $cap_db = self::connect_database();
@@ -1255,7 +1739,8 @@ class PWE_Functions {
         }
 
         // Save cache
-        set_transient($transient_key, $results, 600);
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, [$fair_domain, $fair_block]);
+        set_transient($transient_key, $results, 3600);
         self::$associates_cache[$cache_key] = $results;
 
         self::debug_log(
@@ -1278,14 +1763,37 @@ class PWE_Functions {
         $cache_key = 'store';
 
         // STATIC cache
-        if (self::$store_cache !== null) {
-            self::debug_log('get_database_store_data: data from STATIC memory');
+        if (!self::$database_cache_force_refresh && self::$store_cache !== null) {
+            self::debug_log(__FUNCTION__ . ': data from STATIC memory');
             return self::$store_cache;
         }
 
         // Transient
         $transient_key = 'pwe_store_data';
-        $cached = get_transient($transient_key);
+
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
+
+        if ($cached !== false) {
+            $timeout = get_option('_transient_timeout_' . $transient_key);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
+            self::$store_cache = $cached;
+            self::debug_log(__FUNCTION__ . ': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            return $cached;
+        }
+
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$store_cache = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
+        }
+        
 
         // Log transient timeout
         $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -1296,22 +1804,18 @@ class PWE_Functions {
             $time_left_str = 'unknown';
         }
 
-        if ($cached !== false) {
-            self::debug_log('get_database_store_data: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
-            self::$store_cache = $cached;
-            return $cached;
-        }
+        
 
         // Connect DB
         $cap_db = self::connect_database();
         if (!$cap_db) {
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
-                self::debug_log('get_database_store_data: NO DB connection → using last TRANSIENT and extending 10min → key=' . $cache_key, 'error');
+                set_transient($transient_key, $cached, 3600);
+                self::debug_log(__FUNCTION__ . ': NO DB connection → using last TRANSIENT and extending 65min → key=' . $cache_key, 'error');
                 self::$store_cache = $cached;
                 return $cached;
             }
-            self::debug_log('get_database_store_data: NO DB connection and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
+            self::debug_log(__FUNCTION__ . ': NO DB connection and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
             self::$store_cache = [];
             return [];
         }
@@ -1324,9 +1828,9 @@ class PWE_Functions {
 
         // SQL error
         if ($cap_db->last_error) {
-            self::debug_log('get_database_store_data: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ . ': SQL error: ' . addslashes($cap_db->last_error), 'error');
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
+                set_transient($transient_key, $cached, 3600);
                 self::$store_cache = $cached;
                 return $cached;
             }
@@ -1335,9 +1839,10 @@ class PWE_Functions {
         }
 
         // Save transient + STATIC cache
-        set_transient($transient_key, $results, 600);
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, []);
+        set_transient($transient_key, $results, 3600);
         self::$store_cache = $results;
-        self::debug_log('get_database_store_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ . ': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -1351,35 +1856,54 @@ class PWE_Functions {
         $cache_key = 'store_packages';
 
         // STATIC cache
-        if (self::$store_packages_cache !== null) {
-            self::debug_log('get_database_store_packages_data: data from STATIC memory');
+        if (!self::$database_cache_force_refresh && self::$store_packages_cache !== null) {
+            self::debug_log(__FUNCTION__ . ': data from STATIC memory');
             return self::$store_packages_cache;
         }
 
         // Transient
         $transient_key = 'pwe_store_packages';
-        $cached = get_transient($transient_key);
+
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
+
+        if ($cached !== false) {
+            $timeout = get_option('_transient_timeout_' . $transient_key);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
+            self::$store_packages_cache = $cached;
+            self::debug_log(__FUNCTION__ . ': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            return $cached;
+        }
+
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$store_packages_cache = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
+        }
+        
 
         // Log transient timeout
         $timeout = get_option('_transient_timeout_' . $transient_key);
         $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
 
-        if ($cached !== false) {
-            self::debug_log('get_database_store_packages_data: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
-            self::$store_packages_cache = $cached;
-            return $cached;
-        }
+        
 
         // Connect DB
         $cap_db = self::connect_database();
         if (!$cap_db) {
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
-                self::debug_log('get_database_store_packages_data: NO DB connection → using last TRANSIENT and extending 10min → key=' . $cache_key, 'error');
+                set_transient($transient_key, $cached, 3600);
+                self::debug_log(__FUNCTION__ . ': NO DB connection → using last TRANSIENT and extending 65min → key=' . $cache_key, 'error');
                 self::$store_packages_cache = $cached;
                 return $cached;
             }
-            self::debug_log('get_database_store_packages_data: NO DB connection and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
+            self::debug_log(__FUNCTION__ . ': NO DB connection and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
             self::$store_packages_cache = [];
             return [];
         }
@@ -1392,9 +1916,9 @@ class PWE_Functions {
 
         // SQL error
         if ($cap_db->last_error) {
-            self::debug_log('get_database_store_packages_data: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ . ': SQL error: ' . addslashes($cap_db->last_error), 'error');
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
+                set_transient($transient_key, $cached, 3600);
                 self::$store_packages_cache = $cached;
                 return $cached;
             }
@@ -1403,9 +1927,10 @@ class PWE_Functions {
         }
 
         // Save transient + STATIC cache
-        set_transient($transient_key, $results, 600);
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, []);
+        set_transient($transient_key, $results, 3600);
         self::$store_packages_cache = $results;
-        self::debug_log('get_database_store_packages_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ . ': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -1421,35 +1946,54 @@ class PWE_Functions {
         $cache_key = $data_id . '_' . $current_domain;
 
         // STATIC cache
-        if (isset(self::$meta_cache[$cache_key])) {
-            self::debug_log('get_database_meta_data: data from STATIC → key=' . $cache_key);
+        if (!self::$database_cache_force_refresh && isset(self::$meta_cache[$cache_key])) {
+            self::debug_log(__FUNCTION__ . ': data from STATIC → key=' . $cache_key);
             return self::$meta_cache[$cache_key];
         }
 
         // Transient
         $transient_key = 'pwe_meta_' . md5($cache_key);
-        $cached = get_transient($transient_key);
+
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
+
+        if ($cached !== false) {
+            $timeout = get_option('_transient_timeout_' . $transient_key);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
+            self::$meta_cache[$cache_key] = $cached;
+            self::debug_log(__FUNCTION__ . ': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            return $cached;
+        }
+
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$meta_cache[$cache_key] = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
+        }
+        
 
         // Log transient timeout
         $timeout = get_option('_transient_timeout_' . $transient_key);
         $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
 
-        if ($cached !== false) {
-            self::debug_log('get_database_meta_data: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
-            self::$meta_cache[$cache_key] = $cached;
-            return $cached;
-        }
+        
 
         // Connect DB
         $cap_db = self::connect_database();
         if (!$cap_db) {
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
-                self::debug_log('get_database_meta_data: NO DB connection → using last TRANSIENT and extending 10min → key=' . $cache_key, 'error');
+                set_transient($transient_key, $cached, 3600);
+                self::debug_log(__FUNCTION__ . ': NO DB connection → using last TRANSIENT and extending 65min → key=' . $cache_key, 'error');
                 self::$meta_cache[$cache_key] = $cached;
                 return $cached;
             }
-            self::debug_log('get_database_meta_data: NO DB connection and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
+            self::debug_log(__FUNCTION__ . ': NO DB connection and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
             self::$meta_cache[$cache_key] = [];
             return [];
         }
@@ -1480,9 +2024,9 @@ class PWE_Functions {
 
         // SQL error
         if ($cap_db->last_error) {
-            self::debug_log('get_database_meta_data: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ . ': SQL error: ' . addslashes($cap_db->last_error), 'error');
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
+                set_transient($transient_key, $cached, 3600);
                 self::$meta_cache[$cache_key] = $cached;
                 return $cached;
             }
@@ -1491,9 +2035,10 @@ class PWE_Functions {
         }
 
         // Save transient + STATIC cache
-        set_transient($transient_key, $results, 600);
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, [$data_id, $domain]);
+        set_transient($transient_key, $results, 3600);
         self::$meta_cache[$cache_key] = $results;
-        self::debug_log('get_database_meta_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ . ': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -1507,31 +2052,50 @@ class PWE_Functions {
         $cache_key = 'groups_contacts';
 
         // STATIC cache
-        if (self::$groups_contacts_cache !== null) {
-            self::debug_log('get_database_groups_contacts_data: data from STATIC memory');
+        if (!self::$database_cache_force_refresh && self::$groups_contacts_cache !== null) {
+            self::debug_log(__FUNCTION__ . ': data from STATIC memory');
             return self::$groups_contacts_cache;
         }
 
         $transient_key = 'pwe_groups_contacts';
-        $cached = get_transient($transient_key);
+
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
+
+        if ($cached !== false) {
+            $timeout = get_option('_transient_timeout_' . $transient_key);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
+            self::$groups_contacts_cache = $cached;
+            self::debug_log(__FUNCTION__ . ': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            return $cached;
+        }
+
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$groups_contacts_cache = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
+        }
+        
         $timeout = get_option('_transient_timeout_' . $transient_key);
         $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
 
-        if ($cached !== false) {
-            self::debug_log('get_database_groups_contacts_data: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
-            self::$groups_contacts_cache = $cached;
-            return $cached;
-        }
+        
 
         $cap_db = self::connect_database();
         if (!$cap_db) {
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
-                self::debug_log('get_database_groups_contacts_data: NO DB → using last TRANSIENT and extending 10min → key=' . $cache_key, 'error');
+                set_transient($transient_key, $cached, 3600);
+                self::debug_log(__FUNCTION__ . ': NO DB → using last TRANSIENT and extending 65min → key=' . $cache_key, 'error');
                 self::$groups_contacts_cache = $cached;
                 return $cached;
             }
-            self::debug_log('get_database_groups_contacts_data: NO DB and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
+            self::debug_log(__FUNCTION__ . ': NO DB and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
             self::$groups_contacts_cache = [];
             return [];
         }
@@ -1541,9 +2105,9 @@ class PWE_Functions {
         $time = round((microtime(true) - $start_time) * 1000, 2);
 
         if ($cap_db->last_error) {
-            self::debug_log('get_database_groups_contacts_data: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ . ': SQL error: ' . addslashes($cap_db->last_error), 'error');
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
+                set_transient($transient_key, $cached, 3600);
                 self::$groups_contacts_cache = $cached;
                 return $cached;
             }
@@ -1551,9 +2115,10 @@ class PWE_Functions {
             return [];
         }
 
-        set_transient($transient_key, $results, 600);
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, []);
+        set_transient($transient_key, $results, 3600);
         self::$groups_contacts_cache = $results;
-        self::debug_log('get_database_groups_contacts_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ . ': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -1566,31 +2131,50 @@ class PWE_Functions {
 
         $cache_key = 'groups_callcenter';
 
-        if (self::$groups_callcenter_cache !== null) {
-            self::debug_log('get_database_groups_callcenter_data: data from STATIC memory');
+        if (!self::$database_cache_force_refresh && self::$groups_callcenter_cache !== null) {
+            self::debug_log(__FUNCTION__ . ': data from STATIC memory');
             return self::$groups_callcenter_cache;
         }
 
         $transient_key = 'pwe_groups_callcenter';
-        $cached = get_transient($transient_key);
+
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
+
+        if ($cached !== false) {
+            $timeout = get_option('_transient_timeout_' . $transient_key);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
+            self::$groups_callcenter_cache = $cached;
+            self::debug_log(__FUNCTION__ . ': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            return $cached;
+        }
+
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$groups_callcenter_cache = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
+        }
+        
         $timeout = get_option('_transient_timeout_' . $transient_key);
         $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
 
-        if ($cached !== false) {
-            self::debug_log('get_database_groups_callcenter_data: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
-            self::$groups_callcenter_cache = $cached;
-            return $cached;
-        }
+        
 
         $cap_db = self::connect_database();
         if (!$cap_db) {
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
-                self::debug_log('get_database_groups_callcenter_data: NO DB → using last TRANSIENT and extending 10min → key=' . $cache_key, 'error');
+                set_transient($transient_key, $cached, 3600);
+                self::debug_log(__FUNCTION__ . ': NO DB → using last TRANSIENT and extending 65min → key=' . $cache_key, 'error');
                 self::$groups_callcenter_cache = $cached;
                 return $cached;
             }
-            self::debug_log('get_database_groups_callcenter_data: NO DB and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
+            self::debug_log(__FUNCTION__ . ': NO DB and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
             self::$groups_callcenter_cache = [];
             return [];
         }
@@ -1600,9 +2184,9 @@ class PWE_Functions {
         $time = round((microtime(true) - $start_time) * 1000, 2);
 
         if ($cap_db->last_error) {
-            self::debug_log('get_database_groups_callcenter_data: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ . ': SQL error: ' . addslashes($cap_db->last_error), 'error');
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
+                set_transient($transient_key, $cached, 3600);
                 self::$groups_callcenter_cache = $cached;
                 return $cached;
             }
@@ -1610,9 +2194,10 @@ class PWE_Functions {
             return [];
         }
 
-        set_transient($transient_key, $results, 600);
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, []);
+        set_transient($transient_key, $results, 3600);
         self::$groups_callcenter_cache = $results;
-        self::debug_log('get_database_groups_callcenter_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ . ': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -1625,31 +2210,50 @@ class PWE_Functions {
 
         $cache_key = 'groups';
 
-        if (self::$groups_cache !== null) {
-            self::debug_log('get_database_groups_data: data from STATIC memory');
+        if (!self::$database_cache_force_refresh && self::$groups_cache !== null) {
+            self::debug_log(__FUNCTION__ . ': data from STATIC memory');
             return self::$groups_cache;
         }
 
         $transient_key = 'pwe_groups';
-        $cached = get_transient($transient_key);
+
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
+
+        if ($cached !== false) {
+            $timeout = get_option('_transient_timeout_' . $transient_key);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
+            self::$groups_cache = $cached;
+            self::debug_log(__FUNCTION__ . ': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            return $cached;
+        }
+
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$groups_cache = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
+        }
+        
         $timeout = get_option('_transient_timeout_' . $transient_key);
         $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
 
-        if ($cached !== false) {
-            self::debug_log('get_database_groups_data: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
-            self::$groups_cache = $cached;
-            return $cached;
-        }
+        
 
         $cap_db = self::connect_database();
         if (!$cap_db) {
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
-                self::debug_log('get_database_groups_data: NO DB → using last TRANSIENT and extending 10min → key=' . $cache_key, 'error');
+                set_transient($transient_key, $cached, 3600);
+                self::debug_log(__FUNCTION__ . ': NO DB → using last TRANSIENT and extending 65min → key=' . $cache_key, 'error');
                 self::$groups_cache = $cached;
                 return $cached;
             }
-            self::debug_log('get_database_groups_data: NO DB and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
+            self::debug_log(__FUNCTION__ . ': NO DB and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
             self::$groups_cache = [];
             return [];
         }
@@ -1659,9 +2263,9 @@ class PWE_Functions {
         $time = round((microtime(true) - $start_time) * 1000, 2);
 
         if ($cap_db->last_error) {
-            self::debug_log('get_database_groups_data: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ . ': SQL error: ' . addslashes($cap_db->last_error), 'error');
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
+                set_transient($transient_key, $cached, 3600);
                 self::$groups_cache = $cached;
                 return $cached;
             }
@@ -1669,9 +2273,10 @@ class PWE_Functions {
             return [];
         }
 
-        set_transient($transient_key, $results, 600);
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, []);
+        set_transient($transient_key, $results, 3600);
         self::$groups_cache = $results;
-        self::debug_log('get_database_groups_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ . ': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -1685,31 +2290,50 @@ class PWE_Functions {
         $current_domain = $fair_domain ?? $_SERVER['HTTP_HOST'];
         $cache_key = $current_domain;
 
-        if (isset(self::$week_data_cache[$cache_key])) {
-            self::debug_log('get_database_week_data: data from STATIC → key=' . $cache_key);
+        if (!self::$database_cache_force_refresh && isset(self::$week_data_cache[$cache_key])) {
+            self::debug_log(__FUNCTION__ .': data from STATIC → key=' . $cache_key);
             return self::$week_data_cache[$cache_key];
         }
 
         $transient_key = 'pwe_week_data_' . md5($cache_key);
-        $cached = get_transient($transient_key);
+
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
+
+        if ($cached !== false) {
+            $timeout = get_option('_transient_timeout_' . $transient_key);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
+            self::$week_data_cache[$cache_key] = $cached;
+            self::debug_log(__FUNCTION__ . ': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            return $cached;
+        }
+
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$week_data_cache[$cache_key] = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
+        }
+        
         $timeout = get_option('_transient_timeout_' . $transient_key);
         $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
 
-        if ($cached !== false) {
-            self::debug_log('get_database_week_data: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
-            self::$week_data_cache[$cache_key] = $cached;
-            return $cached;
-        }
+        
 
         $cap_db = self::connect_database();
         if (!$cap_db) {
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
-                self::debug_log('get_database_week_data: NO DB → using last TRANSIENT and extending 10min → key=' . $cache_key, 'error');
+                set_transient($transient_key, $cached, 3600);
+                self::debug_log(__FUNCTION__ .': NO DB → using last TRANSIENT and extending 65min → key=' . $cache_key, 'error');
                 self::$week_data_cache[$cache_key] = $cached;
                 return $cached;
             }
-            self::debug_log('get_database_week_data: NO DB and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
+            self::debug_log(__FUNCTION__ .': NO DB and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
             self::$week_data_cache[$cache_key] = [];
             return [];
         }
@@ -1719,9 +2343,9 @@ class PWE_Functions {
         );
 
         if ($cap_db->last_error) {
-            self::debug_log('get_database_week_data: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ .': SQL error: ' . addslashes($cap_db->last_error), 'error');
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
+                set_transient($transient_key, $cached, 3600);
                 self::$week_data_cache[$cache_key] = $cached;
                 return $cached;
             }
@@ -1736,9 +2360,10 @@ class PWE_Functions {
         }
         $time = round((microtime(true) - $start_time) * 1000, 2);
 
-        set_transient($transient_key, $results, 600);
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, [$fair_domain]);
+        set_transient($transient_key, $results, 3600);
         self::$week_data_cache[$cache_key] = $results;
-        self::debug_log('get_database_week_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ .': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -1752,31 +2377,50 @@ class PWE_Functions {
         $current_domain = $fair_domain ?? $_SERVER['HTTP_HOST'];
         $cache_key = $current_domain;
 
-        if (isset(self::$week_all_cache[$cache_key])) {
-            self::debug_log('get_database_week_all: data from STATIC → key=' . $cache_key);
+        if (!self::$database_cache_force_refresh && isset(self::$week_all_cache[$cache_key])) {
+            self::debug_log(__FUNCTION__ .': data from STATIC → key=' . $cache_key);
             return self::$week_all_cache[$cache_key];
         }
 
         $transient_key = 'pwe_week_all_' . md5($cache_key);
-        $cached = get_transient($transient_key);
+
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
+
+        if ($cached !== false) {
+            $timeout = get_option('_transient_timeout_' . $transient_key);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
+            self::$week_all_cache[$cache_key] = $cached;
+            self::debug_log(__FUNCTION__ .': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            return $cached;
+        }
+
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$week_all_cache[$cache_key] = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
+        }
+        
         $timeout = get_option('_transient_timeout_' . $transient_key);
         $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
 
-        if ($cached !== false) {
-            self::debug_log('get_database_week_all: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
-            self::$week_all_cache[$cache_key] = $cached;
-            return $cached;
-        }
+        
 
         $cap_db = self::connect_database();
         if (!$cap_db) {
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
-                self::debug_log('get_database_week_all: NO DB → using last TRANSIENT and extending 10min → key=' . $cache_key, 'error');
+                set_transient($transient_key, $cached, 3600);
+                self::debug_log(__FUNCTION__ .': NO DB → using last TRANSIENT and extending 65min → key=' . $cache_key, 'error');
                 self::$week_all_cache[$cache_key] = $cached;
                 return $cached;
             }
-            self::debug_log('get_database_week_all: NO DB and no TRANSIENT → returning null → key=' . $cache_key, 'error');
+            self::debug_log(__FUNCTION__ .': NO DB and no TRANSIENT → returning null → key=' . $cache_key, 'error');
             self::$week_all_cache[$cache_key] = null;
             return null;
         }
@@ -1786,9 +2430,9 @@ class PWE_Functions {
         );
 
         if ($cap_db->last_error) {
-            self::debug_log('get_database_week_all: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ .': SQL error: ' . addslashes($cap_db->last_error), 'error');
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
+                set_transient($transient_key, $cached, 3600);
                 self::$week_all_cache[$cache_key] = $cached;
                 return $cached;
             }
@@ -1804,9 +2448,10 @@ class PWE_Functions {
         }
         $time = round((microtime(true) - $start_time) * 1000, 2);
 
-        set_transient($transient_key, $results, 600);
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, [$fair_domain]);
+        set_transient($transient_key, $results, 3600);
         self::$week_all_cache[$cache_key] = $results;
-        self::debug_log('get_database_week_all: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ .': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -1819,31 +2464,50 @@ class PWE_Functions {
 
         $cache_key = 'all_week_domains';
 
-        if (self::$all_week_domains_cache !== null) {
-            self::debug_log('get_all_week_domains: data from STATIC memory');
+        if (!self::$database_cache_force_refresh && self::$all_week_domains_cache !== null) {
+            self::debug_log(__FUNCTION__ .': data from STATIC memory');
             return self::$all_week_domains_cache;
         }
 
         $transient_key = 'pwe_all_week_domains';
-        $cached = get_transient($transient_key);
+
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
+
+        if ($cached !== false) {
+            $timeout = get_option('_transient_timeout_' . $transient_key);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
+            self::$all_week_domains_cache = $cached;
+            self::debug_log(__FUNCTION__ . ': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            return $cached;
+        }
+
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$all_week_domains_cache = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
+        }
+        
         $timeout = get_option('_transient_timeout_' . $transient_key);
         $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
 
-        if ($cached !== false) {
-            self::debug_log('get_all_week_domains: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
-            self::$all_week_domains_cache = $cached;
-            return $cached;
-        }
+        
 
         $cap_db = self::connect_database();
         if (!$cap_db) {
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
-                self::debug_log('get_all_week_domains: NO DB → using last TRANSIENT and extending 10min → key=' . $cache_key, 'error');
+                set_transient($transient_key, $cached, 3600);
+                self::debug_log(__FUNCTION__ .': NO DB → using last TRANSIENT and extending 65min → key=' . $cache_key, 'error');
                 self::$all_week_domains_cache = $cached;
                 return $cached;
             }
-            self::debug_log('get_all_week_domains: NO DB and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
+            self::debug_log(__FUNCTION__ .': NO DB and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
             self::$all_week_domains_cache = [];
             return [];
         }
@@ -1851,9 +2515,9 @@ class PWE_Functions {
         $rows = $cap_db->get_results("SELECT week_domain FROM fair_weeks");
 
         if ($cap_db->last_error) {
-            self::debug_log('get_all_week_domains: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ .': SQL error: ' . addslashes($cap_db->last_error), 'error');
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
+                set_transient($transient_key, $cached, 3600);
                 self::$all_week_domains_cache = $cached;
                 return $cached;
             }
@@ -1871,9 +2535,10 @@ class PWE_Functions {
         $results = array_values(array_unique($domains));
         $time = round((microtime(true) - $start_time) * 1000, 2);
 
-        set_transient($transient_key, $results, 600);
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, []);
+        set_transient($transient_key, $results, 3600);
         self::$all_week_domains_cache = $results;
-        self::debug_log('get_all_week_domains: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ .': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -1887,31 +2552,50 @@ class PWE_Functions {
         $current_domain = $fair_domain ?? $_SERVER['HTTP_HOST'];
         $cache_key = $current_domain;
 
-        if (isset(self::$logotypes_cache[$cache_key])) {
-            self::debug_log('get_database_logotypes_data: data from STATIC → key=' . $cache_key);
+        if (!self::$database_cache_force_refresh && isset(self::$logotypes_cache[$cache_key])) {
+            self::debug_log(__FUNCTION__ .': data from STATIC → key=' . $cache_key);
             return self::$logotypes_cache[$cache_key];
         }
 
         $transient_key = 'pwe_logotypes_' . md5($cache_key);
-        $cached = get_transient($transient_key);
+
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
+
+        if ($cached !== false) {
+            $timeout = get_option('_transient_timeout_' . $transient_key);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
+            self::$logotypes_cache[$cache_key] = $cached;
+            self::debug_log(__FUNCTION__ . ': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            return $cached;
+        }
+
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$logotypes_cache[$cache_key] = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
+        }
+        
         $timeout = get_option('_transient_timeout_' . $transient_key);
         $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
 
-        if ($cached !== false) {
-            self::debug_log('get_database_logotypes_data: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
-            self::$logotypes_cache[$cache_key] = $cached;
-            return $cached;
-        }
+        
 
         $cap_db = self::connect_database();
         if (!$cap_db) {
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
-                self::debug_log('get_database_logotypes_data: NO DB → using last TRANSIENT → key=' . $cache_key, 'error');
+                set_transient($transient_key, $cached, 3600);
+                self::debug_log(__FUNCTION__ .': NO DB → using last TRANSIENT → key=' . $cache_key, 'error');
                 self::$logotypes_cache[$cache_key] = $cached;
                 return $cached;
             }
-            self::debug_log('get_database_logotypes_data: NO DB and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
+            self::debug_log(__FUNCTION__ .': NO DB and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
             self::$logotypes_cache[$cache_key] = [];
             return [];
         }
@@ -1957,9 +2641,9 @@ class PWE_Functions {
         }
 
         if ($cap_db->last_error) {
-            self::debug_log('get_database_logotypes_data: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ .': SQL error: ' . addslashes($cap_db->last_error), 'error');
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
+                set_transient($transient_key, $cached, 3600);
                 self::$logotypes_cache[$cache_key] = $cached;
                 return $cached;
             }
@@ -1970,9 +2654,10 @@ class PWE_Functions {
         $results = self::remove_logo_duplicates($results);
         $time = round((microtime(true) - $start_time) * 1000, 2);
 
-        set_transient($transient_key, $results, 600);
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, [$fair_domain]);
+        set_transient($transient_key, $results, 3600);
         self::$logotypes_cache[$cache_key] = $results;
-        self::debug_log('get_database_logotypes_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ .': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -1986,31 +2671,50 @@ class PWE_Functions {
         $domain = $domain ?? $_SERVER['HTTP_HOST'];
         $cache_key = $domain;
 
-        if (isset(self::$conferences_cache[$cache_key])) {
-            self::debug_log('get_database_conferences_data: data from STATIC → key=' . $cache_key);
+        if (!self::$database_cache_force_refresh && isset(self::$conferences_cache[$cache_key])) {
+            self::debug_log(__FUNCTION__ . ': data from STATIC → key=' . $cache_key);
             return self::$conferences_cache[$cache_key];
         }
 
         $transient_key = 'pwe_conferences_' . md5($cache_key);
-        $cached = get_transient($transient_key);
+
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
+
+        if ($cached !== false) {
+            $timeout = get_option('_transient_timeout_' . $transient_key);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
+            self::$conferences_cache[$cache_key] = $cached;
+            self::debug_log(__FUNCTION__ .': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            return $cached;
+        }
+
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$conferences_cache[$cache_key] = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
+        }
+        
         $timeout = get_option('_transient_timeout_' . $transient_key);
         $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
 
-        if ($cached !== false) {
-            self::debug_log('get_database_conferences_data: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
-            self::$conferences_cache[$cache_key] = $cached;
-            return $cached;
-        }
+        
 
         $cap_db = self::connect_database();
         if (!$cap_db) {
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
-                self::debug_log('get_database_conferences_data: NO DB → using last TRANSIENT → key=' . $cache_key, 'error');
+                set_transient($transient_key, $cached, 3600);
+                self::debug_log(__FUNCTION__ .': NO DB → using last TRANSIENT → key=' . $cache_key, 'error');
                 self::$conferences_cache[$cache_key] = $cached;
                 return $cached;
             }
-            self::debug_log('get_database_conferences_data: NO DB and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
+            self::debug_log(__FUNCTION__ .': NO DB and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
             self::$conferences_cache[$cache_key] = [];
             return [];
         }
@@ -2024,9 +2728,9 @@ class PWE_Functions {
         );
 
         if ($cap_db->last_error) {
-            self::debug_log('get_database_conferences_data: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ .': SQL error: ' . addslashes($cap_db->last_error), 'error');
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
+                set_transient($transient_key, $cached, 3600);
                 self::$conferences_cache[$cache_key] = $cached;
                 return $cached;
             }
@@ -2052,10 +2756,107 @@ class PWE_Functions {
         }
 
         $time = round((microtime(true) - $start_time) * 1000, 2);
-        set_transient($transient_key, $results, 600);
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, [$domain]);
+        set_transient($transient_key, $results, 3600);
         self::$conferences_cache[$cache_key] = $results;
-        self::debug_log('get_database_conferences_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ .': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
+        return $results;
+    }
+
+    /**
+     * Get conference additional data from CAP database.
+     */
+    private static $conference_adds_cache = [];
+    public static function get_database_conference_adds_data($conf_id): array {
+
+        $conf_id = (int) $conf_id;
+
+        if ($conf_id <= 0) {
+            return [];
+        }
+
+        $cache_key = (string) $conf_id;
+
+        // STATIC
+        if (!self::$database_cache_force_refresh && isset(self::$conference_adds_cache[$cache_key])
+        ) {
+            self::debug_log(__FUNCTION__ . ': data from STATIC → key=' . $cache_key);
+            return self::$conference_adds_cache[$cache_key];
+        }
+
+        // TRANSIENT
+        $transient_key = 'pwe_conference_adds_' . md5($cache_key);
+
+        $cached = self::$database_cache_force_refresh
+            ? false
+            : get_transient($transient_key);
+
+        if ($cached !== false) {
+
+            $timeout = get_option('_transient_timeout_' . $transient_key);
+
+            $time_left_str = ($timeout !== false)
+                ? gmdate('H:i:s', max($timeout - time(), 0))
+                : 'unknown';
+
+            self::$conference_adds_cache[$cache_key] = $cached;
+            self::debug_log(__FUNCTION__ .': data from TRANSIENT → key=' . $cache_key .', expires in ' . $time_left_str);
+            return $cached;
+        }
+
+        // JSON FILE
+        if (!self::$database_cache_force_refresh) {
+
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$conference_adds_cache[$cache_key] = $results;
+
+                self::debug_log(__FUNCTION__ .': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
+        }
+
+        // DATABASE
+        $cap_db = self::connect_database();
+
+        if (!$cap_db) {
+            self::debug_log(__FUNCTION__ .': NO DB connection → key=' . $cache_key, 'error');
+            self::$conference_adds_cache[$cache_key] = [];
+            return [];
+        }
+
+        $start_time = microtime(true);
+
+        $results = $cap_db->get_results(
+            $cap_db->prepare("SELECT slug, data FROM conf_adds WHERE conf_id = %d", $conf_id), ARRAY_A
+        );
+
+        $time = round(
+            (microtime(true) - $start_time) * 1000,
+            2
+        );
+
+        if ($cap_db->last_error) {
+            self::debug_log(__FUNCTION__ .': SQL error: '. addslashes($cap_db->last_error), 'error');
+            self::$conference_adds_cache[$cache_key] = [];
+            return [];
+        }
+
+        // JSON
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, [$conf_id]);
+
+        // TRANSIENT
+        set_transient($transient_key, $results, 3600);
+
+        // STATIC
+        self::$conference_adds_cache[$cache_key] = $results;
+
+        self::debug_log(__FUNCTION__ .': data from database DIRECTLY ' .'(SQL time ' . $time . 'ms) → key='. $cache_key .', host=' .$cap_db->dbhost .' [' . gethostname() .'] and saved to JSON + TRANSIENT.');
+        
         return $results;
     }
 
@@ -2068,25 +2869,44 @@ class PWE_Functions {
         $fair_domain = $fair_domain ?? $_SERVER['HTTP_HOST'] ?? '';
         $cache_key = $fair_domain;
 
-        if (isset(self::$fairs_profiles_cache[$cache_key])) {
-            self::debug_log('get_database_fairs_data_profiles: data from STATIC → key=' . $cache_key);
+        if (!self::$database_cache_force_refresh && isset(self::$fairs_profiles_cache[$cache_key])) {
+            self::debug_log(__FUNCTION__ . ': data from STATIC → key=' . $cache_key);
             return self::$fairs_profiles_cache[$cache_key];
         }
 
         $transient_key = 'pwe_fairs_profiles_' . md5($cache_key);
-        $cached = get_transient($transient_key);
-        $timeout = get_option('_transient_timeout_' . $transient_key);
-        $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
+
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
 
         if ($cached !== false) {
-            self::debug_log('get_database_fairs_data_profiles: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            $timeout = get_option('_transient_timeout_' . $transient_key);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
             self::$fairs_profiles_cache[$cache_key] = $cached;
+            self::debug_log(__FUNCTION__ . ': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
             return $cached;
         }
 
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$fairs_profiles_cache[$cache_key] = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
+        }
+        
+        $timeout = get_option('_transient_timeout_' . $transient_key);
+        $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
+
+        
+
         $cap_db = self::connect_database();
         if (!$cap_db) {
-            self::debug_log('get_database_fairs_data_profiles: no database connection.', 'error');
+            self::debug_log(__FUNCTION__ . ': no database connection.', 'error');
             self::$fairs_profiles_cache[$cache_key] = [];
             return [];
         }
@@ -2103,13 +2923,14 @@ class PWE_Functions {
         $time = round((microtime(true) - $start_time) * 1000, 2);
 
         if ($cap_db->last_error) {
-            self::debug_log('get_database_fairs_data_profiles: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ . ': SQL error: ' . addslashes($cap_db->last_error), 'error');
             $results = [];
         }
 
-        set_transient($transient_key, $results, 600);
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, [$fair_domain]);
+        set_transient($transient_key, $results, 3600);
         self::$fairs_profiles_cache[$cache_key] = $results;
-        self::debug_log('get_database_fairs_data_profiles: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ . ': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -2122,25 +2943,44 @@ class PWE_Functions {
 
         $cache_key = $fair_domain ?? 'all';
 
-        if (isset(self::$premieres_cache[$cache_key])) {
-            self::debug_log('get_database_premieres_data: data from STATIC → key=' . $cache_key);
+        if (!self::$database_cache_force_refresh && isset(self::$premieres_cache[$cache_key])) {
+            self::debug_log(__FUNCTION__ . ': data from STATIC → key=' . $cache_key);
             return self::$premieres_cache[$cache_key];
         }
 
         $transient_key = 'pwe_premieres_' . md5($cache_key);
-        $cached = get_transient($transient_key);
-        $timeout = get_option('_transient_timeout_' . $transient_key);
-        $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
+
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
 
         if ($cached !== false) {
-            self::debug_log('get_database_premieres_data: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            $timeout = get_option('_transient_timeout_' . $transient_key);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
             self::$premieres_cache[$cache_key] = $cached;
+            self::debug_log(__FUNCTION__ . ': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
             return $cached;
         }
 
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$premieres_cache[$cache_key] = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
+        }
+        
+        $timeout = get_option('_transient_timeout_' . $transient_key);
+        $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
+
+        
+
         $cap_db = self::connect_database();
         if (!$cap_db) {
-            self::debug_log('get_database_premieres_data: no database connection.', 'error');
+            self::debug_log(__FUNCTION__ . ': no database connection.', 'error');
             self::$premieres_cache[$cache_key] = [];
             return [];
         }
@@ -2165,14 +3005,15 @@ class PWE_Functions {
         $time = round((microtime(true) - $start_time) * 1000, 2);
 
         if ($cap_db->last_error) {
-            self::debug_log('get_database_premieres_data: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ . ': SQL error: ' . addslashes($cap_db->last_error), 'error');
             self::$premieres_cache[$cache_key] = [];
             return [];
         }
 
-        set_transient($transient_key, $results, 600);
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, [$fair_domain]);
+        set_transient($transient_key, $results, 3600);
         self::$premieres_cache[$cache_key] = $results;
-        self::debug_log('get_database_premieres_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ . ': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -2187,29 +3028,41 @@ class PWE_Functions {
         $cache_key = $fair_domain;
 
         // Check runtime cache first
-        if (isset(self::$fairs_opinions_cache[$cache_key])) {
-            self::debug_log('get_database_fairs_data_opinions: data from STATIC → key=' . $cache_key);
+        if (!self::$database_cache_force_refresh && isset(self::$fairs_opinions_cache[$cache_key])) {
+            self::debug_log(__FUNCTION__ . ': data from STATIC → key=' . $cache_key);
             return self::$fairs_opinions_cache[$cache_key];
         }
 
         // Transient key
         $transient_key = 'pwe_fairs_opinions_' . md5($cache_key);
 
-        // Try transient
-        $cached = get_transient($transient_key);
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
+
         if ($cached !== false) {
             $timeout = get_option('_transient_timeout_' . $transient_key);
-            $time_left_str = $timeout !== false ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
-
-            self::debug_log('get_database_fairs_data_opinions: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
             self::$fairs_opinions_cache[$cache_key] = $cached;
+            self::debug_log(__FUNCTION__ . ': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
             return $cached;
+        }
+
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$fairs_opinions_cache[$cache_key] = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
         }
 
         // Connect to database
         $cap_db = self::connect_database();
         if (!$cap_db) {
-            self::debug_log('get_database_fairs_data_opinions: no database connection.', 'error');
+            self::debug_log(__FUNCTION__ . ': no database connection.', 'error');
             self::$fairs_opinions_cache[$cache_key] = [];
             return [];
         }
@@ -2235,16 +3088,17 @@ class PWE_Functions {
 
         // Handle SQL errors
         if ($cap_db->last_error) {
-            self::debug_log('get_database_fairs_data_opinions: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ . ': SQL error: ' . addslashes($cap_db->last_error), 'error');
             $results = [];
         }
 
-        // Save to transient for 10 minutes
-        set_transient($transient_key, $results, 600);
+        // Save to transient for 65 minutes
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, [$fair_domain]);
+        set_transient($transient_key, $results, 3600);
 
         // Save to runtime cache
         self::$fairs_opinions_cache[$cache_key] = $results;
-        self::debug_log('get_database_fairs_data_opinions: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ . ': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -2259,29 +3113,41 @@ class PWE_Functions {
         $cache_key = $fair_domain;
 
         // Check runtime cache first
-        if (isset(self::$fairs_sectors_cache[$cache_key])) {
-            self::debug_log('get_database_fairs_data_sectors: data from STATIC → key=' . $cache_key);
+        if (!self::$database_cache_force_refresh && isset(self::$fairs_sectors_cache[$cache_key])) {
+            self::debug_log(__FUNCTION__ . ': data from STATIC → key=' . $cache_key);
             return self::$fairs_sectors_cache[$cache_key];
         }
 
         // Transient key
         $transient_key = 'pwe_fairs_sectors_' . md5($cache_key);
 
-        // Try transient
-        $cached = get_transient($transient_key);
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
+
         if ($cached !== false) {
             $timeout = get_option('_transient_timeout_' . $transient_key);
-            $time_left_str = $timeout !== false ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
-
-            self::debug_log('get_database_fairs_data_sectors: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
             self::$fairs_sectors_cache[$cache_key] = $cached;
+            self::debug_log(__FUNCTION__ . ': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
             return $cached;
+        }
+
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$fairs_sectors_cache[$cache_key] = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
         }
 
         // Connect to database
         $cap_db = self::connect_database();
         if (!$cap_db) {
-            self::debug_log('get_database_fairs_data_sectors: no database connection.', 'error');
+            self::debug_log(__FUNCTION__ . ': no database connection.', 'error');
             self::$fairs_sectors_cache[$cache_key] = [];
             return [];
         }
@@ -2306,16 +3172,17 @@ class PWE_Functions {
 
         // Handle SQL errors
         if ($cap_db->last_error) {
-            self::debug_log('get_database_fairs_data_sectors: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ . ': SQL error: ' . addslashes($cap_db->last_error), 'error');
             $results = [];
         }
 
-        // Save to transient for 10 minutes
-        set_transient($transient_key, $results, 600);
+        // Save to transient for 65 minutes
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, [$fair_domain]);
+        set_transient($transient_key, $results, 3600);
 
         // Save to runtime cache
         self::$fairs_sectors_cache[$cache_key] = $results;
-        self::debug_log('get_database_fairs_data_sectors: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ . ': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -2330,29 +3197,41 @@ class PWE_Functions {
         $cache_key = $fair_domain;
 
         // Check runtime cache first
-        if (isset(self::$fairs_tickets_cache[$cache_key])) {
-            self::debug_log('get_database_fairs_data_tickets: data from STATIC → key=' . $cache_key);
+        if (!self::$database_cache_force_refresh && isset(self::$fairs_tickets_cache[$cache_key])) {
+            self::debug_log(__FUNCTION__ . ': data from STATIC → key=' . $cache_key);
             return self::$fairs_tickets_cache[$cache_key];
         }
 
         // Transient key
         $transient_key = 'pwe_fairs_tickets_' . md5($cache_key);
 
-        // Try transient
-        $cached = get_transient($transient_key);
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
+
         if ($cached !== false) {
             $timeout = get_option('_transient_timeout_' . $transient_key);
-            $time_left_str = $timeout !== false ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
-
-            self::debug_log('get_database_fairs_data_tickets: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
             self::$fairs_tickets_cache[$cache_key] = $cached;
+            self::debug_log(__FUNCTION__ . ': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
             return $cached;
+        }
+
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$fairs_tickets_cache[$cache_key] = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
         }
 
         // Connect to database
         $cap_db = self::connect_database();
         if (!$cap_db) {
-            self::debug_log('get_database_fairs_data_tickets: no database connection.', 'error');
+            self::debug_log(__FUNCTION__ . ': no database connection.', 'error');
             self::$fairs_tickets_cache[$cache_key] = [];
             return [];
         }
@@ -2377,16 +3256,17 @@ class PWE_Functions {
 
         // Handle SQL errors
         if ($cap_db->last_error) {
-            self::debug_log('get_database_fairs_data_tickets: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ . ': SQL error: ' . addslashes($cap_db->last_error), 'error');
             $results = [];
         }
 
-        // Save to transient for 10 minutes
-        set_transient($transient_key, $results, 600);
+        // Save to transient for 65 minutes
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, [$fair_domain]);
+        set_transient($transient_key, $results, 3600);
 
         // Save to runtime cache
         self::$fairs_tickets_cache[$cache_key] = $results;
-        self::debug_log('get_database_fairs_data_tickets: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ . ': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -2401,29 +3281,41 @@ class PWE_Functions {
         $cache_key = $fair_domain;
 
         // Check runtime cache first
-        if (isset(self::$fairs_speakers_cache[$cache_key])) {
-            self::debug_log('get_database_fairs_data_speakers: data from STATIC → key=' . $cache_key);
+        if (!self::$database_cache_force_refresh && isset(self::$fairs_speakers_cache[$cache_key])) {
+            self::debug_log(__FUNCTION__ . ': data from STATIC → key=' . $cache_key);
             return self::$fairs_speakers_cache[$cache_key];
         }
 
         // Transient key
         $transient_key = 'pwe_fairs_speakers_' . md5($cache_key);
 
-        // Try transient
-        $cached = get_transient($transient_key);
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
+
         if ($cached !== false) {
             $timeout = get_option('_transient_timeout_' . $transient_key);
-            $time_left_str = $timeout !== false ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
-
-            self::debug_log('get_database_fairs_data_speakers: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
             self::$fairs_speakers_cache[$cache_key] = $cached;
+            self::debug_log(__FUNCTION__ . ': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
             return $cached;
         }
 
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$fairs_speakers_cache[$cache_key] = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
+        }
+        
         // Connect to database
         $cap_db = self::connect_database();
         if (!$cap_db) {
-            self::debug_log('get_database_fairs_data_speakers: no database connection.', 'error');
+            self::debug_log(__FUNCTION__ . ': no database connection.', 'error');
             self::$fairs_speakers_cache[$cache_key] = [];
             return [];
         }
@@ -2453,16 +3345,17 @@ class PWE_Functions {
 
         // Handle SQL errors
         if ($cap_db->last_error) {
-            self::debug_log('get_database_fairs_data_speakers: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ . ': SQL error: ' . addslashes($cap_db->last_error), 'error');
             $results = [];
         }
 
-        // Save to transient for 10 minutes
-        set_transient($transient_key, $results, 600);
+        // Save to transient for 65 minutes
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, [$fair_domain]);
+        set_transient($transient_key, $results, 3600);
 
         // Save to runtime cache
         self::$fairs_speakers_cache[$cache_key] = $results;
-        self::debug_log('get_database_fairs_data_speakers: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ . ': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -2477,29 +3370,41 @@ class PWE_Functions {
         $cache_key = $fair_domain;
 
         // Check runtime cache first
-        if (isset(self::$fairs_guests_cache[$cache_key])) {
-            self::debug_log('get_database_fairs_data_guests: data from STATIC → key=' . $cache_key);
+        if (!self::$database_cache_force_refresh && isset(self::$fairs_guests_cache[$cache_key])) {
+            self::debug_log(__FUNCTION__ . ': data from STATIC → key=' . $cache_key);
             return self::$fairs_guests_cache[$cache_key];
         }
 
         // Transient key
         $transient_key = 'pwe_fairs_guests_' . md5($cache_key);
 
-        // Try transient
-        $cached = get_transient($transient_key);
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
+
         if ($cached !== false) {
             $timeout = get_option('_transient_timeout_' . $transient_key);
-            $time_left_str = $timeout !== false ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
-
-            self::debug_log('get_database_fairs_data_guests: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
             self::$fairs_guests_cache[$cache_key] = $cached;
+            self::debug_log(__FUNCTION__ . ': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
             return $cached;
+        }
+
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$fairs_guests_cache[$cache_key] = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
         }
 
         // Connect to database
         $cap_db = self::connect_database();
         if (!$cap_db) {
-            self::debug_log('get_database_fairs_data_guests: no database connection.', 'error');
+            self::debug_log(__FUNCTION__ . ': no database connection.', 'error');
             self::$fairs_guests_cache[$cache_key] = [];
             return [];
         }
@@ -2527,16 +3432,17 @@ class PWE_Functions {
 
         // Handle SQL errors
         if ($cap_db->last_error) {
-            self::debug_log('get_database_fairs_data_guests: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ . ': SQL error: ' . addslashes($cap_db->last_error), 'error');
             $results = [];
         }
 
-        // Save to transient for 10 minutes
-        set_transient($transient_key, $results, 600);
+        // Save to transient for 65 minutes
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, [$fair_domain]);
+        set_transient($transient_key, $results, 3600);
 
         // Save to runtime cache
         self::$fairs_guests_cache[$cache_key] = $results;
-        self::debug_log('get_database_fairs_data_guests: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ . ': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -2551,29 +3457,41 @@ class PWE_Functions {
         $cache_key = $fair_domain;
 
         // Check runtime cache first
-        if (isset(self::$fairs_attractions_cache[$cache_key])) {
-            self::debug_log('get_database_fairs_data_attractions: data from STATIC → key=' . $cache_key);
+        if (!self::$database_cache_force_refresh && isset(self::$fairs_attractions_cache[$cache_key])) {
+            self::debug_log(__FUNCTION__ . ': data from STATIC → key=' . $cache_key);
             return self::$fairs_attractions_cache[$cache_key];
         }
 
         // Transient key
         $transient_key = 'pwe_fairs_attractions_' . md5($cache_key);
 
-        // Try transient
-        $cached = get_transient($transient_key);
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
+
         if ($cached !== false) {
             $timeout = get_option('_transient_timeout_' . $transient_key);
-            $time_left_str = $timeout !== false ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
-
-            self::debug_log('get_database_fairs_data_attractions: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
             self::$fairs_attractions_cache[$cache_key] = $cached;
+            self::debug_log(__FUNCTION__ . ': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
             return $cached;
+        }
+
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$fairs_attractions_cache[$cache_key] = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
         }
 
         // Connect to database
         $cap_db = self::connect_database();
         if (!$cap_db) {
-            self::debug_log('get_database_fairs_data_attractions: no database connection.', 'error');
+            self::debug_log(__FUNCTION__ . ': no database connection.', 'error');
             self::$fairs_attractions_cache[$cache_key] = [];
             return [];
         }
@@ -2601,16 +3519,17 @@ class PWE_Functions {
 
         // Handle SQL errors
         if ($cap_db->last_error) {
-            self::debug_log('get_database_fairs_data_attractions: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ . ': SQL error: ' . addslashes($cap_db->last_error), 'error');
             $results = [];
         }
 
-        // Save to transient for 10 minutes
-        set_transient($transient_key, $results, 600);
+        // Save to transient for 65 minutes
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, [$fair_domain]);
+        set_transient($transient_key, $results, 3600);
 
         // Save to runtime cache
         self::$fairs_attractions_cache[$cache_key] = $results;
-        self::debug_log('get_database_fairs_data_attractions: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ . ': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -2625,29 +3544,41 @@ class PWE_Functions {
         $cache_key = $fair_domain;
 
         // Check runtime cache first
-        if (isset(self::$fairs_files_cache[$cache_key])) {
-            self::debug_log('get_database_fairs_data_files: data from STATIC → key=' . $cache_key);
+        if (!self::$database_cache_force_refresh && isset(self::$fairs_files_cache[$cache_key])) {
+            self::debug_log(__FUNCTION__ . ': data from STATIC → key=' . $cache_key);
             return self::$fairs_files_cache[$cache_key];
         }
 
         // Transient key
         $transient_key = 'pwe_fairs_files_' . md5($cache_key);
 
-        // Try transient
-        $cached = get_transient($transient_key);
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
+
         if ($cached !== false) {
             $timeout = get_option('_transient_timeout_' . $transient_key);
-            $time_left_str = $timeout !== false ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
-
-            self::debug_log('get_database_fairs_data_files: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
             self::$fairs_files_cache[$cache_key] = $cached;
+            self::debug_log(__FUNCTION__ . ': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
             return $cached;
+        }
+
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$fairs_files_cache[$cache_key] = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
         }
 
         // Connect to database
         $cap_db = self::connect_database();
         if (!$cap_db) {
-            self::debug_log('get_database_fairs_data_files: no database connection.', 'error');
+            self::debug_log(__FUNCTION__ . ': no database connection.', 'error');
             self::$fairs_files_cache[$cache_key] = [];
             return [];
         }
@@ -2675,16 +3606,17 @@ class PWE_Functions {
 
         // Handle SQL errors
         if ($cap_db->last_error) {
-            self::debug_log('get_database_fairs_data_files: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ . ': SQL error: ' . addslashes($cap_db->last_error), 'error');
             $results = [];
         }
 
-        // Save to transient for 10 minutes
-        set_transient($transient_key, $results, 600);
+        // Save to transient for 65 minutes
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, [$fair_domain]);
+        set_transient($transient_key, $results, 3600);
 
         // Save to runtime cache
         self::$fairs_files_cache[$cache_key] = $results;
-        self::debug_log('get_database_fairs_data_files: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ . ': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -2698,14 +3630,37 @@ class PWE_Functions {
         $cache_key = 'elements';
 
         // STATIC cache
-        if (self::$elements_cache !== null) {
-            self::debug_log('get_database_elements_data: data from STATIC memory');
+        if (!self::$database_cache_force_refresh && self::$elements_cache !== null) {
+            self::debug_log(__FUNCTION__ . ': data from STATIC memory');
             return self::$elements_cache;
         }
 
         // Transient
         $transient_key = 'pwe_elements_data';
-        $cached = get_transient($transient_key);
+
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
+
+        if ($cached !== false) {
+            $timeout = get_option('_transient_timeout_' . $transient_key);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
+            self::$elements_cache = $cached;
+            self::debug_log(__FUNCTION__ . ': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            return $cached;
+        }
+
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$elements_cache = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
+        }
+        
 
         // Log transient timeout
         $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -2716,22 +3671,18 @@ class PWE_Functions {
             $time_left_str = 'unknown';
         }
 
-        if ($cached !== false) {
-            self::debug_log('get_database_elements_data: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
-            self::$elements_cache = $cached;
-            return $cached;
-        }
+        
 
         // Connect DB
         $cap_db = self::connect_database();
         if (!$cap_db) {
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
-                self::debug_log('get_database_elements_data: NO DB connection → using last TRANSIENT and extending 10min → key=' . $cache_key, 'error');
+                set_transient($transient_key, $cached, 3600);
+                self::debug_log(__FUNCTION__ . ': NO DB connection → using last TRANSIENT and extending 65min → key=' . $cache_key, 'error');
                 self::$elements_cache = $cached;
                 return $cached;
             }
-            self::debug_log('get_database_elements_data: NO DB connection and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
+            self::debug_log(__FUNCTION__ . ': NO DB connection and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
             self::$elements_cache = [];
             return [];
         }
@@ -2744,9 +3695,9 @@ class PWE_Functions {
 
         // SQL error
         if ($cap_db->last_error) {
-            self::debug_log('get_database_elements_data: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ . ': SQL error: ' . addslashes($cap_db->last_error), 'error');
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
+                set_transient($transient_key, $cached, 3600);
                 self::$elements_cache = $cached;
                 return $cached;
             }
@@ -2755,9 +3706,10 @@ class PWE_Functions {
         }
 
         // Save transient + STATIC cache
-        set_transient($transient_key, $results, 600);
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, []);
+        set_transient($transient_key, $results, 3600);
         self::$elements_cache = $results;
-        self::debug_log('get_database_elements_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ . ': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }
@@ -2771,14 +3723,37 @@ class PWE_Functions {
         $cache_key = 'elements_order';
 
         // STATIC cache
-        if (self::$elements_order_cache !== null) {
-            self::debug_log('get_database_elements_order_data: data from STATIC memory');
+        if (!self::$database_cache_force_refresh && self::$elements_order_cache !== null) {
+            self::debug_log(__FUNCTION__ . ': data from STATIC memory');
             return self::$elements_order_cache;
         }
 
         // Transient
         $transient_key = 'pwe_elements_order_data';
-        $cached = get_transient($transient_key);
+
+        // Transient cache: preferred persistent cache before JSON
+        $cached = self::$database_cache_force_refresh ? false : get_transient($transient_key);
+
+        if ($cached !== false) {
+            $timeout = get_option('_transient_timeout_' . $transient_key);
+            $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
+            self::$elements_order_cache = $cached;
+            self::debug_log(__FUNCTION__ . ': data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
+            return $cached;
+        }
+
+        // JSON file cache: fallback after transient
+        if (!self::$database_cache_force_refresh) {
+            $file_cached = self::read_database_json_cache(__FUNCTION__, $cache_key);
+            if ($file_cached['hit']) {
+                $results = $file_cached['data'];
+                set_transient($transient_key, $results, 3600);
+                self::$elements_order_cache = $results;
+                self::debug_log(__FUNCTION__ . ': data from JSON FILE → key=' . $cache_key);
+                return $results;
+            }
+        }
+        
 
         // Log transient timeout
         $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -2789,22 +3764,18 @@ class PWE_Functions {
             $time_left_str = 'unknown';
         }
 
-        if ($cached !== false) {
-            self::debug_log('get_database_elements_order_data: data from TRANSIENT → key=' . $cache_key . ', expires in ' . $time_left_str);
-            self::$elements_order_cache = $cached;
-            return $cached;
-        }
+        
 
         // Connect DB
         $cap_db = self::connect_database();
         if (!$cap_db) {
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
-                self::debug_log('get_database_elements_order_data: NO DB connection → using last TRANSIENT and extending 10min → key=' . $cache_key, 'error');
+                set_transient($transient_key, $cached, 3600);
+                self::debug_log(__FUNCTION__ . ': NO DB connection → using last TRANSIENT and extending 65min → key=' . $cache_key, 'error');
                 self::$elements_order_cache = $cached;
                 return $cached;
             }
-            self::debug_log('get_database_elements_order_data: NO DB connection and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
+            self::debug_log(__FUNCTION__ . ': NO DB connection and no TRANSIENT → returning empty → key=' . $cache_key, 'error');
             self::$elements_order_cache = [];
             return [];
         }
@@ -2817,9 +3788,9 @@ class PWE_Functions {
 
         // SQL error
         if ($cap_db->last_error) {
-            self::debug_log('get_database_elements_order_data: SQL error: ' . addslashes($cap_db->last_error), 'error');
+            self::debug_log(__FUNCTION__ . ': SQL error: ' . addslashes($cap_db->last_error), 'error');
             if ($cached !== false) {
-                set_transient($transient_key, $cached, 600);
+                set_transient($transient_key, $cached, 3600);
                 self::$elements_order_cache = $cached;
                 return $cached;
             }
@@ -2828,14 +3799,18 @@ class PWE_Functions {
         }
 
         // Save transient + STATIC cache
-        set_transient($transient_key, $results, 600);
+        self::write_database_json_cache(__FUNCTION__, $cache_key, $results, []);
+        set_transient($transient_key, $results, 3600);
         self::$elements_order_cache = $results;
-        self::debug_log('get_database_elements_order_data: data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
+        self::debug_log(__FUNCTION__ . ': data from database DIRECTLY (SQL time ' . $time . 'ms) → key=' . $cache_key . ', host=' . $cap_db->dbhost . ' [' . gethostname() . '] and saved to TRANSIENT.');
 
         return $results;
     }
 
     // DATABASE CONNECTIONS END <==================================================================================>
+
+
+
 
 
     private static function remove_logo_duplicates(array $logos): array {
@@ -3538,9 +4513,9 @@ class PWE_Functions {
             $title = trim((string) $row['title']);
 
             /*
-            * Pobiera wszystkie nawiasy znajdujące się na początku.
+            * Gets all the parentheses at the beginning.
             *
-            * Przykłady:
+            * Examples:
             * "(2027) Rejestracja"      => prefixes: "(2027)"
             * "(2027) (PL) Rejestracja" => prefixes: "(2027) (PL)"
             */
@@ -3549,9 +4524,9 @@ class PWE_Functions {
             $title_without_prefixes = trim($matches['title'] ?? $title);
 
             /*
-            * Po usunięciu początkowych nawiasów nazwa musi być identyczna.
-            * Dzięki temu "Rejestracja (FB)" oraz "Rejestracja gości..."
-            * nie zostaną dopasowane.
+            * After removing the initial brackets, the name must be identical.
+            * This will prevent "Registration (FB)" and "Guest Registration..."
+            * from matching.
             */
             if (mb_strtolower($title_without_prefixes, 'UTF-8') !== $normalized_base_title) {
                 continue;
@@ -3561,7 +4536,7 @@ class PWE_Functions {
             $prefixes = $matches['prefixes'] ?? '';
 
             /*
-            * Szukamy roku tylko w nawiasach znajdujących się na początku.
+            * We look for the year only in parentheses located at the beginning.
             */
             if (
                 $prefixes !== ''
@@ -3574,8 +4549,8 @@ class PWE_Functions {
             $row_id = (int) $row['id'];
 
             /*
-            * Pierwszeństwo ma najwyższy rok.
-            * Przy tym samym roku wybieramy formularz o wyższym ID.
+            * First priority is the highest year.
+            * In case of the same year, we choose the form with the higher ID.
             */
             if (
                 $resolved_id === null

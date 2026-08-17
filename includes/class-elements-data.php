@@ -56,6 +56,9 @@ class PWE_Elements_Data {
         'Badge_Local',
         'Call_Center',
         'Step2',
+        'Forms',
+
+        'Side_Events',
     ];
 
     /** Classes available in the components directory. Paths are detected automatically. */
@@ -163,6 +166,15 @@ class PWE_Elements_Data {
         ],
         'step2' => [
             ['class' => 'Step2'],
+            ['class' => 'Footer'],
+        ],
+        'forms' => [
+            ['class' => 'Forms'],
+            ['class' => 'Footer'],
+        ],
+
+        'conferences' => [
+            ['class' => 'Side_Events'],
             ['class' => 'Footer'],
         ],
     ];
