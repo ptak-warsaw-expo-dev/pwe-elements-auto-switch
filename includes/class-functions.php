@@ -1079,7 +1079,7 @@ class PWE_Functions {
                 return $results;
             }
         }
-        
+
 
         // Log timeout if transient exists
         $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -1090,7 +1090,7 @@ class PWE_Functions {
             $time_left_str = 'unknown';
         }
 
-        
+
 
         // Connect database
         $cap_db = self::connect_database();
@@ -1164,6 +1164,7 @@ class PWE_Functions {
 
                 MAX(CASE WHEN fa.slug = 'category_pl' THEN fa.data END) AS category_pl,
                 MAX(CASE WHEN fa.slug = 'category_en' THEN fa.data END) AS category_en,
+                MAX(CASE WHEN fa.slug = 'industry' THEN fa.data END) AS industry,
                 MAX(CASE WHEN fa.slug = 'konf_name' THEN fa.data END) AS konf_name,
                 MAX(CASE WHEN fa.slug = 'konf_title_pl' THEN fa.data END) AS konf_title_pl,
                 MAX(CASE WHEN fa.slug = 'konf_title_en' THEN fa.data END) AS konf_title_en,
@@ -1185,6 +1186,7 @@ class PWE_Functions {
                 AND fa.slug IN (
                     'category_pl',
                     'category_en',
+                    'industry',
                     'konf_name',
                     'konf_title_pl',
                     'konf_title_en',
@@ -1315,7 +1317,7 @@ class PWE_Functions {
                 return $results;
             }
         }
-        
+
 
         // Log transient timeout
         $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -1326,7 +1328,7 @@ class PWE_Functions {
             $time_left_str = 'unknown';
         }
 
-        
+
 
         // Connect DB
         $cap_db = self::connect_database();
@@ -1437,7 +1439,7 @@ class PWE_Functions {
                 return $results;
             }
         }
-        
+
 
         // Log transient timeout
         $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -1448,7 +1450,7 @@ class PWE_Functions {
             $time_left_str = 'unknown';
         }
 
-        
+
 
         // Connect DB
         $cap_db = self::connect_database();
@@ -1670,7 +1672,7 @@ class PWE_Functions {
                 return $results;
             }
         }
-        
+
 
         // Cache timeout
         $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -1682,7 +1684,7 @@ class PWE_Functions {
             $time_left_str = 'unknown';
         }
 
-        
+
 
         // Connect database
         $cap_db = self::connect_database();
@@ -1793,7 +1795,7 @@ class PWE_Functions {
                 return $results;
             }
         }
-        
+
 
         // Log transient timeout
         $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -1804,7 +1806,7 @@ class PWE_Functions {
             $time_left_str = 'unknown';
         }
 
-        
+
 
         // Connect DB
         $cap_db = self::connect_database();
@@ -1886,13 +1888,13 @@ class PWE_Functions {
                 return $results;
             }
         }
-        
+
 
         // Log transient timeout
         $timeout = get_option('_transient_timeout_' . $transient_key);
         $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
 
-        
+
 
         // Connect DB
         $cap_db = self::connect_database();
@@ -1976,13 +1978,13 @@ class PWE_Functions {
                 return $results;
             }
         }
-        
+
 
         // Log transient timeout
         $timeout = get_option('_transient_timeout_' . $transient_key);
         $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
 
-        
+
 
         // Connect DB
         $cap_db = self::connect_database();
@@ -2081,11 +2083,11 @@ class PWE_Functions {
                 return $results;
             }
         }
-        
+
         $timeout = get_option('_transient_timeout_' . $transient_key);
         $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
 
-        
+
 
         $cap_db = self::connect_database();
         if (!$cap_db) {
@@ -2160,11 +2162,11 @@ class PWE_Functions {
                 return $results;
             }
         }
-        
+
         $timeout = get_option('_transient_timeout_' . $transient_key);
         $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
 
-        
+
 
         $cap_db = self::connect_database();
         if (!$cap_db) {
@@ -2239,11 +2241,11 @@ class PWE_Functions {
                 return $results;
             }
         }
-        
+
         $timeout = get_option('_transient_timeout_' . $transient_key);
         $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
 
-        
+
 
         $cap_db = self::connect_database();
         if (!$cap_db) {
@@ -2319,11 +2321,11 @@ class PWE_Functions {
                 return $results;
             }
         }
-        
+
         $timeout = get_option('_transient_timeout_' . $transient_key);
         $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
 
-        
+
 
         $cap_db = self::connect_database();
         if (!$cap_db) {
@@ -2406,11 +2408,11 @@ class PWE_Functions {
                 return $results;
             }
         }
-        
+
         $timeout = get_option('_transient_timeout_' . $transient_key);
         $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
 
-        
+
 
         $cap_db = self::connect_database();
         if (!$cap_db) {
@@ -2493,11 +2495,11 @@ class PWE_Functions {
                 return $results;
             }
         }
-        
+
         $timeout = get_option('_transient_timeout_' . $transient_key);
         $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
 
-        
+
 
         $cap_db = self::connect_database();
         if (!$cap_db) {
@@ -2581,11 +2583,11 @@ class PWE_Functions {
                 return $results;
             }
         }
-        
+
         $timeout = get_option('_transient_timeout_' . $transient_key);
         $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
 
-        
+
 
         $cap_db = self::connect_database();
         if (!$cap_db) {
@@ -2700,11 +2702,11 @@ class PWE_Functions {
                 return $results;
             }
         }
-        
+
         $timeout = get_option('_transient_timeout_' . $transient_key);
         $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
 
-        
+
 
         $cap_db = self::connect_database();
         if (!$cap_db) {
@@ -2856,7 +2858,7 @@ class PWE_Functions {
         self::$conference_adds_cache[$cache_key] = $results;
 
         self::debug_log(__FUNCTION__ .': data from database DIRECTLY ' .'(SQL time ' . $time . 'ms) → key='. $cache_key .', host=' .$cap_db->dbhost .' [' . gethostname() .'] and saved to JSON + TRANSIENT.');
-        
+
         return $results;
     }
 
@@ -2898,11 +2900,11 @@ class PWE_Functions {
                 return $results;
             }
         }
-        
+
         $timeout = get_option('_transient_timeout_' . $transient_key);
         $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
 
-        
+
 
         $cap_db = self::connect_database();
         if (!$cap_db) {
@@ -2972,11 +2974,11 @@ class PWE_Functions {
                 return $results;
             }
         }
-        
+
         $timeout = get_option('_transient_timeout_' . $transient_key);
         $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
 
-        
+
 
         $cap_db = self::connect_database();
         if (!$cap_db) {
@@ -3311,7 +3313,7 @@ class PWE_Functions {
                 return $results;
             }
         }
-        
+
         // Connect to database
         $cap_db = self::connect_database();
         if (!$cap_db) {
@@ -3660,7 +3662,7 @@ class PWE_Functions {
                 return $results;
             }
         }
-        
+
 
         // Log transient timeout
         $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -3671,7 +3673,7 @@ class PWE_Functions {
             $time_left_str = 'unknown';
         }
 
-        
+
 
         // Connect DB
         $cap_db = self::connect_database();
@@ -3753,7 +3755,7 @@ class PWE_Functions {
                 return $results;
             }
         }
-        
+
 
         // Log transient timeout
         $timeout = get_option('_transient_timeout_' . $transient_key);
@@ -3764,7 +3766,7 @@ class PWE_Functions {
             $time_left_str = 'unknown';
         }
 
-        
+
 
         // Connect DB
         $cap_db = self::connect_database();
@@ -3910,6 +3912,7 @@ class PWE_Functions {
             "group" => $fair->fair_group ?? "",
             "category_pl" => $fair->category_pl ?? "",
             "category_en" => $fair->category_en ?? "",
+            "industry" => $fair->industry ?? "",
             "conference_name" => $fair->konf_name ?? "",
             "conference_title_pl" => $fair->konf_title_pl ?? "",
             "conference_title_en" => $fair->konf_title_en ?? "",
@@ -4599,6 +4602,65 @@ class PWE_Functions {
         ob_start();
         $class::render($group, $params);
         return ob_get_clean();
+    }
+
+    /**
+     * Sprawdza, czy bieżące żądanie znajduje się na stronie wymagającej sesji.
+     * Obsługuje zapytania AJAX oraz dynamicznie pobiera adresy URL z pliku translation JSON.
+     *
+     * @return bool
+     */
+    public static function is_pwe_session_page() {
+        if (wp_doing_ajax()) {
+            return true;
+        }
+
+        if (is_admin()) {
+            return false;
+        }
+
+        static $allowed_paths = null;
+
+        if ($allowed_paths === null) {
+            // Statyczne ścieżki (niewystępujące w pliku JSON)
+            $allowed_paths = [
+                '/potwierdzenie-rejestracji',
+            ];
+
+            // Ścieżka do pliku JSON ustalana analogicznie jak w assets_per_group
+            $json_file = plugin_dir_path(__DIR__) . 'plugins/pwe-multilang/website-translation.json';
+
+            if (file_exists($json_file)) {
+                $json_content = file_get_contents($json_file);
+                $translations = json_decode($json_content, true);
+
+                if (is_array($translations)) {
+                    $target_keys = ['rejestracja', 'zostan_wystawca', 'potwierdzenie_rejestracji_wystawcy'];
+
+                    foreach ($target_keys as $key) {
+                        if (!empty($translations[$key]) && is_array($translations[$key])) {
+                            foreach ($translations[$key] as $lang_data) {
+                                if (!empty($lang_data['url'])) {
+                                    $allowed_paths[] = $lang_data['url'];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        $current_path = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
+        $current_path = '/' . trim($current_path, '/') . '/';
+
+        foreach ($allowed_paths as $path) {
+            $normalized_path = '/' . trim($path, '/') . '/';
+            if ($current_path === $normalized_path) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
 

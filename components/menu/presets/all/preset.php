@@ -952,11 +952,11 @@ $output .= '
 
         $output .= '
         <div class="pwe-menu-auto-switch__container-mobile">
-            <li class="pwe-menu-auto-switch__register-btn pwe-menu-auto-switch__item button">
+            <div class="pwe-menu-auto-switch__register-btn pwe-menu-auto-switch__item button">
                 <a href="'. esc_url($current['url']) .'">
                     <span class="pwe-menu-auto-switch__item-title">'. esc_html($current['label']) .'</span>
                 </a>
-            </li>
+            </div>
             
             <div class="pwe-menu-auto-switch__burger">
                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
