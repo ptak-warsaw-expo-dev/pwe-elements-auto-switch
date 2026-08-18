@@ -13,12 +13,14 @@ $output = '
             </div>
 
             <div class="pwe-registration-visitors__title">
-                <h4>'. PWE_Functions::multi_translation('your_ticket') .'</h4>
+                <h4>'. $title .'</h4>
             </div>
 
             <div class="pwe-registration-visitors__form">
                 '. $gravity_form .'
             </div>
+
+            '. $statement .'
         </div>';
 
         if (count($exhibitors) >= 12) {

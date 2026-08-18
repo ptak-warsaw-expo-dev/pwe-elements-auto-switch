@@ -11,12 +11,14 @@ $output = '
                     </h3>
 
                     <h2 class="pwe-registration-visitors__platinum-title">
-                        '. PWE_Functions::multi_translation('ticket') .'
+                        '. $title .'
                     </h2>
 
                     <div class="pwe-registration-visitors__form">
                         '. $gravity_form .'
                     </div>
+
+                    '. $statement .'
                 </div>
 
                 <div class="pwe-registration-visitors__benefits">

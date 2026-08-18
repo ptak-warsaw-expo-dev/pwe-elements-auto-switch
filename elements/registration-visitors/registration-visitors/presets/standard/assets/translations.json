@@ -1,44 +1,72 @@
 {
   "pl_PL": {
-    "ticket": "Twój bilet<br>na targi"
+    "ticket": "Twój bilet<br>na targi",
+    "ticket_industry": "Bilet na targi<br>dla profesjonalistów*",
+    "statement_medicine": "Oświadczam, że jestem przedstawicielem branży medycznej / ochrony zdrowia (m.in. lekarzem, pielęgniarką, farmaceutą, przedstawicielem placówki medycznej, dystrybutorem lub producentem wyrobów medycznych) i rejestruję się w celach zawodowych związanych z moją działalnością."
   },
   "en_US": {
-    "ticket": "Your ticket to the<br>trade fair"
+    "ticket": "Your ticket to the<br>trade fair",
+    "ticket_industry": "Trade fair ticket<br>for professionals*",
+    "statement_medicine": "I declare that I am a representative of the medical / healthcare industry (including a doctor, nurse, pharmacist, medical facility representative, distributor or manufacturer of medical devices) and that I am registering for professional purposes related to my activity."
   },
   "de_DE": {
-    "ticket": "Ihr Ticket für die<br>Messe"
+    "ticket": "Ihr Ticket für die<br>Messe",
+    "ticket_industry": "Ticket für die<br>Messe für Fachbesucher*",
+    "statement_medicine": "Ich erkläre, dass ich ein Vertreter der Medizin- / Gesundheitsbranche bin (u.a. Arzt, Krankenschwester/-pfleger, Apotheker, Vertreter einer medizinischen Einrichtung, Distributor oder Hersteller von Medizinprodukten) und mich zu beruflichen Zwecken im Zusammenhang mit meiner Tätigkeit registriere."
   },
   "cs_CZ": {
-    "ticket": "Vstupenka na<br>veletrh"
+    "ticket": "Vstupenka na<br>veletrh",
+    "ticket_industry": "Vstupenka na veletrh<br>pro odborníky*",
+    "statement_medicine": "Prohlašuji, že jsem zástupcem zdravotnického odvětví (např. lékař, zdravotní sestra, lékárník, zástupce zdravotnického zařízení, distributor nebo výrobce zdravotnických prostředků) a registruji se za účelem výkonu své profese."
   },
   "it_IT": {
-    "ticket": "Il tuo biglietto per la<br>fiera"
+    "ticket": "Il tuo biglietto per la<br>fiera",
+    "ticket_industry": "Biglietto per la fiera<br>per professionisti*",
+    "statement_medicine": "Dichiaro di essere un rappresentante del settore medico / sanitario (ad esempio medico, infermiere, farmacista, rappresentante di una struttura sanitaria, distributore o produttore di dispositivi medici) e di registrarmi per finalità professionali legate alla mia attività."
   },
   "lt_LT": {
-    "ticket": "Jūsų bilietas į<br>parodą"
+    "ticket": "Jūsų bilietas į<br>parodą",
+    "ticket_industry": "Bilietas į parodą<br>profesionalams*",
+    "statement_medicine": "Patvirtinu, kad esu medicinos / sveikatos priežiūros sektoriaus atstovas (pvz., gydytojas, slaugytojas, vaistininkas, medicinos įstaigos atstovas, medicinos produktų platintojas ar gamintojas) ir registruojuosi profesiniais tikslais, susijusiais su mano veikla."
   },
   "lv_LV": {
-    "ticket": "Jūsu biļete uz<br>izstādi"
+    "ticket": "Jūsu biļete uz<br>izstādi",
+    "ticket_industry": "Biļete uz izstādi<br>profesionāļiem*",
+    "statement_medicine": "Apliecinu, ka esmu medicīnas / veselības aprūpes nozares pārstāvis (piemēram, ārsts, medmāsa, farmaceits, medicīnas iestādes pārstāvis, medicīnas produktu izplatītājs vai ražotājs) un reģistrējos profesionāliem mērķiem, kas saistīti ar manu darbību."
   },
   "sk_SK": {
-    "ticket": "Váš lístok na<br>veľtrh"
+    "ticket": "Váš lístok na<br>veľtrh",
+    "ticket_industry": "Lístok na veľtrh<br>pre profesionálov*",
+    "statement_medicine": "Vyhlasujem, že som zástupcom zdravotníckeho odvetvia (napr. lekár, zdravotná sestra, farmaceut, zástupca zdravotníckeho zariadenia, distribútor alebo výrobca zdravotníckych pomôcok) a registrujem sa na profesionálne účely súvisiace s mojou činnosťou."
   },
   "uk": {
-    "ticket": "Ваш квиток на<br>виставку"
+    "ticket": "Ваш квиток на<br>виставку",
+    "ticket_industry": "Квиток на виставку<br>для професіоналів*",
+    "statement_medicine": "Підтверджую, що я є представником медичної / медичної галузі (зокрема лікарем, медсестрою, фармацевтом, представником медичного закладу, дистриб’ютором або виробником медичних виробів) і реєструюся з професійною метою, пов’язаною з моєю діяльністю."
   },
   "ro_RO": {
-    "ticket": "Biletul tău pentru<br>expoziție"
+    "ticket": "Biletul tău pentru<br>expoziție",
+    "ticket_industry": "Bilet pentru expoziție<br>pentru profesioniști*",
+    "statement_medicine": "Declar că sunt reprezentant al domeniului medical / al sănătății (de exemplu medic, asistent medical, farmacist, reprezentant al unei unități medicale, distribuitor sau producător de dispozitive medicale) și mă înregistrez în scopuri profesionale legate de activitatea mea."
   },
   "et": {
-    "ticket": "Teie pilet<br>näitusele"
+    "ticket": "Teie pilet<br>näitusele",
+    "ticket_industry": "Pilet näitusele<br>professionaalidele*",
+    "statement_medicine": "Kinnitan, et olen meditsiini- / tervishoiusektori esindaja (nt arst, õde, apteeker, meditsiiniasutuse esindaja, meditsiiniseadmete turustaja või tootja) ning registreerin end oma tegevusega seotud professionaalsetel eesmärkidel."
   },
   "hu_HU": {
-    "ticket": "Jegyed a<br>kiállításra"
+    "ticket": "Jegyed a<br>kiállításra",
+    "ticket_industry": "Jegy a kiállításra<br>szakmai látogatóknak*",
+    "statement_medicine": "Kijelentem, hogy az egészségügyi ágazat képviselője vagyok (pl. orvos, ápoló, gyógyszerész, egészségügyi intézmény képviselője, orvostechnikai eszközök forgalmazója vagy gyártója), és szakmai célból, a tevékenységemhez kapcsolódóan regisztrálok."
   },
-    "fr_FR": {
-        "ticket": "Votre billet pour le<br>salon"
-    },
-    "es_ES": {
-        "ticket": "Tu entrada para la<br>feria"
-    }
+  "fr_FR": {
+    "ticket": "Votre billet pour le<br>salon",
+    "ticket_industry": "Billet pour le salon<br>pour professionnels*",
+    "statement_medicine": "Je déclare être un représentant du secteur médical / de la santé (notamment médecin, infirmier(ère), pharmacien, représentant d’un établissement de santé, distributeur ou fabricant de dispositifs médicaux) et m’inscrire à des fins professionnelles liées à mon activité."
+  },
+  "es_ES": {
+    "ticket": "Tu entrada para la<br>feria",
+    "ticket_industry": "Entrada para la feria<br>para profesionales*",
+    "statement_medicine": "Declaro que soy representante del sector médico / sanitario (incluido médico, enfermero, farmacéutico, representante de una institución sanitaria, distribuidor o fabricante de dispositivos médicos) y me registro con fines profesionales relacionados con mi actividad."
+  }
 }

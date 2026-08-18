@@ -13,7 +13,7 @@ $output = '
             <div class="pwe-registration-visitors__form-container pwe-registration">
                 <div class="pwe-registration-visitors__form-badge-header">
                     <h1 class="pwe-registration-visitors__form-header-title">
-                        '. PWE_Functions::multi_translation('ticket') .'
+                        '. $title .'
                     </h1>
 
                     <a href="https://warsawexpo.eu/" target="_blank" rel="noopener">
@@ -53,12 +53,14 @@ $output = '
 
                 <div class="pwe-registration-visitors__form-content">
                     <h2 id="main-content" class="pwe-registration-visitors__form-title">
-                        '. PWE_Functions::multi_translation('ticket') .'
+                        '. $title .'
                     </h2>
 
                     <div class="pwe-registration-visitors__form-fields">
                         '. $gravity_form .'
                     </div>
+
+                    '. $statement .'
                 </div>
             </div>
         </div>';
