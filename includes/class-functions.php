@@ -339,12 +339,75 @@ class PWE_Functions {
         }
     }
 
+    /**
+     * Sprawdza, czy bieżące żądanie znajduje się na stronie wymagającej sesji.
+     * Obsługuje zapytania AJAX oraz dynamicznie pobiera adresy URL z pliku translation JSON.
+     *
+     * @return bool
+     */
+    public static function is_pwe_session_page() {
+        if (wp_doing_ajax()) {
+            return true;
+        }
 
+        if (is_admin()) {
+            return false;
+        }
+
+        static $allowed_paths = null;
+
+        if ($allowed_paths === null) {
+            $allowed_paths = [
+                '/potwierdzenie-rejestracji',
+            ];
+
+            // Poprawiona ścieżka do pliku JSON wewnątrz wtyczki pwe-multilang
+            $json_file = WP_PLUGIN_DIR . '/pwe-multilang/website-translation.json';
+
+            if (file_exists($json_file)) {
+                $json_content = file_get_contents($json_file);
+                $translations = json_decode($json_content, true);
+
+                if (is_array($translations)) {
+                    // DODANO: 'krok2' do tablicy kluczy
+                    $target_keys = ['rejestracja', 'zostan_wystawca', 'potwierdzenie_rejestracji_wystawcy', 'krok2'];
+
+                    foreach ($target_keys as $key) {
+                        if (!empty($translations[$key]) && is_array($translations[$key])) {
+                            foreach ($translations[$key] as $lang_data) {
+                                if (!empty($lang_data['url'])) {
+                                    $allowed_paths[] = $lang_data['url'];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        $current_path = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
+        $current_path = '/' . trim($current_path, '/') . '/';
+
+        foreach ($allowed_paths as $path) {
+            $normalized_path = '/' . trim($path, '/') . '/';
+
+            // 1. Dokładne dopasowanie (np. dla /rejestracja/)
+            if ($current_path === $normalized_path) {
+                return true;
+            }
+
+            // 2. Dopasowanie wielojęzyczne (np. gdy URL to /en/registration/ a $normalized_path to /registration/)
+            if ($normalized_path !== '/' && str_ends_with($current_path, $normalized_path)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     // <============================================================================================>
     // Synchronized functions from plugin PWElements 3.5.8 (13.08.2026) <========================================================>
     // <============================================================================================>
-
 
     /**
      * Random number
@@ -4602,65 +4665,6 @@ class PWE_Functions {
         ob_start();
         $class::render($group, $params);
         return ob_get_clean();
-    }
-
-    /**
-     * Sprawdza, czy bieżące żądanie znajduje się na stronie wymagającej sesji.
-     * Obsługuje zapytania AJAX oraz dynamicznie pobiera adresy URL z pliku translation JSON.
-     *
-     * @return bool
-     */
-    public static function is_pwe_session_page() {
-        if (wp_doing_ajax()) {
-            return true;
-        }
-
-        if (is_admin()) {
-            return false;
-        }
-
-        static $allowed_paths = null;
-
-        if ($allowed_paths === null) {
-            // Statyczne ścieżki (niewystępujące w pliku JSON)
-            $allowed_paths = [
-                '/potwierdzenie-rejestracji',
-            ];
-
-            // Ścieżka do pliku JSON ustalana analogicznie jak w assets_per_group
-            $json_file = plugin_dir_path(__DIR__) . 'plugins/pwe-multilang/website-translation.json';
-
-            if (file_exists($json_file)) {
-                $json_content = file_get_contents($json_file);
-                $translations = json_decode($json_content, true);
-
-                if (is_array($translations)) {
-                    $target_keys = ['rejestracja', 'zostan_wystawca', 'potwierdzenie_rejestracji_wystawcy'];
-
-                    foreach ($target_keys as $key) {
-                        if (!empty($translations[$key]) && is_array($translations[$key])) {
-                            foreach ($translations[$key] as $lang_data) {
-                                if (!empty($lang_data['url'])) {
-                                    $allowed_paths[] = $lang_data['url'];
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        $current_path = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
-        $current_path = '/' . trim($current_path, '/') . '/';
-
-        foreach ($allowed_paths as $path) {
-            $normalized_path = '/' . trim($path, '/') . '/';
-            if ($current_path === $normalized_path) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }
 
