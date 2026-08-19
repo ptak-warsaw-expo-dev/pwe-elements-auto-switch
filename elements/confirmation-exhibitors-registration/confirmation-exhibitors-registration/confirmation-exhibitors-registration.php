@@ -240,13 +240,12 @@ class Confirmation_Exhibitors_Registration {
     }
 
     private static function force_clear_pwe_session() {
+
         if (session_status() === PHP_SESSION_NONE) {
             @session_start();
         }
 
-        unset($_SESSION['pwe_exhibitor_entry']);
-        unset($_SESSION['pwe_reg_entry']);
-
+        $_SESSION = [];
 
         session_write_close();
     }

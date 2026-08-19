@@ -308,7 +308,7 @@ function updateGravityForm() {
     // Wywołanie akcji dedykowanej dla Wystawcy:
     data.append(
         "action",
-        "update_exhibitor_data"
+        "update_registration_address"
     );
 
     data.append("form_id", formId);
