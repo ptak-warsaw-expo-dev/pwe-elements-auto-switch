@@ -4104,7 +4104,7 @@ class PWE_Shortcodes {
      * @return string
      */
     public function show_pwe_mailing_header_url() {
-        $fallback_url = home_url('/doc/header.jpg');
+        $fallback_url = get_site_url(null, '/doc/header.jpg');
 
         try {
             $lang = 'pl';
@@ -4140,7 +4140,7 @@ class PWE_Shortcodes {
 
             // Use the English header only when the file exists
             if (is_file($english_header_path)) {
-                return home_url('/doc/header_en.jpg');
+                return get_site_url(null, '/doc/header_en.jpg');
             }
 
             return $fallback_url;
@@ -4170,7 +4170,7 @@ class PWE_Shortcodes {
      * @return string
      */
     public function show_pwe_mailing_header_platyna_url() {
-        $default_header_url = home_url('/doc/header.jpg');
+        $default_header_url = get_site_url(null, '/doc/header.jpg');
 
         try {
             if (!defined('ABSPATH')) {
@@ -4203,7 +4203,7 @@ class PWE_Shortcodes {
                 $platinum_header_path = $document_directory . 'mailing-platyna.jpg';
 
                 if (is_file($platinum_header_path)) {
-                    return home_url('/doc/mailing-platyna.jpg');
+                    return get_site_url(null, '/doc/mailing-platyna.jpg');
                 }
 
                 return $default_header_url;
@@ -4214,14 +4214,14 @@ class PWE_Shortcodes {
                 $document_directory . 'mailing-platyna-en.jpg';
 
             if (is_file($platinum_english_header_path)) {
-                return home_url('/doc/mailing-platyna-en.jpg');
+                return get_site_url(null, '/doc/mailing-platyna-en.jpg');
             }
 
             // Use the English standard header as the first fallback
             $english_header_path = $document_directory . 'header_en.jpg';
 
             if (is_file($english_header_path)) {
-                return home_url('/doc/header_en.jpg');
+                return get_site_url(null, '/doc/header_en.jpg');
             }
 
             // Use the Polish standard header as the final fallback
