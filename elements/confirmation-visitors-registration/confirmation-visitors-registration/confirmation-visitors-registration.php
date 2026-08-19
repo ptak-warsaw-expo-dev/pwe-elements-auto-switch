@@ -12,7 +12,7 @@ class Confirmation_Visitors_Registration {
 
     public static function get_data() {
         return [
-            'types' => ['confirmation-visitors-registration'],
+            'types'   => ['confirmation-visitors-registration'],
             'presets' => [
                 'standard' => plugin_dir_path(__FILE__) . 'presets/standard/preset.php',
                 'premium'  => plugin_dir_path(__FILE__) . 'presets/premium/preset.php',
@@ -27,8 +27,12 @@ class Confirmation_Visitors_Registration {
         $element_type = $data['types'][0];
         $element_slug = 'confirmation-visitors-registration';
 
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
+        if (PWE_Functions::is_pwe_session_page()) {
+            if (session_status() === PHP_SESSION_NONE) {
+                session_cache_limiter('');
+                session_start();
+                var_dump($_SESSION['pwe_reg_entry']);
+            }
         }
 
         $source_utm = isset($_GET['utm_source'])
@@ -39,12 +43,8 @@ class Confirmation_Visitors_Registration {
                 ?? ''
             );
 
-        if ($source_utm === 'premium') {
-            $group = 'premium';
-        } elseif ($source_utm === 'byli') {
-            $group = 'byli';
-        } elseif ($source_utm === 'platyna') {
-            $group = 'platyna';
+        if (in_array($source_utm, ['premium', 'byli', 'platyna'], true)) {
+            $group = $source_utm;
         } else {
             $group = 'standard';
         }
@@ -71,18 +71,17 @@ class Confirmation_Visitors_Registration {
 
             self::add_apartment_field($form_id);
 
-            if (session_status() === PHP_SESSION_NONE) {
-                session_start();
-            }
-
             $registration_session = $_SESSION['pwe_reg_entry'] ?? [];
+
+            // Fix: Check variable existence safely
+            $reg_form_update_entries = $params['reg_form_update_entries'] ?? 'false';
 
             if (
                 empty($_SESSION['pwe_reg_entry']['entry_id']) &&
-                ($reg_form_update_entries === "true") &&
+                ($reg_form_update_entries === 'true') &&
                 (!is_user_logged_in() || !current_user_can('administrator'))
             ) {
-                header("Location: /rejestracja");
+                wp_safe_redirect(home_url('/rejestracja'));
                 exit();
             }
 
@@ -90,7 +89,7 @@ class Confirmation_Visitors_Registration {
             $fair_group = do_shortcode('[trade_fair_group]');
             $trade_fair_edition = do_shortcode('[trade_fair_edition]');
 
-            if ($trade_fair_edition === 1) {
+            if ((string)$trade_fair_edition === '1') {
                 $trade_fair_edition = ($lang === 'pl') ? 'Premierowa Edycja' : 'Premier Edition';
             } else {
                 $trade_fair_edition = $trade_fair_edition . ($lang === 'pl' ? ' edycja' : ' edition');
@@ -171,6 +170,8 @@ class Confirmation_Visitors_Registration {
     }
 
     public static function update_registration_address() {
+        // Weryfikacja CSRF wyłączona tymczasowo dla obsługi pamięci podręcznej (cache)
+
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -241,7 +242,9 @@ class Confirmation_Visitors_Registration {
 
             if (class_exists('GF_Integration')) {
                 $integration = new GF_Integration($entry_id, '');
-                $integration->init();
+                if (method_exists($integration, 'init')) {
+                    $integration->init();
+                }
             } else {
                 error_log('Brak klasy GF_Integration podczas aktualizacji adresu');
             }
@@ -258,7 +261,11 @@ class Confirmation_Visitors_Registration {
 
                         if (class_exists('Activation_DB')) {
                             $cdb_integration = new Activation_DB([$entry_id]);
-                            $cdb_integration();
+                            if (is_callable($cdb_integration)) {
+                                $cdb_integration();
+                            } elseif (method_exists($cdb_integration, 'run')) {
+                                $cdb_integration->run();
+                            }
                         }
                     }
                 } catch (Exception $e) {

@@ -108,5 +108,6 @@ class Registration_Exhibitors {
                 $_SESSION['pwe_exhibitor_entry']['phone'] = rgar($entry, $field->id);
             }
         }
+        session_write_close();
     }
 }

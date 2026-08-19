@@ -246,153 +246,154 @@
         }
     }
 
-    function updateGravityForm() {
-        clearMessage();
+function updateGravityForm() {
+    clearMessage();
 
-        const requiredFields = [
-            "name",
-            "street",
-            "house",
-            "post1",
-            "post2",
-            "city"
-        ];
+    const requiredFields = [
+        "name",
+        "street",
+        "house",
+        "post1",
+        "post2",
+        "city"
+    ];
 
-        let hasError = false;
+    let hasError = false;
 
-        requiredFields.forEach(function (id) {
-            const field = wrapper.querySelector("#" + id);
+    requiredFields.forEach(function (id) {
+        const field = wrapper.querySelector("#" + id);
 
-            /*
-             * W oryginale przy braku pola następowało:
-             * field.classList.add(), mimo że field było null.
-             */
-            if (!field) {
-                hasError = true;
-                return;
-            }
-
-            if (!field.value.trim()) {
-                field.classList.add("error-border");
-                hasError = true;
-            } else {
-                field.classList.remove("error-border");
-            }
-        });
-
-        if (hasError) {
-            showMessage("Wszystkie pola są wymagane!");
+        if (!field) {
+            hasError = true;
             return;
         }
 
-        const post1 = wrapper.querySelector("#post1");
-        const post2 = wrapper.querySelector("#post2");
-
-        const postCode =
-            post1.value.trim() +
-            "-" +
-            post2.value.trim();
-
-        const postPattern = /^\d{2}-\d{3}$/;
-
-        if (!postPattern.test(postCode)) {
-            post1.classList.add("error-border");
-            post2.classList.add("error-border");
-
-            showMessage(
-                "Niepoprawny format kodu pocztowego (XX-XXX)."
-            );
-
-            return;
+        if (!field.value.trim()) {
+            field.classList.add("error-border");
+            hasError = true;
+        } else {
+            field.classList.remove("error-border");
         }
+    });
 
-        const formId = wrapper.dataset.formId;
-        const data = new URLSearchParams();
+    if (hasError) {
+        showMessage("Wszystkie pola są wymagane!");
+        return;
+    }
 
-        data.append(
-            "action",
-            "update_registration_address"
+    const post1 = wrapper.querySelector("#post1");
+    const post2 = wrapper.querySelector("#post2");
+
+    const postCode =
+        post1.value.trim() +
+        "-" +
+        post2.value.trim();
+
+    const postPattern = /^\d{2}-\d{3}$/;
+
+    if (!postPattern.test(postCode)) {
+        post1.classList.add("error-border");
+        post2.classList.add("error-border");
+
+        showMessage(
+            "Niepoprawny format kodu pocztowego (XX-XXX)."
         );
 
-        data.append("form_id", formId);
+        return;
+    }
 
-        data.append(
-            "name",
-            wrapper.querySelector("#name").value.trim()
-        );
+    const formId = wrapper.dataset.formId;
+    const data = new URLSearchParams();
 
-        data.append(
-            "street",
-            wrapper.querySelector("#street").value.trim()
-        );
+    // Wywołanie akcji dedykowanej dla Wystawcy:
+    data.append(
+        "action",
+        "update_exhibitor_data"
+    );
 
-        data.append(
-            "house",
-            wrapper.querySelector("#house").value.trim()
-        );
+    data.append("form_id", formId);
 
-        data.append(
-            "apartment",
-            wrapper.querySelector("#local").value.trim()
-        );
+    data.append(
+        "name",
+        wrapper.querySelector("#name").value.trim()
+    );
 
-        data.append("post", postCode);
+    data.append(
+        "street",
+        wrapper.querySelector("#street").value.trim()
+    );
 
-        data.append(
-            "city",
-            wrapper.querySelector("#city").value.trim()
-        );
+    data.append(
+        "house",
+        wrapper.querySelector("#house").value.trim()
+    );
 
-        const ajaxUrl =
-            window.ajaxurl ||
-            "/wp-admin/admin-ajax.php";
+    data.append(
+        "apartment",
+        wrapper.querySelector("#local").value.trim()
+    );
 
-        const button =
-            wrapper.querySelector("#pweSendStepTwo");
+    data.append("post", postCode);
 
-        if (button) {
-            button.disabled = true;
-        }
+    data.append(
+        "city",
+        wrapper.querySelector("#city").value.trim()
+    );
 
-        fetch(ajaxUrl, {
-            method: "POST",
-            headers: {
-                "Content-Type":
-                    "application/x-www-form-urlencoded"
-            },
-            body: data
+    const ajaxUrl =
+        window.ajaxurl ||
+        "/wp-admin/admin-ajax.php";
+
+    const button =
+        wrapper.querySelector("#pweSendStepTwo");
+
+    if (button) {
+        button.disabled = true;
+    }
+
+    fetch(ajaxUrl, {
+        method: "POST",
+        headers: {
+            "Content-Type":
+                "application/x-www-form-urlencoded"
+        },
+        body: data
+    })
+        .then(function (response) {
+            return response.json();
         })
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (result) {
-                if (result.success) {
-                    showSuccess();
-                } else {
-                    showMessage(
-                        result.data
-                            ? result.data.message
-                            : result.message ||
-                                "Wystąpił błąd."
-                    );
 
-                    if (button) {
-                        button.disabled = false;
-                    }
-                }
-            })
-            .catch(function (error) {
-                console.error(error);
+        .then(function (result) {
+            if (result.success) {
+                showSuccess();
 
+                fetch(window.ajaxurl || "/wp-admin/admin-ajax.php?action=clear_pwe_session", {
+                    method: "POST"
+                });
+            } else {
                 showMessage(
-                    "Wystąpił problem z aktualizacją."
+                    result.data
+                        ? result.data.message
+                        : result.message || "Wystąpił błąd."
                 );
 
                 if (button) {
                     button.disabled = false;
                 }
-            });
-    }
+            }
+        })
+        .catch(function (error) {
+            console.error(error);
+
+            showMessage(
+                "Wystąpił problem z aktualizacją."
+            );
+
+            if (button) {
+                button.disabled = false;
+            }
+        });
+}
 
     function showSuccess() {
         const currentWrapper =

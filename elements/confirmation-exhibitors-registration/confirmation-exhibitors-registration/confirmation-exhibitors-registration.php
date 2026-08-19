@@ -40,10 +40,6 @@ class Confirmation_Exhibitors_Registration {
             return;
         }
 
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
         $form_id_step2 = PWE_Functions::get_gf_form_id('Zostań wystawcą (krok2)');
         $form_id_main  = PWE_Functions::get_gf_form_id('Zostań wystawcą');
 
@@ -51,8 +47,9 @@ class Confirmation_Exhibitors_Registration {
             return;
         }
 
-        $is_exhibitor = !empty($_SESSION['pwe_exhibitor_entry']['entry_id']);
-        $is_visitor   = !empty($_SESSION['pwe_reg_entry']['entry_id']);
+        $session_info = self::get_session_info();
+        $is_exhibitor = !empty($session_info['exhibitor_entry_id']);
+        $is_visitor   = !empty($session_info['reg_entry_id']);
 
         if ($is_exhibitor) {
             $form_id = $form_id_main;
@@ -92,15 +89,36 @@ class Confirmation_Exhibitors_Registration {
         add_filter('gform_confirmation', [__CLASS__, 'clear_session_on_confirmation'], 10, 4);
     }
 
-    private static function get_session_data() {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
+    private static function get_session_info() {
+        $info = [
+            'email' => '',
+            'phone' => '',
+            'exhibitor_entry_id' => null,
+            'reg_entry_id' => null,
+        ];
+
+        if (PWE_Functions::is_pwe_session_page()) {
+            if (isset($_COOKIE['PHPSESSID']) || session_status() === PHP_SESSION_ACTIVE) {
+                if (session_status() === PHP_SESSION_NONE) {
+                    session_cache_limiter('');
+                    @session_start();
+                }
+
+                $info['email'] = $_SESSION['pwe_exhibitor_entry']['email'] ?? $_SESSION['pwe_reg_entry']['email'] ?? '';
+                $info['phone'] = $_SESSION['pwe_exhibitor_entry']['phone'] ?? $_SESSION['pwe_reg_entry']['phone'] ?? '';
+                $info['exhibitor_entry_id'] = $_SESSION['pwe_exhibitor_entry']['entry_id'] ?? null;
+                $info['reg_entry_id'] = $_SESSION['pwe_reg_entry']['entry_id'] ?? null;
+
+                session_write_close();
+            }
         }
 
-        $email = $_SESSION['pwe_exhibitor_entry']['email'] ?? $_SESSION['pwe_reg_entry']['email'] ?? '';
-        $phone = $_SESSION['pwe_exhibitor_entry']['phone'] ?? $_SESSION['pwe_reg_entry']['phone'] ?? '';
+        return $info;
+    }
 
-        return [$email, $phone];
+    private static function get_session_data() {
+        $info = self::get_session_info();
+        return [$info['email'], $info['phone']];
     }
 
     public static function prepare_form($form) {
@@ -221,22 +239,26 @@ class Confirmation_Exhibitors_Registration {
         add_action('wp_ajax_nopriv_clear_pwe_session', [__CLASS__, 'ajax_clear_session']);
     }
 
-    public static function ajax_clear_session() {
+    private static function force_clear_pwe_session() {
         if (session_status() === PHP_SESSION_NONE) {
-            session_start();
+            @session_start();
         }
 
         unset($_SESSION['pwe_exhibitor_entry']);
         unset($_SESSION['pwe_reg_entry']);
 
-        session_write_close();
 
+        session_write_close();
+    }
+
+    public static function ajax_clear_session() {
+        self::force_clear_pwe_session();
         wp_send_json_success(['message' => 'Sesja została wyczyszczona']);
     }
 
     public static function update_exhibitor_data() {
         if (session_status() === PHP_SESSION_NONE) {
-            session_start();
+            @session_start();
         }
 
         if (empty($_SESSION['pwe_exhibitor_entry']['entry_id'])) {
@@ -272,8 +294,16 @@ class Confirmation_Exhibitors_Registration {
                     case 'nip':
                     case 'company':
                     case 'area':
+                    case 'street':
+                    case 'house':
+                    case 'apartment':
+                    case 'local':
+                    case 'post':
+                    case 'city':
                         $key = $field->adminLabel;
-                        $entry[$field->id] = sanitize_text_field($_POST[$key] ?? '');
+                        if (isset($_POST[$key])) {
+                            $entry[$field->id] = sanitize_text_field($_POST[$key]);
+                        }
                         break;
                 }
             }
@@ -314,36 +344,19 @@ class Confirmation_Exhibitors_Registration {
             ]
         );
 
-        unset($_SESSION['pwe_exhibitor_entry']);
-        unset($_SESSION['pwe_reg_entry']);
-        session_write_close();
+        self::force_clear_pwe_session();
 
         wp_send_json_success([
-            'message' => 'Dane zaktualizowane'
+            'message' => 'Dane wystawcy zostały pomyślnie zaktualizowane, a sesja wyczyszczona.'
         ]);
     }
 
     public static function clear_session_after_submission($entry, $form) {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-        unset($_SESSION['pwe_exhibitor_entry']);
-        unset($_SESSION['pwe_reg_entry']);
-
-        session_write_close();
+        self::force_clear_pwe_session();
     }
 
     public static function clear_session_on_confirmation($confirmation, $form, $entry, $ajax) {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-        unset($_SESSION['pwe_exhibitor_entry']);
-        unset($_SESSION['pwe_reg_entry']);
-
-        session_write_close();
-
+        self::force_clear_pwe_session();
         return $confirmation;
     }
 }
