@@ -1,7 +1,5 @@
 <?php
 
-error_log('PWE Registration Log: FILE LOADED');
-
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -66,7 +64,6 @@ if (!class_exists('PWE_Registration_Log')) {
         public function __construct()
         {
 
-        error_log('PWE Registration Log: CONSTRUCTOR RUNNING');
             /**
              * Log every validation attempt.
              */

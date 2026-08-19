@@ -340,6 +340,165 @@ class PWE_Functions {
     }
 
     /**
+     * Get the latest active Gravity Forms form ID by normalized title.
+     *
+     * Leading parenthetical prefixes are ignored, for example:
+     * - "(2027) Rejestracja"       => "Rejestracja"
+     * - "(2027) (PL) Rejestracja"  => "Rejestracja"
+     *
+     * Titles containing additional text are not matched:
+     * - "(2027) Rejestracja (FB)"
+     * - "(2027) Rejestracja gości wystawców"
+     *
+     * @param string $base_title Base form title without leading prefixes.
+     * @return int|null Latest matching form ID or null when not found.
+     */
+    private static array $gf_form_resolver_cache = [];
+    public static function get_gf_form_id(string $base_title): ?int {
+        global $wpdb;
+
+        $base_title = trim($base_title);
+
+        if ($base_title === '') {
+            return null;
+        }
+
+        $normalized_base_title = mb_strtolower($base_title, 'UTF-8');
+        $cache_key = $normalized_base_title;
+
+        if (array_key_exists($cache_key, self::$gf_form_resolver_cache)) {
+            return self::$gf_form_resolver_cache[$cache_key];
+        }
+
+        $transient_key = 'pwe_gf_form_resolver_' . md5($cache_key);
+        $cached = get_transient($transient_key);
+
+        if ($cached !== false) {
+            self::$gf_form_resolver_cache[$cache_key] = $cached ? (int) $cached : null;
+
+            return self::$gf_form_resolver_cache[$cache_key];
+        }
+
+        $table = $wpdb->prefix . 'gf_form';
+
+        $rows = $wpdb->get_results(
+            $wpdb->prepare(
+                "
+                SELECT id, title
+                FROM {$table}
+                WHERE is_active = 1
+                AND is_trash = 0
+                AND title LIKE %s
+                ORDER BY id DESC
+                ",
+                '%' . $wpdb->esc_like($base_title) . '%'
+            ),
+            ARRAY_A
+        );
+
+        if ($wpdb->last_error || empty($rows)) {
+            set_transient($transient_key, 0, 10 * MINUTE_IN_SECONDS);
+            self::$gf_form_resolver_cache[$cache_key] = null;
+
+            return null;
+        }
+
+        $resolved_id = null;
+        $resolved_year = 0;
+
+        foreach ($rows as $row) {
+            $title = trim((string) $row['title']);
+
+            /*
+            * Gets all the parentheses at the beginning.
+            *
+            * Examples:
+            * "(2027) Rejestracja"      => prefixes: "(2027)"
+            * "(2027) (PL) Rejestracja" => prefixes: "(2027) (PL)"
+            */
+            preg_match('/^(?<prefixes>(?:\s*\([^)]*\))+)?\s*(?<title>.*)$/u', $title, $matches);
+
+            $title_without_prefixes = trim($matches['title'] ?? $title);
+
+            /*
+            * After removing the initial brackets, the name must be identical.
+            * This will prevent "Registration (FB)" and "Guest Registration..."
+            * from matching.
+            */
+            if (mb_strtolower($title_without_prefixes, 'UTF-8') !== $normalized_base_title) {
+                continue;
+            }
+
+            $year = 0;
+            $prefixes = $matches['prefixes'] ?? '';
+
+            /*
+            * We look for the year only in parentheses located at the beginning.
+            */
+            if (
+                $prefixes !== ''
+                && preg_match_all('/\((?:[^)]*?\b)?((?:19|20)\d{2})\b[^)]*\)/u', $prefixes, $year_matches)
+                && !empty($year_matches[1])
+            ) {
+                $year = max(array_map('intval', $year_matches[1]));
+            }
+
+            $row_id = (int) $row['id'];
+
+            /*
+            * First priority is the highest year.
+            * In case of the same year, we choose the form with the higher ID.
+            */
+            if (
+                $resolved_id === null
+                || $year > $resolved_year
+                || ($year === $resolved_year && $row_id > $resolved_id)
+            ) {
+                $resolved_id = $row_id;
+                $resolved_year = $year;
+            }
+        }
+
+        set_transient(
+            $transient_key,
+            $resolved_id ?: 0,
+            10 * MINUTE_IN_SECONDS
+        );
+
+        self::$gf_form_resolver_cache[$cache_key] = $resolved_id;
+
+        return $resolved_id;
+    }
+
+    public static function render_component($slug, $group = 'all', $params = []) {
+        $components = PWE_Elements_Data::get_all_components();
+
+        if (!isset($components[$slug])) {
+            return '';
+        }
+
+        $component = $components[$slug];
+        $class     = $component['class'];
+        $file      = plugin_dir_path(__DIR__) . $component['file'];
+
+        if (!class_exists($class)) {
+            if (!file_exists($file)) {
+                return '';
+            }
+
+            require_once $file;
+        }
+
+        if (!class_exists($class) || !method_exists($class, 'render')) {
+            return '';
+        }
+
+        ob_start();
+        $class::render($group, $params);
+        return ob_get_clean();
+    }
+
+    /**
      * Sprawdza, czy bieżące żądanie znajduje się na stronie wymagającej sesji.
      * Obsługuje zapytania AJAX oraz dynamicznie pobiera adresy URL z pliku translation JSON.
      *
@@ -406,7 +565,7 @@ class PWE_Functions {
     }
 
     // <============================================================================================>
-    // Synchronized functions from plugin PWElements 3.5.8 (13.08.2026) <========================================================>
+    // Synchronized functions from plugin PWElements 3.6.9 (19.08.2026) <========================================================>
     // <============================================================================================>
 
     /**
@@ -4505,166 +4664,6 @@ class PWE_Functions {
             . '/>'
             . '<span id="value_' . esc_attr($id) . '">' . esc_attr($value) . '</span>'
             . '</div>';
-    }
-
-    /**
-     * Get the latest active Gravity Forms form ID by normalized title.
-     *
-     * Leading parenthetical prefixes are ignored, for example:
-     * - "(2027) Rejestracja"       => "Rejestracja"
-     * - "(2027) (PL) Rejestracja"  => "Rejestracja"
-     *
-     * Titles containing additional text are not matched:
-     * - "(2027) Rejestracja (FB)"
-     * - "(2027) Rejestracja gości wystawców"
-     *
-     * @param string $base_title Base form title without leading prefixes.
-     * @return int|null Latest matching form ID or null when not found.
-     */
-    private static array $gf_form_resolver_cache = [];
-
-    public static function get_gf_form_id(string $base_title): ?int {
-        global $wpdb;
-
-        $base_title = trim($base_title);
-
-        if ($base_title === '') {
-            return null;
-        }
-
-        $normalized_base_title = mb_strtolower($base_title, 'UTF-8');
-        $cache_key = $normalized_base_title;
-
-        if (array_key_exists($cache_key, self::$gf_form_resolver_cache)) {
-            return self::$gf_form_resolver_cache[$cache_key];
-        }
-
-        $transient_key = 'pwe_gf_form_resolver_' . md5($cache_key);
-        $cached = get_transient($transient_key);
-
-        if ($cached !== false) {
-            self::$gf_form_resolver_cache[$cache_key] = $cached ? (int) $cached : null;
-
-            return self::$gf_form_resolver_cache[$cache_key];
-        }
-
-        $table = $wpdb->prefix . 'gf_form';
-
-        $rows = $wpdb->get_results(
-            $wpdb->prepare(
-                "
-                SELECT id, title
-                FROM {$table}
-                WHERE is_active = 1
-                AND is_trash = 0
-                AND title LIKE %s
-                ORDER BY id DESC
-                ",
-                '%' . $wpdb->esc_like($base_title) . '%'
-            ),
-            ARRAY_A
-        );
-
-        if ($wpdb->last_error || empty($rows)) {
-            set_transient($transient_key, 0, 10 * MINUTE_IN_SECONDS);
-            self::$gf_form_resolver_cache[$cache_key] = null;
-
-            return null;
-        }
-
-        $resolved_id = null;
-        $resolved_year = 0;
-
-        foreach ($rows as $row) {
-            $title = trim((string) $row['title']);
-
-            /*
-            * Gets all the parentheses at the beginning.
-            *
-            * Examples:
-            * "(2027) Rejestracja"      => prefixes: "(2027)"
-            * "(2027) (PL) Rejestracja" => prefixes: "(2027) (PL)"
-            */
-            preg_match('/^(?<prefixes>(?:\s*\([^)]*\))+)?\s*(?<title>.*)$/u', $title, $matches);
-
-            $title_without_prefixes = trim($matches['title'] ?? $title);
-
-            /*
-            * After removing the initial brackets, the name must be identical.
-            * This will prevent "Registration (FB)" and "Guest Registration..."
-            * from matching.
-            */
-            if (mb_strtolower($title_without_prefixes, 'UTF-8') !== $normalized_base_title) {
-                continue;
-            }
-
-            $year = 0;
-            $prefixes = $matches['prefixes'] ?? '';
-
-            /*
-            * We look for the year only in parentheses located at the beginning.
-            */
-            if (
-                $prefixes !== ''
-                && preg_match_all('/\((?:[^)]*?\b)?((?:19|20)\d{2})\b[^)]*\)/u', $prefixes, $year_matches)
-                && !empty($year_matches[1])
-            ) {
-                $year = max(array_map('intval', $year_matches[1]));
-            }
-
-            $row_id = (int) $row['id'];
-
-            /*
-            * First priority is the highest year.
-            * In case of the same year, we choose the form with the higher ID.
-            */
-            if (
-                $resolved_id === null
-                || $year > $resolved_year
-                || ($year === $resolved_year && $row_id > $resolved_id)
-            ) {
-                $resolved_id = $row_id;
-                $resolved_year = $year;
-            }
-        }
-
-        set_transient(
-            $transient_key,
-            $resolved_id ?: 0,
-            10 * MINUTE_IN_SECONDS
-        );
-
-        self::$gf_form_resolver_cache[$cache_key] = $resolved_id;
-
-        return $resolved_id;
-    }
-
-    public static function render_component($slug, $group = 'all', $params = []) {
-        $components = PWE_Elements_Data::get_all_components();
-
-        if (!isset($components[$slug])) {
-            return '';
-        }
-
-        $component = $components[$slug];
-        $class     = $component['class'];
-        $file      = plugin_dir_path(__DIR__) . $component['file'];
-
-        if (!class_exists($class)) {
-            if (!file_exists($file)) {
-                return '';
-            }
-
-            require_once $file;
-        }
-
-        if (!class_exists($class) || !method_exists($class, 'render')) {
-            return '';
-        }
-
-        ob_start();
-        $class::render($group, $params);
-        return ob_get_clean();
     }
 }
 

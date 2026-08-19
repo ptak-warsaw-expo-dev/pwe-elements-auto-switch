@@ -93,10 +93,14 @@ final class PWE_Phone_Validator_Addon
             true
         );
 
+        $messages = self::get_messages();
+        $language = self::get_language();
+        $current_messages = $messages[$language] ?? $messages['en'];
+
         wp_localize_script('pwe-phone-validator', 'pwePhoneValidatorConfig', [
-            'invalidMessage'      => __('Wpisz prawidłowy numer telefonu.', 'pwe-elements-auto-switch'),
-            'requiredMessage'     => __('Numer telefonu jest wymagany.', 'pwe-elements-auto-switch'),
-            'libraryErrorMessage' => __('Nie udało się załadować walidatora telefonu.', 'pwe-elements-auto-switch'),
+            'invalidMessage'      => $current_messages['invalid'] ?? $messages['en']['invalid'],
+            'requiredMessage'     => $current_messages['required'] ?? $messages['en']['required'],
+            'libraryErrorMessage' => $current_messages['library_error'] ?? $messages['en']['library_error'],
         ]);
 
         self::print_late_styles([
@@ -127,6 +131,92 @@ final class PWE_Phone_Validator_Addon
         }
     }
 
+    /** @return array<string,array<string,string>> */
+    private static function get_messages(): array
+    {
+        return [
+            'pl' => [
+                'invalid'       => 'Wpisz prawidłowy numer telefonu.',
+                'required'      => 'Numer telefonu jest wymagany.',
+                'library_error' => 'Nie udało się załadować walidatora telefonu.',
+            ],
+            'en' => [
+                'invalid'       => 'Enter a valid phone number.',
+                'required'      => 'Phone number is required.',
+                'library_error' => 'Failed to load the phone validator.',
+            ],
+            'cs' => [
+                'invalid'       => 'Zadejte platné telefonní číslo.',
+                'required'      => 'Telefonní číslo je povinné.',
+                'library_error' => 'Nepodařilo se načíst validátor telefonního čísla.',
+            ],
+            'de' => [
+                'invalid'       => 'Geben Sie eine gültige Telefonnummer ein.',
+                'required'      => 'Die Telefonnummer ist erforderlich.',
+                'library_error' => 'Der Telefonnummern-Validator konnte nicht geladen werden.',
+            ],
+            'it' => [
+                'invalid'       => 'Inserisci un numero di telefono valido.',
+                'required'      => 'Il numero di telefono è obbligatorio.',
+                'library_error' => 'Impossibile caricare il validatore del numero di telefono.',
+            ],
+            'lt' => [
+                'invalid'       => 'Įveskite galiojantį telefono numerį.',
+                'required'      => 'Telefono numeris yra privalomas.',
+                'library_error' => 'Nepavyko įkelti telefono numerio tikrinimo priemonės.',
+            ],
+            'lv' => [
+                'invalid'       => 'Ievadiet derīgu tālruņa numuru.',
+                'required'      => 'Tālruņa numurs ir obligāts.',
+                'library_error' => 'Neizdevās ielādēt tālruņa numura validatoru.',
+            ],
+            'sk' => [
+                'invalid'       => 'Zadajte platné telefónne číslo.',
+                'required'      => 'Telefónne číslo je povinné.',
+                'library_error' => 'Nepodarilo sa načítať validátor telefónneho čísla.',
+            ],
+            'uk' => [
+                'invalid'       => 'Введіть правильний номер телефону.',
+                'required'      => 'Номер телефону є обов’язковим.',
+                'library_error' => 'Не вдалося завантажити валідатор номера телефону.',
+            ],
+            'ro' => [
+                'invalid'       => 'Introduceți un număr de telefon valid.',
+                'required'      => 'Numărul de telefon este obligatoriu.',
+                'library_error' => 'Validatorul numărului de telefon nu a putut fi încărcat.',
+            ],
+            'et' => [
+                'invalid'       => 'Sisestage kehtiv telefoninumber.',
+                'required'      => 'Telefoninumber on kohustuslik.',
+                'library_error' => 'Telefoninumbri valideerija laadimine ebaõnnestus.',
+            ],
+            'hu' => [
+                'invalid'       => 'Adjon meg egy érvényes telefonszámot.',
+                'required'      => 'A telefonszám megadása kötelező.',
+                'library_error' => 'A telefonszám-ellenőrző betöltése sikertelen.',
+            ],
+            'fr' => [
+                'invalid'       => 'Saisissez un numéro de téléphone valide.',
+                'required'      => 'Le numéro de téléphone est obligatoire.',
+                'library_error' => 'Impossible de charger le validateur de numéro de téléphone.',
+            ],
+            'es' => [
+                'invalid'       => 'Introduce un número de teléfono válido.',
+                'required'      => 'El número de teléfono es obligatorio.',
+                'library_error' => 'No se ha podido cargar el validador del número de teléfono.',
+            ],
+        ];
+    }
+
+    private static function get_language(): string
+    {
+        $allowed = ['pl', 'en', 'cs', 'de', 'it', 'lt', 'lv', 'sk', 'uk', 'ro', 'et', 'hu', 'fr', 'es'];
+        $locale = function_exists('determine_locale') ? determine_locale() : get_locale();
+        $language = strtolower(substr(str_replace('_', '-', (string) $locale), 0, 2));
+
+        return in_array($language, $allowed, true) ? $language : 'en';
+    }
+
     /**
      * Server-side safety net for Gravity Forms.
      */
@@ -155,8 +245,12 @@ final class PWE_Phone_Validator_Addon
         $e164_ok = (bool) preg_match('/^\\+[1-9][0-9]{7,14}$/', $phone);
 
         if ($client_valid !== '1' || !$e164_ok) {
+            $messages = self::get_messages();
+            $language = self::get_language();
+            $current_messages = $messages[$language] ?? $messages['en'];
+
             $result['is_valid'] = false;
-            $result['message'] = __('Wpisz prawidłowy numer telefonu.', 'pwe-elements-auto-switch');
+            $result['message'] = $current_messages['invalid'] ?? $messages['en']['invalid'];
         }
 
         return $result;
