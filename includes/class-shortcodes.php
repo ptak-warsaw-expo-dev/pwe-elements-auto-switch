@@ -3543,6 +3543,16 @@ class PWE_Shortcodes {
                 continue;
             }
 
+            // Replace {pwe_mailing_header_platyna_url} and [pwe_mailing_header_platyna_url] with the actual URL
+            $notification[$field] = str_replace(
+                [
+                    '{pwe_mailing_header_platyna_url}',
+                    '[pwe_mailing_header_platyna_url]',
+                ],
+                $this->show_pwe_mailing_header_platyna_url($notification_lang),
+                $notification[$field]
+            );
+
             $notification[$field] = preg_replace_callback(
                 '/[\{\[]trade_fair_date_multilang(?:\s+lang=["\']([^"\']+)["\'])?[\}\]]/i',
                 function ($matches) use ($notification_lang) {
@@ -4167,9 +4177,11 @@ class PWE_Shortcodes {
      * If the English fallback does not exist,
      * /doc/header.jpg is returned.
      *
+     * @param string $requested_lang Optional language code passed from Gravity Forms.
+     *
      * @return string
      */
-    public function show_pwe_mailing_header_platyna_url() {
+    public function show_pwe_mailing_header_platyna_url($requested_lang = '') {
         $default_header_url = get_site_url(null, '/doc/header.jpg');
 
         try {
@@ -4179,8 +4191,12 @@ class PWE_Shortcodes {
 
             $lang = 'pl';
 
+            // Use the explicitly requested language when available
+            if (!empty($requested_lang)) {
+                $lang = $requested_lang;
+            }
             // Use the main project language helper when available
-            if (
+            elseif (
                 class_exists('PWE_Functions') &&
                 is_callable(['PWE_Functions', 'lang'])
             ) {
@@ -4200,10 +4216,14 @@ class PWE_Shortcodes {
 
             // Polish language version
             if ($lang === 'pl') {
-                $platinum_header_path = $document_directory . 'mailing-platyna.jpg';
+                $platinum_header_path =
+                    $document_directory . 'mailing-platyna.jpg';
 
                 if (is_file($platinum_header_path)) {
-                    return get_site_url(null, '/doc/mailing-platyna.jpg');
+                    return get_site_url(
+                        null,
+                        '/doc/mailing-platyna.jpg'
+                    );
                 }
 
                 return $default_header_url;
@@ -4214,14 +4234,21 @@ class PWE_Shortcodes {
                 $document_directory . 'mailing-platyna-en.jpg';
 
             if (is_file($platinum_english_header_path)) {
-                return get_site_url(null, '/doc/mailing-platyna-en.jpg');
+                return get_site_url(
+                    null,
+                    '/doc/mailing-platyna-en.jpg'
+                );
             }
 
             // Use the English standard header as the first fallback
-            $english_header_path = $document_directory . 'header_en.jpg';
+            $english_header_path =
+                $document_directory . 'header_en.jpg';
 
             if (is_file($english_header_path)) {
-                return get_site_url(null, '/doc/header_en.jpg');
+                return get_site_url(
+                    null,
+                    '/doc/header_en.jpg'
+                );
             }
 
             // Use the Polish standard header as the final fallback
