@@ -565,7 +565,7 @@ class PWE_Functions {
     }
 
     // <============================================================================================>
-    // Synchronized functions from plugin PWElements 3.6.9 (19.08.2026) <========================================================>
+    // Synchronized functions from plugin PWElements 3.6.1 (20.08.2026) <========================================================>
     // <============================================================================================>
 
     /**
@@ -631,10 +631,17 @@ class PWE_Functions {
             return;
         }
 
-        self::$debug_logs[] = [
-            'type' => $type,
-            'message' => $message
-        ];
+        $key = $type . '|' . $message;
+
+        if (!isset(self::$debug_logs[$key])) {
+            self::$debug_logs[$key] = [
+                'type' => $type,
+                'message' => $message,
+                'count' => 1
+            ];
+        } else {
+            self::$debug_logs[$key]['count']++;
+        }
     }
 
     /**
@@ -650,7 +657,12 @@ class PWE_Functions {
         echo 'console.groupCollapsed("DB CONNECTIONS (' . self::class . ')");';
 
         foreach (self::$debug_logs as $log) {
-            $msg = addslashes($log['message']);
+
+            $count = $log['count'] ?? 1;
+
+            $msg = '[' . $count . 'x] ' . $log['message'];
+            $msg = addslashes($msg);
+
             echo "console.{$log['type']}('{$msg}');";
         }
 
@@ -1024,12 +1036,19 @@ class PWE_Functions {
     /**
      * Force refresh JSON + transient cache from CAP database.
      *
-     * Intended to be called by the existing hourly cron.
-     * During refresh all data getters skip STATIC / TRANSIENT / JSON
-     * and query the CAP database directly. The returned data is then
-     * written back to JSON, transient and runtime cache by each getter.
+     * The cron automatically scans existing JSON cache files.
+     * Each JSON file stores:
+     * - source => getter method name
+     * - args   => arguments required to recreate the same cache variant
      *
-     * @param string|null $domain Domain to refresh. When null, HTTP_HOST is used.
+     * Refresh flow:
+     * DATABASE -> JSON FILE -> TRANSIENT -> STATIC
+     *
+     * Important:
+     * A cache variant must be created at least once during normal usage
+     * before cron can discover and refresh it automatically.
+     *
+     * @param string|null $domain Current domain used during refresh.
      * @return array Refresh report.
      */
     public static function refresh_database_json_cache($domain = null): array {
@@ -1039,10 +1058,14 @@ class PWE_Functions {
         }
 
         $domain = strtolower(trim((string) $domain));
-        $domain = preg_replace('/:\\d+$/', '', $domain);
+        $domain = preg_replace('/:\d+$/', '', $domain);
 
         if ($domain === '') {
-            self::debug_log(__FUNCTION__ . ': DOMAIN IS EMPTY', 'error');
+
+            self::debug_log(
+                __FUNCTION__ . ': DOMAIN IS EMPTY',
+                'error'
+            );
 
             return [
                 'success' => false,
@@ -1051,198 +1074,366 @@ class PWE_Functions {
             ];
         }
 
-        self::debug_log(__FUNCTION__ . ': START → domain=' . $domain);
+        self::debug_log(
+            __FUNCTION__ . ': START → domain=' . $domain
+        );
 
+
+        /**
+         * Save current HTTP_HOST.
+         *
+         * Some older database getters still rely on $_SERVER['HTTP_HOST'],
+         * so during cron refresh we temporarily set it to the requested domain.
+         */
         $old_http_host = $_SERVER['HTTP_HOST'] ?? null;
+
         $_SERVER['HTTP_HOST'] = $domain;
 
-        // Explicit jobs guarantee that the first cron run creates all required
-        // JSON files even when the pwe-data directory is initially empty.
-        $jobs = [
-            // Fairs: rolling month, current domain and all fairs.
-            ['get_database_fairs_data', [], 'fairs_month'],
-            ['get_database_fairs_data', [$domain], 'fairs_domain'],
-            ['get_database_fairs_data', ['all'], 'fairs_all'],
 
-            ['get_database_fairs_data_adds', [$domain], 'fairs_adds'],
+        /**
+         * Whitelist of methods that are allowed to be executed automatically
+         * based on JSON cache files.
+         *
+         * This prevents an arbitrary method name stored in a modified JSON file
+         * from being executed by the cron.
+         */
+        $allowed_methods = [
 
-            // Translations used both per-domain and globally.
-            ['get_database_translations_data', [$domain], 'translations_domain'],
-            ['get_database_translations_data', [], 'translations_all'],
+            'get_database_fairs_data' => true,
+            'get_database_fairs_data_adds' => true,
 
-            // Associates has two genuinely different datasets.
-            ['get_database_associates_data', [$domain, true], 'associates_fair_block'],
-            ['get_database_associates_data', [$domain, false], 'associates_normal'],
+            'get_database_translations_data' => true,
 
-            ['get_database_groups_data', [], 'groups'],
-            ['get_database_groups_contacts_data', [], 'groups_contacts'],
-            ['get_database_groups_callcenter_data', [], 'groups_callcenter'],
+            'get_database_associates_data' => true,
 
-            ['get_database_logotypes_data', [$domain], 'logotypes'],
-            ['get_database_meta_data', ['logos_meta_order'], 'logos_meta_order'],
+            'get_database_groups_data' => true,
+            'get_database_groups_contacts_data' => true,
+            'get_database_groups_callcenter_data' => true,
 
-            ['get_database_fairs_data_profiles', [$domain], 'profiles'],
-            ['get_database_premieres_data', [$domain], 'premieres'],
-            ['get_database_fairs_data_opinions', [$domain], 'opinions'],
-            ['get_database_fairs_data_sectors', [$domain], 'sectors'],
-            ['get_database_fairs_data_tickets', [$domain], 'tickets'],
-            ['get_database_fairs_data_speakers', [$domain], 'speakers'],
-            ['get_database_fairs_data_guests', [$domain], 'guests'],
-            ['get_database_fairs_data_attractions', [$domain], 'attractions'],
-            ['get_database_fairs_data_files', [$domain], 'files'],
+            'get_database_logotypes_data' => true,
+            'get_database_meta_data' => true,
 
-            ['get_database_conferences_data', [$domain], 'conferences'],
-            ['get_database_week_data', [$domain], 'week_data'],
-            ['get_database_week_all', [$domain], 'week_all'],
-            ['get_all_week_domains', [], 'all_week_domains'],
+            'get_database_fairs_data_profiles' => true,
+            'get_database_premieres_data' => true,
+            'get_database_fairs_data_opinions' => true,
+            'get_database_fairs_data_sectors' => true,
+            'get_database_fairs_data_tickets' => true,
+            'get_database_fairs_data_speakers' => true,
+            'get_database_fairs_data_guests' => true,
+            'get_database_fairs_data_attractions' => true,
+            'get_database_fairs_data_files' => true,
 
-            ['get_database_store_data', [], 'store'],
-            ['get_database_store_packages_data', [], 'store_packages'],
-            ['get_database_elements_data', [], 'elements'],
-            ['get_database_elements_order_data', [], 'elements_order'],
+            'get_database_conferences_data' => true,
+            'get_database_conference_adds_data' => true,
+
+            'get_database_week_data' => true,
+            'get_database_week_all' => true,
+            'get_all_week_domains' => true,
+
+            'get_database_store_data' => true,
+            'get_database_store_packages_data' => true,
+
+            'get_database_elements_data' => true,
+            'get_database_elements_order_data' => true,
         ];
 
-        // Also preserve and refresh any additional variants that were created
-        // previously, for example another domain or another argument combination.
-        $allowed_methods = [];
-        foreach ($jobs as $job) {
-            $allowed_methods[$job[0]] = true;
-        }
+
+        /**
+         * Build jobs automatically from existing JSON files.
+         */
+        $jobs = [];
 
         $dir = self::get_database_json_cache_dir();
 
-        if ($dir) {
-            foreach ((array) glob(trailingslashit($dir) . '*.json') as $path) {
-                $json = @file_get_contents($path);
-                $document = $json ? json_decode($json, true) : null;
+        if (!$dir || !is_dir($dir)) {
 
-                if (
-                    !is_array($document) ||
-                    empty($document['source']) ||
-                    !isset($allowed_methods[$document['source']]) ||
-                    !isset($document['args']) ||
-                    !is_array($document['args'])
-                ) {
-                    continue;
-                }
-
-                $jobs[] = [
-                    $document['source'],
-                    $document['args'],
-                    'existing_' . $document['source'] . '_' . substr(md5(serialize($document['args'])), 0, 8),
-                ];
-            }
-        }
-
-        // Deduplicate by method + arguments.
-        $unique = [];
-        foreach ($jobs as $job) {
-            $method = $job[0];
-            $args = $job[1];
-            $label = $job[2] ?? $method;
-            $signature = $method . '|' . md5(serialize($args));
-
-            if (!isset($unique[$signature])) {
-                $unique[$signature] = [$method, $args, $label];
-            }
-        }
-
-        $report = [
-            'success' => true,
-            'domain' => $domain,
-            'started_at' => date('Y-m-d H:i:s'),
-            'jobs' => [],
-        ];
-
-        self::$database_cache_force_refresh = true;
-
-        try {
-            foreach ($unique as $job) {
-                [$method, $args, $label] = $job;
-
-                if (!method_exists(self::class, $method)) {
-                    $report['success'] = false;
-                    $report['jobs'][$label] = [
-                        'status' => 'method_not_found',
-                        'method' => $method,
-                        'args' => $args,
-                    ];
-
-                    self::debug_log(
-                        'refresh_database_json_cache: METHOD NOT FOUND → ' . $method,
-                        'error'
-                    );
-
-                    continue;
-                }
-
-                try {
-                    $start_time = microtime(true);
-                    $result = call_user_func_array([self::class, $method], $args);
-                    $time = round((microtime(true) - $start_time) * 1000, 2);
-
-                    if (is_array($result)) {
-                        $records = count($result);
-                    } elseif ($result === null) {
-                        $records = 0;
-                    } else {
-                        $records = 1;
-                    }
-
-                    $report['jobs'][$label] = [
-                        'status' => 'ok',
-                        'method' => $method,
-                        'args' => $args,
-                        'records' => $records,
-                        'time_ms' => $time,
-                    ];
-
-                    self::debug_log(
-                        'refresh_database_json_cache: OK → ' .
-                        $method .
-                        ' → label=' . $label .
-                        ' → records=' . $records .
-                        ' → time=' . $time . 'ms'
-                    );
-
-                } catch (\Throwable $e) {
-                    $report['success'] = false;
-                    $report['jobs'][$label] = [
-                        'status' => 'error',
-                        'method' => $method,
-                        'args' => $args,
-                        'message' => $e->getMessage(),
-                        'file' => $e->getFile(),
-                        'line' => $e->getLine(),
-                    ];
-
-                    self::debug_log(
-                        'refresh_database_json_cache: ERROR → ' .
-                        $method . ' → ' .
-                        $e->getMessage() . ' → ' .
-                        $e->getFile() . ':' . $e->getLine(),
-                        'error'
-                    );
-                }
-            }
-        } finally {
-            self::$database_cache_force_refresh = false;
+            self::debug_log(
+                __FUNCTION__ . ': JSON cache directory not available.',
+                'error'
+            );
 
             if ($old_http_host !== null) {
                 $_SERVER['HTTP_HOST'] = $old_http_host;
             } else {
                 unset($_SERVER['HTTP_HOST']);
             }
+
+            return [
+                'success' => false,
+                'domain' => $domain,
+                'error' => 'cache_directory_unavailable',
+                'jobs' => [],
+            ];
         }
 
-        $report['finished_at'] = date('Y-m-d H:i:s');
+
+        /**
+         * Scan all JSON cache files.
+         */
+        $files = glob(
+            trailingslashit($dir) . '*.json'
+        );
+
+        if (!is_array($files)) {
+            $files = [];
+        }
+
+
+        foreach ($files as $path) {
+
+            if (!is_file($path) || !is_readable($path)) {
+                continue;
+            }
+
+            $json = @file_get_contents($path);
+
+            if ($json === false || $json === '') {
+                continue;
+            }
+
+            $document = json_decode(
+                $json,
+                true
+            );
+
+            if (!is_array($document)) {
+                continue;
+            }
+
+
+            /**
+             * Validate minimum JSON structure.
+             */
+            if (
+                empty($document['source']) ||
+                !isset($document['args']) ||
+                !is_array($document['args'])
+            ) {
+                continue;
+            }
+
+
+            $method = (string) $document['source'];
+            $args = $document['args'];
+
+
+            /**
+             * Security whitelist.
+             */
+            if (!isset($allowed_methods[$method])) {
+
+                self::debug_log(
+                    __FUNCTION__ .
+                    ': method not allowed → ' .
+                    $method,
+                    'error'
+                );
+
+                continue;
+            }
+
+
+            /**
+             * Method must still exist in the class.
+             */
+            if (!method_exists(self::class, $method)) {
+
+                self::debug_log(
+                    __FUNCTION__ .
+                    ': METHOD NOT FOUND → ' .
+                    $method,
+                    'error'
+                );
+
+                continue;
+            }
+
+
+            /**
+             * Generate a unique signature from method + args.
+             *
+             * This prevents running the same cache variant multiple times
+             * if duplicate JSON files somehow exist.
+             */
+            $signature = $method . '|' . md5(
+                serialize($args)
+            );
+
+
+            if (isset($jobs[$signature])) {
+                continue;
+            }
+
+
+            $jobs[$signature] = [
+                'method' => $method,
+                'args' => $args,
+                'file' => basename($path),
+            ];
+        }
+
+
+        /**
+         * Prepare report.
+         */
+        $report = [
+            'success' => true,
+            'domain' => $domain,
+            'started_at' => date('Y-m-d H:i:s'),
+            'files_found' => count($files),
+            'jobs_found' => count($jobs),
+            'jobs' => [],
+        ];
+
+
+        /**
+         * Force getters to bypass:
+         *
+         * STATIC
+         * TRANSIENT
+         * JSON
+         *
+         * and query DATABASE directly.
+         */
+        self::$database_cache_force_refresh = true;
+
+
+        try {
+
+            foreach ($jobs as $signature => $job) {
+
+                $method = $job['method'];
+                $args = $job['args'];
+                $file = $job['file'];
+
+
+                try {
+
+                    $start_time = microtime(true);
+
+
+                    /**
+                     * Execute getter using exactly the same arguments
+                     * that originally created the JSON cache file.
+                     */
+                    $result = call_user_func_array(
+                        [self::class, $method],
+                        $args
+                    );
+
+
+                    $time = round(
+                        (microtime(true) - $start_time) * 1000,
+                        2
+                    );
+
+
+                    if (is_array($result)) {
+
+                        $records = count($result);
+
+                    } elseif ($result === null) {
+
+                        $records = 0;
+
+                    } else {
+
+                        $records = 1;
+                    }
+
+
+                    $report['jobs'][$signature] = [
+                        'status' => 'ok',
+                        'method' => $method,
+                        'args' => $args,
+                        'file' => $file,
+                        'records' => $records,
+                        'time_ms' => $time,
+                    ];
+
+
+                    self::debug_log(
+                        __FUNCTION__ .
+                        ': OK → ' .
+                        $method .
+                        ' → args=' .
+                        wp_json_encode($args) .
+                        ' → records=' .
+                        $records .
+                        ' → time=' .
+                        $time .
+                        'ms'
+                    );
+
+
+                } catch (\Throwable $e) {
+
+                    $report['success'] = false;
+
+                    $report['jobs'][$signature] = [
+                        'status' => 'error',
+                        'method' => $method,
+                        'args' => $args,
+                        'file' => $file,
+                        'message' => $e->getMessage(),
+                        'error_file' => $e->getFile(),
+                        'line' => $e->getLine(),
+                    ];
+
+
+                    self::debug_log(
+                        __FUNCTION__ .
+                        ': ERROR → ' .
+                        $method .
+                        ' → ' .
+                        $e->getMessage() .
+                        ' → ' .
+                        $e->getFile() .
+                        ':' .
+                        $e->getLine(),
+                        'error'
+                    );
+                }
+            }
+
+
+        } finally {
+
+            /**
+             * Restore normal frontend cache behaviour.
+             */
+            self::$database_cache_force_refresh = false;
+
+
+            /**
+             * Restore original HTTP_HOST.
+             */
+            if ($old_http_host !== null) {
+
+                $_SERVER['HTTP_HOST'] = $old_http_host;
+
+            } else {
+
+                unset($_SERVER['HTTP_HOST']);
+            }
+        }
+
+
+        $report['finished_at'] = date(
+            'Y-m-d H:i:s'
+        );
+
 
         self::debug_log(
-            'refresh_database_json_cache: FINISHED → domain=' .
+            __FUNCTION__ .
+            ': FINISHED → domain=' .
             $domain .
+            ' → jobs=' .
+            count($jobs) .
             ' → success=' .
             ($report['success'] ? 'YES' : 'NO')
         );
+
 
         return $report;
     }
@@ -2165,9 +2356,16 @@ class PWE_Functions {
     private static $meta_cache = [];
     public static function get_database_meta_data($data_id = null, $domain = null) {
 
-        $current_domain = $_SERVER['HTTP_HOST'] ?? '';
-        $current_domain = preg_replace('/:\d+$/', '', $current_domain);
-        $cache_key = $data_id . '_' . $current_domain;
+        if ($domain !== null) {
+            $domain = preg_replace('/:\d+$/', '', strtolower(trim($domain)));
+        }
+
+        // Different cache key for global and domain-specific queries.
+        if ($domain !== null && $domain !== '') {
+            $cache_key = $data_id . '|domain:' . $domain;
+        } else {
+            $cache_key = $data_id . '|global';
+        }
 
         // STATIC cache
         if (!self::$database_cache_force_refresh && isset(self::$meta_cache[$cache_key])) {
@@ -2205,8 +2403,6 @@ class PWE_Functions {
         // Log transient timeout
         $timeout = get_option('_transient_timeout_' . $transient_key);
         $time_left_str = ($timeout !== false) ? gmdate('H:i:s', max($timeout - time(), 0)) : 'unknown';
-
-
 
         // Connect DB
         $cap_db = self::connect_database();
