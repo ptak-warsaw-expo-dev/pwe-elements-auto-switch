@@ -1,8 +1,12 @@
 :root {
     --border-color: #f2f2f2;
 }
-.pwe-element-auto-switch#conferenceGr2 {
+.pwe-element-auto-switch#conferenceGr2:has(.pwe-conference-schedule) {
     padding: 36px 18px 18px;
+}
+.pwe-element-auto-switch .pwe-conference-schedule {
+    max-width: 1200px;
+    margin: 0 auto;
 }
 .pwe-element-auto-switch .pwe-conference-schedule__wrapper {
     background: var(--background-color);
@@ -97,6 +101,10 @@
   gap: 0;
 }
 .pwe-element-auto-switch .pwe-conference-schedule__date {
+  height: 100%;
+  display: flex;  
+  align-items: center;
+  justify-content: center;
   flex: 1;
   text-align: center;
   padding: 10px 8px;
@@ -172,6 +180,12 @@
     .pwe-element-auto-switch .pwe-conference-schedule .swiper-buttons-arrows,
     .pwe-element-auto-switch .pwe-conference-schedule .swiper-nav {
         display: none !important;
+    }
+}
+@media (max-width: 1000px) {
+    .pwe-element-auto-switch .pwe-conference-schedule__date {
+        min-width: 80px;
+        max-width: 80px;
     }
 }
 @media (max-width: 768px) {
@@ -282,7 +296,7 @@
     }
     .pwe-element-auto-switch .pwe-conference-schedule__date {
         padding: 8px 4px;
-        min-width: 100px;
+        max-width: 100%;
     }
     .pwe-element-auto-switch .pwe-conference-schedule__buttons.desktop {
         display: none;

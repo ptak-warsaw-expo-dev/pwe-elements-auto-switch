@@ -4,7 +4,7 @@ $output = '';
 
 // Layout
 $output .= '
-<div id="pweConference" class="pwe-conference">
+<div id="pweConference" class="pwe-conference pwe-conference--home">
     <div class="pwe-conference__wrapper">
         <div class="pwe-conference__info">
             <div class="pwe-conference__left">
