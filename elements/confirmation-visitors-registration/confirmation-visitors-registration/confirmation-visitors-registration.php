@@ -31,7 +31,6 @@ class Confirmation_Visitors_Registration {
             if (session_status() === PHP_SESSION_NONE) {
                 session_cache_limiter('');
                 session_start();
-                var_dump($_SESSION['pwe_reg_entry']);
             }
         }
 

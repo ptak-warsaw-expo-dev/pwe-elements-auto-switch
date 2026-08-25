@@ -25,10 +25,31 @@
         );
     }
 
+    // Zwraca pełny ciąg od utm_... (z URL lub sessionStorage)
+    function getFullUtmString() {
+        const searchParams = window.location.search;
+        const utmIndex = searchParams.indexOf('utm_');
+
+        if (utmIndex !== -1) {
+            return searchParams.substring(utmIndex);
+        }
+
+        return sessionStorage.getItem('user_utm_data') || '';
+    }
+
+    // Odczytuje tylko samą wartość utm_source na potrzeby logiki getLocationPath
+    function getUtmSourceValue() {
+        const utmString = getFullUtmString();
+        if (!utmString) return '';
+
+        const params = new URLSearchParams(utmString);
+        return params.get('utm_source') || '';
+    }
+
     function getLocationPath() {
         const params = new URLSearchParams(window.location.search);
         const registrationParam = params.get('reg');
-        const utmSource = params.get('utm_source');
+        const utmSource = getUtmSourceValue();
 
         if (registrationParam) return registrationParam;
         if (utmSource === 'byli') return 'vip';
@@ -40,11 +61,20 @@
         return path || 'header';
     }
 
+    let isUpdatingLocation = false;
+
     function setLocation(root) {
         const locationInput = getFieldInput(root, 'location');
         if (locationInput) {
-            locationInput.value = getLocationPath();
-            locationInput.dispatchEvent(new Event('change', { bubbles: true }));
+            const newLocation = getLocationPath();
+
+            // Weryfikacja zapobiegająca zapętleniu change event
+            if (locationInput.value !== newLocation) {
+                isUpdatingLocation = true;
+                locationInput.value = newLocation;
+                locationInput.dispatchEvent(new Event('change', { bubbles: true }));
+                isUpdatingLocation = false;
+            }
         }
     }
 
@@ -62,8 +92,8 @@
 
         const utmInput = getFieldInput(root, 'utm-class');
         if (utmInput) {
-            const params = new URLSearchParams(window.location.search);
-            utmInput.value = params.get('utm_source') || '';
+            // Wpisujemy CAŁY surowy string parametrów
+            utmInput.value = getFullUtmString();
         }
 
         setLocation(root);
@@ -186,6 +216,7 @@
         if (root.dataset.pweRegistrationRootBound !== '1') {
             root.dataset.pweRegistrationRootBound = '1';
             root.addEventListener('change', function () {
+                if (isUpdatingLocation) return;
                 updateCountry(root);
                 setLocation(root);
             });

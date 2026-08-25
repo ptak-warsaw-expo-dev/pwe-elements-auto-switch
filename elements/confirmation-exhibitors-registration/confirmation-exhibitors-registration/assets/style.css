@@ -94,8 +94,7 @@
   box-shadow: none !important;
   max-height: 80px !important;
 }
-
-.pwe-confirmation-exhibitors form :is(input:not([type="range"]), textarea) {
+.pwe-confirmation-exhibitors form :is(input:not([type="range"]):not([type="submit"]), textarea) {
   border: 1px solid #000000 !important;
 }
 
