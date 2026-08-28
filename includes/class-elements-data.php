@@ -58,7 +58,8 @@ class PWE_Elements_Data {
         'Step2',
         'Forms',
 
-        'Side_Events_Medals',
+        'Side_Events',
+        'Conference_Gallery',
     ];
 
     /** Classes available in the components directory. Paths are detected automatically. */
@@ -174,7 +175,8 @@ class PWE_Elements_Data {
         ],
 
         'conferences' => [
-            ['class' => 'Side_Events_Medals'],
+            ['class' => 'Side_Events'],
+            ['class' => 'Conference_Gallery'],
             ['class' => 'Footer'],
         ],
     ];
