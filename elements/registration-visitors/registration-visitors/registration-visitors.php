@@ -83,7 +83,7 @@ class Registration_Visitors {
 
             if ($industry === 'medicine') {
                 $title = PWE_Functions::multi_translation('ticket_industry');
-                $statement = '<div class="pwe-registration-visitors__statement" style="font-size: 12px;color: black;line-height: 1.2;">*' . PWE_Functions::multi_translation('statement_medicine') . '</div>';
+                $statement = '<div class="pwe-registration-visitors__statement" style="font-size:12px;color:black;line-height:1.2;text-align:start;">*' . PWE_Functions::multi_translation('statement_medicine') . '</div>';
             } else {
                 $title = PWE_Functions::multi_translation('ticket');
                 $statement = '';
@@ -129,13 +129,7 @@ class Registration_Visitors {
         self::$filters_registered = true;
 
         add_filter('gform_pre_render', [__CLASS__, 'hide_registration_fields']);
-
-        add_filter(
-            'gform_confirmation',
-            [__CLASS__, 'add_utm_to_confirmation_redirect'],
-            10,
-            4
-        );
+        add_filter('gform_confirmation', [__CLASS__, 'add_utm_to_confirmation_redirect'], 10, 4);
     }
 
     private static function register_session_handler() {

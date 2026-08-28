@@ -224,12 +224,15 @@
     .wpb_column:has(.pwe-exhibitors-top12) {
         padding-top: 0 !important;
     }
+    .wpb_column:has(.pwe-registration-visitors.standard) {
+        max-width: 555px;
+        margin: 0 auto;
+    }
     .pwe-element-auto-switch .pwe-registration-visitors .pwe-registration-visitors__wrapper {
         flex-direction: column;
         justify-content: center;
         margin: 0 auto;
         text-align: center;
-        width: min-content;
     }
     .pwe-element-auto-switch .pwe-registration-visitors .pwe-exhibitors-top12 {
         margin-top: 0;
@@ -238,7 +241,7 @@
         padding-bottom: 0;
     }
     .pwe-element-auto-switch .pwe-registration-visitors__form-fields {
-        padding: 0 18px 0;
+        padding: 0;
     }
     .pwe-element-auto-switch .pwe-registration-visitors__form form {
         padding: 0;
@@ -254,7 +257,7 @@
         text-align: left;
     }
     .pwe-element-auto-switch .pwe-registration-visitors__form-content {
-        padding: 0;
+        padding: 0 18px;
     }
 }
 @media (max-width: 500px) {
@@ -266,9 +269,9 @@
     .pwe-element-auto-switch .pwe-registration-visitors__form form {
         width: 100%;
     }
-    .pwe-element-auto-switch .pwe-registration-visitors__form-title {
-        margin-top: 36px;
-        font-size: 24px;
+    .pwe-element-auto-switch .pwe-registration-visitors__form-title,
+    .pwe-element-auto-switch .pwe-registration-visitors__form-header-title {
+        font-size: 22px;
     }
     .pwe-element-auto-switch .pwe-registration-visitors__form-image-qr {
         top: 20px;

@@ -44,7 +44,7 @@ class Exhibitor_Catalog {
 
 
         self::enqueue_assets();
-        self::enqueue_feedback_assets();
+        // self::enqueue_feedback_assets();
         self::inject_config($atts);
         // self::sync_archive_catalog_entry($atts);
 
@@ -186,10 +186,10 @@ class Exhibitor_Catalog {
             echo '<script>console.log("Link od odświeżenia/pobrania katalogu: https://'. $_SERVER['HTTP_HOST'] .'/wp-content/plugins/custom-element/other/cron_catalog.php?pass=iR8gCdZlITxRvVBS")</script>';
         }
 
-        $feedback = EX_PATH . 'addons/feedback/feedback.php';
-        if (file_exists($feedback)) {
-            require_once $feedback;
-        }
+        // $feedback = EX_PATH . 'addons/feedback/feedback.php';
+        // if (file_exists($feedback)) {
+        //     require_once $feedback;
+        // }
 
         $translates = EX_PATH . 'addons/translates.php';
         if (file_exists($translates)) {
