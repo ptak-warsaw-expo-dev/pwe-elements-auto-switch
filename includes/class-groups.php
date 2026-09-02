@@ -27,6 +27,23 @@ class PWE_Groups {
         return $result;
     }
 
+    public static function is_b2c() {
+        $host = $_SERVER['HTTP_HOST'] ?? '';
+        $groups = self::groups();
+
+        foreach ( $groups as $group => $domains ) {
+            if ( in_array( $host, $domains, true ) ) {
+
+                if ($group === 'b2c' || $group === 'b2c-new') {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+        return false;
+    }
+
     public static function get_current_group() {
         $host = $_SERVER['HTTP_HOST'] ?? '';
         $groups = self::groups();

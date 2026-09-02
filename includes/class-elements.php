@@ -340,6 +340,7 @@ class PWE_Elements {
     // Render elements depending on type (shortcode key)
     public static function render_elements($type, $atts = []) {
         $group        = PWE_Groups::get_current_group();
+        $is_b2c       = PWE_Groups::is_b2c();
 
         $all_elements = PWE_Elements_Data::get_all_elements($group);
         $elements     = [];

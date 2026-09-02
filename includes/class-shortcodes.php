@@ -84,6 +84,7 @@ class PWE_Shortcodes {
             'trade_fair_linkedin' => 'show_trade_fair_linkedin',
             'trade_fair_youtube' => 'show_trade_fair_youtube',
 
+            'pwe_lang_domain' => 'get_lang_domain',
             'trade_fair_domainadress' => 'show_trade_fair_domainadress',
             'trade_fair_actualyear' => 'show_trade_fair_actualyear',
             'trade_fair_rejestracja' => 'show_trade_fair_rejestracja',
@@ -186,6 +187,7 @@ class PWE_Shortcodes {
             'trade_fair_linkedin' => 'show_trade_fair_linkedin',
             'trade_fair_youtube' => 'show_trade_fair_youtube',
 
+            'pwe_lang_domain' => 'get_lang_domain',
             'trade_fair_domainadress' => 'show_trade_fair_domainadress',
             'trade_fair_actualyear' => 'show_trade_fair_actualyear',
 
@@ -2851,6 +2853,52 @@ class PWE_Shortcodes {
             return str_replace('https://', '', home_url());
         }
         return $result;
+    }
+
+    function get_lang_domain($atts = []) {
+
+        $atts = shortcode_atts([
+            'lang' => '',
+        ], $atts, 'pwe_lang_domain');
+
+        $requested_lang = trim((string) $atts['lang']);
+
+        // {{lang}} can only be resolved in the context of a Gravity Forms notification.
+        // Outside of Gravity Forms, we treat this as automatic.
+        if ($requested_lang === '{{lang}}') {
+            $requested_lang = '';
+        }
+
+        if ($requested_lang !== '') {
+            $lang = $requested_lang;
+        } elseif (
+            class_exists('PWE_Functions') &&
+            is_callable(['PWE_Functions', 'lang'])
+        ) {
+            $lang = PWE_Functions::lang();
+        } elseif (defined('PWE_LANG') && PWE_LANG) {
+            $lang = PWE_LANG;
+        } else {
+            $lang = determine_locale();
+        }
+
+        // cs_CZ, cs-CZ, CS -> cs
+        $lang = strtolower(trim((string) $lang));
+        $lang = str_replace('_', '-', $lang);
+        $lang = explode('-', $lang)[0];
+        $lang = sanitize_key($lang);
+
+        $host = $_SERVER['HTTP_HOST'] ?? '';
+
+        if (empty($host)) {
+            $host = wp_parse_url(home_url(), PHP_URL_HOST);
+        }
+
+        if ($lang === 'pl' || $lang === '') {
+            return $host;
+        }
+
+        return $host . '/' . $lang;
     }
 
     public function show_trade_fair_actualyear() {

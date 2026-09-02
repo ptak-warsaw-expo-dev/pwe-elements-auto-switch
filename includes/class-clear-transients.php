@@ -87,8 +87,24 @@ class PWE_Clear_Transients {
      */
     public static function create_plans_news(): void {
 
-        require_once plugin_dir_path(dirname(__FILE__)) . 'elements/fair-plan/fair-plan/fair-plan.php';;
+        require_once plugin_dir_path(dirname(__FILE__))
+            . 'elements/fair-plan/fair-plan/fair-plan.php';
+
+        /*
+        * Strony główne:
+        * /plan-targow/
+        * /fair-plan/
+        */
+        Fair_Plan::create_or_update_fair_plan_pages();
+
+        /*
+        * Wpisy roczne:
+        * /plan-targow-{rok}/
+        * /fair-plan-{rok}/
+        * itd.
+        */
         $files = PWE_Functions::get_database_fairs_data_files();
+
         Fair_Plan::create_missing_news_for_files($files);
     }
 
