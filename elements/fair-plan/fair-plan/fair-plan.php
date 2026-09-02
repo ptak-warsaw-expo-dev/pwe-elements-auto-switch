@@ -3,6 +3,10 @@ if (!defined('ABSPATH')) exit;
 
 class Fair_Plan {
 
+    private const UNCODE_HEADER_META = '_uncode_header_type';
+    private const UNCODE_HEADER_BLOCK_META = '_uncode_blocks_list';
+    private const UNCODE_SHOW_TITLE_META = '_uncode_specific_title';
+
     public static function get_data() {
         return [
             'types' => ['fair-plan'],
@@ -116,7 +120,7 @@ class Fair_Plan {
                     'compare' => '=',
                 ],
             ],
-        ]);
+        ]); 
 
         if (!empty($posts)) {
             return $posts[0];
@@ -210,13 +214,29 @@ class Fair_Plan {
                 }
             }
 
-            $result = wp_update_post([
-                'ID'           => $pl_post_id,
-                'post_title'   => 'Plan targów ' . $year,
-                'post_name'    => $pl_slug,
-                'post_content' => '[pwe-elements-auto-switch-page-fair-plan]',
-                'post_status'  => 'publish',
-            ], true);
+            $pl_update_data = [
+                'ID'          => $pl_post_id,
+                'post_title'  => 'Plan targów ' . $year,
+                'post_name'   => $pl_slug,
+                'post_status' => 'publish',
+            ];
+
+            // Jeżeli shortcode nie istnieje, podmień CAŁY content.
+            if (
+                !has_shortcode(
+                    $pl_post->post_content,
+                    'pwe-elements-auto-switch-page-fair-plan'
+                )
+            ) {
+                $pl_update_data['post_content'] =
+                    '[pwe-elements-auto-switch-page-fair-plan]';
+            }
+
+            $result = wp_update_post($pl_update_data, true);
+
+            if (is_wp_error($result)) {
+                return false;
+            }
 
             if (is_wp_error($result)) {
                 return false;
@@ -266,13 +286,29 @@ class Fair_Plan {
                 }
             }
 
-            $result = wp_update_post([
-                'ID'           => $en_post_id,
-                'post_title'   => 'Fair plan ' . $year,
-                'post_name'    => $en_slug,
-                'post_content' => '[pwe-elements-auto-switch-page-fair-plan]',
-                'post_status'  => 'publish',
-            ], true);
+            $en_update_data = [
+                'ID'          => $en_post_id,
+                'post_title'  => 'Fair plan ' . $year,
+                'post_name'   => $en_slug,
+                'post_status' => 'publish',
+            ];
+
+            // Jeżeli shortcode nie istnieje, podmień CAŁY content.
+            if (
+                !has_shortcode(
+                    $en_post->post_content,
+                    'pwe-elements-auto-switch-page-fair-plan'
+                )
+            ) {
+                $en_update_data['post_content'] =
+                    '[pwe-elements-auto-switch-page-fair-plan]';
+            }
+
+            $result = wp_update_post($en_update_data, true);
+
+            if (is_wp_error($result)) {
+                return false;
+            }
 
             if (is_wp_error($result)) {
                 return false;
@@ -340,6 +376,87 @@ class Fair_Plan {
             'pl' => $pl_post_id,
             'en' => $en_post_id,
         ];
+    }
+
+    public static function create_or_update_fair_plan_pages(): bool
+    {
+        $shortcode = '[pwe-elements-auto-switch-page-fair-plan]';
+
+        $pages = [
+            'pl' => [
+                'slug' => 'plan-targow',
+            ],
+            'en' => [
+                'slug' => 'fair-plan',
+            ],
+        ];
+
+        foreach ($pages as $lang => $data) {
+
+            $page = get_page_by_path(
+                $data['slug'],
+                OBJECT,
+                'page'
+            );
+
+            if (!$page) {
+
+                $page_id = wp_insert_post([
+                    'post_title'   => $lang === 'pl' ? 'Plan Targów' : 'Fair Plan',
+                    'post_name'    => $data['slug'],
+                    'post_content' => $shortcode,
+                    'post_status'  => 'publish',
+                    'post_type'    => 'page',
+                ], true);
+
+                if (is_wp_error($page_id) || !$page_id) {
+                    return false;
+                }
+
+            } else {
+
+                $page_id = (int) $page->ID;
+
+                if (
+                    !has_shortcode(
+                        $page->post_content,
+                        'pwe-elements-auto-switch-page-fair-plan'
+                    )
+                ) {
+                    $result = wp_update_post([
+                        'ID'           => $page_id,
+                        'post_content' => $shortcode,
+                    ], true);
+
+                    if (is_wp_error($result)) {
+                        return false;
+                    }
+                }
+            }
+
+            /*
+            * Uncode:
+            * - wyłącz header
+            * - wyłącz tytuł strony na frontendzie
+            */
+            self::set_uncode_header_none((int) $page_id);
+            self::set_uncode_show_title_off((int) $page_id);
+        }
+
+        return true;
+    }
+
+    public static function set_uncode_header_none(int $post_id): void
+    {
+        delete_post_meta($post_id, self::UNCODE_HEADER_BLOCK_META);
+        delete_post_meta($post_id, self::UNCODE_HEADER_META);
+        update_post_meta($post_id, self::UNCODE_HEADER_META, 'none');
+    }
+
+    public static function set_uncode_show_title_off(int $post_id): void
+    {
+        delete_post_meta($post_id, self::UNCODE_SHOW_TITLE_META);
+        update_post_meta($post_id, self::UNCODE_SHOW_TITLE_META, 'off');
     }
 
     public static function create_missing_news_for_files($files) {

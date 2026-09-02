@@ -80,19 +80,18 @@
     border-bottom: 1px solid #dadce0 !important;
     border-radius: 0px !important;
 }
+.pwe-medal-ceremony__form .ginput_container_checkbox {
+    margin-top: 40px !important;
+}
 .pwe-medal-ceremony__form fieldset {
     padding: 8% 5% 5% !important;
     position: relative;
 }
 .pwe-medal-ceremony__form fieldset legend {
     position: absolute;
-    top: 7%;
+    top: 15% !important;
     font-weight: 700 !important;
     font-size: 17px !important;
-}
-.pwe-medal-ceremony__form .gform-theme--framework .gfield--type-choice .gfield_checkbox, 
-.pwe-medal-ceremony__form .gform-theme--framework .gfield--type-choice .gfield_radio {
-    padding-top: 36px;
 }
 .pwe-medal-ceremony__form .ginput_container_checkbox label {
     font-weight: 400 !important;
@@ -115,7 +114,7 @@
     top: 15% !important;
 }
 .pwe-medal-ceremony__form .zgoda .ginput_container {
-    margin-top: 20px !important;
+    margin-top: 60px !important;
 }
 .pwe-medal-ceremony__form .gform_footer input[type="submit"] {
     margin-top: 15px !important;
