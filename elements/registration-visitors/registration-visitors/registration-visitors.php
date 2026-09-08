@@ -81,12 +81,14 @@ class Registration_Visitors {
 
             $industry = do_shortcode('[pwe_industry]');
 
+            $statement = '';
+
             if ($industry === 'medicine') {
                 $title = PWE_Functions::multi_translation('ticket_industry');
-                $statement = '<div class="pwe-registration-visitors__statement" style="font-size:12px;color:black;line-height:1.2;text-align:start;">*' . PWE_Functions::multi_translation('statement_medicine') . '</div>';
+                // $statement = '<div class="pwe-registration-visitors__statement" style="font-size:12px;color:black;line-height:1.2;text-align:start;">*' . PWE_Functions::multi_translation('statement_medicine') . '</div>';
             } else {
                 $title = PWE_Functions::multi_translation('ticket');
-                $statement = '';
+                // $statement = '';
             }
 
             /* <-------------> General code end <-------------> */
@@ -221,9 +223,6 @@ class Registration_Visitors {
             // Odczytaliśmy dane z sesji, zamykamy ją
             session_write_close();
         }
-
-
-
 
         if (!in_array($utm_source, ['byli', 'premium', 'platyna'], true)) {
             return $confirmation;

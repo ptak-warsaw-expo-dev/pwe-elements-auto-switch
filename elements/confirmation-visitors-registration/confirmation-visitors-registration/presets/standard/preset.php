@@ -12,10 +12,10 @@ $output .= '
                 <h2 class="pwe-confirmation-visitors-registration__display-after-submit">Dziękujemy za zamówienie pakietu na targi <span class="very-strong">[trade_fair_name]!</span></h2>
 
                 <p class="pwe-confirmation-visitors-registration__display-before-submit">Cieszymy się, że dołączasz do naszego wydarzenia, pełnego nowości rynkowych i inspiracji do zastosowania w Twojej firmie.</p><br>
-                
+
                 <p class="pwe-confirmation-visitors-registration__display-before-submit"><span class="very-strong">Zachęcamy do wypełnienia</span> ostatniego formularza, dzięki temu będziemy mogli przygotować dla Państwa <span class="very-strong">spersonalizowany identyfikator</span> targowy, który usprawni pobyt na targach.</p>
-                <p class="pwe-confirmation-visitors-registration__display-after-submit">Twój <span class="very-strong"> spersonalizowany identyfikator</span> wraz z planem/harmonogramem targów otrzymasz przed wydarzeniem na podany w formularzu adres za pośrednictwem poczty polskiej.</p>
-            </div> 
+                <p class="pwe-confirmation-visitors-registration__display-after-submit"><span class="very-strong">Zachęcamy do wypełnienia</span> ostatniego formularza, dzięki temu będziemy mogli przygotować dla Państwa <span class="very-strong">spersonalizowany identyfikator</span> targowy, który usprawni pobyt na targach.</p>
+            </div>
 
             <div class="pwe-confirmation-visitors-registration__column pwe-confirmation-visitors-registration__form-column">
                 <div class="pwe-confirmation-visitors-registration__before-submit">
@@ -72,7 +72,7 @@ $output .= '
 
                 <div class="pwe-confirmation-visitors-registration__success">
                     <p class="pwe-confirmation-visitors-registration__text">
-                        Dane zostały zapisane. Dziękujemy za rejestrację.
+                        Dziękujemy za zamówienie pakietu na targi <strong>[trade_fair_name]</strong>!<br><br>Twój <strong>spersonalizowany identyfikator</strong> otrzymasz przed wydarzeniem na podany w formularzu adres za pośrednictwem poczty polskiej.
                     </p>
 
                     <a class="pwe-confirmation-visitors-registration__button" href="/">
@@ -84,7 +84,7 @@ $output .= '
             <div class="pwe-confirmation-visitors-registration__column pwe-confirmation-visitors-registration__badge-column">
                 <img src="/doc/badge-mockup.webp">
             </div>
-            
+
         </div>
     </div>';
 

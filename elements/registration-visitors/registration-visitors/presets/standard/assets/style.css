@@ -366,6 +366,74 @@
 .pwe-registration-visitors .gform_legacy_markup_wrapper ul.gform_fields li.gfield {
     padding-right: 0;
 }
+
+.gform_wrapper {
+    position: relative !important;
+}
+
+.gform_wrapper::after {
+    content: "" !important;
+    display: none;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-color: rgba(232, 232, 232, 0.81) !important;
+    border-radius: 8px;
+    z-index: 9998 !important;
+}
+
+.gform_wrapper::before {
+    content: "" !important;
+    display: none;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    width: 60px !important;
+    height: 60px !important;
+    margin-top: -22px !important;
+    margin-left: -22px !important;
+    border: 8px solid #d1d1d1 !important;
+    border-top: 8px solid var(--accent-color) !important;
+    border-radius: 50% !important;
+    animation: gform_custom_spin 0.8s linear infinite !important;
+    z-index: 9999 !important;
+}
+
+@keyframes gform_custom_spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.gform_wrapper:not(.gform_validation_error):not(:has(.gfield_error)):has(.gform_ajax_spinner)::after,
+.gform_wrapper:not(.gform_validation_error):not(:has(.gfield_error)):has(.gform-loader)::after,
+.gform_wrapper:not(.gform_validation_error):not(:has(.gfield_error)):has(gform-loader)::after,
+.gform_wrapper:not(.gform_validation_error):not(:has(.gfield_error)):has([data-gform-loader])::after {
+    display: block !important;
+}
+
+.gform_wrapper:not(.gform_validation_error):not(:has(.gfield_error)):has(.gform_ajax_spinner)::before,
+.gform_wrapper:not(.gform_validation_error):not(:has(.gfield_error)):has(.gform-loader)::before,
+.gform_wrapper:not(.gform_validation_error):not(:has(.gfield_error)):has(gform-loader)::before,
+.gform_wrapper:not(.gform_validation_error):not(:has(.gfield_error)):has([data-gform-loader])::before {
+    display: block !important;
+}
+
+
+.gform_wrapper .gform_ajax_spinner,
+.gform_wrapper .gform-loader,
+.gform_wrapper gform-loader {
+    opacity: 0 !important;
+}
+
+.gform_wrapper.gform_validation_error::after,
+.gform_wrapper.gform_validation_error::before,
+.gform_wrapper:has(.gfield_error)::after,
+.gform_wrapper:has(.gfield_error)::before {
+    display: none !important;
+}
+
 @media (max-width: 1150px) {
     .pwe-registration-visitors .pwe-mockup-column,
     .pwe-registration-visitors .pwe-registration-column {

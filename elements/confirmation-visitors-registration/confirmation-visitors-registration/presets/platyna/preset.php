@@ -98,11 +98,6 @@ $output .= '
                         </h2>
 
                         <div class="pwe-registration__benefit-item">
-                            <img src="/wp-content/plugins/pwe-media/media/platyna/fasttrack.webp" alt="Fast Track" />
-                            <p>' . PWE_Functions::languageChecker('Wejście bezpłatne', 'Free entry') . '<br/>FAST TRACK</p>
-                        </div>
-
-                        <div class="pwe-registration__benefit-item">
                             <img src="/wp-content/plugins/pwe-media/media/platyna/obsluga.webp" alt="Concierge" />
                             <p>' . PWE_Functions::languageChecker('Obsługę concierge"a', 'Concierge service') . '</p>
                         </div>
