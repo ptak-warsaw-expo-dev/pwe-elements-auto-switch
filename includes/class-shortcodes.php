@@ -3055,9 +3055,7 @@ class PWE_Shortcodes {
 
         $locale = determine_locale();
 
-        $language = str_starts_with($locale, 'en')
-            ? 'en'
-            : 'pl';
+        $language = substr($locale, 0, 2) === 'en' ? 'en' : 'pl';
 
         $labels = [
             'pl' => [
@@ -3268,9 +3266,7 @@ class PWE_Shortcodes {
 
         $locale = determine_locale();
 
-        $language = str_starts_with($locale, 'en')
-            ? 'en'
-            : 'pl';
+        $language = substr($locale, 0, 2) === 'en' ? 'en' : 'pl';
 
         $texts = [
             'pl' => [

@@ -44,6 +44,15 @@ class PWE_Elements {
                             'save_always' => true,
                             'admin_label' => true,
                         ],
+                        [
+                            'type' => 'checkbox',
+                            'heading' => __('White theme (week only)', 'pwe-elements-auto-switch-main'),
+                            'param_name' => 'change_theme_color',
+                            'group' => 'Custom Settings',
+                            'value' => array(__('True', 'pwe_header') => 'true',),
+                            'save_always' => true,
+                            'admin_label' => true,
+                        ],
                     ];
                 }
                 if ($data['shortcode'] === 'pwe-elements-auto-switch-page-catalog') {
@@ -340,7 +349,10 @@ class PWE_Elements {
     // Render elements depending on type (shortcode key)
     public static function render_elements($type, $atts = []) {
         $group        = PWE_Groups::get_current_group();
-        $is_b2c       = PWE_Groups::is_b2c();
+
+        $b2c_option = isset($atts['b2c']) ? $atts['b2c'] : false;
+        $b2c = PWE_Groups::is_b2c();
+        $b2c = $b2c ? $b2c : $b2c_option;
 
         $all_elements = PWE_Elements_Data::get_all_elements($group);
         $elements     = [];
@@ -386,9 +398,17 @@ class PWE_Elements {
             return $a['order'] <=> $b['order'];
         });
 
+        // Theme for WEEK group
+        // DARK THEME is the default. WHITE THEME is enabled only by the page-main checkbox.
+        $is_white_theme = $group === 'week'
+            && isset($atts['change_theme_color'])
+            && $atts['change_theme_color'] === 'true';
+
+        $theme_class = $is_white_theme ? ' pwe-theme-white' : ' pwe-theme-dark';
+
         // Render
         ob_start();
-        echo '<div id="pweElementsAutoSwitch">';
+        echo '<div id="pweElementsAutoSwitch" class="' . trim($theme_class) . '">';
         foreach ($elements as $el) {
             $el_slug = $el['params']['slug'] ?? '';
             $camel_id = ucfirst(str_replace(' ', '', ucwords(str_replace('-', ' ', $el_slug))));
