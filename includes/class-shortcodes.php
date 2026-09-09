@@ -78,6 +78,7 @@ class PWE_Shortcodes {
             'trade_fair_branzowy' => 'show_trade_fair_branzowy',
             'trade_fair_branzowy_eng' => 'show_trade_fair_branzowy_eng',
             'trade_fair_badge' => 'show_trade_fair_badge',
+            'trade_fair_feed_prefix' => 'show_trade_fair_feed_prefix',
 
             'trade_fair_facebook' => 'show_trade_fair_facebook',
             'trade_fair_instagram' => 'show_trade_fair_instagram',
@@ -181,6 +182,7 @@ class PWE_Shortcodes {
             'trade_fair_branzowy' => 'show_trade_fair_branzowy',
             'trade_fair_branzowy_eng' => 'show_trade_fair_branzowy_eng',
             'trade_fair_badge' => 'show_trade_fair_badge',
+            'trade_fair_feed_prefix' => 'show_trade_fair_feed_prefix',
 
             'trade_fair_facebook' => 'show_trade_fair_facebook',
             'trade_fair_instagram' => 'show_trade_fair_instagram',
@@ -715,6 +717,7 @@ class PWE_Shortcodes {
             'trade_fair_conference_title' => 'Tytuł konferencji (PL) <hr><p>[trade_fair_conference_title]</p>',
             'trade_fair_conference_title_eng' => 'Tytuł konferencji (EN) <hr><p>[trade_fair_conference_title_eng]</p>',
             'trade_fair_badge' => 'Początek nazwy badge -> ..._gosc_a6 <hr><p>[trade_fair_badge]</p>',
+            'trade_fair_feed_prefix' => 'Prefiks feed formularzy<hr><p>[trade_fair_feed_prefix]</p>',
 
             'trade_fair_group' => 'Grupa targów<hr><p>[trade_fair_group]</p>',
             'trade_fair_domainadress' => 'Adres strony<hr><p>[trade_fair_domainadress]</p>',
@@ -1911,6 +1914,24 @@ class PWE_Shortcodes {
         <?php
     }
 
+    public function display_trade_fair_feed_prefix() {
+        $badge = get_option('trade_fair_badge');
+        $badge = preg_replace('/[^a-zA-Z0-9]/u', '', $badge);
+        $feed_prefix = mb_strtoupper(mb_substr($badge, 0, 4));
+
+        ?>
+            <div class="form-field">
+                <input
+                    type="text"
+                    name="trade_fair_feed_prefix"
+                    id="trade_fair_feed_prefix"
+                    value="<?php echo !empty(get_option('trade_fair_feed_prefix')) ? get_option('trade_fair_feed_prefix') : $feed_prefix; ?>"
+                />
+                <p><?php echo "np. MRGL"; ?></p>
+            </div>
+        <?php
+    }
+
     public function display_trade_fair_domainadress() {
         ?>
             <div class="form-field">
@@ -2804,6 +2825,15 @@ class PWE_Shortcodes {
         $pwe_badge = shortcode_exists("pwe_badge") ? do_shortcode('[pwe_badge]') : "";
         $pwe_badge_available = (empty(get_option('pwe_general_options', [])['pwe_dp_shortcodes_unactive']) && !empty($pwe_badge) && $pwe_badge !== "");
         $result = !empty(get_option('trade_fair_badge')) ? get_option('trade_fair_badge') : ($pwe_badge_available ? $pwe_badge : "");
+        return $result;
+    }
+
+    public function show_trade_fair_feed_prefix() {
+        $badge = get_option('trade_fair_badge');
+        $badge = preg_replace('/[^a-zA-Z0-9]/u', '', $badge);
+        $feed_prefix = mb_strtoupper(mb_substr($badge, 0, 4));
+
+        $result = !empty(get_option('trade_fair_feed_prefix')) ? get_option('trade_fair_feed_prefix') : $feed_prefix;
         return $result;
     }
 
