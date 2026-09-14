@@ -24,7 +24,7 @@ final class PWE_Email_Validator_Addon {
 		self::$initialized = true;
 
 		add_filter( 'gform_field_validation', [ self::class, 'validate_email_domain' ], 10, 4 );
-		self::enqueue_assets();
+		add_action( 'wp_enqueue_scripts', [ self::class, 'enqueue_assets' ] );
 	}
 
 	public static function enqueue_assets(): void {
@@ -65,23 +65,6 @@ final class PWE_Email_Validator_Addon {
 				'messages'    => self::get_messages(),
 			]
 		);
-
-		self::print_late_styles( [ 'pwe-email-validator' ] );
-	}
-
-	/** @param string[] $handles */
-	private static function print_late_styles( array $handles ): void {
-		if ( ! did_action( 'wp_head' ) || ! function_exists( 'wp_print_styles' ) ) {
-			return;
-		}
-
-		$pending = array_values( array_filter( $handles, static function ( $handle ) {
-			return ! wp_style_is( $handle, 'done' );
-		} ) );
-
-		if ( $pending ) {
-			wp_print_styles( $pending );
-		}
 	}
 
 	/**

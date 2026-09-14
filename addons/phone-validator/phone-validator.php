@@ -7,7 +7,7 @@ defined('ABSPATH') || exit;
 
 final class PWE_Phone_Validator_Addon
 {
-    private const VERSION = '1.3.0';
+    private const VERSION = '1.3.2';
     private const INTL_TEL_INPUT_VERSION = '29.1.2';
 
     private static bool $initialized = false;

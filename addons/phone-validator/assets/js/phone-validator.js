@@ -265,7 +265,12 @@
             validate(field, input, iti, true);
         });
 
+        function handlePhoneEdit() {
+            resetGravityFormsSubmittingFlag(input);
+        }
+
         input.addEventListener('input', function () {
+            handlePhoneEdit();
             enforceDigitLimit(input, iti);
             setValidityMarker(field, input, false);
             if (input.classList.contains('pwe-phone-invalid')) {
@@ -273,7 +278,14 @@
             }
         });
 
+        // Keep the same recovery behaviour as the proven test snippet.
+        // `input` handles normal typing/paste/delete; change and keyup cover
+        // legacy Gravity Forms/browser paths without requiring jQuery.
+        input.addEventListener('change', handlePhoneEdit);
+        input.addEventListener('keyup', handlePhoneEdit);
+
         input.addEventListener('countrychange', function () {
+            handlePhoneEdit();
             enforceDigitLimit(input, iti);
             setValidityMarker(field, input, false);
             scheduleInputOffset(input);
@@ -291,6 +303,28 @@
         }
 
         scope.querySelectorAll(FIELD_SELECTOR).forEach(initialiseField);
+    }
+
+    function resetGravityFormsSubmittingFlag(target) {
+        const form = target instanceof HTMLFormElement
+            ? target
+            : target && target.closest
+                ? target.closest('form[id^="gform_"]')
+                : null;
+
+        if (!(form instanceof HTMLFormElement)) {
+            return;
+        }
+
+        const match = form.id.match(/^gform_(\d+)$/);
+        if (!match) {
+            return;
+        }
+
+        const flagName = 'gf_submitting_' + match[1];
+        if (typeof window[flagName] !== 'undefined') {
+            window[flagName] = false;
+        }
     }
 
     function validateForm(form) {
@@ -315,6 +349,26 @@
 
     let gravityFormsFilterRegistered = false;
 
+    function releaseGravityFormsSubmission(form) {
+        // Gravity Forms also keeps a legacy global duplicate-submission flag,
+        // e.g. gf_submitting_12. Reset it explicitly because an aborted custom
+        // validation can otherwise leave the next submit permanently blocked.
+        resetGravityFormsSubmittingFlag(form);
+
+        const submission = window.gform && gform.submission;
+        if (!submission) {
+            return;
+        }
+
+        if (typeof submission.unlockSubmission === 'function') {
+            submission.unlockSubmission(form);
+        }
+
+        if (typeof submission.removeSpinner === 'function') {
+            submission.removeSpinner(form);
+        }
+    }
+
     function registerGravityFormsSubmissionFilter() {
         if (gravityFormsFilterRegistered || !window.gform || !gform.utils || typeof gform.utils.addAsyncFilter !== 'function') {
             return;
@@ -328,6 +382,13 @@
 
             if (!validateForm(form)) {
                 data.abort = true;
+
+                // Gravity Forms locks the form while processing a submission.
+                // When our custom validation aborts the attempt, make sure that
+                // lock/spinner cannot survive and block the next click.
+                window.setTimeout(function () {
+                    releaseGravityFormsSubmission(form);
+                }, 0);
             }
 
             return data;
@@ -343,9 +404,23 @@
 
         document.addEventListener('submit', function (event) {
             const form = event.target;
-            if (form instanceof HTMLFormElement && form.querySelector(FIELD_SELECTOR) && !validateForm(form)) {
+            if (!(form instanceof HTMLFormElement) || !form.querySelector(FIELD_SELECTOR)) {
+                return;
+            }
+
+            // Modern Gravity Forms is handled by gform/submission/pre_submission.
+            // Running a second capture-phase submit blocker can leave Gravity Forms
+            // in its duplicate-submission lock after a failed validation attempt.
+            if (gravityFormsFilterRegistered) {
+                return;
+            }
+
+            if (!validateForm(form)) {
                 event.preventDefault();
                 event.stopImmediatePropagation();
+                window.setTimeout(function () {
+                    releaseGravityFormsSubmission(form);
+                }, 0);
             }
         }, true);
 
