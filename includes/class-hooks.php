@@ -134,8 +134,6 @@ if ( ! class_exists( 'PWE_GF_Email_Entry_Cleanup' ) ) {
             'anton.melnychuk@warsawexpo.eu',
             'piotr.krupniewski@warsawexpo.eu',
             'jakub.chola@warsawexpo.eu',
-            'asd@asd.pl',
-            'asd@test.pl',
             'antonmelnychuk1@gmail.com',
             'jakub.goral@warsawexpo.eu',
             'nataliasobolptakexpo@gmail.com',
@@ -148,6 +146,14 @@ if ( ! class_exists( 'PWE_GF_Email_Entry_Cleanup' ) ) {
         private const EMAIL_PREFIXES = [
             'test@',
             'asd@',
+        ];
+
+        /**
+         * Domains where Gravity Forms cleanup must never run.
+         * Add one hostname per line, without protocol or path.
+         */
+        private const EXCLUDED_DOMAINS = [
+            'mr.glasstec.pl',
         ];
 
         const OPTION_LAST_RUN    = 'pwe_gf_cleanup_last_run';
@@ -163,6 +169,10 @@ if ( ! class_exists( 'PWE_GF_Email_Entry_Cleanup' ) ) {
 
         public static function maybe_run_automatic_cleanup() {
             if ( wp_doing_ajax() || wp_doing_cron() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
+                return;
+            }
+
+            if ( self::is_current_domain_excluded() ) {
                 return;
             }
 
@@ -225,6 +235,46 @@ if ( ! class_exists( 'PWE_GF_Email_Entry_Cleanup' ) ) {
             return md5( implode( '|', $emails ) . '||' . implode( '|', $prefixes ) );
         }
 
+        private static function normalize_domain( $domain ) {
+            $domain = strtolower( trim( (string) $domain ) );
+            $domain = preg_replace( '#^https?://#i', '', $domain );
+            $domain = preg_replace( '#/.*$#', '', $domain );
+            $domain = preg_replace( '/:\d+$/', '', $domain );
+            $domain = rtrim( $domain, '.' );
+
+            if ( strpos( $domain, 'www.' ) === 0 ) {
+                $domain = substr( $domain, 4 );
+            }
+
+            return $domain;
+        }
+
+        private static function get_current_domain() {
+            $host = wp_parse_url( home_url(), PHP_URL_HOST );
+
+            if ( ! $host && ! empty( $_SERVER['HTTP_HOST'] ) ) {
+                $host = (string) $_SERVER['HTTP_HOST'];
+            }
+
+            return self::normalize_domain( $host );
+        }
+
+        private static function is_current_domain_excluded() {
+            $current_domain = self::get_current_domain();
+
+            if ( $current_domain === '' ) {
+                return false;
+            }
+
+            foreach ( self::EXCLUDED_DOMAINS as $excluded_domain ) {
+                if ( $current_domain === self::normalize_domain( $excluded_domain ) ) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private static function entry_matches_prefix( $entry, $email_field_ids, $prefixes ) {
             foreach ( $email_field_ids as $field_id ) {
                 $value = strtolower( trim( (string) rgar( $entry, $field_id ) ) );
@@ -277,6 +327,10 @@ if ( ! class_exists( 'PWE_GF_Email_Entry_Cleanup' ) ) {
         }
 
         public static function run_cleanup() {
+            if ( self::is_current_domain_excluded() ) {
+                return;
+            }
+
             if ( ! class_exists( 'GFAPI' ) ) {
                 self::save_error_result( 'Gravity Forms nie jest aktywne lub GFAPI nie jest dostępne.' );
                 return;
