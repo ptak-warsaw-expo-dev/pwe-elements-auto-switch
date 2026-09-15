@@ -1,7 +1,7 @@
 <?php
 
 $output = '
-<div id="pweConference" class="pwe-conference"> 
+<div id="pweConference" class="pwe-conference pwe-conference--simple"> 
     <div class="pwe-conference__wrapper"> 
 
         <div class="pwe-conference__title">
@@ -12,7 +12,7 @@ $output = '
             <div class="pwe-conference__buttons">
                 <div class="pwe-btn-container">
                     <a class="pwe-link pwe-btn btn-visitors" 
-                        href="'. PWE_Functions::multi_translation("reg_url") .'" 
+                        href="'. ($b2c ? PWE_Functions::multi_translation("ticket_url") : PWE_Functions::multi_translation("reg_url")) .'" 
                         alt="'. PWE_Functions::multi_translation("reg_text") .'">
                             '. ($b2c ? PWE_Functions::multi_translation("buy_ticket") : PWE_Functions::multi_translation("reg_text")) .'
                             <span class="btn-angle-right">

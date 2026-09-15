@@ -301,7 +301,7 @@ $output  = '
         <div class="pwe-conference-schedule__top">
             <img src="/doc/kongres.webp" alt="Congress logo">
             <div class="pwe-conference-schedule__title-container">
-                <h2 class="pwe-conference-schedule__conf-name">'. PWE_Functions::multi_translation("schedule_conferences") .'</h2>
+                <h2 class="pwe-conference-schedule__conf-name">'. PWE_Functions::multi_translation("conferences") .'</h2>
                 <h3>'. $conf_title .'</h3>
             </div>
         </div>
@@ -323,8 +323,8 @@ $output  = '
             <table class="pwe-conference-schedule__table">
                 <thead>
                     <tr>
-                        <th>' . PWE_Functions::multi_translation("schedule_organizer") . '</th>
-                        <th>' . PWE_Functions::multi_translation("schedule_subject") . '</th>';
+                        <th>' . PWE_Functions::multi_translation("organizer") . '</th>
+                        <th>' . PWE_Functions::multi_translation("subject") . '</th>';
 
                         foreach ($fairDays as $date) {
                             $html .= '<th>' . date('d.m', strtotime($date)) . '</th>';
@@ -474,11 +474,13 @@ $output  = '
 
         $output .= '
         <div class="pwe-conference-schedule__buttons">
-            <a href="' . PWE_Functions::multi_translation("schedule_reg_url") . '" class="pwe-main-btn--primary">'
-                . PWE_Functions::multi_translation("schedule_take_part") . '</a>
+            <a class="pwe-main-btn--primary" 
+                href="' . ($b2c ? PWE_Functions::multi_translation("ticket_url") : PWE_Functions::multi_translation("reg_url")) . '" >'
+                . ($b2c ? PWE_Functions::multi_translation("buy_ticket") : PWE_Functions::multi_translation("take_part")) . '</a>
 
-            <a href="' . PWE_Functions::languageChecker('/wydarzenia/', '/en/conferences/') . '" class="pwe-main-btn--secondary">'
-                . PWE_Functions::multi_translation("schedule_find_more") . '</a>
+            <a class="pwe-main-btn--secondary" 
+                href="' . PWE_Functions::languageChecker('/wydarzenia/', '/en/conferences/') . '" >'
+                . PWE_Functions::multi_translation("find_more") . '</a>
         </div>
     </div>
 </div>';

@@ -23,8 +23,7 @@ class Conference {
             'warsawhomekitchen.com',
             'warsawhomebathroom.com',
             'warsawbuild.eu',
-            'mr.glasstec.pl'
-
+            'mr.glasstec.pl',
         ];
 
         $is_home_fair = false;
@@ -277,9 +276,6 @@ class Conference {
 
         $domain = parse_url(site_url(), PHP_URL_HOST);
 
-        // Add context to translations function
-        PWE_Functions::set_translation_context($element_slug, $group, $element_type);
-
         // Global assets
         PWE_Functions::assets_per_element($element_slug, $element_type);
 
@@ -291,14 +287,18 @@ class Conference {
         }
 
         // Standard assets: same logic as for every other domain.
+        // Add context to translations function
         if ($useSchedule) {
             if (strpos($domain, 'warsawsecuritydefenceexpo.com') !== false) {
                 PWE_Functions::assets_per_group($element_slug, $group, $element_type);
+                PWE_Functions::set_translation_context($element_slug, $group, $element_type);
             } else {
                 PWE_Functions::assets_per_group($element_slug, $group . '-shedule', $element_type);
+                PWE_Functions::set_translation_context($element_slug, $group . '-shedule', $element_type);
             }
         } else {
             PWE_Functions::assets_per_group($element_slug, $group, $element_type);
+            PWE_Functions::set_translation_context($element_slug, $group, $element_type);
         }
 
         $preset_file = $data['presets'][$group] ?? null;
@@ -311,7 +311,10 @@ class Conference {
 
             /* <-------------> General code start <-------------> */
 
-                $b2c = isset($atts['b2c']) ? $atts['b2c'] : false;
+                $b2c_option = isset($atts['b2c']) ? $atts['b2c'] : false;
+                $b2c = PWE_Groups::is_b2c();
+                $b2c = $b2c ? $b2c : $b2c_option;
+
                 $lang = PWE_Functions::languageChecker('pl', 'en');
                 $domain = parse_url(site_url(), PHP_URL_HOST);
 

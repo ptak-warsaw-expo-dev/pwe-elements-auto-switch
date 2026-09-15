@@ -18,6 +18,14 @@ $output .= '
                         <a href="' . PWE_Functions::languageChecker('/wydarzenia/?konferencja=warsaw-home-design-decade-summit-2026', '/en/conferences/?konferencja=warsaw-home-design-decade-summit-2026') . '" class="pwe-conference__btn">
                             '. PWE_Functions::multi_translation("home_btn") .'
                         </a>
+
+                        <div class="pwe-conference__partners">
+                            <h5>'. PWE_Functions::multi_translation("home_partners_title") .'</h5>
+                            <div class="pwe-conference__partners-logos">
+                                <img src="/wp-content/plugins/pwe-media/media/conferences/home/da_logo.webp" alt="Partner Design Decade Summit">
+                                <img src="/wp-content/plugins/pwe-media/media/conferences/home/magazif-logo.webp" alt="Partner Design Decade Summit">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
