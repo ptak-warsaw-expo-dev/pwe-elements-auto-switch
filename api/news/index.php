@@ -20,12 +20,28 @@ function pwe_assign_news_category($post_id, $language = 'pl')
         return false;
     }
 
-    $category = get_term_by('slug', 'news', 'category');
+    $specific_slug = ($language === 'en') ? 'news-en' : 'news-pl';
+    $category_id   = false;
+
+    $category = get_term_by('slug', $specific_slug, 'category');
+
     if (!$category || is_wp_error($category)) {
-        return false;
+        $category = get_term_by('slug', 'news', 'category');
     }
 
-    $category_id = (int) $category->term_id;
+    if (!$category || is_wp_error($category)) {
+        $new_term = wp_insert_term('News', 'category', [
+            'slug' => 'news',
+        ]);
+
+        if (!is_wp_error($new_term)) {
+            $category_id = (int) $new_term['term_id'];
+        } else {
+            return false;
+        }
+    } else {
+        $category_id = (int) $category->term_id;
+    }
 
     if (function_exists('apply_filters') && $language === 'en') {
         $translated_category_id = apply_filters(
@@ -42,6 +58,7 @@ function pwe_assign_news_category($post_id, $language = 'pl')
     }
 
     wp_set_post_categories($post_id, [$category_id], false);
+
     return $category_id;
 }
 

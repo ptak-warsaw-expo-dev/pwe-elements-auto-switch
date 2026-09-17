@@ -4861,6 +4861,190 @@ class PWE_Functions {
             . '<span id="value_' . esc_attr($id) . '">' . esc_attr($value) . '</span>'
             . '</div>';
     }
+    /**
+     * Gravity Forms SMTP failure monitor.
+     *
+     */
+    public static function gravity_forms_smtp_monitor(
+        $is_success = null,
+        $to = '',
+        $subject = '',
+        $message = '',
+        $headers = [],
+        $attachments = [],
+        $message_format = '',
+        $from = '',
+        $from_name = '',
+        $bcc = '',
+        $reply_to = '',
+        $entry = false
+    ) {
+        $alert_recipients = [
+            'jakub.chola@warsawexpo.eu',
+            's.skrypnychenko@warsawexpo.eu',
+            'jakub.koscielak@warsawexpo.eu',
+            'jakub.goral@warsawexpo.eu',
+        ];
+
+        $smtp_host       = 'dedyk180.cyber-folks.pl';
+        $smtp_port       = 465;
+        $smtp_encryption = 'ssl';
+        $smtp_username   = 'smtp@mr.glasstec.pl';
+        $smtp_password   = defined('PWE_API_KEY_2') ? PWE_API_KEY_2 : '';
+
+        $max_alerts_per_hour = 100;
+
+        // --- OBSŁUGA SUKCESU (RECOVERY) ---
+        if ($is_success === true) {
+            $incident_active = get_transient('pwe_gf_smtp_incident_active');
+
+            if ($incident_active) {
+                $failure_count = (int) get_transient('pwe_gf_smtp_failure_count');
+                $recovery_sent = get_transient('pwe_gf_smtp_recovery_sent');
+
+                if (!$recovery_sent) {
+                    $entry_id = (is_array($entry) && !empty($entry['id'])) ? $entry['id'] : '';
+                    $form_id  = (is_array($entry) && !empty($entry['form_id'])) ? $entry['form_id'] : '';
+                    $time     = current_time('Y-m-d H:i:s');
+
+                    $recovery_subject = '✅ Gravity Forms SMTP RECOVERY - ' . $smtp_host;
+
+                    $recovery_body  = "Gravity Forms SMTP ponownie działa.\n\n";
+                    $recovery_body .= "STATUS: RECOVERY\nData: {$time}\n\n";
+                    $recovery_body .= "Serwer backup SMTP:\n{$smtp_host}:{$smtp_port}\nEncryption: {$smtp_encryption}\n\n";
+                    $recovery_body .= "Kolejny poprawnie wysłany email:\nDo: {$to}\nTemat: {$subject}\nForm ID: {$form_id}\nEntry ID: {$entry_id}\n\n";
+                    $recovery_body .= "Liczba wykrytych błędów przed recovery: {$failure_count}\n\n";
+                    $recovery_body .= "Gravity Forms ponownie poprawnie przetworzył wysyłkę wiadomości.";
+
+                    $phpmailer_instance = null;
+                    $phpmailer_config   = static function ($phpmailer) use (
+                        &$phpmailer_instance,
+                        $smtp_host,
+                        $smtp_port,
+                        $smtp_username,
+                        $smtp_password,
+                        $smtp_encryption
+                    ) {
+                        $phpmailer_instance = $phpmailer;
+                        $phpmailer->isSMTP();
+
+                        $phpmailer->Host     = $smtp_host;
+                        $phpmailer->Port     = $smtp_port;
+                        $phpmailer->SMTPAuth = true;
+                        $phpmailer->Username = $smtp_username;
+                        $phpmailer->Password = $smtp_password;
+
+                        if ($smtp_encryption === 'ssl') {
+                            $phpmailer->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
+                        } elseif ($smtp_encryption === 'tls') {
+                            $phpmailer->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+                        }
+
+                        $phpmailer->From     = $smtp_username;
+                        $phpmailer->FromName = 'WordPress SMTP Monitor';
+                        $phpmailer->Timeout  = 15;
+                    };
+
+                    add_action('phpmailer_init', $phpmailer_config, 999);
+                    $result = wp_mail($alert_recipients, $recovery_subject, $recovery_body);
+                    remove_action('phpmailer_init', $phpmailer_config, 999);
+
+                    if ($result) {
+                        set_transient('pwe_gf_smtp_recovery_sent', 1, DAY_IN_SECONDS);
+                    }
+                }
+
+                delete_transient('pwe_gf_smtp_incident_active');
+                delete_transient('pwe_gf_smtp_failure_count');
+                delete_transient('pwe_gf_smtp_recovery_sent');
+
+                return;
+            }
+
+            return;
+        }
+
+        // --- OBSŁUGA BŁĘDU (FAILURE) ---
+        if ($is_success !== false) {
+            return;
+        }
+
+        $entry_id = (is_array($entry) && !empty($entry['id'])) ? $entry['id'] : '';
+        $form_id  = (is_array($entry) && !empty($entry['form_id'])) ? $entry['form_id'] : '';
+
+        $form_title = '';
+        if ($form_id && class_exists('GFAPI')) {
+            $form = \GFAPI::get_form($form_id);
+            if (is_array($form) && !empty($form['title'])) {
+                $form_title = $form['title'];
+            }
+        }
+
+        $time = current_time('Y-m-d H:i:s');
+
+        $failure_count = (int) get_transient('pwe_gf_smtp_failure_count');
+        $failure_count++;
+
+        set_transient('pwe_gf_smtp_failure_count', $failure_count, DAY_IN_SECONDS);
+        set_transient('pwe_gf_smtp_incident_active', 1, DAY_IN_SECONDS);
+
+        $alert_count = (int) get_transient('pwe_gf_smtp_alert_count');
+        if ($alert_count >= $max_alerts_per_hour) {
+            return;
+        }
+
+        $alert_subject = '🚨 Gravity Forms SMTP FAILURE - ' . $smtp_host;
+
+        $alert_body  = "Gravity Forms wykrył problem z wysyłką emaila.\n\n";
+        $alert_body .= "STATUS: SMTP FAILURE\nData: {$time}\n\n";
+        $alert_body .= "FORMULARZ:\nNazwa: {$form_title}\nForm ID: {$form_id}\nEntry ID: {$entry_id}\n\n";
+        $alert_body .= "EMAIL:\nDo: {$to}\nTemat: {$subject}\n\n";
+        $alert_body .= "LICZNIKI:\nBłąd nr: {$failure_count}\nAlert nr w tej godzinie: " . ($alert_count + 1) . " / {$max_alerts_per_hour}\n\n";
+        $alert_body .= "BACKUP SMTP:\nHost: {$smtp_host}\nPort: {$smtp_port}\nEncryption: {$smtp_encryption}\nUsername: {$smtp_username}\n\n";
+        $alert_body .= "Gravity Forms zwrócił is_success = FALSE.\nMonitor wysłał alert przez backup SMTP.";
+
+        if (empty($smtp_password)) {
+            return;
+        }
+
+        $phpmailer_instance = null;
+        $phpmailer_config   = static function ($phpmailer) use (
+            &$phpmailer_instance,
+            $smtp_host,
+            $smtp_port,
+            $smtp_username,
+            $smtp_password,
+            $smtp_encryption
+        ) {
+            $phpmailer_instance = $phpmailer;
+            $phpmailer->isSMTP();
+
+            $phpmailer->Host     = $smtp_host;
+            $phpmailer->Port     = $smtp_port;
+            $phpmailer->SMTPAuth = true;
+            $phpmailer->Username = $smtp_username;
+            $phpmailer->Password = $smtp_password;
+
+            if ($smtp_encryption === 'ssl') {
+                $phpmailer->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
+            } elseif ($smtp_encryption === 'tls') {
+                $phpmailer->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+            }
+
+            $phpmailer->From     = $smtp_username;
+            $phpmailer->FromName = 'WordPress SMTP Monitor';
+            $phpmailer->Timeout  = 15;
+        };
+
+        add_action('phpmailer_init', $phpmailer_config, 999);
+        $result = wp_mail($alert_recipients, $alert_subject, $alert_body);
+        remove_action('phpmailer_init', $phpmailer_config, 999);
+
+        if ($result) {
+            $alert_count++;
+            set_transient('pwe_gf_smtp_alert_count', $alert_count, HOUR_IN_SECONDS);
+        }
+    }
 }
 
 add_action('wp_footer', ['PWE_Functions', 'output_db_connection_logs']);

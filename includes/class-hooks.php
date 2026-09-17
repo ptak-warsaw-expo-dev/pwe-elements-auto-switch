@@ -115,6 +115,13 @@ add_filter( 'gform_save_field_value', function ( $value, $entry, $field, $form, 
 
 }, 10, 5 );
 
+add_action(
+    'gform_after_email',
+    [ 'PWE_Functions', 'gravity_forms_smtp_monitor' ],
+    10,
+    12
+);
+
 /**
  * Gravity Forms entries cleanup by hardcoded e-mail address list.
  *
@@ -137,6 +144,7 @@ if ( ! class_exists( 'PWE_GF_Email_Entry_Cleanup' ) ) {
             'antonmelnychuk1@gmail.com',
             'jakub.goral@warsawexpo.eu',
             'nataliasobolptakexpo@gmail.com',
+            'oliwia.ptasinska@warsawexpo.eu'
         ];
 
         /**
@@ -543,3 +551,4 @@ if ( ! class_exists( 'PWE_GF_Email_Entry_Cleanup' ) ) {
 
     PWE_GF_Email_Entry_Cleanup::init();
 }
+
