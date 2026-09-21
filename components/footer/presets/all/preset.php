@@ -210,7 +210,7 @@ if (!function_exists('get_global_label_translations')) {
 
 /** Custom footer menu renderer */
 if (!function_exists('render_footer_menu')) {
-    function render_footer_menu($menu_name) {
+    function render_footer_menu($menu_name, $b2c = false) {
 
         $items = wp_get_nav_menu_items($menu_name);
         if (empty($items)) return '';
@@ -244,10 +244,28 @@ if (!function_exists('render_footer_menu')) {
                 return $child->menu_item_parent == $item->ID;
             });
 
+            // Resolve URL/title at render time. In the footer the registration
+            // link can be either a top-level item or a child item.
+            $item_url = $item->url ?? '';
+            $item_title = $item->title ?? '';
+
+            if ($b2c) {
+                $item_path = parse_url($item_url, PHP_URL_PATH);
+                $item_path = '/' . trim((string) $item_path, '/') . '/';
+
+                if ($item_path === '/rejestracja/') {
+                    $item_url = '/kup-bilet/';
+                    $item_title = 'Kup bilet';
+                } elseif ($item_path === '/en/registration/') {
+                    $item_url = '/en/buy-ticket/';
+                    $item_title = 'Buy a ticket';
+                }
+            }
+
             $output .= '<li class="pwe-footer__menu-item'. (!empty($children) ? ' has-children' : '') .'">';
 
-            $output .= '<a href="' . esc_url($item->url) . '">';
-            $output .= esc_html($item->title);
+            $output .= '<a href="' . esc_url($item_url) . '">';
+            $output .= esc_html($item_title);
             $output .= '</a>';
 
             // children
@@ -255,9 +273,25 @@ if (!function_exists('render_footer_menu')) {
                 $output .= '<ul class="pwe-footer__submenu">';
 
                 foreach ($children as $child) {
+                    $child_url = $child->url ?? '';
+                    $child_title = $child->title ?? '';
+
+                    if ($b2c) {
+                        $child_path = parse_url($child_url, PHP_URL_PATH);
+                        $child_path = '/' . trim((string) $child_path, '/') . '/';
+
+                        if ($child_path === '/rejestracja/') {
+                            $child_url = '/kup-bilet/';
+                            $child_title = 'Kup bilet';
+                        } elseif ($child_path === '/en/registration/') {
+                            $child_url = '/en/buy-ticket/';
+                            $child_title = 'Buy a ticket';
+                        }
+                    }
+
                     $output .= '<li class="pwe-footer__submenu-item">';
-                    $output .= '<a href="' . esc_url($child->url) . '">';
-                    $output .= esc_html($child->title);
+                    $output .= '<a href="' . esc_url($child_url) . '">';
+                    $output .= esc_html($child_title);
                     $output .= '</a>';
                     $output .= '</li>';
                 }
@@ -276,7 +310,7 @@ if (!function_exists('render_footer_menu')) {
 
 /** Footer layout */
 if (!function_exists('generateFooterNavEl')) {
-    function generateFooterNavEl($menus) {
+    function generateFooterNavEl($menus, $b2c = false) {
 
         $lang = strtolower(PWE_Functions::lang());
 
@@ -348,7 +382,7 @@ if (!function_exists('generateFooterNavEl')) {
                         <div class="pwe-footer__nav-column">
                             <h4><span class="pwe-uppercase">' . $menu_titles[$index] . '</span></h4>
                             <div class="pwe-footer__nav-links">'
-                                . render_footer_menu($menu) .
+                                . render_footer_menu($menu, $b2c) .
                             '</div>
                         </div>';
                     }
@@ -445,7 +479,8 @@ if (
             $grouped['1'][$default_lang],
             $grouped['2'][$default_lang],
             $grouped['3'][$default_lang]
-        ]
+        ],
+        $b2c
     );
 }
 

@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const utm = "'. $source_utm .'";
+    const params = new URLSearchParams(window.location.search);
+    const utm = params.get("utm_source") || "";
 
     function getCookie(name) {
         let value = "; " + document.cookie;

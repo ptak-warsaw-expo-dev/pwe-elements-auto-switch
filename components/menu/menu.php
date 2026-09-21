@@ -18,11 +18,12 @@ class Menu {
 
         $group = 'all';
 
-        $atts = [
+        // Preserve incoming attributes (especially `b2c`) before adding runtime values.
+        $atts = array_merge($atts, [
             'menu_transparent'       => !empty(get_option('pwe_menu_options', [])['pwe_menu_transparent']) ? "true" : "false",
             'trade_fair_datetotimer' => do_shortcode('[trade_fair_datetotimer]'),
             'trade_fair_enddata'     => do_shortcode('[trade_fair_enddata]'),
-        ];
+        ]);
 
         // Add context to translations function
         PWE_Functions::set_translation_context($element_slug, $group, $element_type);
@@ -39,6 +40,8 @@ class Menu {
             $lang = PWE_Functions::lang();
             $current_lang = ($lang === 'pl') ? 'pl' : 'en';
 
+            $b2c = PWE_Groups::is_b2c();
+        
             $cap_files = PWE_Functions::get_database_fairs_data_files();
             $fair_current_year = do_shortcode('[trade_fair_catalog_year]');
 
@@ -125,7 +128,6 @@ class Menu {
             usort($all_post_shows, function($a, $b) {
                 return (int)$b->year <=> (int)$a->year;
             });
-
 
             /* <-------------> General code end <-------------> */
             

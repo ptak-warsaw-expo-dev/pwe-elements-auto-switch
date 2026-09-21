@@ -312,7 +312,7 @@ if (!function_exists('render_dynamic_children')) {
 
 /** Recursively renders submenus and assigns dynamic items to editions. */
 if (!function_exists('render_submenu')) {
-    function render_submenu($parent_id, $menu_items, $depth = 1, $root_index = null, $dynamic_items = []){
+    function render_submenu($parent_id, $menu_items, $depth = 1, $root_index = null, $dynamic_items = [], $b2c = false){
         // Maximum nesting depth
         $max_depth = 10;
 
@@ -539,6 +539,42 @@ if (!function_exists('render_submenu')) {
                 }
 
                 foreach ($children as $child) {
+                    // B2C: change only this rendered submenu child.
+                    $child_url = $child->url ?? '';
+                    $child_title = $child->title ?? '';
+
+                    if ($b2c) {
+                        $child_path = parse_url($child_url, PHP_URL_PATH);
+                        $child_path = '/' . trim((string) $child_path, '/') . '/';
+
+                        $registration_paths = [
+                            '/rejestracja/',
+                            '/en/registration/',
+                            '/de/anmeldung/',
+                            '/uk/reyestraciya/',
+                            '/lt/registracija/',
+                            '/lv/registracija/',
+                            '/cs/registrace/',
+                            '/sk/registracia/',
+                            '/it/registrazione/',
+                            '/ro/inregistrare/',
+                            '/et/registreerimine/',
+                            '/hu/regisztracio/',
+                            '/es/registro/',
+                            '/fr/inscription/',
+                        ];
+
+                        if (in_array($child_path, $registration_paths, true)) {
+                            if ($lang === 'pl') {
+                                $child_url = '/kup-bilet/';
+                                $child_title = 'Kup bilet';
+                            } else {
+                                $child_url = '/en/buy-ticket/';
+                                $child_title = 'Buy a ticket';
+                            }
+                        }
+                    }
+
                     $has_submenu_children = 
                         !empty(array_filter($menu_items, function($grandchild) use ($child) {
                             return $grandchild->menu_item_parent == $child->ID;
@@ -547,8 +583,8 @@ if (!function_exists('render_submenu')) {
 
                     $target_blank = !empty($child->target) ? 'target="_blank"' : '';
 
-                    $aria_label_for_visitors = (strpos(esc_url($child->url), PWE_Functions::languageChecker('/dla-odwiedzajacych/', '/for-visitors/')) !== false && $has_submenu_children != true) ? 'aria-label="Dlaczego warto: dla odwiedzajacych"' : '';
-                    $aria_label_for_exhibitors = (strpos(esc_url($child->url), PWE_Functions::languageChecker('/dla-wystawcow/', '/for-exhibitors/')) !== false && $has_submenu_children != true) ? 'aria-label="Dlaczego warto: dla wystawcow"' : '';
+                    $aria_label_for_visitors = (strpos(esc_url($child_url), PWE_Functions::languageChecker('/dla-odwiedzajacych/', '/for-visitors/')) !== false && $has_submenu_children != true) ? 'aria-label="Dlaczego warto: dla odwiedzajacych"' : '';
+                    $aria_label_for_exhibitors = (strpos(esc_url($child_url), PWE_Functions::languageChecker('/dla-wystawcow/', '/for-exhibitors/')) !== false && $has_submenu_children != true) ? 'aria-label="Dlaczego warto: dla wystawcow"' : '';
 
                     if (!empty($aria_label_for_visitors)) {
                         $aria_label = $aria_label_for_visitors;
@@ -562,7 +598,8 @@ if (!function_exists('render_submenu')) {
                         $menu_items,
                         $depth + 1,
                         $root_index,
-                        $dynamic_items
+                        $dynamic_items,
+                        $b2c
                     );
 
                     $child_extra_items = render_dynamic_children($child);
@@ -585,8 +622,8 @@ if (!function_exists('render_submenu')) {
 
                     $output .= '
                     <li class="pwe-menu-auto-switch__submenu-item' . ($has_submenu_children ? ' has-children' : '') . '">
-                        <a '. $target_blank .' '. $aria_label .' href="' . esc_url($child->url) . '">
-                            <span class="pwe-menu-auto-switch__item-title">' . wp_kses_post($child->title) .'</span>
+                        <a '. $target_blank .' '. $aria_label .' href="' . esc_url($child_url) . '">
+                            <span class="pwe-menu-auto-switch__item-title">' . wp_kses_post($child_title) .'</span>
                             '. ($has_submenu_children ? '
                             <svg class="pwe-menu-auto-switch__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9 20L16 12L9 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -680,12 +717,18 @@ $socials_cap = array(
     'youtube' => do_shortcode('[pwe_youtube]')
 );
 
+$file_logo = PWE_Functions::lang_pl()
+    ? '/doc/logo-x-pl.webp'
+    : '/doc/logo-x-en.webp';
+
+$class = file_exists($_SERVER['DOCUMENT_ROOT'] . $file_logo) ? 'hidden-mobile' : '';
+
 $output .= '
-<header id="pweMenuAutoSwitch" class="pwe-menu-auto-switch notranslate no-lazyrender" translate="no"> 
+<header id="pweMenuAutoSwitch" class="pwe-menu-auto-switch notranslate no-lazyrender" translate="no" data-b2c="' . ($b2c ? '1' : '0') . '"> 
     <a style="opacity: 0; width: 0; height: 0;"  href="#main-content" class="skip-link">Skip to main content</a>
     <div class="pwe-menu-auto-switch__wrapper">
         <div class="pwe-menu-auto-switch__logotypes">
-            <a class="pwe-logo ' . (file_exists($_SERVER['DOCUMENT_ROOT'] . PWE_Functions::lang_pl() ? '/doc/logo-x-pl.webp' : '/doc/logo-x-en.webp') ? "hidden-mobile" : "") . '" target="_blank" href="https://warsawexpo.eu'. (PWE_Functions::lang_pl() ? '/' : '/en/') .'">
+            <a class="pwe-logo ' . $class . '" target="_blank" href="https://warsawexpo.eu'. (PWE_Functions::lang_pl() ? '/' : '/en/') .'">
                 <div class="pwe-menu-auto-switch__logo-container">
                     <img data-no-lazy="1" src="/wp-content/plugins/pwe-media/media/logo_pwe.webp" alt="logo ptak">
                 </div>
@@ -722,6 +765,41 @@ $output .= '
 
                         if ($item->menu_item_parent == 0) {
 
+                            $item_url = $item->url ?? '';
+                            $item_title = $item->title ?? '';
+
+                            if ($b2c) {
+                                $item_path = parse_url($item_url, PHP_URL_PATH);
+                                $item_path = '/' . trim((string) $item_path, '/') . '/';
+
+                                $registration_paths = [
+                                    '/rejestracja/',
+                                    '/en/registration/',
+                                    '/de/anmeldung/',
+                                    '/uk/reyestraciya/',
+                                    '/lt/registracija/',
+                                    '/lv/registracija/',
+                                    '/cs/registrace/',
+                                    '/sk/registracia/',
+                                    '/it/registrazione/',
+                                    '/ro/inregistrare/',
+                                    '/et/registreerimine/',
+                                    '/hu/regisztracio/',
+                                    '/es/registro/',
+                                    '/fr/inscription/',
+                                ];
+
+                                if (in_array($item_path, $registration_paths, true)) {
+                                    if ($lang === 'pl') {
+                                        $item_url = '/kup-bilet/';
+                                        $item_title = 'Kup bilet';
+                                    } else {
+                                        $item_url = '/en/buy-ticket/';
+                                        $item_title = 'Buy a ticket';
+                                    }
+                                }
+                            }
+
                             $has_children = !empty(array_filter($menu_items, function($child) use ($item) {
                                 return $child->menu_item_parent == $item->ID;
                             }));
@@ -731,8 +809,8 @@ $output .= '
                             if ((strpos($item->ID, 'wpml') === false)) {
                                 $output .= '
                                 <li class="pwe-menu-auto-switch__item' . ($has_children ? ' has-children' : '') . ' ' . ($item->button ?? '') . '">
-                                    <a '. $target_blank .' href="' . esc_url($item->url) . '">
-                                        <span class="pwe-menu-auto-switch__item-title">' . wp_kses_post($item->title) .'</span>
+                                    <a '. $target_blank .' href="' . esc_url($item_url) . '">
+                                        <span class="pwe-menu-auto-switch__item-title">' . wp_kses_post($item_title) .'</span>
                                         '. ($has_children ? '
                                         <svg class="pwe-menu-auto-switch__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M9 20L16 12L9 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -750,7 +828,8 @@ $output .= '
 
                                                 'all_fair_plans' => $all_fair_plans,
                                                 'all_post_shows' => $all_post_shows,
-                                            ]
+                                            ],
+                                            $b2c
                                         ) .'
                                 </li>';
                             }
@@ -948,7 +1027,19 @@ $output .= '
         ];
 
         // Use English as the fallback language.
-        $current = $register_map[$lang] ?? $register_map["en"];                    
+        $current = $register_map[$lang] ?? $register_map["en"];
+
+        if ($b2c) {
+            $current = $lang === 'pl'
+                ? [
+                    'url' => '/kup-bilet/',
+                    'label' => 'Kup bilet',
+                ]
+                : [
+                    'url' => '/en/buy-ticket/',
+                    'label' => 'Buy a ticket',
+                ];
+        }
 
         $output .= '
         <div class="pwe-menu-auto-switch__container-mobile">

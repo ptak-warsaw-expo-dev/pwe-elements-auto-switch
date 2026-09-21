@@ -41,7 +41,7 @@ class Footer {
             
             /* <-------------> General code start <-------------> */
 
-        
+            $b2c = PWE_Groups::is_b2c();
 
             /* <-------------> General code end <-------------> */
             

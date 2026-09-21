@@ -254,6 +254,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (registerButtons.length > 0 && mobileRegisterButton) {
 
+            const menuRoot = document.getElementById('pweMenuAutoSwitch');
+            const isB2C = menuRoot?.dataset.b2c === '1';
+
+            // B2C CTA is rendered directly in PHP and must not be overwritten here.
+            if (isB2C) return;
+
             // normalize lang (pl-PL -> pl, en-US -> en itd.)
             const rawLang = document.documentElement.lang || 'en';
             const lang = rawLang.toLowerCase().split('-')[0];
@@ -320,6 +326,10 @@ document.addEventListener("DOMContentLoaded", function () {
             };
 
             registerButtons.forEach(registerButton => {
+
+                // If PHP already rendered the B2C CTA, never overwrite it in JS.
+                const currentPath = new URL(registerButton.href, window.location.origin).pathname.replace(/\/+$/, '') + '/';
+                if (currentPath === '/kup-bilet/' || currentPath === '/en/buy-ticket/') return;
 
                 const btnText = registerButton.innerText.trim().toLowerCase();
 
