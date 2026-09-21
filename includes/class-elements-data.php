@@ -57,6 +57,7 @@ class PWE_Elements_Data {
         'Call_Center',
         'Step2',
         'Forms',
+        'Layout',
 
         'Side_Events',
         'Conference_Gallery',
@@ -173,10 +174,13 @@ class PWE_Elements_Data {
             ['class' => 'Forms'],
             ['class' => 'Footer'],
         ],
-
         'conferences' => [
             ['class' => 'Side_Events'],
             ['class' => 'Conference_Gallery'],
+            ['class' => 'Footer'],
+        ],
+        'layout' => [
+            ['class' => 'Layout'],
             ['class' => 'Footer'],
         ],
     ];
