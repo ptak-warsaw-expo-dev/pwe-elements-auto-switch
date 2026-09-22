@@ -2,6 +2,22 @@
 
 declare(strict_types=1);
 
+// Migration bridge: after WordPress loads, use PWE System only when it is active.
+$pwe_bridge_wp_load = dirname(__DIR__, 5) . '/wp-load.php';
+if (is_file($pwe_bridge_wp_load)) {
+    require_once $pwe_bridge_wp_load;
+}
+
+if (defined('PWE_SYSTEM_PATH')) {
+    $pwe_system_api = trailingslashit(PWE_SYSTEM_PATH) . 'api/cap/doc.php';
+    if (is_file($pwe_system_api) && realpath($pwe_system_api) !== realpath(__FILE__)) {
+        require $pwe_system_api;
+        exit;
+    }
+}
+
+// No active PWE System: execute the original legacy endpoint below.
+
 /*
  * PWE CAP - Graphics API
  *

@@ -1,6 +1,18 @@
 <?php
 
+// Migration bridge: use the new endpoint only when PWE System is active.
 require_once __DIR__ . '/../../../../../wp-load.php';
+
+if (defined('PWE_SYSTEM_PATH')) {
+    $pwe_system_api = trailingslashit(PWE_SYSTEM_PATH) . 'api/news/index.php';
+    if (is_file($pwe_system_api) && realpath($pwe_system_api) !== realpath(__FILE__)) {
+        require $pwe_system_api;
+        exit;
+    }
+}
+
+// No active PWE System: execute the original legacy endpoint below.
+
 
 header('Content-Type: application/json; charset=utf-8');
 
