@@ -1,0 +1,74 @@
+[
+  {
+    "id": "cap-graphics",
+    "kind": "direct-http",
+    "route": "/wp-content/plugins/pwe-elements-auto-switch/api/cap/doc.php",
+    "methods": [
+      "GET",
+      "POST",
+      "OPTIONS"
+    ],
+    "auth": "GET bez klucza; POST wymaga nagłówka X-PWE-API-Key zgodnego z PWE_API_KEY_2",
+    "source": "api/cap/doc.php"
+  },
+  {
+    "id": "news-sync",
+    "kind": "direct-http",
+    "route": "/wp-content/plugins/pwe-elements-auto-switch/api/news/index.php",
+    "methods": [
+      "POST"
+    ],
+    "auth": "PWE_API_KEY_2 przez ?key= lub X-API-KEY",
+    "source": "api/news/index.php"
+  },
+  {
+    "id": "ajax-update-registration-address",
+    "kind": "wp-ajax",
+    "route": "admin-ajax.php?action=update_registration_address",
+    "methods": [
+      "POST"
+    ],
+    "auth": "dostępne również nopriv; kod opiera autoryzację logiczną na sesji pwe_reg_entry; komentarz mówi o tymczasowo wyłączonej weryfikacji CSRF",
+    "source": "elements/confirmation-visitors-registration/confirmation-visitors-registration/confirmation-visitors-registration.php"
+  },
+  {
+    "id": "ajax-update-exhibitor-data",
+    "kind": "wp-ajax",
+    "route": "admin-ajax.php?action=update_exhibitor_data",
+    "methods": [
+      "POST"
+    ],
+    "auth": "dostępne również nopriv; wymagany entry_id w sesji pwe_exhibitor_entry",
+    "source": "elements/confirmation-exhibitors-registration/confirmation-exhibitors-registration/confirmation-exhibitors-registration.php"
+  },
+  {
+    "id": "ajax-clear-pwe-session",
+    "kind": "wp-ajax",
+    "route": "admin-ajax.php?action=clear_pwe_session",
+    "methods": [
+      "POST"
+    ],
+    "auth": "dostępne również nopriv; czyści sesję PWE",
+    "source": "elements/confirmation-exhibitors-registration/confirmation-exhibitors-registration/confirmation-exhibitors-registration.php"
+  },
+  {
+    "id": "clear-transients",
+    "kind": "query-handler",
+    "route": "dowolny frontend URL?pwe_clear_transients=<token>",
+    "methods": [
+      "GET"
+    ],
+    "auth": "porównanie z hardcoded stałą PWE_CLEAR_TOKEN w źródle",
+    "source": "includes/class-clear-transients.php"
+  },
+  {
+    "id": "registration-log-download",
+    "kind": "query-handler",
+    "route": "/?registration_log_download=1&registration_log_nonce=...",
+    "methods": [
+      "GET"
+    ],
+    "auth": "zalogowany użytkownik lub klucz PWE_API_KEY_5 + wymagany nonce",
+    "source": "includes/class-registration-log.php"
+  }
+]
