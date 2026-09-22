@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "plugin": {
+    "name": "PWE Elements AutoSwitch",
+    "slug": "pwe-elements-auto-switch",
+    "version": "1.8.8",
+    "entrypoint": "pwe-elements-auto-switch.php"
+  },
+  "documentation": {
+    "generated_at": "2026-09-22",
+    "language": "pl",
+    "source": "uploaded archive",
+    "source_commit": null,
+    "scope": "first-party source plus dependency inventory",
+    "notes": [
+      "Documentation is based on uploaded version 1.8.8 archive.",
+      "source_commit is unknown because the uploaded archive did not contain trusted commit metadata.",
+      "plugin-update-checker is treated as third-party dependency and excluded from first-party per-file PHP docs."
+    ]
+  },
+  "counts": {
+    "files_total": 600,
+    "php_files_first_party": 194,
+    "classes_detected": 66,
+    "shortcodes_documented": 175,
+    "endpoints_documented": 7,
+    "elements": 41,
+    "components": 7,
+    "methods_detected": 529,
+    "global_functions_detected": 63
+  },
+  "entry_documents": [
+    "README.md",
+    "architecture/overview.md",
+    "architecture/bootstrap-lifecycle.md",
+    "architecture/rendering-autoswitch.md",
+    "architecture/data-and-cache.md",
+    "architecture/shortcodes-and-integrations.md",
+    "architecture/translations-and-assets.md",
+    "shortcodes/index.md",
+    "endpoints/index.md",
+    "hooks/index.md",
+    "processes/index.md",
+    "elements/index.md",
+    "components/index.md",
+    "symbols/index.md",
+    "files/index.md",
+    "security/review.md"
+  ]
+}
