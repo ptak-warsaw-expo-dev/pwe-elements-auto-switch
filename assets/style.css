@@ -1,0 +1,42 @@
+.home:has(.pwe-element-auto-switch.header) #page-header {
+    display: none !important;
+}
+.pwe-element-auto-switch {
+    margin: 0 auto !important;
+}
+.pwe-element-auto-switch .wpb_column {
+    padding: 0;
+}
+
+.pwe-limit-width {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 18px;
+}
+.swiper-scrollbar-drag {
+    background: black;
+}
+
+/* @media(max-width:1200px) { */
+    .privacyButton {
+        --button-size: 30px;
+    }
+/* } */
+
+.row-parent:has(#pweElementsAutoSwitch),
+.pwe-element-auto-switch.header,
+.pwe-element-auto-switch.footer {
+    max-width: 100% !important;
+    padding: 0 !important;
+}
+
+
+.no-lazyrender {
+    content-visibility: visible !important;
+}
+
+
+.page-wrapper {
+    display: block !important;
+    min-height: 60vh !important;
+}
