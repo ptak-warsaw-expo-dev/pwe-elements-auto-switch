@@ -1,0 +1,59 @@
+{
+  "pl_PL": {
+    "exhibitor_registration_text": "Zapytaj o stoisko<br>Wypełnij poniższy formularz, a my skontaktujemy się z Tobą w celu przedstawienia preferencyjnych stawek* za powierzchnię wystawienniczą i zabudowę stoiska.<br>*oferta ograniczona czasowo",
+    "exhibitor_registration_title": "DLA WYSTAWCÓW" 
+  },
+  "en_US": {
+    "exhibitor_registration_text": "Ask for a stand<br>Fill out the form below and we will contact you to present preferential rates *  for the exhibition space and stand construction<br>* limited time offer",
+    "exhibitor_registration_title": "BOOK A STAND"
+  },
+  "de_DE": {
+    "exhibitor_registration_text": "Stand anfragen<br>Füllen Sie das untenstehende Formular aus und wir kontaktieren Sie, um Ihnen Vorzugskonditionen für die Ausstellungsfläche und den Standbau vorzustellen.<br> zeitlich begrenztes Angebot",
+    "exhibitor_registration_title": "STAND BUCHEN"
+  },
+  "cs_CZ": {
+    "exhibitor_registration_text": "Požádejte o stánek<br>Vyplňte následující formulář a my vás kontaktujeme, abychom vám představili preferenční sazby* na výstavní plochu a stavbu stánku.<br>* nabídka je časově omezená",
+    "exhibitor_registration_title": "REZERVOVAT STÁNEK"
+  },
+  "it_IT": {
+    "exhibitor_registration_text": "Richiedi uno stand<br>Compila il modulo sottostante e ti contatteremo per presentarti tariffe preferenziali* per lo spazio espositivo e la realizzazione dello stand.<br>*offerta a tempo limitato",
+    "exhibitor_registration_title": "PRENOTA UNO STAND"
+  },
+  "lt_LT": {
+    "exhibitor_registration_text": "Prašyti stendo<br>Užpildykite žemiau esantį formą ir mes susisieksime su jumis, kad pristatytume pageidaujamas kainas* parodų erdvei ir stendo įrengimui.<br>*laikinas pasiūlymas",
+    "exhibitor_registration_title": "UŽSAKYTI STENDĄ"
+  },
+  "lv_LV": {
+    "exhibitor_registration_text": "Pieprasīt stendu<br>Aizpildiet zemāk esošo veidlapu, un mēs sazināsimies ar jums, lai piedāvātu jums priekšrocību tarifas* par izstādes platību un stenda būvniecību.<br>*ierobežots laika piedāvājums",
+    "exhibitor_registration_title": "REZERVĒT STENDU"
+  },
+  "sk_SK": {
+    "exhibitor_registration_text": "Požiadajte o stánok<br>Vyplňte nižšie uvedený formulár a my vás budeme kontaktovať, aby sme vám predstavili preferenčné sadzby* za výstavnú plochu a stavbu stánku.<br>*časovo obmedzená ponuka",
+    "exhibitor_registration_title": "REZERVOVAŤ STÁNOK"
+  },
+  "uk": {
+    "exhibitor_registration_text": "Запросити стенд<br>Заповніть форму нижче, і ми зв'яжемося з вами, щоб запропонувати преференційні тарифи* за виставкову площу та будівництво стенду.<br>*обмежена пропозиція",
+    "exhibitor_registration_title": "ЗАМОВИТИ СТЕНД"
+  }
+  ,
+  "ro_RO": {
+    "exhibitor_registration_text": "Cereți un stand<br>Completați formularul de mai jos și vă vom contacta pentru a vă oferi tarife preferțiale* pentru spațiul expozițional și construcția standului.<br>*ofertă limitată",
+    "exhibitor_registration_title": "COMANDAȚI UN STAND"
+  },
+  "et": {
+    "exhibitor_registration_text": "Paluge stendi<br>Täidke allolev vorm ja me võtame teiega ühendust, et pakkuda teile soodushinnad* näitusepinna ja stendi ehitamiseks.<br>*aeg piiratud pakkumine",
+    "exhibitor_registration_title": "TELLIGE STEND"
+  },
+  "hu_HU": {
+    "exhibitor_registration_text": "Kérjen standot<br>Töltse ki az alábbi űrlapot, és felvesszük Önnel a kapcsolatot, hogy bemutassuk a kiállítási terület és a stand építésének kedvezményes díjait*.<br>*korlátozott ideig érvényes ajánlat",
+    "exhibitor_registration_title": "FOGLALJON STANDOT"
+  },
+    "fr_FR": {
+        "exhibitor_registration_text": "Demandez un stand<br>Remplissez le formulaire ci-dessous et nous vous contacterons pour vous présenter des tarifs préférentiels* pour l'espace d'exposition et la construction du stand.<br>*offre limitée dans le temps",
+        "exhibitor_registration_title": "RÉSERVEZ UN STAND"
+    },
+    "es_ES": {
+        "exhibitor_registration_text": "Solicite un stand<br>Complete el siguiente formulario y nos pondremos en contacto con usted para presentarle tarifas preferenciales* para el espacio de exposición y la construcción del stand.<br>*oferta por tiempo limitado",
+        "exhibitor_registration_title": "RESERVE UN STAND"
+    }
+}

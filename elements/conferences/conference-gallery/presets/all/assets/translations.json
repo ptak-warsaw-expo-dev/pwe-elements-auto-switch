@@ -1,0 +1,20 @@
+{
+    "pl_PL": {
+        "badge_label": "Galeria wydarzenia",
+        "title": "Zobacz atmosferę naszych targów",
+        "description": "Zajrzyj za kulisy wydarzeń, zobacz pełne sale, rozmowy ekspertów i najciekawsze momenty poprzednich edycji.",
+        "gallery_url": "/galeria/",
+        "gallery_button_label": "Zobacz galerię",
+        "registration_url": "/rejestracja/",
+        "registration_button_label": "Zarejestruj się"
+    },
+    "en_US": {
+        "badge_label": "Event gallery",
+        "title": "See the atmosphere of our fair",
+        "description": "Take a look behind the scenes of the events, see full rooms, expert discussions, and the most interesting moments of previous editions.",
+        "gallery_url": "/en/gallery/",
+        "gallery_button_label": "View gallery",
+        "registration_url": "/en/registration/",
+        "registration_button_label": "Register"
+    }
+}

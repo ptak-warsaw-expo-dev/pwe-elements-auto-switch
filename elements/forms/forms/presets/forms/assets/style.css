@@ -1,0 +1,117 @@
+.pwe-gf-select {
+    width: 100%;
+    padding: 24px;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 0 12px -8px #000;
+}
+
+.pwe-gf-select__label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--ink);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.pwe-gf-tool .pwe-gf-select__control {
+    width: 100%;
+    min-height: 52px;
+    padding: 12px 16px;
+    border: 1px solid #dfe3e8;
+    border-radius: 5px;
+    background-color: #fff !important;
+    color: var(--ink);
+    font-size: 16px;
+}
+
+.pwe-gf-select__results {
+    margin-top: 12px;
+}
+
+.pwe-gf-select__panel[hidden] {
+    display: none !important;
+}
+
+.pwe-gf-select__panel {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pwe-gf-select__languages {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+    gap: 8px;
+}
+
+.pwe-gf-select__download-form {
+    display: block;
+    margin: 0;
+}
+
+.pwe-gf-select__download-form input {
+    display: none !important;
+}
+
+.pwe-gf-select__button {
+    all: unset !important;
+    display: flex !important;
+    width: 100% !important;
+    min-height: 40px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    padding: 8px 12px !important;
+    border: 1px solid #d4d8de !important;
+    border-radius: 8px !important;
+    background: #fff !important;
+    color: #111 !important;
+    font: inherit !important;
+    line-height: 1.2 !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    transition: border-color .15s ease, background-color .15s ease, color .15s ease !important;
+}
+
+.pwe-gf-select__button:hover,
+.pwe-gf-select__button:focus-visible {
+    border-color: var(--brand) !important;
+    background: #f7f8ff !important;
+    color: var(--brand) !important;
+    outline: none !important;
+}
+
+.pwe-gf-select__button:focus-visible {
+    box-shadow: 0 0 0 3px rgba(49, 87, 213, .14) !important;
+}
+
+.pwe-gf-select__button--all {
+    min-height: 40px !important;
+    font-weight: 700 !important;
+}
+
+.pwe-gf-select__count {
+    color: #98a0aa;
+}
+
+.pwe-gf-select__empty {
+    grid-column: 1 / -1;
+    margin: 4px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+@media (max-width: 600px) {
+    .pwe-gf-select {
+        padding: 16px;
+    }
+
+    .pwe-gf-select__languages {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pwe-gf-tool .pwe-gf-select__control {
+        font-size: 14px;
+    }
+}

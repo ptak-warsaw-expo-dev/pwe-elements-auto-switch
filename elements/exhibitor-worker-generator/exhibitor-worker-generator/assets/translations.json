@@ -1,0 +1,12 @@
+{
+    "pl_PL": {
+        "title": "WYGENERUJ\nIDENTYFIKATOR DLA\nSIEBIE I OBSŁUGI STOISKA!",
+        "help_text": "Potrzebujesz pomocy?",
+        "contact": "Skontaktuj się z nami - "
+    },
+    "en_US": {
+        "title": "GENERATE\nAN ID FOR YOURSELF\nAND YOUR COWORKERS!",
+        "help_text": "Need help?",
+        "contact": "Contact us - "
+    }
+}

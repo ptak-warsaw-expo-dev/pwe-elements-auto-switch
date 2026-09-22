@@ -1,0 +1,237 @@
+.pwe-gf-tool {
+    --ink: #172033;
+    --muted: #657087;
+    --line: #e2e7ef;
+    --brand: #3157d5;
+    --brand2: #6d4aff;
+    color: var(--ink);
+    font: 15px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.pwe-gf-tool * {
+    box-sizing: border-box
+}
+
+.pwe-gf-tool__header {
+    padding: 30px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #18233d, #273b74);
+    color: #fff;
+    box-shadow: 0 18px 45px rgba(23, 32, 51, .15)
+}
+
+.pwe-gf-tool__header h2 {
+    margin: 3px 0 5px;
+    color: #fff;
+    font-size: clamp(25px, 4vw, 38px)
+}
+
+.pwe-gf-tool__header p {
+    margin: 0;
+    color: #dbe3ff
+}
+
+.pwe-gf-tool__eyebrow {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: #aebfff
+}
+
+.pwe-gf-tool__tabs {
+    display: flex;
+    gap: 6px;
+    overflow: auto;
+    padding: 4px
+}
+
+.pwe-gf-tool__tabs a {
+    white-space: nowrap;
+    padding: 10px 15px;
+    border-radius: 10px;
+    color: var(--muted);
+    font-weight: 700;
+    text-decoration: none
+}
+
+.pwe-gf-tool__tabs a:hover,
+.pwe-gf-tool__tabs a.active {
+    background: #eef1ff;
+    color: var(--brand)
+}
+
+.pwe-gf-tool__card {
+    padding: 24px;
+    background: #fffffe;
+    box-shadow: 0 0 12px -8px black;
+    border-radius: 18px;
+}
+
+.pwe-gf-tool__card h3 {
+    margin: 0;
+    font-size: 22px
+}
+
+.pwe-gf-tool__card p {
+    margin: 5px 0 18px;
+    color: var(--muted)
+}
+
+.pwe-gf-tool__card label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px
+}
+
+.pwe-gf-tool__card label span {
+    font-size: 13px;
+    color: var(--muted)
+}
+
+.pwe-gf-tool select,
+.pwe-gf-tool textarea {
+    width: 100%;
+    padding: 12px 13px;
+    border: 1px solid #ccd3df;
+    border-radius: 10px;
+    background-color: #fff !important;
+    background-image: none !important;
+    background-repeat: no-repeat !important;
+    color: var(--ink);
+    font: inherit
+}
+
+.pwe-gf-tool select {
+    -webkit-appearance: auto !important;
+    appearance: auto !important
+}
+
+.pwe-gf-tool textarea {
+    resize: vertical
+}
+
+.pwe-gf-tool select:focus,
+.pwe-gf-tool textarea:focus {
+    outline: 3px solid rgba(49, 87, 213, .14);
+    border-color: var(--brand)
+}
+
+.pwe-gf-tool__button {
+    all: unset !important;
+    box-sizing: border-box !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 38px !important;
+    margin-top: 12px !important;
+    padding: 9px 15px !important;
+    border: 0 !important;
+    border-radius: 8px !important;
+    background-color: #3157d5 !important;
+    background-image: linear-gradient(135deg, #3157d5, #5746df) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    font: 750 12px/1.2 system-ui, -apple-system, "Segoe UI", sans-serif !important;
+    letter-spacing: .025em !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    box-shadow: 0 4px 10px rgba(49, 87, 213, .16) !important;
+    cursor: pointer !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    transition: background-color .15s ease, box-shadow .15s ease, transform .15s ease !important
+}
+
+.pwe-gf-tool__button:hover,
+.pwe-gf-tool__button:focus {
+    background-color: #2748bd !important;
+    background-image: linear-gradient(135deg, #2748bd, #4937cd) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    box-shadow: 0 5px 12px rgba(49, 87, 213, .2) !important;
+    filter: none !important;
+    transform: translateY(-1px) !important
+}
+
+.pwe-gf-tool__button:focus-visible {
+    outline: 3px solid rgba(49, 87, 213, .35) !important;
+    outline-offset: 2px !important
+}
+
+.pwe-gf-tool__button:active {
+    transform: translateY(0) !important;
+    box-shadow: 0 2px 6px rgba(49, 87, 213, .18) !important
+}
+
+.pwe-gf-tool__button:disabled,
+.pwe-gf-tool__button[disabled] {
+    opacity: .6 !important;
+    cursor: not-allowed !important;
+    transform: none !important
+}
+
+.pwe-gf-tool__grid {
+    display: grid;
+    gap: 16px
+}
+
+.pwe-gf-tool__languages {
+    margin-top: 16px
+}
+
+.pwe-gf-tool__field-title {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700
+}
+
+.pwe-gf-tool__message {
+    margin: 16px 0;
+    padding: 12px 15px;
+    border-radius: 10px
+}
+
+.pwe-gf-tool__success {
+    background: #e9f8ef;
+    color: #176638
+}
+
+.pwe-gf-tool__error {
+    background: #fff0f0;
+    color: #9c2020
+}
+
+@media(max-width:680px) {
+    .pwe-gf-tool__header {
+        padding: 22px
+    }
+}
+
+.pwe-gf-tool__language-flag {
+    display: block !important;
+    width: 18px !important;
+    height: 12px !important;
+    margin: 0 2px 0 0 !important;
+    border-radius: 2px !important;
+    object-fit: cover !important
+}
+
+.pwe-gf-tool__download-mark {
+    margin-left: 2px !important
+}
+
+.pwe-gf-tool__button[hidden] {
+    display: none !important
+}
+
+.pwe-gf-tool__summary-label {
+    color: var(--muted);
+    font-size: 12px
+}

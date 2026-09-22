@@ -1,0 +1,23 @@
+# `Conference::getConferenceOrganizersAll()`
+
+**Źródło:** `elements/main/conference/conference.php:183`  
+**Sygnatura:** `public static getConferenceOrganizersAll($conf_slug)`
+
+## Krótki opis
+
+Pobiera lub wylicza conference organizers all zgodnie z logiką implementacji.
+
+## Wykryte zależności statyczne
+
+### Wywołania statyczne
+- `PWE_Functions::get_database_conference_adds_data()`
+- `PWE_Functions::get_database_conferences_data()`
+
+## Kontekst
+
+- Klasa: [Conference](../../classes/Conference.md)
+- Plik: [Otwórz dokument pliku](../../../files/elements/main/conference/conference.php.md)
+
+## Uwagi
+
+- Opis zależności jest deterministyczny dla wywołań literalnie widocznych w kodzie. Wywołania dynamiczne/refleksyjne mogą wymagać analizy całego procesu.

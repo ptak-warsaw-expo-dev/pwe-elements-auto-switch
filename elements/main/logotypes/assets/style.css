@@ -1,0 +1,9 @@
+#pweLogotypesEuropeEvent .pwe-logotypes__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#pweLogotypesEuropeEvent .pwe-logotypes__item img {
+    aspect-ratio: 3 / 2;
+    object-fit: contain;
+}

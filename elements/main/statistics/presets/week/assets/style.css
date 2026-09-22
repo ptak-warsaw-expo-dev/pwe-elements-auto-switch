@@ -1,0 +1,111 @@
+.pwe-element-auto-switch {
+    --pwe-primary: white;
+    --pwe-secondary: var(--main2-color, #3498db);
+    --pwe-bg-card: transparent;
+    --pwe-text: #2c3e50;
+    --pwe-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    --pwe-radius: 16px;
+    --cyan: #04dcff;
+    --blue: #2084ff;
+    --violet: #9a4dff;
+    --pink: #ed4dff;
+    --green: #00e89d;
+    --yellow: #ffb33e;
+}
+
+#statisticsWeek.pwe-limit-width {
+    max-width: 100%;
+    padding: 0px !important;
+    background: radial-gradient(circle at 20% 3%, rgba(136, 65, 255, .18), transparent 30%),
+        radial-gradient(circle at 70% 5%, rgba(0, 210, 255, .16), transparent 28%),
+        linear-gradient(180deg, #020817 0%, #061126 43%, #020817 100%);
+    border-top: 1px solid rgba(79, 129, 200, .18);
+    border-bottom: 1px solid rgba(79, 129, 200, .18);
+}
+
+.pwe-element-auto-switch .pwe-statistics {
+    max-width: 1200px;
+    margin: 5px auto;
+    padding: 20px;
+    font-family: inherit;
+    color: var(--pwe-text);
+}
+
+.pwe-element-auto-switch .pwe-statistics__wrapper {
+    width: 100%;
+}
+
+.pwe-element-auto-switch .pwe-statistics__cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.pwe-element-auto-switch .pwe-statistics__card {
+    background: var(--pwe-bg-card);
+    padding: 30px 20px;
+    box-shadow: var(--pwe-shadow);
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-right: 1px solid rgba(119, 143, 185, .25);
+}
+
+.pwe-element-auto-switch .pwe-statistics__card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.pwe-element-auto-switch .pwe-statistics__card.color {
+    border-left-color: var(--card-accent, var(--pwe-secondary));
+}
+
+.pwe-element-auto-switch .pwe-statistics__card-icon {
+    font-size: 2.2rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+}
+
+.pwe-element-auto-switch .pwe-custom-emoji {
+    display: inline-block;
+    min-width: 30px;
+}
+.pwe-element-auto-switch .pwe-custom-emoji svg {
+    width: 1em;
+    height: 1em;
+    display: block;
+}
+.pwe-element-auto-switch .pwe-statistics__card-numbers {
+    display: flex;
+    flex-direction: column;
+}
+
+.pwe-element-auto-switch .pwe-statistics__card-num {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--pwe-primary);
+    line-height: 1.1;
+    margin-bottom: 6px;
+}
+
+.pwe-element-auto-switch .pwe-statistics__card-label {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    line-height: 1.4;
+}
+
+@media (min-width: 576px) {
+    .pwe-element-auto-switch .pwe-statistics__cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 992px) {
+    .pwe-element-auto-switch .pwe-statistics__cards {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

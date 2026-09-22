@@ -1,0 +1,256 @@
+/* .pwe-element-auto-switch .pwe-confirmation-visitors-registration--platyna {
+    background-image: url('/wp-content/plugins/pwe-media/media/platyna/platinum_background.webp');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+} */
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--platyna .pwe-confirmation-visitors-registration__content,
+.pwe-element-auto-switch .pwe-confirmation-visitors-registration--platyna .pwe-confirmation-visitors-registration__form-column {
+    background-color: rgba(255, 255, 255, 0.92);
+}
+    .pwe-registration__form-section,
+    .pwe-registration__benefits {
+        flex: 1 1 0%;
+        min-width: 0;
+    }
+
+    .pwe-registration__field-flex {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .pwe-registration__field-flex input,
+    .gfield.gfield--width-full input {
+        width: 100% !important;
+    }
+
+    .pwe-element-auto-switch .pwe-registration__button {
+        background-color: var(--accent-color, #000000) !important;
+        border: 2px solid var(--accent-color, #000000) !important;
+        color: white;
+        margin: 36px 0;
+        border-radius: 10px !important;
+        padding: 10px 15px !important;
+        transform-origin: center !important;
+    }
+
+    .pwe-element-auto-switch .pwe-registration__buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .pwe-element-auto-switch.pwe-limit-width {
+        max-width: 100% !important;
+        padding: 0px !important;
+    }
+
+    /* .wpb_column:has(.exhibitors-catalog) {
+        display: none !important;
+    } */
+
+    .row-container:has(#pweConfirmationVisitorsRegistration) {
+        background-image: url(/wp-content/plugins/pwe-media/media/platyna/platinum_background.webp);
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    #pweForm.pwe-registration__form-wrapper {
+        width: 100%;
+        margin-left: auto;
+        max-width: 60%;
+        border-radius: 40px 0 0 40px;
+        overflow: hidden;
+        border: 1px solid #838B8F;
+        background: #838B8F;
+        background: linear-gradient(90deg, rgba(131, 139, 143, 1) 0%, rgba(224, 224, 224, 1) 50%, rgba(252, 252, 252, 1) 100%);
+    }
+
+    .pwe-registration__container {
+        display: flex;
+        max-width: 80%;
+        margin-left: auto;
+        padding: 18px 0;
+        margin-right: 15px;
+    }
+
+    .pwe-registration__form-section {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .pwe-registration__column {
+        display: flex;
+        justify-content: right;
+        align-items: center;
+        min-height: 650px;
+    }
+
+    .pwe-registration__title {
+        color: black;
+        font-weight: 500;
+        text-align: center;
+        margin-top: 0px;
+        font-size: 30px;
+    }
+
+    .pwe-registration__row {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        justify-content: space-between;
+    }
+
+    .pwe-registration__field-flex {
+        flex: 1;
+    }
+
+    .pwe-registration__post-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    .pwe-registration__post-separator {
+        margin: 0 5px;
+    }
+
+    .pwe-registration__form-section form :is(input, textarea) {
+        margin-bottom: 8px !important;
+    }
+
+    .pwe-registration__form-section label {
+        color: black;
+        font-weight: 600 !important;
+    }
+
+    .pwe-registration__form-section form input,
+    .pwe-registration__form-section input::placeholder {
+        border-radius: 18px;
+        color: #8a8a8a !important;
+    }
+
+    .pwe-registration__benefits {
+        flex: 1;
+        gap: 10px;
+        text-align: center;
+        justify-content: space-around;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pwe-registration__benefit-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 250px;
+        justify-content: center;
+    }
+
+    .pwe-registration__benefit-item img {
+        width: 70px;
+    }
+
+    .pwe-registration__benefits-title {
+        color: #636363;
+        font-size: 18px;
+        font-weight: 700 !important;
+        margin-top: 60px;
+    }
+
+    .pwe-registration__benefit-item p {
+        color: #646464;
+        font-weight: 500;
+        line-height: 1.3;
+        margin-top: 0;
+        font-size: 14px;
+    }
+
+    .pwe-registration__display-after-submit {
+        display: none;
+    }
+
+    .pwe-registration.is-complete .pwe-registration__before-submit {
+        display: none !important;
+    }
+
+    .pwe-registration.is-complete .pwe-registration__success {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pwe-registration.is-complete .pwe-registration__display-after-submit {
+        display: block !important;
+    }
+
+    /* Responsywność */
+    @media(max-width: 1500px) {
+        .pwe-registration__container {
+            padding: 0 0 5px 0;
+        }
+
+        .pwe-registration__column {
+            min-height: 580px;
+        }
+
+        .pwe-registration__title {
+            margin-top: 14px;
+        }
+
+        .pwe-registration__benefits-title {
+            margin-top: 60px;
+        }
+    }
+
+    @media(max-width: 1200px) {
+        .row-container:has(#pweRegistration) {
+            background-size: cover;
+        }
+
+        .pwe-registration__container {
+            max-width: 90%;
+        }
+    }
+
+    @media(max-width: 960px) {
+        #pweForm.pwe-registration__form-wrapper {
+            max-width: 100%;
+            border-radius: 40px;
+            margin: 15px 5px;
+        }
+
+        .wpb_column:has(#pweElementsAutoSwitch) {
+            max-width: 100% !important;
+        }
+    }
+
+    @media(max-width: 650px) {
+        .row-container:has(#pweRegistration) {
+            background: #838B8F;
+            background: linear-gradient(90deg, rgb(161 161 161) 0%, rgb(255 255 255) 50%, rgb(184 180 180) 100%);
+        }
+
+        .pwe-registration__container {
+            flex-direction: column;
+        }
+
+        .pwe-registration__benefits {
+            flex-wrap: wrap;
+            flex-direction: row;
+        }
+    }
+
+    @media(max-width: 480px) {
+        .pwe-registration__benefit-item {
+            flex: 1;
+        }
+
+        .pwe-registration__benefits-title {
+            width: 100%;
+            margin-top: 20px;
+        }
+    }

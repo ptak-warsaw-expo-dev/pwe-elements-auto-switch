@@ -1,0 +1,66 @@
+# Hooki i filtry WordPress
+
+Lista rejestracji wykrytych statycznie w kodzie pierwszej strony projektu. Dynamiczne rejestracje w pętlach (np. wiele `vc_before_init`) są reprezentowane przez miejsca rejestracji w rdzeniu.
+
+| Typ | Hook | Plik:linia |
+|---|---|---|
+| action | `admin_bar_init` | `includes/class-collapse-adminbar.php:7` |
+| action | `admin_init` | `includes/class-shortcodes.php:20` |
+| action | `admin_menu` | `includes/class-shortcodes.php:19` |
+| action | `gform_after_email` | `includes/class-hooks.php:119` |
+| action | `gform_after_submission` | `elements/confirmation-exhibitors-registration/confirmation-exhibitors-registration/confirmation-exhibitors-registration.php:88` |
+| action | `gform_after_submission` | `elements/registration-exhibitors/registration-exhibitors/registration-exhibitors.php:74` |
+| action | `gform_after_submission` | `elements/registration-visitors/registration-visitors/registration-visitors.php:145` |
+| filter | `gform_confirmation` | `elements/confirmation-exhibitors-registration/confirmation-exhibitors-registration/confirmation-exhibitors-registration.php:89` |
+| filter | `gform_confirmation` | `elements/registration-visitors/registration-visitors/registration-visitors.php:134` |
+| filter | `gform_field_content` | `elements/badge-local/badge-local/badge-local.php:466` |
+| filter | `gform_field_validation` | `addons/email-validator/email-validator.php:26` |
+| filter | `gform_field_validation` | `addons/phone-validator/phone-validator.php:25` |
+| filter | `gform_notification` | `includes/class-shortcodes.php:28` |
+| filter | `gform_pre_render` | `addons/phone-validator/phone-validator.php:24` |
+| filter | `gform_pre_render` | `elements/confirmation-exhibitors-registration/confirmation-exhibitors-registration/confirmation-exhibitors-registration.php:82` |
+| filter | `gform_pre_render` | `elements/confirmation-visitors-registration/confirmation-visitors-registration/confirmation-visitors-registration.php:134` |
+| filter | `gform_pre_render` | `elements/registration-visitors/registration-visitors/registration-visitors.php:133` |
+| action | `gform_pre_submission` | `elements/confirmation-exhibitors-registration/confirmation-exhibitors-registration/confirmation-exhibitors-registration.php:86` |
+| filter | `gform_pre_validation` | `elements/confirmation-exhibitors-registration/confirmation-exhibitors-registration/confirmation-exhibitors-registration.php:83` |
+| filter | `gform_pre_validation` | `elements/confirmation-visitors-registration/confirmation-visitors-registration/confirmation-visitors-registration.php:135` |
+| filter | `gform_replace_merge_tags` | `includes/class-shortcodes.php:26` |
+| filter | `gform_save_field_value` | `elements/confirmation-exhibitors-registration/confirmation-exhibitors-registration/confirmation-exhibitors-registration.php:85` |
+| filter | `gform_save_field_value` | `includes/class-hooks.php:108` |
+| filter | `gform_validation` | `elements/confirmation-exhibitors-registration/confirmation-exhibitors-registration/confirmation-exhibitors-registration.php:84` |
+| filter | `gform_validation` | `includes/class-registration-log.php:70` |
+| filter | `gform_validation` | `includes/class-registration-log.php:71` |
+| action | `init` | `includes/class-hooks.php:14` |
+| action | `init` | `includes/class-shortcodes.php:22` |
+| action | `init` | `pwe-elements-auto-switch.php:73` |
+| action | `phpmailer_init` | `includes/class-functions.php:4948` |
+| action | `phpmailer_init` | `includes/class-functions.php:5039` |
+| action | `plugins_loaded` | `includes/class-hooks.php:5` |
+| filter | `pwe_override_menu_output` | `includes/class-hooks.php:6` |
+| filter | `rocket_delay_js_exclusions` | `elements/flip-book/flip-book.php:24` |
+| filter | `script_loader_tag` | `elements/flip-book/flip-book.php:25` |
+| action | `template_redirect` | `includes/class-clear-transients.php:9` |
+| action | `template_redirect` | `includes/class-hooks.php:39` |
+| action | `template_redirect` | `includes/class-registration-log.php:87` |
+| action | `template_redirect` | `includes/class-registration-log.php:88` |
+| action | `vc_before_init` | `includes/class-elements.php:31` |
+| action | `vc_before_init` | `includes/class-elements.php:140` |
+| action | `vc_before_init` | `includes/class-elements.php:232` |
+| action | `wp_ajax_clear_pwe_session` | `elements/confirmation-exhibitors-registration/confirmation-exhibitors-registration/confirmation-exhibitors-registration.php:238` |
+| action | `wp_ajax_nopriv_clear_pwe_session` | `elements/confirmation-exhibitors-registration/confirmation-exhibitors-registration/confirmation-exhibitors-registration.php:239` |
+| action | `wp_ajax_nopriv_update_exhibitor_data` | `elements/confirmation-exhibitors-registration/confirmation-exhibitors-registration/confirmation-exhibitors-registration.php:236` |
+| action | `wp_ajax_nopriv_update_registration_address` | `elements/confirmation-visitors-registration/confirmation-visitors-registration/confirmation-visitors-registration.php:168` |
+| action | `wp_ajax_update_exhibitor_data` | `elements/confirmation-exhibitors-registration/confirmation-exhibitors-registration/confirmation-exhibitors-registration.php:235` |
+| action | `wp_ajax_update_registration_address` | `elements/confirmation-visitors-registration/confirmation-visitors-registration/confirmation-visitors-registration.php:167` |
+| action | `wp_enqueue_scripts` | `addons/email-validator/email-validator.php:27` |
+| action | `wp_enqueue_scripts` | `elements/flip-book/flip-book.php:23` |
+| action | `wp_enqueue_scripts` | `includes/class-elements.php:20` |
+| action | `wp_enqueue_scripts` | `includes/class-elements.php:21` |
+| action | `wp_footer` | `includes/class-functions.php:5050` |
+| action | `wp_head` | `includes/class-collapse-adminbar.php:15` |
+| action | `wp_loaded` | `includes/class-hooks.php:175` |
+| action | `wp_loaded` | `includes/class-registration-log.php:96` |
+| action | `wp_loaded` | `includes/class-registration-log.php:97` |
+| filter | `wpdb_connect_timeout` | `includes/class-functions.php:768` |
+| filter | `wpseo_register_extra_replacements` | `includes/class-shortcodes.php:24` |
+| filter | `wpseo_replacements` | `includes/class-shortcodes.php:25` |

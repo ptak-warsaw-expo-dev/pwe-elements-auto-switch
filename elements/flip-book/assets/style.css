@@ -1,0 +1,83 @@
+.row-parent:has(.flip-book) {
+    max-width: 100%;
+    padding: 0 !important;
+}
+.pwe-flip-book-error {
+    padding:20px;
+    border:1px solid #ddd;
+    background:#fff;
+    text-align:center;
+    color:red;
+}
+/* --- Container Styles --- */
+.pwe-flip-book-root {
+    width: 100%;
+    position: relative; 
+    background: #fdfdfd; 
+    border-radius: 4px;
+    user-select: none; 
+    display: flex; 
+    flex-direction: column; 
+    /* Enable native pinch-zoom and pan on mobile */
+    touch-action: pan-y pinch-zoom !important; 
+}
+.pwe-flip-book-stage {
+    width:100%;
+    height: 80vh;
+    overflow:hidden;
+}
+
+/* --- Navigation Arrows --- */
+.pwe-nav-arrow {
+    position: absolute; 
+    top: 50%; 
+    transform: translateY(-50%);
+    width: 50px; 
+    height: 50px; 
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.15); 
+    cursor: pointer; 
+    z-index: 100;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    font-size: 24px; 
+    color: #333; 
+    transition: all 0.2s ease;
+    outline: none; 
+    touch-action: manipulation; 
+}
+.pwe-nav-arrow:hover {
+    background: #fff; 
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    border-color: rgba(0,0,0,0.4); 
+    transform: translateY(-50%) scale(1.1);
+}
+.pwe-nav-arrow:active { transform: translateY(-50%) scale(0.95); }
+.pwe-nav-arrow.disabled, .pwe-nav-arrow:disabled {
+    opacity: 0.2; 
+    cursor: default; 
+    pointer-events: none; 
+    box-shadow: none; 
+    border-color: transparent;
+}
+.pwe-nav-prev { left: 15px; }
+.pwe-nav-next { right: 15px; }
+
+/* --- Mobile Specific Fixes --- */
+@media (max-width: 768px) {
+    /* 1. Disable pointer events on stage: Allows native browser Scroll & Zoom */
+    .pwe-flip-book-stage { pointer-events: none !important; }
+    
+    /* 2. Re-enable pointer events for arrows */
+    .pwe-nav-arrow { 
+        pointer-events: auto !important; 
+        display: flex !important; 
+        width: 44px; height: 44px; font-size: 20px; 
+        left: -15px; 
+    }
+    .pwe-nav-next { left: auto; right: -15px; }
+    .pwe-nav-arrow:hover { transform: translateY(-50%); }
+}

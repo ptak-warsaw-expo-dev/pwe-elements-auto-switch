@@ -1,0 +1,7098 @@
+{
+  "plugin-update-checker.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 34,
+    "bytes": 1221,
+    "registrations": []
+  },
+  "addons/phone-validator/phone-validator.php": {
+    "classes": [
+      {
+        "name": "PWE_Phone_Validator_Addon",
+        "line": 8,
+        "methods": [
+          {
+            "name": "init",
+            "line": 16,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "maybe_enqueue_assets_for_form",
+            "line": 33,
+            "params": "$form",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "enqueue_assets",
+            "line": 56,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "print_late_styles",
+            "line": 119,
+            "params": "array $handles",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "get_messages",
+            "line": 135,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "get_language",
+            "line": 211,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "validate_phone_field",
+            "line": 223,
+            "params": "$result, $value, $form, $field",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 260,
+    "bytes": 9894,
+    "registrations": [
+      {
+        "type": "filter",
+        "name": "gform_pre_render",
+        "extra": null,
+        "line": 24
+      },
+      {
+        "type": "filter",
+        "name": "gform_field_validation",
+        "extra": null,
+        "line": 25
+      }
+    ]
+  },
+  "addons/email-validator/email-validator.php": {
+    "classes": [
+      {
+        "name": "PWE_Email_Validator_Addon",
+        "line": 13,
+        "methods": [
+          {
+            "name": "init",
+            "line": 19,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "enqueue_assets",
+            "line": 30,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_domain_corrections",
+            "line": 76,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "get_provider_domains",
+            "line": 159,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "get_messages",
+            "line": 176,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "get_language",
+            "line": 241,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "validate_email_domain",
+            "line": 249,
+            "params": "$result, $value, $form, $field",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 322,
+    "bytes": 10495,
+    "registrations": [
+      {
+        "type": "action",
+        "name": "wp_enqueue_scripts",
+        "extra": null,
+        "line": 27
+      },
+      {
+        "type": "filter",
+        "name": "gform_field_validation",
+        "extra": null,
+        "line": 26
+      }
+    ]
+  },
+  "components/simple-header/presets/all/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 32,
+    "bytes": 1155,
+    "registrations": []
+  },
+  "components/simple-header/simple-header.php": {
+    "classes": [
+      {
+        "name": "Simple_Header",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 8,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 17,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 57,
+    "bytes": 1817,
+    "registrations": []
+  },
+  "components/exhibitors-top12/presets/standard-visitors/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 22,
+    "bytes": 780,
+    "registrations": []
+  },
+  "components/exhibitors-top12/presets/byli-premium-visitors/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 25,
+    "bytes": 896,
+    "registrations": []
+  },
+  "components/exhibitors-top12/presets/standard-exhibitors/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 22,
+    "bytes": 780,
+    "registrations": []
+  },
+  "components/exhibitors-top12/exhibitors-top12.php": {
+    "classes": [
+      {
+        "name": "Exhibitors_Top12",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 17,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 60,
+    "bytes": 2135,
+    "registrations": []
+  },
+  "components/footer/footer.php": {
+    "classes": [
+      {
+        "name": "Footer",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 8,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 17,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 55,
+    "bytes": 1652,
+    "registrations": []
+  },
+  "components/footer/presets/all/preset.php": {
+    "classes": [],
+    "functions": [
+      {
+        "name": "get_menu_translations",
+        "line": 5,
+        "params": "",
+        "modifiers": []
+      },
+      {
+        "name": "apply_anchor_translation",
+        "line": 29,
+        "params": "&$item",
+        "modifiers": []
+      },
+      {
+        "name": "translate_global_label",
+        "line": 136,
+        "params": "$text, $lang",
+        "modifiers": []
+      },
+      {
+        "name": "get_global_label_translations",
+        "line": 173,
+        "params": "",
+        "modifiers": []
+      },
+      {
+        "name": "render_footer_menu",
+        "line": 213,
+        "params": "$menu_name, $b2c = false",
+        "modifiers": []
+      },
+      {
+        "name": "generateFooterNavEl",
+        "line": 313,
+        "params": "$menus, $b2c = false",
+        "modifiers": []
+      }
+    ],
+    "lines": 493,
+    "bytes": 17093,
+    "registrations": []
+  },
+  "components/footer/assets/script.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 276,
+    "bytes": 10021,
+    "registrations": []
+  },
+  "components/pwe-address/pwe-address.php": {
+    "classes": [
+      {
+        "name": "PWE_Address",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 15,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 44,
+    "bytes": 1345,
+    "registrations": []
+  },
+  "components/pwe-address/presets/all/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 15,
+    "bytes": 280,
+    "registrations": []
+  },
+  "components/organized-groups/organized-groups.php": {
+    "classes": [
+      {
+        "name": "Organized_Groups",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 15,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 46,
+    "bytes": 1369,
+    "registrations": []
+  },
+  "components/organized-groups/presets/all/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 15,
+    "bytes": 413,
+    "registrations": []
+  },
+  "components/location-map/presets/all/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 11,
+    "bytes": 301,
+    "registrations": []
+  },
+  "components/location-map/location-map.php": {
+    "classes": [
+      {
+        "name": "Location_Map",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 15,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 46,
+    "bytes": 1405,
+    "registrations": []
+  },
+  "components/menu/menu.php": {
+    "classes": [
+      {
+        "name": "Menu",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 14,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 141,
+    "bytes": 4648,
+    "registrations": []
+  },
+  "components/menu/presets/all/preset.php": {
+    "classes": [],
+    "functions": [
+      {
+        "name": "get_menu_translations",
+        "line": 7,
+        "params": "",
+        "modifiers": []
+      },
+      {
+        "name": "apply_anchor_translation",
+        "line": 31,
+        "params": "&$item",
+        "modifiers": []
+      },
+      {
+        "name": "preprocess_menu_items",
+        "line": 138,
+        "params": "&$menu_items",
+        "modifiers": []
+      },
+      {
+        "name": "get_global_label_translations",
+        "line": 173,
+        "params": "",
+        "modifiers": []
+      },
+      {
+        "name": "translate_global_label",
+        "line": 213,
+        "params": "$text, $lang",
+        "modifiers": []
+      },
+      {
+        "name": "is_current_trade_fair_plan_visible",
+        "line": 252,
+        "params": "",
+        "modifiers": []
+      },
+      {
+        "name": "render_dynamic_children",
+        "line": 286,
+        "params": "$child",
+        "modifiers": []
+      },
+      {
+        "name": "render_submenu",
+        "line": 315,
+        "params": "$parent_id, $menu_items, $depth = 1, $root_index = null, $dynamic_items = [], $b2c = false",
+        "modifiers": []
+      }
+    ],
+    "lines": 1063,
+    "bytes": 46520,
+    "registrations": []
+  },
+  "components/contact-details/presets/all/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 150,
+    "bytes": 6895,
+    "registrations": []
+  },
+  "components/contact-details/contact-details.php": {
+    "classes": [
+      {
+        "name": "Contact_Details",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "pwe_clean_value",
+            "line": 21,
+            "params": "$value",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "pwe_option_value",
+            "line": 36,
+            "params": "$option_name",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "pwe_first_not_empty",
+            "line": 49,
+            "params": "$manual_value, $default_value = ''",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "pwe_split_emails",
+            "line": 65,
+            "params": "$value",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "pwe_phone_href",
+            "line": 89,
+            "params": "$phone",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "pwe_data_value",
+            "line": 100,
+            "params": "$data, $field",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "pwe_render_email_links",
+            "line": 126,
+            "params": "$emails",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 153,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 412,
+    "bytes": 14555,
+    "registrations": []
+  },
+  "api/news/index.php": {
+    "classes": [],
+    "functions": [
+      {
+        "name": "pwe_json_response",
+        "line": 7,
+        "params": "$status_code, $data",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_assign_news_category",
+        "line": 17,
+        "params": "$post_id, $language = 'pl'",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_prepare_uncode_raw_html",
+        "line": 65,
+        "params": "$html",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_set_featured_image_from_url",
+        "line": 83,
+        "params": "$image_url, $post_id, $title",
+        "modifiers": []
+      }
+    ],
+    "lines": 366,
+    "bytes": 11359,
+    "registrations": []
+  },
+  "api/cap/doc.php": {
+    "classes": [],
+    "functions": [
+      {
+        "name": "pwe_images_status",
+        "line": 441,
+        "params": "string $root, array $assets",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_images_send_notification",
+        "line": 511,
+        "params": "array $recipients, array $uploadedDetails, string $changedByName = '', string $changedByEmail = ''",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_images_normalize_files",
+        "line": 608,
+        "params": "array $files",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_images_cleanup_staged",
+        "line": 634,
+        "params": "array $staged",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_images_response",
+        "line": 643,
+        "params": "array $data, int $code = 200",
+        "modifiers": []
+      }
+    ],
+    "lines": 655,
+    "bytes": 16310,
+    "registrations": []
+  },
+  "includes/class-hooks.php": {
+    "classes": [
+      {
+        "name": "PWE_GF_Email_Entry_Cleanup",
+        "line": 134,
+        "methods": [
+          {
+            "name": "init",
+            "line": 174,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "maybe_run_automatic_cleanup",
+            "line": 178,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "normalize_emails",
+            "line": 206,
+            "params": "$emails",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "get_emails",
+            "line": 224,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "get_email_prefixes",
+            "line": 228,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "get_cleanup_rules_hash",
+            "line": 242,
+            "params": "$emails, $prefixes",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "normalize_domain",
+            "line": 246,
+            "params": "$domain",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "get_current_domain",
+            "line": 260,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "is_current_domain_excluded",
+            "line": 270,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "entry_matches_prefix",
+            "line": 286,
+            "params": "$entry, $email_field_ids, $prefixes",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "get_email_field_ids",
+            "line": 304,
+            "params": "$form",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "acquire_lock",
+            "line": 324,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "release_lock",
+            "line": 333,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "run_cleanup",
+            "line": 337,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "save_error_result",
+            "line": 539,
+            "params": "$message",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 555,
+    "bytes": 20398,
+    "registrations": [
+      {
+        "type": "action",
+        "name": "plugins_loaded",
+        "extra": null,
+        "line": 5
+      },
+      {
+        "type": "action",
+        "name": "init",
+        "extra": null,
+        "line": 14
+      },
+      {
+        "type": "action",
+        "name": "template_redirect",
+        "extra": null,
+        "line": 39
+      },
+      {
+        "type": "action",
+        "name": "gform_after_email",
+        "extra": null,
+        "line": 119
+      },
+      {
+        "type": "action",
+        "name": "wp_loaded",
+        "extra": null,
+        "line": 175
+      },
+      {
+        "type": "filter",
+        "name": "pwe_override_menu_output",
+        "extra": null,
+        "line": 6
+      },
+      {
+        "type": "filter",
+        "name": "gform_save_field_value",
+        "extra": null,
+        "line": 108
+      }
+    ]
+  },
+  "includes/class-elements.php": {
+    "classes": [
+      {
+        "name": "PWE_Elements",
+        "line": 4,
+        "methods": [
+          {
+            "name": "init",
+            "line": 7,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "adding_styles",
+            "line": 260,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "adding_scripts",
+            "line": 283,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render_single_element",
+            "line": 290,
+            "params": "$class_name, $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render_elements",
+            "line": 350,
+            "params": "$type, $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 427,
+    "bytes": 18129,
+    "registrations": [
+      {
+        "type": "action",
+        "name": "wp_enqueue_scripts",
+        "extra": null,
+        "line": 20
+      },
+      {
+        "type": "action",
+        "name": "wp_enqueue_scripts",
+        "extra": null,
+        "line": 21
+      },
+      {
+        "type": "action",
+        "name": "vc_before_init",
+        "extra": null,
+        "line": 31
+      },
+      {
+        "type": "action",
+        "name": "vc_before_init",
+        "extra": null,
+        "line": 140
+      },
+      {
+        "type": "action",
+        "name": "vc_before_init",
+        "extra": null,
+        "line": 232
+      }
+    ]
+  },
+  "includes/class-functions.php": {
+    "classes": [
+      {
+        "name": "PWE_Functions",
+        "line": 4,
+        "methods": [
+          {
+            "name": "set_translation_context",
+            "line": 14,
+            "params": "$element_slug, $group, $element_type = 'main'",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "multi_translation",
+            "line": 22,
+            "params": "$key",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "load_translation_file",
+            "line": 110,
+            "params": "$file_path",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "assets_per_element",
+            "line": 128,
+            "params": "$element_slug, $element_type = 'main', $folder = 'elements'",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "assets_per_group",
+            "line": 161,
+            "params": "$element_slug, $group, $element_type = 'main', $folder = 'elements', $atts = null",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "exhibitor_logos",
+            "line": 206,
+            "params": "$count = 16, $shuffle = true",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_gf_form_id",
+            "line": 357,
+            "params": "string $base_title",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render_component",
+            "line": 473,
+            "params": "$slug, $group = 'all', $params = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "is_pwe_session_page",
+            "line": 507,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "id_rnd",
+            "line": 574,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "lang",
+            "line": 582,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "add_log",
+            "line": 606,
+            "params": "$message, $filename = 'logs'",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "debug_log",
+            "line": 624,
+            "params": "$message, $type = 'log'",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "output_db_connection_logs",
+            "line": 650,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "resolve_server_addr_fallback",
+            "line": 676,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_servers",
+            "line": 695,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "connect_database",
+            "line": 754,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "set_db_timeout",
+            "line": 844,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_json_cache_dir",
+            "line": 865,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_json_cache_path",
+            "line": 897,
+            "params": "$source, $cache_key",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "pack_database_json_value",
+            "line": 911,
+            "params": "$value",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "unpack_database_json_value",
+            "line": 935,
+            "params": "$value",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "read_database_json_cache",
+            "line": 962,
+            "params": "$source, $cache_key",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "write_database_json_cache",
+            "line": 993,
+            "params": "$source, $cache_key, $data, array $args = []",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "refresh_database_json_cache",
+            "line": 1054,
+            "params": "$domain = null",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_fairs_data",
+            "line": 1450,
+            "params": "$fair_domain = null",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_fairs_data_adds",
+            "line": 1696,
+            "params": "$fair_domain = null",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_translations_data",
+            "line": 1819,
+            "params": "$fair_domain = null",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_associates_data",
+            "line": 2042,
+            "params": "$fair_domain = null, bool $fair_block = false",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_store_data",
+            "line": 2176,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_store_packages_data",
+            "line": 2269,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_meta_data",
+            "line": 2357,
+            "params": "$data_id = null, $domain = null",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_groups_contacts_data",
+            "line": 2470,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_groups_callcenter_data",
+            "line": 2550,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_groups_data",
+            "line": 2629,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_week_data",
+            "line": 2708,
+            "params": "$fair_domain = null",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_week_all",
+            "line": 2795,
+            "params": "$fair_domain = null",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_all_week_domains",
+            "line": 2883,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_logotypes_data",
+            "line": 2970,
+            "params": "$fair_domain = null",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_conferences_data",
+            "line": 3089,
+            "params": "$domain = null",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_conference_adds_data",
+            "line": 3191,
+            "params": "$conf_id",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_fairs_data_profiles",
+            "line": 3287,
+            "params": "$fair_domain = null",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_premieres_data",
+            "line": 3362,
+            "params": "$fair_domain = null",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_fairs_data_opinions",
+            "line": 3445,
+            "params": "$fair_domain = null",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_fairs_data_sectors",
+            "line": 3530,
+            "params": "$fair_domain = null",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_fairs_data_tickets",
+            "line": 3614,
+            "params": "$fair_domain = null",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_fairs_data_speakers",
+            "line": 3698,
+            "params": "$fair_domain = null",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_fairs_data_guests",
+            "line": 3787,
+            "params": "$fair_domain = null",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_fairs_data_attractions",
+            "line": 3874,
+            "params": "$fair_domain = null",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_fairs_data_files",
+            "line": 3961,
+            "params": "$fair_domain = null",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_elements_data",
+            "line": 4048,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_database_elements_order_data",
+            "line": 4141,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "remove_logo_duplicates",
+            "line": 4236,
+            "params": "array $logos",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "pwe_color",
+            "line": 4267,
+            "params": "$color",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "generate_fair_data",
+            "line": 4292,
+            "params": "$fair",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "generate_fair_translation_data",
+            "line": 4358,
+            "params": "$fair",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "json_fairs",
+            "line": 4396,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "transform_dates",
+            "line": 4498,
+            "params": "$start_date, $end_date, $include_hours = true",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "decode_clean_content",
+            "line": 4533,
+            "params": "$encoded_content",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "json_decode",
+            "line": 4542,
+            "params": "$encoded_variable",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "findColor",
+            "line": 4551,
+            "params": "$primary, $secondary, $default = ''",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "findPalletColorsStatic",
+            "line": 4566,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "findPalletColors",
+            "line": 4596,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "lang_pl",
+            "line": 4626,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "languageChecker",
+            "line": 4637,
+            "params": "$pl, $en = '', $de = ''",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "adjustBrightness",
+            "line": 4652,
+            "params": "$hex, $steps",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "findFormsGF",
+            "line": 4675,
+            "params": "$mode = ''",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "findFormsID",
+            "line": 4700,
+            "params": "$form_name",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "checkForMobile",
+            "line": 4719,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "findBestLogo",
+            "line": 4729,
+            "params": "$logo_color = false",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "findAllImages",
+            "line": 4779,
+            "params": "$firstPath, $image_count = false, $secondPath = '/doc/galeria'",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "findBestFile",
+            "line": 4807,
+            "params": "$file_path",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "isTradeDateExist",
+            "line": 4826,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "inputRange",
+            "line": 4843,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "input_range_field_html",
+            "line": 4848,
+            "params": "$settings, $value",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "gravity_forms_smtp_monitor",
+            "line": 4868,
+            "params": "$is_success = null, $to = '', $subject = '', $message = '', $headers = [], $attachments = [], $message_format = '', $from = '', $from_name = '', $bcc = '', $reply_to = '', $entry = false",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 5051,
+    "bytes": 192441,
+    "registrations": [
+      {
+        "type": "action",
+        "name": "phpmailer_init",
+        "extra": null,
+        "line": 4948
+      },
+      {
+        "type": "action",
+        "name": "phpmailer_init",
+        "extra": null,
+        "line": 5039
+      },
+      {
+        "type": "action",
+        "name": "wp_footer",
+        "extra": null,
+        "line": 5050
+      },
+      {
+        "type": "filter",
+        "name": "wpdb_connect_timeout",
+        "extra": null,
+        "line": 768
+      }
+    ]
+  },
+  "includes/class-elements-data.php": {
+    "classes": [
+      {
+        "name": "PWE_Elements_Data",
+        "line": 17,
+        "methods": [
+          {
+            "name": "get_all_elements",
+            "line": 192,
+            "params": "$current_group = null",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_all_element_files",
+            "line": 197,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_all_components",
+            "line": 202,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_page",
+            "line": 207,
+            "params": "$page",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_registry",
+            "line": 212,
+            "params": "$classes",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "get_file_for_class",
+            "line": 224,
+            "params": "$class",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "build_class_file_map",
+            "line": 231,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "get_classes_from_file",
+            "line": 255,
+            "params": "$path",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "previous_significant_token",
+            "line": 282,
+            "params": "$tokens, $index",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "class_to_slug",
+            "line": 291,
+            "params": "$class",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "require_class",
+            "line": 296,
+            "params": "$class",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "require_elements",
+            "line": 316,
+            "params": "$type",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_order_for",
+            "line": 321,
+            "params": "$class, $group, $type",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 329,
+    "bytes": 13591,
+    "registrations": []
+  },
+  "includes/class-collapse-adminbar.php": {
+    "classes": [
+      {
+        "name": "Collapse_Adminbar",
+        "line": 4,
+        "methods": [
+          {
+            "name": "init",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "hooks",
+            "line": 10,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "collapse_styles",
+            "line": 18,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 57,
+    "bytes": 2163,
+    "registrations": [
+      {
+        "type": "action",
+        "name": "admin_bar_init",
+        "extra": null,
+        "line": 7
+      },
+      {
+        "type": "action",
+        "name": "wp_head",
+        "extra": null,
+        "line": 15
+      }
+    ]
+  },
+  "includes/class-registration-log.php": {
+    "classes": [
+      {
+        "name": "PWE_Registration_Log",
+        "line": 9,
+        "methods": [
+          {
+            "name": "__construct",
+            "line": 64,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "get_storage_directory",
+            "line": 113,
+            "params": "",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "get_csv_path",
+            "line": 133,
+            "params": "",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "get_csv_headers",
+            "line": 146,
+            "params": "",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "log_submission_attempt",
+            "line": 171,
+            "params": "$validation_result",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "get_form_values",
+            "line": 332,
+            "params": "$form",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "get_field_value",
+            "line": 401,
+            "params": "$field",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "get_validation_errors",
+            "line": 511,
+            "params": "$form",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "get_user_ip",
+            "line": 565,
+            "params": "",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "can_access_logs",
+            "line": 593,
+            "params": "",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "read_csv",
+            "line": 630,
+            "params": "",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "get_statistics",
+            "line": 694,
+            "params": "$rows",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "get_download_url",
+            "line": 819,
+            "params": "",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "handle_csv_download",
+            "line": 866,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "render_shortcode",
+            "line": 979,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "render_styles",
+            "line": 1297,
+            "params": "",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "render_script",
+            "line": 1828,
+            "params": "",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "ensure_logs_page_exists",
+            "line": 2251,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 2290,
+    "bytes": 65854,
+    "registrations": [
+      {
+        "type": "action",
+        "name": "template_redirect",
+        "extra": null,
+        "line": 88
+      },
+      {
+        "type": "action",
+        "name": "wp_loaded",
+        "extra": null,
+        "line": 97
+      },
+      {
+        "type": "filter",
+        "name": "gform_validation",
+        "extra": null,
+        "line": 71
+      }
+    ]
+  },
+  "includes/class-clear-transients.php": {
+    "classes": [
+      {
+        "name": "PWE_Clear_Transients",
+        "line": 6,
+        "methods": [
+          {
+            "name": "init",
+            "line": 8,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "handle_request",
+            "line": 12,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "clear_all_transients",
+            "line": 72,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "create_plans_news",
+            "line": 88,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 113,
+    "bytes": 3622,
+    "registrations": [
+      {
+        "type": "action",
+        "name": "template_redirect",
+        "extra": null,
+        "line": 9
+      }
+    ]
+  },
+  "includes/class-shortcodes.php": {
+    "classes": [
+      {
+        "name": "PWE_Shortcodes",
+        "line": 5,
+        "methods": [
+          {
+            "name": "init",
+            "line": 10,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "__construct",
+            "line": 17,
+            "params": "",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "get_shortcodes_map",
+            "line": 33,
+            "params": "",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "get_gf_shortcodes_map",
+            "line": 148,
+            "params": "",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "get_yoast_shortcodes_map",
+            "line": 237,
+            "params": "",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "other_shortcodes_map",
+            "line": 261,
+            "params": "",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "translates_shortcodes_map",
+            "line": 321,
+            "params": "",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "register_shortcodes",
+            "line": 339,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "shorten_value",
+            "line": 352,
+            "params": "$value, $length = 30",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "add_menu",
+            "line": 363,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "theme_options_page",
+            "line": 375,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "register_settings",
+            "line": 691,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "header_section",
+            "line": 839,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_name",
+            "line": 845,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_name_eng",
+            "line": 862,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_desc",
+            "line": 881,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_desc_eng",
+            "line": 898,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_desc_short",
+            "line": 915,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_desc_short_eng",
+            "line": 932,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "get_trade_fair_dates",
+            "line": 949,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "format_trade_fair_date",
+            "line": 968,
+            "params": "$start_date, $end_date, $lang = \"pl\"",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_date_field",
+            "line": 1313,
+            "params": "$lang = \"pl\"",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_date",
+            "line": 1342,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_date_eng",
+            "line": 1346,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_datetotimer",
+            "line": 1350,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_enddata",
+            "line": 1382,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_date_custom_format",
+            "line": 1414,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_date_multilang",
+            "line": 1444,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "get_trade_fair_days",
+            "line": 1459,
+            "params": "",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "display_trade_fair_first_day",
+            "line": 1481,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_second_day",
+            "line": 1502,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_third_day",
+            "line": 1523,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_catalog",
+            "line": 1545,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_catalog_id",
+            "line": 1562,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_catalog_archive",
+            "line": 1579,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_catalog_id_archive",
+            "line": 1596,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_catalog_year",
+            "line": 1613,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_conference",
+            "line": 1631,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_conference_title",
+            "line": 1648,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_conference_title_eng",
+            "line": 1665,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_1stbuildday",
+            "line": 1682,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_2ndbuildday",
+            "line": 1700,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_1stdismantlday",
+            "line": 1718,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_2nddismantlday",
+            "line": 1736,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_actualyear",
+            "line": 1754,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_branzowy_field",
+            "line": 1763,
+            "params": "$lang = \"pl\"",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_branzowy",
+            "line": 1808,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_branzowy_eng",
+            "line": 1812,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_hall",
+            "line": 1816,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_hall_entrance",
+            "line": 1833,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_edition",
+            "line": 1850,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_accent",
+            "line": 1867,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_main2",
+            "line": 1884,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_badge",
+            "line": 1900,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_feed_prefix",
+            "line": 1917,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_domainadress",
+            "line": 1935,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_facebook",
+            "line": 1944,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_instagram",
+            "line": 1961,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_linkedin",
+            "line": 1978,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_youtube",
+            "line": 1995,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "get_group_contact_default_value",
+            "line": 2013,
+            "params": "$groups_slug, $field = 'email'",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "show_contact_field_with_default",
+            "line": 2060,
+            "params": "$option_name, $groups_slug, $field = 'email'",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "display_contact_field_with_default",
+            "line": 2070,
+            "params": "$option_name, $default_value = ''",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "display_trade_fair_rejestracja",
+            "line": 2084,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_contact",
+            "line": 2093,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_contact_service_name",
+            "line": 2098,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_contact_service_phone",
+            "line": 2102,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_contact_service_email",
+            "line": 2106,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_contact_media_phone",
+            "line": 2110,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_contact_media_name",
+            "line": 2114,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_contact_media_person_name",
+            "line": 2118,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_contact_media_person_phone",
+            "line": 2122,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_contact_media_person_email",
+            "line": 2126,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_contact_media_person_name_2",
+            "line": 2130,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_contact_media_person_phone_2",
+            "line": 2134,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_contact_media_person_email_2",
+            "line": 2138,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_contact_media_person_name_3",
+            "line": 2142,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_contact_media_person_phone_3",
+            "line": 2146,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_contact_media_person_email_3",
+            "line": 2150,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_contact_tech",
+            "line": 2154,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_contact_media",
+            "line": 2158,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_lidy",
+            "line": 2162,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_contact_email_vip",
+            "line": 2166,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_contact_phone_vip",
+            "line": 2170,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_contact_medal_ceremony_email",
+            "line": 2174,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "days_difference",
+            "line": 2178,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_registration_benefits_pl",
+            "line": 2199,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_registration_benefits_en",
+            "line": 2217,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_ticket_benefits_pl",
+            "line": 2235,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_ticket_benefits_en",
+            "line": 2256,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "display_trade_fair_group",
+            "line": 2277,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_name",
+            "line": 2305,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_name_eng",
+            "line": 2315,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_desc",
+            "line": 2327,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_desc_eng",
+            "line": 2334,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_desc_short",
+            "line": 2341,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_desc_short_eng",
+            "line": 2352,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_datetotimer",
+            "line": 2362,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_enddata",
+            "line": 2381,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_date_custom_format",
+            "line": 2400,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_date",
+            "line": 2414,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_date_eng",
+            "line": 2428,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_date_multilang",
+            "line": 2442,
+            "params": "$atts = []",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "get_trade_fair_day",
+            "line": 2550,
+            "params": "int $offset = 0",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "show_trade_fair_first_day",
+            "line": 2604,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_second_day",
+            "line": 2612,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_third_day",
+            "line": 2620,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_catalog",
+            "line": 2628,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_catalog_id",
+            "line": 2635,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_catalog_archive",
+            "line": 2642,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_catalog_id_archive",
+            "line": 2649,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_catalog_year",
+            "line": 2656,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_conference",
+            "line": 2663,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_conference_title",
+            "line": 2673,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_conference_title_eng",
+            "line": 2683,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_1stbuildday",
+            "line": 2693,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_2ndbuildday",
+            "line": 2701,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_1stdismantlday",
+            "line": 2709,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_2nddismantlday",
+            "line": 2720,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_hall",
+            "line": 2731,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_hall_entrance",
+            "line": 2739,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_edition",
+            "line": 2747,
+            "params": "$entry = null, $fields = null",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_accent",
+            "line": 2765,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_main2",
+            "line": 2772,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "trade_fair_branzowy_result",
+            "line": 2779,
+            "params": "$lang = \"pl\"",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_branzowy",
+            "line": 2806,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_branzowy_eng",
+            "line": 2815,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_badge",
+            "line": 2824,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_feed_prefix",
+            "line": 2831,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_facebook",
+            "line": 2840,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_instagram",
+            "line": 2850,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_linkedin",
+            "line": 2860,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_youtube",
+            "line": 2870,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_domainadress",
+            "line": 2880,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "get_lang_domain",
+            "line": 2888,
+            "params": "$atts = []",
+            "modifiers": []
+          },
+          {
+            "name": "show_trade_fair_actualyear",
+            "line": 2934,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_rejestracja",
+            "line": 2939,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_contact",
+            "line": 2949,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_contact_service_name",
+            "line": 2953,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_contact_service_phone",
+            "line": 2957,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_contact_service_email",
+            "line": 2961,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_contact_media_phone",
+            "line": 2965,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_contact_media_name",
+            "line": 2969,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_contact_media_person_name",
+            "line": 2973,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_contact_media_person_phone",
+            "line": 2977,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_contact_media_person_email",
+            "line": 2981,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_contact_tech",
+            "line": 2985,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_contact_media",
+            "line": 2989,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_lidy",
+            "line": 2993,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_contact_email_vip",
+            "line": 2997,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_contact_phone_vip",
+            "line": 3001,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_contact_medal_ceremony_email",
+            "line": 3005,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_group",
+            "line": 3009,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_registration_benefits_pl",
+            "line": 3021,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_registration_benefits_en",
+            "line": 3035,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_ticket_benefits_pl",
+            "line": 3049,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_ticket_benefits_en",
+            "line": 3066,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_exhibitor_generator_icons",
+            "line": 3083,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_exhibitor_generator_text",
+            "line": 3294,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_exhibitor_generator_header_url",
+            "line": 3332,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_trade_fair_exhibitor_generator_badge_url",
+            "line": 3371,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "sc_pwe_trade_fair_full_desc",
+            "line": 3396,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "get_translated_field",
+            "line": 3402,
+            "params": "$fair, $field_base_name",
+            "modifiers": []
+          },
+          {
+            "name": "get_pwe_shortcode",
+            "line": 3420,
+            "params": "$shortcode, $domain",
+            "modifiers": []
+          },
+          {
+            "name": "check_available_pwe_shortcode",
+            "line": 3426,
+            "params": "$shortcodes_active, $shortcode",
+            "modifiers": []
+          },
+          {
+            "name": "sc_pwe_text_news",
+            "line": 3448,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "sc_pwe_text_for_visitors",
+            "line": 3456,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "sc_pwe_text_for_exhibitors",
+            "line": 3464,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "sc_pwe_text_add_calendar",
+            "line": 3472,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "sc_pwe_text_gallery",
+            "line": 3480,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "sc_pwe_text_org_info",
+            "line": 3488,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "sc_pwe_text_exh_catalog",
+            "line": 3496,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "sc_pwe_text_events",
+            "line": 3504,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "sc_pwe_text_contact",
+            "line": 3512,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "sc_pwe_text_fair_plan",
+            "line": 3520,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "sc_pwe_text_registration",
+            "line": 3528,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "sc_pwe_text_promote_yourself",
+            "line": 3536,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "sc_pwe_text_become_an_exhibitor",
+            "line": 3544,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "sc_pwe_text_store",
+            "line": 3552,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "wpseo_register_extra_replacements",
+            "line": 3560,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "wpseo_replacements",
+            "line": 3568,
+            "params": "$replacements",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "replace_multilang_date_in_notification",
+            "line": 3587,
+            "params": "$notification, $form, $entry",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "get_language_from_notification_name",
+            "line": 3665,
+            "params": "$notification_name",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "replace_gf_merge_tags",
+            "line": 3732,
+            "params": "$text, $form, $entry, $url_encode, $esc_html, $nl2br, $format",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "read_urls_json_file",
+            "line": 3779,
+            "params": "$json_file",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "get_urls_data",
+            "line": 3828,
+            "params": "",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "get_url_shortcode_language",
+            "line": 3911,
+            "params": "$requested_lang = ''",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "get_url_language_data",
+            "line": 3954,
+            "params": "array $url_entry, $lang",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "show_multilang_url",
+            "line": 4002,
+            "params": "$atts = [], $content = null, $shortcode_tag = ''",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "register_url_shortcodes",
+            "line": 4129,
+            "params": "",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "get_gf_url_shortcodes_map",
+            "line": 4158,
+            "params": "",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "show_pwe_mailing_header_url",
+            "line": 4190,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "show_pwe_mailing_header_platyna_url",
+            "line": 4258,
+            "params": "$requested_lang = ''",
+            "modifiers": [
+              "public"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 4337,
+    "bytes": 192117,
+    "registrations": [
+      {
+        "type": "action",
+        "name": "admin_menu",
+        "extra": null,
+        "line": 19
+      },
+      {
+        "type": "action",
+        "name": "admin_init",
+        "extra": null,
+        "line": 20
+      },
+      {
+        "type": "action",
+        "name": "init",
+        "extra": null,
+        "line": 22
+      },
+      {
+        "type": "filter",
+        "name": "wpseo_register_extra_replacements",
+        "extra": null,
+        "line": 24
+      },
+      {
+        "type": "filter",
+        "name": "wpseo_replacements",
+        "extra": null,
+        "line": 25
+      },
+      {
+        "type": "filter",
+        "name": "gform_replace_merge_tags",
+        "extra": null,
+        "line": 26
+      },
+      {
+        "type": "filter",
+        "name": "gform_notification",
+        "extra": null,
+        "line": 28
+      }
+    ]
+  },
+  "includes/class-updater.php": {
+    "classes": [
+      {
+        "name": "PWE_Updater",
+        "line": 7,
+        "methods": [
+          {
+            "name": "__construct",
+            "line": 9,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "get_github_key",
+            "line": 18,
+            "params": "",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "setup_updater",
+            "line": 42,
+            "params": "",
+            "modifiers": [
+              "private"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 64,
+    "bytes": 1775,
+    "registrations": []
+  },
+  "includes/class-groups.php": {
+    "classes": [
+      {
+        "name": "PWE_Groups",
+        "line": 4,
+        "methods": [
+          {
+            "name": "groups",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "is_b2c",
+            "line": 30,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_current_group",
+            "line": 47,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 67,
+    "bytes": 1720,
+    "registrations": []
+  },
+  "elements/badge-local/badge-local/badge-local.php": {
+    "classes": [
+      {
+        "name": "Badge_Local",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "massGenerator",
+            "line": 26,
+            "params": "$badge_form_id",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "qrOnlyDownload",
+            "line": 155,
+            "params": "$badge_form_id",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "pwe_download_temp_qr",
+            "line": 370,
+            "params": "$url",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "badge_name_changer",
+            "line": 424,
+            "params": "$content, $field, $value, $lead_id, $form_id",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 439,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 478,
+    "bytes": 15614,
+    "registrations": [
+      {
+        "type": "filter",
+        "name": "gform_field_content",
+        "extra": null,
+        "line": 466
+      }
+    ]
+  },
+  "elements/badge-local/badge-local/presets/all/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 39,
+    "bytes": 1529,
+    "registrations": []
+  },
+  "elements/call-center/call-center/presets/all/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 347,
+    "bytes": 11973,
+    "registrations": []
+  },
+  "elements/call-center/call-center/presets/all/assets/add_entry.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 168,
+    "bytes": 6615,
+    "registrations": []
+  },
+  "elements/call-center/call-center/call-center.php": {
+    "classes": [
+      {
+        "name": "Call_Center",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 15,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 50,
+    "bytes": 1433,
+    "registrations": []
+  },
+  "elements/conferences/conference-gallery/conference-gallery.php": {
+    "classes": [
+      {
+        "name": "Conference_Gallery",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 15,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 46,
+    "bytes": 1280,
+    "registrations": []
+  },
+  "elements/conferences/conference-gallery/presets/all/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 41,
+    "bytes": 1891,
+    "registrations": []
+  },
+  "elements/conferences/side-events/side-events.php": {
+    "classes": [
+      {
+        "name": "Side_Events",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 15,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 98,
+    "bytes": 3635,
+    "registrations": []
+  },
+  "elements/conferences/side-events/presets/all/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 301,
+    "bytes": 12601,
+    "registrations": []
+  },
+  "elements/speakers/speakers/speakers.php": {
+    "classes": [
+      {
+        "name": "Speakers_Page",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 16,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 141,
+    "bytes": 4784,
+    "registrations": []
+  },
+  "elements/speakers/speakers/presets/gr1/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 50,
+    "bytes": 2346,
+    "registrations": []
+  },
+  "elements/speakers/speakers/presets/gr2/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 44,
+    "bytes": 2228,
+    "registrations": []
+  },
+  "elements/registration-exhibitors/registration-exhibitors/presets/all/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 31,
+    "bytes": 986,
+    "registrations": []
+  },
+  "elements/registration-exhibitors/registration-exhibitors/registration-exhibitors.php": {
+    "classes": [
+      {
+        "name": "Registration_Exhibitors",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 8,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 17,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "register_session_handler",
+            "line": 66,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "entry_to_session",
+            "line": 77,
+            "params": "$entry, $form",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 113,
+    "bytes": 3182,
+    "registrations": [
+      {
+        "type": "action",
+        "name": "gform_after_submission",
+        "extra": null,
+        "line": 74
+      }
+    ]
+  },
+  "elements/exhibitor-worker-generator/exhibitor-worker-generator/exhibitor-worker-generator.php": {
+    "classes": [
+      {
+        "name": "Exhibitor_Worker_Generator",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 16,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 84,
+    "bytes": 2639,
+    "registrations": []
+  },
+  "elements/exhibitor-worker-generator/exhibitor-worker-generator/presets/all/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 24,
+    "bytes": 1049,
+    "registrations": []
+  },
+  "elements/catalog/exhibitor_catalog_vue/addons/translates.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 341,
+    "bytes": 9955,
+    "registrations": []
+  },
+  "elements/catalog/exhibitor_catalog_vue/addons/feedback/feedback.php": {
+    "classes": [],
+    "functions": [
+      {
+        "name": "ec_get_form_id",
+        "line": 8,
+        "params": "$form_title",
+        "modifiers": []
+      }
+    ],
+    "lines": 67,
+    "bytes": 2252,
+    "registrations": []
+  },
+  "elements/catalog/exhibitor_catalog_vue/exhibitor_catalog_vue.php": {
+    "classes": [
+      {
+        "name": "Exhibitor_Catalog",
+        "line": 7,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 9,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_info",
+            "line": 16,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 23,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "enqueue_assets",
+            "line": 228,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "enqueue_feedback_assets",
+            "line": 262,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "get_plugin_version",
+            "line": 296,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "get_catalog_type",
+            "line": 306,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "sync_archive_catalog_entry",
+            "line": 371,
+            "params": "$atts",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "inject_config",
+            "line": 563,
+            "params": "$atts",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 749,
+    "bytes": 26047,
+    "registrations": []
+  },
+  "elements/confirmation-exhibitors-registration/confirmation-exhibitors-registration/confirmation-exhibitors-registration.php": {
+    "classes": [
+      {
+        "name": "Confirmation_Exhibitors_Registration",
+        "line": 6,
+        "methods": [
+          {
+            "name": "init",
+            "line": 11,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_data",
+            "line": 16,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 27,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "register_gravity_filters",
+            "line": 75,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "get_session_info",
+            "line": 92,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "get_session_data",
+            "line": 119,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "prepare_form",
+            "line": 124,
+            "params": "$form",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "fix_validation_and_inject",
+            "line": 159,
+            "params": "$validation_result",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "inject_session_data",
+            "line": 190,
+            "params": "$form",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "override_saved_field_value",
+            "line": 210,
+            "params": "$value, $entry, $field, $form, $input_id",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "register_ajax_handlers",
+            "line": 228,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "force_clear_pwe_session",
+            "line": 242,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "ajax_clear_session",
+            "line": 253,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "update_exhibitor_data",
+            "line": 258,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "clear_session_after_submission",
+            "line": 353,
+            "params": "$entry, $form",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "clear_session_on_confirmation",
+            "line": 357,
+            "params": "$confirmation, $form, $entry, $ajax",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 363,
+    "bytes": 12252,
+    "registrations": [
+      {
+        "type": "action",
+        "name": "gform_pre_submission",
+        "extra": null,
+        "line": 86
+      },
+      {
+        "type": "action",
+        "name": "gform_after_submission",
+        "extra": null,
+        "line": 88
+      },
+      {
+        "type": "action",
+        "name": "wp_ajax_update_exhibitor_data",
+        "extra": null,
+        "line": 235
+      },
+      {
+        "type": "action",
+        "name": "wp_ajax_nopriv_update_exhibitor_data",
+        "extra": null,
+        "line": 236
+      },
+      {
+        "type": "action",
+        "name": "wp_ajax_clear_pwe_session",
+        "extra": null,
+        "line": 238
+      },
+      {
+        "type": "action",
+        "name": "wp_ajax_nopriv_clear_pwe_session",
+        "extra": null,
+        "line": 239
+      },
+      {
+        "type": "filter",
+        "name": "gform_pre_render",
+        "extra": null,
+        "line": 82
+      },
+      {
+        "type": "filter",
+        "name": "gform_pre_validation",
+        "extra": null,
+        "line": 83
+      },
+      {
+        "type": "filter",
+        "name": "gform_validation",
+        "extra": null,
+        "line": 84
+      },
+      {
+        "type": "filter",
+        "name": "gform_save_field_value",
+        "extra": null,
+        "line": 85
+      },
+      {
+        "type": "filter",
+        "name": "gform_confirmation",
+        "extra": null,
+        "line": 89
+      }
+    ]
+  },
+  "elements/confirmation-exhibitors-registration/confirmation-exhibitors-registration/presets/all/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 317,
+    "bytes": 13225,
+    "registrations": []
+  },
+  "elements/main/tickets/tickets.php": {
+    "classes": [
+      {
+        "name": "Tickets",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 15,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 80,
+    "bytes": 3531,
+    "registrations": []
+  },
+  "elements/main/tickets/presets/b2c-new/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 74,
+    "bytes": 3415,
+    "registrations": []
+  },
+  "elements/main/about/about.php": {
+    "classes": [
+      {
+        "name": "About",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 18,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 78,
+    "bytes": 2856,
+    "registrations": []
+  },
+  "elements/main/about/presets/b2c-new/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 137,
+    "bytes": 6401,
+    "registrations": []
+  },
+  "elements/main/about/presets/gr1/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 33,
+    "bytes": 1375,
+    "registrations": []
+  },
+  "elements/main/about/presets/gr2/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 93,
+    "bytes": 3384,
+    "registrations": []
+  },
+  "elements/main/about/presets/week/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 65,
+    "bytes": 15074,
+    "registrations": []
+  },
+  "elements/main/posts/posts.php": {
+    "classes": [
+      {
+        "name": "Posts",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 18,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 133,
+    "bytes": 5377,
+    "registrations": []
+  },
+  "elements/main/posts/presets/b2c-new/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 81,
+    "bytes": 4330,
+    "registrations": []
+  },
+  "elements/main/posts/presets/gr1/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 37,
+    "bytes": 1760,
+    "registrations": []
+  },
+  "elements/main/posts/presets/gr2/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 52,
+    "bytes": 2769,
+    "registrations": []
+  },
+  "elements/main/posts/presets/week/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 52,
+    "bytes": 2808,
+    "registrations": []
+  },
+  "elements/main/speakers/speakers.php": {
+    "classes": [
+      {
+        "name": "Speakers",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 17,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "create_speakers_pages",
+            "line": 129,
+            "params": "$speakers",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "find_or_create_speakers_page",
+            "line": 202,
+            "params": "string $title, string $slug, string $content",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "find_page_by_slug",
+            "line": 266,
+            "params": "$slug",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "assign_wpml_language",
+            "line": 292,
+            "params": "int $page_id, string $language_code, ?string $source_language_code = null, ?int $translation_group_id = null",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 335,
+    "bytes": 9894,
+    "registrations": []
+  },
+  "elements/main/speakers/presets/gr1/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 61,
+    "bytes": 2711,
+    "registrations": []
+  },
+  "elements/main/speakers/presets/gr2/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 132,
+    "bytes": 5848,
+    "registrations": []
+  },
+  "elements/main/speakers/presets/week/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 155,
+    "bytes": 7103,
+    "registrations": []
+  },
+  "elements/main/logotypes/logotypes.php": {
+    "classes": [
+      {
+        "name": "Logotypes",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 18,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 352,
+    "bytes": 14682,
+    "registrations": []
+  },
+  "elements/main/logotypes/presets/b2c-new/preset.php": {
+    "classes": [],
+    "functions": [
+      {
+        "name": "pwe_slugify",
+        "line": 7,
+        "params": "$text",
+        "modifiers": []
+      }
+    ],
+    "lines": 644,
+    "bytes": 23846,
+    "registrations": []
+  },
+  "elements/main/logotypes/presets/gr1/preset.php": {
+    "classes": [],
+    "functions": [
+      {
+        "name": "format_title",
+        "line": 129,
+        "params": "$title",
+        "modifiers": []
+      }
+    ],
+    "lines": 244,
+    "bytes": 10203,
+    "registrations": []
+  },
+  "elements/main/logotypes/presets/gr2/preset.php": {
+    "classes": [],
+    "functions": [
+      {
+        "name": "pwe_slugify",
+        "line": 7,
+        "params": "$text",
+        "modifiers": []
+      }
+    ],
+    "lines": 467,
+    "bytes": 16266,
+    "registrations": []
+  },
+  "elements/main/logotypes/presets/week/preset.php": {
+    "classes": [],
+    "functions": [
+      {
+        "name": "pwe_slugify",
+        "line": 7,
+        "params": "$text",
+        "modifiers": []
+      }
+    ],
+    "lines": 551,
+    "bytes": 19933,
+    "registrations": []
+  },
+  "elements/main/medals/presets/gr1/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 59,
+    "bytes": 3870,
+    "registrations": []
+  },
+  "elements/main/medals/presets/gr2/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 59,
+    "bytes": 3759,
+    "registrations": []
+  },
+  "elements/main/medals/presets/week/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 64,
+    "bytes": 4594,
+    "registrations": []
+  },
+  "elements/main/medals/medals.php": {
+    "classes": [
+      {
+        "name": "Medals",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 17,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 48,
+    "bytes": 1656,
+    "registrations": []
+  },
+  "elements/main/summary/summary.php": {
+    "classes": [
+      {
+        "name": "Summary",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 17,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 46,
+    "bytes": 1499,
+    "registrations": []
+  },
+  "elements/main/summary/presets/gr1/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 61,
+    "bytes": 3103,
+    "registrations": []
+  },
+  "elements/main/summary/presets/gr2/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 60,
+    "bytes": 2459,
+    "registrations": []
+  },
+  "elements/main/summary/presets/week/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 60,
+    "bytes": 2314,
+    "registrations": []
+  },
+  "elements/main/guests/guests.php": {
+    "classes": [
+      {
+        "name": "Guests",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 18,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 147,
+    "bytes": 4895,
+    "registrations": []
+  },
+  "elements/main/guests/presets/b2c-new/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 199,
+    "bytes": 8134,
+    "registrations": []
+  },
+  "elements/main/guests/presets/gr1/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 100,
+    "bytes": 3437,
+    "registrations": []
+  },
+  "elements/main/guests/presets/gr2/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 100,
+    "bytes": 3429,
+    "registrations": []
+  },
+  "elements/main/guests/presets/week/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 100,
+    "bytes": 3429,
+    "registrations": []
+  },
+  "elements/main/combined-events/combined-events.php": {
+    "classes": [
+      {
+        "name": "Combined_Events",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 17,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 49,
+    "bytes": 1727,
+    "registrations": []
+  },
+  "elements/main/combined-events/presets/gr1/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 24,
+    "bytes": 1196,
+    "registrations": []
+  },
+  "elements/main/combined-events/presets/week/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 251,
+    "bytes": 8387,
+    "registrations": []
+  },
+  "elements/main/opinions/opinions.php": {
+    "classes": [
+      {
+        "name": "Opinions",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 17,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 132,
+    "bytes": 5953,
+    "registrations": []
+  },
+  "elements/main/opinions/presets/gr1/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 65,
+    "bytes": 3357,
+    "registrations": []
+  },
+  "elements/main/opinions/presets/gr2/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 69,
+    "bytes": 4061,
+    "registrations": []
+  },
+  "elements/main/opinions/presets/week/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 70,
+    "bytes": 4255,
+    "registrations": []
+  },
+  "elements/main/other-events/presets/gr1/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 57,
+    "bytes": 3864,
+    "registrations": []
+  },
+  "elements/main/other-events/presets/gr2/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 80,
+    "bytes": 9432,
+    "registrations": []
+  },
+  "elements/main/other-events/presets/week/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 82,
+    "bytes": 9967,
+    "registrations": []
+  },
+  "elements/main/other-events/other-events.php": {
+    "classes": [
+      {
+        "name": "Other_Events",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 17,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 94,
+    "bytes": 4281,
+    "registrations": []
+  },
+  "elements/main/statistics/statistics.php": {
+    "classes": [
+      {
+        "name": "Statistics",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 18,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "ordinal_suffix",
+            "line": 73,
+            "params": "$n",
+            "modifiers": []
+          },
+          {
+            "name": "adapting_word",
+            "line": 86,
+            "params": "$edition",
+            "modifiers": []
+          },
+          {
+            "name": "sc_int",
+            "line": 132,
+            "params": "string $shortcode, int $default = 0",
+            "modifiers": []
+          },
+          {
+            "name": "compare_values",
+            "line": 140,
+            "params": "int $current, int $previous",
+            "modifiers": []
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 216,
+    "bytes": 9706,
+    "registrations": []
+  },
+  "elements/main/statistics/presets/b2c-new/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 137,
+    "bytes": 4844,
+    "registrations": []
+  },
+  "elements/main/statistics/presets/gr1/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 63,
+    "bytes": 5694,
+    "registrations": []
+  },
+  "elements/main/statistics/presets/gr2/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 397,
+    "bytes": 43782,
+    "registrations": []
+  },
+  "elements/main/statistics/presets/week/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 95,
+    "bytes": 10349,
+    "registrations": []
+  },
+  "elements/main/profiles/profiles.php": {
+    "classes": [
+      {
+        "name": "Profiles",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 18,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 69,
+    "bytes": 3041,
+    "registrations": []
+  },
+  "elements/main/profiles/presets/b2c-new/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 61,
+    "bytes": 4815,
+    "registrations": []
+  },
+  "elements/main/profiles/presets/gr1/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 74,
+    "bytes": 3261,
+    "registrations": []
+  },
+  "elements/main/profiles/presets/gr2/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 61,
+    "bytes": 4815,
+    "registrations": []
+  },
+  "elements/main/profiles/presets/week/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 63,
+    "bytes": 4861,
+    "registrations": []
+  },
+  "elements/main/sectors/sectors.php": {
+    "classes": [
+      {
+        "name": "Sectors",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 18,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 85,
+    "bytes": 3149,
+    "registrations": []
+  },
+  "elements/main/sectors/presets/b2c-new/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 50,
+    "bytes": 2016,
+    "registrations": []
+  },
+  "elements/main/sectors/presets/gr1/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 40,
+    "bytes": 1468,
+    "registrations": []
+  },
+  "elements/main/sectors/presets/gr2/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 40,
+    "bytes": 1468,
+    "registrations": []
+  },
+  "elements/main/sectors/presets/week/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 115,
+    "bytes": 4448,
+    "registrations": []
+  },
+  "elements/main/exhibitors/exhibitors.php": {
+    "classes": [
+      {
+        "name": "Exhibitors",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 18,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 72,
+    "bytes": 2583,
+    "registrations": []
+  },
+  "elements/main/exhibitors/presets/b2c-new/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 70,
+    "bytes": 2397,
+    "registrations": []
+  },
+  "elements/main/exhibitors/presets/gr1/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 34,
+    "bytes": 1385,
+    "registrations": []
+  },
+  "elements/main/exhibitors/presets/gr2/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 45,
+    "bytes": 1635,
+    "registrations": []
+  },
+  "elements/main/exhibitors/presets/week/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 54,
+    "bytes": 2079,
+    "registrations": []
+  },
+  "elements/main/header/header.php": {
+    "classes": [
+      {
+        "name": "Header",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 18,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 65,
+    "bytes": 2593,
+    "registrations": []
+  },
+  "elements/main/header/widgets/partners/b2c-new/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 124,
+    "bytes": 5024,
+    "registrations": []
+  },
+  "elements/main/header/widgets/partners/gr1/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 116,
+    "bytes": 4660,
+    "registrations": []
+  },
+  "elements/main/header/widgets/partners/gr2/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 124,
+    "bytes": 5043,
+    "registrations": []
+  },
+  "elements/main/header/widgets/partners/partners.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 153,
+    "bytes": 5334,
+    "registrations": []
+  },
+  "elements/main/header/widgets/partners/week/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 122,
+    "bytes": 4953,
+    "registrations": []
+  },
+  "elements/main/header/presets/b2c-new/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 90,
+    "bytes": 3262,
+    "registrations": []
+  },
+  "elements/main/header/presets/gr1/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 69,
+    "bytes": 5197,
+    "registrations": []
+  },
+  "elements/main/header/presets/gr2/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 99,
+    "bytes": 4967,
+    "registrations": []
+  },
+  "elements/main/header/presets/week/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 70,
+    "bytes": 4251,
+    "registrations": []
+  },
+  "elements/main/countdown/countdown.php": {
+    "classes": [
+      {
+        "name": "Countdown",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 18,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 188,
+    "bytes": 7932,
+    "registrations": []
+  },
+  "elements/main/countdown/presets/b2c-new/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 71,
+    "bytes": 3521,
+    "registrations": []
+  },
+  "elements/main/countdown/presets/gr1/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 74,
+    "bytes": 3742,
+    "registrations": []
+  },
+  "elements/main/countdown/presets/gr2/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 71,
+    "bytes": 3530,
+    "registrations": []
+  },
+  "elements/main/countdown/presets/week/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 40,
+    "bytes": 1762,
+    "registrations": []
+  },
+  "elements/main/halls/halls.php": {
+    "classes": [
+      {
+        "name": "Halls",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 18,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 128,
+    "bytes": 5473,
+    "registrations": []
+  },
+  "elements/main/halls/presets/b2c-new/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 62,
+    "bytes": 6391,
+    "registrations": []
+  },
+  "elements/main/halls/presets/gr1/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 43,
+    "bytes": 1896,
+    "registrations": []
+  },
+  "elements/main/halls/presets/gr2/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 62,
+    "bytes": 6392,
+    "registrations": []
+  },
+  "elements/main/halls/presets/week/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 62,
+    "bytes": 6372,
+    "registrations": []
+  },
+  "elements/main/halls/assets/svg.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 1198,
+    "bytes": 80498,
+    "registrations": []
+  },
+  "elements/main/premieres/premieres.php": {
+    "classes": [
+      {
+        "name": "Premieres",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 18,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 72,
+    "bytes": 2634,
+    "registrations": []
+  },
+  "elements/main/premieres/presets/b2c-new/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 77,
+    "bytes": 3993,
+    "registrations": []
+  },
+  "elements/main/premieres/presets/gr2/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 75,
+    "bytes": 4077,
+    "registrations": []
+  },
+  "elements/main/premieres/presets/week/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 96,
+    "bytes": 5224,
+    "registrations": []
+  },
+  "elements/main/attractions/attractions.php": {
+    "classes": [
+      {
+        "name": "Attractions",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 15,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 86,
+    "bytes": 3104,
+    "registrations": []
+  },
+  "elements/main/attractions/presets/b2c-new/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 58,
+    "bytes": 2603,
+    "registrations": []
+  },
+  "elements/main/conference/conference.php": {
+    "classes": [
+      {
+        "name": "Conference",
+        "line": 5,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 7,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_conferences_brief",
+            "line": 71,
+            "params": "$domain",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "conference_overlaps_fair",
+            "line": 81,
+            "params": "string $conf_date_range",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "getConferenceOrganizer",
+            "line": 125,
+            "params": "$conf_id, $conf_slug, $lang",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "getConferenceOrganizersAll",
+            "line": 183,
+            "params": "$conf_slug",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 269,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 398,
+    "bytes": 13599,
+    "registrations": []
+  },
+  "elements/main/conference/presets/week-shedule/preset.php": {
+    "classes": [],
+    "functions": [
+      {
+        "name": "getFairDays",
+        "line": 7,
+        "params": "",
+        "modifiers": []
+      },
+      {
+        "name": "parseDateRange",
+        "line": 38,
+        "params": "?string $range",
+        "modifiers": []
+      },
+      {
+        "name": "admin_log",
+        "line": 79,
+        "params": "$message, $type = 'log'",
+        "modifiers": []
+      },
+      {
+        "name": "output_conference_logs",
+        "line": 101,
+        "params": "",
+        "modifiers": []
+      }
+    ],
+    "lines": 495,
+    "bytes": 15329,
+    "registrations": []
+  },
+  "elements/main/conference/presets/gr1/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 34,
+    "bytes": 1550,
+    "registrations": []
+  },
+  "elements/main/conference/presets/gr2/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 86,
+    "bytes": 5282,
+    "registrations": []
+  },
+  "elements/main/conference/presets/gr1-shedule/preset.php": {
+    "classes": [],
+    "functions": [
+      {
+        "name": "getFairDays",
+        "line": 7,
+        "params": "",
+        "modifiers": []
+      },
+      {
+        "name": "parseDateRange",
+        "line": 38,
+        "params": "?string $range",
+        "modifiers": []
+      },
+      {
+        "name": "admin_log",
+        "line": 79,
+        "params": "$message, $type = 'log'",
+        "modifiers": []
+      },
+      {
+        "name": "output_conference_logs",
+        "line": 101,
+        "params": "",
+        "modifiers": []
+      }
+    ],
+    "lines": 497,
+    "bytes": 15518,
+    "registrations": []
+  },
+  "elements/main/conference/presets/gr2-shedule/preset.php": {
+    "classes": [],
+    "functions": [
+      {
+        "name": "getFairDays",
+        "line": 7,
+        "params": "",
+        "modifiers": []
+      },
+      {
+        "name": "parseDateRange",
+        "line": 38,
+        "params": "?string $range",
+        "modifiers": []
+      },
+      {
+        "name": "admin_log",
+        "line": 78,
+        "params": "$message, $type = 'log'",
+        "modifiers": []
+      },
+      {
+        "name": "output_conference_logs",
+        "line": 100,
+        "params": "",
+        "modifiers": []
+      }
+    ],
+    "lines": 573,
+    "bytes": 27818,
+    "registrations": []
+  },
+  "elements/main/conference/presets/gr2-home/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 68,
+    "bytes": 4264,
+    "registrations": []
+  },
+  "elements/confirmation-visitors-registration/confirmation-visitors-registration/presets/platyna/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 119,
+    "bytes": 7984,
+    "registrations": []
+  },
+  "elements/confirmation-visitors-registration/confirmation-visitors-registration/presets/byli/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 138,
+    "bytes": 7672,
+    "registrations": []
+  },
+  "elements/confirmation-visitors-registration/confirmation-visitors-registration/presets/standard/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 92,
+    "bytes": 5644,
+    "registrations": []
+  },
+  "elements/confirmation-visitors-registration/confirmation-visitors-registration/presets/premium/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 92,
+    "bytes": 5450,
+    "registrations": []
+  },
+  "elements/confirmation-visitors-registration/confirmation-visitors-registration/confirmation-visitors-registration.php": {
+    "classes": [
+      {
+        "name": "Confirmation_Visitors_Registration",
+        "line": 4,
+        "methods": [
+          {
+            "name": "init",
+            "line": 9,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_data",
+            "line": 13,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 25,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "register_gravity_forms_filters",
+            "line": 127,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "prepare_registration_form",
+            "line": 138,
+            "params": "$form",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "register_ajax_handlers",
+            "line": 160,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "update_registration_address",
+            "line": 171,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "add_apartment_field",
+            "line": 286,
+            "params": "$form_id",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 344,
+    "bytes": 12034,
+    "registrations": [
+      {
+        "type": "action",
+        "name": "wp_ajax_update_registration_address",
+        "extra": null,
+        "line": 167
+      },
+      {
+        "type": "action",
+        "name": "wp_ajax_nopriv_update_registration_address",
+        "extra": null,
+        "line": 168
+      },
+      {
+        "type": "filter",
+        "name": "gform_pre_render",
+        "extra": null,
+        "line": 134
+      },
+      {
+        "type": "filter",
+        "name": "gform_pre_validation",
+        "extra": null,
+        "line": 135
+      }
+    ]
+  },
+  "elements/exhibitor-visitor-generator/exhibitor-visitor-generator/exhibitor-visitor-generator.php": {
+    "classes": [
+      {
+        "name": "Exhibitor_Visitor_Generator",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 16,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 106,
+    "bytes": 3509,
+    "registrations": []
+  },
+  "elements/exhibitor-visitor-generator/exhibitor-visitor-generator/presets/all/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 39,
+    "bytes": 1742,
+    "registrations": []
+  },
+  "elements/exhibitor-visitor-generator/exhibitor-visitor-generator/presets/single/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 40,
+    "bytes": 1845,
+    "registrations": []
+  },
+  "elements/contact/contact/contact.php": {
+    "classes": [
+      {
+        "name": "Contact",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 15,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 53,
+    "bytes": 1437,
+    "registrations": []
+  },
+  "elements/contact/contact/presets/all/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 26,
+    "bytes": 1108,
+    "registrations": []
+  },
+  "elements/step2/step2/step2.php": {
+    "classes": [
+      {
+        "name": "Step2",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 15,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 76,
+    "bytes": 2504,
+    "registrations": []
+  },
+  "elements/step2/step2/presets/all/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 49,
+    "bytes": 2496,
+    "registrations": []
+  },
+  "elements/flip-book/flip-book.php": {
+    "classes": [
+      {
+        "name": "Flip_Book",
+        "line": 11,
+        "methods": [
+          {
+            "name": "init",
+            "line": 15,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "__construct",
+            "line": 22,
+            "params": "",
+            "modifiers": [
+              "private"
+            ]
+          },
+          {
+            "name": "get_data",
+            "line": 28,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "register_assets",
+            "line": 33,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "pwe_exclude_from_wp_rocket",
+            "line": 39,
+            "params": "$patterns",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "pwe_add_attributes",
+            "line": 49,
+            "params": "$tag, $handle",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 57,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 106,
+    "bytes": 4068,
+    "registrations": [
+      {
+        "type": "action",
+        "name": "wp_enqueue_scripts",
+        "extra": null,
+        "line": 23
+      },
+      {
+        "type": "filter",
+        "name": "rocket_delay_js_exclusions",
+        "extra": null,
+        "line": 24
+      },
+      {
+        "type": "filter",
+        "name": "script_loader_tag",
+        "extra": null,
+        "line": 25
+      }
+    ]
+  },
+  "elements/forms/forms/presets/entries/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 24,
+    "bytes": 1388,
+    "registrations": []
+  },
+  "elements/forms/forms/presets/csv/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 3,
+    "bytes": 17,
+    "registrations": []
+  },
+  "elements/forms/forms/presets/json/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 3,
+    "bytes": 61,
+    "registrations": []
+  },
+  "elements/forms/forms/presets/forms-v2/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 103,
+    "bytes": 10168,
+    "registrations": []
+  },
+  "elements/forms/forms/presets/forms/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 105,
+    "bytes": 4415,
+    "registrations": []
+  },
+  "elements/forms/forms/presets/qrcode/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 16,
+    "bytes": 509,
+    "registrations": []
+  },
+  "elements/forms/forms/presets/stats/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 34,
+    "bytes": 1999,
+    "registrations": []
+  },
+  "elements/forms/forms/presets/bulk/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 36,
+    "bytes": 2204,
+    "registrations": []
+  },
+  "elements/forms/forms/forms.php": {
+    "classes": [
+      {
+        "name": "Forms",
+        "line": 7,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 9,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_presets",
+            "line": 16,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "resolve_group",
+            "line": 29,
+            "params": "string $group = ''",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 44,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [
+      {
+        "name": "pwe_forms_nav_items",
+        "line": 96,
+        "params": "",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_forms_render_nav",
+        "line": 107,
+        "params": "string $active",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_forms_hidden_access_fields",
+        "line": 122,
+        "params": "int $post_id",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_forms_export_dir",
+        "line": 130,
+        "params": "",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_forms_export_url",
+        "line": 147,
+        "params": "string $filename",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_forms_unique_filename",
+        "line": 153,
+        "params": "string $base",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_forms_prepare_filename",
+        "line": 158,
+        "params": "string $base",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_forms_download_snippet",
+        "line": 162,
+        "params": "string $file_path, string $filename, string $display_name",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_forms_fair_name",
+        "line": 171,
+        "params": "",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_forms_domain_name",
+        "line": 176,
+        "params": "",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_forms_csv_value",
+        "line": 181,
+        "params": "$value",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_forms_csv_file_start",
+        "line": 194,
+        "params": "string $filename",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_forms_get_views",
+        "line": 202,
+        "params": "int $form_id",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_forms_form_stats",
+        "line": 209,
+        "params": "?array $forms = null",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_forms_find_language_field",
+        "line": 224,
+        "params": "array $form",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_forms_form_columns",
+        "line": 235,
+        "params": "array $form",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_forms_write_form_csv",
+        "line": 245,
+        "params": "$handle, int $form_id, string $language = ''",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_forms_get_qr_url",
+        "line": 284,
+        "params": "array $entry, int $form_id",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_forms_entry_for_json",
+        "line": 308,
+        "params": "array $entry, array $form",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_forms_handle_export",
+        "line": 320,
+        "params": "int $post_id",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_forms_language_map",
+        "line": 480,
+        "params": "array $forms",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_forms_qr_view",
+        "line": 531,
+        "params": "array $forms",
+        "modifiers": []
+      },
+      {
+        "name": "pwe_forms_tools_shortcode",
+        "line": 553,
+        "params": "",
+        "modifiers": []
+      }
+    ],
+    "lines": 558,
+    "bytes": 20985,
+    "registrations": [
+      {
+        "type": "shortcode",
+        "name": "gf_download_autoswitch",
+        "extra": null,
+        "line": 557
+      }
+    ]
+  },
+  "elements/registration-visitors/registration-visitors/registration-visitors.php": {
+    "classes": [
+      {
+        "name": "Registration_Visitors",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 9,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 21,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "get_existing_document",
+            "line": 104,
+            "params": "$path",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "get_vip_badge_mockup",
+            "line": 112,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "register_gravity_forms_filters",
+            "line": 126,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "register_session_handler",
+            "line": 137,
+            "params": "",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "entry_to_session",
+            "line": 149,
+            "params": "$entry, $form",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "add_utm_to_confirmation_redirect",
+            "line": 206,
+            "params": "$confirmation, $form, $entry, $ajax",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "hide_registration_fields",
+            "line": 244,
+            "params": "$form",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 257,
+    "bytes": 8279,
+    "registrations": [
+      {
+        "type": "action",
+        "name": "gform_after_submission",
+        "extra": null,
+        "line": 145
+      },
+      {
+        "type": "filter",
+        "name": "gform_pre_render",
+        "extra": null,
+        "line": 133
+      },
+      {
+        "type": "filter",
+        "name": "gform_confirmation",
+        "extra": null,
+        "line": 134
+      }
+    ]
+  },
+  "elements/registration-visitors/registration-visitors/presets/platyna/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 55,
+    "bytes": 1995,
+    "registrations": []
+  },
+  "elements/registration-visitors/registration-visitors/presets/byli/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 35,
+    "bytes": 1106,
+    "registrations": []
+  },
+  "elements/registration-visitors/registration-visitors/presets/standard/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 77,
+    "bytes": 2856,
+    "registrations": []
+  },
+  "elements/registration-visitors/registration-visitors/presets/premium/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 35,
+    "bytes": 1109,
+    "registrations": []
+  },
+  "elements/medal-ceremony/medal-ceremony/medal-ceremony.php": {
+    "classes": [
+      {
+        "name": "Medal_Ceremony",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 15,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 84,
+    "bytes": 3016,
+    "registrations": []
+  },
+  "elements/medal-ceremony/medal-ceremony/presets/all/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 41,
+    "bytes": 1683,
+    "registrations": []
+  },
+  "elements/fair-plan/fair-plan/fair-plan.php": {
+    "classes": [
+      {
+        "name": "Fair_Plan",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 10,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "set_featured_image_by_url",
+            "line": 19,
+            "params": "$post_id, $image_path",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "find_fair_plan_post",
+            "line": 91,
+            "params": "$year, $language, $slug",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "remove_news_without_active_plan",
+            "line": 137,
+            "params": "$active_years",
+            "modifiers": [
+              "private",
+              "static"
+            ]
+          },
+          {
+            "name": "pwe_create_fair_plan_news",
+            "line": 169,
+            "params": "$year",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "create_or_update_fair_plan_pages",
+            "line": 381,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "set_uncode_header_none",
+            "line": 449,
+            "params": "int $post_id",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "set_uncode_show_title_off",
+            "line": 456,
+            "params": "int $post_id",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "create_missing_news_for_files",
+            "line": 462,
+            "params": "$files",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 500,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 623,
+    "bytes": 19298,
+    "registrations": []
+  },
+  "elements/fair-plan/fair-plan/presets/all/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 39,
+    "bytes": 1070,
+    "registrations": []
+  },
+  "elements/layout/layout/layout.php": {
+    "classes": [
+      {
+        "name": "Layout",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 15,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 53,
+    "bytes": 1470,
+    "registrations": []
+  },
+  "elements/layout/layout/presets/all/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 36,
+    "bytes": 1684,
+    "registrations": []
+  },
+  "elements/potential-exhibitors/potential-exhibitors/potential-exhibitors.php": {
+    "classes": [
+      {
+        "name": "Potential_Exhibitors",
+        "line": 4,
+        "methods": [
+          {
+            "name": "get_data",
+            "line": 6,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "render",
+            "line": 15,
+            "params": "$group = '', $params = [], $atts = []",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 120,
+    "bytes": 4831,
+    "registrations": []
+  },
+  "elements/potential-exhibitors/potential-exhibitors/presets/all/preset.php": {
+    "classes": [],
+    "functions": [],
+    "lines": 41,
+    "bytes": 2442,
+    "registrations": []
+  },
+  "assets/b2c-new/swiper.php": {
+    "classes": [
+      {
+        "name": "PWE_Swiper",
+        "line": 2,
+        "methods": [
+          {
+            "name": "__construct",
+            "line": 4,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "swiperScripts",
+            "line": 6,
+            "params": "$id, $breakpoints = [], $dots = false, $arrows = false, $rows = 1, $centered = false, $gap = null",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 223,
+    "bytes": 8816,
+    "registrations": []
+  },
+  "assets/gr1/swiper.php": {
+    "classes": [
+      {
+        "name": "PWE_Swiper",
+        "line": 2,
+        "methods": [
+          {
+            "name": "__construct",
+            "line": 4,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "swiperScripts",
+            "line": 6,
+            "params": "$id, $breakpoints = [], $scrollbar = false",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 116,
+    "bytes": 4008,
+    "registrations": []
+  },
+  "assets/gr2/swiper.php": {
+    "classes": [
+      {
+        "name": "PWE_Swiper",
+        "line": 2,
+        "methods": [
+          {
+            "name": "__construct",
+            "line": 4,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "swiperScripts",
+            "line": 6,
+            "params": "$id, $breakpoints = [], $dots = false, $arrows = false, $rows = 1, $centered = false, $gap = null",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 223,
+    "bytes": 8816,
+    "registrations": []
+  },
+  "assets/week/swiper.php": {
+    "classes": [
+      {
+        "name": "PWE_Swiper",
+        "line": 2,
+        "methods": [
+          {
+            "name": "__construct",
+            "line": 4,
+            "params": "",
+            "modifiers": [
+              "public"
+            ]
+          },
+          {
+            "name": "swiperScripts",
+            "line": 6,
+            "params": "$id, $breakpoints = [], $dots = false, $arrows = false, $rows = 1, $centered = false, $gap = null",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 220,
+    "bytes": 8703,
+    "registrations": []
+  },
+  "pwe-elements-auto-switch.php": {
+    "classes": [
+      {
+        "name": "PWE_Elements_AutoSwitch",
+        "line": 49,
+        "methods": [
+          {
+            "name": "get_instance",
+            "line": 61,
+            "params": "",
+            "modifiers": [
+              "public",
+              "static"
+            ]
+          },
+          {
+            "name": "__construct",
+            "line": 71,
+            "params": "",
+            "modifiers": [
+              "private"
+            ]
+          }
+        ]
+      }
+    ],
+    "functions": [],
+    "lines": 84,
+    "bytes": 2855,
+    "registrations": [
+      {
+        "type": "action",
+        "name": "init",
+        "extra": null,
+        "line": 73
+      }
+    ]
+  }
+}

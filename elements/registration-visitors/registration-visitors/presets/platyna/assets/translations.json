@@ -1,0 +1,72 @@
+{
+  "pl_PL": {
+    "vip_invitation": "Zaproszenie VIP obejmuje",
+    "concierge_service": "obsługa concierge",
+    "VIP_zone": "Strefę VIP ROOM"
+  },
+  "en_US": {
+    "vip_invitation": "The VIP invitation includes",
+    "concierge_service": "Concierge service",
+    "VIP_zone": "VIP ROOM Zone"
+  },
+  "de_DE": {
+    "vip_invitation": "Die VIP-Einladung umfasst",
+    "concierge_service": "Concierge-Service",
+    "VIP_zone": "VIP-ROOM-Zone"
+  },
+  "cs_CZ": {
+    "vip_invitation": "VIP pozvánka zahrnuje",
+    "concierge_service": "concierge služba",
+    "VIP_zone": "zónu VIP ROOM"
+  },
+  "it_IT": {
+    "vip_invitation": "L'invito VIP include",
+    "concierge_service": "servizio concierge",
+    "VIP_zone": "Zona VIP ROOM"
+  },
+  "lt_LT": {
+    "vip_invitation": "VIP kvietimas apima",
+    "concierge_service": "konsjeržo paslauga",
+    "VIP_zone": "VIP ROOM zona"
+  },
+  "lv_LV": {
+    "vip_invitation": "VIP ielūgums ietver",
+    "concierge_service": "konsjerža pakalpojums",
+    "VIP_zone": "VIP ROOM zona"
+  },
+  "sk_SK": {
+    "vip_invitation": "VIP pozvánka zahŕňa",
+    "concierge_service": "concierge služby",
+    "VIP_zone": "zónu VIP ROOM"
+  },
+  "uk": {
+    "vip_invitation": "VIP запрошення включає",
+    "concierge_service": "консьєрж-сервіс",
+    "VIP_zone": "зону VIP ROOM"
+  },
+  "ro_RO": {
+    "vip_invitation": "Invitația VIP include",
+    "concierge_service": "serviciu de concierge",
+    "VIP_zone": "zonă VIP ROOM"
+  },
+  "et": {
+    "vip_invitation": "VIP kutse sisaldab",
+    "concierge_service": "concierge teenus",
+    "VIP_zone": "VIP ROOM tsoon"
+  },
+  "hu_HU": {
+    "vip_invitation": "A VIP meghívó tartalmazza",
+    "concierge_service": "concierge szolgáltatás",
+    "VIP_zone": "VIP ROOM zóna"
+  },
+  "fr_FR": {
+    "vip_invitation": "L'invitation VIP comprend",
+    "concierge_service": "service de conciergerie",
+    "VIP_zone": "Zone VIP ROOM"
+  },
+  "es_ES": {
+    "vip_invitation": "La invitación VIP incluye",
+    "concierge_service": "servicio de conserjería",
+    "VIP_zone": "Zona VIP ROOM"
+  }
+}

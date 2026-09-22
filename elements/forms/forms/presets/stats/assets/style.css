@@ -1,0 +1,115 @@
+.pwe-gf-tool__grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+}
+
+.pwe-gf-tool__stats-downloads {
+    margin: 5px 0 9px;
+    font-size: 13px;
+    color: var(--ink)
+}
+
+.pwe-gf-tool__stats-actions {
+    margin-bottom: 4px
+}
+
+.pwe-gf-tool__stats-heading {
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+}
+
+.pwe-gf-tool__stats-heading h3 {
+    margin: 0;
+    font-size: 20px
+}
+
+.pwe-gf-tool__stats-heading p {
+    margin: 2px 0 0;
+    color: var(--muted);
+    font-size: 14px
+}
+
+.pwe-gf-tool__stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 18px
+}
+
+.pwe-gf-tool__stat-card {
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 14px rgba(23, 32, 51, .04);
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease
+}
+
+.pwe-gf-tool__stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(23, 32, 51, .08);
+    border-color: #dfe5ff
+}
+
+.pwe-gf-tool__stat-id {
+    display: inline-block;
+    margin-bottom: 7px;
+    padding: 3px 7px;
+    border-radius: 6px;
+    background: #eef1ff;
+    color: var(--brand);
+    font-size: 10px;
+    font-weight: 800
+}
+
+.pwe-gf-tool__stat-card h4 {
+    min-height: 38px;
+    margin: 0 0 12px;
+    overflow-wrap: anywhere;
+    font-size: 13px;
+    line-height: 1.4
+}
+
+.pwe-gf-tool__stat-card dl {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin: 0
+}
+
+.pwe-gf-tool__stat-card dl div {
+    padding: 7px;
+    border-radius: 8px;
+    background: #f7f8fb;
+    transition: background .15s ease
+}
+
+.pwe-gf-tool__stat-card:hover dl div {
+    background: #eef1ff
+}
+
+.pwe-gf-tool__stat-card dt {
+    color: var(--muted);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: .04em
+}
+
+.pwe-gf-tool__stat-card dd {
+    margin: 1px 0 0;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--ink)
+}
+
+@media(max-width:760px) {
+    .pwe-gf-tool__stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr))
+    }
+}
+
+@media(max-width:480px) {
+    .pwe-gf-tool__stats-grid {
+        grid-template-columns: 1fr
+    }
+}

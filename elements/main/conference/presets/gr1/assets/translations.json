@@ -1,0 +1,114 @@
+{
+  "pl_PL": {
+    "conference": "Konferencja",
+    "details": "Szczegóły",
+    "reg_url": "/rejestracja/",
+    "ticket_url": "/kup-bilet/",
+    "buy_ticket": "Kup bilet",
+    "registration": "Zarejestruj się"
+  },
+  "en_US": {
+    "conference": "Conference",
+    "details": "Details",
+    "reg_url": "/en/registration/",
+    "ticket_url": "/en/buy-ticket/",
+    "buy_ticket": "Buy a ticket",
+    "registration": "Registration"
+  },
+  "cs_CZ": {
+    "conference": "Konference",
+    "details": "Detaily",
+    "reg_url": "/cs/registrace/",
+    "ticket_url": "/en/buy-ticket/",
+    "buy_ticket": "Koupit lístek",
+    "registration": "Registrace"
+  },
+  "de_DE": {
+    "conference": "Konferenz",
+    "details": "Details",
+    "reg_url": "/de/anmeldung/",
+    "ticket_url": "/en/buy-ticket/",
+    "buy_ticket": "Kaufen Eintrittskarte",
+    "registration": "Registrierung"
+  },
+  "it_IT": {
+    "conference": "Conferenza",
+    "details": "Dettagli",
+    "reg_url": "/it/registrazione/",
+    "ticket_url": "/en/buy-ticket/",
+    "buy_ticket": "Compra biglietto",
+    "registration": "Registrazione"
+  },
+  "lt_LT": {
+    "conference": "Konferencija",
+    "details": "Detalės",
+    "reg_url": "/lt/registracija/",
+    "ticket_url": "/en/buy-ticket/",
+    "buy_ticket": "Pirkti lankymo bilietą",
+    "registration": "Registracija"
+  },
+  "lv_LV": {
+    "conference": "Konference",
+    "details": "Detalizēti",
+    "reg_url": "/lv/registracija/",
+    "ticket_url": "/en/buy-ticket/",
+    "buy_ticket": "Pirkt bilietu",
+    "registration": "Reģistrācija"
+  },
+  "sk_SK": {
+    "conference": "Konferencia",
+    "details": "Detaily",
+    "reg_url": "/sk/registracia/",
+    "ticket_url": "/en/buy-ticket/",
+    "buy_ticket": "Kúpiť lístek",
+    "registration": "Registrace"
+  },
+  "uk": {
+    "conference": "Конференція",
+    "details": "Деталі",
+    "reg_url": "/uk/reyestraciya/",
+    "ticket_url": "/en/buy-ticket/",
+    "buy_ticket": "Купити квиток",
+    "registration": "Реєстрація"
+  },
+  "ro_RO": {
+    "conference": "Conferință",
+    "details": "Detalii",
+    "reg_url": "/ro/registrare/",
+    "ticket_url": "/en/buy-ticket/",
+    "buy_ticket": "Cumpără bilet",
+    "registration": "Înregistrare"
+  },
+  "et": {
+    "conference": "Konverents",
+    "details": "Detailid",
+    "reg_url": "/et/registreerimine/",
+    "ticket_url": "/en/buy-ticket/",
+    "buy_ticket": "Osta pilet",
+    "registration": "Registreerimine"
+  },
+  "hu_HU": {
+    "conference": "Konferencia",
+    "details": "Részletek",
+    "reg_url": "/hu/regisztracio/",
+    "ticket_url": "/en/buy-ticket/",
+    "buy_ticket": "Jegy vásárlása",
+    "registration": "Regisztráció"
+  },
+  "fr_FR": {
+    "conference": "Conférence",
+    "details": "Détails",
+    "reg_url": "/fr/inscription/",
+    "ticket_url": "/en/buy-ticket/",
+    "buy_ticket": "Acheter un billet",
+    "registration": "Inscription"
+  },
+  "es_ES": {
+    "conference": "Conferencia",
+    "details": "Detalles",
+    "reg_url": "/es/registro/",
+    "ticket_url": "/en/buy-ticket/",
+    "buy_ticket": "Comprar un boleto",
+    "registration": "Registro"
+  }
+}

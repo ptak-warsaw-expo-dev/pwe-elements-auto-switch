@@ -1,0 +1,4 @@
+.pwe-gf-tool__scanner-help{margin:8px 0 12px;padding:10px 12px;border:1px solid var(--line);border-left:3px solid var(--brand);border-radius:8px;background:#f7f8fb;color:var(--muted);font-size:11.5px;line-height:1.5}
+#pwe-gf-tool__codes{font:13px/1.6 "SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace!important;letter-spacing:.02em}
+#pwe-gf-tool__codes::placeholder{font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+.pwe-gf-tool__card:has(#pwe-gf-tool__codes:focus){box-shadow:0 8px 24px rgba(49,87,213,.1);border-color:var(--brand)}

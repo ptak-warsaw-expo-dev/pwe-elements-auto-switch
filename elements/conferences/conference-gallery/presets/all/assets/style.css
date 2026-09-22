@@ -1,0 +1,351 @@
+.row.limit-width.row-parent:has(#pweConferenceGallery) {
+    padding: 0;
+    max-width: unset;
+}
+
+#pweConferenceGallery.pwe-conference-gallery {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 54px;
+    align-items: center;
+
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 48px;
+
+    color: #ffffff;
+
+    background:
+    linear-gradient(
+        0deg,
+        color-mix(in srgb, var(--accent-color) 80%, transparent),
+        #000000d9 100%
+    ),
+    url("/wp-content/plugins/pwe-media/media/events-mini/event_1.webp")
+        center / cover no-repeat;
+
+    background-color: #004d69;
+
+    border-radius: 28px;
+    overflow: hidden;
+
+    box-shadow: 0 22px 60px rgba(0, 50, 95, 0.16);
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.pwe-conference-gallery__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+}
+
+.pwe-conference-gallery__badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.pwe-conference-gallery__badge-icon-wrapper {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+}
+
+.pwe-conference-gallery__badge-icon {
+    position: relative;
+    left: 1px;
+    bottom: .5px;
+}
+
+.pwe-conference-gallery__title {
+    max-width: 340px;
+
+    margin: 0;
+
+    color: #ffffff !important;
+
+    font-size: clamp(24px, 4.5vw, 42px) !important;
+    line-height: 0.98;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+
+    text-transform: uppercase;
+}
+
+.pwe-conference-gallery__description {
+    max-width: 520px;
+
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.82);
+
+    font-size: 15px;
+    line-height: 1.65;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.pwe-conference-gallery__btn-wrapper {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 18px;
+}
+
+.pwe-conference-gallery__btn {
+    margin: 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 46px;
+    padding: 13px 20px;
+
+    color: #ffffff !important;
+    background: var(--main2-color);
+
+    border: 1px solid var(--main2-color);
+    border-radius: 8px;
+
+    font-size: 13px;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+
+    text-transform: uppercase;
+    text-decoration: none;
+
+    transition: all .3s ease;
+}
+
+.pwe-conference-gallery__btn:hover {
+    color: #ffffff;
+    background: var(--main2_dark_color);
+    border-color: var(--main2_dark_color);
+}
+
+.pwe-conference-gallery__btn--secondary {
+    padding-left: 4px;
+    padding-right: 4px;
+
+    background: transparent !important;
+    border-color: transparent !important;
+
+    color: #ffffff;
+    position: relative;
+}
+
+.pwe-conference-gallery__btn--secondary::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 08px;
+    width: 0%;
+    height: 1px;
+    background: #ffffff;
+    transition: width 0.3s ease;
+}
+
+.pwe-conference-gallery__btn--secondary:hover::before {
+    width: 100%;
+    
+}
+
+/* =========================
+   GALLERY
+========================= */
+
+.pwe-conference-gallery__gallery {
+    display: grid;
+
+    grid-template-columns: 1.25fr 0.75fr;
+    grid-template-rows: 190px 190px;
+
+    gap: 12px;
+
+    min-width: 0;
+}
+
+/* każde zdjęcie */
+
+.pwe-conference-gallery__gallery__item {
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    background: rgba(0, 48, 80, 0.35);
+    box-shadow: 0 0px 4px 2px #ffffff24;
+    border: 1px solid #ffffff87;
+}
+
+/* duże lewe zdjęcie */
+
+.pwe-conference-gallery__gallery__item:nth-child(1) {
+    grid-row: 1 / span 2;
+
+    border-radius: 34px 8px 34px 8px;
+}
+
+/* prawe górne */
+
+.pwe-conference-gallery__gallery__item:nth-child(2) {
+    border-radius: 8px 30px 8px 24px;
+}
+
+/* prawe dolne */
+
+.pwe-conference-gallery__gallery__item:nth-child(3) {
+    border-radius: 28px 8px 28px 8px;
+}
+
+/* images */
+
+.pwe-conference-gallery__gallery__item img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.5s ease;
+}
+
+.pwe-conference-gallery__gallery__item:hover img {
+    transform: scale(1.035);
+}
+
+/* delikatna nakładka */
+
+.pwe-conference-gallery__gallery__item::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0, 36, 63, 0.14),
+            transparent 45%
+        );
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 1024px) {
+
+    #pweConferenceGallery.pwe-conference-gallery {
+        gap: 36px;
+        padding: 42px;
+    }
+
+    .pwe-conference-gallery__gallery {
+        grid-template-rows: 165px 165px;
+    }
+
+    .pwe-conference-gallery__title {
+        font-size: clamp(30px, 4vw, 44px);
+    }
+
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+
+    #pweConferenceGallery.pwe-conference-gallery {
+        grid-template-columns: 1fr;
+
+        gap: 34px;
+
+        padding: 32px;
+        border-radius: 22px;
+    }
+
+    .pwe-conference-gallery__title {
+        max-width: 650px;
+    }
+
+    .pwe-conference-gallery__description {
+        max-width: 650px;
+    }
+
+    .pwe-conference-gallery__gallery {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 280px 140px;
+    }
+
+    .pwe-conference-gallery__gallery__item:nth-child(1) {
+        grid-column: 1 / span 2;
+        grid-row: auto;
+
+        border-radius: 28px 8px 28px 8px;
+    }
+
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 520px) {
+
+    #pweConferenceGallery.pwe-conference-gallery {
+        padding: 24px;
+        gap: 28px;
+
+        border-radius: 18px;
+    }
+
+    .pwe-conference-gallery__badge {
+        font-size: 10px;
+    }
+
+    .pwe-conference-gallery__title {
+        font-size: 30px;
+        line-height: 1;
+    }
+
+    .pwe-conference-gallery__description {
+        font-size: 14px;
+    }
+
+    .pwe-conference-gallery__btn-wrapper {
+        align-items: flex-start;
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+    .pwe-conference-gallery__gallery {
+        grid-template-rows: 230px 115px;
+        gap: 8px;
+    }
+
+}

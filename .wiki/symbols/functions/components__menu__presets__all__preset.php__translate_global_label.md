@@ -1,0 +1,20 @@
+# `translate_global_label()`
+
+**Źródło:** `components/menu/presets/all/preset.php:213`  
+**Sygnatura:** `translate_global_label($text, $lang)`
+
+## Krótki opis
+
+Realizuje logikę techniczną związaną z `translate_global_label`.
+
+## Wykryte zależności statyczne
+
+Brak prostych zależności rozpoznanych przez statyczny skaner w zakresie tej funkcji.
+
+## Kontekst
+
+- [Dokument pliku](../../files/components/menu/presets/all/preset.php.md)
+
+## Uwagi
+
+- Opis zależności jest generowany ze statycznej analizy; zachowanie biznesowe kluczowych funkcji jest dodatkowo opisane w sekcjach `architecture/` i `processes/`.

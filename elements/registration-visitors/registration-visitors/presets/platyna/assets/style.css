@@ -1,0 +1,205 @@
+.pwe-element-auto-switch.registration-visitors {
+    max-width: 100%;
+    padding: 0;
+}
+.pwe-element-auto-switch:has(.pwe-registration-visitors.platyna) {
+    padding: 0;
+}
+
+.limit-width:has(.pwe-registration-visitors.platyna) {
+    max-width: none !important;
+    padding: 0 !important;
+}
+
+.wpb_column:has(.pwe-registration-visitors.platyna) .exhibitors-catalog {
+    display: none !important;
+}
+
+.row-container:has(.pwe-registration-visitors.platyna) {
+    background-image: url(/wp-content/plugins/pwe-media/media/platyna/platinum_background.webp);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.pwe-element-auto-switch .pwe-registration-visitors.platyna
+.pwe-registration-visitors__column {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    min-height: 650px;
+}
+
+.pwe-element-auto-switch .pwe-registration-visitors__platinum-form {
+    width: 100%;
+    max-width: 60%;
+    margin-left: auto;
+    overflow: hidden;
+    border: 1px solid #838b8f;
+    border-radius: 40px 0 0 40px;
+    background: linear-gradient(
+        90deg,
+        rgba(131, 139, 143, 1) 0%,
+        rgba(224, 224, 224, 1) 50%,
+        rgba(252, 252, 252, 1) 100%
+    );
+}
+
+.pwe-element-auto-switch .pwe-registration-visitors__platinum-container {
+    display: flex;
+    width: 100%;
+    max-width: 80%;
+    margin-right: 15px;
+    margin-left: auto;
+    padding: 18px 0;
+}
+
+.pwe-element-auto-switch .pwe-registration-visitors__platinum-fields,
+.pwe-element-auto-switch .pwe-registration-visitors__benefits {
+    flex: 1;
+}
+
+.pwe-element-auto-switch .pwe-registration-visitors__platinum-title {
+    color: #636363;
+    font-weight: 800;
+}
+
+.pwe-element-auto-switch .pwe-registration-visitors__platinum-fields h3,
+.pwe-element-auto-switch .pwe-registration-visitors__platinum-fields label {
+    color: #737374;
+    font-weight: 600 !important;
+}
+
+.pwe-element-auto-switch .pwe-registration-visitors.platyna form ul {
+    padding: 0 !important;
+}
+
+.pwe-element-auto-switch .pwe-registration-visitors.platyna form input,
+.pwe-element-auto-switch .pwe-registration-visitors.platyna form input::placeholder {
+    border-radius: 18px;
+    color: #8a8a8a !important;
+}
+
+.pwe-element-auto-switch .pwe-registration-visitors.platyna .ginput_container_consent label {
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.pwe-element-auto-switch .pwe-registration-visitors.platyna form input[type="submit"] {
+    display: inline-block;
+    width: 100%;
+    border-radius: 18px !important;
+    background-color: #636363 !important;
+    color: white !important;
+}
+
+.pwe-element-auto-switch .pwe-registration-visitors__benefits {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-align: center;
+}
+
+.pwe-element-auto-switch .pwe-registration-visitors__benefits h2 {
+    margin: 0;
+    color: #636363;
+    font-size: 18px;
+    font-weight: 700 !important;
+}
+
+.pwe-element-auto-switch .pwe-registration-visitors__benefit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 250px;
+}
+
+.pwe-element-auto-switch .pwe-registration-visitors__benefit img {
+    width: 70px;
+}
+
+.pwe-element-auto-switch .pwe-registration-visitors__benefit p {
+    margin-top: 0;
+    color: #646464;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+@media (max-width: 1500px) {
+    .pwe-element-auto-switch .pwe-registration-visitors__platinum-container {
+        padding: 0 0 5px;
+    }
+
+    .pwe-element-auto-switch .pwe-registration-visitors.platyna
+    .pwe-registration-visitors__column {
+        min-height: 580px;
+    }
+
+    .pwe-element-auto-switch .pwe-registration-visitors__platinum-fields h3,
+    .pwe-element-auto-switch .pwe-registration-visitors__platinum-title {
+        margin-top: 14px;
+    }
+
+    .pwe-element-auto-switch .pwe-registration-visitors__benefits h2 {
+        margin-top: 60px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .row-container:has(.pwe-registration-visitors.platyna) {
+        background-size: cover;
+    }
+
+    .pwe-element-auto-switch .pwe-registration-visitors__platinum-container {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 960px) {
+    .row-container:has(.pwe-registration-visitors.platyna) .wpb_column {
+        max-width: 100%;
+    }
+
+    .pwe-element-auto-switch .pwe-registration-visitors__platinum-form {
+        max-width: 100%;
+        border-radius: 40px;
+    }
+}
+
+@media (max-width: 650px) {
+    .row-container:has(.pwe-registration-visitors.platyna) {
+        background: linear-gradient(
+            90deg,
+            rgb(161, 161, 161) 0%,
+            rgb(255, 255, 255) 50%,
+            rgb(184, 180, 180) 100%
+        );
+    }
+}
+
+@media (max-width: 480px) {
+    .pwe-element-auto-switch .pwe-registration-visitors__platinum-container {
+        flex-direction: column;
+    }
+
+    .pwe-element-auto-switch .pwe-registration-visitors__benefits {
+        flex-flow: row wrap;
+    }
+
+    .pwe-element-auto-switch .pwe-registration-visitors__benefits h2 {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .pwe-element-auto-switch .pwe-registration-visitors__benefit {
+        flex: 1;
+    }
+}
+
+
+.pwe-element-auto-switch .gform_legacy_markup_wrapper li.hidden_label input {
+    margin-top: 0 !important;
+}

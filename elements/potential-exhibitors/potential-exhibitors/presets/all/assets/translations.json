@@ -1,0 +1,16 @@
+{
+    "pl_PL": {
+        "title": "Dziękujemy za aktywację zaproszenia VIP",
+        "desc": "Na państwa mail wysłaliśmy potwierdzenie wraz z kodem QR upoważniającym do wejścia na targi",
+        "home_btn": "Strona główna",
+        "home_btn_link": "/",
+        "facebook_text": "ŚLEDŹ NAS NA "
+    },
+    "en_US": {
+        "title": "Thank you for activating the VIP invitation",
+        "desc": "We have sent a confirmation to your email along with a QR code authorizing entry to the fair",
+        "home_btn": "Home",
+        "home_btn_link": "/en/",
+        "facebook_text": "FOLLOW US ON "
+    }
+}

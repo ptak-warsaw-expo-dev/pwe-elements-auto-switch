@@ -1,0 +1,208 @@
+# Klasa `PWE_Shortcodes`
+
+**Źródło:** `includes/class-shortcodes.php:5`  
+**Metody:** 193
+
+## Rola
+
+Klasa `PWE_Shortcodes` jest zdefiniowana w pliku `includes/class-shortcodes.php`. Jej dokładna rola wynika z metod i zależności poniżej; dla klas należących do elementów/komponentów dodatkowy opis domenowy znajduje się w `.wiki/elements/` lub `.wiki/components/`.
+
+## Metody
+
+- [`public static init()`](../methods/PWE_Shortcodes/init.md) — linia 10
+- [`private __construct()`](../methods/PWE_Shortcodes/__construct.md) — linia 17
+- [`private get_shortcodes_map()`](../methods/PWE_Shortcodes/get_shortcodes_map.md) — linia 33
+- [`private get_gf_shortcodes_map()`](../methods/PWE_Shortcodes/get_gf_shortcodes_map.md) — linia 148
+- [`private get_yoast_shortcodes_map()`](../methods/PWE_Shortcodes/get_yoast_shortcodes_map.md) — linia 237
+- [`private other_shortcodes_map()`](../methods/PWE_Shortcodes/other_shortcodes_map.md) — linia 261
+- [`private translates_shortcodes_map()`](../methods/PWE_Shortcodes/translates_shortcodes_map.md) — linia 321
+- [`public register_shortcodes()`](../methods/PWE_Shortcodes/register_shortcodes.md) — linia 339
+- [`private shorten_value($value, $length = 30)`](../methods/PWE_Shortcodes/shorten_value.md) — linia 352
+- [`public add_menu()`](../methods/PWE_Shortcodes/add_menu.md) — linia 363
+- [`public theme_options_page()`](../methods/PWE_Shortcodes/theme_options_page.md) — linia 375
+- [`public register_settings()`](../methods/PWE_Shortcodes/register_settings.md) — linia 691
+- [`public header_section()`](../methods/PWE_Shortcodes/header_section.md) — linia 839
+- [`public display_trade_fair_name()`](../methods/PWE_Shortcodes/display_trade_fair_name.md) — linia 845
+- [`public display_trade_fair_name_eng()`](../methods/PWE_Shortcodes/display_trade_fair_name_eng.md) — linia 862
+- [`public display_trade_fair_desc()`](../methods/PWE_Shortcodes/display_trade_fair_desc.md) — linia 881
+- [`public display_trade_fair_desc_eng()`](../methods/PWE_Shortcodes/display_trade_fair_desc_eng.md) — linia 898
+- [`public display_trade_fair_desc_short()`](../methods/PWE_Shortcodes/display_trade_fair_desc_short.md) — linia 915
+- [`public display_trade_fair_desc_short_eng()`](../methods/PWE_Shortcodes/display_trade_fair_desc_short_eng.md) — linia 932
+- [`public get_trade_fair_dates()`](../methods/PWE_Shortcodes/get_trade_fair_dates.md) — linia 949
+- [`public format_trade_fair_date($start_date, $end_date, $lang = "pl")`](../methods/PWE_Shortcodes/format_trade_fair_date.md) — linia 968
+- [`public display_trade_fair_date_field($lang = "pl")`](../methods/PWE_Shortcodes/display_trade_fair_date_field.md) — linia 1313
+- [`public display_trade_fair_date()`](../methods/PWE_Shortcodes/display_trade_fair_date.md) — linia 1342
+- [`public display_trade_fair_date_eng()`](../methods/PWE_Shortcodes/display_trade_fair_date_eng.md) — linia 1346
+- [`public display_trade_fair_datetotimer()`](../methods/PWE_Shortcodes/display_trade_fair_datetotimer.md) — linia 1350
+- [`public display_trade_fair_enddata()`](../methods/PWE_Shortcodes/display_trade_fair_enddata.md) — linia 1382
+- [`public display_trade_fair_date_custom_format()`](../methods/PWE_Shortcodes/display_trade_fair_date_custom_format.md) — linia 1414
+- [`public display_trade_fair_date_multilang()`](../methods/PWE_Shortcodes/display_trade_fair_date_multilang.md) — linia 1444
+- [`private get_trade_fair_days()`](../methods/PWE_Shortcodes/get_trade_fair_days.md) — linia 1459
+- [`public display_trade_fair_first_day()`](../methods/PWE_Shortcodes/display_trade_fair_first_day.md) — linia 1481
+- [`public display_trade_fair_second_day()`](../methods/PWE_Shortcodes/display_trade_fair_second_day.md) — linia 1502
+- [`public display_trade_fair_third_day()`](../methods/PWE_Shortcodes/display_trade_fair_third_day.md) — linia 1523
+- [`public display_trade_fair_catalog()`](../methods/PWE_Shortcodes/display_trade_fair_catalog.md) — linia 1545
+- [`public display_trade_fair_catalog_id()`](../methods/PWE_Shortcodes/display_trade_fair_catalog_id.md) — linia 1562
+- [`public display_trade_fair_catalog_archive()`](../methods/PWE_Shortcodes/display_trade_fair_catalog_archive.md) — linia 1579
+- [`public display_trade_fair_catalog_id_archive()`](../methods/PWE_Shortcodes/display_trade_fair_catalog_id_archive.md) — linia 1596
+- [`public display_trade_fair_catalog_year()`](../methods/PWE_Shortcodes/display_trade_fair_catalog_year.md) — linia 1613
+- [`public display_trade_fair_conference()`](../methods/PWE_Shortcodes/display_trade_fair_conference.md) — linia 1631
+- [`public display_trade_fair_conference_title()`](../methods/PWE_Shortcodes/display_trade_fair_conference_title.md) — linia 1648
+- [`public display_trade_fair_conference_title_eng()`](../methods/PWE_Shortcodes/display_trade_fair_conference_title_eng.md) — linia 1665
+- [`public display_trade_fair_1stbuildday()`](../methods/PWE_Shortcodes/display_trade_fair_1stbuildday.md) — linia 1682
+- [`public display_trade_fair_2ndbuildday()`](../methods/PWE_Shortcodes/display_trade_fair_2ndbuildday.md) — linia 1700
+- [`public display_trade_fair_1stdismantlday()`](../methods/PWE_Shortcodes/display_trade_fair_1stdismantlday.md) — linia 1718
+- [`public display_trade_fair_2nddismantlday()`](../methods/PWE_Shortcodes/display_trade_fair_2nddismantlday.md) — linia 1736
+- [`public display_trade_fair_actualyear()`](../methods/PWE_Shortcodes/display_trade_fair_actualyear.md) — linia 1754
+- [`public display_trade_fair_branzowy_field($lang = "pl")`](../methods/PWE_Shortcodes/display_trade_fair_branzowy_field.md) — linia 1763
+- [`public display_trade_fair_branzowy()`](../methods/PWE_Shortcodes/display_trade_fair_branzowy.md) — linia 1808
+- [`public display_trade_fair_branzowy_eng()`](../methods/PWE_Shortcodes/display_trade_fair_branzowy_eng.md) — linia 1812
+- [`public display_trade_fair_hall()`](../methods/PWE_Shortcodes/display_trade_fair_hall.md) — linia 1816
+- [`public display_trade_fair_hall_entrance()`](../methods/PWE_Shortcodes/display_trade_fair_hall_entrance.md) — linia 1833
+- [`public display_trade_fair_edition()`](../methods/PWE_Shortcodes/display_trade_fair_edition.md) — linia 1850
+- [`public display_trade_fair_accent()`](../methods/PWE_Shortcodes/display_trade_fair_accent.md) — linia 1867
+- [`public display_trade_fair_main2()`](../methods/PWE_Shortcodes/display_trade_fair_main2.md) — linia 1884
+- [`public display_trade_fair_badge()`](../methods/PWE_Shortcodes/display_trade_fair_badge.md) — linia 1900
+- [`public display_trade_fair_feed_prefix()`](../methods/PWE_Shortcodes/display_trade_fair_feed_prefix.md) — linia 1917
+- [`public display_trade_fair_domainadress()`](../methods/PWE_Shortcodes/display_trade_fair_domainadress.md) — linia 1935
+- [`public display_trade_fair_facebook()`](../methods/PWE_Shortcodes/display_trade_fair_facebook.md) — linia 1944
+- [`public display_trade_fair_instagram()`](../methods/PWE_Shortcodes/display_trade_fair_instagram.md) — linia 1961
+- [`public display_trade_fair_linkedin()`](../methods/PWE_Shortcodes/display_trade_fair_linkedin.md) — linia 1978
+- [`public display_trade_fair_youtube()`](../methods/PWE_Shortcodes/display_trade_fair_youtube.md) — linia 1995
+- [`private get_group_contact_default_value($groups_slug, $field = 'email')`](../methods/PWE_Shortcodes/get_group_contact_default_value.md) — linia 2013
+- [`private show_contact_field_with_default($option_name, $groups_slug, $field = 'email')`](../methods/PWE_Shortcodes/show_contact_field_with_default.md) — linia 2060
+- [`private display_contact_field_with_default($option_name, $default_value = '')`](../methods/PWE_Shortcodes/display_contact_field_with_default.md) — linia 2070
+- [`public display_trade_fair_rejestracja()`](../methods/PWE_Shortcodes/display_trade_fair_rejestracja.md) — linia 2084
+- [`public display_trade_fair_contact()`](../methods/PWE_Shortcodes/display_trade_fair_contact.md) — linia 2093
+- [`public display_trade_fair_contact_service_name()`](../methods/PWE_Shortcodes/display_trade_fair_contact_service_name.md) — linia 2098
+- [`public display_trade_fair_contact_service_phone()`](../methods/PWE_Shortcodes/display_trade_fair_contact_service_phone.md) — linia 2102
+- [`public display_trade_fair_contact_service_email()`](../methods/PWE_Shortcodes/display_trade_fair_contact_service_email.md) — linia 2106
+- [`public display_trade_fair_contact_media_phone()`](../methods/PWE_Shortcodes/display_trade_fair_contact_media_phone.md) — linia 2110
+- [`public display_trade_fair_contact_media_name()`](../methods/PWE_Shortcodes/display_trade_fair_contact_media_name.md) — linia 2114
+- [`public display_trade_fair_contact_media_person_name()`](../methods/PWE_Shortcodes/display_trade_fair_contact_media_person_name.md) — linia 2118
+- [`public display_trade_fair_contact_media_person_phone()`](../methods/PWE_Shortcodes/display_trade_fair_contact_media_person_phone.md) — linia 2122
+- [`public display_trade_fair_contact_media_person_email()`](../methods/PWE_Shortcodes/display_trade_fair_contact_media_person_email.md) — linia 2126
+- [`public display_trade_fair_contact_media_person_name_2()`](../methods/PWE_Shortcodes/display_trade_fair_contact_media_person_name_2.md) — linia 2130
+- [`public display_trade_fair_contact_media_person_phone_2()`](../methods/PWE_Shortcodes/display_trade_fair_contact_media_person_phone_2.md) — linia 2134
+- [`public display_trade_fair_contact_media_person_email_2()`](../methods/PWE_Shortcodes/display_trade_fair_contact_media_person_email_2.md) — linia 2138
+- [`public display_trade_fair_contact_media_person_name_3()`](../methods/PWE_Shortcodes/display_trade_fair_contact_media_person_name_3.md) — linia 2142
+- [`public display_trade_fair_contact_media_person_phone_3()`](../methods/PWE_Shortcodes/display_trade_fair_contact_media_person_phone_3.md) — linia 2146
+- [`public display_trade_fair_contact_media_person_email_3()`](../methods/PWE_Shortcodes/display_trade_fair_contact_media_person_email_3.md) — linia 2150
+- [`public display_trade_fair_contact_tech()`](../methods/PWE_Shortcodes/display_trade_fair_contact_tech.md) — linia 2154
+- [`public display_trade_fair_contact_media()`](../methods/PWE_Shortcodes/display_trade_fair_contact_media.md) — linia 2158
+- [`public display_trade_fair_lidy()`](../methods/PWE_Shortcodes/display_trade_fair_lidy.md) — linia 2162
+- [`public display_trade_fair_contact_email_vip()`](../methods/PWE_Shortcodes/display_trade_fair_contact_email_vip.md) — linia 2166
+- [`public display_trade_fair_contact_phone_vip()`](../methods/PWE_Shortcodes/display_trade_fair_contact_phone_vip.md) — linia 2170
+- [`public display_trade_fair_contact_medal_ceremony_email()`](../methods/PWE_Shortcodes/display_trade_fair_contact_medal_ceremony_email.md) — linia 2174
+- [`public days_difference()`](../methods/PWE_Shortcodes/days_difference.md) — linia 2178
+- [`public display_trade_fair_registration_benefits_pl()`](../methods/PWE_Shortcodes/display_trade_fair_registration_benefits_pl.md) — linia 2199
+- [`public display_trade_fair_registration_benefits_en()`](../methods/PWE_Shortcodes/display_trade_fair_registration_benefits_en.md) — linia 2217
+- [`public display_trade_fair_ticket_benefits_pl()`](../methods/PWE_Shortcodes/display_trade_fair_ticket_benefits_pl.md) — linia 2235
+- [`public display_trade_fair_ticket_benefits_en()`](../methods/PWE_Shortcodes/display_trade_fair_ticket_benefits_en.md) — linia 2256
+- [`public display_trade_fair_group()`](../methods/PWE_Shortcodes/display_trade_fair_group.md) — linia 2277
+- [`public show_trade_fair_name()`](../methods/PWE_Shortcodes/show_trade_fair_name.md) — linia 2305
+- [`public show_trade_fair_name_eng()`](../methods/PWE_Shortcodes/show_trade_fair_name_eng.md) — linia 2315
+- [`public show_trade_fair_desc()`](../methods/PWE_Shortcodes/show_trade_fair_desc.md) — linia 2327
+- [`public show_trade_fair_desc_eng()`](../methods/PWE_Shortcodes/show_trade_fair_desc_eng.md) — linia 2334
+- [`public show_trade_fair_desc_short()`](../methods/PWE_Shortcodes/show_trade_fair_desc_short.md) — linia 2341
+- [`public show_trade_fair_desc_short_eng()`](../methods/PWE_Shortcodes/show_trade_fair_desc_short_eng.md) — linia 2352
+- [`public show_trade_fair_datetotimer()`](../methods/PWE_Shortcodes/show_trade_fair_datetotimer.md) — linia 2362
+- [`public show_trade_fair_enddata()`](../methods/PWE_Shortcodes/show_trade_fair_enddata.md) — linia 2381
+- [`public show_trade_fair_date_custom_format()`](../methods/PWE_Shortcodes/show_trade_fair_date_custom_format.md) — linia 2400
+- [`public show_trade_fair_date()`](../methods/PWE_Shortcodes/show_trade_fair_date.md) — linia 2414
+- [`public show_trade_fair_date_eng()`](../methods/PWE_Shortcodes/show_trade_fair_date_eng.md) — linia 2428
+- [`public show_trade_fair_date_multilang($atts = [])`](../methods/PWE_Shortcodes/show_trade_fair_date_multilang.md) — linia 2442
+- [`private get_trade_fair_day(int $offset = 0)`](../methods/PWE_Shortcodes/get_trade_fair_day.md) — linia 2550
+- [`public show_trade_fair_first_day()`](../methods/PWE_Shortcodes/show_trade_fair_first_day.md) — linia 2604
+- [`public show_trade_fair_second_day()`](../methods/PWE_Shortcodes/show_trade_fair_second_day.md) — linia 2612
+- [`public show_trade_fair_third_day()`](../methods/PWE_Shortcodes/show_trade_fair_third_day.md) — linia 2620
+- [`public show_trade_fair_catalog()`](../methods/PWE_Shortcodes/show_trade_fair_catalog.md) — linia 2628
+- [`public show_trade_fair_catalog_id()`](../methods/PWE_Shortcodes/show_trade_fair_catalog_id.md) — linia 2635
+- [`public show_trade_fair_catalog_archive()`](../methods/PWE_Shortcodes/show_trade_fair_catalog_archive.md) — linia 2642
+- [`public show_trade_fair_catalog_id_archive()`](../methods/PWE_Shortcodes/show_trade_fair_catalog_id_archive.md) — linia 2649
+- [`public show_trade_fair_catalog_year()`](../methods/PWE_Shortcodes/show_trade_fair_catalog_year.md) — linia 2656
+- [`public show_trade_fair_conference()`](../methods/PWE_Shortcodes/show_trade_fair_conference.md) — linia 2663
+- [`public show_trade_fair_conference_title()`](../methods/PWE_Shortcodes/show_trade_fair_conference_title.md) — linia 2673
+- [`public show_trade_fair_conference_title_eng()`](../methods/PWE_Shortcodes/show_trade_fair_conference_title_eng.md) — linia 2683
+- [`public show_trade_fair_1stbuildday()`](../methods/PWE_Shortcodes/show_trade_fair_1stbuildday.md) — linia 2693
+- [`public show_trade_fair_2ndbuildday()`](../methods/PWE_Shortcodes/show_trade_fair_2ndbuildday.md) — linia 2701
+- [`public show_trade_fair_1stdismantlday()`](../methods/PWE_Shortcodes/show_trade_fair_1stdismantlday.md) — linia 2709
+- [`public show_trade_fair_2nddismantlday()`](../methods/PWE_Shortcodes/show_trade_fair_2nddismantlday.md) — linia 2720
+- [`public show_trade_fair_hall()`](../methods/PWE_Shortcodes/show_trade_fair_hall.md) — linia 2731
+- [`public show_trade_fair_hall_entrance()`](../methods/PWE_Shortcodes/show_trade_fair_hall_entrance.md) — linia 2739
+- [`public show_trade_fair_edition($entry = null, $fields = null)`](../methods/PWE_Shortcodes/show_trade_fair_edition.md) — linia 2747
+- [`public show_trade_fair_accent()`](../methods/PWE_Shortcodes/show_trade_fair_accent.md) — linia 2765
+- [`public show_trade_fair_main2()`](../methods/PWE_Shortcodes/show_trade_fair_main2.md) — linia 2772
+- [`public trade_fair_branzowy_result($lang = "pl")`](../methods/PWE_Shortcodes/trade_fair_branzowy_result.md) — linia 2779
+- [`public show_trade_fair_branzowy()`](../methods/PWE_Shortcodes/show_trade_fair_branzowy.md) — linia 2806
+- [`public show_trade_fair_branzowy_eng()`](../methods/PWE_Shortcodes/show_trade_fair_branzowy_eng.md) — linia 2815
+- [`public show_trade_fair_badge()`](../methods/PWE_Shortcodes/show_trade_fair_badge.md) — linia 2824
+- [`public show_trade_fair_feed_prefix()`](../methods/PWE_Shortcodes/show_trade_fair_feed_prefix.md) — linia 2831
+- [`public show_trade_fair_facebook()`](../methods/PWE_Shortcodes/show_trade_fair_facebook.md) — linia 2840
+- [`public show_trade_fair_instagram()`](../methods/PWE_Shortcodes/show_trade_fair_instagram.md) — linia 2850
+- [`public show_trade_fair_linkedin()`](../methods/PWE_Shortcodes/show_trade_fair_linkedin.md) — linia 2860
+- [`public show_trade_fair_youtube()`](../methods/PWE_Shortcodes/show_trade_fair_youtube.md) — linia 2870
+- [`public show_trade_fair_domainadress()`](../methods/PWE_Shortcodes/show_trade_fair_domainadress.md) — linia 2880
+- [`get_lang_domain($atts = [])`](../methods/PWE_Shortcodes/get_lang_domain.md) — linia 2888
+- [`public show_trade_fair_actualyear()`](../methods/PWE_Shortcodes/show_trade_fair_actualyear.md) — linia 2934
+- [`public show_trade_fair_rejestracja()`](../methods/PWE_Shortcodes/show_trade_fair_rejestracja.md) — linia 2939
+- [`public show_trade_fair_contact()`](../methods/PWE_Shortcodes/show_trade_fair_contact.md) — linia 2949
+- [`public show_trade_fair_contact_service_name()`](../methods/PWE_Shortcodes/show_trade_fair_contact_service_name.md) — linia 2953
+- [`public show_trade_fair_contact_service_phone()`](../methods/PWE_Shortcodes/show_trade_fair_contact_service_phone.md) — linia 2957
+- [`public show_trade_fair_contact_service_email()`](../methods/PWE_Shortcodes/show_trade_fair_contact_service_email.md) — linia 2961
+- [`public show_trade_fair_contact_media_phone()`](../methods/PWE_Shortcodes/show_trade_fair_contact_media_phone.md) — linia 2965
+- [`public show_trade_fair_contact_media_name()`](../methods/PWE_Shortcodes/show_trade_fair_contact_media_name.md) — linia 2969
+- [`public show_trade_fair_contact_media_person_name()`](../methods/PWE_Shortcodes/show_trade_fair_contact_media_person_name.md) — linia 2973
+- [`public show_trade_fair_contact_media_person_phone()`](../methods/PWE_Shortcodes/show_trade_fair_contact_media_person_phone.md) — linia 2977
+- [`public show_trade_fair_contact_media_person_email()`](../methods/PWE_Shortcodes/show_trade_fair_contact_media_person_email.md) — linia 2981
+- [`public show_trade_fair_contact_tech()`](../methods/PWE_Shortcodes/show_trade_fair_contact_tech.md) — linia 2985
+- [`public show_trade_fair_contact_media()`](../methods/PWE_Shortcodes/show_trade_fair_contact_media.md) — linia 2989
+- [`public show_trade_fair_lidy()`](../methods/PWE_Shortcodes/show_trade_fair_lidy.md) — linia 2993
+- [`public show_trade_fair_contact_email_vip()`](../methods/PWE_Shortcodes/show_trade_fair_contact_email_vip.md) — linia 2997
+- [`public show_trade_fair_contact_phone_vip()`](../methods/PWE_Shortcodes/show_trade_fair_contact_phone_vip.md) — linia 3001
+- [`public show_trade_fair_contact_medal_ceremony_email()`](../methods/PWE_Shortcodes/show_trade_fair_contact_medal_ceremony_email.md) — linia 3005
+- [`public show_trade_fair_group()`](../methods/PWE_Shortcodes/show_trade_fair_group.md) — linia 3009
+- [`public show_trade_fair_registration_benefits_pl()`](../methods/PWE_Shortcodes/show_trade_fair_registration_benefits_pl.md) — linia 3021
+- [`public show_trade_fair_registration_benefits_en()`](../methods/PWE_Shortcodes/show_trade_fair_registration_benefits_en.md) — linia 3035
+- [`public show_trade_fair_ticket_benefits_pl()`](../methods/PWE_Shortcodes/show_trade_fair_ticket_benefits_pl.md) — linia 3049
+- [`public show_trade_fair_ticket_benefits_en()`](../methods/PWE_Shortcodes/show_trade_fair_ticket_benefits_en.md) — linia 3066
+- [`public show_trade_fair_exhibitor_generator_icons()`](../methods/PWE_Shortcodes/show_trade_fair_exhibitor_generator_icons.md) — linia 3083
+- [`public show_trade_fair_exhibitor_generator_text()`](../methods/PWE_Shortcodes/show_trade_fair_exhibitor_generator_text.md) — linia 3294
+- [`public show_trade_fair_exhibitor_generator_header_url()`](../methods/PWE_Shortcodes/show_trade_fair_exhibitor_generator_header_url.md) — linia 3332
+- [`public show_trade_fair_exhibitor_generator_badge_url()`](../methods/PWE_Shortcodes/show_trade_fair_exhibitor_generator_badge_url.md) — linia 3371
+- [`public sc_pwe_trade_fair_full_desc()`](../methods/PWE_Shortcodes/sc_pwe_trade_fair_full_desc.md) — linia 3396
+- [`get_translated_field($fair, $field_base_name)`](../methods/PWE_Shortcodes/get_translated_field.md) — linia 3402
+- [`get_pwe_shortcode($shortcode, $domain)`](../methods/PWE_Shortcodes/get_pwe_shortcode.md) — linia 3420
+- [`check_available_pwe_shortcode($shortcodes_active, $shortcode)`](../methods/PWE_Shortcodes/check_available_pwe_shortcode.md) — linia 3426
+- [`public sc_pwe_text_news()`](../methods/PWE_Shortcodes/sc_pwe_text_news.md) — linia 3448
+- [`public sc_pwe_text_for_visitors()`](../methods/PWE_Shortcodes/sc_pwe_text_for_visitors.md) — linia 3456
+- [`public sc_pwe_text_for_exhibitors()`](../methods/PWE_Shortcodes/sc_pwe_text_for_exhibitors.md) — linia 3464
+- [`public sc_pwe_text_add_calendar()`](../methods/PWE_Shortcodes/sc_pwe_text_add_calendar.md) — linia 3472
+- [`public sc_pwe_text_gallery()`](../methods/PWE_Shortcodes/sc_pwe_text_gallery.md) — linia 3480
+- [`public sc_pwe_text_org_info()`](../methods/PWE_Shortcodes/sc_pwe_text_org_info.md) — linia 3488
+- [`public sc_pwe_text_exh_catalog()`](../methods/PWE_Shortcodes/sc_pwe_text_exh_catalog.md) — linia 3496
+- [`public sc_pwe_text_events()`](../methods/PWE_Shortcodes/sc_pwe_text_events.md) — linia 3504
+- [`public sc_pwe_text_contact()`](../methods/PWE_Shortcodes/sc_pwe_text_contact.md) — linia 3512
+- [`public sc_pwe_text_fair_plan()`](../methods/PWE_Shortcodes/sc_pwe_text_fair_plan.md) — linia 3520
+- [`public sc_pwe_text_registration()`](../methods/PWE_Shortcodes/sc_pwe_text_registration.md) — linia 3528
+- [`public sc_pwe_text_promote_yourself()`](../methods/PWE_Shortcodes/sc_pwe_text_promote_yourself.md) — linia 3536
+- [`public sc_pwe_text_become_an_exhibitor()`](../methods/PWE_Shortcodes/sc_pwe_text_become_an_exhibitor.md) — linia 3544
+- [`public sc_pwe_text_store()`](../methods/PWE_Shortcodes/sc_pwe_text_store.md) — linia 3552
+- [`public wpseo_register_extra_replacements()`](../methods/PWE_Shortcodes/wpseo_register_extra_replacements.md) — linia 3560
+- [`public wpseo_replacements($replacements)`](../methods/PWE_Shortcodes/wpseo_replacements.md) — linia 3568
+- [`public replace_multilang_date_in_notification($notification, $form, $entry)`](../methods/PWE_Shortcodes/replace_multilang_date_in_notification.md) — linia 3587
+- [`private get_language_from_notification_name($notification_name)`](../methods/PWE_Shortcodes/get_language_from_notification_name.md) — linia 3665
+- [`public replace_gf_merge_tags($text, $form, $entry, $url_encode, $esc_html, $nl2br, $format)`](../methods/PWE_Shortcodes/replace_gf_merge_tags.md) — linia 3732
+- [`private read_urls_json_file($json_file)`](../methods/PWE_Shortcodes/read_urls_json_file.md) — linia 3779
+- [`private get_urls_data()`](../methods/PWE_Shortcodes/get_urls_data.md) — linia 3828
+- [`private get_url_shortcode_language($requested_lang = '')`](../methods/PWE_Shortcodes/get_url_shortcode_language.md) — linia 3911
+- [`private get_url_language_data(array $url_entry, $lang)`](../methods/PWE_Shortcodes/get_url_language_data.md) — linia 3954
+- [`public show_multilang_url($atts = [], $content = null, $shortcode_tag = '')`](../methods/PWE_Shortcodes/show_multilang_url.md) — linia 4002
+- [`private register_url_shortcodes()`](../methods/PWE_Shortcodes/register_url_shortcodes.md) — linia 4129
+- [`private get_gf_url_shortcodes_map()`](../methods/PWE_Shortcodes/get_gf_url_shortcodes_map.md) — linia 4158
+- [`public show_pwe_mailing_header_url()`](../methods/PWE_Shortcodes/show_pwe_mailing_header_url.md) — linia 4190
+- [`public show_pwe_mailing_header_platyna_url($requested_lang = '')`](../methods/PWE_Shortcodes/show_pwe_mailing_header_platyna_url.md) — linia 4258
+
+## Dokument pliku
+
+- [Otwórz dokumentację `includes/class-shortcodes.php`](../../files/includes/class-shortcodes.php.md)

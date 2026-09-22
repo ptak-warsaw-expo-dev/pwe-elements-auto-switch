@@ -1,0 +1,267 @@
+.pwe-medals__hero {
+    display: flex;
+    position: relative;
+}
+.pwe-medals__hero-content {
+    width: 45%;
+    min-width: 460px;
+    padding: 36px 8px 24px 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+#pweMedals .pwe-medals__hero-title {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.pwe-medals__hero-desc {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #6c6c6c;
+}
+#pweMedals a.pwe-medals__participate {
+    background: #d6aa42 !important;
+    color: black !important;
+    margin-top: 6px;
+    transition: all 0.3s ease-in-out;
+}
+#pweMedals a.pwe-medals__participate:hover {
+    background: #c79d3a !important;
+}
+#pweMedals .pwe-medals__hero-title::after, #pweMedals .pwe-medals__hero-title::before {
+    content: '';
+    display: block;
+    width: 15%;
+    height: 2px !important;
+    margin: 10px 0;
+    background: linear-gradient(90deg, #d6aa42 -50%, transparent 100%);
+    border-radius: 36px;
+}
+#pweMedals .pwe-medals__hero-title span {
+    font-size: 20px;
+    font-weight: 500;
+    color: #6c6c6c;
+}
+.pwe-medals__hero-image-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+.pwe-medals__content {
+    padding: 36px 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    background-color: #0e0e0e;
+    border-radius: 24px;
+}
+
+#pweMedals .pwe-medals__content-title {
+    margin: 0;
+    color: #fffffe;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.pwe-medals__content-subtitle {
+    text-align: center;
+    color: #d6aa42;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    min-width: 400px;
+    gap: 8px;
+}
+
+.pwe-medals__content-subtitle::after,
+.pwe-medals__content-subtitle::before {
+    content: '';
+    display: block;
+    width: 15%;
+    height: 2px !important;
+    margin: 10px 0;
+    background: linear-gradient(90deg, #d6aa42 -50%, transparent 100%);
+    border-radius: 36px;
+}
+
+.pwe-medals__content-subtitle::before {
+    margin-right: 4px;
+    background: linear-gradient(270deg, #d6aa42 -50%, transparent 100%);
+}
+
+.pwe-medals__categories {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    background-color: #d6aa4229;
+    gap: 2px;
+    margin: 18px 0;
+}
+
+.pwe-medals__category {
+    flex: .25;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    background-color: #0e0e0e;
+}
+
+.pwe-medals__category-icon {
+    width: 120px;
+    height: 120px;
+}
+
+#pweMedals .pwe-medals__category-title {
+    margin: 0;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fffffe;
+    text-transform: uppercase;
+}
+
+.pwe-medals__category-divider {
+    background-color: #d6aa42;
+    height: 2px;
+    width: 20%;
+    border-radius: 36px;
+    margin: 4px 0;
+}
+
+.pwe-medals__category-desc {
+    margin: 0;
+    font-size: 13px;
+    text-align: center;
+    color: #b2b2b2;
+    text-wrap: balance;
+}
+
+.pwe-medals__icon-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.pwe-medals__icon-wrapper::after,
+.pwe-medals__icon-wrapper::before {
+    content: '';
+    display: block;
+    width: 60%;
+    height: 2px !important;
+    margin: 10px 0;
+    background: linear-gradient(90deg, #d6aa42 -100%, transparent 100%);
+    border-radius: 36px;
+}
+
+.pwe-medals__icon-wrapper::before {
+    margin-right: 4px;
+    background: linear-gradient(270deg, #d6aa42 -100%, transparent 100%);
+}
+
+.pwe-medals__icon {
+    width: 30px;
+    height: 20px;
+    filter: drop-shadow(0px 4px 6px #d6aa42);
+}
+@media (max-width: 960px) {
+    .pwe-medals__hero::before {
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background: linear-gradient(90deg, white 30%, transparent);
+        z-index: 1;
+    }
+    .pwe-medals__hero-content {
+        width: 50%;
+        z-index: 1;
+        padding: 36px;
+    }
+    .pwe-medals__hero-image-wrapper {
+        position: absolute;
+        z-index: 0;
+        opacity: 1;
+        top: 0;
+        left: 50%;
+        width: 90%;
+        height: 100%;
+        transform: translateX(-50%);
+    }
+    .pwe-medals__categories {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .pwe-medals__category {
+        padding: 24px;
+    }
+}
+@media (max-width: 570px) {
+    #pweMedals {
+        padding: 36px 0;
+    }
+    .pwe-medals__hero {
+        flex-direction: column;
+        align-items: center;
+    }
+    .pwe-medals__hero::before {
+        display: none;
+    }
+    .pwe-medals__hero-content {
+        width: 100%;
+        padding: 18px;
+        min-width: unset;
+        align-items: center;
+    }
+    .pwe-medals__hero-image-wrapper {
+        position: static;
+        transform: unset;
+        overflow: hidden;
+        border-radius: 60px 60px 0 0;
+    }
+    img.pwe-medals__hero-image {
+        width: 420px;
+        max-width: unset;
+        transform: scale(1.2);
+    }
+    .pwe-medals__categories {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+    }
+    #pweMedals .pwe-medals__content-title {
+        font-size: 18px;
+    }
+    #pweMedals .pwe-medals__hero-title { 
+        font-size: 24px;
+        align-items: center;
+    }
+    .pwe-medals__hero-desc {
+        text-align: center;
+    }
+    #pweMedals .pwe-medals__hero-title span {
+        font-size: 16px;
+    }
+    #pweMedals .pwe-medals__hero-title::after, #pweMedals .pwe-medals__hero-title::before {
+        background: #d6aa42;
+    }
+}

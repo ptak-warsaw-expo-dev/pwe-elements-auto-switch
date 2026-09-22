@@ -1,0 +1,333 @@
+.pwe-element-auto-switch#sectorsWeek.pwe-limit-width {
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+.pwe-element-auto-switch.pwe-sectors {
+  background: radial-gradient(circle at 50% 10%, rgba(136, 65, 255, 0.12), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(0, 210, 255, 0.10), transparent 40%),
+    linear-gradient(180deg, #020817 0%, #061126 50%, #020817 100%);
+  max-width: 100% !important;
+  padding: 60px 0;
+  color: #ffffff;
+  font-family: inherit;
+}
+
+.pwe-element-auto-switch .pwe-sectors__wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.pwe-element-auto-switch .pwe-sectors__title {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.pwe-element-auto-switch .pwe-sectors__title p {
+  color: #00d2ff;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.pwe-element-auto-switch .pwe-sectors__title hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(32, 132, 255, 0.5), transparent);
+  width: 150px;
+  margin: 12px auto;
+}
+
+.pwe-element-auto-switch .pwe-sectors__main-title {
+  color: #ffffff !important;
+  font-size: 32px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.pwe-element-auto-switch .pwe-sectors__items {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.pwe-element-auto-switch .pwe-sectors__item {
+  background: rgba(7, 17, 36, 0.75);
+  border: 1px solid rgba(91, 126, 179, 0.25);
+  border-radius: 12px;
+  padding: 24px 16px;
+  text-align: center;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.01);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 140px;
+  box-sizing: border-box;
+}
+
+.pwe-element-auto-switch .pwe-sectors__item:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 210, 255, 0.5);
+  box-shadow: 0 8px 25px rgba(0, 210, 255, 0.15), inset 0 0 20px rgba(255, 255, 255, 0.03);
+}
+
+.pwe-element-auto-switch .pwe-sectors__item-icon img {
+  max-height: 48px;
+  width: auto;
+  margin-bottom: 12px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  filter: drop-shadow(0 0 8px rgba(0, 210, 255, 0.3));
+  transition: transform 0.3s ease;
+}
+
+.pwe-element-auto-switch .pwe-sectors__item:hover .pwe-sectors__item-icon img {
+  transform: scale(1.1);
+}
+
+.pwe-element-auto-switch .pwe-sectors__item-name p {
+  color: #d7e0ef;
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.pwe-element-auto-switch .pwe-sectors__button-action {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 80px;
+}
+
+.pwe-element-auto-switch .pwe-sectors__button--primary a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 46px;
+  padding: 0 32px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid rgba(73, 160, 255, 0.42);
+  color: white !important;
+  background: linear-gradient(135deg, #2084ff, #9a4dff);
+  box-shadow: 0 0 14px rgba(32, 132, 255, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.pwe-element-auto-switch .pwe-sectors__button--primary a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 24px rgba(32, 132, 255, 0.4);
+}
+
+.pwe-element-auto-switch .pwe-sectors__audience-section {
+  margin-bottom: 80px;
+}
+
+.pwe-element-auto-switch .pwe-sectors__audience-title {
+  text-align: center;
+  color: #ffffff !important;
+  font-size: 32px;
+  font-weight: 800;
+  margin: 0 0 36px;
+}
+
+.pwe-element-auto-switch .pwe-sectors__audience-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.pwe-element-auto-switch .pwe-sectors__audience-card {
+  background: rgba(7, 17, 36, 0.65);
+  border: 1px solid rgba(91, 126, 179, 0.2);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.pwe-element-auto-switch .pwe-sectors__audience-card:hover {
+  border-color: rgba(154, 77, 255, 0.4);
+  background: rgba(7, 17, 36, 0.85);
+  box-shadow: 0 10px 30px rgba(136, 65, 255, 0.08);
+}
+
+.pwe-element-auto-switch .pwe-sectors__audience-icon {
+  font-size: 28px;
+  line-height: 1;
+  color: #9a4dff;
+  text-shadow: 0 0 10px rgba(154, 77, 255, 0.3);
+  flex-shrink: 0;
+}
+
+.pwe-element-auto-switch .pwe-sectors__audience-content h3 {
+  color: #ffffff !important;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.pwe-element-auto-switch .pwe-sectors__cta-section {
+  position: relative;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(32, 132, 255, 0.5), rgba(154, 77, 255, 0.5));
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+}
+
+.pwe-element-auto-switch .pwe-sectors__cta-box {
+  background: #040d21;
+  border-radius: 14px;
+  padding: 40px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 32px;
+}
+
+.pwe-element-auto-switch .pwe-sectors__cta-rocket {
+  font-size: 48px;
+  animation: pweRocketFloat 3s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes pweRocketFloat {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(5deg);
+  }
+}
+
+.pwe-element-auto-switch .pwe-sectors__cta-text h2 {
+  color: #ffffff !important;
+  font-size: 28px;
+  font-weight: 900;
+  margin: 0 0 8px;
+  letter-spacing: -0.5px;
+}
+
+.pwe-element-auto-switch .pwe-sectors__cta-text p {
+  color: #9fb1c9;
+  font-size: 15px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.pwe-element-auto-switch .pwe-sectors__cta-actions {
+  display: flex;
+  gap: 16px;
+}
+
+.pwe-element-auto-switch .pwe-sectors__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 46px;
+  padding: 0 24px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.pwe-element-auto-switch .pwe-sectors__btn--primary {
+  background: linear-gradient(135deg, #2084ff, #9a4dff);
+  color: #ffffff !important;
+  border: 1px solid rgba(73, 160, 255, 0.3);
+  box-shadow: 0 0 15px rgba(32, 132, 255, 0.25);
+}
+
+.pwe-element-auto-switch .pwe-sectors__btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(32, 132, 255, 0.45);
+}
+
+.pwe-element-auto-switch .pwe-sectors__btn--secondary {
+  background: rgba(7, 17, 36, 0.7);
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.pwe-element-auto-switch .pwe-sectors__btn--secondary:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 1024px) {
+  .pwe-element-auto-switch .pwe-sectors__items {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pwe-element-auto-switch .pwe-sectors__audience-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pwe-element-auto-switch .pwe-sectors__cta-box {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 24px;
+  }
+
+  .pwe-element-auto-switch .pwe-sectors__cta-rocket {
+    font-size: 56px;
+  }
+
+  .pwe-element-auto-switch .pwe-sectors__cta-actions {
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .pwe-element-auto-switch .pwe-sectors__btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 650px) {
+  .pwe-element-auto-switch .pwe-sectors {
+    padding: 40px 0;
+  }
+
+  .pwe-element-auto-switch .pwe-sectors__main-title,
+  .pwe-element-auto-switch .pwe-sectors__audience-title {
+    font-size: 24px;
+  }
+
+  .pwe-element-auto-switch .pwe-sectors__items {
+    grid-template-columns: 1fr;
+  }
+
+  .pwe-element-auto-switch .pwe-sectors__audience-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pwe-element-auto-switch .pwe-sectors__cta-text h2 {
+    font-size: 22px;
+  }
+}

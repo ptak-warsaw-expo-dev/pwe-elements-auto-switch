@@ -1,0 +1,91 @@
+.pwe-element-auto-switch .pwe-exhibitors {
+    background-image: url(/doc/background.webp);
+    border-radius: 18px;
+}
+.pwe-element-auto-switch .pwe-exhibitors__wrapper {
+    display: flex;
+    padding: 60px 36px;
+}
+.pwe-element-auto-switch .pwe-exhibitors__text {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pwe-element-auto-switch .pwe-exhibitors__text :is(h4, p) {
+    color: white;
+    text-align: center;
+    margin: 0;
+}
+.pwe-element-auto-switch .pwe-exhibitors__text h4 {
+    max-width: 240px;
+}
+.pwe-element-auto-switch .pwe-exhibitors__text p {
+    max-width: 200px;
+}
+.pwe-element-auto-switch .pwe-exhibitors__text-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    width: 85%;
+    height: 100%;
+    background: #5147474f;
+    backdrop-filter: blur(10px);
+    border-radius: 18px;
+}
+.pwe-element-auto-switch .pwe-exhibitors__items {
+    width: 60%;
+}
+.pwe-element-auto-switch #pweExhibitors .swiper-wrapper {
+    height: 100% !important;
+}
+@media (min-width: 961px) {
+  .pwe-element-auto-switch #pweExhibitors .swiper-wrapper {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    transform: none !important;
+  }
+
+  .pwe-element-auto-switch #pweExhibitors .swiper-slide {
+    width: auto;
+    min-height: auto !important;
+    margin: 0 !important;
+  }
+}
+.pwe-element-auto-switch .pwe-exhibitors__item {
+    background: #fff;
+    aspect-ratio: 3/2;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.pwe-element-auto-switch .pwe-exhibitors__item img {
+    aspect-ratio: 3/2;
+    object-fit: contain;
+    padding: 10px;
+}
+@media (max-width: 960px) {
+    .pwe-element-auto-switch .pwe-exhibitors__wrapper {
+        flex-direction: column;
+        gap: 36px;
+    }
+    .pwe-element-auto-switch .pwe-exhibitors__text {
+        width: 100%;
+    }
+    .pwe-element-auto-switch .pwe-exhibitors__text-wrapper {
+        padding: 18px;
+        width: 100%;
+    }
+    .pwe-element-auto-switch .pwe-exhibitors__items {
+        width: 100%;
+    }
+}
+@media (max-width: 570px) {
+    .pwe-element-auto-switch .pwe-exhibitors__wrapper {
+        padding: 18px;
+    }
+}
