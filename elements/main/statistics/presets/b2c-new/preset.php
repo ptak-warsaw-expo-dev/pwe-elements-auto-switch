@@ -15,40 +15,70 @@ $videos_to_display = [
     ]
 ];
 
+// Domyślny opis sekcji z tłumaczenia
+$section_description = PWE_Functions::multi_translation("pwe_video_description");
+
 if (!empty($data) && isset($data[0]->videos)) {
     $db_videos = json_decode($data[0]->videos, true);
 
     if (is_array($db_videos) && !empty($db_videos)) {
-        $videos_to_display = [];
-
         $current_lang = substr(get_locale(), 0, 2);
 
-        foreach ($db_videos as $v) {
-            if (empty($v['url'])) {
-                continue;
-            }
+        // Pobieramy tytuły nadrzędne
+        $parent_title_pl = !empty($db_videos['title_pl']) ? trim($db_videos['title_pl']) : '';
+        $parent_title_en = !empty($db_videos['title_en']) ? trim($db_videos['title_en']) : '';
 
-            $title = '';
-            if ($current_lang === 'pl') {
-                $title = !empty($v['title_pl']) ? $v['title_pl'] : $v['title_en'];
-            } else {
-                $title = !empty($v['title_en']) ? $v['title_en'] : $v['title_pl'];
-            }
+        // Ustawiamy opis sekcji z głównego tytułu z bazy danych
+        if ($current_lang === 'pl') {
+            $db_parent_title = !empty($parent_title_pl) ? $parent_title_pl : $parent_title_en;
+        } else {
+            $db_parent_title = !empty($parent_title_en) ? $parent_title_en : $parent_title_pl;
+        }
 
-            if (empty($title)) {
-                $title = PWE_Functions::multi_translation("fair_summary") . ' ' . do_shortcode('[trade_fair_name]');
-            }
+        // Jeśli znaleziono tytuł nadrzędny w bazie, nadpisujemy domyślny opis sekcji
+        if (!empty($db_parent_title)) {
+            $section_description = $db_parent_title;
+        }
 
-            $embed_url = $v['url'];
-            if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)|watchExternal)\?|youtu\.be/)([^"&?/\s]{11})%i', $v['url'], $match)) {
-                $video_id = $match[1];
-                $embed_url = "https://www.youtube-nocookie.com/embed/" . $video_id;
-            }
+        // Pobranie listy filmów (dla nowej i starej struktury)
+        $items = (isset($db_videos['items']) && is_array($db_videos['items'])) ? $db_videos['items'] : $db_videos;
 
-            $videos_to_display[] = [
-                'title' => $title,
-                'url'   => $embed_url
-            ];
+        if (!empty($items) && is_array($items)) {
+            $videos_to_display = [];
+
+            foreach ($items as $v) {
+                if (!is_array($v) || empty($v['url'])) {
+                    continue;
+                }
+
+                $item_title_pl = !empty($v['title_pl']) ? trim($v['title_pl']) : '';
+                $item_title_en = !empty($v['title_en']) ? trim($v['title_en']) : '';
+
+                $title = '';
+
+                // Pobieramy tytuł przypisany bezpośrednio do tego filmu
+                if ($current_lang === 'pl') {
+                    $title = !empty($item_title_pl) ? $item_title_pl : $item_title_en;
+                } else {
+                    $title = !empty($item_title_en) ? $item_title_en : $item_title_pl;
+                }
+
+                // Domyślny tytuł filmu, jeśli żaden nie został zdefiniowany w obiekcie filmu
+                if (empty($title)) {
+                    $title = PWE_Functions::multi_translation("fair_summary") . ' ' . do_shortcode('[trade_fair_name]');
+                }
+
+                $embed_url = $v['url'];
+                if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+|/(?:v|e(?:mbed)?)|watchExternal)\?|youtu\.be/)([^"&?/\s]{11})%i', $v['url'], $match)) {
+                    $video_id = $match[1];
+                    $embed_url = "https://www.youtube-nocookie.com/embed/" . $video_id;
+                }
+
+                $videos_to_display[] = [
+                    'title' => $title,
+                    'url'   => $embed_url
+                ];
+            }
         }
     }
 }
@@ -85,7 +115,7 @@ $output .= '
                 <span class="pwe-video__subtitle">'. PWE_Functions::multi_translation("previous_editions") .'</span>
                 <h2 class="pwe-video__title">Retro <span class="pwe-video__title--accent">Flashback</span></h2>
                 <p class="pwe-video__description">
-                    '. PWE_Functions::multi_translation("pwe_video_description") .'
+                    '. esc_html($section_description) .'
                 </p>
             </div>
 
