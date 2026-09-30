@@ -3,7 +3,7 @@ if (!defined('ABSPATH')) exit;
 
 class Registration_Exhibitors {
 
-    private static $session_registered = false;
+    // private static $session_registered = false;
 
     public static function get_data() {
         return [
@@ -21,7 +21,7 @@ class Registration_Exhibitors {
         $element_slug = 'registration-exhibitors';
         $group = 'all';
 
-        self::register_session_handler();
+        // self::register_session_handler();
 
         // Add context to translations function
         PWE_Functions::set_translation_context($element_slug, $group, $element_type);
@@ -63,16 +63,16 @@ class Registration_Exhibitors {
         }
     }
 
-    private static function register_session_handler() {
+    // private static function register_session_handler() {
 
-        if (self::$session_registered) {
-            return;
-        }
+    //     if (self::$session_registered) {
+    //         return;
+    //     }
 
-        self::$session_registered = true;
+    //     self::$session_registered = true;
 
-        add_action('gform_after_submission', [__CLASS__, 'entry_to_session'], 10, 2);
-    }
+    //     add_action('gform_after_submission', [__CLASS__, 'entry_to_session'], 10, 2);
+    // }
 
     public static function entry_to_session($entry, $form) {
 
@@ -108,6 +108,7 @@ class Registration_Exhibitors {
                 $_SESSION['pwe_exhibitor_entry']['phone'] = rgar($entry, $field->id);
             }
         }
+
         session_write_close();
     }
 }

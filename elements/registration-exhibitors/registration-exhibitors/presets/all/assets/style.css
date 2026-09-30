@@ -111,6 +111,9 @@
         margin: 0 auto;
         text-align: center;
     }
+    .pwe-element-auto-switch .pwe-registration-exhibitors__form {
+        margin: 0 auto;
+    }
 }
 @media (max-width: 650px) {
     .pwe-element-auto-switch .pwe-registration-exhibitors__form-fields .gform_legacy_markup_wrapper .gform_footer {

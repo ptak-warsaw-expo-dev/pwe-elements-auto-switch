@@ -34,6 +34,15 @@ class Confirmation_Visitors_Registration {
             }
         }
 
+        error_log('=== PWE SESSION READ CONFIRMATION ===');
+error_log('REQUEST URI: ' . ($_SERVER['REQUEST_URI'] ?? ''));
+error_log('SESSION ID: ' . session_id());
+error_log('COOKIE PHPSESSID: ' . ($_COOKIE['PHPSESSID'] ?? 'BRAK'));
+error_log(
+    'PWE REG ENTRY: ' .
+    print_r($_SESSION['pwe_reg_entry'] ?? 'BRAK', true)
+);
+
         $source_utm = isset($_GET['utm_source'])
             ? sanitize_key(wp_unslash($_GET['utm_source']))
             : sanitize_key(
@@ -80,7 +89,15 @@ class Confirmation_Visitors_Registration {
                 ($reg_form_update_entries === 'true') &&
                 (!is_user_logged_in() || !current_user_can('administrator'))
             ) {
-                wp_safe_redirect(home_url('/rejestracja'));
+                $default_language = apply_filters('wpml_default_language', null);
+
+                $registration_path = '/rejestracja/';
+
+                if ($default_language && $default_language !== 'pl') {
+                    $registration_path = '/pl/rejestracja/';
+                }
+
+                wp_safe_redirect(home_url($registration_path));
                 exit();
             }
 

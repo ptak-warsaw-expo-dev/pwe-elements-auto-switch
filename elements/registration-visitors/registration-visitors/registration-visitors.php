@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) exit;
 class Registration_Visitors {
 
     private static $filters_registered = false;
-    private static $session_registered = false;
+    // private static $session_registered = false;
 
     public static function get_data() {
         return [
@@ -52,7 +52,7 @@ class Registration_Visitors {
         }
 
         self::register_gravity_forms_filters();
-        self::register_session_handler();
+        // self::register_session_handler();
 
         // Add context to translations function
         PWE_Functions::set_translation_context($element_slug, $group, $element_type);
@@ -147,60 +147,75 @@ class Registration_Visitors {
     }
 
     public static function entry_to_session($entry, $form) {
-        if (PWE_Functions::is_pwe_session_page()) {
-            if (session_status() === PHP_SESSION_NONE) {
-                session_start();
-            }
 
-            $utm_source = sanitize_key(
-                $_SESSION['pwe_registration_utm_source'] ?? ''
-            );
+        $registration_form_id = PWE_Functions::get_gf_form_id('Rejestracja');
 
-            $_SESSION['pwe_reg_entry'] = [
-                'entry_id'   => absint($entry['id']),
-                'utm_source' => $utm_source,
-            ];
-
-            if (empty($form['fields'])) {
-                session_write_close();
-                return;
-            }
-
-            foreach ($form['fields'] as $field) {
-                if (!is_object($field)) {
-                    continue;
-                }
-
-                if ($field->type === 'email') {
-                    $_SESSION['pwe_reg_entry']['email'] = sanitize_email(
-                        rgar($entry, $field->id)
-                    );
-                }
-
-                if ($field->type === 'phone') {
-                    $_SESSION['pwe_reg_entry']['phone'] = sanitize_text_field(
-                        rgar($entry, $field->id)
-                    );
-                }
-
-                $admin_label = (string) ($field->adminLabel ?? '');
-
-                if ($admin_label === 'utm_source') {
-                    $entry_utm_source = sanitize_key(
-                        rgar($entry, $field->id)
-                    );
-
-                    if (in_array($entry_utm_source, ['byli', 'premium', 'platyna'], true)) {
-                        $_SESSION['pwe_reg_entry']['utm_source'] = $entry_utm_source;
-                        $_SESSION['pwe_registration_utm_source'] = $entry_utm_source;
-                    }
-                }
-            }
-
-            // Zamykamy sesję po zapisaniu danych z wysłanego formularza
-            session_write_close();
+        if (
+            !$registration_form_id ||
+            empty($form['id']) ||
+            (int) $form['id'] !== (int) $registration_form_id
+        ) {
+            return;
         }
 
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $utm_source = sanitize_key(
+            $_SESSION['pwe_registration_utm_source'] ?? ''
+        );
+
+        $_SESSION['pwe_reg_entry'] = [
+            'entry_id'   => absint($entry['id']),
+            'utm_source' => $utm_source,
+        ];
+
+        if (empty($form['fields'])) {
+            session_write_close();
+            return;
+        }
+
+        foreach ($form['fields'] as $field) {
+
+            if (!is_object($field)) {
+                continue;
+            }
+
+            if ($field->type === 'email') {
+                $_SESSION['pwe_reg_entry']['email'] = sanitize_email(
+                    rgar($entry, $field->id)
+                );
+            }
+
+            if ($field->type === 'phone') {
+                $_SESSION['pwe_reg_entry']['phone'] = sanitize_text_field(
+                    rgar($entry, $field->id)
+                );
+            }
+
+            $admin_label = (string) ($field->adminLabel ?? '');
+
+            if ($admin_label === 'utm_source') {
+
+                $entry_utm_source = sanitize_key(
+                    rgar($entry, $field->id)
+                );
+
+                if (
+                    in_array(
+                        $entry_utm_source,
+                        ['byli', 'premium', 'platyna'],
+                        true
+                    )
+                ) {
+                    $_SESSION['pwe_reg_entry']['utm_source'] = $entry_utm_source;
+                    $_SESSION['pwe_registration_utm_source'] = $entry_utm_source;
+                }
+            }
+        }
+
+        session_write_close();
     }
 
     public static function add_utm_to_confirmation_redirect(
@@ -209,6 +224,8 @@ class Registration_Visitors {
         $entry,
         $ajax
     ) {
+        $utm_source = '';
+        
         if (PWE_Functions::is_pwe_session_page()) {
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();

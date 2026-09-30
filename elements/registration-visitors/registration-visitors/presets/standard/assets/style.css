@@ -17,6 +17,9 @@
     .wpb_column:has(.pwe-exhibitors-top12) {
         padding-top: 18px !important;
     }
+    .pwe-element-auto-switch .pwe-registration-visitors__form {
+        margin: 0 auto;
+    }
 }
 .row-container:has(.pwe-registration-visitors) {
     background-image: url(/doc/background.webp);
