@@ -2287,18 +2287,14 @@ class PWE_Shortcodes {
                 <input
                     <?php echo !empty($current_group) ? "style='pointer-events: none; opacity: 0.5;'" : ""; ?>
                     type="text"
-                    name="trade_fair_accent"
-                    id="trade_fair_accent"
+                    name="trade_fair_group"
+                    id="trade_fair_group"
                     value="<?php echo !empty($current_group) ? $current_group : get_option('trade_fair_group'); ?>"
                 />
                 <p><?php echo !empty($current_group) ? "Dane pobrane z CAP DB" : "np -> gr2"; ?></p>
             </div>
         <?php
     }
-
-
-
-
 
     // DISPLAYING THE SHORTCODES <----------------------------------------------------------------------<
 
@@ -4078,9 +4074,18 @@ class PWE_Shortcodes {
             $url_path = '/' . ltrim($url, '/');
 
             /*
-            * Do not add a language prefix for Polish.
+            * Add language prefix only when the requested language
+            * is not the default WPML language.
             */
-            if ($lang !== 'pl') {
+            $default_language = apply_filters( 
+                'wpml_default_language',
+                null
+            );
+
+            if (
+                !empty($default_language) &&
+                $lang !== $default_language
+            ) {
 
                 $language_prefix = '/' . $lang . '/';
 

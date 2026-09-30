@@ -516,9 +516,16 @@ class PWE_Functions {
         static $allowed_paths = null;
 
         if ($allowed_paths === null) {
+
+            $default_language = apply_filters('wpml_default_language', null);
+
             $allowed_paths = [
                 '/potwierdzenie-rejestracji',
             ];
+
+            if ($default_language && $default_language !== 'pl') {
+                $allowed_paths[] = '/pl/potwierdzenie-rejestracji';
+            }
 
             // Poprawiona ścieżka do pliku JSON wewnątrz wtyczki pwe-multilang
             $json_file = WP_PLUGIN_DIR . '/pwe-multilang/website-translation.json';

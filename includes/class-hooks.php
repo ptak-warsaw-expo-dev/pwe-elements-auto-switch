@@ -4,6 +4,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 // Add filter to override menu output
 add_action('plugins_loaded', function() {
     add_filter('pwe_override_menu_output', function($html) {
+        if (defined('PWE_LANDING_ACTIVE') && PWE_LANDING_ACTIVE) {
+            return '';
+        }
         ob_start();
         Menu::render('all');
         return ob_get_clean();
@@ -552,3 +555,40 @@ if ( ! class_exists( 'PWE_GF_Email_Entry_Cleanup' ) ) {
     PWE_GF_Email_Entry_Cleanup::init();
 }
 
+/**
+ * Globalny handler Gravity Forms dla rejestracji odwiedzających.
+ *
+ * Musi być dostępny również podczas osobnego requestu POST Gravity Forms,
+ * niezależnie od aktualnego języka WPML i renderowanej strony.
+ */
+add_action('plugins_loaded', function () {
+
+    /*
+     * Visitor registration.
+     */
+    PWE_Elements_Data::require_class('Registration_Visitors');
+
+    if (class_exists('Registration_Visitors', false)) {
+        add_action(
+            'gform_after_submission',
+            ['Registration_Visitors', 'entry_to_session'],
+            10,
+            2
+        );
+    }
+
+    /*
+     * Exhibitor registration.
+     */
+    PWE_Elements_Data::require_class('Registration_Exhibitors');
+
+    if (class_exists('Registration_Exhibitors', false)) {
+        add_action(
+            'gform_after_submission',
+            ['Registration_Exhibitors', 'entry_to_session'],
+            10,
+            2
+        );
+    }
+
+}, 20);

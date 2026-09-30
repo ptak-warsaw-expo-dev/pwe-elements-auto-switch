@@ -288,6 +288,10 @@ class PWE_Elements {
 
     // Render single elements for shortcodes
     public static function render_single_element($class_name, $atts = []) {
+        if (defined('PWE_LANDING_ACTIVE') && PWE_LANDING_ACTIVE && in_array($class_name, ['Footer'], true)) {
+            return '';
+        }
+
         $group = PWE_Groups::get_current_group();
 
         $all_elements = PWE_Elements_Data::get_all_elements($group);
