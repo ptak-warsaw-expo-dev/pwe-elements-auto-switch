@@ -3,7 +3,7 @@
  * Plugin Name: PWE Elements AutoSwitch
  * Plugin URI: https://github.com/ptak-warsaw-expo-dev/pwe-elements-auto-switch
  * Description: Elements that dynamically adapt to groups.
- * Version: 1.9.0
+ * Version: 1.9.1
  * Author: Anton Melnychuk
  * Co-author: Piotr Krupniewski, Marek Rumianek, Jakub Choła
  * Author URI: https://github.com/antonmelnychuk1
@@ -67,6 +67,7 @@ $pwe_system_path = trailingslashit(WP_PLUGIN_DIR) . 'pwe-system/';
 require_once PWE_PLUGIN_PATH . 'includes/class-groups.php';
 require_once PWE_PLUGIN_PATH . 'includes/class-elements-data.php';
 require_once PWE_PLUGIN_PATH . 'includes/class-elements.php';
+require_once PWE_PLUGIN_PATH . 'includes/class-landing.php';
 
 // 1. FUNCTIONS
 // Prefer PWE System only when it is active and the module really exists.
@@ -141,6 +142,9 @@ if ( ! class_exists( 'PWE_Elements_AutoSwitch' ) ) {
 
             // Initialize elements
             PWE_Elements::init();
+
+            // Initialize landing pages
+            PWE_Landing_Auto_Switch::init();
         }
     }
 
