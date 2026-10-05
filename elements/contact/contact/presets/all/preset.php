@@ -13,11 +13,11 @@ $output = '
                     ' . do_shortcode('[gravityform id="'. $form_id .'" title="false" description="false" ajax="false"]') . '
                 </div>
             </div>
-            ' . PWE_Functions::render_component('organized-groups', 'all', []) . '
+
+                        ' . PWE_Functions::render_component('location-map', 'all', ['max_width' => '350px']) . '
         </div>
         <div class="pwe-contact__column">
             ' . PWE_Functions::render_component('contact-details', 'all', []) . '
-            ' . PWE_Functions::render_component('location-map', 'all', ['max_width' => '350px']) . '
             ' . PWE_Functions::render_component('pwe-address', 'all', []) . '
         </div>
     </div>
