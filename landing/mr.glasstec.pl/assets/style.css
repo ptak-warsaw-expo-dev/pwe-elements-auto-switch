@@ -1774,30 +1774,29 @@
 /* calendar tiles (warsawexpo.eu/kalendarz-targowy) */
 
 #pweLandingWeek .cal-grid {
-
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 24px;
     margin-top: 10px;
-
 }
 
 #pweLandingWeek .cal-item {
-
     display: block;
+    flex: 0 0 calc((100% - 72px) / 4);
+    max-width: calc((100% - 72px) / 4);
+
     background: #e9e9e9;
     border-radius: 30px;
     text-align: center;
     transition: .3s;
     overflow: hidden;
-
 }
 
 #pweLandingWeek .cal-item:hover {
-
     transform: scale(1.04);
-
 }
+
 
 #pweLandingWeek .cal-tile {
 
@@ -1815,7 +1814,7 @@
 #pweLandingWeek .cal-short {
 
     position: absolute;
-    bottom: 60px;
+    bottom: 90px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1;
@@ -1986,27 +1985,26 @@
 
 @media (max-width:1200px) {
 
-    #pweLandingWeek .cal-grid {
-
-        grid-template-columns: repeat(3,1fr);
+     #pweLandingWeek .cal-grid {
         gap: 18px;
+    }
 
+    #pweLandingWeek .cal-item {
+        flex-basis: calc((100% - 36px) / 3);
+        max-width: calc((100% - 36px) / 3);
     }
 
 }
 
 @media (max-width:768px) {
 
-    #pweLandingWeek .cal-grid {
-
-        grid-template-columns: repeat(2,1fr);
-
+     #pweLandingWeek .cal-item {
+        flex-basis: calc((100% - 18px) / 2);
+        max-width: calc((100% - 18px) / 2);
     }
 
     #pweLandingWeek .cal-short h4 {
-
         font-size: 14px;
-
     }
 
 }
@@ -2014,44 +2012,41 @@
 @media (max-width:569px) {
 
     #pweLandingWeek .cal-grid {
-
         gap: 10px;
+    }
 
+    #pweLandingWeek .cal-item {
+        flex-basis: calc((100% - 10px) / 2);
+        max-width: calc((100% - 10px) / 2);
+    }
+
+    #pweLandingWeek .cal-short {
+        bottom: 46px;
     }
 
     #pweLandingWeek .cal-short h4 {
-
-        font-size: 12px;
-
+        font-size: 10px;
     }
 
     #pweLandingWeek .cal-date h5 {
-
         font-size: 15px;
-
     }
 
     #pweLandingWeek .cal-check p,
     #pweLandingWeek .cal-ed p {
-
         font-size: 10px;
         padding: 4px;
-
     }
 
     #pweLandingWeek .cal-name {
-
         flex-direction: column;
         gap: 4px;
         align-items: flex-start;
-
     }
 
     #pweLandingWeek .cal-lbl,
     #pweLandingWeek .cal-val {
-
         width: 100%;
-
     }
 
 }

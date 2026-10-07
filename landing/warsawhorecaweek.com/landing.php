@@ -144,7 +144,7 @@ foreach ($associate_domains as $event_domain) {
         'visitors' => $format_number($get_sc('[pwe_visitors domain="' . esc_attr($event_domain) . '"]', '')),
         'exhibitors' => $format_number($get_sc('[pwe_exhibitors domain="' . esc_attr($event_domain) . '"]', '')),
         'area' => $format_number($get_sc('[pwe_area domain="' . esc_attr($event_domain) . '"]', '')),
-        'image' => 'https://' . $event_domain . '/doc/kafelek.jpg',
+        'image' => 'https://' . $event_domain . '/doc/kafelek_kalendarz.webp',
         'url' => 'https://' . $event_domain . '/',
     ];
 }
@@ -289,6 +289,7 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
             </a>
         </div>
     </header>
+
     <section class="hero" id="top">
         <video autoplay="" class="hero-video" loop="" muted="" playsinline="" src='<?= esc_url($doc_url . "header.mp4") ?>'>
             <source src='<?= esc_url($doc_url . "header.mp4") ?>' type="video/mp4"/>
@@ -335,6 +336,7 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
             <img alt="Wine Warsaw Expo" src="https://winewarsawexpo.com/doc/logo.webp"/>
         </div>
     </section>
+
     <section class="stats" id="stats">
         <div class="wrap">
             <h2>
@@ -398,6 +400,7 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
             </div>
         </div>
     </section>
+
     <section class="venue">
         <div class="wrap venue-grid">
             <div class="venue-txt">
@@ -427,6 +430,7 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
             </div>
         </div>
     </section>
+
     <section class="events" id="events">
         <div class="wrap">
             <h2 class="center">
@@ -479,8 +483,8 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
                         <div class="cal-stats">
                             <?php if (!empty($event['visitors'])): ?>
                                 <div class="cal-row">
-                                    <div class="cal-ico" aria-hidden="true" style="width:40px;min-width:40px;flex:0 0 40px;display:flex;align-items:center;justify-content:center;">
-                                        <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="width:40px;height:40px;display:block;flex:none;">
+                                    <div class="cal-ico" aria-hidden="true" style="width:30px;min-width:30px;flex:0 10 40px;display:flex;align-items:center;justify-content:center;">
+                                        <svg width="30" height="30" viewBox="0 -10 40 40" xmlns="http://www.w3.org/2000/svg" style="width:30px;height:30px;display:block;flex:none;">
                                             <path d="M26.8 6.4C26.8 4.53 28.33 3 30.2 3C32.07 3 33.6 4.53 33.6 6.4C33.6 8.27 32.07 9.8 30.2 9.8C28.33 9.8 26.8 8.27 26.8 6.4ZM34.926 12.486C33.4353 11.8356 31.8264 11.4999 30.2 11.5C29.061 11.5 27.973 11.67 26.936 11.976C27.922 12.911 28.5 14.22 28.5 15.631V16.6H37V15.631C37 14.254 36.184 13.03 34.926 12.486ZM9.8 9.8C11.67 9.8 13.2 8.27 13.2 6.4C13.2 4.53 11.67 3 9.8 3C7.93 3 6.4 4.53 6.4 6.4C6.4 8.27 7.93 9.8 9.8 9.8ZM13.064 11.976C12.027 11.67 10.939 11.5 9.8 11.5C8.117 11.5 6.519 11.857 5.074 12.486C4.458 12.749 3.933 13.188 3.564 13.747C3.196 14.306 2.999 14.961 3 15.631V16.6H11.5V15.631C11.5 14.22 12.078 12.911 13.064 11.976ZM16.6 6.4C16.6 4.53 18.13 3 20 3C21.87 3 23.4 4.53 23.4 6.4C23.4 8.27 21.87 9.8 20 9.8C18.13 9.8 16.6 8.27 16.6 6.4ZM26.8 16.6H13.2V15.631C13.2 14.254 14.016 13.03 15.274 12.486C16.765 11.835 18.374 11.5 20 11.5C21.626 11.5 23.235 11.835 24.726 12.486C25.342 12.749 25.867 13.188 26.236 13.747C26.604 14.306 26.801 14.961 26.8 15.631V16.6Z" fill="#7f7f7f"/>
                                         </svg>
                                     </div>
@@ -493,8 +497,8 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
 
                             <?php if (!empty($event['exhibitors'])): ?>
                                 <div class="cal-row">
-                                    <div class="cal-ico" aria-hidden="true" style="width:40px;min-width:40px;flex:0 0 40px;display:flex;align-items:center;justify-content:center;">
-                                        <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="width:40px;height:40px;display:block;flex:none;">
+                                    <div class="cal-ico" aria-hidden="true" style="width:30px;min-width:30px;flex:0 0 40px;display:flex;align-items:center;justify-content:center;">
+                                        <svg width="30" height="30" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="width:30px;height:30px;display:block;flex:none;">
                                             <path d="M13.458 4.453C17.614 4.453 20.981 7.752 20.981 11.823C20.981 15.893 17.614 19.193 13.451 19.193C9.289 19.193 5.922 15.893 5.922 11.823C5.922 7.752 9.289 4.453 13.458 4.453ZM6.908 22.461H19.995C22.705 22.461 24.903 24.659 24.903 27.369C24.903 32.437 19.726 35.549 13.451 35.549C7.176 35.549 2 32.437 2 27.369C2 24.659 4.198 22.461 6.908 22.461ZM28.993 7.728C32.155 7.728 34.718 10.291 34.718 13.454C34.718 16.616 32.155 19.18 28.993 19.18C27.656 19.18 26.426 18.721 25.451 17.952C26.038 16.529 26.363 14.971 26.363 13.337C26.363 11.499 25.952 9.756 25.219 8.196C26.271 7.892 27.536 7.728 28.993 7.728ZM28.184 22.461H33.092C35.802 22.461 38 24.659 38 27.369C38 31.621 33.056 33.913 28.184 33.913C27.356 33.91 26.548 33.849 25.76 33.729C27.177 32.054 28.178 29.914 28.178 27.369C28.174 25.598 27.595 23.875 26.529 22.461H28.184Z" fill="#7f7f7f"/>
                                         </svg>
                                     </div>
@@ -507,8 +511,8 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
 
                             <?php if (!empty($event['area'])): ?>
                                 <div class="cal-row">
-                                    <div class="cal-ico" aria-hidden="true" style="width:40px;min-width:40px;flex:0 0 40px;display:flex;align-items:center;justify-content:center;">
-                                        <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="width:40px;height:40px;display:block;flex:none;">
+                                    <div class="cal-ico" aria-hidden="true" style="width:30px;min-width:30px;flex:0 0 40px;display:flex;align-items:center;justify-content:center;">
+                                        <svg width="30" height="30" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="width:30px;height:30px;display:block;flex:none;">
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M21.667 5H5V35H35V18.333H21.667V5ZM18.333 31.667H8.333V21.667H18.333V31.667ZM18.333 18.333H8.333V8.333H18.333V18.333ZM31.667 21.667V31.667H21.667V21.667H31.667ZM35 5V15H25V5H35ZM31.667 8.333H28.333V11.667H31.667V8.333Z" fill="#7f7f7f"/>
                                         </svg>
                                     </div>
@@ -546,6 +550,7 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
             </p>
         </div>
     </section>
+
     <section class="halls" id="halls">
         <div class="wrap">
             <h2 class="center">
@@ -554,6 +559,7 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
             <img alt="Plan hal Warsaw HoReCa Week 2027" class="halls-img" src="<?= esc_url($static_assets_url . 'mapa-hale/plan-hal-warsaw-horeca-week-2027.jpg') ?>"/>
         </div>
     </section>
+
     <section class="eco">
         <div class="wrap">
             <h2>
@@ -633,6 +639,7 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
             </div>
         </div>
     </section>
+
     <section class="catalog" id="catalog">
         <div class="wrap">
             <h2 class="center">
@@ -671,6 +678,7 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
             </p>
         </div>
     </section>
+    
     <section class="brands">
         <div class="wrap">
             <h2 class="center">
@@ -863,6 +871,7 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
             </div>
         </div>
     </section>
+
     <section class="flags">
         <div class="wrap">
             <h2>
@@ -1433,18 +1442,20 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
             </p>
         </div>
     </section>
+
     <section class="program" id="program">
         <div class="wrap">
             <h2 class="center">
                 <span data-en="Programme">Program</span>
             </h2>
+
             <p class="lead">
                 <span data-en="Six congress brands, culinary shows, tastings and competitions – in the halls, next to the stands.">Sześć marek kongresowych, pokazy kulinarne, degustacje i konkursy – w halach, obok stoisk.</span>
             </p>
+
             <div class="cg-grid">
                 <div class="cg-card">
-                    <div class="cg-img" style="background-image:url('<?= esc_url($static_assets_url . 'program/program-zdjecie-01.jpg') ?>')">
-                    </div>
+                    <div class="cg-img" style="background-image:url('<?= esc_url($static_assets_url . 'program/program-zdjecie-01.jpg') ?>')"></div>
                     <div class="cg-body">
                         <img alt="EuroGastro" class="cg-logo" src="<?= esc_url($static_assets_url . 'program/logo-eurogastro.webp') ?>"/>
                         <h3>
@@ -1453,9 +1464,9 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
                         <span>EuroGastro</span>
                     </div>
                 </div>
+
                 <div class="cg-card">
-                    <div class="cg-img" style="background-image:url('<?= esc_url($static_assets_url . 'program/program-zdjecie-02.webp') ?>')">
-                    </div>
+                    <div class="cg-img" style="background-image:url('<?= esc_url($static_assets_url . 'program/program-zdjecie-02.webp') ?>')"></div>
                     <div class="cg-body">
                         <img alt="World Hotel" class="cg-logo" src="<?= esc_url($static_assets_url . 'program/logo-world-hotel.webp') ?>"/>
                         <h3>
@@ -1464,9 +1475,9 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
                         <span>World Hotel</span>
                     </div>
                 </div>
+
                 <div class="cg-card">
-                    <div class="cg-img" style="background-image:url('<?= esc_url($static_assets_url . 'program/program-zdjecie-03.webp') ?>')">
-                    </div>
+                    <div class="cg-img" style="background-image:url('<?= esc_url($static_assets_url . 'program/program-zdjecie-03.webp') ?>')"></div>
                     <div class="cg-body">
                         <img alt="Vending Poland Expo" class="cg-logo" src="<?= esc_url($static_assets_url . 'program/logo-vending-poland-expo.webp') ?>"/>
                         <h3>
@@ -1475,9 +1486,9 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
                         <span>Vending Poland Expo</span>
                     </div>
                 </div>
+
                 <div class="cg-card">
-                    <div class="cg-img" style="background-image:url('<?= esc_url($static_assets_url . 'program/program-zdjecie-04.webp') ?>')">
-                    </div>
+                    <div class="cg-img" style="background-image:url('<?= esc_url($static_assets_url . 'program/program-zdjecie-04.webp') ?>')"></div>
                     <div class="cg-body">
                         <img alt="Clean-Tech Expo" class="cg-logo" src="<?= esc_url($static_assets_url . 'program/logo-clean-tech-expo.webp') ?>"/>
                         <h3>
@@ -1486,9 +1497,9 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
                         <span>Clean-Tech Expo</span>
                     </div>
                 </div>
+
                 <div class="cg-card">
-                    <div class="cg-img" style="background-image:url('<?= esc_url($static_assets_url . 'program/program-zdjecie-05.webp') ?>')">
-                    </div>
+                    <div class="cg-img" style="background-image:url('<?= esc_url($static_assets_url . 'program/program-zdjecie-05.webp') ?>')"></div>
                     <div class="cg-body">
                         <img alt="HoReCa FoodService Expo" class="cg-logo" src="<?= esc_url($static_assets_url . 'program/logo-horeca-foodservice-expo.webp') ?>"/>
                         <h3>
@@ -1497,9 +1508,9 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
                         <span>HoReCa FoodService Expo</span>
                     </div>
                 </div>
+
                 <div class="cg-card">
-                    <div class="cg-img" style="background-image:url('<?= esc_url($static_assets_url . 'galeria/galeria-11.webp') ?>')">
-                    </div>
+                    <div class="cg-img" style="background-image:url('<?= esc_url($static_assets_url . 'galeria/galeria-11.webp') ?>')"></div>
                     <div class="cg-body">
                         <img alt="Beer Warsaw Expo" class="cg-logo" src="<?= esc_url($static_assets_url . 'program/logo-beer-warsaw-expo.webp') ?>"/>
                         <h3>
@@ -1509,10 +1520,12 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
                     </div>
                 </div>
             </div>
+
             <div class="cg-2026">
                 <h3>
                     <span data-en="Programme blocks">Bloki programu</span>
                 </h3>
+
                 <div class="cg-nums">
                     <div>
                         <b>20</b>
@@ -1531,192 +1544,263 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
                         <span data-en="partners running their own block">partnerów z własnym blokiem</span>
                     </div>
                 </div>
+
                 <div class="ag-grid">
                     <div class="ag-group">
                         <div class="ag-head">
                             <h4>EuroGastro · World Hotel</h4>
-                            <span>13 <span data-en="blocks">bloków</span>
-                        </span>
+                            <span>13 <span data-en="blocks">bloków</span></span>
+                        </div>
+
+                        <div class="ag-item">
+                            <span class="ag-type">
+                                <span data-en="Conference / forum">Konferencja / forum</span>
+                            </span>
+                            <b>
+                                <span data-en="Polish Gastronomy Forum">Forum Polskiej Gastronomii</span>
+                            </b>
+                            <span class="ag-org">KRGiC</span>
+                        </div>
+
+                        <div class="ag-item">
+                            <span class="ag-type">
+                                <span data-en="Panel / presentations">Panel / prezentacje</span>
+                            </span>
+                            <b>
+                                <span data-en="Trends and Exhibitor Presentations Panel – Hall F">Panel Trendów i Prezentacji Wystawców – hala F</span>
+                            </b>
+                        </div>
+
+                        <div class="ag-item">
+                            <span class="ag-type">
+                                <span data-en="Live cooking">Pokazy</span>
+                            </span>
+                            <b>
+                                <span data-en="Culinary Shows with OSSKiC">Pokazy Kulinarne z OSSKiC</span>
+                            </b>
+                            <span class="ag-org">OSSKiC</span>
+                        </div>
+
+                        <div class="ag-item">
+                            <span class="ag-type">
+                                <span data-en="Live cooking">Pokazy</span>
+                            </span>
+                            <b>
+                                <span data-en="Polish Classics with a Global Twist">Polska klasyka w światowym twiście</span>
+                            </b>
+                            <span class="ag-org">Dawtona</span>
+                        </div>
+
+                        <div class="ag-item">
+                            <span class="ag-type">
+                                <span data-en="Tasting / show">Degustacja / pokaz</span>
+                            </span>
+                            <b>
+                                <span data-en="Tasting of Baked Brioche Buns with Ice Cream">Degustacja pieczonych bułek brioszek z lodami</span>
+                            </b>
+                            <span class="ag-org">ProChef</span>
+                        </div>
+
+                        <div class="ag-item">
+                            <span class="ag-type">
+                                <span data-en="Competition">Konkurs</span>
+                            </span>
+                            <b>
+                                <span data-en="Traditions of Polish Cuisine – Culinary Competition">Tradycje Kuchni Polskiej – konkurs kulinarny</span>
+                            </b>
+                            <span class="ag-org">OSSKiC</span>
+                        </div>
+
+                        <div class="ag-item">
+                            <span class="ag-type">
+                                <span data-en="Live cooking">Pokazy</span>
+                            </span>
+                            <b>
+                                <span data-en="Where Technology Meets Culinary Passion">Miejsce, gdzie technologia spotyka pasję kulinarną</span>
+                            </b>
+                            <span class="ag-org">GRAFEN</span>
+                        </div>
+
+                        <div class="ag-item">
+                            <span class="ag-type">
+                                <span data-en="Live cooking">Pokazy</span>
+                            </span>
+                            <b>
+                                <span data-en="Convenience in a Fine Dining Style">Convenience w wydaniu Fine Dining</span>
+                            </b>
+                            <span class="ag-org">
+                                <span data-en="Chefs' Club">Klub Szefów Kuchni</span>
+                            </span>
+                        </div>
+
+                        <div class="ag-item">
+                            <span class="ag-type">
+                                <span data-en="Tastings">Degustacje</span>
+                            </span>
+                            <b>
+                                <span data-en="Coffee Tastings">Degustacje kaw</span>
+                            </b>
+                            <span class="ag-org">Lavazza</span>
+                        </div>
+
+                        <div class="ag-item">
+                            <span class="ag-type">
+                                <span data-en="Live cooking">Pokazy</span>
+                            </span>
+                            <b>
+                                <span data-en="Sempre Culinary Shows">Pokazy kulinarne Sempre</span>
+                            </b>
+                            <span class="ag-org">Sempre</span>
+                        </div>
+
+                        <div class="ag-item">
+                            <span class="ag-type">
+                                <span data-en="Live cooking">Pokazy</span>
+                            </span>
+                            <b>
+                                <span data-en="Culinary Shows Promoting Opole Carp">Pokazy kulinarne z promocją karpia opolskiego</span>
+                            </b>
+                            <span class="ag-org">
+                                <span data-en="Euro-Toques Poland">Euro-Toques Polska</span>
+                            </span>
+                        </div>
+
+                        <div class="ag-item">
+                            <span class="ag-type">
+                                <span data-en="Live cooking">Pokazy</span>
+                            </span>
+                            <b>
+                                <span data-en="Tarsmak Culinary Shows">Pokazy kulinarne Tarsmak</span>
+                            </b>
+                            <span class="ag-org">Tarsmak</span>
+                        </div>
+
+                        <div class="ag-item">
+                            <span class="ag-type">
+                                <span data-en="Panel discussion">Panel dyskusyjny</span>
+                            </span>
+                            <b>
+                                <span data-en="The Social Media Era in Gastronomy">Era Social Mediów w Gastronomii</span>
+                            </b>
+                            <span class="ag-org">
+                                <span data-en="hosted by Jagna Niedzielska">prow. Jagna Niedzielska</span>
+                            </span>
+                        </div>
                     </div>
-                    <div class="ag-item">
-                        <span class="ag-type">
-                            <span data-en="Conference / forum">Konferencja / forum</span>
-                        </span>
-                        <b>Forum Polskiej Gastronomii</b>
-                        <span class="ag-org">KRGiC</span>
+
+                    <div class="ag-col">
+                        <div class="ag-group">
+                            <div class="ag-head">
+                                <h4>Vending Poland Expo</h4>
+                                <span>2 <span data-en="blocks">bloki</span></span>
+                            </div>
+
+                            <div class="ag-item">
+                                <span class="ag-type">
+                                    <span data-en="Conference / forum">Konferencja / forum</span>
+                                </span>
+                                <b>
+                                    <span data-en="Vending Leaders Forum: Business in the Age of Digital Transformation">Forum Liderów Vendingu: Biznes w obliczu cyfrowej transformacji</span>
+                                </b>
+                                <span class="ag-org">Puls Biznesu</span>
+                            </div>
+
+                            <div class="ag-item">
+                                <span class="ag-type">
+                                    <span data-en="Panel / presentations">Panel / prezentacje</span>
+                                </span>
+                                <b>
+                                    <span data-en="Trends and Exhibitor Presentations Panel – Hall C">Panel Trendów i Prezentacji Wystawców – hala C</span>
+                                </b>
+                            </div>
+                        </div>
+
+                        <div class="ag-group">
+                            <div class="ag-head">
+                                <h4>Clean-Tech Expo</h4>
+                                <span>1 <span data-en="block">blok</span></span>
+                            </div>
+
+                            <div class="ag-item">
+                                <span class="ag-type">
+                                    <span data-en="3-day conference">Konferencja 3-dniowa</span>
+                                </span>
+                                <b>
+                                    <span data-en="Smart Cleaning Business – Technology, Education and Sales">Smart Cleaning Business – technologia, edukacja i sprzedaż</span>
+                                </b>
+                                <span class="ag-org">
+                                    <span data-en="Polish Chamber of Cleaning Industry">Polska Izba Gospodarcza Czystości</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="ag-group">
+                            <div class="ag-head">
+                                <h4>HoReCa FoodService Expo</h4>
+                                <span>1 <span data-en="block">blok</span></span>
+                            </div>
+
+                            <div class="ag-item">
+                                <span class="ag-type">
+                                    <span data-en="Conference">Konferencja</span>
+                                </span>
+                                <b>
+                                    <span data-en="Logistics, New Products and Certification in Gastronomy">Logistyka, nowe produkty i certyfikacja w gastronomii</span>
+                                </b>
+                                <span class="ag-org">KRGiC</span>
+                            </div>
+                        </div>
+
+                        <div class="ag-group">
+                            <div class="ag-head">
+                                <h4>Beer · Wine · FoodService</h4>
+                                <span>4 <span data-en="blocks">bloki</span></span>
+                            </div>
+
+                            <div class="ag-item">
+                                <span class="ag-type">
+                                    <span data-en="Panel / presentations">Panel / prezentacje</span>
+                                </span>
+                                <b>
+                                    <span data-en="Trends and Exhibitor Presentations Panel – Hall D">Panel Trendów i Prezentacji Wystawców – hala D</span>
+                                </b>
+                            </div>
+
+                            <div class="ag-item">
+                                <span class="ag-type">
+                                    <span data-en="Debate">Debata</span>
+                                </span>
+                                <b>
+                                    <span data-en="The Future of Regional Beers and Polish Hop Varieties">Przyszłość piw regionalnych i polskich odmian chmielu</span>
+                                </b>
+                                <span class="ag-org">moderator Marek Gogola</span>
+                            </div>
+
+                            <div class="ag-item">
+                                <span class="ag-type">
+                                    <span data-en="Education block">Blok edukacyjny</span>
+                                </span>
+                                <b>
+                                    <span data-en="Polish Wine Zone. Knowledge and Education for the Industry">Strefa Polskiego Wina. Wiedza i edukacja dla branży</span>
+                                </b>
+                                <span class="ag-org">Wine Me</span>
+                            </div>
+
+                            <div class="ag-item">
+                                <span class="ag-type">
+                                    <span data-en="Education block">Blok edukacyjny</span>
+                                </span>
+                                <b>
+                                    <span data-en="Glass and Beer – a Perfect Pair with More Potential">Szkło i piwo – zgrany duet, który może więcej</span>
+                                </b>
+                                <span class="ag-org">Tableart</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="ag-item">
-                        <span class="ag-type">
-                            <span data-en="Panel / presentations">Panel / prezentacje</span>
-                        </span>
-                        <b>Panel Trendów i Prezentacji Wystawców – hala F</b>
-                    </div>
-                    <div class="ag-item">
-                        <span class="ag-type">
-                            <span data-en="Live cooking">Pokazy</span>
-                        </span>
-                        <b>Pokazy Kulinarne z OSSKiC</b>
-                        <span class="ag-org">OSSKiC</span>
-                    </div>
-                    <div class="ag-item">
-                        <span class="ag-type">
-                            <span data-en="Live cooking">Pokazy</span>
-                        </span>
-                        <b>Polska klasyka w światowym twiście</b>
-                        <span class="ag-org">Dawtona</span>
-                    </div>
-                    <div class="ag-item">
-                        <span class="ag-type">
-                            <span data-en="Tasting / show">Degustacja / pokaz</span>
-                        </span>
-                        <b>Degustacja pieczonych bułek brioszek z lodami</b>
-                        <span class="ag-org">ProChef</span>
-                    </div>
-                    <div class="ag-item">
-                        <span class="ag-type">
-                            <span data-en="Competition">Konkurs</span>
-                        </span>
-                        <b>Tradycje Kuchni Polskiej – konkurs kulinarny</b>
-                        <span class="ag-org">OSSKiC</span>
-                    </div>
-                    <div class="ag-item">
-                        <span class="ag-type">
-                            <span data-en="Live cooking">Pokazy</span>
-                        </span>
-                        <b>Miejsce, gdzie technologia spotyka pasję kulinarną</b>
-                        <span class="ag-org">GRAFEN</span>
-                    </div>
-                    <div class="ag-item">
-                        <span class="ag-type">
-                            <span data-en="Live cooking">Pokazy</span>
-                        </span>
-                        <b>Convenience w wydaniu Fine Dining</b>
-                        <span class="ag-org">Klub Szefów Kuchni</span>
-                    </div>
-                    <div class="ag-item">
-                        <span class="ag-type">
-                            <span data-en="Tastings">Degustacje</span>
-                        </span>
-                        <b>Degustacje kaw</b>
-                        <span class="ag-org">Lavazza</span>
-                    </div>
-                    <div class="ag-item">
-                        <span class="ag-type">
-                            <span data-en="Live cooking">Pokazy</span>
-                        </span>
-                        <b>Pokazy kulinarne Sempre</b>
-                        <span class="ag-org">Sempre</span>
-                    </div>
-                    <div class="ag-item">
-                        <span class="ag-type">
-                            <span data-en="Live cooking">Pokazy</span>
-                        </span>
-                        <b>Pokazy kulinarne z promocją karpia opolskiego</b>
-                        <span class="ag-org">Euro-Toques Polska</span>
-                    </div>
-                    <div class="ag-item">
-                        <span class="ag-type">
-                            <span data-en="Live cooking">Pokazy</span>
-                        </span>
-                        <b>Pokazy kulinarne Tarsmak</b>
-                        <span class="ag-org">Tarsmak</span>
-                    </div>
-                    <div class="ag-item">
-                        <span class="ag-type">
-                            <span data-en="Panel discussion">Panel dyskusyjny</span>
-                        </span>
-                        <b>Era Social Mediów w Gastronomii</b>
-                        <span class="ag-org">prow. Jagna Niedzielska</span>
-                    </div>
-                </div>
-                <div class="ag-col">
-                    <div class="ag-group">
-                        <div class="ag-head">
-                            <h4>Vending Poland Expo</h4>
-                            <span>2 <span data-en="blocks">bloki</span>
-                        </span>
-                    </div>
-                    <div class="ag-item">
-                        <span class="ag-type">
-                            <span data-en="Conference / forum">Konferencja / forum</span>
-                        </span>
-                        <b>Forum Liderów Vendingu: Biznes w obliczu cyfrowej transformacji</b>
-                        <span class="ag-org">Puls Biznesu</span>
-                    </div>
-                    <div class="ag-item">
-                        <span class="ag-type">
-                            <span data-en="Panel / presentations">Panel / prezentacje</span>
-                        </span>
-                        <b>Panel Trendów i Prezentacji Wystawców – hala C</b>
-                    </div>
-                </div>
-                <div class="ag-group">
-                    <div class="ag-head">
-                        <h4>Clean-Tech Expo</h4>
-                        <span>1 <span data-en="blocks">blok</span>
-                    </span>
-                </div>
-                <div class="ag-item">
-                    <span class="ag-type">
-                        <span data-en="3-day conference">Konferencja 3-dniowa</span>
-                    </span>
-                    <b>Smart Cleaning Business – technologia, edukacja i sprzedaż</b>
-                    <span class="ag-org">Polska Izba Gospodarcza Czystości</span>
                 </div>
             </div>
-            <div class="ag-group">
-                <div class="ag-head">
-                    <h4>HoReCa FoodService Expo</h4>
-                    <span>1 <span data-en="blocks">blok</span>
-                </span>
-            </div>
-            <div class="ag-item">
-                <span class="ag-type">
-                    <span data-en="Conference">Konferencja</span>
-                </span>
-                <b>Logistyka, nowe produkty i certyfikacja w gastronomii</b>
-                <span class="ag-org">KRGiC</span>
-            </div>
         </div>
-        <div class="ag-group">
-            <div class="ag-head">
-                <h4>Beer · Wine · FoodService</h4>
-                <span>4 <span data-en="blocks">bloki</span>
-            </span>
-        </div>
-        <div class="ag-item">
-            <span class="ag-type">
-                <span data-en="Panel / presentations">Panel / prezentacje</span>
-            </span>
-            <b>Panel Trendów i Prezentacji Wystawców – hala D</b>
-        </div>
-        <div class="ag-item">
-            <span class="ag-type">
-                <span data-en="Debate">Debata</span>
-            </span>
-            <b>Przyszłość piw regionalnych i polskich odmian chmielu</b>
-            <span class="ag-org">moderator Marek Gogola</span>
-        </div>
-        <div class="ag-item">
-            <span class="ag-type">
-                <span data-en="Education block">Blok edukacyjny</span>
-            </span>
-            <b>Strefa Polskiego Wina. Wiedza i edukacja dla branży</b>
-            <span class="ag-org">Wine Me</span>
-        </div>
-        <div class="ag-item">
-            <span class="ag-type">
-                <span data-en="Education block">Blok edukacyjny</span>
-            </span>
-            <b>Szkło i piwo – zgrany duet, który może więcej</b>
-            <span class="ag-org">Tableart</span>
-        </div>
-    </div>
-</div>
-</div>
-</div>
-</div>
-</section>
+    </section>
 <section class="moments">
     <div class="wrap">
         <h2 class="center">
@@ -1766,6 +1850,7 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
         <button aria-label="Next" class="strip-btn next" type="button">›</button>
     </div>
 </section>
+
 <section class="partners">
     <div class="wrap">
         <h2 class="center">
@@ -1808,6 +1893,7 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
         </div>
     </div>
 </section>
+
 <section class="cta">
     <div class="wrap">
         <div class="cta-logo">
@@ -1834,6 +1920,7 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
         </div>
     </div>
 </section>
+
 <footer class="foot">
     <div class="wrap foot-grid">
         <div>
@@ -1882,7 +1969,8 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
         <div class="wrap foot-note">
             <span data-en="Figures according to post-show reports, counters and catalogues of the fair websites (as of 18.09.2026); total visitors is the sum of six fairs (World Hotel shares its audience with EuroGastro). Hall plan according to warsawexpo.eu (22.09.2026). Warsaw video: stock footage (Pexels).">Liczby wg raportów potargowych, liczników i katalogów stron targów (stan 18.09.2026); suma odwiedzających to suma wyników sześciu targów (World Hotel dzieli publiczność z EuroGastro). Plan hal wg warsawexpo.eu (22.09.2026). Wideo Warszawy: materiał stockowy (Pexels).</span>
         </div>
-    </footer>
+    </div>
+</footer>
 
     <script type="application/json" id="catData">
         <?php echo wp_json_encode($catalog_data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>

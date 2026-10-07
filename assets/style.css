@@ -1,9 +1,18 @@
+/* Hide the default header when the auto switch header is present */
 .home:has(.pwe-element-auto-switch.header) #page-header {
     display: none !important;
 }
+
+/* Hide the default header and post title when the simple header is present */
+.main-container:has(.simple-header) #page-header,
+.main-container:has(.simple-header) .post-title-wrapper {
+    display: none !important;
+}
+
 .pwe-element-auto-switch {
     margin: 0 auto !important;
 }
+
 .pwe-element-auto-switch .wpb_column {
     padding: 0;
 }
@@ -13,6 +22,7 @@
     margin: 0 auto;
     padding: 18px;
 }
+
 .swiper-scrollbar-drag {
     background: black;
 }
@@ -30,11 +40,9 @@
     padding: 0 !important;
 }
 
-
 .no-lazyrender {
     content-visibility: visible !important;
 }
-
 
 .page-wrapper {
     display: block !important;
