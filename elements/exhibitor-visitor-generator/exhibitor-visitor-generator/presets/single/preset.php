@@ -2,6 +2,11 @@
 
 $output = '
 <div id="pweExhibitorGenerator" class="pwe-exhibitor-generator pwe-invite-generator--visitor">';
+
+    if (isset($_GET['generator'])) {
+        $output .= '<style>#pweExhibitorGenerator .pwe-field__text--company { position:absolute;visibility:hidden;height:0;width:0; }</style>';
+    }
+
     if ($fair_group === 'b2c' || $fair_group === 'b2c-new') {
         $output .= '
         <div class="pwe-exhibitor-generator__tech-support">
@@ -10,6 +15,7 @@ $output = '
             </h3>
         </div>';
     }
+
     $output .= '
     <div class="pwe-exhibitor-generator__wrapper">
         <div class="pwe-exhibitor-generator__column pwe-exhibitor-generator__column--badge" style="background-image: ' . esc_attr($badge) . ';"></div>
