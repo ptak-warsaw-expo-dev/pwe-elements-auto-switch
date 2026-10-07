@@ -1,17 +1,43 @@
-<?php 
+<?php
 
 $cap_logotypes_data = PWE_Functions::get_database_logotypes_data();
+
+
 if (!empty($cap_logotypes_data)) {
 
-    // Output style
+
     $output .= '<style>' . file_get_contents(plugin_dir_path(__FILE__) . $group . '/assets/style.css') . '</style>';
 
     $files = [];
     $grouped_logos = [];
 
-    $header_order = PWE_Functions::get_database_meta_data('logos_meta_order', $_SERVER['HTTP_HOST']);
-    if (!empty($header_order)) { 
-        $header_order = $header_order[0]->meta_data; 
+    $header_order = PWE_Functions::get_database_meta_data(
+        'logos_meta_order',
+        $_SERVER['HTTP_HOST']
+    );
+
+    $slider_settings = PWE_Functions::get_database_meta_data(
+        'logos_slider_settings',
+        $_SERVER['HTTP_HOST']
+    );
+
+    // Domyślnie brak indywidualnych ustawień slidera
+    $slider_settings_data = [];
+
+    if (!empty($slider_settings) && isset($slider_settings[0]->meta_data)) {
+
+        $decoded_slider_settings = json_decode(
+            $slider_settings[0]->meta_data,
+            true
+        );
+
+        if (is_array($decoded_slider_settings)) {
+            $slider_settings_data = $decoded_slider_settings;
+        }
+    }
+
+    if (!empty($header_order)) {
+        $header_order = $header_order[0]->meta_data;
     }
 
     $grouped_logos = [];
@@ -23,7 +49,7 @@ if (!empty($cap_logotypes_data)) {
 
     foreach ($cap_logotypes_data as $logo_data) {
 
-        if (strpos($logo_data->logos_type, 'header-') === 0) { 
+        if (strpos($logo_data->logos_type, 'header-') === 0) {
 
             $meta = json_decode($logo_data->meta_data, true);
             $data = json_decode($logo_data->data ?? '{}', true);

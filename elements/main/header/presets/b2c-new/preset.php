@@ -47,6 +47,10 @@ $output .= '
         <div class="pwe-header__wrapper">
             <div class="pwe-header__column">
 
+                <div class="pwe-header__logo">
+                    <img src="/doc/' . (PWE_Functions::lang_pl() ? 'logo.webp' : 'logo-en.webp') . '" alt="[pwe_name_' . PWE_Functions::lang() . ']">
+                </div>
+
                 <div class="pwe-header__edition">
                     <span>'. $trade_fair_edition .' • '. PWE_Functions::multi_translation('warsaw_poland') . '<br>' . $trade_fair_date .'</span>
                 </div>

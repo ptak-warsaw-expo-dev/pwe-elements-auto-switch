@@ -73,6 +73,10 @@
     text-align: left;
 }
 
+.pwe-element-auto-switch .pwe-header__logo {
+    max-width: 300px;
+}
+
 .pwe-element-auto-switch .pwe-header__edition {
     display: inline-block;
     padding: 8px 24px;
