@@ -250,6 +250,7 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
 
 <div id="pweLandingWeek" class="pwe-landing-week" data-lang="<?php echo esc_attr($lang); ?>">
 
+
     <header class="nav" id="nav">
         <a class="brand" href="#top">
             <svg aria-label="Warsaw HoReCa Week" class="logo-a" viewbox="0 0 420 150" xmlns="http://www.w3.org/2000/svg">
@@ -260,6 +261,20 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
                 <text fill="currentColor" font-family="Inter,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="7" x="58" y="136">WEEK</text>
             </svg>
         </a>
+
+        <button
+            class="mobile-menu-toggle"
+            id="mobileMenuToggle"
+            type="button"
+            aria-controls="mobileMenu"
+            aria-expanded="false"
+            aria-label="<?php echo esc_attr($lang === 'pl' ? 'Otwórz menu' : 'Open menu'); ?>"
+        >
+            <span class="mobile-menu-toggle__icon" aria-hidden="true">
+                <span></span>
+            </span>
+        </button>
+
         <nav class="links">
             <a href="#stats">
                 <span data-en="Facts">Liczby</span>
@@ -276,6 +291,9 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
             <a href="#program">
                 <span data-en="Programme">Program</span>
             </a>
+            <a href="<?= esc_url($lang === 'pl' ? '/pl/katalog-wystawcow/' : '/exhibitors-catalog/') ?>">
+                <span data-en="Exhibitor Catalog">Katalog Wystawców</span>
+            </a>
         </nav>
         <div class="navcta">
             <a class="lang" href="<?= esc_url($language_urls[$other_lang]) ?>" id="langBtn">
@@ -287,6 +305,45 @@ if ($system && method_exists($system, 'get_database_logotypes_data')) {
             <a class="btn btn-gold" href="<?= esc_url($exhibitor_url) ?>" rel="noopener" target="_blank">
                 <span data-en="Exhibit &amp; sponsor">Zostań wystawcą</span>
             </a>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+            <nav class="mobile-menu__nav" aria-label="<?php echo esc_attr($lang === 'pl' ? 'Menu mobilne' : 'Mobile menu'); ?>">
+                <a href="#stats">
+                    <span data-en="Facts">Liczby</span>
+                </a>
+                <a href="#halls">
+                    <span data-en="Hall plan">Plan hal</span>
+                </a>
+                <a href="#events">
+                    <span data-en="Fairs">Targi</span>
+                </a>
+                <a href="#catalog">
+                    <span data-en="Exhibitors">Wystawcy</span>
+                </a>
+                <a href="#program">
+                    <span data-en="Programme">Program</span>
+                </a>
+                <a href="<?= esc_url($lang === 'pl' ? '/pl/katalog-wystawcow/' : '/exhibitors-catalog/') ?>">
+                    <span data-en="Exhibitor catalogue">Katalog wystawców</span>
+                </a>
+            </nav>
+
+            <div class="mobile-menu__actions">
+                <a class="btn btn-gold" href="<?= esc_url($exhibitor_url) ?>" rel="noopener" target="_blank">
+                    <span data-en="Exhibit &amp; sponsor">Zostań wystawcą</span>
+                </a>
+                <a class="btn btn-white" href="<?= esc_url($register_url) ?>" rel="noopener" target="_blank">
+                    <span data-en="Register">Zarejestruj się</span>
+                </a>
+            </div>
+
+            <div class="mobile-menu__bottom">
+                <a class="mobile-menu__lang" href="<?= esc_url($language_urls[$other_lang]) ?>">
+                    <?= esc_html(strtoupper($other_lang)) ?>
+                </a>
+                <p class="mobile-menu__label">Warsaw HoReCa Week<br>9–11.03.2027</p>
+            </div>
         </div>
     </header>
 

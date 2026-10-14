@@ -16,6 +16,10 @@
     unicode-range: U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
 }
 
+/* ==========================================================================
+   01. BASE / VARIABLES / TYPOGRAPHY
+   ========================================================================== */
+
 #pweLandingWeek {
     --navy: #0a2240;
     --ink: #0a2240;
@@ -147,6 +151,10 @@
 
 }
 
+/* ==========================================================================
+   02. BUTTONS / SHARED CONTROLS
+   ========================================================================== */
+
 #pweLandingWeek .btn {
 
     display: inline-flex;
@@ -250,7 +258,9 @@
 
 }
 
-/* nav */
+/* ==========================================================================
+   03. NAVIGATION - DESKTOP
+   ========================================================================== */
 
 #pweLandingWeek .nav {
 
@@ -359,7 +369,9 @@
 
 }
 
-/* hero */
+/* ==========================================================================
+   04. HERO
+   ========================================================================== */
 
 #pweLandingWeek .hero {
 
@@ -497,7 +509,9 @@
 
 }
 
-/* stats – overview band */
+/* ==========================================================================
+   05. STATS / NUMBERS
+   ========================================================================== */
 
 #pweLandingWeek .stats {
 
@@ -594,7 +608,9 @@
 
 }
 
-/* venue: text | video */
+/* ==========================================================================
+   06. VENUE / INTRO VIDEO
+   ========================================================================== */
 
 #pweLandingWeek .venue {
 
@@ -713,7 +729,9 @@
 
 }
 
-/* halls */
+/* ==========================================================================
+   07. HALL PLAN
+   ========================================================================== */
 
 #pweLandingWeek .halls {
 
@@ -1273,7 +1291,9 @@
 
 }
 
-/* ecosystem band */
+/* ==========================================================================
+   08. HORECA ECOSYSTEM
+   ========================================================================== */
 
 #pweLandingWeek .eco {
 
@@ -1395,7 +1415,9 @@
 
 }
 
-/* events (tiles + part of) */
+/* ==========================================================================
+   09. ASSOCIATED FAIRS / EVENTS
+   ========================================================================== */
 
 #pweLandingWeek .events {
 
@@ -1486,7 +1508,9 @@
 
 }
 
-/* catalog */
+/* ==========================================================================
+   10. EXHIBITOR CATALOGUE
+   ========================================================================== */
 
 #pweLandingWeek .cat-tabs {
 
@@ -1711,7 +1735,9 @@
 
 }
 
-/* brands */
+/* ==========================================================================
+   11. BRANDS
+   ========================================================================== */
 
 #pweLandingWeek .brands {
 
@@ -1771,7 +1797,9 @@
 
 }
 
-/* calendar tiles (warsawexpo.eu/kalendarz-targowy) */
+/* ==========================================================================
+   12. FAIR CALENDAR CARDS
+   ========================================================================== */
 
 #pweLandingWeek .cal-grid {
     display: flex;
@@ -2051,7 +2079,9 @@
 
 }
 
-/* flags – marquee */
+/* ==========================================================================
+   13. COUNTRIES / FLAGS MARQUEE
+   ========================================================================== */
 
 #pweLandingWeek .flags {
 
@@ -2262,7 +2292,9 @@
 
 }
 
-/* program – congress cards */
+/* ==========================================================================
+   14. PROGRAMME / CONGRESS CARDS
+   ========================================================================== */
 
 #pweLandingWeek .cg-grid {
 
@@ -2534,7 +2566,9 @@
 
 }
 
-/* moments – photo strip */
+/* ==========================================================================
+   15. PHOTO GALLERY / MOMENTS
+   ========================================================================== */
 
 #pweLandingWeek .moments {
 
@@ -2661,7 +2695,9 @@
 
 }
 
-/* partners */
+/* ==========================================================================
+   16. PARTNERS / MEDIA PATRONS
+   ========================================================================== */
 
 #pweLandingWeek .partners {
 
@@ -2740,7 +2776,9 @@
 
 }
 
-/* cta + footer */
+/* ==========================================================================
+   17. FINAL CTA + FOOTER
+   ========================================================================== */
 
 #pweLandingWeek .cta {
 
@@ -3292,5 +3330,279 @@ body.admin-bar #pweLandingWeek .nav {
 @media screen and (max-width: 782px) {
     body.admin-bar #pweLandingWeek .nav {
         top: 46px !important;
+    }
+}
+
+/* ==========================================================================
+18. MOBILE NAVIGATION
+========================================================================== */
+#pweLandingWeek .mobile-menu-toggle,
+#pweLandingWeek .mobile-menu {
+    display: none;
+}
+
+@media (max-width: 1100px) {
+    body.pwe-mobile-menu-open {
+        overflow: hidden !important;
+    }
+
+    #pweLandingWeek .nav {
+        min-height: 72px;
+        padding: 10px 20px !important;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+    }
+
+    #pweLandingWeek .nav .brand {
+        position: relative;
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        flex: 0 0 auto;
+    }
+
+    #pweLandingWeek .nav .brand .logo-a {
+        width: 150px !important;
+        height: auto !important;
+        display: block;
+    }
+
+    #pweLandingWeek .nav > .links,
+    #pweLandingWeek .nav > .navcta {
+        display: none !important;
+    }
+
+    #pweLandingWeek .mobile-menu-toggle {
+        display: inline-flex;
+        position: relative;
+        z-index: 3;
+        width: 46px;
+        height: 46px;
+        padding: 0;
+        margin: 0;
+        border: 1px solid rgba(255, 255, 255, 0.55);
+        background: rgba(6, 26, 51, 0.28);
+        color: #fff;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 0;
+        appearance: none;
+        -webkit-appearance: none;
+        box-shadow: none;
+    }
+
+    #pweLandingWeek .mobile-menu-toggle:hover,
+    #pweLandingWeek .mobile-menu-toggle:focus-visible {
+        background: #c8a24a;
+        border-color: #c8a24a;
+        outline: none;
+    }
+
+    #pweLandingWeek .mobile-menu-toggle__icon {
+        position: relative;
+        width: 22px;
+        height: 16px;
+        display: block;
+    }
+
+    #pweLandingWeek .mobile-menu-toggle__icon::before,
+    #pweLandingWeek .mobile-menu-toggle__icon::after,
+    #pweLandingWeek .mobile-menu-toggle__icon span {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 22px;
+        height: 2px;
+        background: currentColor;
+        transition: transform .25s ease, top .25s ease, opacity .2s ease;
+        transform-origin: center;
+    }
+
+    #pweLandingWeek .mobile-menu-toggle__icon::before {
+        top: 0;
+    }
+
+    #pweLandingWeek .mobile-menu-toggle__icon span {
+        top: 7px;
+    }
+
+    #pweLandingWeek .mobile-menu-toggle__icon::after {
+        top: 14px;
+    }
+
+    #pweLandingWeek .mobile-menu-toggle[aria-expanded="true"] .mobile-menu-toggle__icon::before {
+        top: 7px;
+        transform: rotate(45deg);
+    }
+
+    #pweLandingWeek .mobile-menu-toggle[aria-expanded="true"] .mobile-menu-toggle__icon span {
+        opacity: 0;
+    }
+
+    #pweLandingWeek .mobile-menu-toggle[aria-expanded="true"] .mobile-menu-toggle__icon::after {
+        top: 7px;
+        transform: rotate(-45deg);
+    }
+
+    #pweLandingWeek .mobile-menu {
+        display: flex;
+        position: fixed;
+        z-index: 9998;
+        top: 72px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 28px 22px 28px;
+        background: #061a33;
+        color: #fff;
+        flex-direction: column;
+        overflow-y: auto;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-10px);
+        transition: opacity .22s ease, transform .22s ease, visibility .22s ease;
+    }
+
+    body.admin-bar #pweLandingWeek .mobile-menu {
+        top: 104px;
+    }
+
+    #pweLandingWeek .mobile-menu.is-open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+
+    #pweLandingWeek .mobile-menu__nav {
+        display: flex;
+        flex-direction: column;
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    #pweLandingWeek .mobile-menu__nav > a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 56px;
+        padding: 0 2px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+        color: #fff !important;
+        text-decoration: none !important;
+        font-size: 16px;
+        line-height: 1.2;
+        font-weight: 800;
+        letter-spacing: .055em;
+        text-transform: uppercase;
+    }
+
+    #pweLandingWeek .mobile-menu__nav > a::after {
+        content: "›";
+        margin-left: 18px;
+        color: #c8a24a;
+        font-size: 26px;
+        line-height: 1;
+        font-weight: 500;
+    }
+
+    #pweLandingWeek .mobile-menu__nav > a:hover,
+    #pweLandingWeek .mobile-menu__nav > a:focus-visible {
+        color: #c8a24a !important;
+        outline: none;
+    }
+
+    #pweLandingWeek .mobile-menu__actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-top: 26px;
+    }
+
+    #pweLandingWeek .mobile-menu__actions .btn {
+        width: 100% !important;
+        max-width: none !important;
+        min-height: 52px !important;
+        padding: 14px 18px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        box-sizing: border-box !important;
+    }
+
+    #pweLandingWeek .mobile-menu__bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: auto;
+        padding-top: 28px;
+    }
+
+    #pweLandingWeek .mobile-menu__lang {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 54px;
+        height: 44px;
+        padding: 0 14px;
+        border: 1px solid rgba(255, 255, 255, 0.65);
+        color: #fff !important;
+        text-decoration: none !important;
+        font-size: 13px;
+        line-height: 1;
+        font-weight: 800;
+        letter-spacing: .08em;
+    }
+
+    #pweLandingWeek .mobile-menu__label {
+        margin: 0;
+        color: rgba(255, 255, 255, .55);
+        font-size: 11px;
+        line-height: 1.4;
+        font-weight: 700;
+        letter-spacing: .09em;
+        text-transform: uppercase;
+        text-align: right;
+    }
+}
+
+@media (max-width: 782px) {
+    body.admin-bar #pweLandingWeek .mobile-menu {
+        top: 118px;
+    }
+}
+
+@media (max-width: 480px) {
+    #pweLandingWeek .nav {
+        min-height: 66px;
+        padding: 8px 14px !important;
+    }
+
+    #pweLandingWeek .nav .brand .logo-a {
+        width: 132px !important;
+    }
+
+    #pweLandingWeek .mobile-menu-toggle {
+        width: 42px;
+        height: 42px;
+    }
+
+    #pweLandingWeek .mobile-menu {
+        top: 66px;
+        padding: 22px 16px 22px;
+    }
+
+    body.admin-bar #pweLandingWeek .mobile-menu {
+        top: 112px;
+    }
+
+    #pweLandingWeek .mobile-menu__nav > a {
+        min-height: 52px;
+        font-size: 14px;
     }
 }

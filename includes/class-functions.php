@@ -1,5 +1,48 @@
 <?php
+
 if (! defined('ABSPATH')) exit;
+
+/**
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * We no longer edit this file. The current functions are located in pwe-system/core/class-pwe-system-functions.php.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
 
 class PWE_Functions {
 

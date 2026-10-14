@@ -1,6 +1,8 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
+// [pwe-landing-auto-switch] - Auto-switch landing page elements
+
 class PWE_Landing_Auto_Switch {
     const SHORTCODE = 'pwe-landing-auto-switch';
 

@@ -41,6 +41,49 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
+
+    // ---- mobile navigation ----
+    var mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    var mobileMenu = document.getElementById('mobileMenu');
+
+    if (root && mobileMenuToggle && mobileMenu) {
+        function setMobileMenuOpen(open) {
+            mobileMenuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            mobileMenuToggle.setAttribute(
+                'aria-label',
+                open
+                    ? (lang === 'pl' ? 'Zamknij menu' : 'Close menu')
+                    : (lang === 'pl' ? 'Otwórz menu' : 'Open menu')
+            );
+            mobileMenu.setAttribute('aria-hidden', open ? 'false' : 'true');
+            mobileMenu.classList.toggle('is-open', open);
+            document.body.classList.toggle('pwe-mobile-menu-open', open);
+        }
+
+        mobileMenuToggle.addEventListener('click', function () {
+            setMobileMenuOpen(mobileMenuToggle.getAttribute('aria-expanded') !== 'true');
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                setMobileMenuOpen(false);
+            });
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && mobileMenuToggle.getAttribute('aria-expanded') === 'true') {
+                setMobileMenuOpen(false);
+                mobileMenuToggle.focus();
+            }
+        });
+
+        window.addEventListener('resize', function () {
+            if (window.innerWidth > 1100 && mobileMenuToggle.getAttribute('aria-expanded') === 'true') {
+                setMobileMenuOpen(false);
+            }
+        });
+    }
+
     // ---- count-up ----
     var counted = false;
 
@@ -184,10 +227,10 @@
     var shown = 0;
     var pageSize = 48;
 
-    var n26 = document.getElementById('n26');
-    if (n26) {
-        n26.textContent = data.y26.length;
-    }
+    // var n26 = document.getElementById('n26');
+    // if (n26) {
+    //     n26.textContent = data.y26.length;
+    // }
 
     var grid = document.getElementById('catGrid');
     var more = document.getElementById('catMore');
