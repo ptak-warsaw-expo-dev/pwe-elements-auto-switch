@@ -147,7 +147,9 @@ if ( ! class_exists( 'PWE_GF_Email_Entry_Cleanup' ) ) {
             'antonmelnychuk1@gmail.com',
             'jakub.goral@warsawexpo.eu',
             'nataliasobolptakexpo@gmail.com',
-            'oliwia.ptasinska@warsawexpo.eu'
+            'oliwia.ptasinska@warsawexpo.eu',
+            'dominika.burchard@warsawexpo.eu',
+            'tescik@wp.pl'
         ];
 
         /**
@@ -591,4 +593,107 @@ add_action('plugins_loaded', function () {
         );
     }
 
+}, 20);
+
+/**
+ * Usercentrics marketing permission for Gravity Forms UTM attribution.
+ * The client communicates the current CMP state during submission.
+ * No positive signal (including a CMP that has not loaded) = no attribution.
+ * IMPORTANT: browser-submitted state is not cryptographically verifiable.
+ */
+if (!function_exists('pwe_gf_uc_marketing_allowed')) {
+    function pwe_gf_uc_marketing_allowed() {
+        return isset($_POST['pwe_uc_marketing_consent'])
+            && !is_array($_POST['pwe_uc_marketing_consent'])
+            && wp_unslash($_POST['pwe_uc_marketing_consent']) === '1';
+    }
+}
+
+if (!function_exists('pwe_gf_is_utm_source_field')) {
+    function pwe_gf_is_utm_source_field($field) {
+        if (!is_object($field)) {
+            return false;
+        }
+
+        $admin_label = strtolower(trim((string) ($field->adminLabel ?? '')));
+        $input_name  = strtolower(trim((string) ($field->inputName ?? '')));
+        $css_classes = preg_split('/\\s+/', strtolower((string) ($field->cssClass ?? '')));
+
+        return $admin_label === 'utm_source'
+            || $input_name === 'utm_source'
+            || in_array('utm-class', $css_classes, true);
+    }
+}
+
+// Clear posted values before entry creation, validation, notifications and feeds.
+add_action('gform_pre_submission', function($form) {
+    if (pwe_gf_uc_marketing_allowed()) {
+        return;
+    }
+
+    foreach (($form['fields'] ?? []) as $field) {
+        if (pwe_gf_is_utm_source_field($field)) {
+            $_POST['input_' . (int) $field->id] = '';
+        }
+    }
+}, 5);
+
+// Additional protection at the Gravity Forms entry persistence layer.
+add_filter('gform_save_field_value', function($value, $entry, $field, $form, $input_id) {
+    if (pwe_gf_is_utm_source_field($field) && !pwe_gf_uc_marketing_allowed()) {
+        return '';
+    }
+
+    return $value;
+}, 20, 5);
+
+// Include CMP consent state with each Gravity Forms submission (incl. AJAX forms).
+add_action('wp_footer', function() {
+    ?>
+    <script id="pwe-gf-usercentrics-marketing">
+    (function () {
+        'use strict';
+
+        function marketingAllowed() {
+            var layer = window.dataLayer;
+            if (!Array.isArray(layer)) return false;
+            // Read newest status, not the first (the user may have changed consent).
+            for (var i = layer.length - 1; i >= 0; i--) {
+                var item = layer[i];
+                if (item && item.event === 'consent_status' &&
+                    item.ucCategory && typeof item.ucCategory.marketing === 'boolean') {
+                    return item.ucCategory.marketing === true;
+                }
+            }
+            return false;
+        }
+
+        function updateForms() {
+            var value = marketingAllowed() ? '1' : '0';
+            document.querySelectorAll('form[id^="gform_"]').forEach(function (form) {
+                var input = form.querySelector('input[name="pwe_uc_marketing_consent"]');
+                if (!input) {
+                    input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'pwe_uc_marketing_consent';
+                    form.appendChild(input);
+                }
+                input.value = value;
+            });
+        }
+
+        // Use capture phase so consent is populated before GF submit handlers.
+        document.addEventListener('submit', updateForms, true);
+        document.addEventListener('click', function (event) {
+            if (event.target.closest('form[id^="gform_"]')) updateForms();
+        }, true);
+        document.addEventListener('DOMContentLoaded', updateForms);
+        document.addEventListener('gform/post_render', updateForms);
+        window.addEventListener('load', updateForms);
+        // Usercentrics pushes consent_status asynchronously. Also covers AJAX re-render.
+        window.setInterval(updateForms, 800);
+        updateForms();
+    })();
+    </script>
+    <?php
 }, 20);
