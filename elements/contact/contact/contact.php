@@ -34,7 +34,15 @@ class Contact {
 
             $lang = PWE_Functions::lang();
 
-            $form_id = PWE_Functions::get_gf_form_id('Napisz do nas');
+            // $form_id = PWE_Functions::get_gf_form_id('Napisz do nas');
+
+            $form_id = PWE_Functions::get_gf_form_id('Write to us');
+
+            if ($lang === 'en' && $form_id) {
+                
+            } else {
+                $form_id = PWE_Functions::get_gf_form_id('Napisz do nas');
+            }
 
             if (!$form_id) {
                 return;
