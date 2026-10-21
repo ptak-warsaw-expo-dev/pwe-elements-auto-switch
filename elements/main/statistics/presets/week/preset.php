@@ -69,7 +69,7 @@ $output = '
                   </span>
               </div>
               <div class="pwe-statistics__card-numbers">
-                  <div class="pwe-statistics__card-num"><span class="countup" data-count="'. $pwe_visitors .'">0</span>+</div>
+                  <div class="pwe-statistics__card-num"><span class="countup" data-count="'. $pwe_visitors .'">0</span></div>
                   <div class="pwe-statistics__card-label">'. PWE_Functions::multi_translation("visitors") .'</div>
               </div>
           </div>
