@@ -9,7 +9,8 @@
   margin:0 auto;
 }
 .pwe-combined-stats__body {
-  margin: 56px auto;
+  margin: 0 auto;
+  padding: 56px 18px;
 }
 .pwe-combined-stats {
   font-family: inherit;
@@ -35,18 +36,19 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 18px;
 }
 .pwe-combined-stats__title {
   font-size: 36px !important;
   font-weight: 600 !important;
   margin: 0 !important;
   line-height: 1.3 !important;
-  color:black !important;
+  color:rgb(255, 255, 255) !important;
 }
 
 .pwe-combined-stats__subtitle {
   font-size: 14px;
-  color: var(--accent-color);
+  color: white;
   font-weight: 600;
   display: block;
   margin-top: 4px;
@@ -84,7 +86,6 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 30px;
 }
 
 .pwe-combined-stats__badge {
@@ -227,7 +228,12 @@
   }
 
   .pwe-combined-stats__metrics {
+    gap: 18px;
+  }
+}
+
+@media (max-width: 389px) {
+  .pwe-combined-stats__metrics {
     flex-direction: column;
-    gap: 20px;
   }
 }

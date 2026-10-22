@@ -200,23 +200,6 @@ $output .= '
     $output .= '
     <div id="pweCombinedStatistics" class="pwe-combined-stats">
 
-        <!-- Nagłówek Sekcji -->
-        <div class="pwe-combined-stats__header">
-          <div class="pwe-combined-stats__container">
-              <div class="pwe-combined-stats__title-group">
-                  <h2 class="pwe-combined-stats__title">
-                      '. do_shortcode(PWE_Functions::languageChecker('[trade_fair_name]', '[trade_fair_name_eng]')) .' '. PWE_Functions::multi_translation("in_numbers") .'
-                  </h2>
-                  <span class="pwe-combined-stats__subtitle">
-                      '. PWE_Functions::multi_translation("combined_block_statistics_subtitle") .'
-                  </span>
-              </div>
-              <div class="pwe-combined-stats__logo">
-                  <img src="/doc/logo-color.webp" alt="Logo">
-              </div>
-            </div>
-        </div>
-
         <!-- Główny Kontener Statystyk -->
         <div class="pwe-combined-stats__body">
 
@@ -229,16 +212,21 @@ $output .= '
                         <div class="pwe-combined-stats__badge">
                             '. PWE_Functions::multi_translation("trade_fair_block") .'
                         </div>
-                        <span class="pwe-combined-stats__badge-label">
-                            '. PWE_Functions::multi_translation("combined_statistics") .'
-                        </span>
                         <div class="pwe-combined-stats__card-icon-top">
                             <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M31.44 19.8203C29.96 19.8603 28.54 20.1803 27.24 20.7203L26.14 19.0603L19.98 29.0803C19.8154 29.3486 19.5898 29.5744 19.3215 29.7391C19.0532 29.9038 18.7498 30.0029 18.436 30.0282C18.1222 30.0535 17.8069 30.0044 17.5156 29.8849C17.2244 29.7654 16.9655 29.5788 16.76 29.3403L12.52 24.4003L6.39997 34.2003C5.77997 35.1803 4.45997 35.4403 3.51997 34.7603C2.67997 34.1403 2.43997 32.9803 2.99997 32.0803L10.56 19.9803C11.28 18.8403 12.9 18.7203 13.78 19.7403L18 24.6603L24.36 14.3203C24.5348 14.0345 24.779 13.7975 25.0697 13.6311C25.3605 13.4647 25.6885 13.3743 26.0235 13.3683C26.3585 13.3624 26.6895 13.441 26.9861 13.5969C27.2826 13.7528 27.535 13.9809 27.72 14.2603L31.44 19.8203ZM36.62 20.8203C35.34 20.2603 33.96 19.9203 32.52 19.8403L41.6 5.46026C42.22 4.48026 43.54 4.24027 44.46 4.92027C45.32 5.54027 45.54 6.72026 44.98 7.60027L36.62 20.8203Z" fill="white"/>
                             <path d="M39.76 36.6003C40.72 35.0603 41.26 33.2603 41.14 31.2803C40.88 26.9803 37.46 23.3403 33.2 22.8803C31.9388 22.7335 30.6608 22.8553 29.4501 23.2376C28.2393 23.6199 27.1231 24.2541 26.1749 25.0985C25.2266 25.9428 24.4678 26.9783 23.9482 28.1368C23.4285 29.2952 23.1599 30.5506 23.16 31.8203C23.16 36.8003 27.18 40.8203 32.14 40.8203C33.9 40.8203 35.54 40.3003 36.92 39.4203L41.74 44.2403C42.52 45.0203 43.8 45.0203 44.58 44.2403C45.36 43.4603 45.36 42.1803 44.58 41.4003L39.76 36.6003ZM32.16 36.8203C30.8339 36.8203 29.5621 36.2935 28.6244 35.3558C27.6868 34.4181 27.16 33.1463 27.16 31.8203C27.16 30.4942 27.6868 29.2224 28.6244 28.2847C29.5621 27.3471 30.8339 26.8203 32.16 26.8203C33.4861 26.8203 34.7578 27.3471 35.6955 28.2847C36.6332 29.2224 37.16 30.4942 37.16 31.8203C37.16 33.1463 36.6332 34.4181 35.6955 35.3558C34.7578 36.2935 33.4861 36.8203 32.16 36.8203Z" fill="currentColor"/>
                             </svg>
-
                         </div>
+                    </div>
+
+                    <div class="pwe-combined-stats__title-group">
+                        <span class="pwe-combined-stats__subtitle">
+                            '. PWE_Functions::multi_translation("combined_block_statistics_subtitle") .'
+                        </span>
+                        <h2 class="pwe-combined-stats__title">
+                            '. do_shortcode(PWE_Functions::languageChecker('[trade_fair_name]', '[trade_fair_name_eng]')) .'
+                        </h2>
                     </div>
 
                     <div class="pwe-combined-stats__metrics">
