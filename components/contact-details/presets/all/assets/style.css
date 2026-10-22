@@ -39,3 +39,16 @@
     flex-direction: column;
     gap: 6px;
 }
+
+@media ((max-width: 960px)) {
+    .pwe-contact-details {
+        padding: 18px;
+    }
+    .pwe-contact-details__item img {
+        max-width: 60px !important;
+        border-radius: 6px;
+    }
+    .pwe-contact-details__item a {
+        font-size: 12px;
+    }
+}

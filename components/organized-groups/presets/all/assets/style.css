@@ -10,16 +10,13 @@
     color: white !important;
     margin: 0;
 }
-
 .pwe-organized-groups h4 {
     text-transform: uppercase;
 }
-
 #pweGroupsLink {
     text-decoration: underline;
     color: white !important;
 }
-
 a.pwe-organized-groups__btn {
     background-color: white;
     border-width: 1px;
@@ -36,4 +33,9 @@ a.pwe-organized-groups__btn {
     transform-origin: center !important;
     min-width: 250px;
     margin: 3px;
+}
+@media ((max-width: 960px)) {
+    .pwe-organized-groups {
+        padding: 18px;
+    }
 }

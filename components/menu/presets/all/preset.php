@@ -527,15 +527,23 @@ if (!function_exists('render_submenu')) {
                 }
 
                 if (!empty($dynamic_menu_items)) {
+                    foreach ($dynamic_menu_items as $dynamic_item) {
 
-                    $insert_position = max(count($children) - 6, 0);
+                        if ($dynamic_item->ID === 'dynamic_fair_plan') {
+                            // Fair Plan - second item from the top
+                            $insert_position = min(1, count($children));
+                        } else {
+                            // Other dynamic items - original position
+                            $insert_position = max(count($children) - 6, 0);
+                        }
 
-                    array_splice(
-                        $children,
-                        $insert_position,
-                        0,
-                        $dynamic_menu_items
-                    );
+                        array_splice(
+                            $children,
+                            $insert_position,
+                            0,
+                            [$dynamic_item]
+                        );
+                    }
                 }
 
                 foreach ($children as $child) {

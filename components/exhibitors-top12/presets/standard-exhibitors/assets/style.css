@@ -4,7 +4,13 @@
     vertical-align: inherit !important;
     border: 2px solid var(--main2-color) !important;
     border-radius: 18px;
+    margin: 0 auto;
 }
 .pwe-exhibitors-top12__logo img {
     height: 78px;
 } 
+@media(max-width: 960px) {
+    .pwe-exhibitors-top12 {
+        margin: 0 auto;
+    }
+}
