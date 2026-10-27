@@ -186,7 +186,8 @@ if (!function_exists('get_global_label_translations')) {
                 'et' => ['Raport pärast messi'],
                 'hu' => ['Raport a mese után'],
                 'es' => ['Informe posterior a la feria'],
-                'fr' => ['Rapport post-salon']
+                'fr' => ['Rapport post-salon'],
+                'nl' => ['Post-show rapport']
             ],
             'edition' => [
                 'pl' => ['Edycja'],
@@ -202,7 +203,8 @@ if (!function_exists('get_global_label_translations')) {
                 'et' => ['Versioon'],
                 'hu' => ['Kiadás'],
                 'es' => ['Edición'],
-                'fr' => ['Édition']
+                'fr' => ['Édition'],
+                'nl' => ['Editie']
             ],
         ];
     }
@@ -348,7 +350,8 @@ if (!function_exists('render_submenu')) {
                     'et' => 'Näituse plaan',
                     'hu' => 'Vásári terv',
                     'es' => 'Plano de la feria',
-                    'fr' => 'Plan du salon'
+                    'fr' => 'Plan du salon',
+                    'nl' => 'Beursplan'
                 ],
 
                 'post_show' => [
@@ -365,7 +368,8 @@ if (!function_exists('render_submenu')) {
                     'et' => 'Raport pärast messi',
                     'hu' => 'Raport a mese után',
                     'es' => 'Informe posterior a la feria',
-                    'fr' => 'Rapport post-salon'
+                    'fr' => 'Rapport post-salon',
+                    'nl' => 'Post-show rapport'
                 ],
 
                 'fair_offer' => [
@@ -382,7 +386,8 @@ if (!function_exists('render_submenu')) {
                     'et' => 'Messipakkumine',
                     'hu' => 'Vásári ajánlat',
                     'es' => 'Oferta de la feria',
-                    'fr' => 'Offre du salon'
+                    'fr' => 'Offre du salon',
+                    'nl' => 'Beursaanbieding'
                 ]
             ];
 
@@ -570,6 +575,7 @@ if (!function_exists('render_submenu')) {
                             '/hu/regisztracio/',
                             '/es/registro/',
                             '/fr/inscription/',
+                            '/nl/registratie/'
                         ];
 
                         if (in_array($child_path, $registration_paths, true)) {
@@ -795,6 +801,7 @@ $output .= '
                                     '/hu/regisztracio/',
                                     '/es/registro/',
                                     '/fr/inscription/',
+                                    '/nl/registratie/'
                                 ];
 
                                 if (in_array($item_path, $registration_paths, true)) {
@@ -868,7 +875,8 @@ $output .= '
                         "et" => "Keel",
                         "hu" => "Nyelv",
                         "es" => "Idioma",
-                        "fr" => "Langue"
+                        "fr" => "Langue",
+                        "nl" => "Taal"
                     ];
 
                     $output .= '
@@ -1031,6 +1039,10 @@ $output .= '
             "fr" => [
                 "url" => "/fr/inscription/",
                 "label" => "PARTICIPER"
+            ],
+            "nl" => [
+                "url" => "/nl/registratie/",
+                "label" => "DOE MEE"
             ]
         ];
 

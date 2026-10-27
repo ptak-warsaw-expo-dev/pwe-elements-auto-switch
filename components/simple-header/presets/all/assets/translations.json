@@ -68,5 +68,10 @@
         "register_link": "/es/registro/",
         "register_alt": "registro",
         "take_part": "Participar"
+    },
+    "nl_NL": {
+        "register_link": "/nl/registratie/",
+        "register_alt": "registratie",
+        "take_part": "Deelname"
     }
 }

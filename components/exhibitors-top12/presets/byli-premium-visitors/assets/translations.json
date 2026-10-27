@@ -54,5 +54,9 @@
   "es_ES": {
     "title": "Expositores",
     "short_info": "Después de completar el formulario, serás redirigido a la etapa 2, donde recibirás información adicional sobre tu participación en la feria."
+  },
+  "nl_NL": {
+    "title": "Exposanten",
+    "short_info": "Na het invullen van het formulier wordt u doorgestuurd naar stap 2, waar u aanvullende informatie ontvangt over deelname aan de beurs."
   }
 }

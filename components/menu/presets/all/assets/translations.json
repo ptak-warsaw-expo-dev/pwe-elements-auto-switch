@@ -13,7 +13,8 @@
         "et": { "label": "Registreerimine", "url": "/et/registreerimine/" },
         "hu": { "label": "Regisztráció", "url": "/hu/regisztracio/" },
         "fr": { "label": "Inscription", "url": "/fr/inscription/" },
-        "es": { "label": "Registro", "url": "/es/registro/" }
+        "es": { "label": "Registro", "url": "/es/registro/" },
+        "nl": { "label": "Registratie", "url": "/nl/registratie/" }
     },
     "become-an-exhibitor": {
         "pl": { "label": "Zostań wystawcą", "url": "/zostan-wystawca/" },
@@ -29,7 +30,8 @@
         "et": { "label": "Saage eksponent", "url": "/et/saage-eksponent/" },
         "hu": { "label": "Legyen kiállító", "url": "/hu/legyen-kiallito/" },
         "fr": { "label": "Devenez exposant", "url": "/fr/devenez-exposant/" },
-        "es": { "label": "Conviértete en expositor", "url": "/es/conviertete-en-expositor/" }
+        "es": { "label": "Conviértete en expositor", "url": "/es/conviertete-en-expositor/" },
+        "nl": { "label": "Word een exposant", "url": "/nl/word-een-exposant/" }
     },
     "organizational-information-for-exhibitors": {
         "pl": { "label": "", "url": "/informacje-organizacyjne-dla-wystawcow/" },
@@ -45,7 +47,8 @@
         "et": { "label": "", "url": "/et/organisatsiooniline-teave-eksponentidele/" },
         "hu": { "label": "", "url": "/hu/organizatorikus-informaciok-az-exhibitoroknak/" },
         "fr": { "label": "", "url": "/fr/informations-organisationnelles-pour-les-exposants/" },
-        "es": { "label": "", "url": "/es/informacion-organizativa-para-los-expositores/" }
+        "es": { "label": "", "url": "/es/informacion-organizativa-para-los-expositores/" },
+        "nl": { "label": "", "url": "/nl/organisatorische-informatie-voor-exposanten/" }
     },
     "for-visitors": {
         "pl": { "label": "Dla odwiedzających", "url": "/dla-odwiedzajacych/" },
@@ -61,7 +64,8 @@
         "et": { "label": "Külastajatele", "url": "/et/kylastajatele/" },
         "hu": { "label": "Látogatóknak", "url": "/hu/látogatóknak/" },
         "fr": { "label": "Pour les visiteurs", "url": "/fr/pour-les-visiteurs/" },
-        "es": { "label": "Para los visitantes", "url": "/es/para-los-visitantes/" }
+        "es": { "label": "Para los visitantes", "url": "/es/para-los-visitantes/" },
+        "nl": { "label": "Voor bezoekers", "url": "/nl/voor-bezoekers/" }
     },
     "for-exhibitors": {
         "pl": { "label": "Dla wystawców", "url": "/dla-wystawcow/" },
@@ -77,7 +81,8 @@
         "et": { "label": "Eksponentidele", "url": "/et/eksponentidele/" },
         "hu": { "label": "Eksponenseknek", "url": "/hu/eksponenseknek/" },
         "fr": { "label": "Pour les exposants", "url": "/fr/pour-les-exposants/" },
-        "es": { "label": "Para los expositores", "url": "/es/para-los-expositores/" }
+        "es": { "label": "Para los expositores", "url": "/es/para-los-expositores/" },
+        "nl": { "label": "Voor exposanten", "url": "/nl/voor-exposanten/" }
     },
     "promote-yourself": {
         "pl": { "label": "Wypromuj się", "url": "/wypromuj-sie/" },
@@ -93,7 +98,8 @@
         "et": { "label": "Edastage oma ettevõtlust", "url": "/et/edastage-oma-ettevotlust/" },
         "hu": { "label": "Promoválja vállalkozását", "url": "/hu/promoválja-vállalkozását/" },
         "fr": { "label": "Faites la promotion de votre entreprise", "url": "/fr/faites-la-promotion-de-votre-entreprise/" },
-        "es": { "label": "Promociona tu negocio", "url": "/es/promociona-tu-negocio/" }
+        "es": { "label": "Promociona tu negocio", "url": "/es/promociona-tu-negocio/" },
+        "nl": { "label": "Bevorder uw bedrijf", "url": "/nl/promoot-uw-bedrijf/" }
     },
     "exhibitors-catalog": {
         "pl": { "label": "Lista Wystawców", "url": "/katalog-wystawcow/" },
@@ -109,7 +115,8 @@
         "et": { "label": "Eksponentide kataloog", "url": "/et/eksponentide-kataloog/" },
         "hu": { "label": "Katalógus az exhibitorokról", "url": "/hu/katalogus-az-exhibitorokrol/" },
         "fr": { "label": "Annuaire des exposants", "url": "/fr/annuaire-des-exposants/" },
-        "es": { "label": "Directorio de expositores", "url": "/es/directorio-de-expositores/" }
+        "es": { "label": "Directorio de expositores", "url": "/es/directorio-de-expositores/" },
+        "nl": { "label": "Exposantencatalogus", "url": "/nl/exposantencatalogus/" }
     },
     "conference": {
         "pl": { "label": "Konferencja", "url": "/wydarzenia/" },
@@ -125,7 +132,8 @@
         "et": { "label": "Konverentsid", "url": "/en/conferences/" },
         "hu": { "label": "Konferenciák", "url": "/en/conferences/" },
         "fr": { "label": "Conférences", "url": "/en/conferences/" },
-        "es": { "label": "Conferencias", "url": "/en/conferences/" }
+        "es": { "label": "Conferencias", "url": "/en/conferences/" },
+        "nl": { "label": "Conferenties", "url": "/en/conferences/" }
     },
     "contact": {
         "pl": { "label": "Kontakt", "url": "/kontakt/" },
@@ -141,7 +149,8 @@
         "et": { "label": "Kontakt", "url": "/et/kontakt/" },
         "hu": { "label": "Kapcsolat", "url": "/hu/kapcsolat/" },
         "fr": { "label": "Contact", "url": "/fr/contact/" },
-        "es": { "label": "Contacto", "url": "/es/contacto/" }
+        "es": { "label": "Contacto", "url": "/es/contacto/" },
+        "nl": { "label": "Contact", "url": "/nl/contact/" }
     },
     "faq": {
         "pl": { "label": "Praktyczne informacje", "url": "/dla-odwiedzajacych/#faq" },
@@ -157,7 +166,8 @@
         "et": { "label": "Praktiline teave", "url": "/et/kylastajatele/#faq" },
         "hu": { "label": "Gyakorlati információk", "url": "/hu/fur-besucher/#faq" },
         "fr": { "label": "Informations pratiques", "url": "/fr/pour-les-visiteurs/#faq" },
-        "es": { "label": "Información práctica", "url": "/es/para-los-visitantes/#faq" }
+        "es": { "label": "Información práctica", "url": "/es/para-los-visitantes/#faq" },
+        "nl": { "label": "Praktische informatie", "url": "/nl/voor-bezoekers/#faq" }
     },
     "dojazd": {
         "pl": { "label": "Dojazd", "url": "/dla-odwiedzajacych/#dojazd" },
@@ -173,7 +183,8 @@
         "et": { "label": "Kuidas kohale jõuda", "url": "/et/kylastajatele/#dojazd" },
         "hu": { "label": "Hogyan juthat oda", "url": "/hu/fur-aussteller/#dojazd" },
         "fr": { "label": "Comment arriver", "url": "/fr/pour-les-visiteurs/#dojazd" },
-        "es": { "label": "Cómo llegar", "url": "/es/para-los-visitantes/#dojazd" }
+        "es": { "label": "Cómo llegar", "url": "/es/para-los-visitantes/#dojazd" },
+        "nl": { "label": "Routebeschrijving", "url": "/nl/voor-bezoekers/#dojazd" }
     },
     "media": {
         "pl": { "label": "Media", "url": "https://warsawexpo.eu/biuro-prasowe" },
@@ -189,7 +200,8 @@
         "et": { "label": "Meedia", "url": "https://warsawexpo.eu/en/press-room" },
         "hu": { "label": "Média", "url": "https://warsawexpo.eu/en/press-room" },
         "fr": { "label": "Médias", "url": "https://warsawexpo.eu/en/press-room" },
-        "es": { "label": "Medios de comunicación", "url": "https://warsawexpo.eu/en/press-room" }
+        "es": { "label": "Medios de comunicación", "url": "https://warsawexpo.eu/en/press-room" },
+        "nl": { "label": "Media", "url": "https://warsawexpo.eu/en/press-room" }
     },
     "hotels": {
         "pl": { "label": "Baza hotelowa", "url": "https://warsawexpo.eu/baza-hotelowa/" },
@@ -205,7 +217,8 @@
         "et": { "label": "Majutus", "url": "https://warsawexpo.eu/en/accomodation/" },
         "hu": { "label": "Szállás", "url": "https://warsawexpo.eu/en/accomodation/" },
         "fr": { "label": "Hébergement", "url": "https://warsawexpo.eu/en/accomodation/" },
-        "es": { "label": "Alojamiento", "url": "https://warsawexpo.eu/en/accomodation/" }
+        "es": { "label": "Alojamiento", "url": "https://warsawexpo.eu/en/accomodation/" },
+        "nl": { "label": "Accommodatie", "url": "https://warsawexpo.eu/en/accomodation/" }
     },
     "calendar": {
         "pl": { "label": "Kalendarz targowy", "url": "https://warsawexpo.eu/kalendarz-targowy/" },
@@ -221,7 +234,8 @@
         "et": { "label": "Messikalender", "url": "https://warsawexpo.eu/en/exhibition-calendar/" },
         "hu": { "label": "Messekalendár", "url": "https://warsawexpo.eu/en/exhibition-calendar/" },
         "fr": { "label": "Calendrier des expositions", "url": "https://warsawexpo.eu/en/exhibition-calendar/" },
-        "es": { "label": "Calendario de exposiciones", "url": "https://warsawexpo.eu/en/exhibition-calendar/" }
+        "es": { "label": "Calendario de exposiciones", "url": "https://warsawexpo.eu/en/exhibition-calendar/" },
+        "nl": { "label": "Expositiekalender", "url": "https://warsawexpo.eu/en/exhibition-calendar/" }
     },
     "stand": {
         "pl": { "label": "Dedykowana zabudowa targowa", "url": "/dla-wystawcow/#stand" },
@@ -237,7 +251,8 @@
         "et": { "label": "Disainitud messiseinad", "url": "/et/eksponentidele/#stand" },
         "hu": { "label": "Tervezett kiállítási standok", "url": "/hu/fur-aussteller/#stand" },
         "fr": { "label": "Stands d'exposition conçus", "url": "/fr/pour-les-exposants/#stand" },
-        "es": { "label": "Stands de exposición diseñados", "url": "/es/para-los-expositores/#stand" }
+        "es": { "label": "Stands de exposición diseñados", "url": "/es/para-los-expositores/#stand" },
+        "nl": { "label": "Ontworpen standaard", "url": "/nl/voor-bezoekers/#stand" }
     },
     "download": {
         "pl": { "label": "Dokumenty do pobrania", "url": "/dla-wystawcow/#download" },
@@ -253,7 +268,8 @@
         "et": { "label": "Dokumendid allalaadimiseks", "url": "/et/eksponentidele/#download" },
         "hu": { "label": "Dokumentumok letöltéséhez", "url": "/hu/for-exhibitors/#download" },
         "fr": { "label": "Documents à télécharger", "url": "/fr/pour-les-exposants/#download" },
-        "es": { "label": "Documentos para descargar", "url": "/es/para-los-expositores/#download" }
+        "es": { "label": "Documentos para descargar", "url": "/es/para-los-expositores/#download" },
+        "nl": { "label": "Documenten om te downloaden", "url": "/nl/voor-exposanten/#download" }
     },
     "privacy": {
         "pl": { "label": "Polityka prywatności", "url": "https://warsawexpo.eu/polityka-prywatnosci/" },
@@ -269,7 +285,8 @@
         "et": { "label": "Privaatsuspoliitika", "url": "https://warsawexpo.eu/en/privacy-policy" },
         "hu": { "label": "Adatvédelmi irányelvek", "url": "https://warsawexpo.eu/en/privacy-policy" },
         "fr": { "label": "Politique de confidentialité", "url": "https://warsawexpo.eu/en/privacy-policy" },
-        "es": { "label": "Política de privacidad", "url": "https://warsawexpo.eu/en/privacy-policy" }
+        "es": { "label": "Política de privacidad", "url": "https://warsawexpo.eu/en/privacy-policy" },
+        "nl": { "label": "Privacybeleid", "url": "https://warsawexpo.eu/en/privacy-policy" }
     },
     "why-worth-for-visitors": {
         "pl": { "label": "Dlaczego warto", "url": "/dla-odwiedzajacych/#why-worth" },
@@ -285,7 +302,8 @@
         "et": { "label": "Miks see on seda väärt", "url": "/et/kylastajatele/#why-worth" },
         "hu": { "label": "Vásári terv", "url": "/hu/latogatoknak/" },
         "fr": { "label": "Pourquoi ça vaut le coup", "url": "/fr/pour-les-visiteurs/#why-worth" },
-        "es": { "label": "Por qué vale la pena", "url": "/es/para-los-visitantes/#why-worth" }
+        "es": { "label": "Por qué vale la pena", "url": "/es/para-los-visitantes/#why-worth" },
+        "nl": { "label": "Waarom is het de moeite waard", "url": "/nl/voor-bezoekers/#why-worth" }
     },
     "why-worth-for-exhibitors": {
         "pl": { "label": "Dlaczego warto", "url": "/dla-wystawcow/#why-worth" },
@@ -301,7 +319,8 @@
         "et": { "label": "Miks see on seda väärt", "url": "/et/eksponentidele/#why-worth" },
         "hu": { "label": "Vásári terv", "url": "/hu/eksponenseknek/" },
         "fr": { "label": "Pourquoi ça vaut le coup", "url": "/fr/pour-les-exposants/#why-worth" },
-        "es": { "label": "Por qué vale la pena", "url": "/es/para-los-expositores/#why-worth" }
+        "es": { "label": "Por qué vale la pena", "url": "/es/para-los-expositores/#why-worth" },
+        "nl": { "label": "Waarom is het de moeite waard", "url": "/nl/voor-exposanten/#why-worth" }
     },
     "archive": {
         "pl": { "label": "Poprzednie edycje", "url": "" },
@@ -317,7 +336,8 @@
         "et": { "label": "Eelkäijad", "url": "" },
         "hu": { "label": "Vásári terv", "url": "" },
         "fr": { "label": "Éditions précédentes", "url": "" },
-        "es": { "label": "Ediciones anteriores", "url": "" }
+        "es": { "label": "Ediciones anteriores", "url": "" },
+        "nl": { "label": "Vorige edities", "url": "" }
     },
     "archive_2": {
         "pl": { "label": "Poprzednie edycje", "url": "" },
@@ -333,7 +353,8 @@
         "et": { "label": "Eelkäijad", "url": "" },
         "hu": { "label": "Vásári terv", "url": "" },
         "fr": { "label": "Éditions précédentes", "url": "" },
-        "es": { "label": "Ediciones anteriores", "url": "" }
+        "es": { "label": "Ediciones anteriores", "url": "" },
+        "nl": { "label": "Vorige edities", "url": "" }
     },
     "trade-fair-plan": {
         "pl": { "label": "Plan Targów", "url": "/plan-targow/" },
@@ -349,6 +370,7 @@
         "et": { "label": "Näituse plaan", "url": "/en/fair-plan/" },
         "hu": { "label": "Vásári terv", "url": "/en/fair-plan/" },
         "fr": { "label": "Plan de la foire", "url": "/en/fair-plan/" },
-        "es": { "label": "Plan de la feria", "url": "/en/fair-plan/" }
+        "es": { "label": "Plan de la feria", "url": "/en/fair-plan/" },
+        "nl": { "label": "Plan van de beurs", "url": "/en/fair-plan/" }
     }
 }

@@ -82,5 +82,11 @@
     "description": "Para garantizar su participación cómoda en nuestros eventos, la entrada para grupos organizados solo es posible el último día de la feria. Antes de su llegada, le animamos a que se ponga en contacto con nosotros a través del formulario disponible en el sitio web: <a id=\"pweGroupsLink\" href=\"https://warsawexpo.eu/en/groups/\" alt=\"enlace a la inscripción de grupos\" target=\"_blank\">warsawexpo.eu/en/groups</a>. Es obligatorio dejar mochilas y maletas en el guardarropa. Se requiere un código de vestimenta de negocios en la feria.",
     "button_url": "https://warsawexpo.eu/en/groups/",
     "button_text": "Formulario de contacto"
+  },
+  "nl_NL": {
+    "title": "Contact voor georganiseerde groepen",
+    "description": "Om uw comfortabele deelname aan onze evenementen te garanderen, is toegang voor georganiseerde groepen alleen mogelijk op de laatste dag van de beurs. Voor uw aankomst raden wij u aan contact met ons op te nemen via het formulier dat beschikbaar is op de website: <a id=\"pweGroupsLink\" href=\"https://warsawexpo.eu/en/groups/\" alt=\"link naar groepsregistratie\" target=\"_blank\">warsawexpo.eu/en/groups</a>. Het achterlaten van rugzakken en koffers in de garderobe is verplicht. Op de beurs geldt een zakelijke dresscode.",
+    "button_url": "https://warsawexpo.eu/en/groups/",
+    "button_text": "Contactformulier"
   }
 }

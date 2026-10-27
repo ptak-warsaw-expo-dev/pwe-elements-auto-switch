@@ -187,6 +187,7 @@ if (!function_exists('get_global_label_translations')) {
                 'hu' => ['Raport a mese után'],
                 'es' => ['Informe posterior a la feria'],
                 'fr' => ['Rapport post-salon'],
+                'nl' => ['Rapport post-beurs'],
             ],
             'edition' => [
                 'pl' => ['Edycja'],
@@ -203,6 +204,7 @@ if (!function_exists('get_global_label_translations')) {
                 'hu' => ['Kiadás'],
                 'es' => ['Edición'],
                 'fr' => ['Édition'],
+                'nl' => ['Editie'],
             ],
         ];
     }
@@ -351,6 +353,7 @@ if (!function_exists('generateFooterNavEl')) {
             'hu' => [ do_shortcode('[pwe_name_hu]'), 'LÁTOGATÓKNAK', 'KIÁLLÍTÓKNAK' ],
             'es' => [ do_shortcode('[pwe_name_es]'), 'PARA VISITANTES', 'PARA EXPOSITORES' ],
             'fr' => [ do_shortcode('[pwe_name_fr]'), 'POUR LES VISITEURS', 'POUR LES EXPOSANTS' ],
+            'nl' => [ do_shortcode('[pwe_name_nl]'), 'VOOR BEZOEKERS', 'VOOR EXPOSANTEN' ],
         ];
 
         $menu_titles = $menu_titles_map[$lang] ?? $menu_titles_map['en'];

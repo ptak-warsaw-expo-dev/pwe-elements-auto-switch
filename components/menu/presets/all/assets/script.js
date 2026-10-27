@@ -275,7 +275,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 lt: ['dalyvauk', 'rezervuoti stendą'],
                 lv: ['piedalīties', 'rezervēt stendu'],
                 ro: ['alătura-te nouă', 'rezervă un stand'],
-                et: ['liitu meiega', 'broneeri stend']
+                et: ['liitu meiega', 'broneeri stend'],
+                hu: ['csatlakozzon hozzánk', 'foglaljon standot'],
+                fr: ['rejoignez-nous', 'réservez un stand'],
+                es: ['únete a nosotros', 'reserva un stand'],
+                nl: ['doe mee', 'boek een stand']
             };
 
             const cta = {
@@ -322,6 +326,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 et: {
                     early: { text: 'LIITU MEIEGA', href: '/et/registreerimine/' },
                     late: { text: 'BRONEERI STEND', href: '/et/saage-eksponent/' }
+                },
+                hu: {
+                    early: { text: 'CSATLAKOZZON HOZZÁNK', href: '/hu/regisztracio/' },
+                    late: { text: 'FOGLALJON STANDOT', href: '/hu/legyen-kiallito/' }
+                },
+                fr: {
+                    early: { text: 'REJOIGNEZ-NOUS', href: '/fr/inscription/' },
+                    late: { text: 'RÉSERVEZ UN STAND', href: '/fr/devenez-exposant/' }
+                },
+                es: {
+                    early: { text: 'ÚNETE A NOSOTROS', href: '/es/registro/' },
+                    late: { text: 'RESERVA UN STAND', href: '/es/conviertete-en-expositor/' }
+                },
+                nl: {
+                    early: { text: 'DOE MEER', href: '/nl/registratie/' },
+                    late: { text: 'BOEK EEN STAND', href: '/nl/word-een-exposant/' }
                 }
             };
 

@@ -34,7 +34,11 @@ document.addEventListener("DOMContentLoaded", function() {
         lv: "Kļūsti par aģentu",
         sk: "Staňte sa agentom",
         ro: "Deveniți agent",
-        et: "Saage agendiks"
+        et: "Saage agendiks",
+        hu: "Legyen ügynök",
+        fr: "Devenez agent",
+        es: "Conviértete en agente",
+        nl: "Word een agent"
     };
 
     const agentLabel = agentTranslations[currentLang] || agentTranslations.en;
@@ -57,7 +61,11 @@ document.addEventListener("DOMContentLoaded", function() {
         lv: "Medalju pasniegšanas ceremonija",
         sk: "Medailový ceremoniál",
         ro: "Ceremonia de premiere",
-        et: "Medalite üleandmise tseremoonia"
+        et: "Medalite üleandmise tseremoonia",
+        hu: "Éremátadó ünnepség",
+        fr: "Cérémonie des médailles",
+        es: "Ceremonia de medallas",
+        nl: "Medailleceremonie"
     };
 
     const medalCeremonyLabel = medalCeremonyTranslations[currentLang] || medalCeremonyTranslations.en;
