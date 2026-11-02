@@ -37,6 +37,7 @@ class PWE_Elements_Data {
         'Other_Events',
         'Profiles',
         'Posts',
+        'Post_Template',
         'Medals',
         'Summary',
 
@@ -182,6 +183,9 @@ class PWE_Elements_Data {
         'layout' => [
             ['class' => 'Layout'],
             ['class' => 'Footer'],
+        ],
+        'posts' => [
+            ['class' => 'Post_Template'],
         ],
     ];
 
