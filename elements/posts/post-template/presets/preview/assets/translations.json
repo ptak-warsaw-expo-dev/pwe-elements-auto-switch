@@ -1,0 +1,137 @@
+{
+  "pl_PL": {
+    "exhibitions_title": "Co zobaczysz na targach",
+    "exhibition_scope": "Zakres ekspozycji",
+    "among_exhibitors": "Wśród wystawców",
+    "partners_title": "Partnerzy i środowisko branżowe",
+    "program_participants": "Uczestnicy programu",
+    "highlights_title": "Dlaczego warto uczestniczyć?",
+    "publication_date": "Data publikacji"
+  },
+  "en_US": {
+    "exhibitions_title": "What you'll see at the fair",
+    "exhibition_scope": "Exhibition scope",
+    "among_exhibitors": "Among the exhibitors",
+    "partners_title": "Partners and industry community",
+    "program_participants": "Program participants",
+    "highlights_title": "Why is it worth attending?",
+    "publication_date": "Publication date"
+  },
+  "cs_CZ": {
+    "exhibitions_title": "Co uvidíte na veletrhu",
+    "exhibition_scope": "Rozsah expozice",
+    "among_exhibitors": "Mezi vystavovateli",
+    "partners_title": "Partneři a odborná komunita",
+    "program_participants": "Účastníci programu",
+    "highlights_title": "Proč se vyplatí zúčastnit?",
+    "publication_date": "Datum zveřejnění"
+  },
+  "de_DE": {
+    "exhibitions_title": "Was Sie auf der Messe sehen werden",
+    "exhibition_scope": "Ausstellungsbereiche",
+    "among_exhibitors": "Unter den Ausstellern",
+    "partners_title": "Partner und Branchennetzwerk",
+    "program_participants": "Programmteilnehmer",
+    "highlights_title": "Warum lohnt sich die Teilnahme?",
+    "publication_date": "Veröffentlichungsdatum"
+  },
+  "it_IT": {
+    "exhibitions_title": "Cosa vedrai in fiera",
+    "exhibition_scope": "Settori espositivi",
+    "among_exhibitors": "Tra gli espositori",
+    "partners_title": "Partner e comunità del settore",
+    "program_participants": "Partecipanti al programma",
+    "highlights_title": "Perché vale la pena partecipare?",
+    "publication_date": "Data di pubblicazione"
+  },
+  "lt_LT": {
+    "exhibitions_title": "Ką pamatysite parodoje",
+    "exhibition_scope": "Ekspozicijos sritys",
+    "among_exhibitors": "Tarp parodos dalyvių",
+    "partners_title": "Partneriai ir pramonės bendruomenė",
+    "program_participants": "Programos dalyviai",
+    "highlights_title": "Kodėl verta dalyvauti?",
+    "publication_date": "Paskelbimo data"
+  },
+  "lv_LV": {
+    "exhibitions_title": "Ko jūs redzēsiet izstādē",
+    "exhibition_scope": "Ekspozīcijas jomas",
+    "among_exhibitors": "Starp izstādes dalībniekiem",
+    "partners_title": "Partneri un nozares kopiena",
+    "program_participants": "Programmas dalībnieki",
+    "highlights_title": "Kāpēc ir vērts piedalīties?",
+    "publication_date": "Publicēšanas datums"
+  },
+  "sk_SK": {
+    "exhibitions_title": "Čo uvidíte na veľtrhu",
+    "exhibition_scope": "Rozsah expozície",
+    "among_exhibitors": "Medzi vystavovateľmi",
+    "partners_title": "Partneri a odborná komunita",
+    "program_participants": "Účastníci programu",
+    "highlights_title": "Prečo sa oplatí zúčastniť?",
+    "publication_date": "Dátum zverejnenia"
+  },
+  "uk": {
+    "exhibitions_title": "Що ви побачите на виставці",
+    "exhibition_scope": "Тематика експозиції",
+    "among_exhibitors": "Серед експонентів",
+    "partners_title": "Партнери та галузева спільнота",
+    "program_participants": "Учасники програми",
+    "highlights_title": "Чому варто взяти участь?",
+    "publication_date": "Дата публікації"
+  },
+  "ro_RO": {
+    "exhibitions_title": "Ce vei vedea la târg",
+    "exhibition_scope": "Domenii expoziționale",
+    "among_exhibitors": "Printre expozanți",
+    "partners_title": "Parteneri și comunitatea de specialitate",
+    "program_participants": "Participanții la program",
+    "highlights_title": "De ce merită să participi?",
+    "publication_date": "Data publicării"
+  },
+  "et": {
+    "exhibitions_title": "Mida messil näete",
+    "exhibition_scope": "Ekspositsiooni valdkonnad",
+    "among_exhibitors": "Eksponentide seas",
+    "partners_title": "Partnerid ja valdkonna kogukond",
+    "program_participants": "Programmis osalejad",
+    "highlights_title": "Miks tasub osaleda?",
+    "publication_date": "Avaldamise kuupäev"
+  },
+  "hu_HU": {
+    "exhibitions_title": "Mit láthat a vásáron",
+    "exhibition_scope": "Kiállítási területek",
+    "among_exhibitors": "A kiállítók között",
+    "partners_title": "Partnerek és szakmai közösség",
+    "program_participants": "A program résztvevői",
+    "highlights_title": "Miért érdemes részt venni?",
+    "publication_date": "Közzététel dátuma"
+  },
+  "fr_FR": {
+    "exhibitions_title": "Ce que vous découvrirez au salon",
+    "exhibition_scope": "Secteurs d'exposition",
+    "among_exhibitors": "Parmi les exposants",
+    "partners_title": "Partenaires et communauté professionnelle",
+    "program_participants": "Participants au programme",
+    "highlights_title": "Pourquoi participer ?",
+    "publication_date": "Date de publication"
+  },
+  "es_ES": {
+    "exhibitions_title": "Qué verás en la feria",
+    "exhibition_scope": "Áreas de exposición",
+    "among_exhibitors": "Entre los expositores",
+    "partners_title": "Socios y comunidad del sector",
+    "program_participants": "Participantes del programa",
+    "highlights_title": "¿Por qué vale la pena participar?",
+    "publication_date": "Fecha de publicación"
+  },
+  "nl_NL": {
+    "exhibitions_title": "Wat u op de beurs zult zien",
+    "exhibition_scope": "Beurssectoren",
+    "among_exhibitors": "Onder de exposanten",
+    "partners_title": "Partners en branchegemeenschap",
+    "program_participants": "Programmadeelnemers",
+    "highlights_title": "Waarom is het de moeite waard om deel te nemen?",
+    "publication_date": "Publicatiedatum"
+  }
+}

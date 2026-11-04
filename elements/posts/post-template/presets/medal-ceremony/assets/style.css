@@ -1,0 +1,408 @@
+/* ------- BASE ------- */
+
+.pwe-limit-width:has(.pwe-post-medal-ceremony),
+.pwe-element-auto-switch:has(.pwe-post-medal-ceremony),
+.main-container .row-container .row-parent:has(.pwe-post-medal-ceremony) {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+}
+
+.pwe-post-medal-ceremony {
+    --medal-paper: #f5f6f8;
+    --medal-line: #e4e7ec;
+    --medal-gold: #c7a65b;
+    color: #000;
+    background: var(--medal-paper);
+    font-size: 15px;
+    font-weight: 400;
+    overflow-wrap: anywhere;
+}
+
+.pwe-post-medal-ceremony *, .pwe-post-medal-ceremony *::before, .pwe-post-medal-ceremony *::after {
+    box-sizing: border-box;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__wrap {
+    width: 100%;
+    max-width: 1200px;
+    padding: 36px;
+    margin-inline: auto;
+}
+
+.pwe-post-medal-ceremony h1, .pwe-post-medal-ceremony h2, .pwe-post-medal-ceremony h3 {
+    color: inherit;
+    font-weight: 700;
+    text-transform: none;
+    text-wrap: balance;
+    padding: 0;
+    margin: 0 0 22px;
+    letter-spacing: -.04em;
+}
+
+.pwe-post-medal-ceremony h1 {
+    max-width: 990px;
+    font-size: 40px;
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -.055em;
+}
+
+.pwe-post-medal-ceremony h2 {
+    font-size: 32px;
+    line-height: 1.2;
+}
+
+.pwe-post-medal-ceremony h3 {
+    font-size: 24px;
+    line-height: 1.3;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__copy, .pwe-post-medal-ceremony .pwe-post-medal-ceremony__copy p {
+    font: inherit;
+    color: inherit;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__copy p {
+    padding: 0;
+    margin: 0 0 1em;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__copy > :last-child {
+    margin-bottom: 0;
+}
+
+.pwe-post-medal-ceremony strong {
+    color: inherit;
+    font-weight: 700;
+}
+
+/* ------- INTRO SECTION ------- */
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__hero {
+    background: #fff;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__banner {
+    display: block;
+    width: 100%;
+    height: clamp(200px, 50vw, 500px);
+    min-height: 0;
+    object-fit: cover;
+    object-position: center;
+    background: #171b22;
+    border-radius: 12px;
+    margin-bottom: 36px;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__hero .pwe-post-medal-ceremony__copy {
+    max-width: 980px;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__eyebrow {
+    margin: 0 0 16px;
+    padding: 0;
+    color: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+}
+
+/* ------- BODY SECTION ------- */
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__body {
+    display: flex;
+    flex-direction: column;
+    gap: 72px;
+    padding-top: 72px;
+    padding-bottom: 48px;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__body > section, .pwe-post-medal-ceremony .pwe-post-medal-ceremony__body > footer {
+    margin: 0;
+}
+
+/* ------- CEREMONY SECTION ------- */
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__ceremony {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__people {
+    display: grid;
+    gap: 22px;
+    margin: 0;
+    padding: 0;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__people li {
+    border-left: 3px solid var(--medal-gold);
+    padding: 0 0 0 20px;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__people strong, .pwe-post-medal-ceremony .pwe-post-medal-ceremony__people span {
+    display: block;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__people strong {
+    font: 700 19px/1.4 Manrope, sans-serif;
+    margin-bottom: 5px;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__people span {
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* ------- CATEGORIES SECTION ------- */
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__categories {
+    display: grid;
+    gap: 28px;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__category {
+    min-width: 0;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__category-heading {
+    margin-bottom: 16px;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__category-heading h3 {
+    font-size: 21px;
+    margin: 0;
+    text-wrap: initial;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__category-winners {
+    min-width: 0;
+    padding: 30px 32px;
+    border: 1px solid var(--medal-line);
+    border-radius: 12px;
+    background: #fff;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__names {
+    padding: 0 !important;
+    margin: 0;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__category .pwe-post-medal-ceremony__names {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px 28px;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__category .pwe-post-medal-ceremony__names li {
+    padding: 6px 0 6px 14px;
+    border-left: 2px solid #e9dfc7;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+/* ------- DISTINCTIONS SECTION ------- */
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__recognition-heading h2 {
+    margin-bottom: 24px;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__distinctions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__distinction {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 32px;
+    border: 1px solid var(--medal-line);
+    border-radius: 12px;
+    background: #fff;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__distinction h3 {
+    align-self: flex-start;
+    padding: 6px 12px;
+    margin-bottom: 24px;
+    border-radius: 4px;
+    background: #f6f0e3;
+    color: #695222;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: normal;
+    text-wrap: initial;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__distinction .pwe-post-medal-ceremony__names {
+    display: grid;
+    gap: 16px;
+    margin: 0 0 28px;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__distinction .pwe-post-medal-ceremony__names li {
+    padding: 0;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -.025em;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__distinction-copy {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid var(--medal-line);
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__distinction .pwe-post-medal-ceremony__copy {
+    color: #4e5865;
+    font-size: 14px;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__legacy-award + .pwe-post-medal-ceremony__legacy-award {
+    margin-top: 16px;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__people li, .pwe-post-medal-ceremony .pwe-post-medal-ceremony__names li {
+    display: block;
+    list-style: none;
+    margin: 0;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__people li::before, .pwe-post-medal-ceremony .pwe-post-medal-ceremony__names li::before, .pwe-post-medal-ceremony .pwe-post-medal-ceremony__people li::marker, .pwe-post-medal-ceremony .pwe-post-medal-ceremony__names li::marker {
+    content: none;
+}
+
+/* ------- GALLERY SECTION ------- */
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__gallery {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__gallery a {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: 10px;
+    aspect-ratio: 800 / 534;
+    background: #dce0e5;
+    color: #fff;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__gallery img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .3s ease;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__gallery a:hover img {
+    transform: scale(1.04);
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__gallery a span {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgb(0 0 0 / 65%);
+}
+
+.pwe-post-medal-ceremony a:focus-visible {
+    outline: 3px solid var(--accent-color, #09699f);
+    outline-offset: 4px;
+}
+
+/* ------- CLOSING SECTION ------- */
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__closing {
+    padding: 44px;
+    border-radius: 16px;
+    color: #fff;
+    background: #161b24;
+}
+
+.pwe-post-medal-ceremony .pwe-post-medal-ceremony__publication {
+    font-size: 12px;
+    font-style: italic;
+}
+
+/* ------- RESPONSIVE ------- */
+
+@media (max-width: 760px) {
+    .pwe-post-medal-ceremony .pwe-post-medal-ceremony__wrap {
+        padding-inline: 22px;
+    }
+
+    .pwe-post-medal-ceremony .pwe-post-medal-ceremony__body {
+        gap: 44px;
+        padding-top: 44px;
+    }
+
+    .pwe-post-medal-ceremony h1 {
+        font-size: 30px;
+    }
+
+    .pwe-post-medal-ceremony h2 {
+        font-size: 27px;
+    }
+
+    .pwe-post-medal-ceremony .pwe-post-medal-ceremony__ceremony, .pwe-post-medal-ceremony .pwe-post-medal-ceremony__distinctions {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .pwe-post-medal-ceremony .pwe-post-medal-ceremony__category-winners, .pwe-post-medal-ceremony .pwe-post-medal-ceremony__distinction, .pwe-post-medal-ceremony .pwe-post-medal-ceremony__closing {
+        padding: 24px;
+    }
+
+    .pwe-post-medal-ceremony .pwe-post-medal-ceremony__category .pwe-post-medal-ceremony__names {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pwe-post-medal-ceremony .pwe-post-medal-ceremony__gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+@media (max-width: 480px) {
+    .pwe-post-medal-ceremony .pwe-post-medal-ceremony__category .pwe-post-medal-ceremony__names {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .pwe-post-medal-ceremony .pwe-post-medal-ceremony__gallery {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pwe-post-medal-ceremony .pwe-post-medal-ceremony__gallery img {
+        transition: none;
+    }
+
+}
+
+
+.pwe-post-medal-ceremony__ceremony > :only-child {
+    grid-column: 1 / -1;
+}
+
+.pwe-post-medal-ceremony__closing > .pwe-post-medal-ceremony__copy + .pwe-post-medal-ceremony__copy {
+    margin-top: 1em;
+}
