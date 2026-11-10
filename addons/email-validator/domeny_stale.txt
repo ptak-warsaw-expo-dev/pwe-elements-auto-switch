@@ -1,0 +1,77 @@
+# Domeny poprawne NA STAŁE: nigdy nie są sprawdzane przez DNS i ten plik nigdy nie wygasa.
+# Jedna domena w linii, małymi literami. Linie zaczynające się od # to komentarze. Plik edytujesz ręcznie.
+# Miejsce na serwerze: wp-content/uploads/generator_wystawcow/domeny/domeny_stale.txt
+#
+# Uwaga: wpisz tu tylko domeny, które na pewno istnieją i obsługują pocztę. Literówki (np. gmial.com) nie trafiają tu,
+# bo walidator wtyczki wyłapuje je osobno.
+
+# --- Polskie skrzynki ---
+wp.pl
+o2.pl
+onet.pl
+onet.eu
+op.pl
+interia.pl
+interia.eu
+poczta.fm
+poczta.onet.pl
+tlen.pl
+gazeta.pl
+vp.pl
+autograf.pl
+buziaczek.pl
+go2.pl
+orange.pl
+neostrada.pl
+netia.pl
+post.pl
+yahoo.pl
+hotmail.pl
+outlook.pl
+live.pl
+gmail.pl
+
+# --- Światowe skrzynki ---
+gmail.com
+googlemail.com
+outlook.com
+hotmail.com
+hotmail.co.uk
+live.com
+msn.com
+yahoo.com
+yahoo.co.uk
+yahoo.de
+yahoo.fr
+ymail.com
+icloud.com
+me.com
+mac.com
+aol.com
+protonmail.com
+protonmail.ch
+proton.me
+pm.me
+gmx.com
+gmx.de
+gmx.net
+web.de
+t-online.de
+freenet.de
+mail.com
+zoho.com
+fastmail.com
+yandex.com
+laposte.net
+orange.fr
+free.fr
+wanadoo.fr
+libero.it
+virgilio.it
+seznam.cz
+centrum.cz
+email.cz
+
+# --- Firmowe (własne) ---
+warsawexpo.eu
+ptak.pl

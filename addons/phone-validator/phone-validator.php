@@ -205,12 +205,17 @@ final class PWE_Phone_Validator_Addon
                 'required'      => 'El número de teléfono es obligatorio.',
                 'library_error' => 'No se ha podido cargar el validador del número de teléfono.',
             ],
+            'nl' => [
+                'invalid'       => 'Voer een geldig telefoonnummer in.',
+                'required'      => 'Telefoonnummer is verplicht.',
+                'library_error' => 'Het telefoonnummer-validator kon niet worden geladen.',
+            ],
         ];
     }
 
     private static function get_language(): string
     {
-        $allowed = ['pl', 'en', 'cs', 'de', 'it', 'lt', 'lv', 'sk', 'uk', 'ro', 'et', 'hu', 'fr', 'es'];
+        $allowed = ['pl', 'en', 'cs', 'de', 'it', 'lt', 'lv', 'sk', 'uk', 'ro', 'et', 'hu', 'fr', 'es', 'nl'];
         $locale = function_exists('determine_locale') ? determine_locale() : get_locale();
         $language = strtolower(substr(str_replace('_', '-', (string) $locale), 0, 2));
 

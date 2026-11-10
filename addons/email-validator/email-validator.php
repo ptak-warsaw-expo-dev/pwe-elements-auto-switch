@@ -235,11 +235,15 @@ final class PWE_Email_Validator_Addon {
 				'suggestion' => '¿Quiso decir %s?',
 				'validation' => 'La dirección probablemente contiene un error en el dominio «%1$s». ¿Quiso decir «%2$s»?',
 			],
+			'nl' => [
+				'suggestion' => 'Bedoelde u %s?',
+				'validation' => 'Het adres bevat waarschijnlijk een typefout in het domein “%1$s”. Bedoelde u “%2$s”?',
+			],
 		];
 	}
 
 	private static function get_language(): string {
-		$allowed = [ 'pl', 'en', 'cs', 'de', 'it', 'lt', 'lv', 'sk', 'uk', 'ro', 'et', 'hu', 'fr', 'es' ];
+		$allowed = [ 'pl', 'en', 'cs', 'de', 'it', 'lt', 'lv', 'sk', 'uk', 'ro', 'et', 'hu', 'fr', 'es', 'nl' ];
 		$locale  = function_exists( 'determine_locale' ) ? determine_locale() : get_locale();
 		$language = strtolower( substr( str_replace( '_', '-', (string) $locale ), 0, 2 ) );
 
