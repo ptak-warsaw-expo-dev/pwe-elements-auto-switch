@@ -82,5 +82,11 @@
     "catalog_subtitle": "Nuestros <span class='pwe-text-red'>Expositores</span>",
     "catalog_link": "/es/directorio-de-expositores/",
     "catalog_link_text": "Ver catálogo"
+  },
+  "nl_NL": {
+    "catalog_title": "Exposanten",
+    "catalog_subtitle": "Onze <span class='pwe-text-red'>Exposanten</span>",
+    "catalog_link": "/nl/exposantencatalogus/",
+    "catalog_link_text": "Bekijk catalogus"
   }
 }

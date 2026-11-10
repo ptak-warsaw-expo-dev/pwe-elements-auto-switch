@@ -11,7 +11,8 @@
         "link_to_registration_text_exh":"link do rejestracji wystawcy",
         "register":"Zarejestruj się",
         "free_ticket": "Odbierz <span>darmowy</span> bilet",
-        "become_exhibitor": "Zostań<br>Wystawcą"
+        "become_exhibitor": "Zostań<br>Wystawcą",
+        "fair_plan":"Plan<br>Targów"
     },
     "en_US": {
         "premier_edition": "Premier Edition",
@@ -25,7 +26,8 @@
         "link_to_registration_text_exh":"link to exhibitor registration",
         "register":"Register",
         "free_ticket": "Get a <span>free</span> ticket",
-        "become_exhibitor": "Become<br>an Exhibitor"
+        "become_exhibitor": "Become<br>an Exhibitor",
+        "fair_plan":"Trade fair<br>Plan"
     },
     "de_DE": {
         "premier_edition": "Premiere Edition",
@@ -39,7 +41,8 @@
         "link_to_registration_text_exh":"Link zur Ausstellerregistrierung",
         "register":"Registrieren",
         "free_ticket": "<span>Gratis-</span>Ticket holen",
-        "become_exhibitor": "Aussteller<br>werden"
+        "become_exhibitor": "Aussteller<br>werden",
+        "fair_plan":"Messeplan"
     },
     "cs_CZ": {
         "premier_edition": "Premiérový ročník",
@@ -53,7 +56,8 @@
         "link_to_registration_text_exh":"odkaz na registraci vystavovatele",
         "register":"Zaregistrujte se",
         "free_ticket": "Získejte <span>bezplatnou</span> vstupenku",
-        "become_exhibitor": "Staňte se<br>vystavovatelem"
+        "become_exhibitor": "Staňte se<br>vystavovatelem",
+        "fair_plan":"Plán<br>veletrhu"
     },
     "it_IT": {
         "premier_edition": "Edizione inaugurale",
@@ -67,7 +71,8 @@
         "link_to_registration_text_exh":"link alla registrazione espositori",
         "register":"Registrati",
         "free_ticket": "Ottieni un biglietto <span>gratuito</span>",
-        "become_exhibitor": "Diventa<br>Espositore"
+        "become_exhibitor": "Diventa<br>Espositore",
+        "fair_plan":"Pianta della<br>fiera"
     },
     "lt_LT": {
         "premier_edition": "Premjerinis leidimas",
@@ -81,7 +86,8 @@
         "link_to_registration_text_exh":"dalyvio registracijos nuoroda",
         "register":"Registruokitės",
         "free_ticket": "Gaukite <span>nemokamą</span> bilietą",
-        "become_exhibitor": "Tapkite<br>dalyviu"
+        "become_exhibitor": "Tapkite<br>dalyviu",
+        "fair_plan":"Parodos<br>planas"
     },
     "lv_LV": {
         "premier_edition": "Pirmizrādes izdevums",
@@ -95,7 +101,8 @@
         "link_to_registration_text_exh":"izstādes dalībnieka reģistrācijas saite",
         "register":"Reģistrējieties",
         "free_ticket": "Saņemiet <span>bezmaksas</span> biļeti",
-        "become_exhibitor": "Kļūstiet par<br>izstādes dalībnieku"
+        "become_exhibitor": "Kļūstiet par<br>izstādes dalībnieku",
+        "fair_plan":"Izstādes<br>plāns"
     },
     "sk_SK": {
         "premier_edition": "Premiérový ročník",
@@ -109,7 +116,8 @@
         "link_to_registration_text_exh":"odkaz na registráciu vystavovateľa",
         "register":"Zaregistrujte sa",
         "free_ticket": "Získajte <span>bezplatnú</span> vstupenku",
-        "become_exhibitor": "Staňte sa<br>vystavovateľom"
+        "become_exhibitor": "Staňte sa<br>vystavovateľom",
+        "fair_plan":"Plán<br>výstavy"
     },
     "uk": {
         "premier_edition": "Прем'єрний випуск",
@@ -123,7 +131,8 @@
         "link_to_registration_text_exh":"посилання на реєстрацію експонента",
         "register":"Зареєструватися",
         "free_ticket": "Отримайте <span>безкоштовний</span> квиток",
-        "become_exhibitor": "Стати<br>експонентом"
+        "become_exhibitor": "Стати<br>експонентом",
+        "fair_plan":"План<br>виставки"
     },
     "ro_RO": {
         "premier_edition": "Ediție de premieră",
@@ -137,7 +146,8 @@
         "link_to_registration_text_exh":"link către înregistrarea expozentului",
         "register":"Înregistrare",
         "free_ticket": "Obține un <span>bilet gratuit</span>",
-        "become_exhibitor": "Devino<br>expozent"
+        "become_exhibitor": "Devino<br>expozent",
+        "fair_plan":"Planul<br>Târgului"
     },
     "et": {
         "premier_edition": "Esimene väljaanne",
@@ -151,7 +161,8 @@
         "link_to_registration_text_exh":"link eksponendiks registreerimiseks",
         "register":"Registreeru",
         "free_ticket": "Hangi <span>tasuta</span> pilet",
-        "become_exhibitor": "Saa<br>eksponeerijaks"
+        "become_exhibitor": "Saa<br>eksponeerijaks",
+        "fair_plan":"Messi<br>plaan"
     },
     "hu_HU": {
         "premier_edition": "Premier kiadás",
@@ -165,7 +176,8 @@
         "link_to_registration_text_exh":"kiállítói regisztrációs link",
         "register":"Regisztráció",
         "free_ticket": "Szerezzen <span>ingyenes</span> jegyet",
-        "become_exhibitor": "Legyen<br>Kiállító"
+        "become_exhibitor": "Legyen<br>Kiállító",
+        "fair_plan":"Vásár<br>terve"
     },
     "fr_FR": {
         "premier_edition": "Édition Premier",
@@ -179,7 +191,8 @@
         "link_to_registration_text_exh":"lien vers l'inscription des exposants",
         "register":"S'inscrire",
         "free_ticket": "Obtenez un <span>billet gratuit</span>",
-        "become_exhibitor": "Devenez<br>exposant"
+        "become_exhibitor": "Devenez<br>exposant",
+        "fair_plan":"Plan de la<br>foire"
     },
     "es_ES": {
         "premier_edition": "Edición Premier",
@@ -193,6 +206,22 @@
         "link_to_registration_text_exh":"enlace de registro del expositor",
         "register":"Registrarse",
         "free_ticket": "Obtén un <span>boleto gratis</span>",
-        "become_exhibitor": "Conviértete en<br>expositor"
+        "become_exhibitor": "Conviértete en<br>expositor",
+        "fair_plan":"Plan de la<br>feria"
+    },
+    "nl_NL": {
+        "premier_edition": "Premier editie",
+        "edition":" editie",
+        "warsaw":"Warschau",
+        "warsaw_poland":"Warschau, Polen",
+        "link_to_registration":"/nl/registratie/",
+        "link_to_tickets": "/en/buy-ticket/",
+        "link_to_registration_text":"link naar registratie",
+        "link_to_registration_exh":"/nl/word-een-exposant/",
+        "link_to_registration_text_exh":"link naar exposantenregistratie",
+        "register":"Registreer",
+        "free_ticket": "Krijg een <span>gratis</span> ticket",
+        "become_exhibitor": "Word<br>exposant",
+        "fair_plan":"Beurs<br>plan"
     }
 }

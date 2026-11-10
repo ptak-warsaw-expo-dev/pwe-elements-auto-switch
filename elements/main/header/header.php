@@ -52,6 +52,27 @@ class Header {
             $trade_fair_edition_first = PWE_Functions::multi_translation('premier_edition');
             $trade_fair_edition = (!is_numeric($trade_fair_edition_shortcode) || $trade_fair_edition_shortcode == 1) ? $trade_fair_edition_first : $trade_fair_edition_shortcode . $trade_fair_edition_text;
 
+            $cap_files = PWE_Functions::get_database_fairs_data_files();
+            $fair_current_year = do_shortcode('[trade_fair_catalog_year]');
+
+            $active_current_fair_plan = null;
+
+            $all_fair_plans = [];
+
+            $latest_post_show_year = 0;
+
+            foreach ($cap_files as $item) {
+
+                if ($item->category_slug === 'trade-fair-plan' && $item->is_active == '1') {
+
+                    $all_fair_plans[] = $item;
+
+                    if ($item->year == $fair_current_year) {
+                        $active_current_fair_plan = $item;
+                    }
+                }
+            }
+
             /* <-------------> General code end <-------------> */
 
             $output = include $preset_file;

@@ -9,7 +9,8 @@
         "link_to_tickets": "/kup-bilet/",
         "link_to_registration_alt":"link do rejestracji",
         "register":"Zarejestruj się",
-        "free_ticket": "Odbierz darmowy bilet"
+        "free_ticket": "Odbierz darmowy bilet",
+        "fair_plan":"Plan Targów"
     },
     "en_US": {
         "premier_edition": "Premier Edition",
@@ -21,7 +22,8 @@
         "link_to_tickets": "/en/buy-ticket/",
         "link_to_registration_alt":"link to registration",
         "register":"Register",
-        "free_ticket": "Get a free ticket"
+        "free_ticket": "Get a free ticket",
+        "fair_plan":"Trade fair plan"
     },
     "de_DE": {
         "premier_edition": "Premiere Edition",
@@ -33,7 +35,8 @@
         "link_to_tickets": "/en/buy-ticket/",
         "link_to_registration_alt":"Registrierungslink",
         "register":"Registrieren",
-        "free_ticket": "Gratis-Ticket holen"
+        "free_ticket": "Gratis-Ticket holen",
+        "fair_plan":"Messe plan"
     },
     "cs_CZ": {
         "premier_edition": "Premiérový ročník",
@@ -45,7 +48,8 @@
         "link_to_tickets": "/en/buy-ticket/",
         "link_to_registration_alt":"odkaz na registraci",
         "register":"Zaregistrujte se",
-        "free_ticket": "Získejte vstupenku zdarma"
+        "free_ticket": "Získejte vstupenku zdarma",
+        "fair_plan":"Plán veletrhu"
     },
     "it_IT": {
         "premier_edition": "Edizione inaugurale",
@@ -57,7 +61,8 @@
         "link_to_tickets": "/en/buy-ticket/",
         "link_to_registration_alt":"link alla registrazione",
         "register":"Registrati",
-        "free_ticket": "Ottieni un biglietto gratuito"
+        "free_ticket": "Ottieni un biglietto gratuito",
+        "fair_plan":"Pianta della fiera"
     },
     "lt_LT": {
         "premier_edition": "Premjerinis leidimas",
@@ -69,7 +74,8 @@
         "link_to_tickets": "/en/buy-ticket/",
         "link_to_registration_alt":"registracijos nuoroda",
         "register":"Registruokitės",
-        "free_ticket": "Gaukite nemokamą bilietą"
+        "free_ticket": "Gaukite nemokamą bilietą",
+        "fair_plan":"Parodos planas"
     },
     "lv_LV": {
         "premier_edition": "Pirmizrādes izdevums",
@@ -81,7 +87,8 @@
         "link_to_tickets": "/en/buy-ticket/",
         "link_to_registration_alt":"reģistrācijas saite",
         "register":"Reģistrējieties",
-        "free_ticket": "Saņemiet bezmaksas biļeti"
+        "free_ticket": "Saņemiet bezmaksas biļeti",
+        "fair_plan":"Izstādes plāns"
     },
     "sk_SK": {
         "premier_edition": "Premiérový ročník",
@@ -93,7 +100,8 @@
         "link_to_tickets": "/en/buy-ticket/",
         "link_to_registration_alt":"odkaz na registráciu",
         "register":"Zaregistrujte sa",
-        "free_ticket": "Získajte bezplatnú vstupenku"
+        "free_ticket": "Získajte bezplatnú vstupenku",
+        "fair_plan":"Plán veľtrhu"
     },
     "uk": {
         "premier_edition": "Прем'єрний випуск",
@@ -105,7 +113,8 @@
         "link_to_tickets": "/en/buy-ticket/",
         "link_to_registration_alt":"посилання на реєстрацію",
         "register":"Зареєструватися",
-        "free_ticket": "Отримайте безкоштовний квиток"
+        "free_ticket": "Отримайте безкоштовний квиток",
+        "fair_plan":"План виставки"
     },
     "ro_RO": {
         "premier_edition": "Ediție de premieră",
@@ -117,7 +126,8 @@
         "link_to_tickets": "/en/buy-ticket/",
         "link_to_registration_alt":"link către înregistrare",
         "register":"Înregistrare",
-        "free_ticket": "Obține un bilet gratuit"
+        "free_ticket": "Obține un bilet gratuit",
+        "fair_plan":"Planul târgului"
     },
     "et": {
         "premier_edition": "Esimene väljaanne",
@@ -129,7 +139,8 @@
         "link_to_tickets": "/en/buy-ticket/",
         "link_to_registration_alt":"link registreerimiseks",
         "register":"Registreeru",
-        "free_ticket": "Hangi tasuta pilet"
+        "free_ticket": "Hangi tasuta pilet",
+        "fair_plan":"Messi plaan"
     },
     "hu_HU": {
         "premier_edition": "Premier kiadás",
@@ -141,7 +152,8 @@
         "link_to_tickets": "/en/buy-ticket/",
         "link_to_registration_alt":"regisztrációs link",
         "register":"Regisztráció",
-        "free_ticket": "Szerezzen ingyenes jegyet"
+        "free_ticket": "Szerezzen ingyenes jegyet",
+        "fair_plan":"Vásár terve"
     },
     "fr_FR": {
         "premier_edition": "Édition Premier",
@@ -153,7 +165,8 @@
         "link_to_tickets": "/en/buy-ticket/",
         "link_to_registration_alt":"lien vers l'inscription",
         "register":"S'inscrire",
-        "free_ticket": "Obtenez un billet gratuit"
+        "free_ticket": "Obtenez un billet gratuit",
+        "fair_plan":"Plan de la foire"
     },
     "es_ES": {
         "premier_edition": "Edición Premier",
@@ -165,6 +178,20 @@
         "link_to_tickets": "/en/buy-ticket/",
         "link_to_registration_alt":"enlace de registro",
         "register":"Registrarse",
-        "free_ticket": "Obtén un boleto gratis"
+        "free_ticket": "Obtén un boleto gratis",
+        "fair_plan":"Plan de la feria"
+    },
+    "nl_NL": {
+        "premier_edition": "Premier editie",
+        "edition":" editie",
+        "warsaw":"Warschau",
+        "poland":"Polen",
+        "warsaw_poland":"Warschau, Polen",
+        "link_to_registration":"/nl/registratie/",
+        "link_to_tickets": "/en/buy-ticket/",
+        "link_to_registration_alt":"link naar registratie",
+        "register":"Registreren",
+        "free_ticket": "Krijg een gratis ticket",
+        "fair_plan":"Beursplan"
     }
 }

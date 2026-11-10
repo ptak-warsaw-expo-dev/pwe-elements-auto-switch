@@ -84,6 +84,10 @@
 .pwe-element-auto-switch .pwe-header .pwe-btn.btn-exhibitors {
     background: var(--accent-color);
 }
+.pwe-element-auto-switch .pwe-header .pwe-btn.btn-plan {
+    background: white;
+    color: black !important;
+}
 .pwe-element-auto-switch .pwe-header .pwe-btn-container .btn-angle-right {
     position: absolute;
     right: 36px;

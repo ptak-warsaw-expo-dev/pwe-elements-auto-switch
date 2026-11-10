@@ -7,7 +7,12 @@ $output = '
             <div class="pwe-exhibitors__text-wrapper">
                 <h4 class="pwe-main-title">'. PWE_Functions::multi_translation("catalog_title") .'</h4>
                 <p>'. PWE_Functions::multi_translation("catalog_desc") .' '. (ceil(count($exhibitors) / 100) * 100) .'+</p>
-                <a class="pwe-main-btn--secondary" href="'. PWE_Functions::multi_translation("catalog_link") .'">'. PWE_Functions::multi_translation("catalog_link_text") .'</a>
+                <a class="pwe-main-btn--secondary" href="'. PWE_Functions::multi_translation("catalog_link") .'">'. PWE_Functions::multi_translation("catalog_link_text") .'</a>';
+                if ($active_current_fair_plan) {
+                    $output .= '
+                    <a class="pwe-main-btn--secondary" href="'. (PWE_Functions::lang_pl() ? '/plan-targow/' : '/en/fair-plan/') .'">'. PWE_Functions::multi_translation('fair_plan') .'</a>';
+                }
+                $output .= '
             </div>
         </div>
         <div class="pwe-exhibitors__items swiper">

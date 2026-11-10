@@ -236,5 +236,22 @@
         "europe_text": "en Europa Central y del Este",
         "tickets": "Boletos",
         "join_us": "Únete a nosotros"
+    },
+    "nl_NL": {
+        "premier_edition": "Premier editie",
+        "edition": " editie",
+        "warsaw": "Warschau",
+        "warsaw_poland": "Warschau, Polen",
+        "link_to_registration": "/nl/registratie/",
+        "link_to_tickets": "/en/buy-ticket/",
+        "link_to_registration_text": "link naar registratie",
+        "link_to_registration_exh": "/nl/word-een-exposant/",
+        "link_to_registration_text_exh": "link naar exposantenregistratie",
+        "register": "Registreren",
+        "free_ticket": "Krijg een <span>gratis</span> ticket",
+        "become_exhibitor": "Word<br>een exposant",
+        "europe_text": "in Centraal- en Oost-Europa",
+        "tickets": "Tickets",
+        "join_us": "Doe met ons mee"
     }
 }

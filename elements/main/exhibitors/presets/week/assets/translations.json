@@ -64,9 +64,14 @@
     "catalog_link": "/fr/annuaire-des-exposants/",
     "catalog_link_text": "Voir le catalogue"
   },
-    "es_ES": {
-        "catalog_title": "Expositores",
-        "catalog_link": "/es/directorio-de-expositores/",
-        "catalog_link_text": "Ver catálogo"
-    }
+  "es_ES": {
+    "catalog_title": "Expositores",
+    "catalog_link": "/es/directorio-de-expositores/",
+    "catalog_link_text": "Ver catálogo"
+  },
+  "nl_NL": {
+    "catalog_title": "Exposanten",
+    "catalog_link": "/nl/exposantencatalogus/",
+    "catalog_link_text": "Bekijk catalogus"
+  }
 }

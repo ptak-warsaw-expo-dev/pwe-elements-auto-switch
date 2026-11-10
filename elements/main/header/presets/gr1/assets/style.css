@@ -91,10 +91,13 @@
     margin: 0 auto;
     display: flex;
 }
+.pwe-element-auto-switch .pwe-header__buttons {
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+}
 .pwe-element-auto-switch .pwe-btn-container {
     padding: 0;
-    max-width: 450px;
-    width: 100%;
     display: flex;
     justify-content: left;
     align-items: center;
@@ -113,17 +116,41 @@
     align-items: center;
     gap: 10px;
 }
+.pwe-element-auto-switch #pweBtnFairPlan .pwe-btn {
+    position: relative;
+    background: white;
+    color: var(--main2-color);
+    padding: 12px 50px 12px 30px !important;
+    border-radius: 24px !important;
+    font-weight: 700;
+    text-align: center;
+    min-width: auto !important;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 .pwe-element-auto-switch #pweBtnRegistration .pwe-btn:hover {
     background: var(--main2_darker_color);
 }
-.pwe-element-auto-switch #pweBtnRegistration .pwe-btn svg {
+.pwe-element-auto-switch #pweBtnFairPlan .pwe-btn:hover {
+    background: rgb(224, 224, 224);
+}
+.pwe-element-auto-switch #pweBtnRegistration .pwe-btn svg,
+.pwe-element-auto-switch #pweBtnFairPlan .pwe-btn svg {
     position: absolute;
     right: 28px;
     transition: .3s ease;
 }
-.pwe-element-auto-switch #pweBtnRegistration .pwe-btn:hover svg {
+.pwe-element-auto-switch #pweBtnFairPlan .pwe-btn path {
+    stroke: var(--main2-color);
+}
+.pwe-element-auto-switch #pweBtnRegistration .pwe-btn:hover svg,
+.pwe-element-auto-switch #pweBtnFairPlan .pwe-btn:hover svg {
     position: absolute;
     right: 22px;
+}
+.pwe-element-auto-switch #pweBtnFairPlan .pwe-btn path {
+    stroke: var(--main2_darker_color);
 }
 .pwe-element-auto-switch .video-background {
     position: relative;

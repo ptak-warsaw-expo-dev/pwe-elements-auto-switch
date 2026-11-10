@@ -6,7 +6,14 @@ $output = '
         <div class="pwe-exhibitors__top">
             <h4 class="pwe-main-title">'. PWE_Functions::multi_translation("catalog_title") .'</h4> 
 
-            <div class="pwe-exhibitors__buttons">
+            <div class="pwe-exhibitors__buttons">';
+                if ($active_current_fair_plan) {
+                    $output .= '
+                    <div class="pwe-exhibitors__button desktop">
+                        <a href="'. (PWE_Functions::lang_pl() ? '/plan-targow/' : '/en/fair-plan/') .'">'. PWE_Functions::multi_translation('fair_plan') .'</a>
+                    </div>';
+                }
+                $output .= '
                 <div class="pwe-exhibitors__button desktop">
                     <a href="'. PWE_Functions::multi_translation("catalog_link") .'">'. PWE_Functions::multi_translation("catalog_link_text") .'</a>
                 </div>

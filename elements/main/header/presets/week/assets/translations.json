@@ -180,5 +180,18 @@
         "register": "Regístrate",
         "become_exhibitor": "Conviértete en expositor",
         "download_offer": "DESCARGAR OFERTA"
+    },
+    "nl_NL": {
+        "premier_edition": "Premier editie",
+        "edition": " editie",
+        "warsaw": "Warschau",
+        "warsaw_poland": "Warschau, Polen",
+        "link_to_registration": "/nl/registratie/",
+        "link_to_registration_text": "link naar registratie",
+        "link_to_registration_exh": "/nl/word-een-exposant/",
+        "link_to_registration_text_exh": "link naar exposantenregistratie",
+        "register": "Registreren",
+        "become_exhibitor": "Word een exposant",
+        "download_offer": "DOWNLOAD AANBOD"
     }
 }

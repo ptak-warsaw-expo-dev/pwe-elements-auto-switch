@@ -34,16 +34,33 @@ $output = '
                                 </span>
                             </h2>
                         </div>
-                        <div id="pweBtnRegistration" class="pwe-btn-container header-button">
-                            <a
-                                class="pwe-link pwe-btn"
-                                href="'. ($b2c ? PWE_Functions::multi_translation("link_to_tickets") : PWE_Functions::multi_translation('link_to_registration')) .'"
-                                alt="'. PWE_Functions::multi_translation('link_to_registration_alt') .'">
-                                '. ($b2c ? PWE_Functions::languageChecker('Kup bilet', 'Buy a ticket') : PWE_Functions::multi_translation('register')) .'
-                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M13 7L1 7M13 7L7 13M13 7L7 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </a>
+                        <div class="pwe-header__buttons">
+                            <div id="pweBtnRegistration" class="pwe-btn-container header-button">
+                                <a
+                                    class="pwe-link pwe-btn"
+                                    href="'. ($b2c ? PWE_Functions::multi_translation("link_to_tickets") : PWE_Functions::multi_translation('link_to_registration')) .'"
+                                    alt="'. PWE_Functions::multi_translation('link_to_registration_alt') .'">
+                                    '. ($b2c ? PWE_Functions::languageChecker('Kup bilet', 'Buy a ticket') : PWE_Functions::multi_translation('register')) .'
+                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13 7L1 7M13 7L7 13M13 7L7 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </a>
+                            </div>';
+                            if ($active_current_fair_plan) {
+                                $output .= '
+                                <div id="pweBtnFairPlan" class="pwe-btn-container header-button">
+                                    <a
+                                        class="pwe-link pwe-btn"
+                                        href="'. (PWE_Functions::lang_pl() ? '/plan-targow/' : '/en/fair-plan/') .'"
+                                        alt="'. PWE_Functions::multi_translation('fair_plan') .'">
+                                        '. PWE_Functions::multi_translation('fair_plan') .'
+                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M13 7L1 7M13 7L7 13M13 7L7 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </a>
+                                </div>';
+                            }
+                            $output .= '
                         </div>
                     </div>
                 </div>
