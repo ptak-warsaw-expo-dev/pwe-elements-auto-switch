@@ -44,6 +44,7 @@ class Exhibitor_Catalog {
 
 
         self::enqueue_assets();
+        self::enqueue_fair_plan_link($is_archive);
         // self::enqueue_feedback_assets();
         self::inject_config($atts);
         // self::sync_archive_catalog_entry($atts);
@@ -257,6 +258,84 @@ class Exhibitor_Catalog {
             null,
             true
         );
+    }
+
+    private static function enqueue_fair_plan_link($is_archive = false) {
+        if ($is_archive || !wp_script_is('vue-catalog', 'enqueued')) return;
+
+        $year = trim((string) do_shortcode('[trade_fair_catalog_year]'));
+        if ($year === '') return;
+
+        $has_plan = false;
+        foreach (PWE_Functions::get_database_fairs_data_files() as $item) {
+            if (($item->category_slug ?? '') === 'trade-fair-plan'
+                && (string) ($item->is_active ?? '') === '1'
+                && (string) ($item->year ?? '') === $year) {
+                $has_plan = true;
+                break;
+            }
+        }
+        if (!$has_plan) return;
+
+        $lang = strtolower((string) PWE_Functions::lang());
+        $url = home_url($lang === 'pl' ? '/plan-targow/' : '/en/fair-plan/');
+        $label = $lang === 'pl' ? 'Zobacz plan targów' : 'View trade Fair Plan';
+
+        if (!in_array($lang, ['pl', 'en'], true)) {
+
+            $locale_map = [
+                'de' => 'de_DE', 'cs' => 'cs_CZ', 'it' => 'it_IT',
+                'lt' => 'lt_LT', 'lv' => 'lv_LV', 'sk' => 'sk_SK',
+                'uk' => 'uk', 'ro' => 'ro_RO', 'et' => 'et',
+                'hu' => 'hu_HU', 'fr' => 'fr_FR', 'es' => 'es_ES', 'nl' => 'nl_NL',
+            ];
+            $translations_file = dirname(__DIR__, 2) . '/main/header/presets/gr2/assets/translations.json';
+            $translations = is_file($translations_file) ? json_decode(file_get_contents($translations_file), true) : [];
+            $raw_label = $translations[$locale_map[$lang] ?? '']['fair_plan'] ?? '';
+            if ($raw_label !== '') {
+                $label = trim(wp_strip_all_tags(preg_replace('~<br\s*/?>~i', ' ', $raw_label)));
+            }
+        }
+
+        $config = wp_json_encode(
+            ['url' => $url, 'label' => $label],
+            JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
+        );
+        if (!$config) return;
+
+        $js = <<<'JS'
+        (function (config) {
+            function setPlanLink() {
+                var root = document.getElementById('vue-catalog');
+                if (!root) return;
+                root.querySelectorAll('.catalog-topbar__heading').forEach(function (heading) {
+                    heading.style.setProperty('font-size', '23px', 'important');
+                    if (heading.querySelector('.pwe-catalog-plan-link')) return;
+                    var link = document.createElement('a');
+                    link.className = 'pwe-catalog-plan-link notranslate';
+                    link.setAttribute('translate', 'no');
+                    link.href = config.url;
+                    link.textContent = config.label;
+                    link.style.cssText = 'color:inherit;font:inherit;text-decoration:none;cursor:pointer;border:2px solid var(--main2-color);padding:5px 10px;border-radius:20px;font-size:22px;';
+                    heading.classList.add('notranslate');
+                    heading.setAttribute('translate', 'no');
+                    heading.replaceChildren(link);
+                });
+            }
+            function init() {
+                var root = document.getElementById('vue-catalog');
+                if (!root) return;
+                new MutationObserver(setPlanLink).observe(root, {childList: true, subtree: true});
+                setPlanLink();
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init, {once: true});
+            } else {
+                init();
+            }
+        })(__CONFIG__);
+        JS;
+        wp_add_inline_script('vue-catalog', str_replace('__CONFIG__', $config, $js), 'after');
     }
 
     private static function enqueue_feedback_assets() {
@@ -590,7 +669,7 @@ class Exhibitor_Catalog {
                 )
             );
 
-            $catalog_address = PWECommonFunctions::get_database_meta_data('exh_catalog_address_2');
+            $catalog_address = PWE_Functions::get_database_meta_data('exh_catalog_address_2');
 
             $all_exhibitors = [];
 
