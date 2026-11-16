@@ -48,13 +48,15 @@ class Menu {
             $active_current_fair_plan = null;
             $active_current_post_show = null;
             $active_current_fair_offer = null;
+            $active_current_fair_schedule = null;
 
             $all_fair_plans = [];
             $all_post_shows = [];
+            $all_fair_schedules = [];
 
             $latest_post_show_year = 0;
             $latest_fair_offer_year = 0;
-
+            $latest_fair_schedule_year = 0;
 
             /**
              * ALL TRADE FAIR PLANS
@@ -74,7 +76,6 @@ class Menu {
                     }
                 }
             }
-
 
             /**
              * ALL POST SHOW REPORTS + CURRENT
@@ -119,6 +120,26 @@ class Menu {
                 }
             }
 
+            /**
+             * TRADE FAIR SCHEDULE – current fair year only
+             */
+            foreach ($cap_files as $item) {
+
+                if (
+                    $item->category_slug === 'trade-fair-schedule' &&
+                    $item->is_active == '1' &&
+                    in_array($item->language, [$current_lang, 'all'], true)
+                ) {
+
+                    // Keep all schedules for previous editions
+                    $all_fair_schedules[] = $item;
+
+                    // Show in the main menu only for the current fair year
+                    if ((int) $item->year === (int) $fair_current_year) {
+                        $active_current_fair_schedule = $item;
+                    }
+                }
+            }
 
             // sortowanie od najnowszych edycji
             usort($all_fair_plans, function($a, $b) {

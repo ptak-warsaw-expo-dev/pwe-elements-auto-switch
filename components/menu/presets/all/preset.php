@@ -388,6 +388,24 @@ if (!function_exists('render_submenu')) {
                     'es' => 'Oferta de la feria',
                     'fr' => 'Offre du salon',
                     'nl' => 'Beursaanbieding'
+                ],
+
+                'fair_schedule' => [
+                    'pl' => 'Harmonogram',
+                    'en' => 'Schedule',
+                    'de' => 'Zeitplan',
+                    'it' => 'Programma',
+                    'cs' => 'Harmonogram',
+                    'sk' => 'Harmonogram',
+                    'uk' => 'Розклад',
+                    'lt' => 'Tvarkaraštis',
+                    'lv' => 'Grafiks',
+                    'ro' => 'Program',
+                    'et' => 'Ajakava',
+                    'hu' => 'Ütemterv',
+                    'es' => 'Horario',
+                    'fr' => 'Calendrier',
+                    'nl' => 'Schema'
                 ]
             ];
 
@@ -451,6 +469,22 @@ if (!function_exists('render_submenu')) {
                             }
                         }
 
+                        // TRADE FAIR SCHEDULE
+                        foreach ($dynamic_items['all_fair_schedules'] ?? [] as $fair_schedule) {
+
+                            if ((int)$fair_schedule->year === (int)$edition_year) {
+
+                                $edition_dynamic[] = (object)[
+                                    'ID' => 'dynamic_fair_schedule_'.$edition_year,
+                                    'title' => ($labels['fair_schedule'][$lang] ?? $labels['fair_schedule']['en']) . ' ' . $edition_year,
+                                    'url' => 'https://cap.warsawexpo.eu'.$fair_schedule->file_path,
+                                    'target' => '_blank'
+                                ];
+
+                                break;
+                            }
+                        }
+
 
                         // Attach dynamic items to the matching Edition submenu.
                         if (!empty($edition_dynamic)) {
@@ -474,10 +508,7 @@ if (!function_exists('render_submenu')) {
                 if ($is_first_menu && $depth === 1) {
 
                     // TRADE FAIR PLAN
-                    if (
-                        !empty($dynamic_items['fair_plan'])
-                        && is_current_trade_fair_plan_visible()
-                    ) {
+                    if (!empty($dynamic_items['fair_plan']) && is_current_trade_fair_plan_visible()) {
                         $dynamic_menu_items[] = (object)[
                             'ID' => 'dynamic_fair_plan',
                             'title' => $labels['fair_plan'][$lang] ?? $labels['fair_plan']['en'],
@@ -486,7 +517,6 @@ if (!function_exists('render_submenu')) {
                                 : '/en/fair-plan/'
                         ];
                     }
-
 
                     // POST SHOW REPORT
                     if (!empty($dynamic_items['post_show'])) {
@@ -503,6 +533,25 @@ if (!function_exists('render_submenu')) {
                             'ID' => 'dynamic_post_show',
                             'title' => ($labels['post_show'][$lang] ?? $labels['post_show']['en']) . ($year ? ' ' . $year : ''),
                             'url' => 'https://cap.warsawexpo.eu' . $dynamic_items['post_show']->file_path,
+                            'target' => '_blank'
+                        ];
+                    }
+
+                    // TRADE FAIR SCHEDULE
+                    if (!empty($dynamic_items['fair_schedule']) && is_current_trade_fair_plan_visible()) {
+
+                        $year = '';
+
+                        if (!empty($dynamic_items['fair_schedule']->year)) {
+                            $year = $dynamic_items['fair_schedule']->year;
+                        } elseif (!empty($dynamic_items['fair_schedule']->edition_year)) {
+                            $year = $dynamic_items['fair_schedule']->edition_year;
+                        }
+
+                        $dynamic_menu_items[] = (object)[
+                            'ID' => 'dynamic_fair_schedule',
+                            'title' => ($labels['fair_schedule'][$lang] ?? $labels['fair_schedule']['en']) . ($year ? ' ' . $year : ''),
+                            'url' => 'https://cap.warsawexpo.eu' . $dynamic_items['fair_schedule']->file_path,
                             'target' => '_blank'
                         ];
                     }
@@ -537,6 +586,9 @@ if (!function_exists('render_submenu')) {
                         if ($dynamic_item->ID === 'dynamic_fair_plan') {
                             // Fair Plan - second item from the top
                             $insert_position = min(1, count($children));
+                        } else if ($dynamic_item->ID === 'dynamic_fair_schedule') {
+                            // Fair Schedule - third item from the top
+                            $insert_position = min(2, count($children));
                         } else {
                             // Other dynamic items - original position
                             $insert_position = max(count($children) - 6, 0);
@@ -840,9 +892,11 @@ $output .= '
                                                 'fair_plan' => $active_current_fair_plan,
                                                 'post_show' => $active_current_post_show,
                                                 'fair_offer' => $active_current_fair_offer,
+                                                'fair_schedule' => $active_current_fair_schedule,
 
                                                 'all_fair_plans' => $all_fair_plans,
                                                 'all_post_shows' => $all_post_shows,
+                                                'all_fair_schedules' => $all_fair_schedules
                                             ],
                                             $b2c
                                         ) .'
