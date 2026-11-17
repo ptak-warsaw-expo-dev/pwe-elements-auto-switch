@@ -32,6 +32,7 @@ $output = '
                 <div class="pwe-exhibitor-generator__form">
                     ' . $form . '
                 </div>
+                ' . $import_panel . '
             </div>
         </div>
     </div>

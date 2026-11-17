@@ -1,0 +1,72 @@
+.pwe-visitor-import { width:100%; min-width:0; border-top:1px solid #c9c3b8; padding-top:18px; font-size:14px; line-height:1.5; color:#353535; }
+.pwe-visitor-import [hidden],.pwe-visitor-import__dialog[hidden],.pwe-visitor-import__backdrop[hidden] { display:none!important; }
+.pwe-visitor-import button { border:1px solid #886843; border-radius:10px; padding:10px 15px; background:#886843; color:#fff; font:inherit; font-weight:600; cursor:pointer; line-height:1.4; text-transform:none; }
+.pwe-visitor-import button:hover:not(:disabled) { background:#715535; border-color:#715535; }
+.pwe-visitor-import button:focus-visible,.pwe-visitor-import a:focus-visible,.pwe-visitor-import input:focus-visible,.pwe-visitor-import__table-wrap:focus-visible { outline:3px solid #27618d; outline-offset:3px; }
+.pwe-visitor-import button:disabled { opacity:.5; cursor:not-allowed; }
+.pwe-visitor-import .pwe-visitor-import__toggle { width:100%; background:#fff; color:#654c2d; }
+.pwe-visitor-import .pwe-visitor-import__toggle:hover { background:#f7f3ed; color:white !important; }
+.pwe-visitor-import__panel { padding:18px 0 0; }
+.pwe-visitor-import h4 { margin:0 0 10px; font-size:18px; color:inherit; font-weight:700; }
+.pwe-visitor-import p { margin:0 0 12px; padding:0; font-size:inherit; }
+.pwe-visitor-import__templates { display:flex; gap:12px 20px; flex-wrap:wrap; margin:0 0 16px; }
+.pwe-visitor-import__templates a { color:#674a27; font-weight:600; text-decoration:underline; }
+.pwe-visitor-import label { display:block; margin:0 0 6px; font-weight:600; }
+.pwe-visitor-import input[type=file] { display:block; width:100%; max-width:100%; box-sizing:border-box; font:inherit; background:white; border:1px solid #aaa; border-radius:8px; padding:9px; margin:0 0 8px; color:#353535; }
+.pwe-visitor-import .pwe-visitor-import__hint { font-size:12px; color:#555; }
+.pwe-visitor-import__status { margin:10px 0; overflow-wrap:anywhere; }
+.pwe-visitor-import__status[data-kind=success] { color:#226033; font-weight:600; }
+.pwe-visitor-import__status[data-kind=error] { color:#97291e; }
+.pwe-visitor-import__errors { margin:12px 0; background:#fff2f0; color:#7f2019; border:1px solid #dfa39b; border-radius:8px; padding:12px; overflow-wrap:anywhere; }
+.pwe-visitor-import__errors p { margin:0 0 6px; font-weight:600; }
+.pwe-visitor-import__errors ol { margin:6px 0 0; padding-left:22px; }
+.pwe-visitor-import__errors li { padding:0; margin:4px 0; font-size:13px; }
+.pwe-visitor-import__preview { margin-top:14px; }
+.pwe-visitor-import__table-wrap { overflow:auto; max-height:320px; width:100%; border:1px solid #d5cdbc; border-radius:8px; background:white; }
+.pwe-visitor-import table { border-collapse:collapse; margin:0; min-width:560px; width:100%; font-size:12px; text-align:left; }
+.pwe-visitor-import th,.pwe-visitor-import td { padding:8px 10px; border:0; border-bottom:1px solid #eee8dd; vertical-align:top; text-align:left; overflow-wrap:anywhere; max-width:220px; }
+.pwe-visitor-import th:first-child,.pwe-visitor-import td:first-child { white-space:nowrap; }
+.pwe-visitor-import th { background:#f1e9dc; font-weight:700; position:sticky; top:0; }
+.pwe-visitor-import tr:last-child td { border-bottom:0; }
+.pwe-visitor-import__actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+.pwe-visitor-import .pwe-visitor-import__secondary { background:#fff; color:#604728; border-color:#b8a78f; }
+.pwe-visitor-import .pwe-visitor-import__secondary:hover:not(:disabled) { background:#f7f3ed; color:#604728; }
+/* Keep the modal independent of the generator wrapper and its overflow rules. */
+.pwe-visitor-import.pwe-visitor-import__dialog {
+    position:fixed;
+    inset:0;
+    width:calc(100% - 32px);
+    max-width:900px;
+    height:fit-content;
+    max-height:90vh;
+    max-height:90dvh;
+    margin:auto;
+    padding:0;
+    border:1px solid #c9c3b8;
+    border-radius:16px;
+    background:#fff;
+    color:#353535;
+    text-align:left;
+    box-shadow:0 20px 80px rgba(23,20,17,.3);
+    overflow:hidden;
+}
+.pwe-visitor-import__dialog,.pwe-visitor-import__dialog * { box-sizing:border-box; }
+.pwe-visitor-import__dialog:not([open]) { display:none; }
+.pwe-visitor-import__dialog[open],.pwe-visitor-import__dialog[data-fallback-open] { display:flex; flex-direction:column; }
+.pwe-visitor-import__dialog::backdrop { background:rgba(23,20,17,.6); }
+.pwe-visitor-import__dialog > .pwe-visitor-import__panel { display:flex; flex-direction:column; flex:1 1 auto; min-width:0; min-height:0; padding:0; overflow:hidden; }
+.pwe-visitor-import__header { display:flex; align-items:center; justify-content:space-between; flex:0 0 auto; gap:16px; padding:16px 20px; background:#f7f5f0; border-bottom:1px solid #d5cdbc; }
+.pwe-visitor-import .pwe-visitor-import__header h4 { min-width:0; margin:0; font-size:20px; line-height:1.3; overflow-wrap:anywhere; }
+.pwe-visitor-import [data-import-close] { display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto; min-width:44px; min-height:44px; padding:8px 10px; background:#fff; color:#604728; border-color:#b8a78f; font-size:24px; line-height:1; }
+.pwe-visitor-import [data-import-close]:hover:not(:disabled) { background:#f1e9dc; color:#604728; border-color:#886843; }
+.pwe-visitor-import__body { flex:1 1 auto; min-width:0; min-height:0; padding:20px; overflow:auto; overscroll-behavior:contain; scrollbar-gutter:stable; }
+/* Only browsers without showModal() need the separate backdrop and z-index. */
+.pwe-visitor-import__backdrop { position:fixed; top:0; right:0; bottom:0; left:0; z-index:2147483646; background:rgba(23,20,17,.6); }
+.pwe-visitor-import.pwe-visitor-import__dialog[data-fallback-open] { top:50%; right:auto; bottom:auto; left:50%; height:auto; margin:0; transform:translate(-50%,-50%); z-index:2147483647; }
+@media(max-width:480px) {
+    .pwe-visitor-import.pwe-visitor-import__dialog { width:calc(100% - 20px); border-radius:12px; }
+    .pwe-visitor-import__header { gap:10px; padding:12px 14px; }
+    .pwe-visitor-import .pwe-visitor-import__header h4 { font-size:18px; }
+    .pwe-visitor-import__body { padding:16px 14px; }
+    .pwe-visitor-import__actions button { width:100%; }
+}

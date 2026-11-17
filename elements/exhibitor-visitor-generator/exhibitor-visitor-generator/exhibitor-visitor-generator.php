@@ -51,6 +51,8 @@ class Exhibitor_Visitor_Generator {
                 return;
             }
 
+            $import_panel = include __DIR__ . '/import-panel.php';
+
             $form = do_shortcode(
                 '[gravityform id="' . absint($form_id) . '"
                     title="false"
