@@ -5,8 +5,25 @@ $output = '
     <div class="pwe-exhibitors__wrapper">
         <div class="pwe-exhibitors__text">
             <div class="pwe-exhibitors__text-wrapper">
-                <h4 class="pwe-main-title">'. PWE_Functions::multi_translation("catalog_title") .'</h4>
-                <p>'. PWE_Functions::multi_translation("catalog_desc") .' '. (ceil(count($exhibitors) / 100) * 100) .'+</p>
+                <h4 class="pwe-main-title">'. PWE_Functions::multi_translation("catalog_title") .'</h4>';
+                
+                if (do_shortcode('[pwe_catalog_numbers]') === 'on') {
+                    $output .= '
+                    <div class="pwe-exhibitors__stats">
+                        <div class="pwe-exhibitors__stat">
+                            <strong>'. number_format_i18n($exhibitors_count) .'</strong>
+                            <span>'. esc_html(PWE_Functions::multi_translation("exhibitors_count_label")) .'</span>
+                        </div>
+                        <div class="pwe-exhibitors__stat">
+                            <strong>'. number_format_i18n($brands_count) .'</strong>
+                            <span>'. esc_html(PWE_Functions::multi_translation("brands_count_label")) .'</span>
+                        </div>
+                    </div>';
+                } else {
+                    $output .= '<p>'. PWE_Functions::multi_translation("catalog_desc") .' '. (ceil($exhibitors_count / 100) * 100) .'+</p>';
+                }
+            
+                $output .= '
                 <a class="pwe-main-btn--secondary" href="'. PWE_Functions::multi_translation("catalog_link") .'">'. PWE_Functions::multi_translation("catalog_link_text") .'</a>';
                 if ($active_current_fair_plan) {
                     $output .= '

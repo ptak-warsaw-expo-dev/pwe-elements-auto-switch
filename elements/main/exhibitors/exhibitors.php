@@ -32,7 +32,33 @@ class Exhibitors {
 
             /* <-------------> General code start <-------------> */
 
-            $katalog_id = do_shortcode('[pwe_catalog]');
+           $katalog_id = do_shortcode('[pwe_catalog]');
+
+
+            // Full catalog counts (independent of the slider's display limit).
+            $all_exhibitors = PWE_Functions::exhibitor_logos(0, false, false);
+
+            $all_exhibitors = is_array($all_exhibitors) ? $all_exhibitors : [];
+            $exhibitors_count = count($all_exhibitors);
+
+            // Count unique, non-empty brand names across all exhibitors.
+            $unique_brands = [];
+            foreach ($all_exhibitors as $exhibitor_item) {
+                if (empty($exhibitor_item['brands']) || !is_array($exhibitor_item['brands'])) {
+                    continue;
+                }
+                foreach ($exhibitor_item['brands'] as $brand) {
+                    if (!is_string($brand)) {
+                        continue;
+                    }
+                    $brand = trim($brand);
+                    if ($brand !== '') {
+                        $brand_key = function_exists('mb_strtolower') ? mb_strtolower($brand, 'UTF-8') : strtolower($brand);
+                        $unique_brands[$brand_key] = true;
+                    }
+                }
+            }
+            $brands_count = count($unique_brands);
 
             if ($group === "gr1") {
                 $exhibitors = PWE_Functions::exhibitor_logos(16);
@@ -43,16 +69,6 @@ class Exhibitors {
             if (!is_array($exhibitors)) {
                 $exhibitors = [];
             }
-
-            // Temporary <----------------------------------------------------------<
-            if ($_SERVER['HTTP_HOST'] === 'woodwarsawexpo.com') {
-                usort($exhibitors, function ($a, $b) {
-                    if ($a['name'] === 'HOMAG POLSKA') return -1;
-                    if ($b['name'] === 'HOMAG POLSKA') return 1;
-                    return 0;
-                });
-            }
-            // Temporary <----------------------------------------------------------<
 
             if (count($exhibitors) < 16) {
                 echo '<style>.exhibitors-'. $group .'{display:none;}</style>';
@@ -65,8 +81,6 @@ class Exhibitors {
             $active_current_fair_plan = null;
 
             $all_fair_plans = [];
-
-            $latest_post_show_year = 0;
 
             foreach ($cap_files as $item) {
 

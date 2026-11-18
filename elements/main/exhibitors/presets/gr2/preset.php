@@ -4,7 +4,17 @@ $output = '
 <div id="pweExhibitors" class="pwe-exhibitors">
     <div class="pwe-exhibitors__wrapper">
         <div class="pwe-exhibitors__top">
-            <h4 class="pwe-main-title">'. PWE_Functions::multi_translation("catalog_title") .'</h4> 
+            <div class="pwe-exhibitors__heading">
+                <h4 class="pwe-main-title">'. PWE_Functions::multi_translation("catalog_title") .'</h4>';
+                if (do_shortcode('[pwe_catalog_numbers]') === 'on') {
+                    $output .= '
+                    <div class="pwe-exhibitors__stats" aria-label="Exhibitor catalog statistics">
+                        <span class="pwe-exhibitors__stat"><strong>'. number_format_i18n($exhibitors_count) .'</strong> '. esc_html(PWE_Functions::multi_translation("exhibitors_count_label")) .'</span>
+                        <span class="pwe-exhibitors__stat"><strong>'. number_format_i18n($brands_count) .'</strong> '. esc_html(PWE_Functions::multi_translation("brands_count_label")) .'</span>
+                    </div>';
+                }
+                $output .= '
+            </div>
 
             <div class="pwe-exhibitors__buttons">';
                 if ($active_current_fair_plan) {

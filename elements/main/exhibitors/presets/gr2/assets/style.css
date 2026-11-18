@@ -61,3 +61,41 @@
         display: none;
     }
 }
+/* Catalog counters next to the title */
+.pwe-element-auto-switch .pwe-exhibitors__heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    min-width: 0;
+}
+.pwe-element-auto-switch .pwe-exhibitors__heading .pwe-main-title {
+    margin: 0;
+}
+.pwe-element-auto-switch .pwe-exhibitors__stats {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.pwe-element-auto-switch .pwe-exhibitors__stat {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 5px;
+    padding: 7px 12px;
+    border-radius: 8px;
+    background: var(--accent_light_color);
+    color: white;
+    font-size: 14px;
+    white-space: nowrap;
+}
+.pwe-element-auto-switch .pwe-exhibitors__stat strong {
+    font-size: 18px;
+    font-weight: 700;
+}
+@media (max-width: 768px) {
+    .pwe-element-auto-switch .pwe-exhibitors__top {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+}
