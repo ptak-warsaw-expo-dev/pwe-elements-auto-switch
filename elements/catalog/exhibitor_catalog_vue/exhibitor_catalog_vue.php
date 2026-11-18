@@ -316,7 +316,7 @@ class Exhibitor_Catalog {
                     link.setAttribute('translate', 'no');
                     link.href = config.url;
                     link.textContent = config.label;
-                    link.style.cssText = 'color:inherit;font:inherit;text-decoration:none;cursor:pointer;border:2px solid var(--main2-color);padding:5px 10px;border-radius:20px;font-size:22px;';
+                    link.style.cssText = 'color:inherit;font:inherit;text-decoration:none;cursor:pointer;border:2px solid var(--main2-color);padding:5px 10px;border-radius:20px;font-size:18px;';
                     heading.classList.add('notranslate');
                     heading.setAttribute('translate', 'no');
                     heading.replaceChildren(link);
