@@ -14,11 +14,7 @@ class PWE_Clear_Transients {
             isset($_GET['pwe_clear_transients']) &&
             $_GET['pwe_clear_transients'] === PWE_CLEAR_TOKEN
         ) {
-            // WP Rocket (clean cache)
-            if ( function_exists( 'rocket_clean_domain' ) ) {
-                rocket_clean_domain();
-            }
-
+            
             // Refresh database json files cache
             if (class_exists('PWE_Functions')) {
                 PWE_Functions::refresh_database_json_cache();
@@ -35,6 +31,11 @@ class PWE_Clear_Transients {
             require_once plugin_dir_path(dirname(__FILE__)) . 'elements/fair-plan/fair-plan/fair-plan.php';;
             $files = PWE_Functions::get_database_fairs_data_files();
             Fair_Plan::create_missing_news_for_files($files);
+
+            // WP Rocket (clean cache)
+            if ( function_exists( 'rocket_clean_domain' ) ) {
+                rocket_clean_domain();
+            }
 
             header('Content-Type: text/html; charset=utf-8');
             echo '<div style="display:flex;flex-direction:column;text-align:center;align-items:center;">';
