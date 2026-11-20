@@ -28,6 +28,13 @@ $output .= '
                 pointer-events: unset;
                 display: block;
             }
+            /* Shared quarters contain multiple individually clickable favicons. */
+            .pwe-halls__element.active.current-fair > .pwe-halls__shared-favicon-link {
+                pointer-events: auto;
+            }
+            .pwe-halls__element.active.current-fair > .pwe-halls__shared-favicon-link[aria-current="page"] {
+                pointer-events: none;
+            }
             .pwe-halls__element-color {
                 fill: transparent;
                 opacity: .7;

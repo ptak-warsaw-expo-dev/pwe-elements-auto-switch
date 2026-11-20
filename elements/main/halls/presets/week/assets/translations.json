@@ -110,5 +110,13 @@
     "single_hall": "Sala",
     "multiple_halls": "Salas",
     "parking": "APARCAMIENTO GRATUITO"
+  },
+  "nl_NL": {
+    "halls_title": "Tentoonstellingsruimte",
+    "halls_desc": "De grootste tentoonstellingsruimte in Polen",
+    "halls_parking": "GRATIS PARKEREN",
+    "single_hall": "Hal",
+    "multiple_halls": "Hallen",
+    "parking": "GRATIS PARKEREN"
   }
 }
