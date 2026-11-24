@@ -110,3 +110,181 @@
         grid-template-columns: 1fr;
     }
 }
+/* Featured arrangement when only one or two speakers are announced. */
+.pwe-element-auto-switch .pwe-speakers__items--single {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    align-items: stretch;
+}
+.pwe-element-auto-switch .pwe-speakers__items--double {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+}
+.pwe-element-auto-switch .pwe-speakers__items--single > .pwe-speakers__item,
+.pwe-element-auto-switch .pwe-speakers__items--double > .pwe-speakers__item {
+    min-width: 0;
+    min-height: 265px;
+    padding: 0;
+    gap: 0;
+    border-radius: 20px;
+}
+.pwe-element-auto-switch .pwe-speakers__items--single .pwe-speakers__speaker-img,
+.pwe-element-auto-switch .pwe-speakers__items--double .pwe-speakers__speaker-img {
+    flex: 0 0 48%;
+    max-width: none;
+    align-items: stretch;
+    overflow: hidden;
+    clip-path: polygon(0 0, 100% 0, 86% 100%, 0 100%);
+}
+.pwe-element-auto-switch .pwe-speakers__items--single .pwe-speakers__speaker-img img,
+.pwe-element-auto-switch .pwe-speakers__items--double .pwe-speakers__speaker-img img {
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    aspect-ratio: auto;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 0;
+}
+.pwe-element-auto-switch .pwe-speakers__items--single .pwe-speakers__item-text,
+.pwe-element-auto-switch .pwe-speakers__items--double .pwe-speakers__item-text {
+    min-width: 0;
+    padding: 30px 24px 24px 12px;
+    gap: 16px;
+    justify-content: center;
+    z-index: 1;
+}
+.pwe-element-auto-switch .pwe-speakers__items--single .pwe-speakers__item-name,
+.pwe-element-auto-switch .pwe-speakers__items--double .pwe-speakers__item-name {
+    font-size: clamp(21px, 2.5vw, 34px);
+    font-weight: 700;
+    line-height: 1.12;
+}
+.pwe-element-auto-switch .pwe-speakers__items--single .pwe-speakers__item-position,
+.pwe-element-auto-switch .pwe-speakers__items--double .pwe-speakers__item-position {
+    font-size: clamp(13px, 1.3vw, 17px);
+    line-height: 1.35;
+}
+.pwe-element-auto-switch .pwe-speakers__items--single .pwe-speakers__item-bottom-wrapper,
+.pwe-element-auto-switch .pwe-speakers__items--double .pwe-speakers__item-bottom-wrapper {
+    flex-wrap: wrap;
+    align-items: center;
+}
+.pwe-element-auto-switch .pwe-speakers__items--single .pwe-speakers__item-company,
+.pwe-element-auto-switch .pwe-speakers__items--double .pwe-speakers__item-company {
+    padding: 5px 12px;
+    border: 1px solid #aaa;
+    border-radius: 999px;
+    font-size: 13px;
+}
+.pwe-element-auto-switch .pwe-speakers__items--single .pwe-speakers__company-img img,
+.pwe-element-auto-switch .pwe-speakers__items--double .pwe-speakers__company-img img {
+    min-width: 0;
+    max-height: 42px;
+    width: auto;
+    object-fit: contain;
+}
+.pwe-element-auto-switch .pwe-speakers__items--single .pwe-speakers__circle,
+.pwe-element-auto-switch .pwe-speakers__items--double .pwe-speakers__circle {
+    display: none;
+}
+.pwe-element-auto-switch .pwe-speakers__upcoming {
+    display: grid;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    min-width: 0;
+}
+.pwe-element-auto-switch .pwe-speakers__upcoming-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+    padding: 18px;
+    border-radius: 20px;
+    background: #f8f8f5;
+    box-shadow: 0 2px 9px rgba(0, 0, 0, .12);
+}
+.pwe-element-auto-switch .pwe-speakers__upcoming-question {
+    display: grid;
+    flex: 0 0 68px;
+    height: 68px;
+    place-items: center;
+    border-radius: 50%;
+    background: #e9ebe2;
+    color: var(--accent-color);
+    font-size: 52px;
+    font-weight: 700;
+}
+.pwe-element-auto-switch .pwe-speakers__upcoming-divider {
+    flex: 0 0 2px;
+    height: 48px;
+    background: #b5b5af;
+}
+.pwe-element-auto-switch .pwe-speakers__upcoming-message {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+.pwe-element-auto-switch .pwe-speakers__upcoming-message svg {
+    flex: 0 0 23px;
+    color: var(--accent-color);
+}
+@media (max-width: 960px) {
+    .pwe-element-auto-switch .pwe-speakers__items--single {
+        grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    }
+    .pwe-element-auto-switch .pwe-speakers__upcoming-card {
+        gap: 10px;
+        padding: 12px;
+    }
+    .pwe-element-auto-switch .pwe-speakers__upcoming-question {
+        flex-basis: 48px;
+        height: 48px;
+        font-size: 36px;
+    }
+    .pwe-element-auto-switch .pwe-speakers__upcoming-message {
+        gap: 7px;
+        font-size: 13px;
+    }
+}
+@media (max-width: 700px) {
+    .pwe-element-auto-switch .pwe-speakers__items--single,
+    .pwe-element-auto-switch .pwe-speakers__items--double {
+        grid-template-columns: 1fr;
+    }
+    .pwe-element-auto-switch .pwe-speakers__items--single > .pwe-speakers__item,
+    .pwe-element-auto-switch .pwe-speakers__items--double > .pwe-speakers__item {
+        min-height: 220px;
+    }
+    .pwe-element-auto-switch .pwe-speakers__items--single .pwe-speakers__item-text,
+    .pwe-element-auto-switch .pwe-speakers__items--double .pwe-speakers__item-text {
+        padding: 20px 16px 20px 8px;
+    }
+    .pwe-element-auto-switch .pwe-speakers__upcoming {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: auto;
+    }
+}
+@media (max-width: 460px) {
+    .pwe-element-auto-switch .pwe-speakers__upcoming {
+        grid-template-columns: 1fr;
+    }
+    .pwe-element-auto-switch .pwe-speakers__upcoming-card {
+        min-height: 94px;
+    }
+}
+
+/* Short olive separator below the name on featured speaker cards. */
+.pwe-element-auto-switch .pwe-speakers__items--single .pwe-speakers__item-name::after,
+.pwe-element-auto-switch .pwe-speakers__items--double .pwe-speakers__item-name::after {
+    content: "";
+    display: block;
+    width: 48px;
+    height: 4px;
+    margin-top: 12px;
+    border-radius: 2px;
+    background: var(--accent-color);
+}

@@ -1,131 +1,80 @@
 <?php
 
+$is_mobile = preg_match('/iPhone|iPad|Android|webOS|BlackBerry|iPod|Opera Mini|IEMobile/i', $_SERVER['HTTP_USER_AGENT'] ?? '');
+$speaker_count = count($speakers);
+$layout_class = $speaker_count === 1 ? 'pwe-speakers__items--single' : ($speaker_count === 2 ? 'pwe-speakers__items--double' : 'pwe-speakers__items--default');
+$limit = $is_mobile ? 3 : 6;
 
-
-$output = '';
-
-if ($_SERVER['HTTP_HOST'] === 'warsawtechweek.com') {
-
-    $speakers_limited = array_slice($speakers, 0, 12);
-
-    $output .= '
-    <style>
-        .pwe-element-auto-switch .pwe-speakers__items {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-        @media (max-width:960px) {
-            .pwe-element-auto-switch .pwe-speakers__items {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        @media (max-width:600px) {
-            .pwe-element-auto-switch .pwe-speakers__items {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        @media (max-width:500px) {
-            .pwe-element-auto-switch .pwe-speakers__items {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-
-    <div id="pweSpeakers" class="pwe-speakers">
-        <div class="pwe-speakers__wrapper">
-            <div class="pwe-speakers__title">
-                <h4 class="pwe-speakers__heading pwe-main-title">' . PWE_Functions::multi_translation('title') . '</h4>
-            </div>
-            
-            <div class="pwe-speakers__items">';
-                foreach ($speakers_limited as $speaker) {
-                    $output .= '
-                    <div class="pwe-speakers__item">
-                        <div class="pwe-speakers__speaker-img">
-                            <img data-no-lazy="1" src="'. $speaker['img'] .'" onerror="this.onerror=null; this.style.display=\'none\';" alt="Speaker photo"/>
-                        </div>
-                        <div class="pwe-speakers__item-text">
-                            <h3 class="pwe-speakers__item-name">'. $speaker['name'] .'</h3>
-                            <p class="pwe-speakers__item-position">'. $speaker['position'] .'</p>
-                            <div class="pwe-speakers__item-company-wrapper">
-                                <p class="pwe-speakers__item-company">'. $speaker['company'] .'</p>
-                                <div class="pwe-speakers__company-img">
-                                    <img data-no-lazy="1" src="'. $speaker['logo'] .'" onerror="this.onerror=null; this.style.display=\'none\';" alt="Company logo"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>';
-                }
-                $output .= '
-            </div>';
-
-            if (count($speakers) > 12) {
-                $output .= '
-                <div class="pwe-speakers__bottom">
-                    <div class="pwe-speakers__btn">
-                        <a class="pwe-main-btn--secondary" href="' . PWE_Functions::languageChecker('/prelegenci/', '/en/speakers/') . '">' . PWE_Functions::multi_translation('all_speakers_btn') . '</a>
-                    </div>
-                </div>';
-            }
-            
-        $output .= '    
+$output = '
+<div id="pweSpeakers" class="pwe-speakers">
+    <div class="pwe-speakers__wrapper">
+        <div class="pwe-speakers__title">
+            <h4 class="pwe-speakers__heading pwe-main-title">' . PWE_Functions::multi_translation('title') . '</h4>
         </div>
-    </div>';
+        <div class="pwe-speakers__items ' . $layout_class . '">';
 
-} else {
-    $output .= '
-    <div id="pweSpeakers" class="pwe-speakers">
-        <div class="pwe-speakers__wrapper">
-            <div class="pwe-speakers__title">
-                <h4 class="pwe-speakers__heading pwe-main-title">' . PWE_Functions::multi_translation('title') . '</h4>
-                <div class="swiper-buttons-arrows">
-                    <div class="swiper-button-prev">⏴</div>
-                    <div class="swiper-button-next">⏵</div>
+        foreach (array_slice($speakers, 0, $limit) as $speaker) {
+            $name = esc_html($speaker['name'] ?? '');
+            $position = esc_html($speaker['position'] ?? '');
+            $company = esc_html($speaker['company'] ?? '');
+            $img = esc_url($speaker['img'] ?? '');
+            $logo = esc_url($speaker['logo'] ?? '');
+
+            $output .= '
+            <div class="pwe-speakers__item">
+                <div class="pwe-speakers__speaker-img">
+                    <img data-no-lazy="1" src="' . $img . '" onerror="this.onerror=null; this.style.display=\'none\';" alt="' . esc_attr($name) . '"/>
                 </div>
-            </div>
-            
-            <div class="swiper pwe-speakers__items">
-                <div class="swiper-wrapper">';
-                    foreach ($speakers as $speaker) {
+                <div class="pwe-speakers__item-text">
+                    <div class="pwe-speakers__item-top-wrapper">
+                        <h3 class="pwe-speakers__item-name">' . $name . '</h3>
+                        <p class="pwe-speakers__item-position">' . $position . '</p>
+                    </div>
+                    <div class="pwe-speakers__item-bottom-wrapper">';
+                        if (!empty($company)) $output .= '<p class="pwe-speakers__item-company">' . $company . '</p>';
                         $output .= '
-                        <div class="pwe-speakers__item swiper-slide">
-                            <div class="pwe-speakers__speaker-img">
-                                <img data-no-lazy="1" src="'. $speaker['img'] .'" onerror="this.onerror=null; this.style.display=\'none\';" alt="Speaker photo"/>
-                            </div>
-                            <div class="pwe-speakers__item-text">
-                                <h3 class="pwe-speakers__item-name">'. $speaker['name'] .'</h3>
-                                <p class="pwe-speakers__item-position">'. $speaker['position'] .'</p>
-                                <div class="pwe-speakers__item-company-wrapper">
-                                    <p class="pwe-speakers__item-company">'. $speaker['company'] .'</p>
-                                    <div class="pwe-speakers__company-img">
-                                        <img data-no-lazy="1" src="'. $speaker['logo'] .'" onerror="this.onerror=null; this.style.display=\'none\';" alt="Company logo"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>';
-                    }
-                $output .= '
-                </div>
-                <div class="swiper-nav">
-                    <div class="swiper-dots" aria-label="Slider navigation" role="tablist"></div>
-                </div>
-            </div>';
-
-            if (count($speakers) > 6) {
-                $output .= '
-                <div class="pwe-speakers__bottom">
-                    <div class="pwe-speakers__btn">
-                        <a class="pwe-main-btn--secondary" href="' . PWE_Functions::languageChecker('/prelegenci/', '/en/speakers/') . '">' . PWE_Functions::multi_translation('all_speakers_btn') . '</a>
+                        <div class="pwe-speakers__company-img">
+                            <img data-no-lazy="1" src="' . $logo . '" onerror="this.onerror=null; this.style.display=\'none\';" alt="Company logo"/>
+                        </div>
                     </div>
+                </div>
+                <span class="pwe-speakers__circle"></span>
+            </div>';
+        }
+
+        if ($speaker_count === 1) {
+            $soon = esc_html(PWE_Functions::multi_translation('coming_soon'));
+            $output .= '
+            <div class="pwe-speakers__upcoming" aria-label="' . esc_attr($soon) . '">';
+            for ($i = 0; $i < 2; $i++) {
+                $output .= '
+                <div class="pwe-speakers__upcoming-card">
+                    <span class="pwe-speakers__upcoming-question" aria-hidden="true">?</span>
+                    <span class="pwe-speakers__upcoming-divider" aria-hidden="true"></span>
+                    <span class="pwe-speakers__upcoming-message">
+                        <svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg>
+                        <span>' . $soon . '</span>
+                    </span>
                 </div>';
             }
-            
-        $output .= '    
-        </div>
-    </div>';
+            $output .= '
+            </div>';
+        }
 
-    $output .= PWE_Swiper::swiperScripts('#pweSpeakers', null, true, true);
-}
+        $output .= '
+        </div>';
+
+        if ($speaker_count > 6) {
+            $output .= '
+            <div class="pwe-speakers__bottom">
+                <div class="pwe-speakers__btn">
+                    <a class="pwe-main-btn--secondary" href="' . esc_url(PWE_Functions::languageChecker('/prelegenci/', '/en/speakers/')) . '">' . PWE_Functions::multi_translation('all_speakers_btn') . '</a>
+                </div>
+            </div>';
+        }
+
+    $output .= '
+    </div>
+</div>';
 
 return $output;

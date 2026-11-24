@@ -1,58 +1,77 @@
 {
   "pl_PL": {
     "title": "Prelegenci",
-    "all_speakers_btn": "Zobacz wszystkich prelegentów"
+    "all_speakers_btn": "Zobacz wszystkich prelegentów",
+    "coming_soon": "Kolejne ogłoszenia wkrótce"
   },
   "en_US": {
     "title": "Speakers",
-    "all_speakers_btn": "See all speakers"
+    "all_speakers_btn": "See all speakers",
+    "coming_soon": "More announcements coming soon"
   },
   "cs_CZ": {
     "title": "Přednášející",
-    "all_speakers_btn": "Zobrazit všechny přednášející"
+    "all_speakers_btn": "Zobrazit všechny přednášející",
+    "coming_soon": "Další oznámení již brzy"
   },
   "de_DE": {
     "title": "Referenten",
-    "all_speakers_btn": "Alle Referenten anzeigen"
+    "all_speakers_btn": "Alle Referenten anzeigen",
+    "coming_soon": "Weitere Ankündigungen in Kürze"
   },
   "it_IT": {
     "title": "Relatori",
-    "all_speakers_btn": "Vedi tutti i relatori"
+    "all_speakers_btn": "Vedi tutti i relatori",
+    "coming_soon": "Nuovi annunci in arrivo"
   },
   "lt_LT": {
     "title": "Pranešėjai",
-    "all_speakers_btn": "Peržiūrėti visus pranešėjus"
+    "all_speakers_btn": "Peržiūrėti visus pranešėjus",
+    "coming_soon": "Netrukus daugiau pranešimų"
   },
   "lv_LV": {
     "title": "Runātāji",
-    "all_speakers_btn": "Skatīt visus runātājus"
+    "all_speakers_btn": "Skatīt visus runātājus",
+    "coming_soon": "Drīzumā jauni paziņojumi"
   },
   "sk_SK": {
     "title": "Prednášajúci",
-    "all_speakers_btn": "Zobrazit všechny přednášející"
+    "all_speakers_btn": "Zobrazit všechny přednášející",
+    "coming_soon": "Ďalšie oznámenia už čoskoro"
   },
   "uk": {
     "title": "Доповідачі",
-    "all_speakers_btn": "Переглянути всіх доповідачів"
+    "all_speakers_btn": "Переглянути всіх доповідачів",
+    "coming_soon": "Незабаром нові оголошення"
   },
   "ro_RO": {
     "title": "Vorbitori",
-    "all_speakers_btn": "Vezi toți vorbitorii"
+    "all_speakers_btn": "Vezi toți vorbitorii",
+    "coming_soon": "Mai multe anunțuri în curând"
   },
   "et": {
     "title": "Esinejad",
-    "all_speakers_btn": "Vaata kõiki esinejaid"
+    "all_speakers_btn": "Vaata kõiki esinejaid",
+    "coming_soon": "Peagi uued teadaanded"
   },
   "hu_HU": {
     "title": "Előadók",
-    "all_speakers_btn": "Az összes előadó megtekintése"
+    "all_speakers_btn": "Az összes előadó megtekintése",
+    "coming_soon": "Hamarosan további bejelentések"
   },
   "fr_FR": {
     "title": "Intervenants",
-    "all_speakers_btn": "Voir tous les intervenants"
+    "all_speakers_btn": "Voir tous les intervenants",
+    "coming_soon": "De nouvelles annonces bientôt"
   },
   "es_ES": {
     "title": "Ponentes",
-    "all_speakers_btn": "Ver todos los ponentes"
+    "all_speakers_btn": "Ver todos los ponentes",
+    "coming_soon": "Próximamente más anuncios"
+  },
+  "nl_NL": {
+    "title": "Sprekers",
+    "all_speakers_btn": "Bekijk alle sprekers",
+    "coming_soon": "Binnenkort meer aankondigingen"
   }
 }
