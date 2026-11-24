@@ -6,15 +6,22 @@ define('PWE_CLEAR_TOKEN', 'h00T8hbDdv45K3V');
 class PWE_Clear_Transients {
 
     public static function init() {
-        add_action('template_redirect', [self::class, 'handle_request']);
+        add_action('wp_loaded', [self::class, 'handle_request'], 99);
     }
 
     public static function handle_request() {
         if (
             isset($_GET['pwe_clear_transients']) &&
-            $_GET['pwe_clear_transients'] === PWE_CLEAR_TOKEN
+            is_string($_GET['pwe_clear_transients']) &&
+            hash_equals(PWE_CLEAR_TOKEN, $_GET['pwe_clear_transients'])
         ) {
-            
+
+            if (!defined('DONOTCACHEPAGE')) {
+                define('DONOTCACHEPAGE', true);
+            }
+
+            nocache_headers();
+
             // Refresh database json files cache
             if (class_exists('PWE_Functions')) {
                 PWE_Functions::refresh_database_json_cache();
@@ -28,19 +35,15 @@ class PWE_Clear_Transients {
 
             self::create_plans_news();
 
-            require_once plugin_dir_path(dirname(__FILE__)) . 'elements/fair-plan/fair-plan/fair-plan.php';;
-            $files = PWE_Functions::get_database_fairs_data_files();
-            Fair_Plan::create_missing_news_for_files($files);
-
-            // WP Rocket (clean cache)
-            if ( function_exists( 'rocket_clean_domain' ) ) {
-                rocket_clean_domain();
-            }
+            // Clear WP Rocket after all data and page updates.
+            $rocket_status = self::clear_wp_rocket_cache();
 
             header('Content-Type: text/html; charset=utf-8');
             echo '<div style="display:flex;flex-direction:column;text-align:center;align-items:center;">';
             echo '<h1>Dane są zaktualizowane!</h1>';
-            echo '<p style="margin:0;">Cache został wyczyszczony.</p>';
+            foreach ($rocket_status as $message) {
+                echo '<p style="margin:0;">' . esc_html($message) . '</p>';
+            }
             echo '<p style="margin:0;">Zaktualizowanych wpisów: ' . (int)$deleted . '</p>';
 
             echo '<a style="font-size:24px;" href="/">Na stronę główną 🡒</a>';
@@ -65,6 +68,38 @@ class PWE_Clear_Transients {
 
             exit;
         }
+    }
+
+    /**
+     * Clear optimized assets before clearing the page cache.
+     */
+    private static function clear_wp_rocket_cache(): array {
+
+        $operations = [
+            'rocket_clean_minify' => 'CSS/JS (minify)',
+            'rocket_clean_cache_busting' => 'Cache busting',
+            'rocket_clean_domain' => 'Cache stron',
+        ];
+
+        $status = [];
+
+        foreach ($operations as $function => $label) {
+            if (!function_exists($function)) {
+                $status[] = 'WP Rocket: ' . $label . ' - funkcja niedostępna.';
+                error_log('[PWE Cache] ' . $function . ' not available');
+                continue;
+            }
+
+            try {
+                $function();
+                $status[] = 'WP Rocket: ' . $label . ' - wykonano czyszczenie.';
+            } catch (\Throwable $e) {
+                $status[] = 'WP Rocket: ' . $label . ' - błąd czyszczenia.';
+                error_log('[PWE Cache] ' . $function . ': ' . $e->getMessage());
+            }
+        }
+
+        return $status;
     }
 
     /**

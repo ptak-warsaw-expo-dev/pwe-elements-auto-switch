@@ -46,7 +46,7 @@ class PWE_Elements {
                         ],
                         [
                             'type' => 'checkbox',
-                            'heading' => __('White theme (week only)', 'pwe-elements-auto-switch-main'),
+                            'heading' => __('White theme (week / b2c-new)', 'pwe-elements-auto-switch-main'),
                             'param_name' => 'change_theme_color',
                             'group' => 'Custom Settings',
                             'value' => array(__('True', 'pwe_header') => 'true',),
@@ -402,11 +402,10 @@ class PWE_Elements {
             return $a['order'] <=> $b['order'];
         });
 
-        // Theme for WEEK group
-        // DARK THEME is the default. WHITE THEME is enabled only by the page-main checkbox.
-        $is_white_theme = $group === 'week'
+        // White theme is opt-in for WEEK and B2C-NEW only.
+        $is_white_theme = in_array($group, ['week', 'b2c-new'], true)
             && isset($atts['change_theme_color'])
-            && $atts['change_theme_color'] === 'true';
+            && in_array(strtolower(trim((string) $atts['change_theme_color'])), ['true', '1', 'yes'], true);
 
         $theme_class = $is_white_theme ? ' pwe-theme-white' : ' pwe-theme-dark';
 

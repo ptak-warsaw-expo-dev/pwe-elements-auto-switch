@@ -95,7 +95,7 @@ class PWE_Elements_Data {
             ['class' => 'Logotypes',        'order' => ['gr1' => 9,   'gr2' => 8,   'b2c' => 8,   'b2c-new' => 6,   'week' => 4],   'params' => ['slug' => 'patrons-partners']],
             ['class' => 'Statistics',       'order' => ['gr1' => 5,   'gr2' => 6,   'b2c' => 10,  'b2c-new' => 7,   'week' => 1]],
             ['class' => 'Logotypes',        'order' => ['gr1' => 6,   'gr2' => 0,   'b2c' => 0,   'b2c-new' => 0,   'week' => 0],   'params' => ['slug' => 'patrons-partners-pwe']],
-            ['class' => 'Halls',            'order' => ['gr1' => 11,  'gr2' => 10,  'b2c' => 11,  'b2c-new' => 0,   'week' => 2.2]],
+            ['class' => 'Halls',            'order' => ['gr1' => 11,  'gr2' => 10,  'b2c' => 11,  'b2c-new' => 8,   'week' => 2.2]],
             ['class' => 'Other_Events',     'order' => ['gr1' => 12,  'gr2' => 11,  'b2c' => 12,  'b2c-new' => 0,   'week' => 0]],
             ['class' => 'Profiles',         'order' => ['gr1' => 10,  'gr2' => 9,   'b2c' => 13,  'b2c-new' => 0,   'week' => 0]],
             ['class' => 'Posts',            'order' => ['gr1' => 14,  'gr2' => 13,  'b2c' => 14,  'b2c-new' => 9,   'week' => 0]],
