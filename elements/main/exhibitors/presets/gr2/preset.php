@@ -9,8 +9,7 @@ $output = '
                 if (do_shortcode('[pwe_catalog_numbers]') === 'on') {
                     $output .= '
                     <div class="pwe-exhibitors__stats" aria-label="Exhibitor catalog statistics">
-                        <span class="pwe-exhibitors__stat"><strong>'. number_format_i18n($exhibitors_count) .'</strong> '. esc_html(PWE_Functions::multi_translation("exhibitors_count_label")) .'</span>
-                        <span class="pwe-exhibitors__stat"><strong>'. number_format_i18n($brands_count) .'</strong> '. esc_html(PWE_Functions::multi_translation("brands_count_label")) .'</span>
+                        <span class="pwe-exhibitors__stat"><strong>'. (number_format_i18n($exhibitors_count) + number_format_i18n($brands_count)) .'</strong> '. esc_html(PWE_Functions::multi_translation("exhibitors_and_brands_count_label")) .'</span>
                     </div>';
                 }
                 $output .= '

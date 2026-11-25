@@ -268,3 +268,10 @@
         display: none;
     }
 }
+
+/* B2C-NEW white theme (page-main: change_theme_color="true") */
+#pweElementsAutoSwitch.pwe-theme-white .pwe-exhibitors-section { background-color: #ffffff !important; color: #18181b !important; border-color: #e4e4e7 !important; }
+#pweElementsAutoSwitch.pwe-theme-white .pwe-exhibitors__title { color: #18181b !important; }
+#pweElementsAutoSwitch.pwe-theme-white .pwe-marquee-card { background-color: #f7f8fa !important; border-color: #e4e4e7 !important; color: #18181b; }
+
+#pweElementsAutoSwitch.pwe-theme-white .pwe-exhibitors__header p { color: #52525b !important; }

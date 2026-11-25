@@ -5,7 +5,8 @@
     "catalog_link_text": "Zobacz katalog",
     "fair_plan": "Plan targów",
     "exhibitors_count_label": "wystawców",
-    "brands_count_label": "marek"
+    "brands_count_label": "marek",
+    "exhibitors_and_brands_count_label": "wystawców i marek"
   },
   "en_US": {
     "catalog_title": "Exhibitors",
@@ -13,7 +14,8 @@
     "catalog_link_text": "View Catalog",
     "fair_plan": "Trade fair plan",
     "exhibitors_count_label": "exhibitors",
-    "brands_count_label": "brands"
+    "brands_count_label": "brands",
+    "exhibitors_and_brands_count_label": "exhibitors and brands"
   },
   "cs_CZ": {
     "catalog_title": "Vystavovatelé",
@@ -21,7 +23,8 @@
     "catalog_link_text": "Zobrazit katalog",
     "fair_plan": "Plán veletrhu",
     "exhibitors_count_label": "vystavovatelů",
-    "brands_count_label": "značek"
+    "brands_count_label": "značek",
+    "exhibitors_and_brands_count_label": "vystavovatelů a značek"
   },
   "de_DE": {
     "catalog_title": "Aussteller",
@@ -29,7 +32,8 @@
     "catalog_link_text": "Katalog ansehen",
     "fair_plan": "Messeplan",
     "exhibitors_count_label": "Aussteller",
-    "brands_count_label": "Marken"
+    "brands_count_label": "Marken",
+    "exhibitors_and_brands_count_label": "Aussteller und Marken"
   },
   "it_IT": {
     "catalog_title": "Espositori",
@@ -37,7 +41,8 @@
     "catalog_link_text": "Vedi catalogo",
     "fair_plan": "Pianta della fiera",
     "exhibitors_count_label": "espositori",
-    "brands_count_label": "marchi"
+    "brands_count_label": "marchi",
+    "exhibitors_and_brands_count_label": "espositori e marchi"
   },
   "lt_LT": {
     "catalog_title": "Eksponentai",
@@ -45,7 +50,8 @@
     "catalog_link_text": "Peržiūrėti katalogą",
     "fair_plan": "Parodos planas",
     "exhibitors_count_label": "dalyvių",
-    "brands_count_label": "prekių ženklų"
+    "brands_count_label": "prekių ženklų",
+    "exhibitors_and_brands_count_label": "dalyvių ir prekių ženklų"
   },
   "lv_LV": {
     "catalog_title": "Izstādes dalībnieki",
@@ -53,7 +59,8 @@
     "catalog_link_text": "Skatīt katalogu",
     "fair_plan": "Izstādes plāns",
     "exhibitors_count_label": "izstādes dalībnieku",
-    "brands_count_label": "zīmolu"
+    "brands_count_label": "zīmolu",
+    "exhibitors_and_brands_count_label": "izstādes dalībnieku un zīmolu"
   },
   "sk_SK": {
     "catalog_title": "Vystavovatelia",
@@ -61,13 +68,17 @@
     "catalog_link_text": "Zobraziť katalóg",
     "fair_plan": "Plán výstavy",
     "exhibitors_count_label": "vystavovateľov",
-    "brands_count_label": "značiek"
+    "brands_count_label": "značiek",
+    "exhibitors_and_brands_count_label": "vystavovateľov a značiek"
   },
   "uk": {
     "catalog_title": "Експоненти",
     "catalog_link": "/uk/katalog-eksponentiv/",
     "catalog_link_text": "Переглянути каталог",
-    "fair_plan": "План виставки"
+    "fair_plan": "План виставки",
+    "exhibitors_count_label": "експонентів",
+    "brands_count_label": "брендів",
+    "exhibitors_and_brands_count_label": "експонентів та брендів"
   },
   "ro_RO": {
     "catalog_title": "Expozanti",
@@ -75,13 +86,17 @@
     "catalog_link_text": "Vezi catalogul",
     "fair_plan": "Planul târgului",
     "exhibitors_count_label": "expozanți",
-    "brands_count_label": "mărci"
+    "brands_count_label": "mărci",
+    "exhibitors_and_brands_count_label": "expozanți și mărci"
   },
   "et": {
     "catalog_title": "Messe osalejad",
     "catalog_link": "/et/eksponentide-kataloog/",
     "catalog_link_text": "Terve kataloog",
-    "fair_plan": "Messe plaan"
+    "fair_plan": "Messe plaan",
+    "exhibitors_count_label": "osalejad",
+    "brands_count_label": "brändid",
+    "exhibitors_and_brands_count_label": "osalejad ja brändid"
   },
   "hu_HU": {
     "catalog_title": "Kiállítók",
@@ -89,7 +104,8 @@
     "catalog_link_text": "Katalógus megtekintése",
     "fair_plan": "Vásár terve",
     "exhibitors_count_label": "kiállító",
-    "brands_count_label": "márka"
+    "brands_count_label": "márka",
+    "exhibitors_and_brands_count_label": "kiállító és márka"
   },
   "fr_FR": {
     "catalog_title": "Exposants",
@@ -97,7 +113,8 @@
     "catalog_link_text": "Voir le catalogue",
     "fair_plan": "Plan de la foire",
     "exhibitors_count_label": "exposants",
-    "brands_count_label": "marques"
+    "brands_count_label": "marques",
+    "exhibitors_and_brands_count_label": "exposants et marques"
   },
   "es_ES": {
     "catalog_title": "Expositores",
@@ -105,7 +122,8 @@
     "catalog_link_text": "Ver catálogo",
     "fair_plan": "Plan de la feria",
     "exhibitors_count_label": "expositores",
-    "brands_count_label": "marcas"
+    "brands_count_label": "marcas",
+    "exhibitors_and_brands_count_label": "expositores y marcas"
   },
   "nl_NL": {
     "catalog_title": "Exposanten",
@@ -113,6 +131,7 @@
     "catalog_link_text": "Bekijk catalogus",
     "fair_plan": "Beursplan",
     "exhibitors_count_label": "exposanten",
-    "brands_count_label": "merken"
+    "brands_count_label": "merken",
+    "exhibitors_and_brands_count_label": "exposanten en merken"
   }
 }

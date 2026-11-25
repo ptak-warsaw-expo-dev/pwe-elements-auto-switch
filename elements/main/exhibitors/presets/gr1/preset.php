@@ -11,12 +11,8 @@ $output = '
                     $output .= '
                     <div class="pwe-exhibitors__stats">
                         <div class="pwe-exhibitors__stat">
-                            <strong>'. number_format_i18n($exhibitors_count) .'</strong>
-                            <span>'. esc_html(PWE_Functions::multi_translation("exhibitors_count_label")) .'</span>
-                        </div>
-                        <div class="pwe-exhibitors__stat">
-                            <strong>'. number_format_i18n($brands_count) .'</strong>
-                            <span>'. esc_html(PWE_Functions::multi_translation("brands_count_label")) .'</span>
+                            <strong>'. (number_format_i18n($exhibitors_count) + number_format_i18n($brands_count)) .'</strong>
+                            <span>'. esc_html(PWE_Functions::multi_translation("exhibitors_and_brands_count_label")) .'</span>
                         </div>
                     </div>';
                 } else {

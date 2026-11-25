@@ -91,12 +91,9 @@
 }
 /* Catalog statistics in the left panel */
 .pwe-element-auto-switch .pwe-exhibitors__stats {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-    width: calc(100% - 28px);
+    display: flex;
     max-width: 240px;
-    margin: 2px 0;
+    margin: 2px auto;
 }
 .pwe-element-auto-switch .pwe-exhibitors__stat {
     display: flex;
